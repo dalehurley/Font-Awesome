@@ -1,0 +1,32 @@
+# default values
+all:
+  ftp-host: echos-entrepreneur.sdv.fr
+  ftp-login: experts
+  ftp-password: #   pz64gk79                      uniquement pour la BaseEditoriale
+  ftp-rep: flux_sid/
+
+  ftp-image-host: 91.194.100.237
+  ftp-image-login: Sid_presse
+  ftp-image-password: #  '#AM86np3qD'              uniquement pour la BaseEditoriale
+  ftp-image-rep: sitesexpert-infos/_infos/_photos/  
+  
+  rep-local: /data/www/_lib/baseEditoriale/actualitesLea/
+  rep-local-json: /data/www/_lib/baseEditoriale/actualitesLeaJson/
+  rep-local-images: /data/www/_lib/baseEditoriale/_images/
+
+  xsl-article: articleLep.xsl
+  dtd-article: lepechos.dtd
+
+  nb-min-articles-slide: 3     # nombre minimum d'article pour afficher le slide Nivo slider
+ 
+#  vielles connexions
+#  ftp-image-host: xml.expertinfos.com
+#  ftp-image-login: siddev
+#  ftp-image-password:  #siddev86              uniquement pour la BaseEditoriale
+#  ftp-image-rep: actu/_photos/
+#  ftp-image-host: ftp.expertinfos.com
+#  ftp-image-login: sidftp
+#  ftp-image-password: #q8zib7              uniquement pour la BaseEditoriale
+#  ftp-image-rep: xmlClients/actu/_photos/
+
+

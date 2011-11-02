@@ -1,0 +1,42 @@
+"Le Cabinet":
+
+  "Actualité du Cabinet":
+      SidActuTypeContenu:
+        model: SidActuType
+        name: "Type de mon Article|Type de mes Articles"
+        credentials: type_contenu
+#        page: true
+
+      SidActuRubrique:
+        model: SidActuRubrique
+        name: "Rubrique de mon Article|Rubriques de mes Articles"
+        credentials: rubriques_contenu
+        page: true
+        components:
+          list:
+          show:
+
+      SidActuArticle:
+        model: SidActuArticle
+        name: "Mon Article|Mes Articles"
+        credentials: article_contenu
+        page: true
+        parent: SidActuRubrique
+        components:
+          list:
+          show:
+          listParRubrique:
+            filters: [ SidActuRubrique, SidActuTypeContenu ]
+          listParTags:
+            filters: [ dmTag ]
+          listArticlesAvecMemeTag:
+            cache:              true
+          listMissionsAvecMemeTag:
+            cache:              true
+          listMembresEquipeAvecMemeTag:
+            cache:              true
+          listSitesUtilesAvecMemeTag:
+            cache:              true
+#          miseEnAvantActuArticle:    supprimé et remplacé par un handWidgets/actuArticlesContextuel
+#            cache: true
+#          bandeauArticle:

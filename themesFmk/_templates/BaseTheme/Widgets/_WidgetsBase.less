@@ -1,0 +1,333 @@
+// _WidgetsBase.less
+// v1.0
+// Last Updated : 2011-09-14 15:10
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Ce fichier permet d'initialiser un style par défaut pour tous les widgets et n'est inclu qu'une seule fois dans le template
+
+//Importation en dur des styles des widgets (en attendant séparation dans fichiers Less séparés)
+@import "_templates/BaseTheme/Widgets/MainHeader/_MainHeader.less";
+@import "_templates/BaseTheme/Widgets/MainFooter/_MainFooter.less";
+@import "_templates/BaseTheme/Widgets/SearchForm/_SearchForm.less";
+@import "_templates/BaseTheme/Widgets/NavigationBreadCrumb/_NavigationBreadCrumb.less";
+@import "_templates/BaseTheme/Widgets/DmTagPopular/_DmTagPopular.less";
+
+//BandeauSmartBandeau
+.bandeau_smart_bandeau {
+	.bandeau_show {
+		color: @colorCouleur3Fonce;
+		font-weight: bold;
+	}
+}
+#dm_page {
+	.dm_page_content, .dm_layout_left, .dm_layout_right {
+		.bandeau_smart_bandeau {
+			.dm_widget_inner{ padding-right: 0; padding-left: 0; }
+		}
+	}
+}
+
+//RenseignementShow
+.renseignements_show {
+	.dm_widget_inner {
+		@getPxFontConfig(@fontSizeSmall);
+	}
+}
+
+//contentFlowPlayer
+.dm_layout {
+	@pubLargeur: 250px;
+	@pubHauteur: 250px;
+	@nbreBaseLinePub: floor(@pubHauteur / @gridBaseline) + 1;
+	@pubHeight: @nbreBaseLinePub * @gridBaseline;
+	@calculMarginVertical: (@pubHeight - @pubHauteur) / 2;
+	
+	.dm_layout_left, .dm_layout_right {
+		.content_flow_player {
+			.dm_widget_inner{
+				.dm_widget_content_flow_player {
+					margin-top: @calculMarginVertical;
+					margin-bottom: @calculMarginVertical;
+				}
+			}
+		}
+	}
+	
+	.dm_layout_left {
+		.content_flow_player {
+			.dm_widget_inner{
+				.dm_widget_content_flow_player {
+					@calculMarginHorizontal: (@gridWidth_SidebarLeft - @pubLargeur) / 2;
+					margin-right: @calculMarginHorizontal;
+					margin-left: @calculMarginHorizontal;
+				}
+			}
+		}
+	}
+	
+	.dm_layout_right {
+		.content_flow_player {
+			.dm_widget_inner{
+				.dm_widget_content_flow_player {
+					@calculMarginHorizontal: (@gridWidth_SidebarRight - @pubLargeur) / 2;
+					margin-right: @calculMarginHorizontal;
+					margin-left: @calculMarginHorizontal;
+				}
+			}
+		}
+	}
+}
+
+/*
+
+.dm_layout_top {
+	.dm_zones {
+		
+	}
+}
+
+.dm_layout_centerTop {
+	//calcul décalage intérieur
+	@offsetBorder: 1px;
+	@offsetPad: (@gridGutter / 3);
+	
+	.dm_zones {
+		//application des propriétés
+		border-width: @offsetBorder;
+		border-style: none solid solid solid;
+		border-color: @colorCouleur3Moyen;
+		padding: 0 (@offsetPad - @offsetBorder);
+		margin: 0 (@offsetPad * -1) @offsetBorder*-1 (@offsetPad * -1);
+		
+		@boxShadowPie(0 @gridBaseline/4 @gridBaseline/2 @colorCouleur3MoyenSup);
+	}
+	
+	.dm_widget {
+		margin-right: ((@offsetPad - @offsetBorder) * -1);
+		margin-left: ((@offsetPad - @offsetBorder) * -1);
+		.dm_widget_inner {
+			padding: 0 (@offsetPad - @offsetBorder);
+		}
+	}
+}
+
+.dm_layout_centerBottom {
+	.dm_zones {
+		
+	}
+}
+
+.dm_page_content, .dm_layout_left, .dm_layout_right {
+	//calcul décalage intérieur
+	@offsetBorder: 1px;
+	@offsetPad: (@gridGutter / 3);
+	
+	.dm_zones {
+		@verticalGradient(@colorCouleur3Clair; @colorWhite);
+		//application des propriétés
+		border-width: @offsetBorder;
+		border-style: solid;
+		border-color: @colorCouleur3Moyen;
+		
+		padding: 0 (@offsetPad - @offsetBorder);
+		margin: (@gridBaseline - @offsetBorder) (@offsetPad * -1);
+	}
+	
+	//on force le conteneur du widget à dépasser avec un margin négatif puis on recentre sa zone interne avec un padding
+	.dm_widget {
+		@verticalGradient(@colorCouleur3Clair; @colorCouleur3ClairSup);
+		
+		margin-right: ((@offsetPad - @offsetBorder) * -1);
+		margin-left: ((@offsetPad - @offsetBorder) * -1);
+		
+		.dm_widget_inner {
+			padding: (@gridBaseline - 1px) (@offsetPad - @offsetBorder);
+			border-top: 1px solid @colorCouleur3ClairSup;
+			border-bottom: 1px solid @colorCouleur3Moyen;
+			
+			//ciblage précis afin d'éviter de cibler les titre d'article contenu à l'intérieur des widgets
+			& > .title, article > .title {
+				//@verticalGradient(@colorCouleur3Moyen; @colorCouleur3MoyenSup);
+				background-color: @colorCouleur3MoyenSup;
+				margin: ((@gridBaseline - 1px) * -1) ((@offsetPad - @offsetBorder) * -1) @gridBaseline ((@offsetPad - @offsetBorder) * -1);
+				padding: (@gridBaseline/2 -1px) (@offsetPad - @offsetBorder);
+				border-bottom: 1px solid @colorCouleur3Moyen;
+				color: @colorCouleur1Moyen;
+			}
+			
+			
+			//stylage des listings
+			.elements {
+				.element {
+					//suppression marge sous le titre
+					.title { margin-bottom: 0; }
+				}
+			}
+		}
+		
+		//suppression bordure dernier widget
+		&:last-child {
+			.dm_widget_inner {
+				border-bottom: 0;
+				padding-bottom: @gridBaseline;
+			}
+		}
+	}
+}
+
+//style par défaut des widgets contenus dans les colonnes
+.dm_layout_left, .dm_layout_right {
+	.dm_widget {
+		
+		.dm_widget_inner {
+		}
+	}
+}
+
+//Définitions en dur des styles des widgets (en attendant séparation dans fichiers Less séparés)
+.dm_layout_left {
+	.dm_widget {
+		//background-color: lightcoral;
+	}
+}
+
+.dm_layout_right {
+	.dm_widget {
+		//background-color: pink;
+	}
+}
+
+//________________________________________________________________________________________________
+//________________________________________________________________________________________________
+//________________________________________________________________________________________________
+//________________________________________________________________________________________________
+
+
+//Définitions directes de styles de widgets (en attendant séparation dans fichiers Less séparés)
+
+//inversion ordre pour affichage ombre
+.dm_layout_top {
+	.main_header { z-index: 2; }
+	.navigation_menu { z-index: 1; }
+}
+
+.accueil_show_presentation {
+	.dm_widget_inner {
+		.wrapper {
+			float: right;
+			@gridWidth(3);
+		}
+		
+		.imageWrapper {
+			float: right;
+			//inversion sens de marge
+			.image {
+				margin-left: @gridGutter;
+				margin-right: 0 !important;
+			}
+		}
+	}
+}
+
+//ArticleDernierArticleDeChaqueCategorie
+.article_dernier_article_de_chaque_categorie {
+	.dm_widget_inner {
+		//background-color: lightgreen;
+	}
+}
+
+//ContentImage
+.content_image {
+	background-color: red;
+}
+*/
+
+
+
+
+/*
+.dm_page_content, .dm_layout_left, .dm_layout_right {
+	.bandeau_smart_bandeau {
+		//on masque le widget_inner lorsque le bandeau est vide
+		.dm_widget_inner{
+			background-color: lightgreen;
+		}
+		.bandeau_show {
+			@verticalGradient(@colorCouleur3Moyen; @colorCouleur3MoyenSup);
+			.dm_widget_inner{
+				padding-top: (@gridBaseline/2 -1px);
+				padding-bottom: (@gridBaseline/2 -1px);
+				padding-right: 0;
+				padding-left: 0;
+				border-top: 1px solid @colorCouleur3Moyen;
+				border-bottom: 1px solid @colorCouleur3Moyen;
+				//on force la hauteur pour éviter tout débordement
+				line-height: @gridBaseline;
+				height: @gridBaseline;
+			}
+		}
+	}
+}
+*/
+
+/*
+//equipe_list
+.equipe_list {
+	//background-color: lightgreen;
+	
+	.dm_widget_inner {
+		//background-color: lightblue;
+		
+		.elements {
+			//background-color: lightcoral;
+			
+			.element {
+				//éléments à afficher en block
+				.telephone, .email, .description { display: block; }
+				
+				//background-color: teal;
+				margin-bottom: @gridBaseline*2;
+				
+				.type {
+					
+				}
+				.value {
+				}
+				
+				.wrapper {
+					.subWrapper {
+						color: @colorCouleur3Fonce;
+						.name { font-weight: bold; }
+						.jobTitle {}
+					}
+					
+					.telephone {
+						//background-color: green;
+					}
+					.email {
+						//background-color: lime;
+					}
+					.description {
+						//background-color: palegreen;
+						font-size: @fontSizeSmall;
+						color: @colorCouleur3Fonce;
+						clear: both;
+					}
+					
+				}
+			}
+		}
+	}
+}
+
+//equipeBlocPhotosEquipe
+.equipe_bloc_photos_equipe {
+	.dm_widget_inner{
+		
+		.imageWrapper {
+			
+		}
+	}
+}
+*/

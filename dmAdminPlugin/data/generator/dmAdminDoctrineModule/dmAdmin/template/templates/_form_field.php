@@ -41,6 +41,7 @@
     ->size(16, 16)
     ->set('.dm_label_required')
     ->alt(__('Required.', array(), 'sf_admin'));
+    $label .= _tag('span.help','('.__('Required').')');
   }
 ?]
 [?php if ($field->isPartial()): ?]

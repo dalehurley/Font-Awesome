@@ -1,0 +1,71 @@
+// _Wrappers.less
+// v1.0
+// Last Updated : 2011-04-18 10:50
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//configuration des styles de base des différents containers pouvant servir à la mise en page du site
+
+//affection d'un style block à tous les containers
+.wrapper, .subWrapper, .imageWrapper, .imageGallery { display: block; }
+
+//configuration de base des deux containers d'images
+.imageWrapper, .imageGallery {
+	@getClearfix();
+	float: left;
+	.image, .link {
+		display: block;
+		float: left;
+		margin-bottom: @gridBaseline;
+		margin-right: @gridGutter;
+		&.last { margin-right: 0; }
+	}
+	.link .image { float:none; margin: 0; }
+}
+
+//Liens englobants
+.link_box {
+	display: block;
+	text-decoration: none;
+	&:hover { text-decoration: underline; }
+}
+
+//Gestion des listings
+.elements {
+	//suppression de toute marge et puce (à tester avec un article (vérifier si balisage identique)
+	margin: 0;
+	list-style: none;
+	
+	.element {
+		.title {
+			display: block;
+			font-size: @fontSizeH5Px;
+			//margin-bottom: @gridBaseline;
+		}
+		
+		.date {
+			margin-left: @gridGutter; 
+			font-size: @fontSizeSmall;
+			line-height: @gridBaseline;
+		}
+		
+		//container de texte, on ne met les éléments en block que lorsqu'il sont contenu dedans
+		.wrapper {
+			.title, .date, .teaser, .description { display: block; }
+			//pour faire descendre les textes sous l'image et le titre
+			.title {
+				//background-color: green;
+				//& ~ .teaser, & ~ .description { clear: both; }
+			}
+			
+			.teaser, .description {
+				//background-color: darkgreen;
+				margin-bottom: @gridBaseline;
+			}
+		}
+	}
+}
+
+.navigation { display: block; clear: both; }
+.navigationTop { margin-bottom: @gridBaseline; }
+.navigationBottom { margin-top: @gridBaseline; }

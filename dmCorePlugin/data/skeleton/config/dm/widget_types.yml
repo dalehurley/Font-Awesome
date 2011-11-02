@@ -1,0 +1,3 @@
+dmWidgetNavigation:
+  menu:
+    view_class:         myWidgetNavigationMenuView

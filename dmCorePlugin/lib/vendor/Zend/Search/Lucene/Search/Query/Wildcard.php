@@ -168,7 +168,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
 
                         if ($maxTerms != 0  &&  count($this->_matches) > $maxTerms) {
                             require_once 'Zend/Search/Lucene/Exception.php';
-                            throw new Zend_Search_Lucene_Exception('Terms per query limit is reached.');
+                            throw new Zend_Search_Lucene_Exception('Terms per query limit is reached 6.');
                         }
                     }
 
@@ -183,7 +183,7 @@ class Zend_Search_Lucene_Search_Query_Wildcard extends Zend_Search_Lucene_Search
 
                         if ($maxTerms != 0  &&  count($this->_matches) > $maxTerms) {
                             require_once 'Zend/Search/Lucene/Exception.php';
-                            throw new Zend_Search_Lucene_Exception('Terms per query limit is reached.');
+                            throw new Zend_Search_Lucene_Exception('Terms per query limit is reached 7.');
                         }
                     }
 

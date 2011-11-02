@@ -1,0 +1,31 @@
+handWidgets:
+
+  articlesBySection:
+    cache:              true
+    public_name:        (H) Articles par section
+    
+  listArticlesByRubrique:
+    cache:              true
+    public_name:        (H) Liste articles par rubrique
+    
+  listAgenda:
+    cache:              true
+    public_name:        (H) Liste agenda
+    
+  articlesByRubriqueMultiple:
+    cache:              true
+    public_name:        (H) Articles par rubrique multiple
+    
+  listArticlesBySection:
+    cache:              true
+    public_name:        (H) Liste articles par section
+    
+  listArticlesBySectionByRubrique:
+    cache:              true
+    public_name:        (H) Liste articles par section par rubrique
+    
+  listSousHomeByRubrique:
+    cache:              true
+    public_name:        (H) Liste sous home par rubrique
+    
+        

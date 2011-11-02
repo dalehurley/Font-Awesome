@@ -1,0 +1,52 @@
+// _Grids.less
+// v1.0
+// Last Updated : 2011-05-24 11:33
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//cette classe définie le sytème de grille de base
+//Une fonction de calcul permet de retrouver les différentes dimensions proportionnellement
+
+//Grille : importation initialisation
+@importGridInit();
+@importTemplateGridInit();
+
+//Debug baseline (utilisé en dev par le script JS de previz de la grille)
+.debugBaseline {
+	background-color: transparent;
+	background-image: url({@urlImagesFramework}/Grids/baseline-{@gridBaseline}.png);
+	background-repeat: repeat;
+}
+
+#less-grid {
+	.col {
+		background-color: fadeout(@colorCouleur1Fonce,75%);
+		padding-top: @gridBaseline*2;
+	}
+	.info {
+		display: block;
+		background-color: fadeout(@colorCouleur1Fonce,25%);
+		color: @colorRequired;
+		font-weight: bold;
+		line-height: @gridBaseline;
+	}
+}
+
+//à implémenter correctement lorsque j'aurais le temps
+/*
+$('#less-grid-switch').css({ 
+						position: "absolute",
+						top: "0",
+						right: switchPositionRight,				//modification de position (anciennement right: "0"
+						background: "#3d5fa3",
+						border: "2px solid #fff",
+						borderTop: 0,
+						color: "#fff",
+						fontSize: "13px",
+						lineHeight: "13px",
+						padding: "2px 8px 6px 8px",
+						cursor: "pointer",
+						"border-radius": "0 0 5px 5px",
+						"-moz-border-radius": "0 0 5px 5px",
+						zIndex: 1000
+*/

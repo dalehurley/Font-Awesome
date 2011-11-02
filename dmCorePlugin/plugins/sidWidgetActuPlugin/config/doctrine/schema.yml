@@ -1,0 +1,209 @@
+SidActuRubrique:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title ]
+      actAs:
+        DmVersionable:
+  columns:
+    title:
+      type: string(40)
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+#  relations:
+#    SidActuArticles:
+#      onDelete: Cascade
+
+SidActuType:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title ]
+      actAs:
+        DmVersionable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+  relations:
+    SidActuArticles:
+      foreignAlias: SidActuType
+      class: SidActuArticle
+      refClass: SidActuTypeArticle
+      onDelete: Cascade
+
+SidActuArticle:
+  actAs:
+    DmTaggable:
+    Timestampable:
+    DmBlameable:
+    DmSortable:
+    I18n:
+      fields: [ title, text, resume ]
+      actAs:
+        DmVersionable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    rubrique_id:
+      type: integer
+      notnull: true
+    resume:
+      type: string(255)
+      notnull: true
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: true
+    image:
+      type: integer
+    file:
+      type: integer
+    title_file:
+      type: string(255)
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+    on_home:
+      type: boolean
+      notnull: true
+      default: true
+  attributes:
+    export: all
+    validate: true
+  relations:
+    Rubrique:
+      class: SidActuRubrique
+      local: rubrique_id
+      foreign: id
+      foreignAlias: SidActuArticles
+      onDelete: Cascade
+    Image:
+      class:          DmMedia
+      local:          image
+      foreignAlias:   SidActuArticles
+      onDelete: Cascade
+    Files:
+      class:          DmMedia
+      local:          file
+      foreignAlias:   SidActuArticles
+      onDelete: Cascade
+    MSections:
+      foreignAlias: SidSection
+      class: SidSection
+      refClass: SidActuArticleSidSection
+      onDelete: Cascade      
+
+SidActuTypeArticle:
+  columns:
+    sid_actu_type_id:
+      type: integer
+    sid_actu_article_id:
+      type: integer
+  relations:
+    SidActuType:
+      foreignAlias: SidActuTypages
+      onDelete: Cascade
+    SidActuArticle:
+      foreignAlias: SidActuTypages
+      onDelete: Cascade
+      
+SidActuArticleSidSection:
+  columns:
+    sid_actu_article_id:
+      type:           integer 
+    sid_section_id:
+      type:           integer
+  relations:
+    SidActuArticle:
+      onDelete:       Cascade
+    SidSection:
+      onDelete:       Cascade      
+      
+#SidActuArticleSidSection:
+#  columns:
+#    sid_actu_article_id:
+#      type: integer
+#    sid_section_id:
+#      type: integer
+#  relations:
+#    SidActuArticle:
+#      foreignAlias: SidActuArticleSidSectionArt
+#      onDelete: Cascade      
+#    SidSection:
+#      foreignAlias: SidActuArticleSidSectionSec
+#      onDelete: Cascade   
+
+
+#User:
+#  tableName:          user
+#  actAs:
+#    Timestampable:    ~
+#  columns:
+#    id:
+#      type:           integer(4)
+#      primary:        true
+#      autoincrement:  true
+#      unsigned:       true
+#    lastname:
+#      type:           string(80)
+#      notnull:        true
+#    firstname:
+#      type:           string(80)
+#      notnull:        true
+#  relations:
+#    MCategories:
+#      class:          Category
+#      local:          user_id
+#      foreign:        category_id
+#      refClass:       UserCategory
+#      foreignAlias:   Users
+#
+#UserCategory:
+#  tableName:          user_category
+#  columns:
+#    user_id:
+#      type:           integer(4)
+#      unsigned:       true
+#      primary:        true
+#    category_id:
+#      type:           integer(4)
+#      unsigned:       true
+#      primary:        true
+#  relations:
+#    User:
+#      onDelete:       CASCADE
+#    Category:
+#      onDelete:       CASCADE
+#
+#Category:
+#  tableName:          category
+#  actAs:
+#    Timestampable:    ~
+#  columns:
+#    id:
+#      type:           integer(4)
+#      primary:        true
+#      autoincrement:  true
+#      unsigned:       true
+#    name:
+#      type:           string(80)
+#      notnull:        true
+#  relations:
+#    MUsers:
+#      class:          User
+#      local:          category_id
+#      foreign:        user_id
+#      refClass:       UserCategory
+#      foreignAlias:   Categories

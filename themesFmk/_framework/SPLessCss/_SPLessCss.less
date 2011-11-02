@@ -1,0 +1,35 @@
+// _SPLessCsss.less
+// v0.1
+// Last Updated : 2011-03-10 10:30
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//importation des librairies externes de fonctions
+@import "_framework/SPLessCss/Utilities/_Utilities.less";
+
+//importation des fichiers de config
+@import "_framework/SPLessCss/Config/_ConfigInit.less";
+
+//application du debug pour le framework et le template sélectionné
+.debugFramework{@Debug("SPLessCss";@frameworkVersion;@frameworkDate;@frameworkCopyright;@frameworkAuthor);}
+.debugTemplate{@Debug(@mainTemplate;@templateVersion;@templateDate;@templateCopyright;@templateAuthor);}
+
+//IMPORTATION DES DIFFÉRENTS ÉLÉMENTS CONSTITUTIFS DU FRAMEWORK
+//Gestion de la grille
+@import "_framework/SPLessCss/Grids/_Grids.less";
+//Gestion des polices
+@import "_framework/SPLessCss/Typography/_Typography.less";
+//Styles de base des éléments
+@import "_framework/SPLessCss/Elements/_Elements.less";
+//Classes non sémantiques (helpers)
+@import "_framework/SPLessCss/Helpers/_Helpers.less";
+//Style par défaut des widgets du framework
+@import "_framework/SPLessCss/Widgets/_WidgetsBase.less";
+
+//OVERRIDES STYLES SYMFONY
+
+//Appel du template choisi par variable
+@importTemplateBase();
+
+//Requêtes médias
+@import "_framework/SPLessCss/Medias/_Medias.less";

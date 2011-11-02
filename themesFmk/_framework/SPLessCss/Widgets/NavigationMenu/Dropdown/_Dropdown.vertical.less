@@ -1,0 +1,66 @@
+// _Dropdown.vertical.less
+// v0.3.1
+// Last Updated : 2011-08-25 12:00
+// Copyright : SID Presse | 2006-2008 Live Web Institute (http://www.lwis.net)
+// Author : Arnaud GAUDIN
+
+//Compatibilité navigateurs : 	Windows: IE6+, Opera7+, Firefox1+
+//								Mac OS: Safari2+, Firefox2+
+
+//configuration automatique en ouverture latérale dans les sidebars
+.dm_layout_left, .dm_layout_right {
+	ul.dropdown {
+		ul { top: 0; }
+		li { float: none; }
+	}
+}
+
+//on affecte les dimensions en fonction du conteneur (à déplacer dans gestion grille)
+.dm_layout_left {
+	ul.dropdown {
+		//ouverture vers la droite, donc float à gauche
+		float: left;
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarLeft; 0);
+		//rajout border-right invisible pour superposition
+		border-right: 1px solid transparent;
+		ul {
+			//débuggage comportement opposé
+			right: auto !important;
+			//rajout border-right invisible pour superposition
+			border-right: 1px solid transparent;
+			//largeur du niveau
+			@gridWidth(2; (@gridGutter*-1));
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteLeft(@gridCol_SidebarLeft; 0);
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			ul { @gridAbsoluteLeft(2; (@gridGutter*-1)); }
+		}
+		li { text-align: left; }
+	}
+}
+
+
+.dm_layout_right {
+	ul.dropdown {
+		//ouverture vers la gauche, donc float à droite
+		float: right;
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarRight; 0);
+		//rajout border-left invisible pour superposition
+		border-left: 1px solid transparent;
+		ul {
+			//débuggage comportement opposé
+			left: auto !important;
+			//rajout border-left invisible pour superposition
+			border-left: 1px solid transparent;
+			//largeur du niveau
+			@gridWidth(2; (@gridGutter*-1));
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteRight(@gridCol_SidebarRight; 0);
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			ul { @gridAbsoluteRight(2; (@gridGutter*-1)); }
+		}
+		li { text-align: right; }
+	}
+}

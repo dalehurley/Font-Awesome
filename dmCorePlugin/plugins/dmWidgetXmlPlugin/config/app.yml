@@ -1,0 +1,12 @@
+all:
+  xml:
+    host:             echos-entrepreneur.sdv.fr
+    login:            experts
+    password:         pz64gk79
+    rep-articles:     /flux_test/
+    rep-rubrique:     /flux_test_rubrique/
+    nbrearticles:     5
+    rep-local:        uploads/in/
+    rep-images:       /images/
+    # le fichier Xsl du traitement 
+    xsl:              uploads/xml/xsl/article.xsl

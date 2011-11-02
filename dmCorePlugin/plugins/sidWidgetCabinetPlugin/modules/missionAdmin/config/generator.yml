@@ -1,0 +1,72 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidCabinetMission
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: mission
+    with_doctrine_route: false
+    config:
+      actions:
+        new:              
+          credentials: [[super_admin, admin]]
+        delete:
+          credentials: [super_admin]
+        save:
+          credentials: [[super_admin, admin]]
+        history:
+          credentials: [[super_admin, admin]]
+        list:
+          credentials: [[super_admin, admin]]
+        _save_and_list:
+          credentials: [ super_admin ]
+        _save_and_next:
+          credentials: [ super_admin ]
+        _save_and_add:
+          credentials: [ super_admin ]
+        _view_page:
+          credentials: [ super_admin ]
+      fields:
+        is_active:
+          label: Active
+        tags_list:
+          label: 'Mots clés'
+      list:
+        batch_actions:
+          delete:
+            credentials: [ super_admin ]
+          activate:
+            credentials: [[ super_admin , admin ]]
+          deactivate:
+            credentials: [[ super_admin , admin ]]
+        display:
+          - '=title'
+          - is_active
+          - created_at
+          - updated_at
+#          - text
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - is_active
+          - created_at
+          - updated_at
+#          - text
+      form:
+        display:
+          Nom de la page: [title, is_active]
+          Text: [text]
+          'Mots clés': [tags_list]
+          # m_sections du nom de la relation declaree dans le schema.yml, + _list
+          'Section liées': [m_sections_list]            
+        class: SidCabinetMissionAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

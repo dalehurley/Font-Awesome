@@ -38,7 +38,15 @@ class dmWidgetListForm extends dmWidgetProjectModelForm
     $this->validatorSchema['orderType'] = new sfValidatorChoice(array(
       'choices' => array_keys($orderTypes)
     ));
-
+    
+    // modif faite par Stéphane le 21/09/2011
+//    $this->widgetSchema['titleWidget'] = new sfWidgetFormInputText();
+//    $this->validatorSchema['titleWidget'] = new sfValidatorString(array('required' => false));
+//    $this->widgetSchema->setHelps(array(
+//            'titleWidget' => 'Personnaliser le titre du widget'
+//        ));
+    // modif faite par Stéphane le 21/09/2011
+    
     // Filters
     foreach($this->dmComponent->getOption('filters', array()) as $filter)
     {

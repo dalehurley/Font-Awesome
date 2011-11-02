@@ -1,0 +1,71 @@
+SidGroupeBandeau:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title ]
+  columns:
+    title:
+      type: string(40)
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+
+SidBandeau:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title ]
+      actAs:
+        DmVersionable:
+  columns:
+    title:
+      type: string(255)
+      #extra: ckeditor
+      notnull: true
+    groupe_bandeau_id:
+      type: integer
+      notnull: true      
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+    category:
+      type: enum
+      values: [ 'defaut', 'perso']
+      default: 'perso'
+    scrollamount:
+      type: integer
+      default: 10
+    scrolldelay:
+      type: integer
+      default: 0
+    boucle:
+      type: integer
+      default: 0
+    behavior:
+      type: enum
+      values: [ 'scroll', 'alternate' ]
+      default: 'scroll'
+    direction:
+      type: enum
+      values: [ 'left', 'right', 'down', 'up' ]
+      default: 'right'
+    height:
+      type: integer
+      default: 0
+    width:
+      type: integer
+      default: 0
+    debut_date: date
+    fin_date: date
+  relations:
+    GroupeBandeau:
+      class: SidGroupeBandeau
+      local: groupe_bandeau_id
+      foreign: id
+      foreignAlias: SidBandeau
+      onDelete: Cascade

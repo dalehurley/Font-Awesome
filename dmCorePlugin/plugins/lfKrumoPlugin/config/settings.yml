@@ -1,0 +1,6 @@
+all:
+  .settings:
+    krumo_dir_skin: schablon.com/     # dossier pour la skin. Skins disponibles [blue/,default/,green/,orange/,schablon.com/]
+    krumo_string_length: 300          # longueur affichée pour les chaînes 
+    
+    

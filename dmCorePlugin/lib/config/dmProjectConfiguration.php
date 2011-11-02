@@ -16,7 +16,35 @@ class dmProjectConfiguration extends sfProjectConfiguration
       'sfWebBrowserPlugin',
       'sfImageTransformPlugin',
       'sfFeed2Plugin',
-      'sfFormExtraPlugin'
+      'sfFormExtraPlugin',
+  // les plugins additionnels
+      'lfKrumoPlugin',
+      'dmWidgetFeedReaderPlugin',
+      'dmWidgetExcelPlugin', // plugin Excel
+		'dmWidgetGalleryPlugin',
+            'sfLESSPlugin',
+            'dmContactMePlugin', // extension de dmcontactPlugin avec qaptcha
+            'dmWidgetXmlPlugin', // plugin d'affichage de données Xml
+            //'dmCkEditorPersoPlugin', // administrable par le client
+            'dmFlowPlayerPlugin',
+            'dmMediaUploadifyerPlugin',
+            'dmBotPlugin',
+            'dmWidgetExternalVideoPlugin',
+            'dmCoreTranslatorPlugin',
+            'sidWidgetBePlugin',  // la base editoriale
+            'dmWidgetGalleryBackgroundPlugin',
+            'dmTagPlugin',
+            'dmCkEditorPlugin',
+            'dmWidgetNivoGalleryPlugin',
+            'sidWidgetBandeauPlugin',
+            // 'sidWidgetBlogPlugin',  // Finalisé mais inutile pour le moment
+            'sidContentTemplateManagerPlugin',  // plugin de gestion des template de contenu
+            'sidWidgetConstantesPlugin',   // plugin de gestion des constantes du site
+            'sidWidgetSitesUtilesPlugin',
+            'dmGoogleMapPlugin',
+            'sidWidgetActuPlugin',
+            'sidWidgetCabinetPlugin',
+            'sidWidgetCoordonneesExpertPlugin',
     ));
   }
   
@@ -29,9 +57,42 @@ class dmProjectConfiguration extends sfProjectConfiguration
       $this->setPluginPath($rootPlugin, $baseDir.'/'.$rootPlugin);
     }
     
-    foreach(array('dmUserPlugin', 'dmAlternativeHelperPlugin', 'sfWebBrowserPlugin', 'sfImageTransformPlugin', 'sfFeed2Plugin', 'sfFormExtraPlugin') as $embeddedPlugin)
-    {
-      $this->setPluginPath($embeddedPlugin, $baseDir.'/dmCorePlugin/plugins/'.$embeddedPlugin);
+        foreach (array(
+            'dmUserPlugin',
+            'dmAlternativeHelperPlugin',
+            'sfWebBrowserPlugin',
+            'sfImageTransformPlugin',
+            'sfFeed2Plugin',
+            'sfFormExtraPlugin',
+            'lfKrumoPlugin',
+            'dmWidgetFeedReaderPlugin',
+            'dmWidgetExcelPlugin',
+            'dmWidgetGalleryPlugin',
+            'sfLESSPlugin',
+            'dmContactMePlugin',
+            'dmWidgetXmlPlugin', 
+            //'dmCkEditorPersoPlugin',
+            'dmFlowPlayerPlugin',
+            'dmMediaUploadifyerPlugin',
+            'dmBotPlugin',
+            'dmWidgetExternalVideoPlugin',
+            'dmCoreTranslatorPlugin',
+            'sidWidgetBePlugin',    // la base editoriale
+            'dmWidgetGalleryBackgroundPlugin',
+            'dmTagPlugin',
+            'dmCkEditorPlugin',
+            'dmWidgetNivoGalleryPlugin',
+            'sidWidgetBandeauPlugin',
+            //'sidWidgetBlogPlugin', 
+            'sidContentTemplateManagerPlugin',
+            'sidWidgetConstantesPlugin',
+            'sidWidgetSitesUtilesPlugin',
+            'dmGoogleMapPlugin',
+            'sidWidgetActuPlugin',
+            'sidWidgetCabinetPlugin',
+            'sidWidgetCoordonneesExpertPlugin',
+            ) as $embeddedPlugin) {
+            $this->setPluginPath($embeddedPlugin, $baseDir . '/dmCorePlugin/plugins/' . $embeddedPlugin);
     }
   }
   
@@ -39,6 +100,7 @@ class dmProjectConfiguration extends sfProjectConfiguration
    * @deprecated
    * Please use $this->setWebDir instead
    */
+
   public function setWebDirName($webDirName)
   {
     return $this->setWebDir(sfConfig::get('sf_root_dir').'/'.$webDirName);

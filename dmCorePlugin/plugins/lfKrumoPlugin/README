@@ -1,0 +1,35 @@
+# sfKrumoPlugin #
+
+The `sfKrumoPlugin` is a symfony plugin that uses Krumo (http://krumo.sourceforge.net/)
+to implement a nice replacement for print_r() and var_dump() functions.
+
+## Installation ##
+
+  * Install the plugin (via a package)
+
+        symfony plugin:install sfKrumoPlugin
+
+  * Activate the plugin in the `config/ProjectConfiguration.class.php`
+  
+        [php]
+        class ProjectConfiguration extends sfProjectConfiguration
+        {
+          public function setup()
+          {
+            ...
+            $this->enablePlugins('sfKrumoPlugin');
+            ...
+          }
+        }
+
+## How to use ##
+
+  * Here's a basic PHP example, which will return a report on the array variable passed as argument to it
+  
+        [php]
+        krumo(array('a1'=> 'A1', 3, 'red'));
+  
+  * You can dump simultaneously more then one variable - here's another PHP  example:
+  
+        [php]
+        krumo($_SERVER, $_ENV);

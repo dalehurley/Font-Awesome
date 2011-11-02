@@ -1,0 +1,135 @@
+// _MinimalBaseStyle.less
+// v1.1
+// Last Updated : 2011-09-16 11:50
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+// Pour info sur la valeur sémantique des balises :
+// http://www.vectorskin.com/referentiels-standards-w3c/balises-html5/
+
+//DEBUGS GLOBAUX DES NAVIGATEURS
+
+//Debug webkit sibling : http://css-tricks.com/8439-webkit-sibling-bug/
+body { -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from { padding: 0; } to { padding: 0; } }
+
+// this is a CSS answer to fix the hover/focus '~' and hover/focus '+' problem in safari and chrome
+//TESTER CE DEBUG (de Stu Nicols)
+/*
+html {-webkit-animation: safariSelectorFix infinite 1s;}
+@-webkit-keyframes safariSelectorFix {
+0% {zoom:1;} 
+100% {zoom:1;}
+}
+*/
+
+//Always force a scrollbar in non-IE
+html { overflow-y: scroll; }
+
+//Bicubic resizing for non-native sized IMG:
+//code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/
+.ie7 img { -ms-interpolation-mode: bicubic; }
+
+
+
+
+//CONFIGURATION BASELINE
+b, strong, caption, th, thead, dt, legend { font-weight: bold; }
+cite, dfn, em, i { font-style: italic; }
+p { word-spacing: 0.125em; hyphenate: auto; hyphenate-lines: 3; }
+del { text-decoration: line-through; }
+abbr, acronym { font-size: 85%; text-transform: uppercase; letter-spacing: .1em; line-height: @fontGlobalLineHeightMonospace; }
+abbr[title], acronym[title], dfn[title] { border-bottom: 1px dotted @colorText; cursor: help; }
+table { font: inherit; width: 100%; }
+caption { position: relative; font-size: @fontGlobalSizePx; line-height: @gridBaseline; }
+
+
+
+
+//DEBUGS ET PLACEMENTS DIVERSES DES ÉLÉMENTS DE BASE
+
+//These selection declarations have to be separate
+//No text-shadow: twitter.com/miketaylr/status/12228805301
+::-moz-selection{ background: @colorSelection; color:@colorWhite; text-shadow: none; }
+::selection { background:@colorSelection; color:@colorWhite; text-shadow: none; }
+img::-moz-selection {background: transparent;}
+img::selection {background: transparent;}
+
+//configuration paragraphe
+p { margin-bottom: @gridBaseline; }
+
+//application forcée (vérifier utilité lors des debugs navigateurs)
+p, pre, address {
+	position: relative;
+	font-size: @fontGlobalSizePx;
+	line-height: @gridBaseline;
+}
+
+
+//couleur de marquage de recherche et d'insertion
+ins, mark {
+	background-color: @colorMarkIns;
+	color: @colorText;
+}
+
+//couleur bordure par défaut
+hr {
+	position: relative;
+	height: 0;
+	margin: @gridBaseline 0 0 0;
+	padding-top: (@gridBaseline -1px);
+	border-style: solid none none none;
+	border-width: 1px 0 0 0;
+	border-color: @colorCouleur3Moyen;
+}
+
+//configuration des listes
+ul, ol, dl, dialog {
+	position: relative;
+	font-size: @fontGlobalSizePx;
+	line-height: @gridBaseline;										
+}
+ul, ol {
+	margin-bottom: @gridBaseline;
+	margin-left: @offX;				// unité en em car varie selon la taille du texte ??
+}
+ul { list-style-type: disc; }
+ol { list-style-type: decimal; }
+//Suppression des marges pour les listes de navigations
+nav ul, nav li { margin: 0; list-style:none; list-style-image: none; }
+
+//confguration des citations
+blockquote { margin-bottom: @gridBaseline; }
+
+//configuration des éléments de mise forme sémantique du texte
+big {
+	font-size: 110%;
+	//permet d'éviter le décalage de baseline
+	line-height: @fontGlobalLineHeightMonospace;
+}
+
+small {
+	font-size: 85%;
+	//permet d'éviter le décalage de baseline
+	line-height: @fontGlobalLineHeightMonospace;
+}
+
+//permet d'interdire toute édition inline de la police
+font {
+	font-family: @fontGlobalFamily !important;
+	font-size: inherit !important;
+	line-height: inherit !important;
+	color: inherit !important;
+}
+
+//Placement des sub et sup sans affecter la hauteur de ligne : gist.github.com/413930
+sub, sup { font-size: 75%; line-height: 0; position: relative; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+//texte préformaté
+pre {
+	//www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/
+	white-space: pre; white-space: pre-wrap; word-wrap: break-word;
+	padding: @gridBaseline;
+}

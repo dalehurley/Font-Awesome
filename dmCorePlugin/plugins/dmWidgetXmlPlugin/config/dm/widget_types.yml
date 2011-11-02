@@ -1,0 +1,9 @@
+dmWidgetXml:
+
+#  readByKey:
+#    cache:              true
+#    public_name:        Lire xml by key in url
+    
+  readWithXsl:
+    cache:              true
+    public_name:        Lire xml via xsl

@@ -70,11 +70,12 @@ class dmFrontAddMenu extends dmMenu
   {
     if($widgetType = $this->getOption('widget_type'))
     {
-      return sprintf('<span class="widget_add move" id="dmwa_%s-%s">%s</span>',
+      return sprintf('<span class="tipable widget_add move" id="dmwa_%s-%s" title="%s">%s</span>',
         $widgetType->getModule(),
         $widgetType->getAction(),
-        dmString::strtolower(parent::renderLabel())
-      );
+        $widgetType->getPublicName() . '&#10;- View Class: ' .$widgetType->getViewClass(). '&#10;- Form Class: ' .$widgetType->getFormClass(),
+        dmString::strtolower(parent::renderLabel())              
+                );
     }
     elseif($widget = $this->getOption('clipboard_widget'))
     {

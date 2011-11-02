@@ -1,0 +1,19 @@
+"Gestion du Bandeau":
+  "Bandeau défilant":
+    GroupeBandeau:
+      model: SidGroupeBandeau
+      name: "Mon groupe de bandeaux|Mes groupes de bandeaux"
+      credentials: groupe_bandeau
+      components:
+        show:
+
+    Bandeau:
+      model: SidBandeau
+      name: "Mon bandeau|Mes bandeaux"
+      credentials: bandeau
+      parent: GroupeBandeau
+      components:
+        show:
+        smartBandeau:
+
+    

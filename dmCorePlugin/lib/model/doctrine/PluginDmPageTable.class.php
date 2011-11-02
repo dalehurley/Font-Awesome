@@ -20,14 +20,14 @@ class PluginDmPageTable extends myDoctrineTable
       $root = $this->create(array(
         'module' => 'main',
         'action' => 'root',
-        'name' => $this->tryToTranslate('Home'),
-        'title' => $this->tryToTranslate('Home'),
+        'name' => $this->tryToTranslate('Accueil'),
+        'title' => $this->tryToTranslate('Accueil'),
         'slug' => ''
       ));
 
       $this->getTree()->createRoot($root);
       
-      if ($layout = dmDb::table('DmLayout')->findOneByName('Home'))
+      if ($layout = dmDb::table('DmLayout')->findOneByName('Accueil'))
       {
         $root->get('PageView')->set('Layout', $layout)->save();
       }
@@ -39,9 +39,10 @@ class PluginDmPageTable extends myDoctrineTable
       $page404 = $this->create(array(
         'module' => 'main',
         'action' => 'error404',
-        'name' => $this->tryToTranslate('Page not found'),
-        'title' => $this->tryToTranslate('Page not found'),
-        'slug' => 'error404'
+        'name' => $this->tryToTranslate('Page introuvable'),
+        //'name' => __('Page not found'),
+        'title' => $this->tryToTranslate('Page introuvable'),
+        'slug' => 'page_introuvable_404'
       ));
 
       $page404->getNode()->insertAsLastChildOf($root);
@@ -49,7 +50,7 @@ class PluginDmPageTable extends myDoctrineTable
       dmDb::table('DmWidget')->createInZone(
         $page404->get('PageView')->get('Area')->get('Zones')->getFirst(),
         'dmWidgetContent/title',
-        array('text' => 'Page not found', 'tag' => 'h1')
+        array('text' => 'Page introuvable', 'tag' => 'h1')
       )->save();
     }
 
@@ -59,9 +60,9 @@ class PluginDmPageTable extends myDoctrineTable
       $signinPage = $this->create(array(
         'module' => 'main',
         'action' => 'signin',
-        'name' => $this->tryToTranslate('Signin'),
-        'title' => $this->tryToTranslate('Signin'),
-        'slug' => 'security/signin'
+        'name' => $this->tryToTranslate('Connexion'),
+        'title' => $this->tryToTranslate('Connexion'),
+        'slug' => 'Connexion'
       ));
       
       $signinPage->getNode()->insertAsLastChildOf($root);
@@ -71,6 +72,7 @@ class PluginDmPageTable extends myDoctrineTable
         'dmUser/signin'
       )->save();
     }
+
   }
 
   protected function tryToTranslate($message)

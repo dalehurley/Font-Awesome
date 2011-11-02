@@ -72,6 +72,17 @@ abstract class dmAdminModelGeneratorHelper extends sfModelGeneratorHelper
 
   public function linkToNew($params)
   {
+// version 0.9.2
+/*    if (!$this->isActionAccess('new')) {
+            return '';   // no access in credentials
+        } else {         // return the link
+            return link_to1(
+                    __($params['label']), $this->getRouteArrayForAction('new'), array(
+                'class' => 'sf_admin_action_new sf_admin_action s16 s16_add',
+                'title' => __($params['title'], array('%1%' => dmString::strtolower(__($this->getModule()->getName()))))
+            ));
+        }
+*/  
     if($this->module->getSecurityManager()->userHasCredentials('new'))
     {
       return link_to1(
@@ -86,6 +97,19 @@ abstract class dmAdminModelGeneratorHelper extends sfModelGeneratorHelper
 
   public function linkToDelete($object, $params)
   {
+// version 0.9.2
+/*        if (!$this->isActionAccess('delete')) {
+            return '';   // no access in credentials
+        } else {         // return the link
+            $title = __($params['title'], array('%1%' => dmString::strtolower(__($this->getModule()->getName()))));
+            return '<li class="sf_admin_action_delete">' . link_to1(__($params['label']), $this->getRouteArrayForAction('delete', $object), array(
+                'class' => 's16 s16_delete dm_delete_link sf_admin_action',
+                'title' => $title,
+                'method' => 'delete',
+                'confirm' => $title . ' ?'
+            )) . '</li>';
+        }
+*/  
     if($this->module->getSecurityManager()->userHasCredentials('delete', $object))
     {
       $title = __(isset($params['title']) ? $params['title'] : $params['label'], array('%1%' => dmString::strtolower(__($this->getModule()->getName()))), 'dm');
@@ -181,4 +205,70 @@ abstract class dmAdminModelGeneratorHelper extends sfModelGeneratorHelper
     ).
     '</li>';
   }
+
+/**
+     * Retourne true si l'action $action du module en cours est accessible par l'user 
+     * @return boolean 
+     */
+    public function isActionAccess($actionToAccess) {
+        //ajout lionel
+        $moduleName = sfContext::getInstance()->getModuleName();
+
+        $newConf = '$this->configuration = new ' . $moduleName . 'GeneratorConfiguration();';
+        eval($newConf);
+
+        $creds = $this->configuration->getCredentials($actionToAccess);
+
+//        $arrayUserPerms = sfContext::getInstance()->getUser()->getAllPermissionNames(); // récupération des permissions du user
+//        print_r($arrayUserPerms);
+//        print_r($creds);
+        
+        $actionAccess = false;
+        
+        if (sfContext::getInstance()->getUser()->isSuperAdmin()) $actionAccess = true;
+
+        if (count($creds) == 0) {  // no credentials on this action
+            $actionAccess = true;
+        } else {
+            foreach ($creds as $cred) {
+                if (is_array($cred)) {
+                    foreach ($cred as $credOR) {  // si $cred est encore un tableau alors on est dans un credential du type OR : [[super_admin, admin]], il faut avoir l'un ou l'autre des credential
+                        if (sfContext::getInstance()->getUser()->hasCredential($credOR)) {
+                            $actionAccess = true;
+                        } // pas de else car on est dans le OR
+                    }
+                } elseif (sfContext::getInstance()->getUser()->hasCredential($cred)) {  // on est dans le cas d'un credential AND : [super_admin, admin], il faut avoir les deux credentials
+                    $actionAccess = true;
+                } else {
+                    $actionAccess = false;
+                    break;
+                }
+            }
+        }
+        return $actionAccess;
+        
+//        $moduleName = sfContext::getInstance()->getModuleName();
+//        $newConf = '$this->configuration = new ' . $moduleName . 'GeneratorConfiguration();';
+//        eval($newConf);  // on evalue la configuration du module
+//
+//        $actionAccess = false;       
+//        
+//                //    echo 'eee'.$this->configuration->get('form.actions');
+//        
+//                print_r($this->configuration->getValue('list.batch_actions'));
+//                exit;
+//        
+//        if ($listActions = $this->configuration->getValue('list.batch_actions')) {
+//
+// 
+//            foreach ((array) $listActions as $action => $params) {
+//                if ($actionToAccess == $action) {
+//                    $actionAccess = $this->addCredentialCondition(true, $params);
+//                    break;
+//                }
+//            }
+//        }
+//        return $actionAccess;
+    }
+  
 }

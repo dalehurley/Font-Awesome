@@ -1,0 +1,125 @@
+SidBlogRubrique:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title ]
+      actAs:
+        DmVersionable:
+  columns:
+    title:
+      type: string(40)
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+#  relations:
+#    SidBlogArticles:
+#      onDelete: Cascade
+
+SidBlogType:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title ]
+      actAs:
+        DmVersionable:
+  columns:
+    id:
+      type: integer(4)
+      autoincrement: true
+      primary: true
+    title:
+      type: string(255)
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+  relations:
+    SidBlogArticles:
+      foreignAlias: SidBlogType
+      class: SidBlogArticle
+      refClass: SidBlogTypeArticle
+      onDelete: Cascade
+
+SidBlogArticle:
+  actAs:
+    DmTaggable:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title, text, resume ]
+      actAs:
+        DmVersionable:
+  columns:
+    id:
+      type: integer(4)
+      autoincrement: true
+      primary: true
+    title:
+      type: string(255)
+      notnull: true
+    rubrique_id:
+      type: integer
+      notnull: true
+    resume:
+      type: string(255)
+      notnull: true
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: true
+    image:
+      type: integer
+    file:
+      type: integer
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+    created_by:
+      type: integer
+      notnull: true
+  attributes:
+    export: all
+    validate: true
+  relations:
+    Author:
+      class:          DmUser
+      local:          created_by
+      foreignAlias:   SidBlogArticles
+      onDelete: Cascade
+    Rubrique:
+      class: SidBlogRubrique
+      local: rubrique_id
+      foreign: id
+      foreignAlias: SidBlogArticles
+      onDelete: Cascade
+    Image:
+      class:          DmMedia
+      local:          image
+      foreignAlias:   SidBlogArticles
+      onDelete: Cascade
+    Files:
+      class:          DmMedia
+      local:          file
+      foreignAlias:   SidBlogArticles
+      onDelete: RESTRICT
+    
+
+SidBlogTypeArticle:
+  columns:
+    sid_blog_type_id:
+      type: integer(4)
+    sid_blog_article_id:
+      type: integer(4)
+  relations:
+    SidBlogType:
+      foreignAlias: SidBlogTypages
+      onDelete: Cascade
+    SidBlogArticle:
+      foreignAlias: SidBlogTypages
+      onDelete: Cascade

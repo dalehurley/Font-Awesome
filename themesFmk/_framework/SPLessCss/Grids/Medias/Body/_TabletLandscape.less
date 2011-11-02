@@ -1,0 +1,18 @@
+// _TabletLandscape.less
+// v1.0
+// Last Updated : 2011-05-30 17:25
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+// Tablet Landscape	: 1024px
+// Colonnes			: 8
+// Scrollbar		: 0
+@media only screen and (min-width: 992px) and (max-width: 1023px) {
+	body {
+		@gridSiteWidthAutoPad(1024;@gridCol_TabletLandscape;0);
+		@gridDebugBgc(#8b8);
+	}
+	
+	//importation des adaptations média du template
+	@templateMedia_TabletLandscape();
+}

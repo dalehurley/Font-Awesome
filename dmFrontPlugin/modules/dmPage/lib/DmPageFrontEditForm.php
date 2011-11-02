@@ -9,7 +9,7 @@ class DmPageFrontEditForm extends DmPageForm
   {
     parent::configure();
     
-    $this->useFields(array('id', 'module', 'action', 'slug', 'name', 'title', 'h1', 'description', 'keywords', 'is_active', 'is_secure', 'credentials', 'is_indexable'), false);
+    $this->useFields(array('id', 'module', 'action', 'slug', 'name', 'title', 'h1', 'gabarit', 'description', 'keywords', 'is_active', 'is_secure', 'credentials', 'is_indexable'), false);
     
     if(!sfConfig::get('dm_seo_use_keywords'))
     {
@@ -54,6 +54,24 @@ class DmPageFrontEditForm extends DmPageForm
     $this->widgetSchema['is_secure']->setLabel('Requires authentication');
     $this->widgetSchema['is_indexable']->setLabel('Search engine crawlers');
     
+    // ajout lionel: ajout du champ gabarit pour la page
+        $templateChoice = array(
+            'default' => 'default',
+            'no-sidebar' => 'no-sidebar', 
+            'sidebar-left' => 'sidebar-left', 
+            'sidebar-right' => 'sidebar-right', 
+            'two-sidebars' => 'two-sidebars'); 
+            //'nav-bar' => 'nav-bar');
+        $this->widgetSchema['gabarit'] = new sfWidgetFormChoice(array(
+                    'choices' => $templateChoice,
+                ));
+        $this->validatorSchema['gabarit'] = new sfValidatorChoice(array(
+                    'choices' => array_keys($templateChoice)     
+                ));
+        $this->widgetSchema['gabarit']->setLabel('Gabarit');
+    // fin ajout lionel   
+    
+    
     if ($this->object->getNode()->isRoot())
     {
       foreach(array('slug', 'module', 'action') as $fieldName)
@@ -67,17 +85,18 @@ class DmPageFrontEditForm extends DmPageForm
     $this->mergePostValidator(new sfValidatorCallback(array('callback' => array($this, 'checkModuleAction'))));
     
     $this->setDefaults(array(
-      'dm_layout_id' => $this->object->get('PageView')->get('dm_layout_id'),
-      'name'      => $this->object->get('name'),
-      'slug'      => $this->object->get('slug'),
-      'title'     => $this->object->get('title'),
-      'h1'        => $this->object->get('h1'),
-      'description' => $this->object->get('description'),
-      'keywords'  => $this->object->get('keywords'),
-      'is_active' => $this->object->get('is_active'),
-      'is_secure' => $this->object->get('is_secure'),
-      'credentials' => $this->object->get('credentials'),
-      'is_indexable' => $this->object->get('is_indexable'),
+      'dm_layout_id' => $this->object->PageView->dmLayoutId,
+      'name'      => $this->object->name,
+      'slug'      => $this->object->slug,
+      'title'     => $this->object->title,
+      'h1'        => $this->object->h1,
+      'gabarit'   => $this->object->gabarit,  
+      'description' => $this->object->description,
+      'keywords'  => $this->object->keywords,
+      'is_active' => $this->object->is_active,
+      'is_secure' => $this->object->is_secure,
+      'credentials' => $this->object->credentials,
+      'is_indexable' => $this->object->is_indexable,
       'parent_id' => $this->object->getNodeParentId()
     ));
   }

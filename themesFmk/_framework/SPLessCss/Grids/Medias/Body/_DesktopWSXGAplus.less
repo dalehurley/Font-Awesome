@@ -1,0 +1,19 @@
+// _DesktopWSXGAplus.less
+// v1.0
+// Last Updated : 2011-05-30 17:25
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+// Desktop WSXGA+	: 1680px - 32
+// Colonnes			: 17
+// Scrollbar		: 32
+// and (max-width: 1919px) 
+@media only screen and (min-width: 1648px) {
+	body {
+		@gridSiteWidthAutoPad(1680;@gridCol_DesktopWSXGAplus);
+		@gridDebugBgc(#a8a);
+	}
+	
+	//importation des adaptations média du template
+	@templateMedia_DesktopWSXGAplus();
+}

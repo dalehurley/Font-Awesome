@@ -1,0 +1,59 @@
+// _Dropdown.less
+// v0.8
+// Last Updated : 2011-08-25 11:00
+// Copyright : SID Presse | 2006-2008 Live Web Institute (http://www.lwis.net)
+// Author : Arnaud GAUDIN
+
+//Compatibilité navigateurs : 	Windows: IE6+, Opera7+, Firefox1+
+//								Mac OS: Safari2+, Firefox2+
+
+ul.dropdown,
+ul.dropdown li,
+ul.dropdown ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.dropdown {
+	position: relative;
+	z-index: 597;
+	float: left;
+	
+	li {
+		position: relative;		//rajout debug pour bon placement initial
+		float: left;
+		line-height: @gridBaseline;
+		vertical-align: middle;
+		zoom: 1;
+		
+		//positionnement des liens (toujours ciblé par cette classe)
+		.link { position: relative; display:block; z-index: 601; }
+		
+		&.hover, &:hover, &.touch {
+			position: relative;
+			z-index: 599;
+			cursor: default;
+			left: 0;
+			
+			& > ul { visibility: visible; }
+		}
+	}
+	
+	ul {
+		visibility: hidden;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 598;
+		//width: 100%;
+		//largeur du niveau
+		@gridWidth(2; (@gridGutter*-1));
+		
+		li { float: none; }
+		ul {
+			top: 0;
+			left: 100%;				// changé de 99% à 100% ==> débugguer trou rollOver
+		}
+	}
+}

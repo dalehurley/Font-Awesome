@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * class stringTools 
+ * 
+ */
+class arrayTools {
+    /*
+     * test si le tableau est multidimensionnel
+     */
+    public static function array_is2D($array) {
+        return is_array($array) ? count($array) === count($array, COUNT_RECURSIVE) : -1;
+    }
+
+    /*
+     * counts elements of an multidimensional array
+     *
+     * @param array $array Input Array
+     * @param int $limit dimensions that shall be considered (-1 means no limit )
+     * @return int counted elements
+     */
+    public static function multicount($array, $limit = -1) {
+        $cnt = 0;
+        $limit = $limit > 0 ? (int) $limit : -1;
+        $arrs[] = $array;
+        for ($i = 0; isset($arrs[$i]) && is_array($arrs[$i]); ++$i) {
+            foreach ($arrs[$i] as $value) {
+                if (!is_array($value))
+                    ++$cnt;
+                elseif ($limit == -1 || $limit > 1) {
+                    if ($limit > 1)
+                        --$limit;
+                    $arrs[] = $value;
+                }
+            }
+        }
+        return $cnt;
+    }
+
+     /**
+     * Fonction permettant d'effacer certaines lignes dans un fichier
+     *
+     * @param string $fileInput     le fichier origine à effacer
+     * @param string $fileOutput    le fichier resultat
+     * @param array $arrayLigne     le tableau qui contient les lignes (exemple: array(1,2,8,23) )
+     *
+     * @return bool true, if the component exists, otherwise false
+     */
+    function effacer($fileInput, $fileOutput, $arrayLigne) {
+        $tab = array();
+        $return = '';
+
+        //ouverture du fichier 
+        $fichier = fopen($fileInput, 'r');
+        if ($fichier) {
+            while (!feof($fichier)) {
+                array_push($tab, fgets($fichier));
+            }
+            fclose($fichier);
+        } else {
+            $return .= 'Le fichier en entrée est introuvable. ';
+        }
+        //toutes les lignes de notre fichier sont stockées dans le tableau tab...
+        $fic = fopen($fileOutput, 'w');
+        if ($fic) {
+            // on recopie toutes les données sans les lignes du tableau arrayligne
+            $nb = count($tab);
+            for ($i = 0; $i < $nb; $i++) {
+                if (!(in_array($i, $arrayLigne))) {
+                    fputs($fic, $tab[$i - 1]);
+                }
+            }
+            fclose($fic);
+        } else {
+            $return .= 'Le fichier en sortie a un soucis. ';
+        }
+
+        return $return;
+    }
+
+
+
+}

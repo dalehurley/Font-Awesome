@@ -1,0 +1,84 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidSitesUtiles
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: sites_utiles
+    with_doctrine_route: false
+    config:
+#      actions: ~
+      actions:
+        new:              
+          credentials: [[ super_admin , admin ]]
+        delete:
+          credentials: [ super_admin ]
+        save:
+          credentials: [[ super_admin , admin ]]
+        history:
+          credentials: [[ super_admin , admin ]]
+        list:
+          credentials: [[ super_admin , admin ]]
+        _save_and_list:
+          credentials: [ super_admin ]
+        _save_and_next:
+          credentials: [ super_admin ]
+        _save_and_add:
+          credentials: [ super_admin ]
+        _view_page:
+          credentials: [ super_admin ]
+            
+      fields:
+        is_active:
+          label: Active
+        on_home:
+          label: "Publié sur la page d'accueil"
+      list:
+        batch_actions:
+          delete:
+            credentials: [ super_admin ]  # il faut les permissions super_admin ET admin
+          activate:
+            credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+          deactivate:
+            credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+        display:
+          - '=title'
+          - groupe_sites_utiles_id
+          - image_id
+          - on_home
+          - is_active
+          - url
+          - created_at
+          - updated_at
+          
+#          - description
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - is_active
+          - on_home
+          - groupe_sites_utiles_id
+          - image_id
+          - url
+          - created_at
+          - updated_at
+          
+#          - description
+      form:
+        display:
+          NONE: [title, is_active, groupe_sites_utiles_id, on_home]
+          Image: [image_id_form, image_id_view]
+          Description: [description]
+          Others: [url]
+          'Mots clés': [tags_list]
+        class: SidSitesUtilesAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

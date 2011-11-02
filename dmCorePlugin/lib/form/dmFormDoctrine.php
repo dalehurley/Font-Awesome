@@ -319,6 +319,10 @@ abstract class dmFormDoctrine extends sfFormDoctrine
 				{
 					$this->embeddedForms[$formName]->setObject($media);
 					$values[$formName]['dm_media_folder_id'] = $media->dm_media_folder_id;
+		    // ajout lionel  issue : https://github.com/diem-project/diem/issues/157
+		    //$this->validatorSchema[$formName]->offsetSet('id', new sfValidatorInteger(array('required' => true)));
+		    // $this->validatorSchema[$formName]->offsetSet('file', new sfValidatorFile(array('required' => false)));
+		    //fin ajout
 				}
 			}
 		}

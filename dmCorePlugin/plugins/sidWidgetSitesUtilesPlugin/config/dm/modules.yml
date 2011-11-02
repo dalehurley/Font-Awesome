@@ -1,0 +1,38 @@
+"Le Cabinet":
+  "Mes sites utiles":
+    IndexSitesUtiles:
+      credentials: index_sites_utiles
+      name: "Page d'accueil des sites utiles"
+      model: SidIndexSitesUtiles
+      page: true
+      components: 
+        show:
+          cache: true           
+    GroupeSitesUtiles:
+      credentials: groupe_sites_utiles
+      name: "Le groupe de sites utiles|Les groupes de sites utiles"
+      model: SidGroupeSitesUtiles
+      page: true
+      components: 
+        list:
+          cache: true
+        show:
+          cache: true           
+    SitesUtiles:
+      credentials: sites_utiles
+      parent: GroupeSitesUtiles
+      name: "Le site utile|Les sites utiles"
+      model: SidSitesUtiles
+#      page: true
+      components:
+        list:
+          cache: true
+        listByGroupeSitesUtiles:
+          filters: [ GroupeSitesUtiles ]
+          cache: true
+        listParTags:
+            filters: [ dmTag ]
+        show:
+          cache: true
+        miseEnAvantSitesUtiles:
+          cache: true

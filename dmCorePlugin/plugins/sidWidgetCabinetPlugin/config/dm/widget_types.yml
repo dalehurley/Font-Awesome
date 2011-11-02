@@ -1,0 +1,15 @@
+handWidgets:
+
+  missionsContextuel:
+    cache:              true
+    public_name:        (H) Missions contextuel
+    
+  equipesContextuel:
+    cache:              true
+    public_name:        (H) Equipes contextuel
+    
+  introPageCabinet:
+    cache:              true
+    public_name:        (H) Intro pages cabinet
+    
+        

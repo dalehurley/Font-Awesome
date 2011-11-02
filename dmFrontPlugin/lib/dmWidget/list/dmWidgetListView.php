@@ -6,8 +6,10 @@ class dmWidgetListView extends dmWidgetProjectModelView
   public function configure()
   {
     parent::configure();
-
-    $this->addRequiredVar(array('orderField', 'orderType'));
+//    $this->addRequiredVar(array('orderField', 'orderType'));
+    // modif faite par Stéphane le 21/09/2011
+    // $this->addRequiredVar(array('orderField', 'orderType', 'titleWidget'));
+    // modif faite par Stéphane le 21/09/2011
 
     foreach($this->dmComponent->getOption('filters', array()) as $filter)
     {
@@ -42,7 +44,7 @@ class dmWidgetListView extends dmWidgetProjectModelView
         unset($viewVars[$key]);
       }
     }
-
+ 
     $viewVars['filters'] = $filters;
 
     $viewVars['page'] = $this->getService('request')->getParameter('page', 1);

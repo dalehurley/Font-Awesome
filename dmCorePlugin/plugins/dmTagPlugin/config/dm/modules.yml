@@ -1,0 +1,13 @@
+Content:
+
+  Tag:
+    
+    dmTag:
+      credentials: tags
+      model:            DmTag
+      name:             Tag
+      page:             true
+      components:
+        list:
+        show:
+        popular:

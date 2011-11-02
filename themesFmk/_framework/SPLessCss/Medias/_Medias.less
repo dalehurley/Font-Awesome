@@ -1,0 +1,17 @@
+// _Medias.less
+// v1.0
+// Last Updated : 2011-05-11 16:25
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Requêtes médias spécifique au template choisi par variable
+@importTemplateMedia();
+
+//Grille : importation requêtes médias
+@importGridMedia();
+
+//Requêtes média pour adapter le design en fonction des supports
+@import "_framework/SPLessCss/Medias/_OrientationPortrait.less";
+@import "_framework/SPLessCss/Medias/_OrientationLandscape.less";
+@import "_framework/SPLessCss/Medias/_MobileDevice.less";
+@import "_framework/SPLessCss/Medias/_Print.less";

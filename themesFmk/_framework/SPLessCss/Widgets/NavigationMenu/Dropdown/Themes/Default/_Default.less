@@ -1,0 +1,155 @@
+// _Default.less
+// v0.2
+// Last Updated : 2011-08-25 14:00
+// Copyright : SID Presse | 2006-2008 Live Web Institute (http://www.lwis.net)
+// Author : Arnaud GAUDIN
+
+//Compatibilité navigateurs : 	Windows: IE6+, Opera7+, Firefox1+
+//								Mac OS: Safari2+, Firefox2+
+
+//CALCUL DES DIMENSIONS POUR LE MENU
+//calcul des paddings
+@menuDropdownPadH: (@gridGutter -1px);
+@menuDropdownPadV: (@gridBaseline/2 - 1px);
+//calcul dimensions flèche
+@menuArrowDim: @gridBaseline/3;
+@menuArrowOffsetX: @gridGutter/6 - 1px;
+@menuArrowOffsetY: @menuDropdownPadV + (@gridBaseline - @menuArrowDim*2)/2;
+
+ul.dropdown {
+	//gestion grosseur texte
+	li{ font-weight: bold; }
+	ul li { font-weight: normal; }
+	
+	li {
+		background-color: @colorCouleur3Clair;
+		
+		.link {
+			padding: @menuDropdownPadV @menuDropdownPadH @menuDropdownPadV @gridGutter;
+			border-style: solid;
+			border-width: 1px 1px 1px 0;
+			border-color: @colorCouleur3ClairSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup;
+			color: @colorCouleur3Fonce;
+		}
+		
+		.dm_current { color: @colorCouleur1Moyen; }
+		.dm_inactive { color: @colorCouleur3; }
+		
+		&.hover, &:hover, &.touch {
+			background-color: @colorCouleur3ClairSup;
+			color: @colorCouleur1;
+		}
+	}
+	
+	//couleurs des liens
+	a, a:link, a:visited { color: @colorCouleur3Fonce; text-decoration: none; }
+	a:hover, a:focus { color: @colorCouleur1; }
+	a:active { color: @colorCouleur1Moyen; }
+	
+	//création de la flèche avec des bordures
+	li.dm_dir {
+		&:after {
+			position: absolute;
+			z-index: 600;
+			display: block;
+			content:"";
+			width: 0;
+			height: 0;
+			right: @menuArrowOffsetX;
+			bottom: @menuArrowOffsetY;
+			border-color: transparent transparent transparent @colorCouleur3Fonce;
+			border-style: solid;
+			border-width: @menuArrowDim;
+		}
+		&.hover, &:hover, &.touch {
+			&:after {
+				right: @menuArrowOffsetX + @menuArrowDim/2;
+				bottom: @menuArrowOffsetY - @menuArrowDim/2;
+				border-color: @colorCouleur1 transparent transparent transparent;
+			}
+		}
+	}
+}
+
+//inversion de style automatique en fonction du conteneur
+.dm_layout_right {
+	ul.dropdown {
+		li.dm_dir{
+			&:after {
+				right: auto !important;
+				left: @menuArrowOffsetX;
+				border-color: transparent @colorCouleur3Fonce transparent transparent;
+			}
+			&.hover, &:hover, &.touch {
+				&:after {
+					right: auto !important;
+					left: @menuArrowOffsetX + @menuArrowDim/2;
+					border-color: @colorCouleur3Fonce transparent transparent transparent;
+				}
+			}
+		}
+	}
+}
+
+//ajout des transitions pour navigateurs récents
+.csstransitions.opacity {
+	ul.dropdown {
+		li {
+			@transitionCompress(background-color; .2s; ease-in-out;0);
+			
+			.link, a {
+				@transitionCompress(color; .2s; ease-in-out;0);
+			}
+			
+			ul {
+				opacity: 0;
+				//@transitionCompress(visibility, opacity; .2s; ease-out; .2s, 0);
+				//safari ne supporte pas la déclaration séparé complète différencié en pseudo classe
+				//@transition(visibility, opacity; 1s; ease-out; 1s, 0);
+				@transitionProperty(visibility, opacity);
+				@transitionDuration(.2s);
+				@transitionFunction(ease-out);
+				@transitionDelay(.2s, 0);
+			}
+			
+			&.hover, &:hover, &.touch {
+				& > ul {
+					opacity: 1;
+					//@transitionCompress(visibility, opacity; .2s; ease-out; 0);
+					//safari ne supporte pas la déclaration partielle différencié en pseudo classe
+					@transitionDelay(0);
+				}
+			}
+		}
+	}
+}
+
+.csstransitions.csstransforms {
+	ul.dropdown li.dm_dir {
+		&:after {
+			@transitionCompress(all; .15s; ease-in; 0);
+		}
+		&.hover, &:hover, &.touch {
+			&:after {
+				right: @menuArrowOffsetX;
+				bottom: @menuArrowOffsetY;
+				border-color: transparent transparent transparent @colorCouleur1;
+				@origin(25%; 50%);
+				@rotate(90deg);
+			}
+		}
+	}
+	.dm_layout_right {
+		ul.dropdown li.dm_dir {
+			&.hover, &:hover, &.touch {
+				&:after {
+					right: auto !important;
+					left: @menuArrowOffsetX;
+					border-color: transparent @colorCouleur3Fonce transparent transparent;
+					@origin(75%; 50%);
+					@rotate(-90deg);
+				}
+			}
+		}
+	}
+}

@@ -10,7 +10,7 @@ $helper->renderHtmlTag(),
     $helper->renderHead(),
   "\n</head>\n",
   
-  $helper->renderBodyTag('.dm.bg_2'),
+  $helper->renderBodyTag('.dm.bg_0'),
 
     $sf_content,
 

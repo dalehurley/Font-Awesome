@@ -1,0 +1,79 @@
+SidRubrique:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title ]
+  columns:
+    title:
+      type: string(40)
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+
+SidSection:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title ]
+  columns:
+    title:
+      type: string(40)
+      notnull: true
+    rubrique_id:
+      type: integer
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+  relations:
+    Rubrique:
+      class: SidRubrique
+      local: rubrique_id
+      foreign: id
+      foreignAlias: SidSections
+      onDelete: Cascade
+#    MActuArticles:   pas obligatoire, effectué dans schema.yml de ActuCabinetPlugin
+#      class:          SidActuArticle
+#      local:          sid_section_id
+#      foreign:        sid_actu_article_id
+#      refClass:       SidActuArticleSidSection
+#      foreignAlias:   ActuArticles
+
+SidArticle:
+  actAs:
+    DmTaggable:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title, chapeau ]
+  columns:
+    filename:
+      type: string(255)
+      notnull: true
+      # un même article peut être dans plusieurs section et/ou rubrique
+      #unique: true
+    title:
+      type: string(255)
+      notnull: true
+    chapeau:
+      type: clob
+      notnull: true
+    section_id:
+      type: integer
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+  relations:
+    Section:
+      class: SidSection
+      local: section_id
+      foreign: id
+      foreignAlias: SidArticles
+      onDelete: Cascade

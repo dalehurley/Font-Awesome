@@ -17,7 +17,14 @@ class dmProject
   {
     if (null === self::$key)
     {
-      self::$key = basename(sfConfig::get('sf_root_dir'));
+        /*
+         * Récupération du nom du répertoire du site
+         */
+        $projectKey = sfConfig::get('sf_root_dir');
+        $projectKey = substr($projectKey, strrpos($projectKey, '/'));
+        $projectKey = dmString::slugify($projectKey);
+        self::$key = $projectKey;
+        //self::$key = basename(sfConfig::get('sf_root_dir'));
     }
 
     return self::$key;

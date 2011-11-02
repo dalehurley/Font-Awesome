@@ -1,0 +1,111 @@
+default:
+
+  ckeditorperso:
+    config:
+
+      toolbar:
+        #- ['Save']
+        - ['Format', 'Bold', 'Italic','Strike']
+        #- ['Blockquote']
+        - ['NumberedList', 'BulletedList']
+        #- ['Link', 'Unlink']
+        - ['PasteText','PasteFromWord']
+        - ['Undo','Redo']
+        #- ['Image']
+        - ['HorizontalRule','SpecialChar']
+        #- ['-','Image']
+        - ['-','About']
+
+        
+        #- ['Source','-','Save','NewPage','Preview','-','Templates']
+        #- ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt']
+        #- ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat']
+        #- ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField']
+        #- ['Bold','Italic','Underline','Strike','-','Subscript','Superscript']
+        #- ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv']
+        #- ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock']
+        #- ['BidiLtr', 'BidiRtl']
+        #- ['Link','Unlink','Anchor']
+        #- ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe']
+        #- ['Styles','Format','Font','FontSize']
+        #- ['TextColor','BGColor']
+        #- ['Maximize', 'ShowBlocks','-','About']
+
+
+      resize_enabled:     true
+
+      extraPlugins:       diem
+
+      customConfig:       ''
+
+      skin :              chris    #[kama,office2003,v2]
+
+      #height: 250
+      width: 100%
+      
+      #ajoute <html><head><body> ...
+      fullPage: false
+
+      toolbarLocation: top
+      toolbarCanCollapse: false
+
+      resize_enabled: true
+      #resize_minWidth: 550
+      resize_maxWidth: 100%
+      #resize_minHeight: 200
+      #resize_maxHeight: 500
+
+      #plugins: 'basicstyles,button,htmldataprocessor,toolbar,wysiwygarea',
+      #extraPlugins: 'imagelight',
+
+      #plugins: 'wysiwygarea', // plus de barre de bouton
+      removePlugins: elementspath
+
+
+  ckeditor:
+    config:
+
+      toolbar:
+        #- ['Source','-','Save','NewPage','Preview','-','Templates']
+        - ['Source','-','NewPage','Preview','-','Templates']
+        - ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt']
+        - ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat']
+        - ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField']
+        - ['Bold','Italic','Underline','Strike','-','Subscript','Superscript']
+        - ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv']
+        - ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock']
+        - ['BidiLtr', 'BidiRtl']
+        - ['Link','Unlink','Anchor']
+        - ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak','Iframe']
+        - ['Styles','Format','Font','FontSize']
+        - ['TextColor','BGColor']
+        - ['Maximize', 'ShowBlocks','-','About']
+
+      resize_enabled:     true
+
+      skin :              chris
+
+      extraPlugins:       diem
+
+      customConfig:       ''
+
+      height: 250
+      width: 100%
+
+      #ajoute <html><head><body> ...
+      fullPage: false
+
+      toolbarLocation: top
+      toolbarCanCollapse: false
+
+      resize_enabled: true
+      #resize_minWidth: 550
+      resize_maxWidth: 100%
+      #resize_minHeight: 200
+      #resize_maxHeight: 500
+
+      #plugins: 'basicstyles,button,htmldataprocessor,toolbar,wysiwygarea',
+      #extraPlugins: 'imagelight',
+
+      #plugins: 'wysiwygarea', // plus de barre de bouton
+      #removePlugins: elementspath

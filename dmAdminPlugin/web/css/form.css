@@ -413,3 +413,11 @@ div.sf_admin_form img.dm_label_required {
   background: inherit;
   border: 1px 1px 1px 1px;
 }
+
+div.sf_admin_form div.sf_admin_form_row_inner ul.radio_list li{
+    float:left;
+    margin: 15px 0 0 15px
+}
+div.sf_admin_form div.sf_admin_form_row_inner ul.radio_list li input {
+    width: auto
+}

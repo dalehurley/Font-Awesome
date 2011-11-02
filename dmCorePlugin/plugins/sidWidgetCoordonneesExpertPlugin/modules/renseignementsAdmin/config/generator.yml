@@ -1,0 +1,70 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidCoordName
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: renseignements
+    with_doctrine_route: false
+    config:
+      actions:
+        new:
+          credentials: [super_admin]
+        delete:
+          credentials: [super_admin]
+        save:
+          credentials: [super_admin]
+        history:
+          credentials: [super_admin]
+        list:
+          credentials: [super_admin]
+      fields:
+        is_active:
+          label: Active
+      list:
+        display:
+          - '=title'
+          - adresse
+          - adresse2
+          - code_postal
+          - ville
+          - tel
+          - fax
+          - email
+          - region_ec
+          - region_cc
+          - is_active
+          - siege_social
+          - created_at
+          - updated_at
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - is_active
+          - siege_social
+          - adresse
+          - adresse2
+          - code_postal
+          - ville
+          - tel
+          - fax
+          - email
+          - region_ec
+          - region_cc
+          - created_at
+          - updated_at
+      form:
+        display:
+          NONE: [title, is_active, siege_social]
+          Others: [adresse, adresse2, code_postal, ville, tel, fax, email, region_ec, region_cc]
+        class: SidCoordNameAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

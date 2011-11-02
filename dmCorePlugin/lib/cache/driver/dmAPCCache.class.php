@@ -107,6 +107,7 @@ class dmAPCCache extends sfAPCCache
   public static function isAvailable()
   {
     return function_exists('apc_store') && ini_get('apc.enabled');
+    //return true;
   }
 
   public static function clearAll()

@@ -1,0 +1,41 @@
+// _NavigationBreadCrumb.less
+// v1.0
+// Last Updated : 2011-09-14 10:50
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/BaseTheme/Widgets/_Widgets.less";
+
+//Importation de la mise en page par défaut du widget
+@import "_framework/SPLessCss/Widgets/NavigationBreadCrumb/_NavigationBreadCrumb.less";
+
+.navigation_bread_crumb {
+	//calcul décalage intérieur (identique aux areas)
+	@offsetBorder: 1px;
+	@offsetPad: (@gridGutter / 3);
+	
+	.dm_widget_inner {
+		//permet de sortir de la zone
+		padding: 0 (@offsetPad - @offsetBorder) (@offsetPad - @offsetBorder) (@offsetPad - @offsetBorder);
+		margin: 0 (@offsetPad * -1) (@offsetPad * -1) (@offsetPad * -1);
+		
+		//ajout d'une bordure dont l'épaisseur a été déduite
+		border-right: @offsetBorder solid @colorCouleur1Clair;
+		border-bottom: @offsetBorder solid @colorCouleur1Clair;
+		border-left: @offsetBorder solid @colorCouleur1Clair;
+	}
+	
+	ol {
+		list-style: none;
+		margin: 0;
+		font-size: @fontSizeSmall;
+		
+		li {
+			display: inline;
+			list-style: none;
+			margin: 0;
+			&.bread_crumb_separator { padding: 0 @offS; }
+		}
+	}
+}

@@ -10,6 +10,10 @@ body {
   overflow: none;
 }
 
+body.bg_0 {
+  background-image: url(../images/auth_bg.png);
+}
+
 body.bg_1 {
   background-image: url(../images/auth_bg_1.png);
 }

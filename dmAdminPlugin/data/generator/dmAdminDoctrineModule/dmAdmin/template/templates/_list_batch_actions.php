@@ -3,6 +3,7 @@
 if ($listActions = $this->configuration->getValue('list.batch_actions'))
 {
   echo '<div class="sf_admin_actions">';
+  //print_r($listActions);
   
   foreach ((array) $listActions as $action => $params)
   {

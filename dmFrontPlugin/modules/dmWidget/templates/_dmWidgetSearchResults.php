@@ -32,7 +32,11 @@ foreach($pager as $result)
     
     _link($page)->text(
       _tag('span.page_name', escape($page->name)).
-      dmString::truncate($result->getPageContent(), 200)
+      // ajout lionel
+      dmString::truncate('['.$page->record_id.']', 200).  
+      // INFOS : il faut regarder ce que renvoi la fonction getPageContent, il semble qu'elle renvoie filename, et divers id      
+      // fin ajout lionel      
+      dmString::truncate($result->getPageContent(), 200)             
     )
   );
 }

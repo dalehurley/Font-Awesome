@@ -1,0 +1,43 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidBlogType
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: sid_blog_type_contenu
+    with_doctrine_route: false
+    config:
+      actions: ~
+      fields:
+        sid_blog_articles_list:
+          label: 'Mes Articles'
+        is_active:
+          label: Active
+      list:
+        display:
+          - '=title'
+          - sid_blog_articles_list
+          - is_active
+          - created_at
+          - updated_at
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - is_active
+          - created_at
+          - updated_at
+      form:
+        display:
+          NONE: [title, is_active]
+          'Mes Articles': [sid_blog_articles_list]
+        class: SidBlogTypeAdminForm
+        fields: {  }
+      edit: ~
+      new: ~
