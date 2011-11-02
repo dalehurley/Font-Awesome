@@ -1,0 +1,9 @@
+#leaarticle:
+#  url:   /article/:rubrique/:id/:title
+#  # class: sfRequestRoute
+#  param: { module: dmFront, action: page, slug: leaarticle }
+#  requirements:
+#    id: \d+
+#  #  sf_method: [get]
+
+

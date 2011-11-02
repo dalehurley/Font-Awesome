@@ -1,0 +1,28 @@
+all:
+  sf_less_plugin:
+    compile:  true
+    use_js:   false
+    # IMPORTANT : allow use of lessphp parser
+    use_lessphp_compiler: true
+    css_path: /theme/css/
+    less_path: /theme/less/
+
+dev:
+  sf_less_plugin:
+    check_dates: false
+    check_dependencies: true
+
+prod:
+  sf_less_plugin:
+    compile:  false
+    check_dates: true
+    
+    
+#all:
+#  sf_less_php_plugin:
+#    path: "/theme/less"
+#    use_compression: true
+#
+#dev:
+#  sf_less_php_plugin:
+#    check_dates: false    

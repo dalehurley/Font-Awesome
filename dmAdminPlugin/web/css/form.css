@@ -291,3 +291,12 @@ div.sf_admin_form img.dm_label_culture {
 div.sf_admin_form img.dm_label_required {
   vertical-align: middle;
 }
+
+/* ajout lio */
+div.sf_admin_form div.sf_admin_form_row_inner ul.radio_list li{
+    float:left;
+    margin: 15px 0 0 15px
+}
+div.sf_admin_form div.sf_admin_form_row_inner ul.radio_list li input {
+    width: auto
+}

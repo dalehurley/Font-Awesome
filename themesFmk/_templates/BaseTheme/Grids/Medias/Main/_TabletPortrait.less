@@ -1,0 +1,44 @@
+// _TabletPortrait.less
+// v1.0
+// Last Updated : 2011-08-22 15:00
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Requête média pour adapter le design en fonction du support
+@templateMedia_TabletPortrait() {
+	//chargement fonction automatique de placement général
+	@gridAutoLayoutHideSidebarLeft(@gridScreen_TabletPortrait;@gridCol_TabletPortrait);
+	
+	#dm_main_inner {
+		@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; @gridPadding);
+		background-color: darkred;
+		//@gridDebugBgc(#a88);
+	}
+	
+	//replacement spécial des sidebars
+	
+	
+	/*
+	//ajout des transitions pour navigateurs récents
+	.csstransitions.opacity {
+		.dm_layout_left {
+			@transitionCompress(width, height, padding-left; .5s; ease-in-out;0);
+			
+			.dm_zones {
+				opacity: 0;
+				@transitionProperty(visibility, opacity);
+				@transitionDuration(.5s);
+				@transitionFunction(ease-out);
+				@transitionDelay(.5s, 0);
+			}
+			
+			&:hover, &.touch {
+				.dm_zones {
+					opacity: 1;
+					@transitionDelay(0);
+				}
+			}
+		}
+	}
+	*/
+}

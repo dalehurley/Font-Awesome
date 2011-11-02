@@ -94,6 +94,9 @@ abstract class dmWidgetBaseView
   {
     $this->compiledVars = array_merge(
       array('cssClass' => isset($this->widget['css_class']) ? $this->widget['css_class'] : null),
+      // modif faite par Stéphane le 21/09/2011      
+      // array('titleWidget' => isset($this->widget['title_widget']) ? $this->widget['title_widget'] : null),   
+      // modif faite par Stéphane le 21/09/2011
       (array) json_decode((string) $this->widget['value'], true),
       dmString::toArray($vars)
     );

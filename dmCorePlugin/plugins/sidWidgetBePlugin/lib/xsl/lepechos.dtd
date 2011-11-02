@@ -1,0 +1,164 @@
+<!ENTITY nbsp "&#160;">
+<!ENTITY euro "&#128;">
+<!ENTITY middot "&#8226;">
+<!ELEMENT Publishing (Operation, Document+)>
+<!ELEMENT Operation (#PCDATA)>
+<!ELEMENT Document (Code, DocumentNature, DataType, Metadata, Data)>
+<!ELEMENT Code (#PCDATA)>
+<!ELEMENT DocumentNature (#PCDATA)>
+<!ELEMENT DataType (#PCDATA)>
+<!ELEMENT Metadata (AdministrativeMetadata, AnteriorityMetadata?, DescriptiveMetadata?, ManagementMetadata, RightsMetadata?, LinkMetadata?)>
+<!ELEMENT AdministrativeMetadata (Provider, Creator, Source)>
+<!ELEMENT Provider (#PCDATA)>
+<!ELEMENT Creator (#PCDATA)>
+<!ELEMENT Source (#PCDATA)>
+<!ELEMENT AnteriorityMetadata (Media?, MediaLabel?, Segment?, SousSegment?, Theme?, PublicationDate?, IssueNumber?, PageNumber?, SequenceNumber?, NextPageNumber?, OtherArticles?)>
+<!ELEMENT Media (#PCDATA)>
+<!ELEMENT MediaLabel (#PCDATA)>
+<!ELEMENT IssueNumber (#PCDATA)>
+<!ELEMENT PageNumber (#PCDATA)>
+<!ELEMENT SequenceNumber (#PCDATA)>
+<!ELEMENT NextPageNumber (#PCDATA)>
+<!ELEMENT OtherArticles (OtherArticle+)>
+<!ELEMENT OtherArticle (LinkText, PageNumber)>
+<!ELEMENT DescriptiveMetadata (Authors, Companies?, Geographies?, Keywords?, Biographies?, Language, Abstract?)>
+<!ELEMENT Authors (Author)*>
+<!ELEMENT Author (Name, EMail)>
+<!ELEMENT Name (#PCDATA)>
+<!ELEMENT EMail (#PCDATA)>
+<!ELEMENT Language (#PCDATA)>
+<!ELEMENT Abstract (#PCDATA)>
+<!ELEMENT Keywords (Keyword+, KeywordDoc?, KeywordTool?)*>
+<!ELEMENT Keyword (#PCDATA)>
+<!ELEMENT KeywordDoc (#PCDATA)>
+<!ELEMENT KeywordTool (#PCDATA)>
+<!ELEMENT Companies (CompanySubject?, Company*)>
+<!ELEMENT CompanySubject (Name, CompanyList?)>
+<!ELEMENT Company (Name, CompanyList?)>
+<!ELEMENT CompanyList (#PCDATA)>
+<!ELEMENT Geographies (Geography)*>
+<!ELEMENT Geography (#PCDATA)>
+<!ELEMENT Biographies (Biography)*>
+<!ELEMENT Biography (#PCDATA)>
+<!ELEMENT ManagementMetadata (Categories, Subject?, CreationDate?, UpdateDate?, VersionDate?, VersionTime?, PublicationDate, RelegationDate?, UnPublicationDate?, DeletionDate, PriorityLevel?, WordCount?, LineCount?, SignCount?, ForeseenCount?)>
+<!ELEMENT Categories (Category+)>
+<!ELEMENT Category (Source, Segment, SegmentLabel?, SousSegment?, SousSegmentLabel?,Theme?, ThemeLabel?, SousTheme?)>
+<!ELEMENT SourceLabel (#PCDATA)>
+<!ELEMENT Segment (#PCDATA)>
+<!ELEMENT SegmentLabel (#PCDATA)>
+<!ELEMENT SousSegment (#PCDATA)>
+<!ELEMENT SousSegmentLabel (#PCDATA)>
+<!ELEMENT Theme (#PCDATA)>
+<!ELEMENT ThemeLabel (#PCDATA)>
+<!ELEMENT SousTheme (#PCDATA)>
+<!ELEMENT SousThemeLabel (#PCDATA)>
+<!ELEMENT PriorityLevel (#PCDATA)>
+<!ELEMENT Subject (#PCDATA)>
+<!ELEMENT CreationDate (#PCDATA)>
+<!ELEMENT UpdateDate (#PCDATA)>
+<!ELEMENT VersionDate (#PCDATA)>
+<!ELEMENT VersionTime (#PCDATA)>
+<!ELEMENT PublicationDate (ISO?)>
+<!ELEMENT ISO (#PCDATA)>
+<!ELEMENT RelegationDate (#PCDATA)>
+<!ELEMENT UnPublicationDate (#PCDATA)>
+<!ELEMENT DeletionDate (#PCDATA)>
+<!ELEMENT WordCount (#PCDATA)>
+<!ELEMENT LineCount (#PCDATA)>
+<!ELEMENT SignCount (#PCDATA)>
+<!ELEMENT ForeseenCount (#PCDATA)>
+<!ELEMENT RightsMetadata (Copyright, UsageRights, ConfidentialityLevel)>
+<!ELEMENT Copyright (#PCDATA | CopyrightHolder | CopyrightDate)*>
+<!ELEMENT CopyrightHolder (#PCDATA)>
+<!ELEMENT CopyrightDate (#PCDATA)>
+<!ELEMENT ConfidentialityLevel (#PCDATA)>
+<!ELEMENT UsageRights (UsageRight)*>
+<!ELEMENT UsageRight (Recipient?, UsageType?, Geography, RightsHolder?, StartDate?, EndDate?, Limitations)>
+<!ELEMENT Recipient (#PCDATA)>
+<!ELEMENT UsageType (#PCDATA)>
+<!ELEMENT RightsHolder (#PCDATA)>
+<!ELEMENT Limitations (#PCDATA)>
+<!ELEMENT StartDate (#PCDATA)>
+<!ELEMENT EndDate (#PCDATA)>
+<!ELEMENT LinkMetadata (AssociatedWith+)>
+<!ELEMENT AssociatedWith (Usage, Label?, Reference, Loid?, LinkHeadline?, LinkText?)>
+<!ELEMENT Loid (#PCDATA)>
+<!ELEMENT Usage (#PCDATA)>
+<!ELEMENT Label (#PCDATA)>
+<!ELEMENT Reference (#PCDATA)>
+<!ELEMENT LinkHeadline (#PCDATA)>
+<!ELEMENT LinkText (#PCDATA)>
+<!ENTITY % links " PublishingLink|ApplicationLink|ExternalLink ">
+<!ENTITY % contenu " B|I|Sup|Ul|Indent|BR|CompanyName|Num">
+<!ELEMENT Indent EMPTY>
+<!ELEMENT BR EMPTY>
+<!ELEMENT B (#PCDATA | %contenu;)*>
+<!ELEMENT I (#PCDATA | %contenu;)*>
+<!ELEMENT Ul (#PCDATA | %contenu;)*>
+<!ELEMENT Sup (#PCDATA)>
+<!ELEMENT Num (#PCDATA)>
+<!ELEMENT CompanyName (#PCDATA | %contenu;)*>
+<!ELEMENT Ressource (#PCDATA)>
+<!ELEMENT Parameter (#PCDATA)>
+<!ELEMENT URL (#PCDATA)>
+<!ELEMENT PublishingLink (LinkText, Reference, Loid?)>
+<!ELEMENT ApplicationLink (LinkText, Ressource, Parameter)>
+<!ELEMENT ExternalLink (LinkText, URL)>
+<!ELEMENT Data (Introduction?, Sections?, Files?)>
+<!ELEMENT Introduction (Headline?, Byline?, Heading?, Notes?)>
+<!ELEMENT Headline (#PCDATA)>
+<!ELEMENT Byline (#PCDATA)>
+<!ELEMENT Heading (Head, Info1?, Info2?, Info3?, Info4?, Info5?, Info6?)>
+<!ELEMENT Head (#PCDATA)>
+<!ELEMENT Info1 (#PCDATA | %contenu;)*>
+<!ELEMENT Info2 (#PCDATA | %contenu;)*>
+<!ELEMENT Info3 (#PCDATA | %contenu;)*>
+<!ELEMENT Info4 (#PCDATA | %contenu;)*>
+<!ELEMENT Info5 (#PCDATA | %contenu;)*>
+<!ELEMENT Info6 (#PCDATA | %contenu;)*>
+<!ELEMENT Signature (#PCDATA)>
+<!ELEMENT Contributor (#PCDATA)>
+<!ELEMENT Notes (#PCDATA | %contenu;)*>
+<!ELEMENT Sections (Section+)>
+<!ELEMENT Section (Chapter | SubTitle | Text | TextRight | TextCenter | Question | Encadre | Table | MultimediaInserts | Encoding | Signature? | Contributor? | LinkMetadata?)*>
+<!ELEMENT Chapter (#PCDATA | %contenu;)*>
+<!ELEMENT SubTitle (#PCDATA | %contenu;)*>
+<!ELEMENT Text (#PCDATA | %contenu; | %links;)*>
+<!ELEMENT TextRight (#PCDATA | %contenu; | %links;)*>
+<!ELEMENT TextCenter (#PCDATA | %contenu; | %links;)*>
+<!ELEMENT Question (#PCDATA | %contenu;)*>
+<!ELEMENT Encadre (EncadreTitre?, (EncadreTexte+ | EncadreIntertitre?)+, EncadreSignature?)>
+<!ELEMENT EncadreTitre (#PCDATA)>
+<!ELEMENT EncadreTexte (#PCDATA | %contenu; | %links;)*>
+<!ELEMENT EncadreIntertitre (#PCDATA)>
+<!ELEMENT EncadreSignature (#PCDATA)>
+<!ELEMENT MultimediaInserts (MultimediaInsert)*>
+<!ELEMENT MultimediaInsert (URL?, FileName?, Reference?, Loid?, FileFormat?, FileType, Caption?, Copyright?, Placement?, PixelWidth?, PixelHeight?, FileLength?, MultimediaLink?, Title?, Byline?, Source?, Autoplay?, Popup?, Picture?, PictureRef?)>
+<!ELEMENT Placement (#PCDATA)>
+<!ELEMENT FileType (#PCDATA)>
+<!ELEMENT PixelWidth (#PCDATA)>
+<!ELEMENT PixelHeight (#PCDATA)>
+<!ELEMENT FileLength (#PCDATA)>
+<!ELEMENT Caption (#PCDATA)>
+<!ELEMENT MultimediaLink (%links;)>
+<!ELEMENT Title (#PCDATA)>
+<!ELEMENT Autoplay (#PCDATA)>
+<!ELEMENT Popup (#PCDATA)>
+<!ELEMENT Picture (#PCDATA)>
+<!ELEMENT PictureRef (#PCDATA)>
+<!ELEMENT Table (TableTitle, TR*)>
+<!ELEMENT TableTitle (#PCDATA)>
+<!ELEMENT TR (TD)*>
+<!ELEMENT TD (#PCDATA | %contenu; | %links;)*>
+<!ATTLIST TD
+	rowspan CDATA #IMPLIED
+	colspan CDATA #IMPLIED
+>
+<!ELEMENT Files (File)*>
+<!ELEMENT File (FileName, Reference, Chanel, FileFormat, FileType, Copyright?, PixelWidth?, PixelHeight?, FileLength?, Title?, Byline?, Source?)>
+<!ELEMENT FileName (#PCDATA)>
+<!ELEMENT Chanel (#PCDATA)>
+<!ELEMENT FileFormat (#PCDATA)>
+<!ELEMENT Encoding (Language, Version?, CodeContent)>
+<!ELEMENT Version (#PCDATA)>
+<!ELEMENT CodeContent (#PCDATA)>

@@ -2,7 +2,7 @@ all:
 
   theming:                                        # front css themes
     themes:                                       # list of themes
-      "Default":
+      "Default":   # unique : see less config
         dir:              theme                   # relative to web dir
         enabled:          true                    # theme disponibility
 

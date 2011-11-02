@@ -1,0 +1,10 @@
+"Le Cabinet":
+
+  "Mes Coordonnées":
+    Renseignements:
+      model: SidCoordName
+      page: false
+      front: false
+      credentials: renseignements
+      components:
+        show:

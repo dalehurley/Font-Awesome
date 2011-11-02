@@ -1,0 +1,9 @@
+Tools:
+
+  Bot:
+
+    dmBot:
+      front:        false
+      admin:        true
+      name:         Internal Bot
+      credentials:   internal bot

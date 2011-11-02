@@ -1,0 +1,32 @@
+Blog:
+
+  "Informer Mes Clients":
+    SidBlogTypeContenu:
+      model: SidBlogType
+      name: "Type de mon Article|Type de mes Articles"
+      credentials: type_contenu
+      page: true
+
+    SidBlogRubrique:
+      model: SidBlogRubrique
+      name: "Rubrique de mon Article|Rubriques de mes Articles"
+      credentials: rubriques_contenu
+      page: true
+      components:
+        list:
+        show:
+
+    SidBlogArticle:
+      model: SidBlogArticle
+      name: "Mon Article|Mes Articles"
+      credentials: article_contenu
+      page: true
+      parent: SidBlogRubrique
+      components:
+        list:
+        show:
+        listeParRubrique:
+          filters: [ SidBlogRubrique, SidBlogTypeContenu ]
+        listeParTags:
+          filters: [ dmTag ]
+

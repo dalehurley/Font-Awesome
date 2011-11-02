@@ -1,0 +1,190 @@
+SidCabinetAccueil:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ presentation, mission, equipe ]
+      actAs:
+        DmVersionable:
+  columns:
+    presentation:
+      type: clob
+      extra: ckeditor
+      notnull: true
+    mission:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    equipe:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    is_active:
+      type: boolean
+      notnull: true
+      default: false
+
+SidCabinetPageCabinet:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title, title_entete_page, text ]
+      actAs:
+        DmVersionable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    title_entete_page:
+      type: string(255)
+      notnull: true
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+    image:
+      type: integer
+  relations:
+    Image:
+      class: DmMedia
+      local: image
+      foreignAlias: Photos
+      onDelete: Cascade
+
+SidCabinetEquipe:
+  actAs:
+    DmTaggable:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title, statut, tel, fax, gsm, email, text ]
+      actAs:
+        DmVersionable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    statut:
+      type: string(255)
+      notnull: false
+    tel:
+      type: string(255)
+      notnull: false
+    fax:
+      type: string(255)
+      notnull: false
+    gsm:
+      type: string(255)
+      notnull: false
+    email:
+      type: string(255)
+      notnull: false
+      email: true
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    image:
+      type: integer
+    is_active:
+      type: boolean
+      notnull: true
+      default: false
+  relations:
+    Image:
+      class: DmMedia
+      local: image
+      foreignAlias: Photos
+      onDelete: Cascade
+    MSections:
+      foreignAlias: SidSection
+      class: SidSection
+      refClass: SidCabinetEquipeSidSection
+      onDelete: Cascade  
+      
+SidCabinetEquipeSidSection:
+  columns:
+    sid_cabinet_equipe_id:
+      type:           integer 
+    sid_section_id:
+      type:           integer
+  relations:
+    SidCabinetEquipe:
+      onDelete:       Cascade
+    SidSection:
+      onDelete:       Cascade 
+      
+
+SidCabinetMission:
+  actAs:
+    DmTaggable:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title, text ]
+      actAs:
+        DmVersionable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: true
+    on_home:
+      type: boolean
+      notnull: true
+      default: false
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+  relations:
+    MSections:
+      foreignAlias: SidSection
+      class: SidSection
+      refClass: SidCabinetMissionSidSection
+      onDelete: Cascade  
+      
+SidCabinetMissionSidSection:
+  columns:
+    sid_cabinet_mission_id:
+      type:           integer 
+    sid_section_id:
+      type:           integer
+  relations:
+    SidCabinetMission:
+      onDelete:       Cascade
+    SidSection:
+      onDelete:       Cascade 
+      
+SidCabinetRecrutement:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title, text ]
+      actAs:
+        DmVersionable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+    on_home:
+      type: boolean
+      notnull: true
+      default: false

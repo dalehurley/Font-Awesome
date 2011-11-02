@@ -1,0 +1,42 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidConstantes
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: constantes
+    with_doctrine_route: false
+    config:
+      actions: ~
+      fields:
+        is_active:
+          label: Active
+      list:
+        display:
+          - '=name'
+          - content
+          - is_active
+          - created_at
+          - updated_at
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - name
+          - is_active
+          - content
+          - created_at
+          - updated_at
+      form:
+        display:
+          NONE: [name, is_active]
+          Content: [content]
+        class: SidConstantesAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

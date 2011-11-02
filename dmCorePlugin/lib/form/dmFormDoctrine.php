@@ -57,16 +57,18 @@ abstract class dmFormDoctrine extends sfFormDoctrine
     // media id provided with drag&drop
     if(!empty($values[$formName]['id']) && !$isFileProvided)
     {
-      if($this->embeddedForms[$formName]->getObject()->isNew() || $this->embeddedForms[$formName]->getObject()->id != $values[$formName]['id'])
-      {
-        if($media = dmDb::table('DmMedia')->findOneByIdWithFolder($values[$formName]['id']))
-        {
-          $this->embeddedForms[$formName]->setObject($media);
-          $values[$formName]['dm_media_folder_id'] = $media->dm_media_folder_id;
-        }
-      }
-    }
-    // no existing media, no file, and it is not required : skip all
+      if($this->embeddedForms[$formName]->getObject()->isNew() || $this->embeddedForms[$formName]->getObject()->id != $values[$formName]['id']) {
+		if ($media = dmDb::table('DmMedia')->findOneByIdWithFolder($values[$formName]['id'])) {
+		    $this->embeddedForms[$formName]->setObject($media);
+		    $values[$formName]['dm_media_folder_id'] = $media->dm_media_folder_id;
+		    // ajout lionel  issue : https://github.com/diem-project/diem/issues/157
+		    $this->validatorSchema[$formName]->offsetSet('id', new sfValidatorInteger(array('required' => true)));
+		    $this->validatorSchema[$formName]->offsetSet('file', new sfValidatorFile(array('required' => false)));
+		    //fin ajout
+		}
+	    }
+	}
+	// no existing media, no file, and it is not required : skip all
     elseif ($this->embeddedForms[$formName]->getObject()->isNew() && !$isFileProvided && !$this->embeddedForms[$formName]->getValidator('file')->getOption('required'))
     {
       // remove the embedded media form if the file field was not provided

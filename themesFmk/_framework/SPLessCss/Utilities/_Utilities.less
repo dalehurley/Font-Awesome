@@ -1,0 +1,83 @@
+// _Utilities.less
+// v1.0
+// Last Updated : 2011-03-24 18:10
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+// ATTENTION : ce fichier est appelé au début de tous les thèmes et ne doit contenir ques des fonctions (aucune classe de mise en forme)
+
+//infos de version affichables dans le contenu
+@Debug(@mainTemplate:"ND"; @version:"0"; @date:"0000-00-00 00:00"; @copyright:"SidPresse"; @author:"Arnaud GAUDIN") {
+	.debugInfo{
+		.info { font-weight: bold; color: @colorCouleur3Fonce; }
+		.value { font-weight: normal; color: @colorCouleur3; }
+		
+		
+		//devra permetre d'écrire des commentaires non supprimés lorsque la fonctionnalitée sera implémentée dans lessPHP
+		/*
+		.mainTemplate,
+		.version,
+		.date,
+		.gabarit,
+		.grid,
+		.copyright,
+		.author,
+		.currentGabarit,
+		.gridContainer,
+		.gridColWidth,
+		.gridGutter {
+		}
+		*/
+		/*
+		.mainTemplate .value, .mainTemplate:after { content: @packName; }
+		.gabarit .value, .gabarit:after { content: @templateGabarit; }
+		.version .value, .version:after { content: @version; }
+		.date .value, .date:after { content: @lastUpdated; }
+		.copyright .value, .copyright:after { content: @copyright; }
+		.author .value, .author:after { content: @author; }
+		
+		.gridContainer .value { background-image: url("/{@gridContainer}"); }
+		.gridContainer:after { content: @gridContainer; }
+		
+		.gridColWidth .value { background-image: url("/{@gridColWidth}"); }
+		.gridColWidth:after { content: quote(@gridColWidth); }
+		
+		.gridGutter .value { background-image: url("/{@gridGutter}"); }
+		.gridGutter:after { content: quote(@gridGutter); }
+		*/
+	}
+}
+
+//Génération du clearfix
+//http://nicolasgallagher.com/micro-clearfix-hack/
+@getClearfix(){
+	&:before, &:after { content: ""; display: table; }
+	&:after {
+		clear: both;
+		//override des valeurs par défaut de DIEM situées dans tool.css (ligne 4 à 10)
+		visibility: visible;
+		height: auto;
+	}
+	zoom: 1;
+}
+
+//GESTION DU SYSTÈME DE GRILLE
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+
+//GESTION DES POLICES
+@import "_framework/SPLessCss/Utilities/Typography/_TypographyUtils.less";
+
+//GESTION DES PROPRIÉTÉS CSS3
+//Librement inspiré du code CSS de cahnory :
+//http://xhtml.developpez.com/actu/24312/Utilisez-vous-les-compilateurs-CSS-N-essayent-ils-pas-de-changer-la-nature-du-langage-de-mise-en-forme
+//importation bibliotheque CSS PIE
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Behavior.less";
+//importation bibliotheques CSS3
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Background.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Column.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Opacity.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";

@@ -119,7 +119,7 @@ class Zend_Search_Lucene implements Zend_Search_Lucene_Interface
      *
      * @var integer
      */
-    private static $_termsPerQueryLimit = 1024;
+    private static $_termsPerQueryLimit = 200;
 
     /**
      * File system adapter.

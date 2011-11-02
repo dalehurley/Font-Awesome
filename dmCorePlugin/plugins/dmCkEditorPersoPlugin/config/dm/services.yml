@@ -1,0 +1,10 @@
+parameters:
+
+  ckeditor.class:               dmCkEditorPerso
+  
+services:
+
+  ckeditor:
+    class:                      %ckeditor.class%
+    shared:                     true
+    arguments:                  [@helper]  

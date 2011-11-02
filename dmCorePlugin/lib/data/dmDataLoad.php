@@ -498,8 +498,33 @@ class dmDataLoad
       'sent_mail' => 'See mails sent by server',
       'mail_template' => 'Configure mail templates',
       'error_log' => 'See error log',
-      'interface_settings' => 'Manage interface settings like default image resize method'
-    );
+      'interface_settings' => 'Manage interface settings like default image resize method',
+      'rubrique' => 'Affiche les rubriques de la base éditoriale',
+      'section' => 'Affiche les sections de la base éditoriale',
+      'article' => 'Affiche les articles de la base éditoriale',
+      'bot' => 'Internal bot',  
+      'tags' => 'Gestion des tags',          
+      'type_contenu' => 'type contenu',
+      'rubriques_contenu' => 'rubrique contenu',
+      'article_contenu' => 'article contenu',
+      'bandeau' => 'bandeau',        
+      'groupe_bandeau' => 'groupes de bandeau', 
+      'ck_editor_lite' => 'ckEditor Lite',
+      'admin_bandeau_lite' => 'Administration du bandeau Lite',
+      'sites_utiles' => 'Administration des sites utiles',
+      'groupe_sites_utiles' => 'Administration des groupe de sites utiles',
+      'index_sites_utiles' => 'Administration index des sites utiles',
+      'super_admin' => 'Acces super Admin', // permission jamais utilisée (le super admin n'ayant pas besoin de permission, il passe outre...), permet seulement de filtrer les accès dans les generator.yml
+      'renseignements' => 'Renseignements géographique du client',
+      'accueil' => "Administration de la page d'accueil",
+      'page_cabinet' => 'Administration des pages du menu de Le Cabinet',
+      'equipe' => "Administration des membres de l'équipe du cabinet",
+      'recrutement' => "Administration des annonces de recrutement",
+      'mission' => 'Administration des missions',
+      'type_contenu' => 'Pour sélectionner où doit apparaitre les actus du cabinet (newsletter,sur le site,...)',
+      'rubriques_contenu' => "Administration de la section des actus du cabinet",
+      'article_contenu' => "Administration des actus du cabinet"
+        );
 
     $existingPermissions = dmDb::query('DmPermission p INDEXBY p.name')
     ->select('p.name')
@@ -522,7 +547,7 @@ class dmDataLoad
   protected function loadGroups()
   {
     $array = array(
-      "developer" => array(
+/*      "developer" => array(
         'description' => "Able to read and update source code",
         'permissions' => array(
           'system'
@@ -627,7 +652,30 @@ class dmDataLoad
           'widget_edit_fast_navigation_menu'
         )
       ),
-    );
+ * 
+ * Ajout SID : les groupes d'autorisations à l'installation
+ */
+      "web_client" => array(
+                'description' => "Accès pour le client Web",
+                'permissions' => array(
+                    'bandeau',
+//                    'see_log',
+//                    'see_chart',
+                    'tool_bar_admin',
+                    'admin',
+                    'ck_editor_lite',
+                    'admin_bandeau_lite',
+                    'sites_utiles',
+                    'groupe_sites_utiles',
+                    'index_sites_utiles',
+                    'page_cabinet',
+                    'equipe',
+                    'recrutement',
+                    'mission',
+                    'article_contenu'
+                )
+            ),
+        );
 
     $permissions = dmDb::query('DmPermission p INDEXBY name')->select('p.name')->fetchArray();
 

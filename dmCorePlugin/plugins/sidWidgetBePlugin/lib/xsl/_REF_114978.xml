@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<Publishing>
+    <Operation>LiveUpdate</Operation>
+    <Document>
+        <Code>114978</Code>
+        <DocumentNature>TXT</DocumentNature>
+        <DataType>ARTICLE</DataType>
+        <Metadata>
+            <AdministrativeMetadata>
+                <Provider>SID Presse</Provider>
+                <Creator>SID Presse</Creator>
+                <Source>SID Presse</Source>
+            </AdministrativeMetadata>
+            <AnteriorityMetadata>
+                <Media>SID Presse</Media>
+                <Segment>Social-RH</Segment>
+                <PublicationDate>
+                    <ISO>2011-09-05 14:00:00</ISO>
+                    <Date>
+                        <ShortDate>05/09/2011</ShortDate>
+                        <LongDate>05 Septembre 2011</LongDate>
+                        <DayOfWeek>Lundi</DayOfWeek>
+                    </Date>
+                    <Time>
+                        <ShortTime>14H00</ShortTime>
+                    </Time>
+                </PublicationDate>
+                <IssueNumber/>
+            </AnteriorityMetadata>
+            <DescriptiveMetadata>
+                <Authors>
+                    <Author>
+                        <Name>Dominique Bougerol</Name>
+                        <EMail>redac08@tpe-pme.com</EMail>
+                    </Author>
+                </Authors>
+                <Companies/>
+                <Geographies/>
+                <Keywords>
+                    <Keyword>EMBAUCHE</Keyword>
+                </Keywords>
+                <Language>FR</Language>
+                <Abstract/>
+            </DescriptiveMetadata>
+            <ManagementMetadata>
+                <Source>SID Presse</Source>
+                <Segment>Social-RH</Segment>
+                <Subject/>
+                <CreationDate>2011-09-02 12:19:50</CreationDate>
+                <UpdateDate>2011-09-05 14:00:02</UpdateDate>
+                <VersionDate/>
+                <VersionTime/>
+                <PublicationDate>
+                    <ISO>2011-09-05 14:00:00</ISO>
+                    <Date>
+                        <ShortDate>05/09/2011</ShortDate>
+                        <LongDate>05 Septembre 2011</LongDate>
+                        <DayOfWeek>Lundi</DayOfWeek>
+                    </Date>
+                    <Time>
+                        <ShortTime>14H00</ShortTime>
+                    </Time>
+                </PublicationDate>
+                <RelegationDate/>
+                <UnPublicationDate/>
+                <DeletionDate/>
+                <PriorityLevel/>
+                <WordCount>527</WordCount>
+                <LineCount/>
+                <SignCount/>
+                <ForeseenCount/>
+            </ManagementMetadata>
+            <RightsMetadata>
+                <Copyright>
+                    <CopyrightHolder>Groupe Les Echos</CopyrightHolder>
+                    <CopyrightDate>2011</CopyrightDate>
+                </Copyright>
+                <UsageRights>
+                    <UsageRight>
+                        <Recipient/>
+                        <UsageType/>
+                        <Geography>France</Geography>
+                        <RightsHolder/>
+                        <StartDate/>
+                        <EndDate/>
+                        <Limitations>Touts droits réservés 2011 SID Presse - Groupe Les Echos -
+                            Toutes les informations reproduites dans ce fichier sont protégées par
+                            les droits de propriété intellectuelle détenus par SID Presse. Aucune de
+                            ces informations ne peut être reproduite, modifiée, exploitée ou
+                            réutilisée de quelque manière que ce soit sans l'accord préalable écrit
+                            de SID Presse</Limitations>
+                    </UsageRight>
+                </UsageRights>
+                <ConfidentialityLevel/>
+            </RightsMetadata>
+            <LinkMetadata>
+                <AssociatedWith>
+                    <Usage>URLLink</Usage>
+                    <Reference>http://www.tpe-pme.com/entreprise/social/actualites/comment-se-decompte-la-duree-de-la-periode-d-essai-d-un-cdd-114978.php</Reference>
+                </AssociatedWith>
+            </LinkMetadata>
+        </Metadata>
+        <Data>
+            <Introduction>
+                <Headline>Comment se décompte la durée de la période d'essai d'un CDD ?</Headline>
+                <Byline/>
+                <Heading>
+                    <Head>À l'instar d'un contrat à durée indéterminée, la durée de la période
+                        d'essai d'un contrat à durée déterminée se décompte par jours calendaires et
+                        non par jours travaillés.</Head>
+                    <Info1/>
+                    <Info2/>
+                    <Info3/>
+                    <Info4/>
+                    <Info5/>
+                    <Info6/>
+                </Heading>
+                <Notes/>
+            </Introduction>
+            <Sections>
+                <Section>
+
+                    <Text>S'il le souhaite, un employeur peut normalement faire débuter un contrat à
+                        durée déterminée (CDD) par une période d'essai. Au cours de celle-ci,
+                        l'employeur ou le salarié n'ont alors pas à justifier d'un motif de rupture
+                        ni en principe à verser une quelconque indemnité, à moins que la convention
+                        collective en dispose autrement.<BR/>
+                        <BR/> Toutefois, pour être effective, la période d'essai doit être inscrite
+                        expressément dans le contrat de travail et doit respecter les durées
+                        maximales prévues par le Code du travail. Sauf si des usages ou des
+                        stipulations conventionnelles prévoient des durées moindres, la période
+                        d'essai ne peut ainsi excéder une durée calculée à raison d'un jour par
+                        semaine, dans la limite :<BR/> - de deux semaines lorsque la durée
+                        initialement prévue au contrat est au plus égale à six mois ;<BR/> - et d'un
+                        mois dans les autres cas.</Text>
+                    <Text><B>Remarque :</B> lorsque le CDD ne comporte pas de terme précis, la
+                        période d'essai est calculée par rapport à la durée minimale du contrat.</Text>
+                    <Text>À défaut de précisions dans le Code du travail, la Cour de cassation a
+                        prévu, par un arrêt du 29 juin 2005, que la durée de la période d'essai
+                        devait être calculée en jours, en semaines ou en mois calendaires.
+                        Toutefois, cette décision ayant été rendue à propos d'un contrat à durée
+                        indéterminée (CDI), certaines cours d'appel ont considéré que la durée de la
+                        période d'essai prévue dans le cadre d'un CDD pouvait être calculée
+                        autrement. Elles ont en conséquence validé le décompte de périodes d'essai
+                        en jours travaillés et non en jours calendaires.</Text>
+                    <Text><B>Précision :</B> en l'occurrence, au lieu de décompter tous les jours de
+                        la semaine (du lundi au dimanche), les juges saisis ont donné raison à des
+                        employeurs qui avaient exclu de la durée de la période d'essai les samedi et
+                        dimanche, ainsi que les jours fériés.</Text>
+                    <Text>Un mode de calcul sanctionné par la Cour de cassation qui rappelle que la
+                        période d'essai d'un CDD, comme celle d'un CDI, doit se décompter de manière
+                        calendaire, que cette période soit exprimée en jours, en semaines ou en
+                        mois.</Text>
+                    <Text><B>À noter :</B> dans les deux décisions rendues, la Cour de cassation
+                        laisse toutefois ouverte la possibilité pour un contrat de travail ou une
+                        convention collective de prévoir que seuls les jours effectivement
+                        travaillés seront pris en compte pour calculer la durée de la période
+                        d'essai.</Text>
+                    <Text><ExternalLink>
+                            <LinkText>Cassation sociale, 28 avril 2011, n° 09-40464</LinkText>
+                            <URL>http://www.legifrance.gouv.fr/affichJuriJudi.do?oldAction=rechJuriJudi&amp;idTexte=JURITEXT000023931725&amp;fastReqId=783699359&amp;fastPos=1</URL>
+                        </ExternalLink> et <ExternalLink>
+                            <LinkText>Cassation sociale, 28 avril 2011, n° 09-72165</LinkText>
+                            <URL>http://www.legifrance.gouv.fr/affichJuriJudi.do?oldAction=rechJuriJudi&amp;idTexte=JURITEXT000023931731&amp;fastReqId=487804748&amp;fastPos=1</URL>
+                        </ExternalLink></Text>
+
+                </Section>
+                <Section>
+                    <Signature>Dominique Bougerol</Signature>
+                </Section>
+                <Section>
+                    <MultimediaInserts>
+                        <MultimediaInsert>
+                            <FileName>115010_1315218143_calendrier-sablier-e.jpg</FileName>
+                            <FileType>IMG</FileType>
+                            <Caption/>
+                            <Usage/>
+                            <PixelWidth>285</PixelWidth>
+                            <PixelHeight>190</PixelHeight>
+                        </MultimediaInsert>
+                    </MultimediaInserts>
+                    <Files/>
+                </Section>
+            </Sections>
+        </Data>
+    </Document>
+</Publishing>

@@ -1,0 +1,112 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidBandeau
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: bandeau 
+    with_doctrine_route: false
+    config:
+#      actions: ~
+      # Pour filter les actions de manière globale dans les form d'update /create
+      actions:
+        new:              # le client ne peut pas créer un bandeau, le bouton Ajouter de l'admin n'apparaitra pas
+          credentials: [ super_admin ]   # seule la permission super_admin a droit
+        delete:
+          credentials: [ super_admin, admin ]  # il faut les permissions super_admin ET admin
+        save:
+          credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+        history:
+          credentials: [[ super_admin , admin ]]
+        list:
+          credentials: [[ super_admin , admin ]]
+        edit:
+          credentials: [[ super_admin , admin ]]
+        _save_and_list:
+          credentials: [ super_admin ]  # pour ne pas faire apparaitre le bouton "enregister et retour à la liste" dans le bandeau du haut quand on n'a pas la permission SUPER_ADMIN
+        _save_and_next:
+          credentials: [ super_admin ]
+#        _save_and_add:
+#          credentials: [ super_admin ]
+
+      fields:
+        is_active:
+          label: Active
+        scrollamount:
+          label : Vitesse de défilement 
+        scrolldelay:
+          label : Intervalle d'apparition du message (ms)
+        boucle:
+          label: Nb de boucles avant immobilisation du message 
+        behavior:
+          label: Type de déplacement
+          type: radio_tag
+        debut_date:
+          label: Date de début du message
+        fin_date:
+          label: Date de fin du message
+        width:
+          label: Largeur visible
+        height:
+          label: Hauteur visible          
+        category:
+          label: Catégorie
+        groupe_bandeau_id:
+          label: Catégorie   
+        title:
+          label: Libellé
+      list:
+        # Pour filter les batch_actions de manière globale dans les list
+        batch_actions:
+          delete:
+            credentials: [ super_admin, admin  ]  # il faut les permissions super_admin ET admin
+          activate:
+            credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+          deactivate:
+            credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+
+        display:
+          - groupe_bandeau_id
+          #- _titre
+          - =title
+          - is_active
+          - debut_date
+          - fin_date
+          - created_at
+          - updated_at
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - is_active
+          - debut_date
+          - fin_date
+          - created_at
+          - updated_at
+      form:
+        
+        display:
+          Votre message: [title]
+          #Le type de bandeau: [category] // plus utilisé
+ 
+<?php     
+if (sfContext::getInstance()->getUser()->hasCredential('admin_bandeau_lite') && !sfContext::getInstance()->getUser()->isSuperAdmin()){ // si l'utilisateur a la permission admin_bandeau_lite et qu'il n'est pas superAdmin'?>
+          Visible sur le site ?: [is_active]
+          Définition de l'animation: [behavior, direction, scrollamount, boucle]
+          Date du message: [debut_date, fin_date]
+<?php } else { ?>
+          Le type de bandeau: [groupe_bandeau_id]
+          Visible sur le site ?: [is_active]
+          Définition de l'animation: [behavior, boucle, direction, scrollamount, height, width]
+          Date du message: [debut_date, fin_date]
+<?php } ?>
+        class: SidBandeauAdminForm
+        fields: {  }
+           
+      edit: ~

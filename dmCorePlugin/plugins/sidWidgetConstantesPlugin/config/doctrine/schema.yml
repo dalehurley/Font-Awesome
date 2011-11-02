@@ -1,0 +1,17 @@
+SidConstantes:
+  actAs:
+    Timestampable:
+    DmSortable:
+    DmVersionable:
+  columns:
+    name:
+      type: string(50)
+      notnull: true
+    content:
+      type: clob
+      notnull: true      
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+

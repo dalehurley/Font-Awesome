@@ -1,0 +1,13 @@
+// _ConfigGeneral.less
+// v0.1
+// Last Updated : 2011-04-18 16:00
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//définir ici le chemin vers le fichier de config du theme choisi (passer en variable PHP)
+//impossibilité d'importer des fichiers de config de variable par une fonction incluant un import de fichier less, car elles ne sont pas prises en compte par la suite !
+
+//définition du theme par défaut
+@mainTemplate: "##THEME##";
+//importation du fichier de config du thème choisi
+@import "_templates/##THEME##/Config/_ConfigTemplateDefault.less";

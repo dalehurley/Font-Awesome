@@ -1,0 +1,60 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidCabinetAccueil
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: accueil
+    with_doctrine_route: false
+    config:
+      actions:
+        new:
+          credentials: [super_admin]
+        delete:
+          credentials: [super_admin]
+        save:
+          credentials: [super_admin]
+        history:
+          credentials: [super_admin]
+        list:
+          credentials: [super_admin]
+      fields:
+        is_active:
+          label: Active
+        id:
+          label: Version
+      list:
+        display:
+          - '=id'
+          - is_active
+          - created_at
+          - updated_at
+#          - presentation
+#          - mission
+#          - equipe
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - id
+          - is_active
+          - created_at
+          - updated_at
+#          - presentation
+#          - mission
+#          - equipe
+      form:
+        display:
+          NONE: [is_active]
+          Presentation: [presentation]
+          Mission: [mission]
+          Equipe: [equipe]
+        class: SidCabinetAccueilAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

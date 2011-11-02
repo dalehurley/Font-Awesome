@@ -1,0 +1,46 @@
+// _Headings.less
+// v1.0
+// Last Updated : 2011-04-04 09:55
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Headers (h1, h2, etc) have no default font-size or margin; define those yourself
+h1, h2, h3, h4, h5, h6 {
+	position: relative;
+	word-spacing: -0.125em;
+}
+h1, h2, h3 { font-weight: normal; margin-bottom: @gridBaseline; }
+h4, h5, h6 { font-weight: bold; }
+
+// titre de page
+h1 {
+	@getPxFontConfig(@fontSizeH1Px);
+	@gridDebugBgc(#14cccc);
+}
+// titre de catégorie
+h2 {
+	@getPxFontConfig(@fontSizeH2Px);
+	@gridDebugBgc(#14cc14);
+}
+// teaser
+h3 {
+	@getPxFontConfig(@fontSizeH3Px);
+	@gridDebugBgc(#cccc14);
+}
+// titre de chapitre
+h4 {
+	@getPxFontConfig(@fontSizeH4Px);
+	@gridDebugBgc(#cc1414);
+}
+
+// titre de paragraphe
+h5 {
+	@getPxFontConfig(@fontSizeH5Px);
+	@gridDebugBgc(#cc14cc);
+}
+
+// titre d'annotation
+h6 {
+	@getPxFontConfig(@fontSizeH6Px);
+	@gridDebugBgc(#1414cc);
+}

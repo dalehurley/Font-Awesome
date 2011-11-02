@@ -9,7 +9,7 @@ class DmPageFrontEditForm extends DmPageForm
   {
     parent::configure();
     
-    $this->useFields(array('id', 'module', 'action', 'slug', 'name', 'title', 'h1', 'description', 'keywords', 'is_active', 'is_secure', 'credentials', 'is_indexable'), false);
+    $this->useFields(array('id', 'module', 'action', 'slug', 'name', 'title', 'h1', 'gabarit', 'description', 'keywords', 'is_active', 'is_secure', 'credentials', 'is_indexable'), false);
     
     if(!sfConfig::get('dm_seo_use_keywords'))
     {
@@ -54,6 +54,24 @@ class DmPageFrontEditForm extends DmPageForm
     $this->widgetSchema['is_secure']->setLabel('Requires authentication');
     $this->widgetSchema['is_indexable']->setLabel('Search engine crawlers');
     
+    // ajout lionel: ajout du champ gabarit pour la page
+        $templateChoice = array(
+            'default' => 'default',
+            'no-sidebar' => 'no-sidebar', 
+            'sidebar-left' => 'sidebar-left', 
+            'sidebar-right' => 'sidebar-right', 
+            'two-sidebars' => 'two-sidebars'); 
+            //'nav-bar' => 'nav-bar');
+        $this->widgetSchema['gabarit'] = new sfWidgetFormChoice(array(
+                    'choices' => $templateChoice,
+                ));
+        $this->validatorSchema['gabarit'] = new sfValidatorChoice(array(
+                    'choices' => array_keys($templateChoice)     
+                ));
+        $this->widgetSchema['gabarit']->setLabel('Gabarit');
+    // fin ajout lionel   
+    
+    
     if ($this->object->getNode()->isRoot())
     {
       foreach(array('slug', 'module', 'action') as $fieldName)
@@ -72,6 +90,7 @@ class DmPageFrontEditForm extends DmPageForm
       'slug'      => $this->object->slug,
       'title'     => $this->object->title,
       'h1'        => $this->object->h1,
+      'gabarit'   => $this->object->gabarit,  
       'description' => $this->object->description,
       'keywords'  => $this->object->keywords,
       'is_active' => $this->object->is_active,

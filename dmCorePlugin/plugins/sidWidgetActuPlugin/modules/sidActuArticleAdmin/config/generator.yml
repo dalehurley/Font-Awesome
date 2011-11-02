@@ -1,0 +1,109 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidActuArticle
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: sid_actu_article
+    with_doctrine_route: false
+    config:
+      actions:
+        new:
+          credentials: [[ super_admin , admin ]]
+        delete:
+          credentials: [super_admin]
+        save:
+          credentials: [[ super_admin , admin ]]
+        history:
+          credentials: [[ super_admin , admin ]]
+        list:
+          credentials: [[ super_admin , admin ]]
+        _save_and_list:
+          credentials: [ super_admin ]
+        _save_and_next:
+          credentials: [ super_admin ]
+        _save_and_add:
+          credentials: [ super_admin ]
+        _view_page:
+          credentials: [ super_admin ]
+      fields:
+#        sid_actu_type_list:
+#          label: 'Type des Articles'
+        tags_list:
+          label: 'Mots clés'
+        tags:
+          label: 'Choix de mots clés'
+        resume:
+          label: 'Résumé'
+        is_active:
+          label: Active
+        title_file:
+          label: 'Nom du fichier'
+        on_home:
+          label: "Publié sur la page d'accueil"
+        file_form:
+          label: 'Choisir un fichier'
+        image_form:
+          label: 'Choisir une image'
+      list:
+        batch_actions:
+          delete:
+            credentials: [ super_admin ]  # il faut les permissions super_admin ET admin
+          activate:
+            credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+          deactivate:
+            credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+        display:
+          - '=title'
+          - rubrique_id
+          - resume
+          - tags_list
+          - on_home
+          - is_active
+          - created_at
+          - updated_at
+          - created_by
+          - updated_by            
+          - image
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - on_home
+          - is_active
+          - rubrique_id
+          - image
+          - resume
+          - created_at
+          - updated_at
+          - created_by
+          - updated_by          
+      form:
+        display:
+<?php     
+if (sfContext::getInstance()->getUser()->isSuperAdmin()){ // si l'utilisateur a la permission admin_bandeau_lite et qu'il n'est pas superAdmin'?>
+         'Type des Articles': [sid_actu_type_list, on_home]
+<?php } else if (!sfContext::getInstance()->getUser()->isSuperAdmin()) { ?>
+         NONE: [on_home]
+<?php } ?>
+         "Définition de votre article": [title, is_active, rubrique_id]
+         'Chapeau de votre article': [resume]
+         Text: [text]
+         Image: [image_form, image_view]
+         Fichier: [ file_form, file_view, title_file]
+         # 'Mots clés': [tags] Syntaxe pour autocomplétion pour tagger les articles (ajout et sélection)
+         'Mots clés': [tags_list] 
+         # m_sections du nom de la relation declaree dans le schema.yml, + _list
+         'Section liées': [m_sections_list]   
+        class: SidActuArticleAdminForm
+
+
+      edit: ~
+
+      new: ~

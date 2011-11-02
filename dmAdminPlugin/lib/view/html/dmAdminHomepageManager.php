@@ -38,25 +38,41 @@ class dmAdminHomepageManager
     $this->helper     = $helper;
   }
   
-  protected function getDefaultWindows()
-  {
-    // foreach column, declare the windows with render callback
-    return array(
-      array(
-        'weekChart'     => array($this, 'renderWeekChart'),
-        'contentChart'  => array($this, 'renderContentChart'),
-        'browserChart'  => array($this, 'renderBrowserChart')
-      ),
-      array(
-        'visitChart'    => array($this, 'renderVisitChart'),
-        'logChart'      => array($this, 'renderLogChart')
-      ),
-      array(
-        'requestLog'    => array($this, 'renderRequestLog'),
-        'eventLog'      => array($this, 'renderEventLog')
-      )
-    );
-  }
+  protected function getDefaultWindows() {
+	if (sfContext::getInstance()->getUser()->isSuperAdmin()) {       // ajout lionel
+	    // foreach column, declare the windows with render callback
+	    return array(
+		array(
+		    'weekChart' => array($this, 'renderWeekChart'),
+		    'contentChart' => array($this, 'renderContentChart'),
+		    'browserChart' => array($this, 'renderBrowserChart')
+		),
+		array(
+		    'visitChart' => array($this, 'renderVisitChart'),
+		    'logChart' => array($this, 'renderLogChart')
+		),
+		array(
+		    'requestLog' => array($this, 'renderRequestLog'),
+		    'eventLog' => array($this, 'renderEventLog')
+		)
+	    );
+	} else {
+	    return array(
+		array(
+		    'weekChart' => array($this, 'renderWeekChart'),
+		    'contentChart' => array($this, 'renderContentChart'),
+		    'browserChart' => array($this, 'renderBrowserChart')
+		),
+		array(
+		    'visitChart' => array($this, 'renderVisitChart'),
+		    'logChart' => array($this, 'renderLogChart')
+		),
+		array(
+		// ajout lionel : vide pour les non super admin
+		)
+	    );
+	}
+    }
   
   protected function getWindows()
   {

@@ -1,0 +1,8 @@
+"Tools":
+
+  "Configuration":
+    Constantes:
+      model: SidConstantes
+      credentials: system
+      components:
+        show:

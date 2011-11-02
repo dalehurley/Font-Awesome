@@ -1,0 +1,66 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidBlogArticle
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: sid_blog_article
+    with_doctrine_route: false
+    config:
+      actions: ~
+      fields:
+        sid_blog_type_list:
+          label: 'Type des Articles'
+        tags_list:
+          label: 'Mots clés'
+        tags:
+          label: 'Choix de mots clés'
+        resume:
+          label: 'Résumé'
+        is_active:
+          label: Active
+      list:
+        display:
+          - '=title'
+          - created_by
+          - sid_blog_type_list
+          - rubrique_id
+          - resume
+          - tags_list
+          - is_active
+          - created_at
+          - updated_at
+          - image
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - is_active
+          - rubrique_id
+          - image
+          - created_by
+          - resume
+          - created_at
+          - updated_at
+      form:
+        display:
+          'Type des Articles': [sid_blog_type_list]
+          "Définition de votre article": [title, is_active, created_by, rubrique_id]
+          'Chapeau de votre article': [resume]
+          Text: [text]
+          Image: [image_form, image_view]
+          Fichier: [ file_form, file_view]
+          # 'Mots clés': [tags] Syntaxe pour autocomplétion pour tagger les articles (ajout et sélection)
+          'Mots clés': [tags_list] # uniquement pour sélection dans liste déroulante (voir fichier BaseSidBlogArticleForm.php autogénéré dans chaque projet)
+        class: SidBlogArticleAdminForm
+
+        
+      edit: ~
+        
+      new: ~

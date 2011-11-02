@@ -1,0 +1,8 @@
+Content:
+
+  Feedback:
+
+    dmWidgetTextarea:
+      name:            WidgetTextarea
+      actions:
+        form:

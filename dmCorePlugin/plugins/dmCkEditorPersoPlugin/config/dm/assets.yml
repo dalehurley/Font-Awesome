@@ -1,0 +1,20 @@
+js:
+
+  dmCkEditorPersoPlugin:
+    
+    ckEditor:         ckeditor/ckeditor
+    jQueryAdapter:    ckeditor/adapters/jquery
+
+    adminLauncher:    admin/launcher
+
+    widgetForm:       front/widgetForm
+
+
+css:
+
+  dmCkEditorPersoPlugin:
+
+    adminStyle:       admin/style
+
+    widgetForm:       front/widgetForm
+

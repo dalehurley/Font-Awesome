@@ -81,5 +81,5 @@ class dmWidgetType extends dmConfigurable
   {
     return $this->getKey();
   }
-
+  
 }

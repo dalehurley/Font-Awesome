@@ -1,1 +1,2 @@
 parameters:
+  layout_helper.class:    myFrontLayoutHelper  

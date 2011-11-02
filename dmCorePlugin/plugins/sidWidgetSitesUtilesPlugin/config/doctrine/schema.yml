@@ -1,0 +1,83 @@
+SidIndexSitesUtiles:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title, description ]
+  columns:
+    title:
+      type: string(40)
+      notnull: true
+    description:
+      type: clob
+      extra: ckeditor
+      notnull: true   
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+      
+SidGroupeSitesUtiles:
+  actAs:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title, description ]
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    description:
+      type: clob
+      extra: ckeditor
+      notnull: true       
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+
+SidSitesUtiles:
+  actAs:
+    DmTaggable:
+    Timestampable:
+    DmSortable:
+    I18n:
+      fields: [ title, description, url ]
+      actAs:
+        DmVersionable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    groupe_sites_utiles_id:
+      type: integer
+      notnull: true      
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+    image_id:
+      type: integer
+    url:
+      type: string(255)
+      notnull: true
+      extra: link
+    description:
+      type: clob
+      extra: ckeditor
+      notnull: true
+    on_home:
+      type: boolean
+      notnull: true
+      default: false
+  relations:
+    GroupeSitesUtiles:
+      class: SidGroupeSitesUtiles
+      local: groupe_sites_utiles_id
+      foreign: id
+      foreignAlias: SidSitesUtiles
+      onDelete: Cascade
+    Image:
+      class: DmMedia
+      local: image_id
+      foreignAlias: Photos      

@@ -1,27 +1,78 @@
 #!/usr/bin/env php
 <?php
 
+// édité par : http://patorjk.com/software/taag/
+echo
+"
+                                                                          .--,-``-.
+  .--.--.              ___                                               /   /     '.
+ /  /    '.   ,--,   ,--.'|_                                       ,---./ ../        ;
+|  :  /`. / ,--.'|   |  | :,'                                     /__./|\ ``\  .`-    '
+;  |  |--`  |  |,    :  : ' :             .--.--.            ,---.;  ; | \___\/   \   :
+|  :  ;_    `--'_  .;__,'  /     ,---.   /  /    '          /___/ \  | |      \   :   |
+ \  \    `. ,' ,'| |  |   |     /     \ |  :  /`./          \   ;  \ ' |      /  /   /
+  `----.   \'  | | :__,'| :    /    /  ||  :  ;_             \   \  \: |      \  \   \
+  __ \  \  ||  | :   '  : |__ .    ' / | \  \    `.           ;   \  ' .  ___ /   :   |
+ /  /`--'  /'  : |__ |  | '.'|'   ;   /|  `----.   \           \   \   ' /   /\   /   :
+'--'.     / |  | '.'|;  :    ;'   |  / | /  /`--'  /            \   `  ;/ ,,/  ',-    .
+  `--'---'  ;  :    ;|  ,   / |   :    |'--'.     /              :   \ |\ ''\        ;
+            |  ,   /  ---`-'   \   \  /   `--'---'                '---'  \   \     .'
+             ---`-'             `----'                                    `--`-,,-'        
+
+INSTALLATION
+
+";
+
 if (!defined('STDIN'))
 {
-  die('The installer is designed to be run from the command line.');
+  die("\n L\installeur doit etre execute en ligne de commande.\n");
 }
 
+/*
 if (is_dir(getcwd().'/dmCorePlugin'))
 {
-  echo "Please create the project in an empty directory\n";
-  return 1;
+  die("\n /!\ Vous devez creer un nouveau site dans un dossier vide /!\ \n \n");
 }
+*/
 
 $projectName = basename(getcwd());
 
-$installer = dirname(__FILE__).'/dmCorePlugin/config/installer.php';
+// test si dossier vide
+$dir = getcwd();
+if (is_dir($dir)) {
+    if ($Pointeur = opendir($dir)) {
+        while (($file = readdir($Pointeur)) !== false) {
+            if ($file != "." && $file != "..") {
+                die("\n Le dossier n'est pas vide \n");
+            }
+        }
+        closedir($Pointeur);
+    }
+}
+
+//
+//if (PHP_OS == 'Linux') {
+    // création dossiers
+//    mkdir('htdocs', 0755);
+//    mkdir('logs', 0755);
+    mkdir('conf', 0755);
+//    mkdir('data', 0755);  
+    // changement dossier courant
+    //chdir('htdocs');
+    $installer = dirname(__FILE__).'/dmCorePlugin/config/installer.php';
+//} else {
+//    $installer = dirname(__FILE__).'/dmCorePlugin/config/installer-windows.php';
+//}
+
 
 $_SERVER['argv'] = array(
   $_SERVER['argv'][0],
   'generate:project',
   $projectName,
-  '--installer='.$installer
+  '--installer='.$installer  
 );
+
+//var_dump($_SERVER['argv']);
 
 require_once dirname(__FILE__).'/symfony/lib/command/cli.php';
 

@@ -108,7 +108,7 @@ class Zend_Search_Lucene_Search_Query_MultiTerm extends Zend_Search_Lucene_Searc
         if (is_array($terms)) {
             require_once 'Zend/Search/Lucene.php';
             if (count($terms) > Zend_Search_Lucene::getTermsPerQueryLimit()) {
-                throw new Zend_Search_Lucene_Exception('Terms per query limit is reached.');
+                throw new Zend_Search_Lucene_Exception('Terms per query limit is reached 3.');
             }
 
             $this->_terms = $terms;

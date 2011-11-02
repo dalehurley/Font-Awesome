@@ -6,3 +6,4 @@ Content:
       components:
         header:
         footer:
+        lessDebug:              # module de deboggage pour themeFmk          

@@ -1,0 +1,6 @@
+dmWidgetExcel:
+
+  readFile:
+    cache:              false
+    public_name:        Lecture fichier Excel
+

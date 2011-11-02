@@ -1,0 +1,43 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidSection
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: section
+    with_doctrine_route: false
+    config:
+      actions: ~
+      fields:
+        is_active:
+          label: Active
+      list:
+        display:
+          - '=title'
+          - rubrique_id
+          - sid_articles_list
+          - is_active
+          - created_at
+          - updated_at
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - is_active
+          - rubrique_id
+          - created_at
+          - updated_at
+      form:
+        display:
+          NONE: [title, is_active, rubrique_id]
+          Articles: [sid_articles_list]
+        class: SidSectionAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

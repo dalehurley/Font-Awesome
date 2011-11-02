@@ -4,7 +4,7 @@ DmPage:
   actAs:
     NestedSet:
     I18n:
-      fields:               [slug, name, title, h1, description, keywords, auto_mod, is_active, is_secure, is_indexable]
+      fields:               [slug, name, title, h1, gabarit, description, keywords, auto_mod, is_active, is_secure, is_indexable]
   columns:
     module:                 { type: string(127), notnull: true }
     action:                 { type: string(127), notnull: true }
@@ -13,6 +13,7 @@ DmPage:
     name:                   { type: string(255), notnull: true }
     title:                  { type: string(255), notnull: false }
     h1:                     { type: string(255), notnull: false }
+    gabarit:                { type: string(255), notnull: false, default: 'default' }    # ajout lionel pour framework gabarit 
     description:            { type: string(255), notnull: false }
     keywords:               { type: string(255), notnull: false }
     auto_mod:               { type: string(6), notnull: true, default: 'snthdk' } # slug, name, title, h1, description, keywords
@@ -289,3 +290,58 @@ DmSentMail:
       local:                dm_mail_template_id
       onDelete:             SET NULL
       foreignAlias:         SentMails
+
+DmContactMe:
+  actAs:              [ Timestampable ]
+  columns:
+    name:             { type: string(255), notnull: true }
+    email:            { type: string(255), notnull: true }
+    body:             { type: clob, notnull: true }
+
+#SidRubrique:
+#  actAs:
+#    Timestampable:
+#    DmSortable:
+#    DmVersionable:
+#    Sluggable:
+#      fields: [ title ]
+#      canUpdate: true
+#      notnull: true
+#    I18n:
+#      fields: [ title ]
+#  columns:
+#    title:
+#      type: string(40)
+#      notnull: true
+#
+#SidArticle:
+#  actAs:
+#    Timestampable:
+#    DmSortable:
+#    DmVersionable:
+#    Sluggable:
+#      fields: [ title ]
+#      canUpdate: true
+#      notnull: true
+#    I18n:
+#      fields: [ title, chapeau ]
+#  columns:
+#    num_article_lea:
+#      type: integer
+#      notnull: true
+#      unique: true
+#    title:
+#      type: string(255)
+#      notnull: true
+#    chapeau:
+#      type: clob
+#      notnull: true
+#    rubrique_id:
+#      type: integer
+#      notnull: true
+#  relations:
+#    SidRubrique:
+#      class: SidRubrique
+#      local: rubrique_id
+#      foreign: id
+#      foreignAlias: SidArticles

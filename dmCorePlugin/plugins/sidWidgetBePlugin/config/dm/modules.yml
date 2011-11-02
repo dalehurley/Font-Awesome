@@ -1,0 +1,78 @@
+Content:
+
+  BaseEditoriale:
+
+    Rubrique:
+      model: SidRubrique
+      page: true
+      name: Rubrique|Rubriques
+      credentials: rubrique
+      components:
+        list:
+        show:
+
+    Section:
+      model: SidSection
+      parent: Rubrique
+      page: true
+      name: Section|Sections
+      credentials: section
+      components:
+        listByRubrique:
+          filters: [ Rubrique ]
+          cache:              true
+        list:
+          cache:              true
+        show:
+          cache:              true
+        menuDesSectionsDeRubrique:
+          cache: true
+
+    Article:
+      model: SidArticle
+      parent: Section
+      page: true
+      name: Article|Articles
+      credentials: article
+      components:
+        listBySection:
+          filters: [ Section ]
+          cache:              true
+        listBySectionSlide:
+          filters: [ Section ]
+          cache:              true   
+        listBySectionFeature:
+          filters: [ Section ]
+          cache:              true             
+        list:
+          cache:              true
+        listSlide:
+          cache:              true   
+        listFeature:
+          cache:              true            
+        show:
+          cache:              true
+        dernierArticleDeChaqueCategorie:
+          cache:              true
+        listeParTags:
+          filters: [ dmTag ]
+#        showArticlesAvecMemeTag:
+#          cache:              true
+#        showMissionsAvecMemeTag:
+#          cache:              true
+#        showMembresEquipeAvecMemeTag:
+#          cache:              true
+        listArticlesAvecMemeTag:
+          cache:              true
+        listMissionsAvecMemeTag:
+          cache:              true
+        listMembresEquipeAvecMemeTag:
+          cache:              true
+        listActusCabinetAvecMemeTag:
+          cache:              true
+        listSitesUtilesAvecMemeTag:
+          cache:              true
+        showArticleWithPhoto:
+          cache: true
+        showArticleWithTitle:
+          cache: true

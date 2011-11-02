@@ -1,4 +1,77 @@
+/* 
+f08984    hover
+d90b00    
+
+*/
+
 #dm_page.edit .dm_zones {
+  min-height: 40px;
+}
+#dm_page.edit .dm_zone {
+
+}
+
+#dm_page.edit .dm_zone .dm_widgets {
+  border: 1px solid #d90b00;
+}
+#dm_page.edit .dm_zone .dm_zone_edit {
+  display: block;
+ /* position: absolute; */
+  margin: 0;
+line-height: 10px;
+height: 10px;  
+}
+
+/* Styles pour le js de mouseOver, lorsque la loupe n'est pas sélectionnée */
+#dm_page .dm_zone.mouseOver .dm_widgets {
+  border: 1px solid #d90b00;
+  z-index: 10000;
+  min-height: 20px;
+}
+#dm_page .dm_zone.mouseOver .dm_zone_edit {
+  display: block;
+ /* position: absolute; */
+  margin: 0;
+line-height: 10px;
+height: 10px;  
+}
+
+
+
+#dm_page.edit .dm_zone:hover .dm_widgets {
+  border-color: #f08984;
+}
+
+#dm_page .dm_zone .dm_zone_edit {
+  margin-left: 3px;
+  margin-top: 3px;
+  background: url(../images/zone_widget_sprite.png) no-repeat;
+  background-position: 0 -38px;
+  width: 32px;
+  height: 10px;
+  display: none;
+  position: absolute;
+    z-index: 100;
+}
+
+#dm_page.edit .dm_zone:hover .dm_zone_edit {
+  background-position: 0 -57px;
+}
+
+.dm_zone_placeholder {
+  margin: 3px;
+  float: left;
+  opacity: 0.5;
+}
+
+#dm_page.edit .dm_zones.droppable-active {
+  background: url(../images/area_droppable.png) top left no-repeat;
+  min-height: 100px;
+}
+
+
+
+/*#dm_page.edit .dm_zones {
   min-height: 40px;
 }
 
@@ -19,7 +92,7 @@
 #dm_page .dm_zone .dm_zone_edit {
   margin-left: 3px;
   margin-top: 3px;
-  background: url(../images/zone_widget_sprite.png) no-repeat;
+  background: url(../images/zone_widget_sprite-original.png) no-repeat;
   background-position: 0 -38px;
   width: 52px;
   height: 19px;
@@ -43,4 +116,4 @@
 #dm_page.edit .dm_zones.droppable-active {
   background: url(../images/area_droppable.png) top left no-repeat;
   min-height: 100px;
-}
+}*/

@@ -1,0 +1,18 @@
+// _MobilePortrait.less
+// v1.0
+// Last Updated : 2011-05-30 17:25
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+// Mobile Portrait	: 320px
+// Colonnes			: 3
+// Scrollbar		: 0
+@media only screen and (max-width: 479px) {
+	body {
+		@gridSiteWidthAutoPad(320;@gridCol_MobilePortrait;0);
+		@gridDebugBgc(#8a8);
+	}
+	
+	//importation des adaptations média du template
+	@templateMedia_MobilePortrait();
+}

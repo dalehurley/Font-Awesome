@@ -37,6 +37,7 @@ echo _tag('div.dm.dm_page_edit_wrap',
       _tag('ul.dm_form_elements',
         (isset($form['parent_id']) ? $form['parent_id']->renderRow() : '').
         $form['dm_layout_id']->renderRow().
+        $form['gabarit']->renderRow().
         $form['module']->renderRow().
         $form['action']->renderRow().
         _tag('p.dm_help.s16.s16_help',

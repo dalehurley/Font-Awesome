@@ -1,0 +1,89 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidCabinetEquipe
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: equipe
+    with_doctrine_route: false
+    config:
+      actions:
+        new:
+          credentials: [super_admin]
+        delete:
+          credentials: [super_admin]
+        save:
+          credentials: [[super_admin, admin]]
+        history:
+          credentials: [[super_admin, admin]]
+        list:
+          credentials: [[super_admin, admin]]
+        _view_page:
+          credentials: [ super_admin ]
+        _save_and_list:
+          credentials: [ super_admin ]
+        _save_and_next:
+          credentials: [ super_admin ]
+        _save_and_add:
+          credentials: [ super_admin ]
+      fields:
+        is_active:
+          label: Active
+        title:
+          label: Nom
+        image: 
+          label: Photo
+        tags_list:
+          label: 'Mots clés'
+        sortable:
+          label: 'trier les pages'
+      list:
+        batch_actions:
+          delete:
+            credentials: [ super_admin ]  # il faut les permissions super_admin ET admin
+          activate:
+            credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+          deactivate:
+            credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+        display:
+          - '=title'
+          - image
+          - is_active
+          - statut
+          - tel
+          - fax
+          - gsm
+          - email
+          - created_at
+          - updated_at
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - is_active
+          - image
+          - statut
+          - tel
+          - fax
+          - gsm
+          - email
+          - created_at
+          - updated_at
+      form:
+        display:
+          Identite: [title, is_active, statut, tel, fax, gsm, email]
+          Photo: [image_form, image_view]
+          Description: [text]
+          'Mots clés': [tags_list]
+          # m_sections du nom de la relation declaree dans le schema.yml, + _list
+          'Section liées': [m_sections_list]            
+        class: SidCabinetEquipeAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

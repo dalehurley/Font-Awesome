@@ -42,7 +42,7 @@ default:
     config_fast_dump:     true          # use print_r instead of sfYaml::dump to show config in web debug panel. ( ~40x faster )
     
   toolBar:
-    flavour:              blue          # the toolbar flavour. Diem default values: grey, blue, green, brown, black
+    flavour:              black         # the toolbar flavour. Diem default values: grey, blue, green, brown, black
                                         # You can also set a custom flavour and style #dm_tool_bar.flavour_name in your themeAdmin css path
   media:
     default:              false         # default resource to use when using _media with an empty resource.

@@ -15,7 +15,9 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
   $parent,
   $secure,
   $credentials  = array(),
-  $children     = array();
+  $children     = array(),
+  $moduleManager;
+  
 
   public function __construct(dmBaseServiceContainer $serviceContainer, $options = array())
   {
@@ -24,6 +26,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
     $this->helper     = $serviceContainer->getService('helper');
     $this->user       = $serviceContainer->getService('user');
     $this->i18n       = $serviceContainer->getService('i18n');
+    $this->moduleManager       = $serviceContainer->getService('module_manager');
 
     $this->initialize($options);
   }
@@ -441,13 +444,34 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
       ->select('p.*, pTranslation.*')
     );
 
-    if($pageChildren = $this->getLink()->getPage()->getNode()->getChildren())
-    {
-      foreach($pageChildren as $childPage)
-      {
-        $this->addChild($childPage->get('name'), $childPage)->addRecursiveChildren($depth - 1);
-      }
-    }
+    if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
+            foreach ($pageChildren as $childPage) {
+
+                // ajout lionel
+                // on ajoute les dmPage qui ont un record_id != 0 (donc des pages automatiques) que si elles sont liées à un objets ayant is_active à true
+                // $this->addChild($childPage->get('name'), $childPage)->addRecursiveChildren($depth - 1);
+                //if (is_object($this->moduleManager->getModuleBySfName($childPage->get('module'))->getTable())){ 
+                if ($childPage->get('record_id') != 0){  
+                    $dmPageTable = dmString::camelize($this->moduleManager->getModuleBySfName($childPage->get('module'))->getTable()->getTableName());
+                    $dmPageRecordId = $childPage->get('record_id');
+
+                    $requestDmPageObject = Doctrine_Query::create()->from($dmPageTable . ' a')
+                            ->where('a.id = ?', $dmPageRecordId)
+                            ->fetchOne();
+
+                    if (isset($requestDmPageObject->is_active) && !$requestDmPageObject->is_active) {
+                        
+                    } else {
+
+                        $this->addChild($childPage->get('name'), $childPage)->addRecursiveChildren($depth - 1);
+                    }
+                } else {
+
+                        $this->addChild($childPage->get('name'), $childPage)->addRecursiveChildren($depth - 1);
+                    }
+                // fin ajout lionel
+            }
+        }
 
     $treeObject->resetBaseQuery();
 
@@ -485,7 +509,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
       $html .= '</ul>';
     }
-
+   
     return $html;
   }
 
