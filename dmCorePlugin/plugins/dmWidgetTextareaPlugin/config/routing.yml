@@ -1,3 +1,0 @@
-dmWidgetTextareaAjax:
-  url:   /dmWidgetTextareaAjax
-  param: { module: dmWidgetTextarea, action: ajax }

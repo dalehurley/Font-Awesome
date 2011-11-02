@@ -1,4 +1,0 @@
-dmWidgetPersoContent:
-  textarea:
-    cache:              false
-    public_name:        Textarea
