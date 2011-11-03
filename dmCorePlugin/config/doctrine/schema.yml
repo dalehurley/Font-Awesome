@@ -4,7 +4,7 @@ DmPage:
   actAs:
     NestedSet:
     I18n:
-      fields:               [slug, name, title, h1, description, keywords, auto_mod, is_active, is_secure, is_indexable]
+      fields:               [slug, name, title, h1, gabarit, description, keywords, auto_mod, is_active, is_secure, is_indexable]
       length:               7
   columns:
     module:                 { type: string(127), notnull: true }
