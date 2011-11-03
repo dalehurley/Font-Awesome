@@ -17,7 +17,7 @@
 //
 //echo $sidActuArticlePager->renderNavigationBottom();
 if(isset($sites) && $sites != NULL){
-echo _tag('h4.title','Les sites utiles du cabinet');
+echo _tag('h4.title',__('Useful sites of the firm'));
 echo _open('ul.elements');
 foreach ($sites as $site)
 {

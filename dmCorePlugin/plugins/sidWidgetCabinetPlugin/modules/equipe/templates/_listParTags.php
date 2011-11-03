@@ -1,6 +1,6 @@
 <?php // Vars: $equipePager
 if(count($equipePager) != 0){
-echo _tag('h3', 'Votre interlocuteur dans ce domaine');
+echo _tag('h3', __('Your contact in this area'));
 
 echo $equipePager->renderNavigationTop();
 

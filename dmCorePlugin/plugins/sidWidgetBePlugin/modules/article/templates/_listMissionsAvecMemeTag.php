@@ -19,7 +19,7 @@
 
 if(isset($missions) && $missions != NULL){
     //echo _open('div.listArticleByTag');
-echo _tag('h4.title','Les missions du cabinet');
+echo _tag('h4.title',__('The missions of the firm'));
 echo _open('ul.elements');
 foreach ($missions as $missionTag)
 {

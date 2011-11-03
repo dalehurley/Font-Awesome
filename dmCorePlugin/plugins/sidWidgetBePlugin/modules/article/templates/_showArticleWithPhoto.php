@@ -7,5 +7,5 @@ echo _close('div');
 echo _open('div');
 echo _link($lastArticle['titre'])->text(_media('/_images/lea' . $lastArticle['filename'] . '-g.jpg')->width(170)->alt($lastArticle['titre']));
 echo _close('div');
-echo _link('/rubriques/actualites')->text('TOUTES LES ACTUALITES');
+echo _link('/rubriques/actualites')->text(__('ALL NEWS'));
 }

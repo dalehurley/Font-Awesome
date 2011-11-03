@@ -38,7 +38,7 @@ foreach ($equipes as $equipe) {
 echo _close('div');
  */
 
-echo _tag('h2.title', 'Notre équipe, vos interlocuteurs');
+echo _tag('h2.title', __('Our team, your partners'));
 echo _open('ul.elements');
 	foreach ($equipes as $equipe) {
 		include_partial("objectPartials/equipe", array("equipe" => $equipe));

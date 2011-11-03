@@ -11,7 +11,7 @@ if (count($pageCabinet)) { // si nous avons des actu articles
     echo _open('div.navigation.navigationBottom');
     echo _open('ul.elements');
     echo _open('li.element');
-    echo _link($pageCabinet[0])->text('en savoir plus sur {{nomcabinet}}');
+    echo _link($pageCabinet[0])->text(__('Learn more about').' {{nomcabinet}}');
     echo _close('li');
     echo _close('ul');
     echo _close('div');

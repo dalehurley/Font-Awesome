@@ -1,6 +1,6 @@
 <?php // Vars: $accueil
 // affichage des chapeaux PRESENTATION, MISSIONS
-echo _tag('h4.title', 'Présentation du Cabinet');
+echo _tag('h4.title', __('Presentation of the firm'));
 
 //lien vers l'image
 $imgLink = '/uploads/photo.jpg';
@@ -22,7 +22,7 @@ echo _tag('div.wrapper', $presentation);
 echo _open('div.navigation.navigationBottom');
 	echo _open('ul.elements');
 		echo _open('li.element');
-			echo _link('/le-cabinet/presentation')->text('en savoir plus sur '.$nom->getTitle());
+			echo _link('/le-cabinet/presentation')->text(__('Learn more about').' '.$nom->getTitle());
 		echo _close('li');
 	echo _close('ul');
 echo _close('div');

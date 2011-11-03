@@ -17,12 +17,12 @@
 //
 //echo $missionPager->renderNavigationBottom();
 if (isset($equipes)) {
-        echo _tag('h4.title', 'Votre interlocuteur dans ce domaine');
+        echo _tag('h4.title', __('Your contact in this area'));
         echo _open('ul.elements');
         foreach ($equipes as $equipe) {
             echo _open('li.element');
             echo _link($equipe)->text(_tag('span.wrapper',
-                    _tag('span.title', $equipe.' - '._tag('span',$equipe->getStatut())) .  _tag('span.teaser', 'tél : ' . $equipe->getTel())))->set('.link_box');
+                    _tag('span.title', $equipe.' - '._tag('span',$equipe->getStatut())) .  _tag('span.teaser', __('phone').' : ' . $equipe->getTel())))->set('.link_box');
             echo _close('li');
         }
         echo _close('ul');

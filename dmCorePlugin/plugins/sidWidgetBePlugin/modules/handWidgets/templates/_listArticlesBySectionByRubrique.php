@@ -51,7 +51,7 @@ echo _close('ul');
 echo _open('div.navigation.navigationBottom');
 	echo _open('ul.elements');
 		echo _open('li.element');
-			echo _link($articles[0]->getSection())->text('Découvrir notre rubrique '. $sectionName);
+			echo _link($articles[0]->getSection())->text(__('Discover our rubric'). $sectionName);
 		echo _close('li');
 	echo _close('ul');
 echo _close('div');

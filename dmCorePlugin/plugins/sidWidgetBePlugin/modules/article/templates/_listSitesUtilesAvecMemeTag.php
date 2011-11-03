@@ -18,7 +18,7 @@
 //echo $articlePager->renderNavigationBottom();
 if(isset($sites) && $sites != NULL){
    // echo _open('div.listArticleByTag');
-echo _tag('h4.title','Les sites utiles du cabinet');
+echo _tag('h4.title',__('Useful sites of the firm'));
 echo _open('ul.elements');
 foreach ($sites as $site)
 {
