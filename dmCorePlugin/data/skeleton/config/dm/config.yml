@@ -11,7 +11,7 @@ all:
     compress:             true          # (RECOMMENDED) Performance : Minifies javascripts and put them into a single compressed file
     cdn:
       enabled:            true         # Uses google cdn to load jQuery
-      lib.jquery:         "//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"
+      lib.jquery:         "//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
     head_inclusion:       [ ]           # If you want some libraries to be included in the <head> section,
                                         # declare them here. This degrades performances but is required
                                         # by some symfony plugins that embed jQuery code.
