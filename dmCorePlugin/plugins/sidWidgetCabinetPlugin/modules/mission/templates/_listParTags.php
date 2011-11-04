@@ -2,9 +2,9 @@
 if(count($missionPager) != 0){
 echo $missionPager->renderNavigationTop();
 if(sfConfig::get('app_site-type') == 'ec'){
-echo _tag('h3', 'Les missions du cabinet');
+echo _tag('h3', __('The missions of the firm'));
 }
-else echo _tag('h3', 'Les services du cabinet');
+else echo _tag('h3', __("The firm's services"));
 echo _open('ul.elements');
 
 foreach ($missionPager as $mission)

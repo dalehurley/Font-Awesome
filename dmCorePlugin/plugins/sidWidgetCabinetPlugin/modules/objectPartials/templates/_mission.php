@@ -16,6 +16,6 @@ if (isset($mission)) {
     echo _close('span');
     echo _close('li');
 } else {
-    echo "Ce partial a besoin d'un objet mission";
+    echo __('This bias needs to be a news item');
 }
 ?>

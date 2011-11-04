@@ -17,7 +17,7 @@
 //
 //echo $articlePager->renderNavigationBottom();
 if(count($articles) != NULL){
-    echo _tag('h4.title', 'Les articles apparentés');
+    echo _tag('h4.title', __('Related articles'));
 	echo _open('ul.elements');
 		foreach ($articles as $articleTag) {
 			echo _open('li.element');

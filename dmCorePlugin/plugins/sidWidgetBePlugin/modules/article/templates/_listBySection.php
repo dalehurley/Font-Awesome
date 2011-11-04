@@ -71,7 +71,7 @@ echo _open('ul.elements');
 		else
 		{
 			if($i == 3){
-				if($this->context->getPage()->getName() == 'Dossiers'){echo _tag('p', 'Les autres dossiers "'.$parent.'"');}
+				if($this->context->getPage()->getName() == 'Dossiers'){echo _tag('p', __('Other folders').'"'.$parent.'"');}
 			}
 			echo _open('li.element');
 
