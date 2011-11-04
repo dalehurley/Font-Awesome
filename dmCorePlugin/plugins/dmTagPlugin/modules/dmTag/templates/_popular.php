@@ -26,7 +26,7 @@ echo _close('ul');
 //use_stylesheet('../../dmTagPlugin/css/style');
 
 $style = 1 ;
-echo _tag('h4.title', 'Nos articles les plus populaires par mots-cl&eacute;s');
+echo _tag('h4.title', __('Our most popular items by keyword'));
 echo _open('p.elements');
 
 foreach ($dmTags as $dmTag)

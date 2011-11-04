@@ -20,7 +20,7 @@
 
 
 if(count($sidActuArticlePager) != NULL){
-echo _tag('h4.title', 'Notre rubrique '.$pageName);
+echo _tag('h4.title', __('Our section').$pageName);
 echo $sidActuArticlePager->renderNavigationTop();
 echo _open('ul.elements');
 	foreach ($sidActuArticlePager as $sidActuArticle) {

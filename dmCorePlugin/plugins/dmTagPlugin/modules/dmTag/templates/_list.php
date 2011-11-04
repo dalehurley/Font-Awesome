@@ -1,6 +1,6 @@
 <?php // Vars: $dmTagPager
 
-echo _tag('p', 'Nos articles regroup&eacute;s par mots-cl&eacute;s');
+echo _tag('p', __('Our articles grouped by keywords'));
 echo $dmTagPager->renderNavigationTop();
 
 echo _open('ul.elements');

@@ -24,13 +24,13 @@ echo '<li id="equipe_' . $equipe->id . '" class="element" itemscope itemtype="ht
 				echo _close('div');
 				
 				echo _open('span.telephone');
-					echo _tag('span.type', 'Tél.');
+					echo _tag('span.type', __('phone'));
 					echo '&nbsp;';
 					echo _tag('span.value itemprop="telephone"', $equipe->getTel());
 				echo _close('span');
 echo '<br/>';
 				echo _open('span.email');
-					echo _tag('span.type', 'Email');
+					echo _tag('span.type', __('Email'));
 					echo '&nbsp;:&nbsp;';
 					echo _tag('span.value', _link('mailto:' . $equipe->getEmail())->text($equipe->getEmail())->set('itemprop="email"'));
 				echo _close('span');
@@ -52,6 +52,6 @@ else{
     echo _close('li');
 
 } else {
-    echo "Ce partial a besoin d'un objet equipe";
+    echo __('This bias needs to be a news item');
 }
 ?>

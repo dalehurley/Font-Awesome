@@ -1,10 +1,10 @@
 <?php // Vars: $recrutementPager
 
 if(count($recrutementPager) == NULL){
-    echo _tag('p.teaser', 'Il n\'y a pas d\'offre de recrutement pour ce moment');
+    echo _tag('p.teaser', __('There is no offer of appointment to this moment'));
 }
 else {
-echo _tag('h2.title', 'Recrutements');
+echo _tag('h2.title', _('Recruitment'));
 echo $recrutementPager->renderNavigationTop();
 
 echo _open('ul.elements');

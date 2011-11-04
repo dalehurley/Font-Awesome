@@ -1,6 +1,6 @@
 <?php // Vars: $articlePager
 if(count($articlePager) != 0){
-echo _tag('h3', 'Les articles de la rédaction');
+echo _tag('h3', __('Articles editor'));
 echo $articlePager->renderNavigationTop();
 
 echo _open('ul.elements');

@@ -51,7 +51,7 @@ if (count($articles) != NULL) {
                         ->set('.link_box')
                         ->title($article[0]->getTitle())
                         ->text($html);
-                echo _link($section[$article[0]->id])->text('Tous les articles de la section '.$sectionName[$article[0]->id]);
+                echo _link($section[$article[0]->id])->text(__('All articles in the section').' '.$sectionName[$article[0]->id]);
                 echo '</li>';
         }
     echo _close('ul');

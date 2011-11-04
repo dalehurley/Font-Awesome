@@ -20,7 +20,7 @@ foreach ($articlePager as $article) {
             
             $listImgOutput .= ' <li>
                                     <img style="width:463px;height:240px;" src="' . $imageLink . '" alt="" title="' . $article . '" />
-                                    '. _link($article)->text(__('En savoir plus')).'
+                                    '. _link($article)->text(__('Learn more')).'
                                 </li>';
             
             $nbImg++;

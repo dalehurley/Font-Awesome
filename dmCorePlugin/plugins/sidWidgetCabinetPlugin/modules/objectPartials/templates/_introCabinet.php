@@ -1,6 +1,6 @@
 <?php
 
-$imgLink = '/uploads/' . $pageCabinet[0]->getImage();
+$imgLink = '/uploads/' . $pageCabinet->getImage();
     $html = '';
 //on vérifie que l'image existe
     $imgExist = is_file(sfConfig::get('sf_web_dir') . $imgLink);
@@ -8,20 +8,19 @@ $imgLink = '/uploads/' . $pageCabinet[0]->getImage();
         $html.= _open('span.imageWrapper');
         $html.= _media($imgLink)
                 ->set('.image itemprop="image"')
-                ->alt($pageCabinet[0]->getTitle())
+                ->alt($pageCabinet->getTitle())
                 ->width(myUser::gridGetWidth(myUser::getLessParam('thumbL_col')))
                 ->height(myUser::gridGetHeight(myUser::getLessParam('thumbL_bl')));
         $html.= _close('span.imageWrapper');
     }
-    if (strlen($pageCabinet[0]->getText()) > $lenght) {
-        $chapeauEntier = substr($pageCabinet[0]->getText(), 0, $lenght);
-        $space = strrpos($chapeauEntier, ' ');
-        $chapo = substr($chapeauEntier, 0, $space) . ' (...)';
+// on vérifie d'abord si le texte est plus long que la longueur demandé
+// si oui, on tronque après un espace
+    if (strlen($pageCabinet->getText()) > $lenght) {
+        $chapo = stringTools::str_truncate($pageCabinet->getText(), $lenght, '(...)', true);
     }
     else
-        $chapo = $pageCabinet[0]->getText();
-//                        echo _tag('div.wrapper', $chapo);
-
+// si non, on laisse le texte original
+        $chapo = $pageCabinet->getText();
 
     $html.= _open('span.wrapper');
     //on ajoute le chapeau dans tous les cas

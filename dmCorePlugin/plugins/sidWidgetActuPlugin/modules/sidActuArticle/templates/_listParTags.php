@@ -1,7 +1,7 @@
 <?php // Vars: $sidActuArticlePager
 if(count($sidActuArticlePager) != 0){
 echo $sidActuArticlePager->renderNavigationTop();
-echo _tag('h3', 'Les articles du cabinet');
+echo _tag('h3', __('The articles of the firm'));
 echo _open('ul.elements');
 foreach ($sidActuArticlePager as $sidActuArticle)
 {

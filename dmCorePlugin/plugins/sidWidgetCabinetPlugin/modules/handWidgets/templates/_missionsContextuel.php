@@ -3,7 +3,7 @@ if (count($missions)) { // si nous avons des actu articles
     if ($titreBloc != '') {
 	echo _tag('h4.title', $titreBloc);
     }
-    else echo _tag('h4.title', 'Nos Missions');
+    else echo _tag('h4.title', __('Our missions'));
 
     echo _open('ul.elements');
     foreach ($missions as $mission) {
