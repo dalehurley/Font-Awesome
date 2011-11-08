@@ -143,16 +143,16 @@ $.widget('ui.dmZone', {
       },
       stop: function(e, ui)
       {
- //       var $this = $(this), invoker = $this.data('sortable').invokerItem;
+        var $this = $(this), invoker = $this.data('sortable').invokerItem;
         if (sortEvents.update && sortEvents.receive && sortEvents.remove)
         {
- //         sortEvents.receive.dmZone('moveWidget', invoker);
+          sortEvents.receive.dmZone('moveWidget', invoker);
           sortEvents.receive.dmZone('moveWidget', ui.item);
         }
         else if (sortEvents.update && sortEvents.receive)
         {
-//          $(this).parent().dmZone(ui.item.text('').block().hasClass('widget_paste') ? 'pasteWidget' : 'addWidget', invoker);
-          $(this).parent().dmZone(ui.item.text('').block().hasClass('widget_paste') ? 'pasteWidget' : 'addWidget', ui.item);
+          $(this).parent().dmZone(ui.item.text('').block().hasClass('widget_paste') ? 'pasteWidget' : 'addWidget', invoker);
+          //$(this).parent().dmZone(ui.item.text('').block().hasClass('widget_paste') ? 'pasteWidget' : 'addWidget', ui.item);
         }
         else if (sortEvents.update)
         {
