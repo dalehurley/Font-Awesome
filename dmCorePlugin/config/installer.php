@@ -475,7 +475,7 @@ $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk
 //}
 
 // recherche de template->pageSuccess.php
-$pagesuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/_template/pageSuccess.php';
+$pagesuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/pageSuccess.php';
 if (file_exists($pagesuccessFile)){
     $this->logBlock('Copie de pageSuccess.php du theme sur le site ', 'INFO_LARGE');
     $this->getFilesystem()->execute('cp ' . $pagesuccessFile .' '.sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront/templates', $out, $err);
