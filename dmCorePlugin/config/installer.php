@@ -482,7 +482,7 @@ if (file_exists($pagesuccessFile)){
 }
 
 // recherche de js
-$dossierJs = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/_js';
+$dossierJs = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/js';
 if (is_dir($dossierJs)){
     $this->logBlock('Copie du contenu du dossier _js du theme sur le site ', 'INFO_LARGE');
     $this->getFilesystem()->execute('cp -r ' . $dossierJs .'/* '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/js', $out, $err);
@@ -513,7 +513,7 @@ foreach ($commands as $libCommand => $command) {
 
 // recuperation des differents dumps du coeur
 //scan du dossier _dumpContent
-$dirDumpContentTheme = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/_dumpContent';
+$dirDumpContentTheme = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/db';
 $arrayDumps = scandir($dirDumpContentTheme);
 $i = 1;
 $dispoDumps = array();
