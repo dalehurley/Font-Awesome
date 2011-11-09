@@ -6,8 +6,8 @@ $apacheDirLog = '/data/logs/sitesv3';
 $webDirDefault = 'htdocs';
 $dbHost = 'localhost';
 $dbPrefixe = 'sitev3';
-$dbUser = 'wsid';
-$dbPwd = 'wsid@86';
+$dbUser = 'root';
+$dbPwd = 'root';
 $ipDefault = '192.168.81.102';
 $portDefault = '80';
 
@@ -553,9 +553,9 @@ if ($nomDumpChoisi != $libelleEmptyDump) { // on fait un loadDB si on a choisi u
 //-------------------------------------------------------------------------------------
 //    Les permissions
 //-------------------------------------------------------------------------------------
-$this->logBlock('Chmod 775 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css" pour laisser php ecrire via lessPlugin', 'INFO_LARGE');
+$this->logBlock('Chmod 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css" pour laisser php ecrire via lessPlugin', 'INFO_LARGE');
 $out = $err = null;
-$this->getFilesystem()->execute('chmod 775 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css', $out, $err);
+$this->getFilesystem()->execute('chmod 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css', $out, $err);
 $this->logBlock('Les permissions (dm:permissions)', 'INFO_LARGE');
 $out = $err = null;
 $this->getFilesystem()->execute(sprintf(
