@@ -29,26 +29,30 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
 
 	switch ($dmPage->module.'/'.$dmPage->action) {
 	    case 'section/show':
-		$actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
-			->leftJoin('a.SidActuArticleSidSection sas')
-			->leftJoin('sas.SidSection s')
-			->where('s.id = ? ', array($dmPage->record_id))
-		        ->andWhere('a.is_active = ?', true)
-			->limit($vars['nbArticles'])
-			->execute();
-		foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
-		    $arrayArticle[] = $actuArticle;
-		}
-		break;
+                            // il faut que je récupère l'id de la rubrique de la section
+                            // je récupère donc l'ancestor de la page courante pour extraire le record_id de ce dernier afin de retrouver la rubrique
+                            $ancestors = $this->context->getPage()->getNode()->getAncestors();
+                            $recordId = $ancestors[count($ancestors)-1]->getRecordId();
+                            $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
+                                    ->leftJoin('a.SidActuArticleSidRubrique sas')
+                                    ->leftJoin('sas.SidRubrique s')
+                                    ->where('s.id = ? ', array($recordId))
+                                    ->andWhere('a.is_active = ?', true)
+                                    ->limit($vars['nbArticles'])
+                                    ->execute();
+                            foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
+                                $arrayArticle[] = $actuArticle;
+                            }
+                            break;
 	    case 'rubrique/show':
 		// toutes les sections de la rubrique contextuelle
-		$sections = dmDb::table('SidSection')->findByRubriqueId($dmPage->record_id);
+		$rubriques = dmDb::table('SidRubrique')->findById($dmPage->record_id);
 		// on parcourt les sections pour extraire les articles
-		foreach ($sections as $section) {
+		foreach ($rubriques as $rubrique) {
 		    $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
-			    ->leftJoin('a.SidActuArticleSidSection sas')
-			    ->leftJoin('sas.SidSection s')
-			    ->where('s.id = ? ', array($section->id))
+			    ->leftJoin('a.SidActuArticleSidRubrique sas')
+			    ->leftJoin('sas.SidRubrique s')
+			    ->where('s.id = ? ', array($rubrique->id))
 			    ->andWhere('a.is_active = ?', true)
 			    ->limit($vars['nbArticles'])
 			    ->execute();
@@ -97,8 +101,7 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
 	    'articles' => $arrayArticle,
 	    'nbArticles' => $vars['nbArticles'],
 	    'titreBloc' => $vars['titreBloc'],
-	    'titreLien' => $vars['titreLien'],	    
-	    'context' => $dmPage->module.'/'.$dmPage->action
+	    'titreLien' => $vars['titreLien']
 	));
     }
 
