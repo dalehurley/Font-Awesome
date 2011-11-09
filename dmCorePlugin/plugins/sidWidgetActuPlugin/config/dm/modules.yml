@@ -21,22 +21,24 @@
         name: "Mon Article|Mes Articles"
         credentials: article_contenu
         page: true
-        parent: SidActuRubrique
+#        parent: SidActuRubrique
         components:
           list:
+            filters: [ SidActuTypeContenu ]
           show:
-          listParRubrique:
-            filters: [ SidActuRubrique, SidActuTypeContenu ]
-          listParTags:
-            filters: [ dmTag ]
-          listArticlesAvecMemeTag:
-            cache:              true
-          listMissionsAvecMemeTag:
-            cache:              true
-          listMembresEquipeAvecMemeTag:
-            cache:              true
-          listSitesUtilesAvecMemeTag:
-            cache:              true
+            filters: [ SidActuTypeContenu ]
+#          listParRubrique:
+#            filters: [ SidActuRubrique, SidActuTypeContenu ]
+#          listParTags:
+#            filters: [ dmTag ]
+#          listArticlesAvecMemeTag:
+#            cache:              true
+#          listMissionsAvecMemeTag:
+#            cache:              true
+#          listMembresEquipeAvecMemeTag:
+#            cache:              true
+#          listSitesUtilesAvecMemeTag:
+#            cache:              true
 #          miseEnAvantActuArticle:    supprimé et remplacé par un handWidgets/actuArticlesContextuel
 #            cache: true
 #          bandeauArticle:

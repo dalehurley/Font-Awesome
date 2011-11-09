@@ -4,7 +4,7 @@ if(count($recrutementPager) == NULL){
     echo _tag('p.teaser', __('There is no offer of appointment to this moment'));
 }
 else {
-echo _tag('h2.title', _('Recruitment'));
+echo _tag('h2.title', __('Recruitment'));
 echo $recrutementPager->renderNavigationTop();
 
 echo _open('ul.elements');

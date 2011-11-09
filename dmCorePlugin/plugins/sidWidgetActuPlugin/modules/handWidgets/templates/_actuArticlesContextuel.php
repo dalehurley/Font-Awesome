@@ -16,7 +16,7 @@ if (count($articles)) { // si nous avons des actu articles
     echo _open('div.navigation.navigationBottom');
 	echo _open('ul.elements');
 	    echo _open('li.element');
-		echo _link('sidActuRubrique/list')->text($titreLien);
+		echo _link('sidActuArticle/list')->text($titreLien);
 	    echo _close('li');
 	echo _close('ul');
     echo _close('div');
