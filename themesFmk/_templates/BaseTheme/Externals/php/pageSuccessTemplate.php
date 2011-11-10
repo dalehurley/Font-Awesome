@@ -6,6 +6,11 @@
  * Available vars :
  * - dmFrontPageHelper $helper      ( page_helper service )
  * - boolean           $isEditMode  ( whether the user is allowed to edit page )
+ * 
+ * 
+ * Ce fichier reste dans le core, il est appelé en include dans les sites par les fichiers XXXXSuccess.php
+ * 
+ * 
  */
 ?>
 
@@ -41,7 +46,18 @@ if ($isDev) {
 					echo $helper->renderArea('layout.left');
 				}
 				if ($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-right') {
-					echo $helper->renderArea('layout.right');
+                                    
+                                    // une variable $pageRight peut être définie dans les pageSuccess.php du site (avant 
+                                    // l'include du présent fichier) et permet, si elle est égale à TRUE, de rendre la colonne de droite en mode page
+                                    // RAPPEL : 
+                                    //   area en mode page : les widgets de cette area ne sont visibles que sur la page en cours
+                                    //   area en mode layout : les widgets de cette area sont visibles dans toutes les pages utilisant ce layout et/ou cette area
+                                    if (isset($pageRight) && $pageRight){
+                                        echo $helper->renderArea('page.right');
+                                    } else {
+                                        echo $helper->renderArea('layout.right');
+                                    }
+					
 				}
 				?>
 				<?php echo $helper->renderArea('layout.centerBottom', '.clearfix') ?>
@@ -50,3 +66,6 @@ if ($isDev) {
 		<?php echo $helper->renderArea('layout.bottom', '.clearfix') ?>
 	</div>
 </div>
+
+
+
