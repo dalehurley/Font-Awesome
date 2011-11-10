@@ -210,3 +210,10 @@ font {
 	line-height: inherit !important;
 	color: inherit !important;
 }
+
+//application forcée (vérifier utilité lors des debugs navigateurs)
+p, pre, address, ul, ol, dl, dialog {
+	position: relative;
+	font-size: @fontGlobalSizePx;
+	line-height: @gridBaseline;
+}
