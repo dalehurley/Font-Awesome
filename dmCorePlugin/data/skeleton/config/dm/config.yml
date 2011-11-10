@@ -38,6 +38,8 @@ all:
                                         # http://diem-project.org/plugins will show the best plugins based on these reports.
                                         # the report request is sent only once, when a superadministrator logs in.
 dev: 
+  cache:
+    apc: false
   js:
     compress: false
   css:
