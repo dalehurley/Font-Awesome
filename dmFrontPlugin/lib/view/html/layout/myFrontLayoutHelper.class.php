@@ -298,6 +298,7 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	protected function getGoogleAnalyticsCode($gaKey)
 	{
 		//utilisation de la version optimisée de 293 octets
+		/*
 		$html = "<script>
 					var _gaq = [['_setAccount', '".$gaKey."'], ['_trackPageview']];
 					(function(d, t) {
@@ -307,7 +308,15 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 						g.src = '//www.google-analytics.com/ga.js';
 						s.parentNode.insertBefore(g, s);
 					}(document, 'script'));
+				</script>";*/
+		//Remplacement par la version optimisée avec Modernizr.load
+		$html = "<script>
+					window._gaq = [['_setAccount','".$gaKey."'],['_trackPageview'],['_trackPageLoadTime']];
+					Modernizr.load({
+						load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
+					});
 				</script>";
+		
 		return $html;
 	}
 }
