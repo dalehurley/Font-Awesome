@@ -34,7 +34,8 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 			$htmlTag = sprintf('<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="%s"> <![endif]-->', $culture)."\n".
 					   sprintf('<!--[if IE 7]> <html class="no-js ie7 oldie" lang="%s"> <![endif]-->', $culture)."\n".
 					   sprintf('<!--[if IE 8]> <html class="no-js ie8 oldie" lang="%s"> <![endif]-->', $culture)."\n".
-					   sprintf('<!--[if gt IE 8]><!--> <html class="no-js" lang="%s"> <!--<![endif]-->', $culture);
+					   sprintf('<!--[if IE 9]> <html class="no-js ie9 oldie" lang="%s"> <![endif]-->', $culture)."\n".
+					   sprintf('<!--[if gt IE 9]><!--> <html class="no-js" lang="%s"> <!--<![endif]-->', $culture);
 		}
 		else
 		{
