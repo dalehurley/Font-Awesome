@@ -474,12 +474,10 @@ $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk
 //    $this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme/less -name "style.less" -print | xargs sed -i \'s/@import "_framework\/SPLessCss\/_SPLessCss.less";/@import "_templates\/OperaTheme\/_style.less";/g\'');
 //}
 
-// recherche de template->pageSuccess.php
-$pagesuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/pageSuccess.php';
-if (file_exists($pagesuccessFile)){
-    $this->logBlock('Copie de pageSuccess.php du theme sur le site ', 'INFO_LARGE');
-    $this->getFilesystem()->execute('cp ' . $pagesuccessFile .' '.sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront/templates', $out, $err);
-}
+// recherche des templates -> XXXSuccess.php
+$dirPageSuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php';
+$this->logBlock('Copie des xxxSuccess.php du theme sur le site ', 'INFO_LARGE');
+$this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront/templates', $out, $err);
 
 // recherche de js
 $dossierJs = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/js';
@@ -491,6 +489,7 @@ if (is_dir($dossierJs)){
 //-------------------------------------------------------------------------------------
 //    chown users 
 //-------------------------------------------------------------------------------------
+/*
 $commands = array(
     'Chown for user wsid' => 'chown -R wsid .', 
     'Chown for user lionel' => 'chown -R lionel .'
@@ -506,7 +505,7 @@ foreach ($commands as $libCommand => $command) {
 	$this->logBlock('Error for :'.$libCommand, 'ERROR_LARGE');
     }
 }
-
+*/
 //-------------------------------------------------------------------------------------
 //    loadDB
 //-------------------------------------------------------------------------------------
