@@ -557,11 +557,16 @@ if ($nomDumpChoisi != $libelleEmptyDump) { // on fait un loadDB si on a choisi u
 $this->logBlock('Chmod 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css" pour laisser php ecrire via lessPlugin', 'INFO_LARGE');
 $out = $err = null;
 $this->getFilesystem()->execute('chmod 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css', $out, $err);
+
 $this->logBlock('Les permissions (dm:permissions)', 'INFO_LARGE');
 $out = $err = null;
 $this->getFilesystem()->execute(sprintf(
                 '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'dm:permissions'
         ), $out, $err);
+
+$this->logBlock('Chmod 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads" pour laisser php ecrire via dmMedia', 'INFO_LARGE');
+$out = $err = null;
+$this->getFilesystem()->execute('chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads', $out, $err);
 
 //-------------------------------------------------------------------------------------
 //    Redemarrage Apache
