@@ -321,7 +321,7 @@ $ip = empty($ip) ? $ipDefault : $ip;
 $port = empty($port) ? $portDefault : $port;
 
 $confFileContent = '<VirtualHost '.$ip.':'.$port.' >
-	ServerName  	' . $settings['ndd'] . '
+	ServerName  	' . str_replace('http://','',$settings['ndd']) . '
 	DocumentRoot	'.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'
 	ErrorLog        '.$settings['apache_dir_log'].'/'.$projectKey.'/error.log
    	CustomLog       '.$settings['apache_dir_log'].'/'.$projectKey.'/access.log CompletSimple
@@ -410,8 +410,8 @@ $diemLibConfigDir = dirname(__FILE__); // dossier  diem-5.1.3-SID/dmCorePlugin/c
 $this->logBlock('Lien symbolique photos.', 'INFO_LARGE');
 $out = $err = null;
 // $diemLibConfigDir .'/../../../ => on sort de diem pour atterir dans le dossier _www_lib
-$this->getFilesystem()->execute('ln -s '.$diemLibConfigDir .'/../../../baseEditoriale/_images/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'], $out, $err);
-
+//MACOSX : modifs syntaxe
+$this->getFilesystem()->execute('ln -s '.$diemLibConfigDir .'/../../../baseEditoriale/_images/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/_images', $out, $err);
 
  
 //-------------------------------------------------------------------------------------
@@ -458,10 +458,12 @@ $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'INFO_LA
 $this->logBlock('Copie du dossier diem/themesFmk/theme ', 'INFO_LARGE'); 
 $this->getFilesystem()->execute('cp -r ' . $diemLibConfigDir . '/../../themesFmk/theme/* '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme', $out, $err);
 // on remplace dans le dossier    sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme  les ##THEME## par le $nomTemplateChoisi
-$this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme -name "*.less" -print | xargs sed -i \'s/##THEME##/'.$nomTemplateChoisi.'/g\'');
+//MACOSX : modifs syntaxe
+$this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/'.$nomTemplateChoisi.'/g\'');
 // on crÃ©e les liens symboliques
-$this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less', $out, $err);
-$this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less', $out, $err);
+//MACOSX : modifs syntaxe
+$this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_framework', $out, $err);
+$this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_templates', $out, $err);
 
 //// Cas particulier d'Opera 
 //if ($nomTemplateChoisi == 'OperaTheme') {
@@ -473,14 +475,14 @@ $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk
 //}
 
 // recherche de template->pageSuccess.php
-$pagesuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/_template/pageSuccess.php';
+$pagesuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/pageSuccess.php';
 if (file_exists($pagesuccessFile)){
     $this->logBlock('Copie de pageSuccess.php du theme sur le site ', 'INFO_LARGE');
     $this->getFilesystem()->execute('cp ' . $pagesuccessFile .' '.sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront/templates', $out, $err);
 }
 
 // recherche de js
-$dossierJs = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/_js';
+$dossierJs = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/js';
 if (is_dir($dossierJs)){
     $this->logBlock('Copie du contenu du dossier _js du theme sur le site ', 'INFO_LARGE');
     $this->getFilesystem()->execute('cp -r ' . $dossierJs .'/* '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/js', $out, $err);
@@ -511,7 +513,7 @@ foreach ($commands as $libCommand => $command) {
 
 // recuperation des differents dumps du coeur
 //scan du dossier _dumpContent
-$dirDumpContentTheme = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/_dumpContent';
+$dirDumpContentTheme = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/db';
 $arrayDumps = scandir($dirDumpContentTheme);
 $i = 1;
 $dispoDumps = array();
