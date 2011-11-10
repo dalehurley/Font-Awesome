@@ -2,7 +2,8 @@ default:
 
   http_metas:
     content-type: text/html
-    X-UA-Compatible: IE=edge,chrome=1
+    #activer si option ChromeFrame désactivée dans le .htaccess
+    #X-UA-Compatible: IE=edge,chrome=1
 
   stylesheets:
     - reset
