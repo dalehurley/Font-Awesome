@@ -193,12 +193,12 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	}
 
 	//Rajout fonction personnalisée pour avoir l'icone Apple
-	protected function getTouchIcon($size)
+	protected function getTouchIcon($size = '')
 	{
 		foreach(array('ico', 'png', 'gif') as $extension)
 		{
 			//composition du nom du fichier
-			if($size){
+			if($size != ''){
 				$appleIcon = sfConfig::get('sf_web_dir').'/apple-touch-icon-'.$size.'-precomposed.'.$extension;
 			}else{
 				$appleIcon = sfConfig::get('sf_web_dir').'/apple-touch-icon-precomposed.'.$extension;
@@ -317,6 +317,16 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 					});
 				</script>";
 		
+		return $html;
+	}
+	
+	//Propose l'installation de Chrome Frame pour les utilisateurs de IE6 sans droit administrateur (nécessaire pour cause d'arrêt du support d'IE6)
+	//chromium.org/developers/how-tos/chrome-frame-getting-started
+	public function renderChromeFrame() {
+		$html = "<!--[if lt IE 7 ]>
+					<script src=\"//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js\"></script>
+					<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+				<![endif]-->";
 		return $html;
 	}
 }
