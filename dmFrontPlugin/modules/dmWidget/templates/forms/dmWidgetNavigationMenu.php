@@ -34,6 +34,7 @@ _tag('div#'.$baseTabId.'_items.drop_zone',
 
 _tag('div#'.$baseTabId.'_advanced',
   _tag('ul.dm_form_elements',
+    $form['menuType']->renderRow().          
     $form['cssClass']->renderRow().
     $form['ulClass']->renderRow().
     $form['menuName']->renderRow().
