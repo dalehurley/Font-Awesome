@@ -16,6 +16,12 @@
 	right: @gridGutter;
 	//forçage d'affichage au premier plan
 	z-index: 100000;
+	//rajout animation disparition
+	@transitionProperty(visibility, opacity);
+	@transitionDuration(.2s);
+	@transitionFunction(ease-out);
+	@transitionDelay(.2s, 0);
+	&.disabled { opacity: 0; visibility: hidden; }
 	
 	.dm_widget_inner{
 		background-color: @colorCouleur3Clair;

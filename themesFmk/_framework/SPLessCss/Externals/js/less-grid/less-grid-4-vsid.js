@@ -16,8 +16,8 @@
 		debugAddValue('windowInnerWidth', window.innerWidth);
 		debugAddValue('windowOrientation', window.orientation);
 		
-		$('.main_less_debug').click(function(){
-			$(this).toggle();
+		$('.main_less_debug').click(function(e){
+			$(this).toggleClass('disabled');
 		});
 	});
 	
