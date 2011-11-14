@@ -6,7 +6,7 @@ default:
     #X-UA-Compatible: IE=edge,chrome=1
 
   stylesheets:
-    - reset
+    - normalize
     - style
 
   javascripts:
