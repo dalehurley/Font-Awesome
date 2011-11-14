@@ -9,7 +9,6 @@
 class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	
 	//INCLURE ICI LES FONCTION OVERRIDE DE dmCoreLayoutHelper
-	public static $testFrontVart= "superTest";
 
 	//Modification de l'ordre des appels dans le head
 	public function renderHead()
@@ -22,31 +21,6 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		$this->renderStylesheets().
 		$this->renderHeadJavascripts().
 		$this->renderIeHtml5Fix();
-	}
-
-	//Meilleure gestion du tag html pour la gestion des diffÃ©rentes versions de IE
-	public function renderHtmlTag()
-	{
-		$culture = $this->serviceContainer->getParameter('user.culture');
-
-		if ($this->isHtml5() || $this->isHtml4)
-		{
-			$htmlTag = sprintf('<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="%s"> <![endif]-->', $culture)."\n".
-					   sprintf('<!--[if IE 7]> <html class="no-js ie7 oldie" lang="%s"> <![endif]-->', $culture)."\n".
-					   sprintf('<!--[if IE 8]> <html class="no-js ie8 oldie" lang="%s"> <![endif]-->', $culture)."\n".
-					   sprintf('<!--[if IE 9]> <html class="no-js ie9 oldie" lang="%s"> <![endif]-->', $culture)."\n".
-					   sprintf('<!--[if gt IE 9]><!--> <html class="no-js" lang="%s"> <!--<![endif]-->', $culture);
-		}
-		else
-		{
-			$htmlTag = sprintf(
-				'<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="%s"%s >',
-				$culture,
-				'1.1' == $this->getDocTypeOption('version', '1.0') ? '' : " lang=\"$culture\""
-			);
-		}
-
-		return $htmlTag;
 	}
 
 	//Ajout de la variable de gabarit dans les classes CSS appelÃ©es dans le body (par Lionel)
@@ -63,112 +37,6 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 
         return parent::renderBodyTag($options);
     }
-
-	//Modification pour gestion meta charset
-	public function renderHttpMetas()
-	  {
-		$httpMetas = $this->getService('response')->getHttpMetas();
-
-		$html = '';
-
-		foreach($httpMetas as $httpequiv => $value)
-		{
-			if('Content-Type' === $httpequiv)
-			{
-				$html .= '<meta charset="utf-8" />'."\n";
-			}
-			else
-			{
-				$html .= '<meta http-equiv="'.$httpequiv.'" content="'.$value.'" />'."\n";
-			}
-		}
-
-		return $html;
-	}
-
-	//Simplification html5 de l'intégration des feuilles de style (suppression de 'type="text/css"')
-	public function renderStylesheets()
-	{
-		/*
-		 * Allow listeners of dm.layout.filter_stylesheets event
-		 * to filter and modify the stylesheets list
-		 */
-		$stylesheets = $this->dispatcher->filter(
-		new sfEvent($this, 'dm.layout.filter_stylesheets'),
-		$this->getService('response')->getStylesheets()
-		)->getReturnValue();
-
-		$relativeUrlRoot = dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root');
-
-		$html = '';
-		//ajout manuel du style de normalization (TODO : rajout propre dans listing général)
-		//$html .= '<link rel="stylesheet" media="all" href="/theme/css/normalize.css" />';
-		//$html .= "\n";
-		foreach ($stylesheets as $file => $options)
-		{
-			$stylesheetTag = '<link rel="stylesheet" media="'.dmArray::get($options, 'media', 'all').'" href="'.($file{0} === '/' ? $relativeUrlRoot.$file : $file).'" />';
-
-			if (isset($options['condition']))
-			{
-				$stylesheetTag = sprintf('<!--[if %s]>%s<![endif]-->', $options['condition'], $stylesheetTag);
-			}
-
-			$html .= $stylesheetTag."\n";
-		}
-
-		sfConfig::set('symfony.asset.stylesheets_included', true);
-
-		return $html;
-	}
-
-	//Simplification html5 de l'intÃ©gration des fichiers JS externe dans le head (suppression de 'type="text/javascript"')
-	public function renderHeadJavascripts()
-	{
-		$javascripts = $this->serviceContainer->getService('response')->getHeadJavascripts();
-		if(empty($javascripts))
-		{
-			return '';
-		}
-
-		$relativeUrlRoot = dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root');
-
-		$html = '';
-		foreach($javascripts as $file => $options)
-		{
-			$html.= '<script src="'.($file{0} === '/' ? $relativeUrlRoot.$file : $file).'"></script>';
-			$html.= "\n";
-		}
-
-		return $html;
-	}
-
-	//Simplification html5 de l'intÃ©gration des fichiers JS externe Ã  la fin du body (suppression de 'type="text/javascript"')
-	public function renderJavascripts()
-	{
-		/*
-		 * Allow listeners of dm.layout.filter_javascripts event
-		 * to filter and modify the javascripts list
-		 */
-		$javascripts = $this->dispatcher->filter(
-			new sfEvent($this, 'dm.layout.filter_javascripts'),
-			$this->serviceContainer->getService('response')->getJavascripts()
-			)->getReturnValue();
-
-		sfConfig::set('symfony.asset.javascripts_included', true);
-
-		$relativeUrlRoot = dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root');
-
-		$html = '';
-		foreach ($javascripts as $file => $options)
-		{
-			if(empty($options['head_inclusion']))
-			{
-				$html .= '<script src="'.($file{0} === '/' ? $relativeUrlRoot.$file : $file).'"></script>';
-			}
-		}
-
-		return $html;
-	}
 
 	//Remplacement de html5shiv par Modernizr pour l'intégration html5
 	/*
@@ -246,57 +114,8 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		return $html;
 	}
 
-	//Simplification html5 (suppression de 'type="image/x-icon"')
-	public function renderFavicon()
-	{
-		$favicon = $this->getFavicon();
-
-		//création html
-		$html = '';
-
-		if ($favicon)
-		{
-			$html.= sprintf('<link rel="shortcut icon" href="%s/%s" />',
-						dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root'),
-						$favicon
-						)."\n";
-		}
-		
-		return $html;
-	}
-
 	//INCLURE ICI LES FONCTION OVERRIDE DE dmFrontLayoutHelper
-
-	//Modification ordre des metas par dÃ©faut et ajout meta viewport
-	protected function getMetas()
-	{
-		$metas = array(
-			'title'			=> dmConfig::get('title_prefix').$this->page->get('title').dmConfig::get('title_suffix'),
-			'description'  	=> $this->page->get('description'),
-			'language'		=> $this->serviceContainer->getParameter('user.culture')
-	    );
-		
-		//à modifier une fois la mise en prod pour autoriser le zoom (désactiver maximum-scale=1.0, user-scalable=0)
-		$metas['viewport'] = 'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0';
-
-		if (sfConfig::get('dm_seo_use_keywords') && $keywords = $this->page->get('keywords'))
-		{
-			$metas['keywords'] = $keywords;
-		}
-
-		if (!dmConfig::get('site_indexable') || !$this->page->get('is_indexable'))
-		{
-			$metas['robots'] = 'noindex, nofollow';
-		}
-
-		if (dmConfig::get('gwt_key') && $this->page->getNode()->isRoot())
-		{
-			$metas['google-site-verification'] = dmConfig::get('gwt_key');
-		}
-
-		return $metas;
-	}
-
+	
 	//Optimisation intégration code Google Analytics, à  mettre à jour en fonction des dernières optimisations :
 	//mathiasbynens.be/notes/async-analytics-snippet
 	protected function getGoogleAnalyticsCode($gaKey)
