@@ -1,0 +1,24 @@
+// _TabletPortrait.less
+// v1.0
+// Last Updated : 2011-05-30 17:25
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+// Tablet Portrait	: 768px	(on compte sans la scrollbar)
+// Colonnes			: 8
+// Scrollbar		: 0
+// and (min-width: 768px) and (max-width: 991px) and (orientation:portrait)
+@media only screen and (max-width: 1023px) {  	// max-width: 1023 - 31 = 991px
+	//ajout infos de debug
+	.debugTemplate .debugInfo .screenType .value:after { content: "TabletPortrait"; }
+	//désactivation de la scrollBar
+	html { overflow-y: hidden; }
+	/*
+	#dm_main {
+		@gridSiteWidth(@gridScreen_TabletPortrait;@gridCol_TabletPortrait;0);
+		@gridDebugBgc(#a88);
+	}
+	*/
+	//importation des adaptations média du template
+	@templateMedia_TabletPortrait();
+}
