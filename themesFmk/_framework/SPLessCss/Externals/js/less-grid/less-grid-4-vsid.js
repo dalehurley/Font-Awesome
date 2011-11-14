@@ -15,6 +15,10 @@
 		//ajout de paramètres personnalisés en JS à la sortie de débug
 		debugAddValue('windowInnerWidth', window.innerWidth);
 		debugAddValue('windowOrientation', window.orientation);
+		
+		$('.main_less_debug').click(function(){
+			$(this).toggle();
+		});
 	});
 	
 	//lorsque la page est redimenssionée
