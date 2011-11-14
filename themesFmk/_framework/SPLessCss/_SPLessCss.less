@@ -15,6 +15,8 @@
 .debugTemplate{@Debug(@mainTemplate;@templateVersion;@templateDate;@templateCopyright;@templateAuthor);}
 
 //IMPORTATION DES DIFFÉRENTS ÉLÉMENTS CONSTITUTIFS DU FRAMEWORK
+//Normalisation des styles sur tous les navigateurs
+@import "_framework/SPLessCss/Normalize/_Normalize.less";
 //Gestion de la grille
 @import "_framework/SPLessCss/Grids/_Grids.less";
 //Gestion des polices
@@ -29,5 +31,7 @@
 //Appel du template choisi par variable
 @importTemplateBase();
 
+//Classes non sémantiques (helpers)
+@import "_framework/SPLessCss/Helpers/_Helpers.less";
 //Requêtes médias
 @import "_framework/SPLessCss/Medias/_Medias.less";
