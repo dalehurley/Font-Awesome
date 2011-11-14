@@ -22,7 +22,7 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		$this->renderHeadJavascripts().
 		$this->renderIeHtml5Fix();
 	}
-
+	
 	//Ajout de la variable de gabarit dans les classes CSS appelÃ©es dans le body (par Lionel)
 	public function renderBodyTag($options = array()) {
         $options = dmString::toArray($options);
