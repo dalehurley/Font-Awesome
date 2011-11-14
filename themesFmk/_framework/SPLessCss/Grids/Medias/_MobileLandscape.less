@@ -1,0 +1,24 @@
+// _MobileLandscape.less
+// v1.0
+// Last Updated : 2011-05-30 17:25
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+// Mobile landscape	: 480px
+// Colonnes			: 5
+// Scrollbar		: 0
+//  and (min-width: 480px) and (orientation:landscape)
+@media only screen and (max-width: 767px)  {
+	//ajout infos de debug
+	.debugTemplate .debugInfo .screenType .value:after { content: "MobileLandscape"; }
+	//désactivation de la scrollBar
+	html { overflow-y: hidden; }
+	/*
+	#dm_main {
+		@gridSiteWidth(@gridScreen_MobileLandscape;@gridCol_MobileLandscape;0);
+		@gridDebugBgc(#aa8);
+	}
+	*/
+	//importation des adaptations média du template
+	@templateMedia_MobileLandscape();
+}
