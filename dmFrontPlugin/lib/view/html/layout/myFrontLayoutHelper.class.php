@@ -86,9 +86,10 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		return $html;
 	}
 
-	//Simplification html5 de l'intÃ©gration des feuilles de style (suppression de 'type="text/css"')
+	//Simplification html5 de l'intégration des feuilles de style (suppression de 'type="text/css"')
 	public function renderStylesheets()
 	{
+		//use_stylesheet('/theme/css/normalize.css');
 		/*
 		 * Allow listeners of dm.layout.filter_stylesheets event
 		 * to filter and modify the stylesheets list
@@ -97,10 +98,14 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 			new sfEvent($this, 'dm.layout.filter_stylesheets'),
 			$this->getService('response')->getStylesheets()
 		)->getReturnValue();
-
+		
 		$relativeUrlRoot = dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root');
-
+		
 		$html = '';
+		//ajout manuel du style de normalization (TODO : rajout propre dans listing général)
+		$html .= '<link rel="stylesheet" media="all" href="/theme/css/normalize.css" />';
+		$html .= "\n";
+		
 		foreach ($stylesheets as $file => $options)
 		{
 			$stylesheetTag = '<link rel="stylesheet" media="'.dmArray::get($options, 'media', 'all').'" href="'.$relativeUrlRoot.$file.'" />';

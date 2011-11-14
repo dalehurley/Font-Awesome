@@ -1,5 +1,5 @@
 /* html5 ie compatibility */
-article, aside, dialog, figure, footer, header, hgroup, menu, nav, section { display: block; }
+/*article, aside, dialog, figure, footer, header, hgroup, menu, nav, section { display: block; }
 
 .clearfix:after {
   content:".";
@@ -8,9 +8,9 @@ article, aside, dialog, figure, footer, header, hgroup, menu, nav, section { dis
   clear:both;
   visibility:hidden;
 }
-.clearfix {display:inline-block;}
+.clearfix {display:inline-block;}*/
 /* Hide from IE Mac \*/
-.clearfix {display:block;}
+/*.clearfix {display:block;}*/
 /* End hide from IE Mac */
 
 /* GENERIC CLASSES */
