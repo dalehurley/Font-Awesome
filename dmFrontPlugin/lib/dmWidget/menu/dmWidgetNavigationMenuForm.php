@@ -40,7 +40,7 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
         $typeChoice = array(
             'default' => 'default',
             'dropdown' => 'dropdown', 
-            'slidedown' => 'slidedown', 
+            'megadropdown' => 'megadropdown', 
             'accordion' => 'accordion'); 
         $this->widgetSchema['menuType'] = new sfWidgetFormChoice(array(
                     'choices' => $typeChoice,

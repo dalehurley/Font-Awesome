@@ -54,9 +54,9 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
             use_javascript($jsLink);
 
         //INSERTION EN DUR DU SCRIPT ACCORDION POUR TENOR
-        if (myUser::getLessParam('mainTemplate') == 'BaseTheme') {
-            use_javascript(sfConfig::get('sf_js_path_framework') . '/navigationMenu/accordion.js');
-        }
+//        if (myUser::getLessParam('mainTemplate') == 'BaseTheme') {
+//            use_javascript(sfConfig::get('sf_js_path_framework') . '/navigationMenu/accordion.js');
+//        }
 
         //ajout des classes CSS de dossier
         $vars['menu'] = $this->menuAddDir($vars['menu']);
