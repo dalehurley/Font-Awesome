@@ -8,8 +8,8 @@ $dbHost = 'localhost';
 $dbPrefixe = 'sitev3';
 $dbUser = 'root';
 $dbPwd = 'root';
-$ipDefault = '192.168.81.102';
-$portDefault = '80';
+//$ipDefault = '192.168.81.102';
+//$portDefault = '80';
 
 
 /** @var sfGenerateProjectTask This file runs in the context of sfGenerateProjectTask::execute() */ $this;
@@ -61,7 +61,8 @@ if ('Doctrine' != $this->options['orm']) {
 // le nom du dossier du site
 $projectKey = dmProject::getKey();
 
-$ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: http://www.example.com)', ''), new sfValidatorUrl(
+$ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com)', ''), new sfValidatorRegex(
+                        array('pattern' => '/^([a-z0-9-]+\.)+[a-z]{2,6}$/'),
                         array('required' => true),
                         array('invalid' => 'Le nom de domaine n\'est pas valide')
         ));
@@ -295,16 +296,16 @@ try {
  *  - du fichier sitemap.xml
  *  - l'index de recherche
  */
-$crontabFile = fopen('/etc/crontab', 'a');
-if ($crontabFile) {
-    $this->logBlock('Mise en cron @daily de la generation du fichier sitemap.xml.', 'INFO_LARGE');
-    fputs($crontabFile, '@daily /usr/bin/php ' . sfConfig::get('sf_root_dir') . '/symfony dm:sitemap-update ' . $settings['ndd'] . '
-');
-    $this->logBlock('Mise en cron @daily de la generation de l\'index de recherche.', 'INFO_LARGE');
-    fputs($crontabFile, '@daily /usr/bin/php ' . sfConfig::get('sf_root_dir') . '/symfony dm:search-update
-');
-    fclose($crontabFile);
-}
+//$crontabFile = fopen('/etc/crontab', 'a');
+//if ($crontabFile) {
+//    $this->logBlock('Mise en cron @daily de la generation du fichier sitemap.xml.', 'INFO_LARGE');
+//    fputs($crontabFile, '@daily /usr/bin/php ' . sfConfig::get('sf_root_dir') . '/symfony dm:sitemap-update ' . $settings['ndd'] . '
+//');
+//    $this->logBlock('Mise en cron @daily de la generation de l\'index de recherche.', 'INFO_LARGE');
+//    fputs($crontabFile, '@daily /usr/bin/php ' . sfConfig::get('sf_root_dir') . '/symfony dm:search-update
+//');
+//    fclose($crontabFile);
+//}
 
 // sitemap.xml
 chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml', 0666);
@@ -314,14 +315,15 @@ chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml',
  */
 
 //$this->logBlock('APACHE : Creation du fichier '.sfConfig::get('sf_root_dir').'/conf/httpd.conf', 'INFO_LARGE');
-$ip = $this->ask(array('', 'IP du serveur? (par defaut : '.$ipDefault.')', ''));
-$port = $this->ask(array('', 'Port du serveur? (par defaut :'.$portDefault.')', ''));
+//$ip = $this->ask(array('', 'IP du serveur? (par defaut : '.$ipDefault.')', ''));
+//$port = $this->ask(array('', 'Port du serveur? (par defaut :'.$portDefault.')', ''));
+//
+//$ip = empty($ip) ? $ipDefault : $ip;
+//$port = empty($port) ? $portDefault : $port;
 
-$ip = empty($ip) ? $ipDefault : $ip;
-$port = empty($port) ? $portDefault : $port;
 
-$confFileContent = '<VirtualHost '.$ip.':'.$port.' >
-	ServerName  	' . str_replace('http://','',$settings['ndd']) . '
+$confFileContent = '<VirtualHost '.$settings['ndd'].' >
+	ServerName  	' . $settings['ndd'] . '
 	DocumentRoot	'.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'
 	ErrorLog        '.$settings['apache_dir_log'].'/'.$projectKey.'/error.log
    	CustomLog       '.$settings['apache_dir_log'].'/'.$projectKey.'/access.log CompletSimple
@@ -397,7 +399,7 @@ $this->logBlock('APACHE : Le fichier "'.$fileConf.'" a inclure dans la configura
 
 // pour le serveur de dev
 if (is_dir('/data/conf')){ 
- //   cp /data/www/sitesv3/democo-tenor/conf/httpd.conf /data/conf/
+ //   cp /data/www/xxxxxxxx/conf/httpd.conf /data/conf/
     $this->logBlock('Copie httpd.conf du site dans /data/conf/httpd-'.$projectKey.'.conf', 'INFO_LARGE');
     $this->getFilesystem()->execute('cp '.sfConfig::get('sf_root_dir').'/conf/httpd.conf /data/conf/', $out, $err);
     $this->getFilesystem()->execute('mv /data/conf/httpd.conf /data/conf/httpd-'.$projectKey.'.conf', $out, $err);
@@ -456,11 +458,15 @@ $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'INFO_LA
 
 // on est dans le dossier htdocs:
 $this->logBlock('Copie du dossier diem/themesFmk/theme ', 'INFO_LARGE'); 
+
+$dirTheme = sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme';
+if (!is_dir($dirTheme)) mkdir ($dirTheme);
+
 $this->getFilesystem()->execute('cp -r ' . $diemLibConfigDir . '/../../themesFmk/theme/* '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme', $out, $err);
 // on remplace dans le dossier    sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme  les ##THEME## par le $nomTemplateChoisi
 //MACOSX : modifs syntaxe
 $this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/'.$nomTemplateChoisi.'/g\'');
-// on crÃ©e les liens symboliques
+// on crée les liens symboliques
 //MACOSX : modifs syntaxe
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_framework', $out, $err);
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_templates', $out, $err);
@@ -556,7 +562,7 @@ if ($nomDumpChoisi != $libelleEmptyDump) { // on fait un loadDB si on a choisi u
 //-------------------------------------------------------------------------------------
 $this->logBlock('Chmod 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css" pour laisser php ecrire via lessPlugin', 'INFO_LARGE');
 $out = $err = null;
-$this->getFilesystem()->execute('chmod 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css', $out, $err);
+$this->getFilesystem()->execute('sudo chmod 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css', $out, $err);
 
 $this->logBlock('Les permissions (dm:permissions)', 'INFO_LARGE');
 $out = $err = null;
@@ -566,15 +572,13 @@ $this->getFilesystem()->execute(sprintf(
 
 $this->logBlock('Chmod 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads" pour laisser php ecrire via dmMedia', 'INFO_LARGE');
 $out = $err = null;
-$this->getFilesystem()->execute('chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads', $out, $err);
+$this->getFilesystem()->execute('sudo chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads', $out, $err);
 
 //-------------------------------------------------------------------------------------
 //    Redemarrage Apache
 //-------------------------------------------------------------------------------------
 $commands = array(
-    'Restart apache par init.d/apache2 restart' => 'cd /; ./etc/init.d/apache2 restart',
-    'Restart apache par service httpd' => '/sbin/service httpd graceful',
-    'Restart apache par service apache (sudo)' => 'sudo /sbin/service apache graceful'
+     'Restart apache par service httpd (sudo)' => 'sudo service httpd graceful'
     );
 
 foreach ($commands as $libCommand => $command) {
