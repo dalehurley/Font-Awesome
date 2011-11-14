@@ -1,51 +1,15 @@
 // _Utilities.less
-// v1.0
-// Last Updated : 2011-03-24 18:10
+// v1.1
+// Last Updated : 2011-11-14 18:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 // ATTENTION : ce fichier est appelé au début de tous les thèmes et ne doit contenir ques des fonctions (aucune classe de mise en forme)
 
 //infos de version affichables dans le contenu
-@Debug(@mainTemplate:"ND"; @version:"0"; @date:"0000-00-00 00:00"; @copyright:"SidPresse"; @author:"Arnaud GAUDIN") {
-	.debugInfo{
-		.info { font-weight: bold; color: @colorCouleur3Fonce; }
-		.value { font-weight: normal; color: @colorCouleur3; }
-		
-		
-		//devra permetre d'écrire des commentaires non supprimés lorsque la fonctionnalitée sera implémentée dans lessPHP
-		/*
-		.mainTemplate,
-		.version,
-		.date,
-		.gabarit,
-		.grid,
-		.copyright,
-		.author,
-		.currentGabarit,
-		.gridContainer,
-		.gridColWidth,
-		.gridGutter {
-		}
-		*/
-		/*
-		.mainTemplate .value, .mainTemplate:after { content: @packName; }
-		.gabarit .value, .gabarit:after { content: @templateGabarit; }
-		.version .value, .version:after { content: @version; }
-		.date .value, .date:after { content: @lastUpdated; }
-		.copyright .value, .copyright:after { content: @copyright; }
-		.author .value, .author:after { content: @author; }
-		
-		.gridContainer .value { background-image: url("/{@gridContainer}"); }
-		.gridContainer:after { content: @gridContainer; }
-		
-		.gridColWidth .value { background-image: url("/{@gridColWidth}"); }
-		.gridColWidth:after { content: quote(@gridColWidth); }
-		
-		.gridGutter .value { background-image: url("/{@gridGutter}"); }
-		.gridGutter:after { content: quote(@gridGutter); }
-		*/
-	}
+@Debug(@mainTemplate:"ND"; @version:"0"; @date:"0000-00-00 00:00"; @copyright:"SID Presse"; @author:"Arnaud GAUDIN") {
+	//devra permetre d'écrire des commentaires non supprimés lorsque la fonctionnalitée sera implémentée dans lessPHP
+	.testDebug { content: "{@mainTemplate} | v{@version} | Last Updated : {@date} | Copyright : {@copyright} | Author : {@author}"; }
 }
 
 //Génération du clearfix

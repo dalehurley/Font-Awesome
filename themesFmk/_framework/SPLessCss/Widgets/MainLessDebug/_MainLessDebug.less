@@ -1,6 +1,6 @@
 // _MainLessDebug.less
-// v1.1
-// Last Updated : 2011-11-14 12:00
+// v1.2
+// Last Updated : 2011-11-14 18:25
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -39,13 +39,11 @@
 //transparence du fond
 .rgba { .main_less_debug .dm_widget_inner { background-color: fadeout(@colorCouleur3ClairSup, 25%); } }
 
-
 //Placement personnalisé de la div de debug et de warning flotante
 .debug, .warning {
 	position: absolute;
 	//forçage d'affichage au premier plan
 	z-index: 100000;
-	
 	content: "";
 	padding: (@gridBaseline -1px) (@gridGutter -1px);
 	
@@ -59,22 +57,29 @@
 	}
 }
 
+//gestion des infos de débug
+.debugInfo, .debug, .warning {
+	.info { font-weight: bold; }
+	.value { font-weight: normal; }
+}
+
+.debugInfo, .debug {
+	.info { color: @colorCouleur3Fonce; }
+	.value { color: @colorCouleur3; }
+}
+.warning {
+	.info { color: darken(desaturate(@colorRequired,25%),45%); }
+	.value { color: darken(desaturate(@colorRequired,25%),35%); }
+}
+
 .debug {
 	background-color: @colorCouleur3Clair;
 	border: 1px solid @colorCouleur3Moyen;
-	
-	//couleurs des valeurs affichées
-	.type, .info { font-weight: bold; color: @colorCouleur3Fonce; }
-	.value { font-weight: normal; color: @colorCouleur3; }
 }
 
 .warning {
 	background-color: lighten(desaturate(@colorRequired,50%), 25%);
 	border: 1px solid @colorRequired;
-	
-	//couleurs des valeurs affichées
-	.info { font-weight: bold; color: darken(desaturate(@colorRequired,25%),45%); }
-	.value { font-weight: normal; color: darken(desaturate(@colorRequired,25%),35%); }
 }
 
 //transparence du fond
