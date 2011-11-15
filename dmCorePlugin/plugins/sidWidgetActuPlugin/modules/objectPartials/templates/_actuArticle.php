@@ -35,6 +35,6 @@ if (isset($article)) {
     echo _close('span');
     echo _close('li');
 } else {
-    echo "Ce partial a besoin d'un objet actu article";
+    echo __('This bias needs to be a news item');
 }
 ?>

@@ -1,5 +1,5 @@
 <?php // Vars: $sectionPager
-echo _tag('h2.title', 'Rubrique '.ucfirst($namePage));
+echo _tag('h2.title',__('Rubric'). ' '.ucfirst($namePage));
 echo $sectionPager->renderNavigationTop();
 
 echo _open('ul.elements');

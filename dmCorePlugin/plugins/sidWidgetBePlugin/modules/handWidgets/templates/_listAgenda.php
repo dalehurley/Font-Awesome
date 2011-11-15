@@ -26,7 +26,7 @@ echo _close('ul');
 echo _open('div.navigation.navigationBottom');
 	echo _open('ul.elements');
 		echo _open('li.element');
-			echo _link($agendas[0]->getSection()->getRubrique())->text('Découvrir notre rubrique ' . $agendas[0]->getRubriquePageName());
+			echo _link($agendas[0]->getSection()->getRubrique())->text(__('Discover our section') . $agendas[0]->getRubriquePageName());
 		echo _close('li');
 	echo _close('ul');
 echo _close('div');

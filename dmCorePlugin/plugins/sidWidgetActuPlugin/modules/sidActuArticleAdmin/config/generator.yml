@@ -30,10 +30,10 @@ generator:
       fields:
 #        sid_actu_type_list:
 #          label: 'Type des Articles'
-        tags_list:
-          label: 'Mots clés'
-        tags:
-          label: 'Choix de mots clés'
+#        tags_list:
+#          label: 'Mots clés'
+#        tags:
+#          label: 'Choix de mots clés'
         resume:
           label: 'Résumé'
         is_active:
@@ -56,9 +56,9 @@ generator:
             credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
         display:
           - '=title'
-          - rubrique_id
+#          - rubrique_id
           - resume
-          - tags_list
+#          - tags_list
           - on_home
           - is_active
           - created_at
@@ -77,7 +77,7 @@ generator:
           - title
           - on_home
           - is_active
-          - rubrique_id
+#          - rubrique_id
           - image
           - resume
           - created_at
@@ -92,15 +92,17 @@ if (sfContext::getInstance()->getUser()->isSuperAdmin()){ // si l'utilisateur a 
 <?php } else if (!sfContext::getInstance()->getUser()->isSuperAdmin()) { ?>
          NONE: [on_home]
 <?php } ?>
-         "Définition de votre article": [title, is_active, rubrique_id]
+#         "Définition de votre article": [title, is_active, rubrique_id]
+         "Définition de votre article": [title, is_active]
          'Chapeau de votre article': [resume]
          Text: [text]
          Image: [image_form, image_view]
          Fichier: [ file_form, file_view, title_file]
          # 'Mots clés': [tags] Syntaxe pour autocomplétion pour tagger les articles (ajout et sélection)
-         'Mots clés': [tags_list] 
+#         'Mots clés': [tags_list] 
          # m_sections du nom de la relation declaree dans le schema.yml, + _list
-         'Section liées': [m_sections_list]   
+#         'Section liées': [m_sections_list]   
+         'Rubriques liées': [m_rubriques_list]
         class: SidActuArticleAdminForm
 
 

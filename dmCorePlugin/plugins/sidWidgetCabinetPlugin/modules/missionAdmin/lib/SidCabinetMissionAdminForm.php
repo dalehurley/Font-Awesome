@@ -36,6 +36,13 @@ class SidCabinetMissionAdminForm extends BaseSidCabinetMissionForm {
             'tags_list' => 'Sélectionnez les mots en rapport avec votre lien pour les faire apparaitre dans les pages les plus adéquates de votre site',
             'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
         ));
+                $this->widgetSchema['m_rubriques_list'] = new sfWidgetFormDoctrineChoice(array(
+		    'model' => 'SidRubrique',
+		    'method' => 'show_list_rubrique',
+		    'multiple' => true,
+		    'expanded' => true,  // pour avoir des cases à cocher
+		    //'add_empty' => '-- Sections --'
+		));
     }    
     
 

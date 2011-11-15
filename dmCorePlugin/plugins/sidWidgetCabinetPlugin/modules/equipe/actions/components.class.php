@@ -15,13 +15,12 @@ class equipeComponents extends myFrontModuleComponents
 
   public function executeList()
   {
-    //    $query = $this->getListQuery();
-    //
-    //    $this->equipePager = $this->getPager($query);
-            $request = Doctrine_Query::create()->from('SidCabinetEquipe a')
-                        ->where('a.is_active = ?', true)
-                        ->execute();
-      $this->equipes = $request;
+    $query = $this->getListQuery();
+    $this->equipePager = $this->getPager($query);
+//    $equipePager = Doctrine_Query::create()->from('SidCabinetEquipe a')
+//                      ->where('a.is_active = ?', true)
+//                      ->execute();
+//    $this->equipes = $equipePager;
   }
 
   public function executeListParTags()

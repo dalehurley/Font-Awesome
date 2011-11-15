@@ -12,15 +12,20 @@ class handWidgetsIntroPageCabinetForm extends dmWidgetPluginForm {
                     'model' => 'SidCabinetPageCabinet'
                 ));
 	
-        $this->widgetSchema['lenght'] = new sfWidgetFormInputText();
+        $this->widgetSchema['lenght'] = new sfWidgetFormInputText(array('default'=>0));
         $this->validatorSchema['lenght'] = new sfValidatorInteger(array(
                     'required' => false
                 ));
-       
+       $this->widgetSchema['title_page'] = new sfWidgetFormInputText();
+        $this->validatorSchema['title_page'] = new sfValidatorString(array(
+                    'required' => false
+                ));
         
         $this->widgetSchema->setHelps(array(
             'page' => 'Choisir une page du cabinet',
-            'lenght' => 'Nombre de caractère du chapeau'
+            'lenght' => 'Nombre de caractère du chapeau',
+            'title_page'=> 'Titre du bloc'
+            
         ));
 
         parent::configure();

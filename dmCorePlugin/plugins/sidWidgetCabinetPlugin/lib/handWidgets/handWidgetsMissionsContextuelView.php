@@ -14,58 +14,93 @@ class handWidgetsMissionsContextuelView extends dmWidgetPluginView {
 
     /**
      * On affiche NB articles Actu selon 3 types:
-     * 1) il est sur une dmPage automatique de type "Rubrique" : on affiche les articles qui sont dans les sections de cette rubrique
-     * 2) il est sur une dmPage automatique de type "Section" : on affiche les articles qui sont dans cette section
-     * 3) il est sur une page ni Rubrique ni Section, automatique ou pas : on affiche les articles de la rubrique choisie par défaut
+     * 1) il est sur une dmPage automatique de type "Rubrique" : on affiche les missions qui sont dans cette rubrique
+     * 2) il est sur une dmPage automatique de type "Section" : on affiche les missions qui sont dans la rubrique de cette section
+     * 3) il est sur une page du module mission : on n'affiche rien
+     * 4) il est sur une page article du cabinet : on affaiche les missions qui ont la même rubrique
+     * 5) il est sur une page ni Rubrique ni Section, automatique ou pas : on affiche les articles de la rubrique choisie par défaut
      *  
      */
     protected function doRender() {
         $vars = $this->getViewVars();
-        $arrayArticle = array();
+        $arrayMission = array();
 
 	$idDmPage = sfContext::getInstance()->getPage()->id;
 	$dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
 	//$arrayArticle[] = $dmPage->module.' - '.$dmPage->action.' - '.$dmPage->record_id;
 	
-	switch ($dmPage->module) {
-	    case 'section':
-		$actuArticles = dmDb::table('SidCabinetMission')
+	switch ($dmPage->module.'/'.$dmPage->action) {
+//                switch ($dmPage->module) {
+	    case 'section/show':
+                            // il faut que je récupère l'id de la rubrique de la section
+                            // je récupère donc l'ancestor de la page courante pour extraire le record_id de ce dernier afin de retrouver la rubrique
+                            $ancestors = $this->context->getPage()->getNode()->getAncestors();
+                            $recordId = $ancestors[count($ancestors)-1]->getRecordId();
+		$actuMissions = dmDb::table('SidCabinetMission')
 			->createQuery('p')
-			->leftJoin('p.SidCabinetMissionSidSection sas')
-			->leftJoin('sas.SidSection s')
-			->where('s.id = ? ', array($dmPage->record_id))
+			->leftJoin('p.SidCabinetMissionSidRubrique sas')
+			->leftJoin('sas.SidRubrique s')
+			->where('s.id = ? ', array($recordId))
 			->limit($vars['nb'])
 			->execute();
-		foreach($actuArticles as $actuArticle){ // on stock les NB actu article 
-		    $arrayArticle[] = $actuArticle;
+		foreach($actuMissions as $actuMission){ // on stock les NB actu article 
+		    $arrayMission[] = $actuMission;
 		}
 		break;
-	    case 'rubrique':
+	    case 'rubrique/show':
 		// toutes les sections de la rubrique contextuelle
-		$sections = dmDb::table('SidSection')->findByRubriqueId($dmPage->record_id);
+		$rubriques = dmDb::table('SidRubrique')->findById($dmPage->record_id);
 		// on parcourt les sections pour extraire les articles
-		foreach ($sections as $section) {
-		    $actuArticles = dmDb::table('SidCabinetMission')
+		foreach ($rubriques as $rubrique) {
+		    $actuMissions = dmDb::table('SidCabinetMission')
 			    ->createQuery('p')
-			    ->leftJoin('p.SidCabinetMissionSidSection sas')
-			    ->leftJoin('sas.SidSection s')
-			    ->where('s.id = ? ', array($section->id))
+			    ->leftJoin('p.SidCabinetMissionSidRubrique sas')
+			    ->leftJoin('sas.SidRubrique s')
+			    ->where('s.id = ? ', array($rubrique->id))
 			    ->limit($vars['nb'])
 			    ->execute();
-		    foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
-			$arrayArticle[$actuArticle->id] = $actuArticle;
+		    foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
+			$arrayMission[$actuMission->id] = $actuMission;
 		    }
 		}
 		break;
-	    default:
+                // on n'affiche rien si on est sur une page du module mission
+                    case 'mission/show':
+                        break;
+                    case 'mission/list':
+                        break;
+                    
+                    // on affiche les missions ayant les mêmes rubriques que la page actu du cabinet
+                     case 'sidActuArticle/show':
+                         // on cherche la rubrique de l'article
+                         $rubriques = dmDb::table('SidActuArticleSidRubrique')->findBySidActuArticleId($dmPage->record_id);
+//                         $rubriques = dmDb::table('SidRubrique')->findById($dmPage->record_id);
+		// on parcourt les sections pour extraire les articles
+		foreach ($rubriques as $rubrique) {
+		    $actuMissions = dmDb::table('SidCabinetMission')
+			    ->createQuery('p')
+			    ->leftJoin('p.SidCabinetMissionSidRubrique sas')
+			    ->leftJoin('sas.SidRubrique s')
+			    ->where('s.id = ? ', array($rubrique->sidRubriqueId))
+			    ->execute();
+                    
+                                    foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
+                                        // on compte le nbre de missions pour ne stocker que la quantité demandée
+                                        if (count($arrayMission) < $vars['nb']) {
+                                            $arrayMission[$actuMission->id] = $actuMission;
+                                        }
+                                    }
+                }
+                break;
+
+            default:
 		// hors context, on ne renvoie aucun article
 	}
 
         return $this->getHelper()->renderPartial('handWidgets', 'missionsContextuel', array(
-                    'missions' => $arrayArticle,
-                    'nb' => $vars['nb'],
+                    'missions' => $arrayMission,
                     'titreBloc' => $vars['titreBloc'],
-                    'titreLien' => $vars['titreLien']	    
+                    'titreLien' => $vars['titreLien']
                 ));
     }
 
