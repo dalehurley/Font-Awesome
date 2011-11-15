@@ -336,53 +336,13 @@ INSERT INTO `sid_sites_utiles_translation_version` (`id`, `lang`, `title`, `url`
 UNLOCK TABLES;
 
 --
--- Dumping data for table `sid_actu_rubrique`
---
-
-LOCK TABLES `sid_actu_rubrique` WRITE;
-/*!40000 ALTER TABLE `sid_actu_rubrique` DISABLE KEYS */;
-INSERT INTO `sid_actu_rubrique` (`id`, `is_active`, `created_at`, `updated_at`, `position`) VALUES (2,1,'2011-08-19 02:05:20','2011-08-19 02:05:20',-2),(7,1,'2011-10-10 10:51:48','2011-10-10 10:51:48',-3);
-/*!40000 ALTER TABLE `sid_actu_rubrique` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `sid_actu_rubrique_translation`
---
-
-LOCK TABLES `sid_actu_rubrique_translation` WRITE;
-/*!40000 ALTER TABLE `sid_actu_rubrique_translation` DISABLE KEYS */;
-INSERT INTO `sid_actu_rubrique_translation` (`id`, `title`, `lang`, `version`) VALUES (2,'fiscal','fr',1),(7,'Actualité du cabinet','fr',1);
-/*!40000 ALTER TABLE `sid_actu_rubrique_translation` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `sid_actu_rubrique_translation_version`
---
-
-LOCK TABLES `sid_actu_rubrique_translation_version` WRITE;
-/*!40000 ALTER TABLE `sid_actu_rubrique_translation_version` DISABLE KEYS */;
-INSERT INTO `sid_actu_rubrique_translation_version` (`id`, `lang`, `title`, `version`) VALUES (2,'fr','fiscal',1),(7,'fr','Actualité du cabinet',1);
-/*!40000 ALTER TABLE `sid_actu_rubrique_translation_version` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `sid_actu_article`
 --
 
 LOCK TABLES `sid_actu_article` WRITE;
 /*!40000 ALTER TABLE `sid_actu_article` DISABLE KEYS */;
-INSERT INTO `sid_actu_article` (`id`, `rubrique_id`, `image`, `file`, `title_file`, `is_active`, `on_home`, `created_at`, `updated_at`, `created_by`, `updated_by`, `position`) VALUES (6,2,115,NULL,'doc pdf cabinet',1,1,'2011-09-07 23:03:17','2011-10-10 16:17:43',NULL,2,1),(7,7,117,NULL,'',1,1,'2011-10-11 18:26:10','2011-10-11 18:33:02',NULL,1,0);
+INSERT INTO `sid_actu_article` (`id`, `image`, `file`, `title_file`, `is_active`, `on_home`, `created_at`, `updated_at`, `created_by`, `updated_by`, `position`) VALUES (6,115,NULL,'doc pdf cabinet',1,1,'2011-09-07 23:03:17','2011-10-10 16:17:43',NULL,2,1),(7,117,NULL,'',1,1,'2011-10-11 18:26:10','2011-10-11 18:33:02',NULL,1,0);
 /*!40000 ALTER TABLE `sid_actu_article` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `sid_actu_article_dm_tag`
---
-
-LOCK TABLES `sid_actu_article_dm_tag` WRITE;
-/*!40000 ALTER TABLE `sid_actu_article_dm_tag` DISABLE KEYS */;
-INSERT INTO `sid_actu_article_dm_tag` (`id`, `dm_tag_id`) VALUES (7,60),(6,61),(7,75),(7,76),(7,80),(7,98),(7,100);
-/*!40000 ALTER TABLE `sid_actu_article_dm_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -445,36 +405,6 @@ LOCK TABLES `sid_actu_type_article` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `sid_cabinet_accueil`
---
-
-LOCK TABLES `sid_cabinet_accueil` WRITE;
-/*!40000 ALTER TABLE `sid_cabinet_accueil` DISABLE KEYS */;
-INSERT INTO `sid_cabinet_accueil` (`id`, `is_active`, `created_at`, `updated_at`, `position`) VALUES (1,1,'2011-08-10 22:14:10','2011-08-10 22:14:10',-1);
-/*!40000 ALTER TABLE `sid_cabinet_accueil` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `sid_cabinet_accueil_translation`
---
-
-LOCK TABLES `sid_cabinet_accueil_translation` WRITE;
-/*!40000 ALTER TABLE `sid_cabinet_accueil_translation` DISABLE KEYS */;
-INSERT INTO `sid_cabinet_accueil_translation` (`id`, `presentation`, `mission`, `equipe`, `lang`, `version`) VALUES (1,'<p>\r\n	{{nomcabinet}} est une soci&eacute;t&eacute; d&#39;expertise-comptable et de commissariat aux comptes implant&eacute;e &agrave; Paris et dans le d&eacute;partement de la Vienne.<br />\r\n	Elle est dirig&eacute;e par 2 associ&eacute;s, messieurs Emmanuel Legrand et Alain Lefort, entour&eacute;s d&#39;une &eacute;quipe de professionnels qui sont &agrave; votre &eacute;coute pour vous conseiller, construire, d&eacute;velopper.<br />\r\n	Forte de plus de 600 clients, {{nomcabinet}} intervient dans tous les secteurs d&#39;activit&eacute; : commerce, industrie, professions lib&eacute;rales, associations...</p>\r\n','<p>\r\n	L&#39;expert-comptable, sp&eacute;cialiste pluridisciplinaire, dispose de comp&eacute;tences &eacute;tendues pour vous suivre et vous conseiller durant toute la vie de votre entreprise.<br />\r\n	Notre cabinet met &agrave; votre disposition un savoir-faire reconnu en mati&egrave;re financi&egrave;re, fiscale, sociale, juridique, informatique et de gestion.</p>\r\n','','fr',8);
-/*!40000 ALTER TABLE `sid_cabinet_accueil_translation` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `sid_cabinet_accueil_translation_version`
---
-
-LOCK TABLES `sid_cabinet_accueil_translation_version` WRITE;
-/*!40000 ALTER TABLE `sid_cabinet_accueil_translation_version` DISABLE KEYS */;
-INSERT INTO `sid_cabinet_accueil_translation_version` (`id`, `lang`, `presentation`, `mission`, `equipe`, `version`) VALUES (1,'fr','<p>\r\n	Le Nom du Cabinet est une soci&eacute;t&eacute; d&#39;expertise-comptable et de commissariat aux comptes implant&eacute;e &agrave; Paris et dans le d&eacute;partement de la Vienne.<br />\r\n	Elle est dirig&eacute;e par 2 associ&eacute;s, messieurs Emmanuel Legrand et Alain Lefort, entour&eacute;s d&#39;une &eacute;quipe de professionnels qui sont &agrave; votre &eacute;coute pour vous conseiller, construire, d&eacute;velopper.<br />\r\n	Forte de plus de 600 clients, le Nom du Cabinet intervient dans tous les secteurs d&#39;activit&eacute; : commerce, industrie, professions lib&eacute;rales, associations...</p>\r\n<p>\r\n	<a href=\"le-cabinet/presentation\">en savoir plus sur Le Nom du Cabinet<br />\r\n	</a></p>\r\n','<p>\r\n	L&#39;expert-comptable, sp&eacute;cialiste pluridisciplinaire, dispose de comp&eacute;tences &eacute;tendues pour vous suivre et vous conseiller durant toute la vie de votre entreprise.<br />\r\n	Notre cabinet met &agrave; votre disposition un savoir-faire reconnu en mati&egrave;re financi&egrave;re, fiscale, sociale, juridique, informatique et de gestion.</p>\r\n<p>\r\n	<a href=\"nos-missions\">en savoir plus sur nos missions<br />\r\n	</a></p>\r\n','',1),(1,'fr','<p>\r\n	Le Nom du Cabinet est une soci&eacute;t&eacute; d&#39;expertise-comptable et de commissariat aux comptes implant&eacute;e &agrave; Paris et dans le d&eacute;partement de la Vienne.<br />\r\n	Elle est dirig&eacute;e par 2 associ&eacute;s, messieurs Emmanuel Legrand et Alain Lefort, entour&eacute;s d&#39;une &eacute;quipe de professionnels qui sont &agrave; votre &eacute;coute pour vous conseiller, construire, d&eacute;velopper.<br />\r\n	Forte de plus de 600 clients, le Nom du Cabinet intervient dans tous les secteurs d&#39;activit&eacute; : commerce, industrie, professions lib&eacute;rales, associations...</p>\r\n','<p>\r\n	L&#39;expert-comptable, sp&eacute;cialiste pluridisciplinaire, dispose de comp&eacute;tences &eacute;tendues pour vous suivre et vous conseiller durant toute la vie de votre entreprise.<br />\r\n	Notre cabinet met &agrave; votre disposition un savoir-faire reconnu en mati&egrave;re financi&egrave;re, fiscale, sociale, juridique, informatique et de gestion.</p>\r\n','',2),(1,'fr','<p>\r\n	#Le Nom du Cabinet# est une soci&eacute;t&eacute; d&#39;expertise-comptable et de commissariat aux comptes implant&eacute;e &agrave; Paris et dans le d&eacute;partement de la Vienne.<br />\r\n	Elle est dirig&eacute;e par 2 associ&eacute;s, messieurs Emmanuel Legrand et Alain Lefort, entour&eacute;s d&#39;une &eacute;quipe de professionnels qui sont &agrave; votre &eacute;coute pour vous conseiller, construire, d&eacute;velopper.<br />\r\n	Forte de plus de 600 clients, le Nom du Cabinet intervient dans tous les secteurs d&#39;activit&eacute; : commerce, industrie, professions lib&eacute;rales, associations...</p>\r\n','<p>\r\n	L&#39;expert-comptable, sp&eacute;cialiste pluridisciplinaire, dispose de comp&eacute;tences &eacute;tendues pour vous suivre et vous conseiller durant toute la vie de votre entreprise.<br />\r\n	Notre cabinet met &agrave; votre disposition un savoir-faire reconnu en mati&egrave;re financi&egrave;re, fiscale, sociale, juridique, informatique et de gestion.</p>\r\n','',3),(1,'fr','<p>\r\n	#Le Nom du Cabinet# est une soci&eacute;t&eacute; d&#39;expertise-comptable et de commissariat aux comptes implant&eacute;e &agrave; Paris et dans le d&eacute;partement de la Vienne.<br />\r\n	Elle est dirig&eacute;e par 2 associ&eacute;s, messieurs Emmanuel Legrand et Alain Lefort, entour&eacute;s d&#39;une &eacute;quipe de professionnels qui sont &agrave; votre &eacute;coute pour vous conseiller, construire, d&eacute;velopper.<br />\r\n	Forte de plus de 600 clients, #le Nom du Cabinet# intervient dans tous les secteurs d&#39;activit&eacute; : commerce, industrie, professions lib&eacute;rales, associations...</p>\r\n','<p>\r\n	L&#39;expert-comptable, sp&eacute;cialiste pluridisciplinaire, dispose de comp&eacute;tences &eacute;tendues pour vous suivre et vous conseiller durant toute la vie de votre entreprise.<br />\r\n	Notre cabinet met &agrave; votre disposition un savoir-faire reconnu en mati&egrave;re financi&egrave;re, fiscale, sociale, juridique, informatique et de gestion.</p>\r\n','',4),(1,'fr','<p>\r\n	Les associ&eacute;s et collaborateurs de Le Nom du Cabinet ont une longue exp&eacute;rience du conseil patrimonial et une expertise professionnelle reconnue. Ils ont notamment eu des responsabilit&eacute;s de direction au sein de groupes financiers de premier plan.<br />\r\n	Le Nom du Cabinet se pr&eacute;vaut, &agrave; ce titre, d&#39;une analyse objective du march&eacute; pour pr&eacute;senter &agrave; sa client&egrave;le une offre compl&egrave;te et de qualit&eacute; de produits de placements.</p>\r\n','<p>\r\n	Notre m&eacute;tier consiste &agrave; vous accompagner pour optimiser tous les sujets qui concernent votre patrimoine : &eacute;pargne, placements, investissements, imp&ocirc;ts, retraite, pr&eacute;voyance...<br />\r\n	Nous sommes ind&eacute;pendants, c&#39;est-&agrave;-dire que nous ne sommes attach&eacute;s &agrave; aucun organisme ou produit en particulier. Nous avons donc une approche sur-mesure et s&eacute;lectionnons sur le march&eacute; les produits qui r&eacute;pondent &agrave; vos objectifs et sont adapt&eacute;s &agrave; votre situation.</p>\r\n','',5),(1,'fr','<p>\r\n	Les associ&eacute;s et collaborateurs de {{nomcabinet}}ont une longue exp&eacute;rience du conseil patrimonial et une expertise professionnelle reconnue. Ils ont notamment eu des responsabilit&eacute;s de direction au sein de groupes financiers de premier plan.<br />\r\n	{{nomcabinet}} se pr&eacute;vaut, &agrave; ce titre, d&#39;une analyse objective du march&eacute; pour pr&eacute;senter &agrave; sa client&egrave;le une offre compl&egrave;te et de qualit&eacute; de produits de placements.</p>\r\n','<p>\r\n	Notre m&eacute;tier consiste &agrave; vous accompagner pour optimiser tous les sujets qui concernent votre patrimoine : &eacute;pargne, placements, investissements, imp&ocirc;ts, retraite, pr&eacute;voyance...<br />\r\n	Nous sommes ind&eacute;pendants, c&#39;est-&agrave;-dire que nous ne sommes attach&eacute;s &agrave; aucun organisme ou produit en particulier. Nous avons donc une approche sur-mesure et s&eacute;lectionnons sur le march&eacute; les produits qui r&eacute;pondent &agrave; vos objectifs et sont adapt&eacute;s &agrave; votre situation.</p>\r\n','',6),(1,'fr','<p>\r\n	Les associ&eacute;s et collaborateurs de {{nomcabinet}} ont une longue exp&eacute;rience du conseil patrimonial et une expertise professionnelle reconnue. Ils ont notamment eu des responsabilit&eacute;s de direction au sein de groupes financiers de premier plan.<br />\r\n	{{nomcabinet}} se pr&eacute;vaut, &agrave; ce titre, d&#39;une analyse objective du march&eacute; pour pr&eacute;senter &agrave; sa client&egrave;le une offre compl&egrave;te et de qualit&eacute; de produits de placements.</p>\r\n','<p>\r\n	Notre m&eacute;tier consiste &agrave; vous accompagner pour optimiser tous les sujets qui concernent votre patrimoine : &eacute;pargne, placements, investissements, imp&ocirc;ts, retraite, pr&eacute;voyance...<br />\r\n	Nous sommes ind&eacute;pendants, c&#39;est-&agrave;-dire que nous ne sommes attach&eacute;s &agrave; aucun organisme ou produit en particulier. Nous avons donc une approche sur-mesure et s&eacute;lectionnons sur le march&eacute; les produits qui r&eacute;pondent &agrave; vos objectifs et sont adapt&eacute;s &agrave; votre situation.</p>\r\n','',7),(1,'fr','<p>\r\n	{{nomcabinet}} est une soci&eacute;t&eacute; d&#39;expertise-comptable et de commissariat aux comptes implant&eacute;e &agrave; Paris et dans le d&eacute;partement de la Vienne.<br />\r\n	Elle est dirig&eacute;e par 2 associ&eacute;s, messieurs Emmanuel Legrand et Alain Lefort, entour&eacute;s d&#39;une &eacute;quipe de professionnels qui sont &agrave; votre &eacute;coute pour vous conseiller, construire, d&eacute;velopper.<br />\r\n	Forte de plus de 600 clients, {{nomcabinet}} intervient dans tous les secteurs d&#39;activit&eacute; : commerce, industrie, professions lib&eacute;rales, associations...</p>\r\n','<p>\r\n	L&#39;expert-comptable, sp&eacute;cialiste pluridisciplinaire, dispose de comp&eacute;tences &eacute;tendues pour vous suivre et vous conseiller durant toute la vie de votre entreprise.<br />\r\n	Notre cabinet met &agrave; votre disposition un savoir-faire reconnu en mati&egrave;re financi&egrave;re, fiscale, sociale, juridique, informatique et de gestion.</p>\r\n','',8);
-/*!40000 ALTER TABLE `sid_cabinet_accueil_translation_version` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `sid_cabinet_equipe`
 --
 
@@ -482,16 +412,6 @@ LOCK TABLES `sid_cabinet_equipe` WRITE;
 /*!40000 ALTER TABLE `sid_cabinet_equipe` DISABLE KEYS */;
 INSERT INTO `sid_cabinet_equipe` (`id`, `image`, `is_active`, `created_at`, `updated_at`, `position`) VALUES (1,6,1,'2011-08-11 20:32:45','2011-08-11 20:32:45',-1),(2,7,1,'2011-08-11 20:50:13','2011-09-15 12:37:03',-2),(3,29,1,'2011-08-11 20:51:37','2011-09-14 19:07:19',-3);
 /*!40000 ALTER TABLE `sid_cabinet_equipe` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `sid_cabinet_equipe_dm_tag`
---
-
-LOCK TABLES `sid_cabinet_equipe_dm_tag` WRITE;
-/*!40000 ALTER TABLE `sid_cabinet_equipe_dm_tag` DISABLE KEYS */;
-INSERT INTO `sid_cabinet_equipe_dm_tag` (`id`, `dm_tag_id`) VALUES (2,61);
-/*!40000 ALTER TABLE `sid_cabinet_equipe_dm_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -522,16 +442,6 @@ LOCK TABLES `sid_cabinet_mission` WRITE;
 /*!40000 ALTER TABLE `sid_cabinet_mission` DISABLE KEYS */;
 INSERT INTO `sid_cabinet_mission` (`id`, `on_home`, `is_active`, `created_at`, `updated_at`, `position`) VALUES (1,0,1,'2011-08-10 22:20:10','2011-08-10 22:26:53',1),(2,0,1,'2011-08-10 22:21:58','2011-08-25 05:33:48',2),(3,0,1,'2011-08-10 22:22:26','2011-08-25 05:33:46',3),(4,0,1,'2011-08-10 22:23:05','2011-08-25 05:33:47',4),(5,0,1,'2011-08-10 22:23:34','2011-08-10 22:26:53',5),(6,0,1,'2011-08-10 22:24:10','2011-08-10 22:26:53',6),(7,0,1,'2011-08-10 22:25:01','2011-08-10 22:26:53',7),(8,0,1,'2011-08-10 22:25:51','2011-08-29 15:34:30',8);
 /*!40000 ALTER TABLE `sid_cabinet_mission` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `sid_cabinet_mission_dm_tag`
---
-
-LOCK TABLES `sid_cabinet_mission_dm_tag` WRITE;
-/*!40000 ALTER TABLE `sid_cabinet_mission_dm_tag` DISABLE KEYS */;
-INSERT INTO `sid_cabinet_mission_dm_tag` (`id`, `dm_tag_id`) VALUES (3,61);
-/*!40000 ALTER TABLE `sid_cabinet_mission_dm_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -684,32 +594,7 @@ INSERT INTO `sid_constantes_version` (`id`, `name`, `content`, `is_active`, `cre
 /*!40000 ALTER TABLE `sid_constantes_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Dumping data for table `sid_actu_article_sid_section`
---
 
-LOCK TABLES `sid_actu_article_sid_section` WRITE;
-/*!40000 ALTER TABLE `sid_actu_article_sid_section` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sid_actu_article_sid_section` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `sid_cabinet_equipe_sid_section`
---
-
-LOCK TABLES `sid_cabinet_equipe_sid_section` WRITE;
-/*!40000 ALTER TABLE `sid_cabinet_equipe_sid_section` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sid_cabinet_equipe_sid_section` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `sid_cabinet_mission_sid_section`
---
-
-LOCK TABLES `sid_cabinet_mission_sid_section` WRITE;
-/*!40000 ALTER TABLE `sid_cabinet_mission_sid_section` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sid_cabinet_mission_sid_section` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
