@@ -5,17 +5,19 @@
  *
  */
 class contentTemplateTools {
-    
+
     public static $dumpExtension = 'dump';  // ATTENTION: utilisé dans l'installer.php
     public static $desiredTables = array(// les tables désirées dans le dump pour le template de contenu
         'dm_auto_seo',
         'dm_auto_seo_translation',
         // traductions
         'dm_catalogue',
-        'dm_trans_unit', 
-        // page / layout 
+        'dm_trans_unit',
+        // page 
         'dm_page',
         'dm_page_translation',
+        // layout
+        'dm_layout',
         'dm_page_view',
         'dm_area',
         'dm_zone',
@@ -34,7 +36,7 @@ class contentTemplateTools {
         'sid_article_translation',
         // sidWidgetBandeauPlugin
         'sid_groupe_bandeau',
-        'sid_groupe_bandeau_translation',        
+        'sid_groupe_bandeau_translation',
         'sid_bandeau',
         'sid_bandeau_translation',
         'sid_bandeau_translation_version',
@@ -44,63 +46,42 @@ class contentTemplateTools {
         'sid_groupe_sites_utiles',
         'sid_groupe_sites_utiles_translation',
         'sid_sites_utiles',
-        'sid_sites_utiles_translation',   
-        'sid_sites_utiles_translation_version', 
-        
+        'sid_sites_utiles_translation',
+        'sid_sites_utiles_translation_version',
         // nouveaux plugins
-	'sid_actu_rubrique',		 		 		
-	'sid_actu_rubrique_translation',		 		 
-	'sid_actu_rubrique_translation_version',
-        
-        'sid_actu_article',		 
-	'sid_actu_article_dm_tag',	 	
-	'sid_actu_article_translation',		 		 	
-	'sid_actu_article_translation_version',
-        
-	'sid_actu_type',		 		 		
-	'sid_actu_type_translation',		 		
-	'sid_actu_type_translation_version', 
-        
-        'sid_actu_type_article',	
-
-        'sid_cabinet_accueil',		 		 		
-	'sid_cabinet_accueil_translation',		 		 	
-	'sid_cabinet_accueil_translation_version',	
-        
-	'sid_cabinet_equipe',		 		
-	'sid_cabinet_equipe_dm_tag',		 	
-	'sid_cabinet_equipe_translation',		 	
-	'sid_cabinet_equipe_translation_version',	
-        
-	'sid_cabinet_mission',		 		 
-	'sid_cabinet_mission_dm_tag',		 	
-	'sid_cabinet_mission_translation',		 		
-	'sid_cabinet_mission_translation_version',	
-        
-	'sid_cabinet_page_cabinet',
-	'sid_cabinet_page_cabinet_translation',
-	'sid_cabinet_page_cabinet_translation_version',
-
-	'sid_cabinet_recrutement',
-	'sid_cabinet_recrutement_translation',
-	'sid_cabinet_recrutement_translation_version',
-
+        'sid_actu_article',
+        'sid_actu_article_translation',
+        'sid_actu_article_translation_version',
+        'sid_actu_type',
+        'sid_actu_type_translation',
+        'sid_actu_type_translation_version',
+        'sid_actu_type_article',
+        'sid_cabinet_equipe',
+        'sid_cabinet_equipe_translation',
+        'sid_cabinet_equipe_translation_version',
+        'sid_cabinet_mission',
+        'sid_cabinet_mission_translation',
+        'sid_cabinet_mission_translation_version',
+        'sid_cabinet_page_cabinet',
+        'sid_cabinet_page_cabinet_translation',
+        'sid_cabinet_page_cabinet_translation_version',
+        'sid_cabinet_recrutement',
+        'sid_cabinet_recrutement_translation',
+        'sid_cabinet_recrutement_translation_version',
         'sid_coord_name',
-	'sid_coord_name_version',
-        
+        'sid_coord_name_version',
         // media
         'dm_media_folder',
-        'dm_media',   
-        
+        'dm_media',
+        'dm_media_translation',
         // constantes
         'sid_constantes',
-        'sid_constantes_version',    
-	
-	// tables N:N en lien vers sid_section
-	'sid_actu_article_sid_section',
-	'sid_cabinet_equipe_sid_section',
-	'sid_cabinet_mission_sid_section' 
-        
+        'sid_constantes_version',
+        // tables N:N en lien vers sid_rubrique
+        'sid_actu_article_sid_rubrique',
+        'sid_cabinet_equipe_sid_rubrique',
+        'sid_cabinet_mission_sid_rubrique'
+
 // old        
 //        'sid_blog_article',
 //        'sid_blog_article_dm_tag',
@@ -115,7 +96,6 @@ class contentTemplateTools {
 //        'sid_blog_type_translation_version',
 //        'sid_coord_name',
 //        'sid_coord_name_version',
-
 //              'dm_contact_me',
 //              'dm_error',
 //              'dm_group',
@@ -134,7 +114,6 @@ class contentTemplateTools {
 //              'dm_user_group',
 //              'dm_user_permission',
 //              'migration_version'
-    
     );
 
     /**
@@ -156,13 +135,13 @@ class contentTemplateTools {
         } else {
             $return[$i]['ERROR'] = 'Impossible de récupérer le nom de la base dans config/database.yml';
         }
-        
+
         if (preg_match('/host=.*;dbname/', $dsn, $matchesHost)) {   // on récupère le host de la base de données à dumper, la base locale au site
             $hostDb = str_replace('host=', '', $matchesHost[0]);
             $hostDb = str_replace(';dbname', '', $hostDb);
         } else {
             $return[$i]['ERROR'] = 'Impossible de récupérer le host de la base dans config/database.yml';
-        }        
+        }
 
         $config['user'] = $user;
         $config['pwd'] = $pwd;
@@ -185,7 +164,7 @@ class contentTemplateTools {
         $user = $config['user'];
         $pwd = $config['pwd'];
         $dbname = $config['dbname'];
-        $dbhost = $config['dbhost'];        
+        $dbhost = $config['dbhost'];
 
         $i = 1;
         foreach (self::$desiredTables as $desiredTable) {
@@ -194,25 +173,24 @@ class contentTemplateTools {
             $i++;
         }
         //$return[]['dumpDB'] = $listTables;
-
         // dump de la base
-        $fileOUT = $file . "." . $dbname . ".". self::$dumpExtension;
+        $fileOUT = $file . "." . $dbname . "." . self::$dumpExtension;
         // option -c pour ajouter les champs dans la requete INSERT
-        $output = exec("mysqldump -t -c --host=".$dbhost." --user=" . $user . " --password=" . $pwd . " " . $dbname . " " . $listTables . "> " . $fileOUT);
+        $output = exec("mysqldump -t -c --host=" . $dbhost . " --user=" . $user . " --password=" . $pwd . " " . $dbname . " " . $listTables . "> " . $fileOUT);
         $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUT . '(' . filesize($fileOUT) . ' o)';
-        
+
         // save du dossier uploads
-        $fileOUTassets = $file . "." . $dbname . "." . self::$dumpExtension. ".assets.tgz";
+        $fileOUTassets = $file . "." . $dbname . "." . self::$dumpExtension . ".assets.tgz";
         // le nom du dossier web
-        $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/')+1);
-        $output = exec("cd ".$webDirName."/uploads; tar -czvf ".$fileOUTassets." *; cd ..; cd ..;");        
+        $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
+        $output = exec("cd " . $webDirName . "/uploads; tar -czvf " . $fileOUTassets . " *; cd ..; cd ..;");
         $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUTassets . '(' . filesize($fileOUTassets) . ' o)';
 
         // save du dossier apps/front/modules/main
-        $fileOUTmainmodule = $file . "." . $dbname . "." . self::$dumpExtension. ".mainmodule.tgz";
-        $output = exec("cd apps/front/modules/main; tar -czvf ".$fileOUTmainmodule." *; cd ..; cd ..; cd ..; cd ..;");  
+        $fileOUTmainmodule = $file . "." . $dbname . "." . self::$dumpExtension . ".mainmodule.tgz";
+        $output = exec("cd apps/front/modules/main; tar -czvf " . $fileOUTmainmodule . " *; cd ..; cd ..; cd ..; cd ..;");
         $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUTmainmodule . '(' . filesize($fileOUTmainmodule) . ' o)';
-        
+
         return $return;
     }
 
@@ -221,7 +199,7 @@ class contentTemplateTools {
      *  Charge les données d'une sauvegarde effectuée par self::dumpDB
      */
     public static function loadDB($file) {
-        
+
         $ext = substr($file, strlen($file) - strlen(self::$dumpExtension), strlen(self::$dumpExtension));
         if ($ext != self::$dumpExtension) {
             $return[]['ERROR'] = 'Le fichier : ' . $file . ' n\'a pas la bonne extension ' . self::$dumpExtension;
@@ -233,23 +211,23 @@ class contentTemplateTools {
         $user = $config['user'];
         $pwd = $config['pwd'];
         $dbname = $config['dbname'];
-        $dbhost = $config['dbhost'];          
-        
+        $dbhost = $config['dbhost'];
+
         // truncate des futures tables à intégrer
         $i = 1;
 
-	// mise en berne des clefs étrangères pour faire des truncate tranquilum...
-	dmDb::pdo('SET FOREIGN_KEY_CHECKS = 0');
+        // mise en berne des clefs étrangères pour faire des truncate tranquilum...
+        dmDb::pdo('SET FOREIGN_KEY_CHECKS = 0');
 
         foreach (self::$desiredTables as $desiredTable) {
             // on vide les tables qui vont être remplies par le dump
-                dmDb::pdo('TRUNCATE TABLE ' . $desiredTable);
+            dmDb::pdo('TRUNCATE TABLE ' . $desiredTable);
             //    $return[$i]['dumpDB'] = $desiredTable . ' vidée ';
-            $i++; 
-        }      
+            $i++;
+        }
 
-	// mise en berne des clefs étrangères pour faire des truncate tranquilum...
-	dmDb::pdo('SET FOREIGN_KEY_CHECKS = 1');  
+        // mise en berne des clefs étrangères pour faire des truncate tranquilum...
+        dmDb::pdo('SET FOREIGN_KEY_CHECKS = 1');
 
         // dump de la base
         $fileINdb = $file;
@@ -257,20 +235,21 @@ class contentTemplateTools {
         $fileINassets = $file . ".assets.tgz";
         // save du dossier uploads
         $fileINmainmodule = $file . ".mainmodule.tgz";
-        
+
         // load datas from DB
         $fileOUT = $file . "." . $dbname . "";
         // The '2>&1' is for redirecting errors to the standard IO (http://php.net/manual/fr/function.exec.php)
         // le '2>&1' est pour rediriger les erreur vers la sortie standard
-        $command = 'mysql --host='.$dbhost.' --user=' . $user . ' --password=' . $pwd . ' ' . $dbname . ' < ' . $fileINdb . ' 2>&1'; 
+        $command = 'mysql --host=' . $dbhost . ' --user=' . $user . ' --password=' . $pwd . ' ' . $dbname . ' < ' . $fileINdb . ' 2>&1';
         $return[]['dumpDB'] = $command;
 
         $out = array();
-        exec($command,$out);
+        exec($command, $out);
 //        print_r($out);
-        
-        if (count($out)==0) $return[]['dumpDB'] = $file . ' -> ' . 'base ' . $dbname;
-        
+
+        if (count($out) == 0)
+            $return[]['dumpDB'] = $file . ' -> ' . 'base ' . $dbname;
+
         foreach ($out as $outLine) {
             if (strpos($outLine, 'ERROR') === false) {
                 // 
@@ -283,12 +262,12 @@ class contentTemplateTools {
 
         // load du dossier uploads
         // le dossier web
-        $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/')+1);
-        $output = exec("cd ".$webDirName."/uploads; tar -xzvf ".$fileINassets."; cd ..; cd ..;");
+        $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
+        $output = exec("cd " . $webDirName . "/uploads; tar -xzvf " . $fileINassets . "; cd ..; cd ..;");
 
         // load du dossier apps/front/modules/main
-        $output = exec("cd apps/front/modules/main; tar -xzvf ".$fileINmainmodule."; cd ..; cd ..; cd ..; cd ..;");
-        
+        $output = exec("cd apps/front/modules/main; tar -xzvf " . $fileINmainmodule . "; cd ..; cd ..; cd ..; cd ..;");
+
         return $return;
     }
 
