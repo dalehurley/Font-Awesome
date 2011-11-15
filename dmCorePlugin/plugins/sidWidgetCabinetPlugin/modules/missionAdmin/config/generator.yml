@@ -30,8 +30,8 @@ generator:
       fields:
         is_active:
           label: Active
-        tags_list:
-          label: 'Mots clés'
+#        tags_list:
+#          label: 'Mots clés'
       list:
         batch_actions:
           delete:
@@ -63,9 +63,10 @@ generator:
         display:
           Nom de la page: [title, is_active]
           Text: [text]
-          'Mots clés': [tags_list]
+#          'Mots clés': [tags_list]
           # m_sections du nom de la relation declaree dans le schema.yml, + _list
-          'Section liées': [m_sections_list]            
+#          'Section liées': [m_sections_list]         
+          'Rubriques liées': [m_rubriques_list]
         class: SidCabinetMissionAdminForm
         fields: {  }
       edit: ~

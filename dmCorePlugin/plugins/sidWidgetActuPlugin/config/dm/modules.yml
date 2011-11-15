@@ -7,14 +7,14 @@
         credentials: type_contenu
 #        page: true
 
-      SidActuRubrique:
-        model: SidActuRubrique
-        name: "Rubrique de mon Article|Rubriques de mes Articles"
-        credentials: rubriques_contenu
-        page: true
-        components:
-          list:
-          show:
+#      SidActuRubrique:
+#        model: SidActuRubrique
+#        name: "Rubrique de mon Article|Rubriques de mes Articles"
+#        credentials: rubriques_contenu
+#        page: true
+#        components:
+#          list:
+#          show:
 
       SidActuArticle:
         model: SidActuArticle

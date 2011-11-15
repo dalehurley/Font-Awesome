@@ -1,15 +1,15 @@
 <?php
 
-class handWidgetsIntroPageCabinetForm extends dmWidgetPluginForm {
+class handWidgetsIntroPresentationsCabinetForm extends dmWidgetPluginForm {
 
     public function configure() {
 
         $this->widgetSchema['page'] = new sfWidgetFormDoctrineChoice(array(
-                    'model' => 'SidCabinetPageCabinet'
+                    'model' => 'SidCabinetAccueil'
                 ));
         $this->validatorSchema['page'] = new sfValidatorDoctrineChoice(array(
                     'required' => true,
-                    'model' => 'SidCabinetPageCabinet'
+                    'model' => 'SidCabinetAccueil'
                 ));
 	
         $this->widgetSchema['lenght'] = new sfWidgetFormInputText(array('default'=>0));
@@ -46,9 +46,9 @@ class handWidgetsIntroPageCabinetForm extends dmWidgetPluginForm {
     }
 
     protected function renderContent($attributes) {
-        return $this->getHelper()->renderPartial('handWidgets', 'introPageCabinetForm', array(
+        return $this->getHelper()->renderPartial('handWidgets', 'introPresentationsCabinetForm', array(
             'form' => $this,
-            'id' => 'sid_widget_intro_page cabinet_' . $this->dmWidget->get('id')
+            'id' => 'sid_widget_intro_presentations_cabinet_' . $this->dmWidget->get('id')
         ));
     }
 

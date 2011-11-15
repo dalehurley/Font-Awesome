@@ -41,7 +41,7 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
                                     ->limit($vars['nbArticles'])
                                     ->execute();
                             foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
-                                $arrayArticle[] = $actuArticle;
+                                $arrayArticle[$actuArticle->id] = $actuArticle;
                             }
                             break;
 	    case 'rubrique/show':
@@ -70,7 +70,7 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
 			->limit($vars['nbArticles'])
 			->execute();
 		foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
-		    $arrayArticle[] = $actuArticle;
+		    $arrayArticle[$actuArticle->id] = $actuArticle;
 		}
 		break;
 	    case 'sidActuArticle/show':
@@ -82,7 +82,7 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
 			->limit($vars['nbArticles'])
 			->execute();
 		foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
-		    $arrayArticle[] = $actuArticle;
+		    $arrayArticle[$actuArticle->id] = $actuArticle;
 		}
 		break;		
 	    default:
@@ -93,7 +93,7 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
 			->limit($vars['nbArticles'])
 			->execute();
 		foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
-		    $arrayArticle[] = $actuArticle;
+		    $arrayArticle[$actuArticle->id] = $actuArticle;
 		}
 	}
 
