@@ -11,5 +11,9 @@ handWidgets:
   introPageCabinet:
     cache:              true
     public_name:        (H) Intro pages cabinet
+#    
+#  introPresentationsCabinet:
+#    cache:              true
+#    public_name:        (H) Accueil presentations cabinet
     
         

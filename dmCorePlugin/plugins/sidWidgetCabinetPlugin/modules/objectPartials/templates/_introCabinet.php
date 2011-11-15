@@ -15,12 +15,12 @@ $imgLink = '/uploads/' . $pageCabinet->getImage();
     }
 // on vérifie d'abord si le texte est plus long que la longueur demandé
 // si oui, on tronque après un espace
-    if (strlen($pageCabinet->getText()) > $lenght) {
-        $chapo = stringTools::str_truncate($pageCabinet->getText(), $lenght, '(...)', true);
+    if (strlen($pageCabinet->getResume()) > $lenght) {
+        $chapo = stringTools::str_truncate($pageCabinet->getResume(), $lenght, '(...)', true);
     }
     else
 // si non, on laisse le texte original
-        $chapo = $pageCabinet->getText();
+        $chapo = $pageCabinet->getResume();
 
     $html.= _open('span.wrapper');
     //on ajoute le chapeau dans tous les cas
