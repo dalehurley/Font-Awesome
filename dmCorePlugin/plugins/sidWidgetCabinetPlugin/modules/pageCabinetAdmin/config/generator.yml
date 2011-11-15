@@ -68,6 +68,7 @@ generator:
       form:
         display:
           "Définition de votre page": [title, is_active, title_entete_page ]
+          "Résumé de la page": [resume]
           Text: [text]
           Image: [image_form, image_view]
         class: SidCabinetPageCabinetAdminForm
