@@ -114,28 +114,11 @@ SidCabinetEquipe:
       local: image
       foreignAlias: Photos
       onDelete: Cascade
-    MSections:
-      foreignAlias: SidSection
-      class: SidSection
-      refClass: SidCabinetEquipeSidSection
-      onDelete: Cascade  
     MRubriques:
       foreignAlias: SidRubrique
       class: SidRubrique
       refClass: SidCabinetEquipeSidRubrique
       onDelete: Cascade
-      
-SidCabinetEquipeSidSection:
-  columns:
-    sid_cabinet_equipe_id:
-      type:           integer 
-    sid_section_id:
-      type:           integer
-  relations:
-    SidCabinetEquipe:
-      onDelete:       Cascade
-    SidSection:
-      onDelete:       Cascade 
       
 SidCabinetEquipeSidRubrique:
   columns:
@@ -179,28 +162,11 @@ SidCabinetMission:
     export: all
     validate: true
   relations:
-    MSections:
-      foreignAlias: SidSection
-      class: SidSection
-      refClass: SidCabinetMissionSidSection
-      onDelete: Cascade  
     MRubriques:
       foreignAlias: SidRubrique
       class: SidRubrique
       refClass: SidCabinetMissionSidRubrique
       onDelete: Cascade
-      
-SidCabinetMissionSidSection:
-  columns:
-    sid_cabinet_mission_id:
-      type:           integer 
-    sid_section_id:
-      type:           integer
-  relations:
-    SidCabinetMission:
-      onDelete:       Cascade
-    SidSection:
-      onDelete:       Cascade 
       
 SidCabinetMissionSidRubrique:
   columns:

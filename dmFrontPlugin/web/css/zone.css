@@ -1,6 +1,6 @@
 /* 
-f08984    hover
-d90b00    
+f08984    
+d90b00    hover
 
 */
 
@@ -12,7 +12,7 @@ d90b00
 }
 
 #dm_page.edit .dm_zone .dm_widgets {
-  border: 1px solid #d90b00;
+  border: 1px solid #f08984;
 }
 #dm_page.edit .dm_zone .dm_zone_edit {
   display: block;
@@ -22,24 +22,8 @@ line-height: 10px;
 height: 10px;  
 }
 
-/* Styles pour le js de mouseOver, lorsque la loupe n'est pas sélectionnée */
-#dm_page .dm_zone.mouseOver .dm_widgets {
-  border: 1px solid #d90b00;
-  z-index: 10000;
-  min-height: 20px;
-}
-#dm_page .dm_zone.mouseOver .dm_zone_edit {
-  display: block;
- /* position: absolute; */
-  margin: 0;
-line-height: 10px;
-height: 10px;  
-}
-
-
-
 #dm_page.edit .dm_zone:hover .dm_widgets {
-  border-color: #f08984;
+  border-color: #d90b00;
 }
 
 #dm_page .dm_zone .dm_zone_edit {

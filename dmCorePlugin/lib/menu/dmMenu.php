@@ -446,12 +446,11 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
     if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
             foreach ($pageChildren as $childPage) {
-
                 // ajout lionel
-                // on ajoute les dmPage qui ont un record_id != 0 (donc des pages automatiques) que si elles sont liées à un objets ayant is_active à true
+                // on ajoute les dmPage qui ont un record_id != 0 (donc des pages automatiques) que si elles sont liées à un objet ayant is_active à true
                 // $this->addChild($childPage->get('name'), $childPage)->addRecursiveChildren($depth - 1);
                 //if (is_object($this->moduleManager->getModuleBySfName($childPage->get('module'))->getTable())){ 
-                if ($childPage->get('record_id') != 0){  
+                if ($childPage->get('record_id') != 0) {
                     $dmPageTable = dmString::camelize($this->moduleManager->getModuleBySfName($childPage->get('module'))->getTable()->getTableName());
                     $dmPageRecordId = $childPage->get('record_id');
 
@@ -467,8 +466,8 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                     }
                 } else {
 
-                        $this->addChild($childPage->get('name'), $childPage)->addRecursiveChildren($depth - 1);
-                    }
+                    $this->addChild($childPage->get('name'), $childPage)->addRecursiveChildren($depth - 1);
+                }
                 // fin ajout lionel
             }
         }
