@@ -38,7 +38,7 @@ foreach ($pageCabinetList as $pageCabinet) {
     echo _close('li');
     echo _open('li.element');
         echo _open('span.teaser');
-            echo _link('sidActuRubrique/list')->set('.link_box');
+            echo _link('sidActuArticle/list')->set('.link_box');
         echo _close('span');
     echo _close('li');
     echo _open('li.element');

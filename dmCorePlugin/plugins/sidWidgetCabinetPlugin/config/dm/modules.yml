@@ -1,16 +1,16 @@
-Accueil:
-  "Page d\'accueil":
-    Accueil:
-      model: SidCabinetAccueil
-      name: Accueil|Accueil
-      credentials: accueil
-      components:
-       showPresentation:
-       showMission:
-       showEquipe:
-       showBureauPrincipal:
-       showBureauSecondaire:
-       showEntete:
+#Accueil:
+#  "Page d\'accueil":
+#    Accueil:
+#      model: SidCabinetAccueil
+#      name: Accueil|Accueil
+#      credentials: accueil
+#      components:
+#       showPresentation:
+#       showMission:
+#       showEquipe:
+#       showBureauPrincipal:
+#       showBureauSecondaire:
+#       showEntete:
 
 "Le Cabinet":
 

@@ -20,7 +20,7 @@ foreach ($sidActuArticlePager as $sidActuArticle) {
         };
         $html .= _open('span.wrapper');
         $html .= _tag('span.title',$sidActuArticle);
-        $html .= _tag('span.title','Sujet : '.$sidActuArticle->getRubrique());
+        $html .= _tag('span.title','Sujet : '.$sidActuArticle);
         $html .= _tag('span.teaser',$sidActuArticle->getResume());
         $html .= _close('span.wrapper');
 

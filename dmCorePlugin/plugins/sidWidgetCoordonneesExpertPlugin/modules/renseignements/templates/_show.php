@@ -38,7 +38,7 @@ echo '<div class="organisation" itemscope itemtype="http://schema.org/Organizati
 	echo _close('div');
 
 	echo _open('span.telephone');
-		echo _tag('span.type', 'Tél.');
+		echo _tag('span.type', __('phone'));
 		echo '&nbsp;';
 		echo _tag('span.value itemprop="telephone"', $renseignements->getTel());
 	echo _close('span');
@@ -46,14 +46,14 @@ echo '<div class="organisation" itemscope itemtype="http://schema.org/Organizati
 	if ($renseignements->getFax() != NULL) {
 		echo '&nbsp;-&nbsp;';
 		echo _open('span.faxNumber');
-			echo _tag('span.type', 'Fax');
+			echo _tag('span.type', __('fax'));
 			echo '&nbsp;';
 			echo _tag('span.value itemprop="faxNumber"', $renseignements->getFax());
 		echo _close('span');
 	}
 
 	echo _open('div.email');
-		echo _tag('span.type', 'Email');
+		echo _tag('span.type', __('Email'));
 		echo '&nbsp;:&nbsp;';
 		echo _tag('span.value itemprop="email"', _link('mailto:' . $renseignements->getEmail())->text($renseignements->getEmail()));
 	echo _close('div');
