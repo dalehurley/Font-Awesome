@@ -25,24 +25,6 @@
 }
 
 
-/* Styles pour le js de mouseOver, lorsque la loupe n'est pas sélectionnée */
-#dm_page .dm_widget.mouseOver .dm_widget_inner, #dm_page .dm_zone.mouseOver .dm_widget .dm_widget_inner {
-    border: 1px solid #99c3ff;
-    z-index: 10000;
-    min-height: 20px;
-    margin: 1px;
-}
-#dm_page .dm_widget.mouseOver > .dm_widget_edit {
-    display: block;
-    /* position: absolute;*/
-    margin: 0;
-    line-height: 10px;
-    height: 10px; 
-}
-
-
-
-
 #dm_page.edit .dm_widget:hover > .dm_widget_inner {
     border: 1px solid #0062eb; 
 }
