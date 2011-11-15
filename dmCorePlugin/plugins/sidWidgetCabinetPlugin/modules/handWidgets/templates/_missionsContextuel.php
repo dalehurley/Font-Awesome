@@ -12,7 +12,7 @@ if (count($missions)) { // si nous avons des actu articles
 	//$articleTitle =  $article->getRubriquePageName() . ' :: ' . $article->getSectionPageName();
 	//echo _link($article)->text($article)->title($article->getRubriquePageName() . ' :: ' . $article->getSectionPageName());
 
-	include_partial("objectPartials/mission", array("mission" => $mission, "textLength" => 200, "textEnd" => " ..."));
+	include_partial("objectPartials/mission", array("mission" => $mission));
 
 	echo _close('li');
     }
