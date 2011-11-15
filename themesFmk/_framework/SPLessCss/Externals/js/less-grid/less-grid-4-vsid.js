@@ -166,7 +166,12 @@ function createSwitch () {
 		$(this).attr('rel','on');
 		$('#less-grid').remove();
 		$('#less-baseline').remove();
-		createGrid();	
+		createGrid();
+		
+		//rajout apparition debug si masqué
+		if($('.main_less_debug').hasClass('disabled')){
+			$('.main_less_debug').toggleClass('disabled');
+		}
 	}, function() {
 		$(this).text('show grid');
 		$('#less-grid').hide();
