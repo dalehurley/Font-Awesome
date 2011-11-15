@@ -58,7 +58,7 @@
     display: none;
     margin-bottom:-1px;
   position: absolute;  
-  right: 1px;
+  right: 50%;  /* l'étiquette d'édition "widget" au milieu du widget pour éviter des soucis d'affichage sur des widget_inner prenant 100%  */
   z-index: 1001;
 }
 

@@ -29,7 +29,7 @@ class dmEraseSiteTask extends dmContextTask {
 		
 		$this->logSection('Erase', '...');
 
-		$command = "rm -rf *";
+		$command = "sudo rm -rf *";
 		exec($command, $output);
 		
 	    } else {

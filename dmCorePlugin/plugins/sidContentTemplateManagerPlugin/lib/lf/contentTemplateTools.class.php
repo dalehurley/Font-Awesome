@@ -13,9 +13,11 @@ class contentTemplateTools {
         // traductions
         'dm_catalogue',
         'dm_trans_unit', 
-        // page / layout 
+        // page 
         'dm_page',
         'dm_page_translation',
+        // layout
+        'dm_layout',  
         'dm_page_view',
         'dm_area',
         'dm_zone',
@@ -91,6 +93,7 @@ class contentTemplateTools {
         // media
         'dm_media_folder',
         'dm_media',   
+        'dm_media_translation', 
         
         // constantes
         'sid_constantes',
