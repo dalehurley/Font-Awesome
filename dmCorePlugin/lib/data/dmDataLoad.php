@@ -115,7 +115,7 @@ class dmDataLoad
       ),
       'site_active' => array(
         'type' => 'boolean',
-        'default_value' => 0,
+        'default_value' => 1,
         'description' => 'Is the site ready for visitors ?',
         'group_name' =>'site'
       ),
