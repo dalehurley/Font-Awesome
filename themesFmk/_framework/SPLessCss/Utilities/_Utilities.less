@@ -9,19 +9,14 @@
 //infos de version affichables dans le contenu
 @Debug(@mainTemplate:"ND"; @version:"0"; @date:"0000-00-00 00:00"; @copyright:"SID Presse"; @author:"Arnaud GAUDIN") {
 	//devra permetre d'écrire des commentaires non supprimés lorsque la fonctionnalitée sera implémentée dans lessPHP
-	.testDebug { content: "{@mainTemplate} | v{@version} | Last Updated : {@date} | Copyright : {@copyright} | Author : {@author}"; }
+	.testDebug { content: "@{mainTemplate} | v@{version} | Last Updated : @{date} | Copyright : @{copyright} | Author : @{author}"; }
 }
 
 //Génération du clearfix
 //http://nicolasgallagher.com/micro-clearfix-hack/
 @getClearfix(){
 	&:before, &:after { content: ""; display: table; }
-	&:after {
-		clear: both;
-		//override des valeurs par défaut de DIEM situées dans tool.css (ligne 4 à 10) (à voir pour modifier le Clearfix de tools)
-		visibility: visible;
-		height: auto;
-	}
+	&:after { clear: both; }
 	zoom: 1;
 }
 
