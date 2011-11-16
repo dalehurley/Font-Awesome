@@ -15,6 +15,10 @@
 		//ajout de paramètres personnalisés en JS à la sortie de débug
 		debugAddValue('windowInnerWidth', window.innerWidth);
 		debugAddValue('windowOrientation', window.orientation);
+		
+		$('.main_less_debug').click(function(e){
+			$(this).toggleClass('disabled');
+		});
 	});
 	
 	//lorsque la page est redimenssionée
@@ -138,28 +142,7 @@ function createGrid () {
 	for(colLeft=0;colLeft<=pageWidth;colLeft=(colWidth+colSep)*(colCount-1)){
 		$('#less-grid').append('<span class="col col-'+colCount+'"><span class="info">&nbsp;col:&nbsp;'
 		+colCount+'<br/>&nbsp;w:&nbsp;'+(((colWidth+colSep)*colCount)-colSep)+'</span></span>');
-		$('#less-grid .col-'+colCount).css({ 
-								width: colWidth,
-								position: "absolute",
-								top: "0",
-								left: colLeft,
-								bottom: "0"
-								//background: "rgba(61,95,163,0.25)",		//anciennement #3d5fa3
-								//opacity: 1
-								//color: "#fff",
-								//fontSize: "13px",
-								//paddingTop: gridGutter*6				//anciennement 33px
-		});
-		//style passé dans le fichier LESS
-		/*
-		$('#less-grid .col-'+colCount+' .info').css({
-								display: "block",
-								//color: "red",
-								//fontWeight: "bold",
-								margin:"0"
-								//backgroundColor: "rgba(61,95,163,0.75)"
-		});
-		*/
+		$('#less-grid .col-'+colCount).css('left', colLeft);
 		colCount++;
 	};
 }
@@ -174,23 +157,8 @@ function createSwitch () {
 	}
 
 	$('body').append('<span id="less-grid-switch">show grid</span>');
-	$('#less-grid-switch').css({ 
-							position: "absolute",
-							top: "0",
-							right: switchPositionRight,				//modification de position (anciennement right: "0"
-							background: "#3d5fa3",
-							border: "2px solid #fff",
-							borderTop: 0,
-							color: "#fff",
-							fontSize: "13px",
-							lineHeight: "13px",
-							padding: "2px 8px 6px 8px",
-							cursor: "pointer",
-							"border-radius": "0 0 5px 5px",
-							"-moz-border-radius": "0 0 5px 5px",
-							zIndex: 1000
-							
-	});
+	$('#less-grid-switch').css('right', switchPositionRight);	
+	
 	$('#less-grid-switch').toggle(function() {
 		$(this).text("x");
 		$('#less-grid').show();
@@ -198,7 +166,12 @@ function createSwitch () {
 		$(this).attr('rel','on');
 		$('#less-grid').remove();
 		$('#less-baseline').remove();
-		createGrid();	
+		createGrid();
+		
+		//rajout apparition debug si masqué
+		if($('.main_less_debug').hasClass('disabled')){
+			$('.main_less_debug').toggleClass('disabled');
+		}
 	}, function() {
 		$(this).text('show grid');
 		$('#less-grid').hide();

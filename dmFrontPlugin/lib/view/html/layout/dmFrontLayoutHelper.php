@@ -37,14 +37,17 @@ class dmFrontLayoutHelper extends dmCoreLayoutHelper
   protected function getMetas()
   {
     $metas = array(
-      'description'  => $this->page->get('description'),
-      'title'        => dmConfig::get('title_prefix').$this->page->get('title').dmConfig::get('title_suffix')
+      'title'        => dmConfig::get('title_prefix').$this->page->get('title').dmConfig::get('title_suffix'),
+      'description'  => $this->page->get('description')
     );
 
     if (!$this->isHtml5)
     {
       $metas['language'] = $this->serviceContainer->getParameter('user.culture');
     }
+	
+	//à modifier une fois la mise en prod pour autoriser le zoom (désactiver maximum-scale=1.0, user-scalable=0)
+	$metas['viewport'] = 'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0';
     
     if (sfConfig::get('dm_seo_use_keywords') && $keywords = $this->page->get('keywords'))
     {

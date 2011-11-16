@@ -19,6 +19,7 @@ $helper->renderHtmlTag(),
     $helper->renderJavascriptConfig(),
     $helper->renderJavascripts(),
     $helper->renderGoogleAnalytics(),
+    $helper->renderChromeFrame(),
   
   "\n</body>\n",
 
