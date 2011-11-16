@@ -178,20 +178,26 @@ class dmCoreLayoutHelper extends dmConfigurable
 		new sfEvent($this, 'dm.layout.filter_stylesheets'),
 		$this->getService('response')->getStylesheets()
 		)->getReturnValue();
-
+		
 		$relativeUrlRoot = dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root');
 
 		$html = '';
+		
 		foreach ($stylesheets as $file => $options)
 		{
-			$stylesheetTag = '<link rel="stylesheet"'.($this->isHtml5() ? '' : ' type="text/css"').' media="'.dmArray::get($options, 'media', 'all').'" href="'.($file{0} === '/' ? $relativeUrlRoot.$file : $file).'" />';
+			//on vérifie si l'on est dans le front et que l'on a une feuille de style à filtrer (TODO : filter la variable dm.layout.filter_stylesheets à la source)
+			$frontStyleFilter = (sfConfig::get('dm_context_type') === 'front' && ($file === '/dmCorePlugin/css/tool.css' || $file === '/dmFrontPlugin/css/base.css'));
+			
+			if(!$frontStyleFilter) {
+				$stylesheetTag = '<link rel="stylesheet"'.($this->isHtml5() ? '' : ' type="text/css"').' media="'.dmArray::get($options, 'media', 'all').'" href="'.($file{0} === '/' ? $relativeUrlRoot.$file : $file).'" />';
 
-			if (isset($options['condition']))
-			{
-				$stylesheetTag = sprintf('<!--[if %s]>%s<![endif]-->', $options['condition'], $stylesheetTag);
+				if (isset($options['condition']))
+				{
+					$stylesheetTag = sprintf('<!--[if %s]>%s<![endif]-->', $options['condition'], $stylesheetTag);
+				}
+
+				$html .= $stylesheetTag."\n";
 			}
-
-			$html .= $stylesheetTag."\n";
 		}
 
 		sfConfig::set('symfony.asset.stylesheets_included', true);
