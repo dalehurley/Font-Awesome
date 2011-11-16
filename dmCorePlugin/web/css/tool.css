@@ -1,5 +1,5 @@
 /* html5 ie compatibility */
-/*article, aside, dialog, figure, footer, header, hgroup, menu, nav, section { display: block; }
+article, aside, dialog, figure, footer, header, hgroup, menu, nav, section { display: block; }
 
 .clearfix:after {
   content:".";
@@ -8,13 +8,12 @@
   clear:both;
   visibility:hidden;
 }
-.clearfix {display:inline-block;}*/
+.clearfix {display:inline-block;}
 /* Hide from IE Mac \*/
-/*.clearfix {display:block;}*/
+.clearfix {display:block;}
 /* End hide from IE Mac */
 
 /* GENERIC CLASSES */
-/*
 .fleft{float: left;}
 .fright{float: right;}
 .fnone{float: none;}
@@ -106,9 +105,9 @@
 .mr2p { margin-right: 2% !important;}
 .ml4p { margin-left: 4% !important; }
 .mr4p { margin-right: 4% !important;}
-*/
+
 /* END GENERIC CLASSES */
-/*
+
 .dm_quarter {
   width: 25%;
   float: left;
@@ -138,4 +137,3 @@
   margin: 0 !important;
   padding: 1px 5px 1px 16px !important;
 }
-*/
