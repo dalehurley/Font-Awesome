@@ -7,113 +7,45 @@
 class contentTemplateTools {
 
     public static $dumpExtension = 'dump';  // ATTENTION: utilisé dans l'installer.php
-    public static $desiredTables = array(// les tables désirées dans le dump pour le template de contenu
+    public static $undesiredTables = array(// les tables non désirées dans le dump pour le template de contenu
+        'dm_area',
         'dm_auto_seo',
         'dm_auto_seo_translation',
-        // traductions
         'dm_catalogue',
-        'dm_trans_unit',
-        // page 
+        'dm_contact_me',
+        'dm_error',
+        'dm_group',
+        'dm_group_permission',
+        'dm_layout',
+        'dm_lock',
+        'dm_mail_template',
+        'dm_mail_template_translation',
+        'dm_media',
+        'dm_media_folder',
+        'dm_media_translation',
         'dm_page',
         'dm_page_translation',
-        // layout
-        'dm_layout',
         'dm_page_view',
-        'dm_area',
-        'dm_zone',
-        // widget
+        'dm_permission',
+        'dm_record_permission',
+        'dm_record_permission_association',
+        'dm_record_permission_association_group',
+        'dm_record_permission_association_user',
+        'dm_record_permission_group',
+        'dm_record_permission_user',
+        'dm_redirect',
+        'dm_remember_key',
+        'dm_sent_mail',
+        'dm_setting',
+        'dm_setting_translation',
+        'dm_tag',
+        'dm_trans_unit',
+        'dm_user',
+        'dm_user_group',
+        'dm_user_permission',
         'dm_widget',
         'dm_widget_translation',
-        // dmTag
-        'dm_tag',
-        // sidWidgetBePlugin
-        'sid_rubrique',
-        'sid_rubrique_translation',
-        'sid_section',
-        'sid_section_translation',
-        'sid_article',
-        'sid_article_dm_tag',
-        'sid_article_translation',
-        // sidWidgetBandeauPlugin
-        'sid_groupe_bandeau',
-        'sid_groupe_bandeau_translation',
-        'sid_bandeau',
-        'sid_bandeau_translation',
-        'sid_bandeau_translation_version',
-        // sid Sites Utiles
-        'sid_index_sites_utiles',
-        'sid_index_sites_utiles_translation',
-        'sid_groupe_sites_utiles',
-        'sid_groupe_sites_utiles_translation',
-        'sid_sites_utiles',
-        'sid_sites_utiles_translation',
-        'sid_sites_utiles_translation_version',
-        // nouveaux plugins
-        'sid_actu_article',
-        'sid_actu_article_translation',
-        'sid_actu_article_translation_version',
-        'sid_actu_type',
-        'sid_actu_type_translation',
-        'sid_actu_type_translation_version',
-        'sid_actu_type_article',
-        'sid_cabinet_equipe',
-        'sid_cabinet_equipe_translation',
-        'sid_cabinet_equipe_translation_version',
-        'sid_cabinet_mission',
-        'sid_cabinet_mission_translation',
-        'sid_cabinet_mission_translation_version',
-        'sid_cabinet_page_cabinet',
-        'sid_cabinet_page_cabinet_translation',
-        'sid_cabinet_page_cabinet_translation_version',
-        'sid_cabinet_recrutement',
-        'sid_cabinet_recrutement_translation',
-        'sid_cabinet_recrutement_translation_version',
-        'sid_coord_name',
-        'sid_coord_name_version',
-        // media
-        'dm_media_folder',
-        'dm_media',
-        'dm_media_translation',
-        // constantes
-        'sid_constantes',
-        'sid_constantes_version',
-        // tables N:N en lien vers sid_rubrique
-        'sid_actu_article_sid_rubrique',
-        'sid_cabinet_equipe_sid_rubrique',
-        'sid_cabinet_mission_sid_rubrique'
-
-// old        
-//        'sid_blog_article',
-//        'sid_blog_article_dm_tag',
-//        'sid_blog_article_translation',
-//        'sid_blog_article_translation_version',
-//        'sid_blog_rubrique',
-//        'sid_blog_rubrique_translation',
-//        'sid_blog_rubrique_translation_version',
-//        'sid_blog_type',
-//        'sid_blog_type_article',
-//        'sid_blog_type_translation',
-//        'sid_blog_type_translation_version',
-//        'sid_coord_name',
-//        'sid_coord_name_version',
-//              'dm_contact_me',
-//              'dm_error',
-//              'dm_group',
-//              'dm_group_permission',
-//              'dm_layout',
-//              'dm_lock',
-//              'dm_mail_template',
-//              'dm_mail_template_translation',
-//              'dm_permission',
-//              'dm_redirect',
-//              'dm_remember_key',
-//              'dm_sent_mail',
-//              'dm_setting',
-//              'dm_setting_translation',
-//              'dm_user',
-//              'dm_user_group',
-//              'dm_user_permission',
-//              'migration_version'
+        'dm_zone'
     );
 
     /**
@@ -157,7 +89,6 @@ class contentTemplateTools {
      */
     public static function dumpDB($file) {
 
-        //$dbTables = dmDb::pdo('SHOW TABLES')->fetchAll();  // toutes les tables
         $listTables = '';   // les tables à extraire
         // config base
         $config = self::configBD();
@@ -166,12 +97,27 @@ class contentTemplateTools {
         $dbname = $config['dbname'];
         $dbhost = $config['dbhost'];
 
+        // liste des tables de la base
+        $dbTables = dmDb::pdo('SHOW TABLES')->fetchAll();  // toutes les tables
+        
+        // on enlève les tables undesired
         $i = 1;
-        foreach (self::$desiredTables as $desiredTable) {
+        foreach ($dbTables as $dbTable) {
+            if (!in_array($dbTable[0], self::$undesiredTables)) {
+                $listTables .= $dbTable[0] . ' ';
+                //echo $dbTable[0] . " ajoutée au dump \n";
+                $i++;
+            }
+        }
+
+        $i = 1;
+        foreach (self::$undesiredTables as $desiredTable) {
             $listTables .= $desiredTable . ' ';
             //$return[$i]['dumpDB'] = $desiredTable . ' ajoutée au dump ';
             $i++;
         }
+
+
         //$return[]['dumpDB'] = $listTables;
         // dump de la base
         $fileOUT = $file . "." . $dbname . "." . self::$dumpExtension;
