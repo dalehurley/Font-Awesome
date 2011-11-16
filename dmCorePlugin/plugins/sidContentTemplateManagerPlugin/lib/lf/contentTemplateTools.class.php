@@ -83,14 +83,6 @@ class contentTemplateTools {
             }
         }
 
-        $i = 1;
-        foreach (self::$undesiredTables as $desiredTable) {
-            $listTables .= $desiredTable . ' ';
-            //$return[$i]['dumpDB'] = $desiredTable . ' ajoutée au dump ';
-            $i++;
-        }
-
-
         //$return[]['dumpDB'] = $listTables;
         // dump de la base
         $fileOUT = $file . "." . $dbname . "." . self::$dumpExtension;
@@ -138,12 +130,18 @@ class contentTemplateTools {
         // mise en berne des clefs étrangères pour faire des truncate tranquilum...
         dmDb::pdo('SET FOREIGN_KEY_CHECKS = 0');
 
-        foreach (self::$desiredTables as $desiredTable) {
-            // on vide les tables qui vont être remplies par le dump
-            dmDb::pdo('TRUNCATE TABLE ' . $desiredTable);
-            //    $return[$i]['dumpDB'] = $desiredTable . ' vidée ';
-            $i++;
-        }
+        // liste des tables de la base
+        $dbTables = dmDb::pdo('SHOW TABLES')->fetchAll();  // toutes les tables
+        
+        // on vide les toutes les tables sauf les tables undesired
+        $i = 1;
+        foreach ($dbTables as $dbTable) {
+            if (!in_array($dbTable[0], self::$undesiredTables)) {
+                dmDb::pdo('TRUNCATE TABLE ' . $dbTable[0]);
+                //$return[$i]['dumpDB'] = $dbTable[0] . ' vidée ';                
+                $i++;
+            }
+        }        
 
         // mise en berne des clefs étrangères pour faire des truncate tranquilum...
         dmDb::pdo('SET FOREIGN_KEY_CHECKS = 1');
