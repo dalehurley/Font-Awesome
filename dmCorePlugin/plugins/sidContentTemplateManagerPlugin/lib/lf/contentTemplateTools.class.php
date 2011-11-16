@@ -9,7 +9,7 @@ class contentTemplateTools {
     public static $dumpExtension = 'dump';  // ATTENTION: utilisé dans l'installer.php
     public static $undesiredTables = array(// les tables non désirées dans le dump pour le template de contenu
         'dm_catalogue',
-        'dm_contact_me',
+        'dm_contact_me', 
         'dm_error',
         'dm_group',
         'dm_group_permission',
