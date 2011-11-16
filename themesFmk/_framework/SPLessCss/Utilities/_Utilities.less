@@ -16,12 +16,7 @@
 //http://nicolasgallagher.com/micro-clearfix-hack/
 @getClearfix(){
 	&:before, &:after { content: ""; display: table; }
-	&:after {
-		clear: both;
-		//override des valeurs par défaut de DIEM situées dans tool.css (ligne 4 à 10) (à voir pour modifier le Clearfix de tools)
-		visibility: visible;
-		height: auto;
-	}
+	&:after { clear: both; }
 	zoom: 1;
 }
 
