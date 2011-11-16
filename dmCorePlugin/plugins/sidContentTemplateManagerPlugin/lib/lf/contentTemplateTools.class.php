@@ -186,10 +186,10 @@ class contentTemplateTools {
         $output = exec("cd " . $webDirName . "/uploads; tar -czvf " . $fileOUTassets . " *; cd ..; cd ..;");
         $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUTassets . '(' . filesize($fileOUTassets) . ' o)';
 
-        // save du dossier apps/front/modules/main
-        $fileOUTmainmodule = $file . "." . $dbname . "." . self::$dumpExtension . ".mainmodule.tgz";
-        $output = exec("cd apps/front/modules/main; tar -czvf " . $fileOUTmainmodule . " *; cd ..; cd ..; cd ..; cd ..;");
-        $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUTmainmodule . '(' . filesize($fileOUTmainmodule) . ' o)';
+        // save du dossier apps/front/modules
+        $fileOUTmodules = $file . "." . $dbname . "." . self::$dumpExtension . ".modules.tgz";
+        $output = exec("cd apps/front/modules; tar -czvf " . $fileOUTmodules . " *; cd ..; cd ..; cd ..; cd ..;");
+        $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUTmodules . '(' . filesize($fileOUTmodules) . ' o)';
 
         return $return;
     }
@@ -234,7 +234,7 @@ class contentTemplateTools {
         // save du dossier uploads
         $fileINassets = $file . ".assets.tgz";
         // save du dossier uploads
-        $fileINmainmodule = $file . ".mainmodule.tgz";
+        $fileINmodule = $file . ".modules.tgz";
 
         // load datas from DB
         $fileOUT = $file . "." . $dbname . "";
@@ -265,8 +265,8 @@ class contentTemplateTools {
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
         $output = exec("cd " . $webDirName . "/uploads; tar -xzvf " . $fileINassets . "; cd ..; cd ..;");
 
-        // load du dossier apps/front/modules/main
-        $output = exec("cd apps/front/modules/main; tar -xzvf " . $fileINmainmodule . "; cd ..; cd ..; cd ..; cd ..;");
+        // load du dossier apps/front/modules
+        $output = exec("cd apps/front/modules; tar -xzvf " . $fileINmodule . "; cd ..; cd ..; cd ..;");
 
         return $return;
     }
