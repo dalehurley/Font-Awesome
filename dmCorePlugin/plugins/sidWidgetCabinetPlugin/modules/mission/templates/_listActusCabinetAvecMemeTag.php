@@ -17,7 +17,7 @@
 //
 //echo $missionPager->renderNavigationBottom();
 if(isset($actus) && $actus != NULL){
-echo _tag('h4.title','Les actus du cabinet');
+echo _tag('h4.title',__('The news of the firm'));
 echo _open('ul.elements');
 foreach ($actus as $actuTag)
 {

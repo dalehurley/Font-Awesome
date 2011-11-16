@@ -1,6 +1,6 @@
 <?php // Vars: $accueil
 // pour afficher le bureau principal (siège social)
-echo _tag('h4.title', 'Bureau principal');
+echo _tag('h4.title', __('Main office'));
 echo _open('div.bureau');
     echo _open('p.adresse');
         echo $nom->getAdresse();
@@ -15,6 +15,6 @@ echo _open('div.bureau');
         echo ' - ' . $nom->getCodePostal() . ' ' . $nom->getVille();
         }
     echo _close('p');
-    echo _tag('p.adresse', 'Tél : '.$nom->getTel() . ' - Fax :' . $nom->getFax());
-    echo _tag('p.adresse.mailto', 'Email : '._link('mailto:' . $nom->getEmail())->text($nom->getEmail()));
+    echo _tag('p.adresse',__('phone'). ' : '.$nom->getTel() . ' - '.__('fax').' :' . $nom->getFax());
+    echo _tag('p.adresse.mailto', __('Email').' : '._link('mailto:' . $nom->getEmail())->text($nom->getEmail()));
 echo _close('div'); // fin div.bureau

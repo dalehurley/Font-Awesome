@@ -1,7 +1,7 @@
 <?php // Vars: $sitesUtilesPager
 if(count($sitesUtilesPager) != 0){
 echo $sitesUtilesPager->renderNavigationTop();
-echo _tag('h3', 'Les sites utiles');
+echo _tag('h3', __('Useful sites'));
 echo _open('ul.elements');
 
 foreach ($sitesUtilesPager as $sitesUtiles)

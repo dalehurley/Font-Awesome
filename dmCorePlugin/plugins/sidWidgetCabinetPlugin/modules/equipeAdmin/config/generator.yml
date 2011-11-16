@@ -34,8 +34,8 @@ generator:
           label: Nom
         image: 
           label: Photo
-        tags_list:
-          label: 'Mots clés'
+#        tags_list:
+#          label: 'Mots clés'
         sortable:
           label: 'trier les pages'
       list:
@@ -80,9 +80,10 @@ generator:
           Identite: [title, is_active, statut, tel, fax, gsm, email]
           Photo: [image_form, image_view]
           Description: [text]
-          'Mots clés': [tags_list]
+#          'Mots clés': [tags_list]
           # m_sections du nom de la relation declaree dans le schema.yml, + _list
-          'Section liées': [m_sections_list]            
+#          'Section liées': [m_sections_list]
+          'Rubriques liées': [m_rubriques_list]
         class: SidCabinetEquipeAdminForm
         fields: {  }
       edit: ~

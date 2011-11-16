@@ -1,28 +1,34 @@
-SidCabinetAccueil:
-  actAs:
-    Timestampable:
-    DmSortable:
-    I18n:
-      fields: [ presentation, mission, equipe ]
-      actAs:
-        DmVersionable:
-  columns:
-    presentation:
-      type: clob
-      extra: ckeditor
-      notnull: true
-    mission:
-      type: clob
-      extra: ckeditor
-      notnull: false
-    equipe:
-      type: clob
-      extra: ckeditor
-      notnull: false
-    is_active:
-      type: boolean
-      notnull: true
-      default: false
+#SidCabinetAccueil:
+#  actAs:
+#    Timestampable:
+#    DmSortable:
+#    I18n:
+#      fields: [ title, title_entete_page, text  ]
+#      actAs:
+#        DmVersionable:
+#  columns:
+#    title:
+#      type: string(255)
+#      notnull: true
+#    title_entete_page:
+#      type: string(255)
+#      notnull: true
+#    text:
+#      type: clob
+#      extra: ckeditor
+#      notnull: false
+#    is_active:
+#      type: boolean
+#      notnull: true
+#      default: true
+#    image:
+#      type: integer
+#  relations:
+#    Image:
+#      class: DmMedia
+#      local: image
+#      foreignAlias: Photos
+#      onDelete: Cascade
 
 SidCabinetPageCabinet:
   actAs:
@@ -39,6 +45,10 @@ SidCabinetPageCabinet:
     title_entete_page:
       type: string(255)
       notnull: true
+    resume:
+      type: clob
+      extra: ckeditor
+      notnull: false
     text:
       type: clob
       extra: ckeditor
@@ -58,7 +68,7 @@ SidCabinetPageCabinet:
 
 SidCabinetEquipe:
   actAs:
-    DmTaggable:
+#    DmTaggable:
     Timestampable:
     DmSortable:
     I18n:
@@ -95,34 +105,37 @@ SidCabinetEquipe:
       type: boolean
       notnull: true
       default: false
+  attributes:
+    export: all
+    validate: true
   relations:
     Image:
       class: DmMedia
       local: image
       foreignAlias: Photos
       onDelete: Cascade
-    MSections:
-      foreignAlias: SidSection
-      class: SidSection
-      refClass: SidCabinetEquipeSidSection
-      onDelete: Cascade  
+    MRubriques:
+      foreignAlias: SidRubrique
+      class: SidRubrique
+      refClass: SidCabinetEquipeSidRubrique
+      onDelete: Cascade
       
-SidCabinetEquipeSidSection:
+SidCabinetEquipeSidRubrique:
   columns:
     sid_cabinet_equipe_id:
       type:           integer 
-    sid_section_id:
+    sid_rubrique_id:
       type:           integer
   relations:
     SidCabinetEquipe:
       onDelete:       Cascade
-    SidSection:
+    SidRubrique:
       onDelete:       Cascade 
       
 
 SidCabinetMission:
   actAs:
-    DmTaggable:
+#    DmTaggable:
     Timestampable:
     DmSortable:
     I18n:
@@ -145,24 +158,27 @@ SidCabinetMission:
       type: boolean
       notnull: true
       default: true
+  attributes:
+    export: all
+    validate: true
   relations:
-    MSections:
-      foreignAlias: SidSection
-      class: SidSection
-      refClass: SidCabinetMissionSidSection
-      onDelete: Cascade  
+    MRubriques:
+      foreignAlias: SidRubrique
+      class: SidRubrique
+      refClass: SidCabinetMissionSidRubrique
+      onDelete: Cascade
       
-SidCabinetMissionSidSection:
+SidCabinetMissionSidRubrique:
   columns:
     sid_cabinet_mission_id:
       type:           integer 
-    sid_section_id:
+    sid_rubrique_id:
       type:           integer
   relations:
     SidCabinetMission:
       onDelete:       Cascade
-    SidSection:
-      onDelete:       Cascade 
+    SidRubrique:
+      onDelete:       Cascade
       
 SidCabinetRecrutement:
   actAs:

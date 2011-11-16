@@ -93,7 +93,7 @@ class dmGoogleMapTag extends dmHtmlTag
     if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
     $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
 
-    $tag = '<h2 class="title">Plan d&rsquo;accès</h2><div style="text-align: center"><p><b>'.$adresseRequest->getTitle().'</b><br />'.$adresseCabinet.'</p><p>Tél : '.$adresseRequest->getTel().' - Fax : '.$adresseRequest->getFax().'</p></div><div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
+    $tag = '<h2 class="title">'.__('Map').'</h2><div style="text-align: center"><p><b>'.$adresseRequest->getTitle().'</b><br />'.$adresseCabinet.'</p><p>Tél : '.$adresseRequest->getTel().' - Fax : '.$adresseRequest->getFax().'</p></div><div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
 
     return $tag;
   }

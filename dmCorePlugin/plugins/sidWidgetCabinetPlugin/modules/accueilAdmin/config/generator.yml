@@ -50,10 +50,9 @@ generator:
 #          - equipe
       form:
         display:
-          NONE: [is_active]
-          Presentation: [presentation]
-          Mission: [mission]
-          Equipe: [equipe]
+          "Définition de votre page": [title, is_active, title_entete_page ]
+          Text: [text]
+          Image: [image_form, image_view]
         class: SidCabinetAccueilAdminForm
         fields: {  }
       edit: ~
