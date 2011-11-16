@@ -8,44 +8,17 @@ class contentTemplateTools {
 
     public static $dumpExtension = 'dump';  // ATTENTION: utilisé dans l'installer.php
     public static $undesiredTables = array(// les tables non désirées dans le dump pour le template de contenu
-        'dm_area',
-        'dm_auto_seo',
-        'dm_auto_seo_translation',
         'dm_catalogue',
         'dm_contact_me',
         'dm_error',
         'dm_group',
         'dm_group_permission',
-        'dm_layout',
-        'dm_lock',
-        'dm_mail_template',
-        'dm_mail_template_translation',
-        'dm_media',
-        'dm_media_folder',
-        'dm_media_translation',
-        'dm_page',
-        'dm_page_translation',
-        'dm_page_view',
         'dm_permission',
-        'dm_record_permission',
-        'dm_record_permission_association',
-        'dm_record_permission_association_group',
-        'dm_record_permission_association_user',
-        'dm_record_permission_group',
-        'dm_record_permission_user',
-        'dm_redirect',
         'dm_remember_key',
         'dm_sent_mail',
         'dm_setting',
         'dm_setting_translation',
-        'dm_tag',
-        'dm_trans_unit',
-        'dm_user',
-        'dm_user_group',
-        'dm_user_permission',
-        'dm_widget',
-        'dm_widget_translation',
-        'dm_zone'
+        'dm_trans_unit'
     );
 
     /**
