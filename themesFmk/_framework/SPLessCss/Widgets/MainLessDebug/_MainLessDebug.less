@@ -12,12 +12,16 @@
 	position: absolute;
 	//forçage d'affichage au premier plan
 	z-index: 100000;
-	//rajout animation disparition
-	@transitionProperty(visibility, opacity);
-	@transitionDuration(.2s);
-	@transitionFunction(ease-out);
-	@transitionDelay(.2s, 0);
+	//disparition lorsque désactivé
 	&.disabled { opacity: 0; visibility: hidden; }
+	
+	//animation disparition (syntaxe lessPHP v0.3.0)
+	.csstransitions & {
+		@transitionProperty(visibility, opacity);
+		@transitionDuration(.2s);
+		@transitionFunction(ease-out);
+		@transitionDelay(.2s, 0);
+	}
 	
 	//ajout fond par défaut
 	.dm_widget_inner{
