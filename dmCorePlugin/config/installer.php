@@ -578,7 +578,7 @@ $this->getFilesystem()->execute('sudo chmod -R 777 ' . sfConfig::get('sf_root_di
 //    Redemarrage Apache
 //-------------------------------------------------------------------------------------
 $commands = array(
-     'Restart apache par service httpd (sudo)' => 'sudo service httpd graceful'
+     'Restart apache par apachectl graceful (sudo)' => 'sudo apachectl graceful'
     );
 
 foreach ($commands as $libCommand => $command) {
