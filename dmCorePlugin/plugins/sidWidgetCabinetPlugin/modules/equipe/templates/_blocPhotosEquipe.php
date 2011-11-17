@@ -16,8 +16,8 @@ if(count($photos) > 0){
 					_media($photo->getImage())
 					->set('.image')
 					->alt($photo->getTitle())
-					->width(myUser::gridGetWidth(myUser::getLessParam('thumbS_col')))
-					->height(myUser::gridGetHeight(myUser::getLessParam('thumbS_bl')))
+					->width(spLessCss::gridGetWidth(spLessCss::getLessParam('thumbS_col')))
+					->height(spLessCss::gridGetHeight(spLessCss::getLessParam('thumbS_bl')))
 				)
 				->anchor('equipe_'.$photo->id)
 				->title($photo->getTitle());

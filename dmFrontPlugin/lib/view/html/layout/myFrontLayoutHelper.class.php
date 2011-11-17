@@ -29,7 +29,7 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		
         if ($this->page->get('gabarit') == '' || $this->page->get('gabarit') == 'default') {
             //$bodyClass = 'default';
-			$bodyClass = myUser::getLessParam('templateGabarit');
+			$bodyClass = spLessCss::getLessParam('templateGabarit');
 		} else {
             $bodyClass = $this->page->get('gabarit');
         }
