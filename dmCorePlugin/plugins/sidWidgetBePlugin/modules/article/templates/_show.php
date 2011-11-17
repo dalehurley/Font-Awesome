@@ -71,7 +71,7 @@ echo '<article itemscope itemtype="http://schema.org/Article">';
 						->set('.image itemprop="image"')
 						->alt($article->getTitle())
 						//redimenssionnement propre lorsque l'image sera en bibliothèque
-						->width(myUser::gridGetContentWidth());
+						->width(spLessCss::gridGetContentWidth());
 						//->height(myUser::gridGetHeight(14,0))
 		echo _close('div');
 	}

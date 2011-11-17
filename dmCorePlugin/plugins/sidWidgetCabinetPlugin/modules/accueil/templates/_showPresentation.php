@@ -12,8 +12,8 @@ echo _open('div.imageWrapper');
 		->set('.image')
 		->alt($nom->getTitle())	//à remplacer quand cela sera implémenté
 		//redimenssionnement propre lorsque l'image sera en bibliothèque
-		->width(myUser::gridGetWidth(myUser::getLessParam('thumbL_col')))
-		->height(myUser::gridGetHeight(myUser::getLessParam('thumbL_bl')));
+		->width(spLessCss::gridGetWidth(spLessCss::getLessParam('thumbL_col')))
+		->height(spLessCss::gridGetHeight(spLessCss::getLessParam('thumbL_bl')));
 echo _close('div');
 
 //on affiche la présentation
