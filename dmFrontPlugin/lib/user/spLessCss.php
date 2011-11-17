@@ -1,20 +1,35 @@
 <?php
 
 class spLessCss extends dmFrontUser {
-
-	/*
+	
 	//test d'utilisation des fonctions intégrées à less
 	public static function testLessExec() {
 		$lessInitURL = sfConfig::get('sf_web_dir') . "/theme/less/_framework/SPLessCss/Config/_ConfigInit.less";
 
 		$infoTest = lessc::cexecute($lessInitURL);
-
 		$infoTest2 = sfLESS::getConfig();
+		$infoTest3 = sfLess::getCompileResults();
+		$infoTest4 = sfLESSUtils::getCssHeader();
 		//$getImportDir = $test->importDir;
-
-		print_r($infoTest2);
+		print_r($infoTest4);
+		
+		
+		//test de compilation personnalisée
+		$inputLess = sfConfig::get('sf_web_dir') . "/theme/less/widgetMainLessDebug.less";
+		$outputCss = sfConfig::get('sf_web_dir') . "/theme/css/widgets/testExportMainLessDebug.css";
+		
+		
+		
+		//sfLESS::callLessPhpCompiler($inputLess, $outputCss);
+		/*
+		try {
+			lessc::ccompile($inputLess, $outputCss);
+		}
+		catch(exception $ex) {
+			exit($ex->getMessage());
+			print_r($ex);
+		}*/
 	}
-	*/
 
 	//calcul de la valeur finale
 	public static function lessCalculator($str) {
