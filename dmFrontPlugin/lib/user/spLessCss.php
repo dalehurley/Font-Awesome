@@ -18,9 +18,6 @@ class spLessCss extends dmFrontUser {
 		$inputLess = sfConfig::get('sf_web_dir') . "/theme/less/widgetMainLessDebug.less";
 		$outputCss = sfConfig::get('sf_web_dir') . "/theme/css/widgets/testExportMainLessDebug.css";
 		
-		
-		
-		//sfLESS::callLessPhpCompiler($inputLess, $outputCss);
 		/*
 		try {
 			lessc::ccompile($inputLess, $outputCss);
