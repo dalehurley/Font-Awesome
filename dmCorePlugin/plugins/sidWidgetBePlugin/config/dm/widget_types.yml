@@ -2,7 +2,7 @@ handWidgets:
 
   articlesBySection:
     cache:              true
-    public_name:        (H) Articles par section
+    public_name:        (H) Articles par sectionxxx
     
   listArticlesByRubrique:
     cache:              true

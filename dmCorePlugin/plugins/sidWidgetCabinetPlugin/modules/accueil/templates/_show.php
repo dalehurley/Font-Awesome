@@ -1,7 +1,0 @@
-<?php // Vars: $accueil
-
-
-
-
-
-

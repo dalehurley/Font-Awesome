@@ -36,8 +36,10 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
                             $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
                                     ->leftJoin('a.SidActuArticleSidRubrique sas')
                                     ->leftJoin('sas.SidRubrique s')
-                                    ->where('s.id = ? ', array($recordId))
+                                    ->leftJoin('a.SidActuTypeArticle sata')
+                                    ->where('s.id = ?  ', array($recordId))
                                     ->andWhere('a.is_active = ?', true)
+                                    ->andWhere('sata.sid_actu_type_id = ?',array($vars['type']))
                                     ->limit($vars['nbArticles'])
                                     ->execute();
                             foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 

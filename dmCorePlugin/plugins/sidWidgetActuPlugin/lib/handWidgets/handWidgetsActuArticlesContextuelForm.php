@@ -3,6 +3,13 @@
 class handWidgetsActuArticlesContextuelForm extends dmWidgetPluginForm {
 
     public function configure() {
+        $this->widgetSchema['type'] = new sfWidgetFormDoctrineChoice(array(
+                    'model' => 'SidActuType'
+                ));
+        $this->validatorSchema['type'] = new sfValidatorDoctrineChoice(array(
+                    'required' => true,
+                    'model' => 'SidActuType'
+                ));
 
         $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText();
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
@@ -21,6 +28,7 @@ class handWidgetsActuArticlesContextuelForm extends dmWidgetPluginForm {
                 ));
         
         $this->widgetSchema->setHelps(array(
+            'type' => 'Le type de l\'article',
             'titreBloc' => 'Le titre optionnel du bloc.', 
             'titreLien' => "Le libellé du lien vers tous les articles actus.",	    
             'nbArticles' => 'Le nombre maximum d\'articles affichés.',            

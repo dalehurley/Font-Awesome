@@ -16,7 +16,9 @@ class sidActuArticleComponents extends myFrontModuleComponents
   public function executeList()
   {
     $query = $this->getListQuery();
+    
     $this->sidActuArticlePager = $this->getPager($query);
+    $this->sidActuArticlePager ->setOption('ajax', true);
     $this->nbreArticle = count($query);
     $this->pageName = $this->getPage()->getName();
   }
