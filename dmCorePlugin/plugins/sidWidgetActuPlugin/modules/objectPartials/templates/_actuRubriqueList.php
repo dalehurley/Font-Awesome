@@ -8,8 +8,8 @@ if (array_key_exists($sidActuRubrique->id, $actuRubriques) == TRUE) {
         $html.= _media($actuRubriques[$sidActuRubrique->id]->getImage())
                 ->set('.image itemprop="image"')
                 ->alt($actuRubriques[$sidActuRubrique->id]->getTitle())
-                ->width(myUser::gridGetWidth(2, 0))
-                ->height(myUser::gridGetHeight(4, 0));
+                ->width(spLessCss::gridGetWidth(2, 0))
+                ->height(spLessCss::gridGetHeight(4, 0));
         $html.= _close('span.imageWrapper');
     }
     $html .= _open('span.wrapper');

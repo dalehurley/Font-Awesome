@@ -17,8 +17,8 @@ if (isset($article)) {
 	echo _media($article->getImage())
 		->set('.image itemprop="image"')
 		->alt($article->getTitle())
-		->width(myUser::gridGetWidth(myUser::getLessParam('thumbX_col'))) 
-		->height(myUser::gridGetHeight(myUser::getLessParam('thumbX_bl')));
+		->width(spLessCss::gridGetWidth(spLessCss::getLessParam('thumbX_col'))) 
+		->height(spLessCss::gridGetHeight(spLessCss::getLessParam('thumbX_bl')));
 	echo _close('span.imageWrapper');
     }
     echo _open('span.wrapper');
@@ -26,7 +26,7 @@ if (isset($article)) {
 		    _tag('span.title itemprop="name"', $article->getTitle()) .
 		    _tag('span.teaser itemprop="description"', 
 			    stringTools::str_truncate(
-						myUser::textEditorStripParagraph($article->getResume()), 
+						spLessCss::textEditorStripParagraph($article->getResume()), 
 						$textLength, 
 						$textEnd)
 			    ))

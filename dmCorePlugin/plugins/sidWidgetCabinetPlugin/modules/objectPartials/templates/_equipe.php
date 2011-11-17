@@ -13,8 +13,8 @@ echo '<li id="equipe_' . $equipe->id . '" class="element" itemscope itemtype="ht
 				echo _media($equipe->getImage())
 						->set('.image itemprop="image"')
 						->alt($equipe->getTitle())
-						->width(myUser::gridGetWidth(1,0))
-						->height(myUser::gridGetHeight(4,0));
+						->width(spLessCss::gridGetWidth(1,0))
+						->height(spLessCss::gridGetHeight(4,0));
 			echo _close('div');
 			echo _open('div.wrapper');
 				echo _open('div.subWrapper');
@@ -37,7 +37,7 @@ echo '<br/>';
 if($showLink == true){
 				echo _link($page)->text(
 					_tag('span.description itemprop="description"', stringTools::str_truncate(
-					    myUser::textEditorStripParagraph($equipe->getText()), $textLength, $textEnd)
+					    spLessCss::textEditorStripParagraph($equipe->getText()), $textLength, $textEnd)
 					)
 				    )
 				    ->set('.link_box')
@@ -46,7 +46,7 @@ if($showLink == true){
 }
 else{
                                 
-                                echo _tag('span.description itemprop="description"', stringTools::str_truncate(myUser::textEditorStripParagraph($equipe->getText()), $textLength, $textEnd));
+                                echo _tag('span.description itemprop="description"', stringTools::str_truncate(spLessCss::textEditorStripParagraph($equipe->getText()), $textLength, $textEnd));
 }
 				echo _close('div');
     echo _close('li');
