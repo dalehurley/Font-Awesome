@@ -1,14 +1,17 @@
 <?php
 
 if (count($articles)) { // si nous avons des actu articles
-    if ($titreBloc != '') {
-	echo _tag('h4.title', $titreBloc);
+    if($nbArticles == 1){
+        if ($titreBloc != true) {
+            echo _tag('h4.title', current($articles));
+        }
+        else  echo _tag('h4.title', $titreBloc);
     }
-
+    else echo _tag('h4.title', $titreBloc);
     echo _open('ul.elements');
     foreach ($articles as $article) {
 
-	include_partial("objectPartials/actuArticle", array("article" => $article));
+	include_partial("objectPartials/actuArticle", array("article" => $article,"textLength" => $longueurTexte,"textEnd" => '(...)',"photo" => $vars['photo'],"nbArticle" => $nbArticles,'titreBloc' => $titreBloc));
 
     }
     echo _close('ul');

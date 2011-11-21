@@ -1,4 +1,5 @@
 <?php
+
 if (count($missions)) { // si nous avons des actu articles
     if ($titreBloc != '') {
 	echo _tag('h4.title', $titreBloc);
@@ -12,7 +13,7 @@ if (count($missions)) { // si nous avons des actu articles
 	//$articleTitle =  $article->getRubriquePageName() . ' :: ' . $article->getSectionPageName();
 	//echo _link($article)->text($article)->title($article->getRubriquePageName() . ' :: ' . $article->getSectionPageName());
 
-	include_partial("objectPartials/mission", array("mission" => $mission));
+	include_partial("objectPartials/mission", array("mission" => $mission, "length" => $length, "chapo" => $chapo));
 
 	echo _close('li');
     }

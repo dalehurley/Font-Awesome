@@ -27,11 +27,22 @@ class handWidgetsActuArticlesContextuelForm extends dmWidgetPluginForm {
                     'required' => true
                 ));
         
+        $this->widgetSchema['longueurTexte'] = new sfWidgetFormInputText(array('default' => 0));
+        $this->validatorSchema['longueurTexte'] = new sfValidatorInteger(array(
+                    'required' => false
+                ));
+        
+        $this->widgetSchema['photo'] = new sfWidgetFormInputCheckbox(array('default'=> true));
+        $this->validatorSchema['photo']  = new sfValidatorBoolean();
+        
+        
         $this->widgetSchema->setHelps(array(
             'type' => 'Le type de l\'article',
             'titreBloc' => 'Le titre optionnel du bloc.', 
             'titreLien' => "Le libellé du lien vers tous les articles actus.",	    
             'nbArticles' => 'Le nombre maximum d\'articles affichés.',            
+            'longueurTexte' => 'Longueur du texte avant de la tronquer',
+            'photo' => 'affiche ou pas la photo'
         ));
 
         parent::configure();
