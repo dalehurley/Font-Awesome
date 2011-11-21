@@ -25,6 +25,6 @@
 [submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/lessphp"]
 	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/lessphp
 	url = https://arnaudgaudin@github.com/arnaudgaudin/lessphp.git
-[submodule "dmCorePlugin/plugins/sfLESSPluginOLD/lib/vendor/lessphp"]
-	path = dmCorePlugin/plugins/sfLESSPluginOLD/lib/vendor/lessphp
-	url = https://arnaudgaudin@github.com/arnaudgaudin/lessphp.git
+[submodule "dmCorePlugin/plugins/sfLESSPlugin"]
+	path = dmCorePlugin/plugins/sfLESSPlugin
+	url = git@github.com:arnaudgaudin/sfLESSPlugin.git
