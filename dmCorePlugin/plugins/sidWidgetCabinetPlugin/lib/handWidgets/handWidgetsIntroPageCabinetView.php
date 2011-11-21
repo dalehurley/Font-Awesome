@@ -24,7 +24,7 @@ class handWidgetsIntroPageCabinetView extends dmWidgetPluginView {
 
         $pageCabinet = dmDb::table('SidCabinetPageCabinet')->findOneById($vars['page']);
         if($vars['title_page'] == NULL || $vars['title_page'] == " "){
-        $vars['title_page'] = $pageCabinet->getTitleEntetePage();
+        $vars['title_page'] = $pageCabinet->getTitle();
         }
         return $this->getHelper()->renderPartial('handWidgets', 'introPageCabinet', array(
                     

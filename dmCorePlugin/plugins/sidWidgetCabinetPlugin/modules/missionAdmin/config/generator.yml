@@ -62,6 +62,7 @@ generator:
       form:
         display:
           Nom de la page: [title, is_active]
+          Résumé de la mission: [resume]
           Text: [text]
 #          'Mots clés': [tags_list]
           # m_sections du nom de la relation declaree dans le schema.yml, + _list

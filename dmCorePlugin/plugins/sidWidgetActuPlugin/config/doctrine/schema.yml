@@ -57,9 +57,10 @@ SidActuArticle:
       notnull: true
 #    rubrique_id:
 #      type: integer
-      notnull: true
+#      notnull: true
     resume:
-      type: string(255)
+      type: clob
+      extra: markdown
       notnull: true
     text:
       type: clob
