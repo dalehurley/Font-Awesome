@@ -9,8 +9,8 @@ $imgLink = '/uploads/' . $pageCabinet->getImage();
         $html.= _media($imgLink)
                 ->set('.image itemprop="image"')
                 ->alt($pageCabinet->getTitle())
-                ->width(myUser::gridGetWidth(myUser::getLessParam('thumbL_col')))
-                ->height(myUser::gridGetHeight(myUser::getLessParam('thumbL_bl')));
+                ->width(spLessCss::gridGetWidth(spLessCss::getLessParam('thumbL_col')))
+                ->height(spLessCss::gridGetHeight(spLessCss::getLessParam('thumbL_bl')));
         $html.= _close('span.imageWrapper');
     }
 // on vérifie d'abord si le texte est plus long que la longueur demandé

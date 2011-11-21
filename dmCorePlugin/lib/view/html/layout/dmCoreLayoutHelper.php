@@ -90,7 +90,12 @@ class dmCoreLayoutHelper extends dmConfigurable
 
 		if ($this->isHtml5() || $this->isHtml4)
 		{
-			$htmlTag = sprintf('<html lang="%s" %s>', $culture, $this->getXmlNsDeclarations());
+			//$htmlTag = sprintf('<html lang="%s" %s>', $culture, $this->getXmlNsDeclarations());
+			$htmlTag = sprintf('<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="%s" %s> <![endif]-->', $culture, $this->getXmlNsDeclarations())."\n".
+					   sprintf('<!--[if IE 7]> <html class="no-js ie7 oldie" lang="%s" %s> <![endif]-->', $culture, $this->getXmlNsDeclarations())."\n".
+					   sprintf('<!--[if IE 8]> <html class="no-js ie8 oldie" lang="%s" %s> <![endif]-->', $culture, $this->getXmlNsDeclarations())."\n".
+					   sprintf('<!--[if IE 9]> <html class="no-js ie9 oldie" lang="%s" %s> <![endif]-->', $culture, $this->getXmlNsDeclarations())."\n".
+					   sprintf('<!--[if gt IE 9]><!--> <html class="no-js" lang="%s" %s> <!--<![endif]-->', $culture, $this->getXmlNsDeclarations());
 		}
 		else
 		{
@@ -149,7 +154,15 @@ class dmCoreLayoutHelper extends dmConfigurable
 
 		foreach($httpMetas as $httpequiv => $value)
 		{
-			$html .= '<meta http-equiv="'.$httpequiv.'" content="'.$value.'" />'."\n";
+			if($this->isHtml5() && 'Content-Type' === $httpequiv)
+			{
+				$html .= '<meta charset="utf-8" />'."\n";
+			}
+			else
+			{
+				$html .= '<meta http-equiv="'.$httpequiv.'" content="'.$value.'" />'."\n";
+			}
+			
 		}
 
 		return $html;
@@ -165,20 +178,26 @@ class dmCoreLayoutHelper extends dmConfigurable
 		new sfEvent($this, 'dm.layout.filter_stylesheets'),
 		$this->getService('response')->getStylesheets()
 		)->getReturnValue();
-
+		
 		$relativeUrlRoot = dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root');
 
 		$html = '';
+		
 		foreach ($stylesheets as $file => $options)
 		{
-			$stylesheetTag = '<link rel="stylesheet" type="text/css" media="'.dmArray::get($options, 'media', 'all').'" href="'.($file{0} === '/' ? $relativeUrlRoot.$file : $file).'" />';
+			//on vérifie si l'on est dans le front et que l'on a une feuille de style à filtrer (TODO : filter la variable dm.layout.filter_stylesheets à la source)
+			$frontStyleFilter = (sfConfig::get('dm_context_type') === 'front' && ($file === '/dmCorePlugin/css/tool.css' || $file === '/dmFrontPlugin/css/base.css'));
+			
+			if(!$frontStyleFilter) {
+				$stylesheetTag = '<link rel="stylesheet"'.($this->isHtml5() ? '' : ' type="text/css"').' media="'.dmArray::get($options, 'media', 'all').'" href="'.($file{0} === '/' ? $relativeUrlRoot.$file : $file).'" />';
 
-			if (isset($options['condition']))
-			{
-				$stylesheetTag = sprintf('<!--[if %s]>%s<![endif]-->', $options['condition'], $stylesheetTag);
+				if (isset($options['condition']))
+				{
+					$stylesheetTag = sprintf('<!--[if %s]>%s<![endif]-->', $options['condition'], $stylesheetTag);
+				}
+
+				$html .= $stylesheetTag."\n";
 			}
-
-			$html .= $stylesheetTag."\n";
 		}
 
 		sfConfig::set('symfony.asset.stylesheets_included', true);
@@ -203,7 +222,7 @@ class dmCoreLayoutHelper extends dmConfigurable
 		$html = '';
 		foreach($javascripts as $file => $options)
 		{
-			$scriptTag = '<script type="text/javascript" src="'.($file{0} === '/' ? $relativeUrlRoot.$file : $file).'"></script>';
+			$scriptTag = '<script'.($this->isHtml5() ? '' : ' type="text/javascript"').' src="'.($file{0} === '/' ? $relativeUrlRoot.$file : $file).'"></script>';
 
 			if (isset($options['condition']))
 			{
@@ -239,7 +258,7 @@ class dmCoreLayoutHelper extends dmConfigurable
 		sfConfig::set('symfony.asset.javascripts_code_included', true);
 
 		$js = '';
-		$scriptTag = '<script type="text/javascript">/* <![CDATA[ */;(function($){$(document).ready(function(){%s});})(jQuery);/* ]]> */</script>';
+		$scriptTag = '<script'.($this->isHtml5() ? '' : ' type="text/javascript"').'>/* <![CDATA[ */;(function($){$(document).ready(function(){%s});})(jQuery);/* ]]> */</script>';
 		if (!empty($codes)) {
 			$js = sprintf($scriptTag, implode(PHP_EOL, $codes));
 		}
@@ -267,7 +286,7 @@ class dmCoreLayoutHelper extends dmConfigurable
 		{
 			if(empty($options['head_inclusion']))
 			{
-				$scriptTag = '<script type="text/javascript" src="' . ($file{0} === '/' ? $relativeUrlRoot . $file : $file) . '"></script>';
+				$scriptTag = '<script'.($this->isHtml5() ? '' : ' type="text/javascript"').' src="' . ($file{0} === '/' ? $relativeUrlRoot . $file : $file) . '"></script>';
 
 				if (isset($options['condition'])) {
 					$scriptTag = sprintf('<!--[if %s]>%s<![endif]-->', $options['condition'], $scriptTag);
@@ -308,7 +327,7 @@ class dmCoreLayoutHelper extends dmConfigurable
 
 	public function renderJavascriptConfig()
 	{
-		return PHP_EOL . '<script type="text/javascript">var dm_configuration = '.json_encode($this->getJavascriptConfig()).';</script>';
+		return PHP_EOL . '<script'.($this->isHtml5() ? '' : ' type="text/javascript"').'>var dm_configuration = '.json_encode($this->getJavascriptConfig()).';</script>';
 	}
 
 
@@ -329,7 +348,7 @@ class dmCoreLayoutHelper extends dmConfigurable
 
 		if ($favicon)
 		{
-			return sprintf('<link rel="shortcut icon" href="%s/%s" type="%s" />',
+			return sprintf('<link rel="shortcut icon" href="%s/%s"'.($this->isHtml5() ? '' : ' type="%s"').' />',
 			dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root'),
 			$favicon,
         'image/x-icon'

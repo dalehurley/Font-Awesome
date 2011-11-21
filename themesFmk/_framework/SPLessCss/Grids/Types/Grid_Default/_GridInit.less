@@ -9,7 +9,7 @@
 //ce fichier ne doit pas inclure de variables réutilisées par le reste du système
 //Container possible : body | #dm_page | #dm_main
 
-//Ajout infos de debug
+//Ajout infos de debug par défaut
 .debugTemplate .debugInfo .screenType .value:after { content: @gridScreenType; }
 
 //PLACEMENT GÉNÉRAL
@@ -36,13 +36,6 @@
 	// 1. http://www.positioniseverything.net/explorer/doubled-margin.html
 	// 2. http://browservulsel.blogspot.com/2005/04/ie-overflow-auto-scrollbar-overlap.html
 	// 3. http://www.howtocreate.co.uk/wrongWithIE/?chapter=overflow%3Avisible%3B
-}
-
-//configuration zone par défaut
-.dm_zone {
-	float: left;
-	min-height: @gridBaseline;
-	width: 100%;
 }
 
 //GESTION DE L'ORDRE DE PRIORITÉ DES PROFONDEURS D'AFFICHAGE DANS CE SYSTÈME DE GRILLE (du plus haut au plus bas)

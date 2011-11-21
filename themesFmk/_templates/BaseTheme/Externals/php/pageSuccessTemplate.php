@@ -22,7 +22,7 @@ $isDev = (sfConfig::get('sf_environment') == 'dev') ? true : false;
 //Gabarit de la page visible en environnement de dev
 $currentGabarit = $sf_context->getPage()->get('gabarit');
 if ($currentGabarit == 'default' || $currentGabarit == '') {
-    $currentGabarit = myUser::getLessParam('templateGabarit');
+    $currentGabarit = spLessCss::getLessParam('templateGabarit');
 }
 // affichage en div.lessDebug
 if ($isDev) {

@@ -29,8 +29,8 @@ foreach ($articlePager as $article) {
                     $html.= _media($imgLink)
                             ->set('.image itemprop="image"')
                             ->alt($article->getTitle())
-                            ->width(myUser::gridGetWidth(myUser::getLessParam('thumbL_col')))
-                            ->height(myUser::gridGetHeight(myUser::getLessParam('thumbL_bl')));
+                            ->width(spLessCss::gridGetWidth(spLessCss::getLessParam('thumbL_col')))
+                            ->height(spLessCss::gridGetHeight(spLessCss::getLessParam('thumbL_bl')));
                     $html.= _close('span.imageWrapper');
                 }
 

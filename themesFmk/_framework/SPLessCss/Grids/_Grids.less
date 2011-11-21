@@ -14,14 +14,18 @@
 //Debug baseline (utilisé en dev par le script JS de previz de la grille)
 .debugBaseline {
 	background-color: transparent;
-	background-image: url({@urlImagesFramework}/Grids/baseline-{@gridBaseline}.png);
+	background-image: url(@{urlImagesFramework}/Grids/baseline-@{gridBaseline}.png);
 	background-repeat: repeat;
 }
 
 #less-grid {
 	.col {
+		position: absolute;
+		top: 0;
+		bottom: 0;
 		background-color: fadeout(@colorCouleur1Fonce,75%);
 		padding-top: @gridBaseline*2;
+		width: @gridColWidth;
 	}
 	.info {
 		display: block;
@@ -32,21 +36,19 @@
 	}
 }
 
-//à implémenter correctement lorsque j'aurais le temps
-/*
-$('#less-grid-switch').css({ 
-						position: "absolute",
-						top: "0",
-						right: switchPositionRight,				//modification de position (anciennement right: "0"
-						background: "#3d5fa3",
-						border: "2px solid #fff",
-						borderTop: 0,
-						color: "#fff",
-						fontSize: "13px",
-						lineHeight: "13px",
-						padding: "2px 8px 6px 8px",
-						cursor: "pointer",
-						"border-radius": "0 0 5px 5px",
-						"-moz-border-radius": "0 0 5px 5px",
-						zIndex: 1000
-*/
+#less-grid-switch {
+	position: absolute;
+	top: 0;
+	z-index: 1000;
+	background-color: fadeout(@colorRequired,25%);
+	color: @colorCouleur3ClairSup;
+	font-size: @fontSizeSmall;
+	font-weight: bold;
+	line-height: (@gridBaseline - 3px);
+	cursor: pointer;
+	padding: 0px @offM 2px @offM;
+	border-color: @colorCouleur3ClairSup;
+	border-width: 1px;
+	border-style: none solid solid solid;
+	@borderRadiusCompress(0 0 @offS @offS);
+}
