@@ -12,11 +12,17 @@ if ($sf_user->hasFlash('contact_form_valid')) {
     echo $form->open('.contact_form');
 
     echo _tag('ul.dm_form_elements',
-            // open a li tag and write name label, field and error message inside  
+            _tag('li.dm_form_element.clearfix', $form['title']->label()->field()->error()) .
             _tag('li.dm_form_element.clearfix', $form['name']->label()->field()->error()) .
-            // same with email  
+            _tag('li.dm_form_element.clearfix', $form['firstname']->label()->field()->error()) .
+            _tag('li.dm_form_element.clearfix', $form['function']->label()->field()->error()) .
+            _tag('li.dm_form_element.clearfix', $form['adresse']->label()->field()->error()) .
+            _tag('li.dm_form_element.clearfix', $form['postalcode']->label()->field()->error()) .
+            _tag('li.dm_form_element.clearfix', $form['ville']->label()->field()->error()) .
             _tag('li.dm_form_element.clearfix', $form['email']->label()->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['body']->label('Your message')->field())
+            _tag('li.dm_form_element.clearfix', $form['phone']->label('phone number')->field()->error()) .
+            _tag('li.dm_form_element.clearfix', $form['fax']->label()->field()->error()) .
+            _tag('li.dm_form_element.clearfix', $form['body']->label()->field()->error())
     );
 
 
