@@ -15,7 +15,8 @@ jQuery.QapTcha = {
 			txtLock : 'Locked : form can\'t be submited',
 			txtUnlock : 'Unlocked : form can be submited',
 			disabledSubmit : true,
-			autoRevert : true,
+                        invisibleSubmit : true,
+			autoRevert : false,
 			PHPfile : '/qaptchaAjax'   // la route défini dans routing.yml du plugin
         };   
 		
@@ -36,7 +37,9 @@ jQuery.QapTcha = {
 			/** Disabled submit button **/
 			if(opts.disabledSubmit) {
                             form.find('input[type=\'submit\']').attr('disabled','disabled');
-                            form.find('input[type=\'submit\']').attr('style','display:none');
+                            if(opts.invisibleSubmit) {
+                                form.find('input[type=\'submit\']').attr('style','display:none');
+                            }
                         }
 			
 			/** Construct DOM **/
