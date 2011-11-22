@@ -1,9 +1,9 @@
 /************************************************************************
 *************************************************************************
 @Name :       	QapTcha - jQuery Plugin
-@Revison :    	1.0
-@Date : 		26/01/2011
-@Author:     	 Surrel Mickael (www.myjqueryplugins.com - www.msconcept.fr) 
+@Revison :    	3.0
+@Date : 		20/09/2011
+@Author:     	 ALPIXEL - (www.myjqueryplugins.com - www.alpixel.fr) 
 @License :		 Open Source - MIT License : http://www.opensource.org/licenses/mit-license.php
  
 **************************************************************************
@@ -14,7 +14,9 @@ jQuery.QapTcha = {
         var defaults = {
 			txtLock : 'Locked : form can\'t be submited',
 			txtUnlock : 'Unlocked : form can be submited',
-            txtLabel : 'Slide please'
+			disabledSubmit : true,
+			autoRevert : true,
+			PHPfile : '/qaptchaAjax'   // la route défini dans routing.yml du plugin
         };   
 		
 		if(this.length>0)
@@ -24,40 +26,43 @@ jQuery.QapTcha = {
 				opts = $.extend(defaults, options),      
 				$this = $(this),
 				form = $('form').has($this),
-                                
 				Clr = jQuery('<div>',{'class':'clr'}),
 				bgSlider = jQuery('<div>',{id:'bgSlider'}),
-                labelSlider = jQuery('<div>',{id:'labelSlider',text:opts.txtLabel}),
-                labelHelp = jQuery('<div>',{id:'labelHelp',title:opts.txtHelp}),
-                Slider = jQuery('<div>',{id:'Slider'}),
+				Slider = jQuery('<div>',{id:'Slider'}),
 				Icons = jQuery('<div>',{id:'Icons'}),
-				//TxtStatus = jQuery('<div>',{id:'TxtStatus',text:opts.txtLock}),
+				TxtStatus = jQuery('<div>',{id:'TxtStatus','class':'dropError',text:opts.txtLock}),
 				inputQapTcha = jQuery('<input>',{name:'iQapTcha',value:generatePass(),type:'hidden'});
 			
 			/** Disabled submit button **/
-			$('form.contactForm').find('input.submit').attr('disabled','disabled');
-                        $('form.contactForm').find('input.submit').hide();
- 
+			if(opts.disabledSubmit) {
+                            form.find('input[type=\'submit\']').attr('disabled','disabled');
+                            form.find('input[type=\'submit\']').attr('style','display:none');
+                        }
 			
 			/** Construct DOM **/
-			labelSlider.appendTo($this);
-            labelHelp.appendTo(labelSlider);
-            bgSlider.insertAfter(labelSlider);
+			bgSlider.appendTo($this);
 			Icons.insertAfter(bgSlider);
 			Clr.insertAfter(Icons);
-			//TxtStatus.insertAfter(Clr);
+			TxtStatus.insertAfter(Clr);
 			inputQapTcha.appendTo($this);
 			Slider.appendTo(bgSlider);
 			$this.show();
 			
 			Slider.draggable({ 
+				revert: function(){
+					if(opts.autoRevert)
+					{
+						if(parseInt(Slider.css("left")) > 150) return false;
+						else return true;
+					}
+				},
 				containment: bgSlider,
 				axis:'x',
 				stop: function(event,ui){
 					if(ui.position.left > 150)
 					{
 						// set the SESSION iQaptcha in PHP file
-						$.post("/qaptchaAjax",{
+						$.post(opts.PHPfile,{
 							action : 'qaptcha'
 						},
 						function(data) {
@@ -65,21 +70,10 @@ jQuery.QapTcha = {
 							{
 								Slider.draggable('disable').css('cursor','default');
 								inputQapTcha.val("");
-//TxtStatus.css({color:'#307F1F'}).text(opts.txtUnlock);
+								TxtStatus.text(opts.txtUnlock).addClass('dropSuccess').removeClass('dropError');
 								Icons.css('background-position', '-16px 0');
-								//form.find('input[type=\'submit\']').removeAttr('disabled');
-
-//alert('a tester');
-// form.find("div#QapTcha").fadeOut();
-//alert('a tester 2');
-
-                                $('body').find("div#QapTcha").fadeOut(function(){
-
-                                    //$('body').find("div.submit_wrap").fadeIn(); // apparition d'un bouton d'envoi
-                                    $('form.contactForm').find('input.submit').attr('disabled',false);
-                                    $('form.contactForm').find('input.submit').fadeIn();
-  
-                                  });
+								form.find('input[type=\'submit\']').removeAttr('disabled');
+                                                                form.find('input[type=\'submit\']').removeAttr('style');
 							}
 						},'json');
 					}
