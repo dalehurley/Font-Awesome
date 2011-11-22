@@ -24,4 +24,4 @@
 	url = https://github.com/diem-project/php-user-agent.git
 [submodule "dmCorePlugin/plugins/sfLESSPlugin"]
 	path = dmCorePlugin/plugins/sfLESSPlugin
-	url = https://arnaudgaudin@github.com/arnaudgaudin/sfLESSPlugin.git
+	url = https://github.com/arnaudgaudin/sfLESSPlugin.git
