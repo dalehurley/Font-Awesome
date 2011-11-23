@@ -11,6 +11,7 @@ class handWidgetsMissionsContextuelView extends dmWidgetPluginView {
             'length',
             'nb',
             'chapo',
+            'titreMission'
         ));
     }
 
@@ -151,7 +152,9 @@ class handWidgetsMissionsContextuelView extends dmWidgetPluginView {
                     'titreBloc' => $vars['titreBloc'],
                     'titreLien' => $vars['titreLien'],
                     'chapo' => $vars['chapo'],
-                    'length' => $vars['length']
+                    'length' => $vars['length'],
+            'titreMission' => $vars['titreMission'],
+            'nb' => $vars['nb']
                 ));
     }
 

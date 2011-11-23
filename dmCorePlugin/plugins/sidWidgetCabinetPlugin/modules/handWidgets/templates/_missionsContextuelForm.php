@@ -16,7 +16,8 @@ _tag('div',
     $form['titreLien']->renderRow().	
     $form['length']->renderRow().
     $form['nb']->renderRow().
-    $form['chapo']->renderRow()
+    $form['chapo']->renderRow().
+    $form['titreMission']->renderRow()
     
          
   

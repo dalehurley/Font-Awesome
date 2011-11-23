@@ -28,6 +28,9 @@ class handWidgetsMissionsContextuelForm extends dmWidgetPluginForm {
         $this->widgetSchema['chapo'] = new sfWidgetFormSelectRadio(array('choices' => array('chapeau','texte'),'default'=>1));
         $this->validatorSchema['chapo']  = new sfValidatorChoice(array('choices' =>array(0,1),'multiple' => false));
         
+        $this->widgetSchema['titreMission'] = new sfWidgetFormInputCheckbox(array('default'=> true));
+        $this->validatorSchema['titreMission']  = new sfValidatorBoolean();
+        
         $this->widgetSchema->setHelps(array(
             'titreBloc' => 'Le titre optionnel du bloc.',    
             'titreLien' => 'Le libellé du lien vers toutes les missions.',    	    

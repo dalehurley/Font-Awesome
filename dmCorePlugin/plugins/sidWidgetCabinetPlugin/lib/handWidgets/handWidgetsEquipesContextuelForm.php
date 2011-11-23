@@ -20,6 +20,11 @@ class handWidgetsEquipesContextuelForm extends dmWidgetPluginForm {
                     'required' => true
                 ));
         
+        $this->widgetSchema['lenght'] = new sfWidgetFormInputText(array('default' => 0, 'label' => 'Longueur du texte'));
+        $this->validatorSchema['lenght'] = new sfValidatorInteger(array(
+                    'required' => false
+                ));
+        
         $this->widgetSchema->setHelps(array(
             'titreBloc' => 'Le titre optionnel du bloc.',  
             'titreLien' => "Le libellé du lien vers toute l'équipe.",   	    

@@ -101,6 +101,9 @@ SidCabinetEquipe:
       notnull: false
     image:
       type: integer
+    implentation_id:
+      type: integer
+      notnull: true
     is_active:
       type: boolean
       notnull: true
@@ -118,6 +121,11 @@ SidCabinetEquipe:
       foreignAlias: SidRubrique
       class: SidRubrique
       refClass: SidCabinetEquipeSidRubrique
+      onDelete: Cascade
+    ImplentationId:
+      class: SidCoordName
+      local: implentation_id
+      foreignAlias: ImplentationIds
       onDelete: Cascade
       
 SidCabinetEquipeSidRubrique:
@@ -148,7 +156,6 @@ SidCabinetMission:
       notnull: true
     resume:
       type: clob
-      extra: markdown
       notnull: true
     text:
       type: clob

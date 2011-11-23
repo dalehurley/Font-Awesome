@@ -8,7 +8,8 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
         $this->addRequiredVar(array(
             'titreBloc',
             'titreLien',	    
-            'nb'
+            'nb',
+            'lenght'
         ));
     }
 
@@ -26,7 +27,6 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
 	$idDmPage = sfContext::getInstance()->getPage()->id;
 	$dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
 	//$arrayArticle[] = $dmPage->module.' - '.$dmPage->action.' - '.$dmPage->record_id;
-	
 	switch ($dmPage->module.'/'.$dmPage->action) {
 	    case 'section/show':
                             // il faut que je récupère l'id de la rubrique de la section
@@ -40,6 +40,16 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
 			->where('s.id = ? ', array($recordId))
 			->limit($vars['nb'])
 			->execute();
+                
+                if (count($actuEquipes) == 0) {
+                    $actuEquipes = '';
+                    $actuEquipes = dmDb::table('SidCabinetEquipe')
+			->createQuery('p')
+			->where('p.is_active = ? ', array(true))
+                            ->orderBy('RANDOM()')
+			->limit($vars['nb'])
+			->execute();
+                }
 		foreach($actuEquipes as $actuEquipe){ // on stock les NB actu article 
 		    $arrayEquipe[$actuEquipe->id] = $actuEquipe;
 		}
@@ -56,6 +66,16 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
 			    ->where('s.id = ? ', array($rubrique->id))
 			    ->limit($vars['nb'])
 			    ->execute();
+                    
+                    if (count($actuEquipes) == 0) {
+                    $actuEquipes = '';
+                    $actuEquipes = dmDb::table('SidCabinetEquipe')
+			->createQuery('p')
+			->where('p.is_active = ? ', array(true))
+                            ->orderBy('RANDOM()')
+			->limit($vars['nb'])
+			->execute();
+                }
 		    foreach ($actuEquipes as $actuEquipe) { // on stock les NB actu article 
 			$arrayEquipe[$actuEquipe->id] = $actuEquipe;
 
@@ -81,6 +101,16 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
 			    ->where('s.id = ? ', array($rubrique->sidRubriqueId))
 			    ->execute();
                     
+                    if (count($actuEquipes) == 0) {
+                    $actuEquipes = '';
+                    $actuEquipes = dmDb::table('SidCabinetEquipe')
+			->createQuery('p')
+			->where('p.is_active = ? ', array(true))
+                            ->orderBy('RANDOM()')
+			->limit($vars['nb'])
+			->execute();
+                }
+                    
                                     foreach ($actuEquipes as $actuEquipe) { // on stock les NB actu article 
                                         // on compte le nbre de missions pour ne stocker que la quantité demandée
                                         if (count($arrayEquipe) < $vars['nb']) {
@@ -101,6 +131,15 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
 			    ->leftJoin('sas.SidRubrique s')
 			    ->where('s.id = ? ', array($rubrique->sidRubriqueId))
 			    ->execute();
+                    if (count($actuEquipes) == 0) {
+                    $actuEquipes = '';
+                    $actuEquipes = dmDb::table('SidCabinetEquipe')
+			->createQuery('p')
+			->where('p.is_active = ? ', array(true))
+                            ->orderBy('RANDOM()')
+			->limit($vars['nb'])
+			->execute();
+                }
                     
                                     foreach ($actuEquipes as $actuEquipe) { // on stock les NB actu article 
                                         // on compte le nbre de missions pour ne stocker que la quantité demandée
@@ -109,6 +148,21 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
                                         }
                                     }
                 }
+                break;
+                case 'main/root':
+                    // On affiche aléatoirement les membres de l'équipe
+		    $actuEquipes = dmDb::table('SidCabinetEquipe')
+			    ->createQuery('p')
+			    ->where('p.is_active = ? ', array(true))
+			    ->execute();
+                    
+                                    foreach ($actuEquipes as $actuEquipe) { // on stock les NB actu article 
+                                        // on compte le nbre de missions pour ne stocker que la quantité demandée
+                                         if (count($arrayEquipe) < $vars['nb']) {
+                                            $arrayEquipe[$actuEquipe->id] = $actuEquipe;
+                                        }
+                                    }
+                
                 break;
 	    default:
 		// hors context, on ne renvoie aucun article
@@ -121,7 +175,8 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
                     'nb' => $vars['nb'],
                     'titreBloc' => $vars['titreBloc'],
                     'titreLien' => $vars['titreLien'],
-                    'pageEquipe' => $pageEquipe[0]
+                    'pageEquipe' => $pageEquipe[0],
+                    'lenght' => $vars['lenght']
                 ));
     }
 
