@@ -13,6 +13,9 @@
 // si le titreBloc est rempli, on laisse le titre de l'article dans la partie inférieure du bloc
       else if ($titreBloc != '') $titre = _tag('span.title itemprop="name"', $article->getTitle());
  }
+ // On choisit le chapo ou le texte
+ if($chapo == 0) $text = $article->getResume();
+elseif ($chapo == 1) $text = $article->getText();
 // si il y a plusieurs articles, on laisse le titre de chaque articles dans la partie inférieure du bloc
  if($nbArticle > 1 ){ $titre = _tag('span.title itemprop="name"', $article->getTitle());} 
     echo _open('li.element itemscope itemtype="http://schema.org/Article"');
@@ -37,7 +40,7 @@
                                         $titre .
 		    _tag('span.teaser itemprop="description"', 
 			    stringTools::str_truncate(
-						myUser::textEditorStripParagraph($article->getResume()), 
+						myUser::textEditorStripParagraph($text), 
 						$textLength, 
 						$textEnd,
                                                                                                             true)

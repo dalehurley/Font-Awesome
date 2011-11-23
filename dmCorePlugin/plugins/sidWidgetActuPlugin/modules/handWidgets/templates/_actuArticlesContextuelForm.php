@@ -19,7 +19,8 @@ _tag('div',
     $form['titreLien']->renderRow().	
     $form['nbArticles']->renderRow().
     $form['longueurTexte']->renderRow().
-    $form['photo']->renderRow()
+    $form['photo']->renderRow().
+    $form['chapo']->renderRow()
          
   
 ); 
