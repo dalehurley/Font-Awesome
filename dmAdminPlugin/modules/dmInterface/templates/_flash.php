@@ -1,5 +1,4 @@
 <?php
-
 $html = '';
 
 foreach(array('info', 'notice', 'alert', 'error') as $log_type)

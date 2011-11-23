@@ -91,16 +91,16 @@ class contentTemplateTools {
         $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUT . '(' . filesize($fileOUT) . ' o)';
 
         // save du dossier uploads
-        $fileOUTassets = $file . "." . $dbname . "." . self::$dumpExtension . ".assets.tgz";
+        $dirOUTassets = $file . "." . $dbname . "." . self::$dumpExtension . ".assets";
         // le nom du dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
-        $output = exec("cd " . $webDirName . "/uploads; tar -czvf " . $fileOUTassets . " *; cd ..; cd ..;");
-        $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUTassets . '(' . filesize($fileOUTassets) . ' o)';
+        $output = exec("mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;");
+        $return[]['dumpDB'] = 'copie des assets';
 
         // save du dossier apps/front/modules
-        $fileOUTmodules = $file . "." . $dbname . "." . self::$dumpExtension . ".modules.tgz";
-        $output = exec("cd apps/front/modules; tar -czvf " . $fileOUTmodules . " *; cd ..; cd ..; cd ..; cd ..;");
-        $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUTmodules . '(' . filesize($fileOUTmodules) . ' o)';
+        $dirOUTmodules = $file . "." . $dbname . "." . self::$dumpExtension . ".modules";
+        $output = exec("mkdir " . $dirOUTmodules .";cp -R apps/front/modules " . $dirOUTmodules . "/;");
+        $return[]['dumpDB'] = 'copie des modules du front';
 
         return $return;
     }
@@ -149,23 +149,23 @@ class contentTemplateTools {
         // dump de la base
         $fileINdb = $file;
         // save du dossier uploads
-        $fileINassets = $file . ".assets.tgz";
+        $dirINassets = $file . ".assets";
         // save du dossier uploads
-        $fileINmodule = $file . ".modules.tgz";
+        $dirINmodule = $file . ".modules";
 
         // load datas from DB
         $fileOUT = $file . "." . $dbname . "";
         // The '2>&1' is for redirecting errors to the standard IO (http://php.net/manual/fr/function.exec.php)
         // le '2>&1' est pour rediriger les erreur vers la sortie standard
         $command = 'mysql --host=' . $dbhost . ' --user=' . $user . ' --password=' . $pwd . ' ' . $dbname . ' < ' . $fileINdb . ' 2>&1';
-        $return[]['dumpDB'] = $command;
+        //$return[]['dumpDB'] = $command;
 
         $out = array();
         exec($command, $out);
 //        print_r($out);
 
         if (count($out) == 0)
-            $return[]['dumpDB'] = $file . ' -> ' . 'base ' . $dbname;
+            $return[]['loadDB'] = $file . ' ---> BD ' . $dbname;
 
         foreach ($out as $outLine) {
             if (strpos($outLine, 'ERROR') === false) {
@@ -180,10 +180,12 @@ class contentTemplateTools {
         // load du dossier uploads
         // le dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
-        $output = exec("cd " . $webDirName . "/uploads; tar -xzvf " . $fileINassets . "; cd ..; cd ..;");
-
+        $output = exec("cp -R " . $dirINassets ."/* ". $webDirName . "/;");
+        $return[]['loadDB'] = 'copie des assets';
+        
         // load du dossier apps/front/modules
-        $output = exec("cd apps/front/modules; tar -xzvf " . $fileINmodule . "; cd ..; cd ..; cd ..;");
+        $output = exec("cp -R " . $dirINmodule ."/* apps/front/;");
+        $return[]['loadDB'] = 'copie des modules du front';        
 
         return $return;
     }

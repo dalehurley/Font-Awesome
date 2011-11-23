@@ -42,7 +42,7 @@ EOF;
 
         $results = contentTemplateTools::loadDB($arguments['file']);
 
-        $this->logSection('### dumpDB', 'Dump de la base locale');
+        $this->logSection('### loadDB', 'Load de la base locale');
         foreach ($results as $result) {
             foreach ($result as $log => $desc) {
                 $this->logSection(utf8_decode($log), utf8_decode($desc), null, utf8_decode($log));

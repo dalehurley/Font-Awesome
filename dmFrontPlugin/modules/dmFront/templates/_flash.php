@@ -23,5 +23,5 @@ foreach(array('info', 'notice', 'alert', 'error') as $log_type)
 
 if ($html)
 {
-  echo _tag("div#flash", $html);
+  echo _tag("div#flash", array('title' => __('Close')), $html);
 }
