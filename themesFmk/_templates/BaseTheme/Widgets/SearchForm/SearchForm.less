@@ -1,0 +1,75 @@
+// _SearchForm.less
+// v1.0
+// Last Updated : 2011-09-05 12:00
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/BaseTheme/Widgets/_Widgets.less";
+
+//Importation de la mise en page par défaut du widget
+@import "_framework/SPLessCss/Widgets/SearchForm/_SearchForm.less";
+
+.dm_layout_top {
+	.search_form {
+		//permet d'étendre la zone en débordement de la page
+		margin-left: -100%;
+		margin-right: -100%;
+		margin-bottom: @gridBaseline;
+		
+		//ajout fond
+		background-color: @colorCouleur2Fonce;
+		//bordure de séparation
+		border-bottom: 1px solid @colorCouleur3Clair;
+		
+		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
+		.dm_widget_inner {
+			position: relative;
+			@gridSiteWidth();
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		//placement formulaire
+		form {
+			float: right;
+			margin: 0;
+		}
+		
+		//stylage du formulaire spécifique à la zone (refaire un style spécifique pour intégration dans contenu)
+		label.label {
+			display: none;
+			visibility: hidden;
+		}
+		input.query {
+			border-color: @colorCouleur2FonceSup;
+			background-color: @colorWhite;
+			//padding horizontal soustrait à la largeur
+			@padHSub: (@icoOffset + 1px) * 2;
+			//application largeur
+			@gridWidth(@gridCol_SidebarRight; @padHSub);
+			//réduction taille pour maintien baseline
+			line-height: (@gridBaseline - 10px);		//on soustrait la différence de padding et de bordure (4*2 + 2)
+			//placement sur deux lignes
+			padding-top: 4px;
+			padding-bottom: 3px;
+			margin-top: (@gridBaseline - @gridBaseline/2 - 2px - 1px);
+			margin-bottom: (@gridBaseline - @gridBaseline/2 - 2px);			//on enlève 1px à cause de la border-bottom de search_form
+			//arrondissement des coins
+			@borderRadiusCompress(@gridBaseline);
+		}
+		input.submit {
+			display: none;
+			visibility: hidden;
+		}
+	}
+}
+
+//hack webkit (Safari et Chrome)
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.dm_layout_top {
+		.search_form {
+			input.query { padding-bottom: 4px; }
+		}
+	}
+}

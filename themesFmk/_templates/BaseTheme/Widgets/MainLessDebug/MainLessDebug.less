@@ -1,0 +1,23 @@
+// _MainLessDebug.less
+// v1.1
+// Last Updated : 2011-11-14 12:00
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/BaseTheme/Widgets/_Widgets.less";
+
+//Importation de la mise en page par défaut du widget
+@import "_framework/SPLessCss/Widgets/MainLessDebug/_MainLessDebug.less";
+
+.main_less_debug {
+	//placement absolue en haut à droite de la page
+	top: @gridBaseline*4;
+	right: @gridGutter;
+}
+
+//ajout placement personnalisé de la div de debug flotante
+.debug, .warning {
+	top: @gridBaseline;
+	right:0;
+}
