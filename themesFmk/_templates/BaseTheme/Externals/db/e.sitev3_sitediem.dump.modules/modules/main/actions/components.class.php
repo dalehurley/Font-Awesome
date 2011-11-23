@@ -22,7 +22,7 @@ class mainComponents extends myFrontModuleComponents
 	public function executeLessDebug()
 	{
 		//insertion de la CSS du widget du theme courant
-		use_stylesheet('/theme/css/widgetMainLessDebug.css');
+		//use_stylesheet('/theme/css/widgetMainLessDebug.css');
 
 		//on vérifie si on est en DEV
 		$isDev = (sfConfig::get('sf_environment') == 'dev') ? true : false;

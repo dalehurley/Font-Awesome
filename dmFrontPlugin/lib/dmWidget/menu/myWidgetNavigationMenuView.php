@@ -27,7 +27,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         sfContext::getInstance()->getConfiguration()->loadHelpers('Asset');
 
         //insertion de la CSS du widget du theme courant
-        use_stylesheet('/theme/css/widgetNavigationMenu.css');
+        //use_stylesheet('/theme/css/widgetNavigationMenu.css');
 
         // use cache if available
         if ($this->isCachable() && $cache = $this->getCache()) {
