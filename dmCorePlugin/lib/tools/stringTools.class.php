@@ -15,6 +15,9 @@ class stringTools {
      * @return type 
      */
     public static function str_truncate($string, $max_length = 0, $replacement = '', $trunc_at_space = true) {
+        if (strip_tags($string) != $string){ // si la chaîne est formaté en HTML alors on l'a renvoi non tronquée
+            return $string;
+        }
 	if ($max_length != 0) {
 	    $max_length -= strlen($replacement);
 	    $string_length = strlen($string);
