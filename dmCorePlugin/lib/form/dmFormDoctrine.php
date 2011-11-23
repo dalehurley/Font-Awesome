@@ -8,452 +8,394 @@
  * @author     Your name here
  * @version    SVN: $Id: sfPropelFormBaseTemplate.php 9304 2008-05-27 03:49:32Z dwhittle $
  */
-abstract class dmFormDoctrine extends sfFormDoctrine
-{
+abstract class dmFormDoctrine extends sfFormDoctrine {
+    /**
+     * @var integer
+     */
+    const EMBEDDED_FORM_SAVE_BEFORE = 0;
 
-	/**
-	 * @var integer
-	 */
-	const EMBEDDED_FORM_SAVE_BEFORE = 0;
-	
-	/**
-	 * @var integer
-	 */
-	const EMBEDDED_FORM_SAVE_AFTER = 1;
-	
-	/**
-	 * @var array
-	 */
-	protected $embeddedFormsSaveTime;
-	
-	
-  /**
-   * Removes a field from the form.
-   *
-   * It removes the widget and the validator for the given field.
-   *
-   * @param string $offset The field name
-   */
-  public function offsetUnset($offset)
-  {
-  	parent::offsetUnset($offset);
-  	
-  	if(isset($this->embeddedFormsSaveTime[self::EMBEDDED_FORM_SAVE_BEFORE][$offset]))
-  	{
-  		unset($this->embeddedFormsSaveTime[self::EMBEDDED_FORM_SAVE_BEFORE][$offset]);
-  	}
-  	else 
-  	{
-  		unset($this->embeddedFormsSaveTime[self::EMBEDDED_FORM_SAVE_AFTER][$offset]);
-  	}
-  }
-  
-	
-	/**
-	 * @var integer
-	 */
-	protected $nestedSetParentId = null;
+    /**
+     * @var integer
+     */
+    const EMBEDDED_FORM_SAVE_AFTER = 1;
 
-	/**
-	 * @param integer $nestedSetParentId
-	 * @return dmFormDoctrine
-	 */
-	public function updateNestedSetParentIdColumn($nestedSetParentId)
-	{
-		$this->nestedSetParentId = $nestedSetParentId;
-		return $this;
-	}
+    /**
+     * @var array
+     */
+    protected $embeddedFormsSaveTime;
 
-	/**
-	 * @return dmFormDoctrine
-	 */
-	protected function setupNestedSet() {
+    /**
+     * Removes a field from the form.
+     *
+     * It removes the widget and the validator for the given field.
+     *
+     * @param string $offset The field name
+     */
+    public function offsetUnset($offset) {
+        parent::offsetUnset($offset);
 
-		if ($this->object instanceof sfDoctrineRecord && $this->object->getTable() instanceof myDoctrineTable)
-		{
-			// unset NestedSet columns not needed as added in the getAutoFieldsToUnset() method
-			$this->updateNestedSetWidget($this->object->getTable(), 'nested_set_parent_id', 'Child of');
-			// check all relations for NestedSet
-			foreach ($this->object->getTable()->getRelationHolder()->getAll() as $relation)
-			{
-				if ($relation->getTable() instanceof dmDoctrineTable && $relation->getTable()->isNestedSet())
-				{
-					// check for many to many
-					$fieldName = $relation->getType()
-					? dmString::underscore($relation->getAlias()) . '_list'
-					: $relation->getLocalColumnName();
-					$this->updateNestedSetWidget($relation->getTable(), $fieldName);
-				}
-			}
-		}
-		return $this;
-	}
+        if (isset($this->embeddedFormsSaveTime[self::EMBEDDED_FORM_SAVE_BEFORE][$offset])) {
+            unset($this->embeddedFormsSaveTime[self::EMBEDDED_FORM_SAVE_BEFORE][$offset]);
+        } else {
+            unset($this->embeddedFormsSaveTime[self::EMBEDDED_FORM_SAVE_AFTER][$offset]);
+        }
+    }
 
-	/**
-	 * @param dmDoctrineTable $table
-	 * @param string $fieldName
-	 * @param string $label
-	 * @return dmFormDoctrine
-	 */
-	protected function updateNestedSetWidget(dmDoctrineTable $table, $fieldName = null, $label = null)
-	{
-		if ($table->isNestedSet())
-		{
-			if (null === $fieldName)
-			{
-				$fieldName = 'nested_set_parent_id';
-			}
-			// create if not exists
-			if (!($this->widgetSchema[$fieldName] instanceof sfWidgetFormDoctrineChoice))
-			{
-				$this->widgetSchema[$fieldName] = new sfWidgetFormDoctrineChoice(array('model' => $table->getComponentName()));
-			}
-			if (!($this->validatorSchema[$fieldName] instanceof sfValidatorDoctrineChoice))
-			{
-				$this->validatorSchema[$fieldName] = new sfValidatorDoctrineChoice(array('model' => $table->getComponentName()));
-			}
+    /**
+     * @var integer
+     */
+    protected $nestedSetParentId = null;
 
-			if (null !== $label)
-			{
-				$this->widgetSchema[$fieldName]->setLabel('$label');
-			}
+    /**
+     * @param integer $nestedSetParentId
+     * @return dmFormDoctrine
+     */
+    public function updateNestedSetParentIdColumn($nestedSetParentId) {
+        $this->nestedSetParentId = $nestedSetParentId;
+        return $this;
+    }
 
-			// set sorting
-			$orderBy = 'lft';
-			if ($table->getTemplate('NestedSet')->getOption('hasManyRoots', false)) {
-				$orderBy = $table->getTemplate('NestedSet')->getOption('rootColumnName', 'root_id') . ', ' . $orderBy;
-			}
+    /**
+     * @return dmFormDoctrine
+     */
+    protected function setupNestedSet() {
 
-			$options = array(
-                  'method' => 'getNestedSetIndentedName',
-                  'order_by' => array($orderBy, ''),
-			);
-			if ($fieldName == 'nested_set_parent_id')
-			{
-			  
-			  if($this->getObject()->getTable()->getTemplate('NestedSet')->getOption('hasManyRoots') 
-			   	|| $this->getObject()->getNode()->isRoot()
-			  )
-			  {
-				  $options['add_empty'] = '~';
-			  }else{
-			    $this->setDefault('nested_set_parent_id', $this->getObject()->getNode()->getRootValue());
-			  }
-				$this->validatorSchema[$fieldName]->setOptions(array_merge(
-				$this->validatorSchema[$fieldName]->getOptions(),
-				array(
-                    'required' => false,
-				)));
-			}
-			$this->widgetSchema[$fieldName]->setOptions(array_merge(
-			$this->widgetSchema[$fieldName]->getOptions(),
-			$options
-			));
-			
-			if(!$this->isNew() && $this->getObject()->getNode() && !$this->getObject()->getNode()->isRoot())
-			{
-			  $this->setDefault($fieldName, $this->getObject()->getNode()->getParent()->get('id'));
-			}
-		}
-		return $this;
-	}
+        if ($this->object instanceof sfDoctrineRecord && $this->object->getTable() instanceof myDoctrineTable) {
+            // unset NestedSet columns not needed as added in the getAutoFieldsToUnset() method
+            $this->updateNestedSetWidget($this->object->getTable(), 'nested_set_parent_id', 'Child of');
+            // check all relations for NestedSet
+            foreach ($this->object->getTable()->getRelationHolder()->getAll() as $relation) {
+                if ($relation->getTable() instanceof dmDoctrineTable && $relation->getTable()->isNestedSet()) {
+                    // check for many to many
+                    $fieldName = $relation->getType() ? dmString::underscore($relation->getAlias()) . '_list' : $relation->getLocalColumnName();
+                    $this->updateNestedSetWidget($relation->getTable(), $fieldName);
+                }
+            }
+        }
+        return $this;
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 * @see sfForm::setup()
-	 */
-	public function setup()
-	{
-		parent::setup();
-		$this->embeddedFormsSaveTime = array(self::EMBEDDED_FORM_SAVE_BEFORE => array(), self::EMBEDDED_FORM_SAVE_AFTER => array());
-		$this->setupNestedSet();
-	}
+    /**
+     * @param dmDoctrineTable $table
+     * @param string $fieldName
+     * @param string $label
+     * @return dmFormDoctrine
+     */
+    protected function updateNestedSetWidget(dmDoctrineTable $table, $fieldName = null, $label = null) {
+        if ($table->isNestedSet()) {
+            if (null === $fieldName) {
+                $fieldName = 'nested_set_parent_id';
+            }
+            // create if not exists
+            if (!($this->widgetSchema[$fieldName] instanceof sfWidgetFormDoctrineChoice)) {
+                $this->widgetSchema[$fieldName] = new sfWidgetFormDoctrineChoice(array('model' => $table->getComponentName()));
+            }
+            if (!($this->validatorSchema[$fieldName] instanceof sfValidatorDoctrineChoice)) {
+                $this->validatorSchema[$fieldName] = new sfValidatorDoctrineChoice(array('model' => $table->getComponentName()));
+            }
 
-	/**
-	 * Extend the doSave method to handle NestedSets
-	 * And to handle the saving of embedded forms in appropriate orders.
-	 * 
-	 * @param Doctrine_Connection $con
-	 */
-	protected function doSave($con = null)
-	{
-		if (null === $con)
-		{
-			$con = $this->getConnection();
-		}
+            if (null !== $label) {
+                $this->widgetSchema[$fieldName]->setLabel('$label');
+            }
 
-		$this->updateObject();
+            // set sorting
+            $orderBy = 'lft';
+            if ($table->getTemplate('NestedSet')->getOption('hasManyRoots', false)) {
+                $orderBy = $table->getTemplate('NestedSet')->getOption('rootColumnName', 'root_id') . ', ' . $orderBy;
+            }
 
-		$this->saveEmbeddedForms($con, $this->getEmbeddedFormsToSave(self::EMBEDDED_FORM_SAVE_BEFORE));
-		$this->getObject()->save($con);
-		$this->saveEmbeddedForms($con, $this->getEmbeddedFormsToSave(self::EMBEDDED_FORM_SAVE_AFTER));
-		$this->doSaveNestedSet($con);
-	}
+            $options = array(
+                'method' => 'getNestedSetIndentedName',
+                'order_by' => array($orderBy, ''),
+            );
+            if ($fieldName == 'nested_set_parent_id') {
 
-	/**
-	 * Returns an array containing sf
-	 * @param integer $when
-	 * @throws LogicException
-	 */
-	public function getEmbeddedFormsToSave($when = self::EMBEDDED_FORM_SAVE_AFTER)
-	{
-		if(!in_array($when, array(self::EMBEDDED_FORM_SAVE_BEFORE, self::EMBEDDED_FORM_SAVE_AFTER))){ throw new LogicException('Then $when parameter must be equals to before or after'); }
-		$return = array();
-		foreach($this->embeddedFormsSaveTime[$when] as $name)
-		{
-			$return[] = $this->getEmbeddedForm($name); 
-		}
-		return $return;
-	}
-	
-	/**
-	 * @param string $formName
-	 * @param integer $when
-	 * @throws LogicException $when is out of range
-	 */
-	public function setEmbeddedFormSavingTime($formName, $when)
-	{
-		if(!in_array($when, array(self::EMBEDDED_FORM_SAVE_BEFORE, self::EMBEDDED_FORM_SAVE_AFTER))){ throw new LogicException('Given $when parameter is out of range', 0); }
-		$this->embeddedFormsSaveTime[$when][$formName] = $formName;
-		return $this;
-	}	
-	
-	
-	/**
-	 * Saving NestedSet in its own place so we can easily overload it if needed
-	 * @param Doctrine_Connection $con
-	 */
-	protected function doSaveNestedSet($con = null)
-	{
-		if ($this->object->getTable()->isNestedSet())
-		{
-			$node = $this->object->getNode();
-			if ($this->nestedSetParentId != $this->object->getNestedSetParentId() || !$node->isValidNode())
-			{
-				if (empty($this->nestedSetParentId))
-				{
-					//save as a root
-					if ($node->isValidNode())
-					{
-						$node->makeRoot($this->object['id']);
-						$this->object->save($con);
-					}
-					else
-					{
-						$this->object->getTable()->getTree()->createRoot($this->object); //calls $this->object->save internally
-					}
-				}
-				else
-				{
-					//form validation ensures an existing ID for $this->nestedSetParentId
-					$nestedSetParent = $this->object->getTable()->find($this->nestedSetParentId);
-					$nestedSetMethod = ($node->isValidNode() ? 'move' : 'insert') . 'AsFirstChildOf';
-					$node->$nestedSetMethod($nestedSetParent); //calls $this->object->save internally
-				}
-			}
-		}
-	}
+                if ($this->getObject()->getTable()->getTemplate('NestedSet')->getOption('hasManyRoots')
+                        || $this->getObject()->getNode()->isRoot()
+                ) {
+                    $options['add_empty'] = '~';
+                } else {
+                    $this->setDefault('nested_set_parent_id', $this->getObject()->getNode()->getRootValue());
+                }
+                $this->validatorSchema[$fieldName]->setOptions(array_merge(
+                                $this->validatorSchema[$fieldName]->getOptions(), array(
+                            'required' => false,
+                        )));
+            }
+            $this->widgetSchema[$fieldName]->setOptions(array_merge(
+                            $this->widgetSchema[$fieldName]->getOptions(), $options
+                    ));
 
-	/**
-	 * Unset automatic fields like 'created_at', 'updated_at', 'position'
-	 * @return dmFormDoctrine
-	 */
-	public function unsetAutoFields($autoFields = null)
-	{
-		$autoFields = null === $autoFields ? $this->getAutoFieldsToUnset() : (array) $autoFields;
+            if (!$this->isNew() && $this->getObject()->getNode() && !$this->getObject()->getNode()->isRoot()) {
+                $this->setDefault($fieldName, $this->getObject()->getNode()->getParent()->get('id'));
+            }
+        }
+        return $this;
+    }
 
-		foreach($autoFields as $autoFieldName)
-		{
-			if (isset($this->widgetSchema[$autoFieldName]))
-			{
-				unset($this[$autoFieldName]);
-			}
-		}
-		return $this;
-	}
+    /**
+     * (non-PHPdoc)
+     * @see sfForm::setup()
+     */
+    public function setup() {
+        parent::setup();
 
-	public function getAutoFieldsToUnset()
-	{
-		$fields = array('created_at', 'updated_at');
+        // Code pour ajouter * au label des widgets ayant required=true dans leur validateur                
+        foreach ($this->getFormFieldSchema()->getWidget()->getFields() as $key => $object) {
+            $label = $this->getFormFieldSchema()->offsetGet($key)->renderLabelName();
+            if (isset($this->validatorSchema[$key]) and $this->validatorSchema[$key]->getOption('required') == true) {
+                $label = $label . ' *';
+            }
+            $this->widgetSchema->setLabel($key, $label);
+        }
 
-		if ($this->getObject()->getTable()->isSortable())
-		{
-			$fields[] = 'position';
-		}
+        $this->embeddedFormsSaveTime = array(self::EMBEDDED_FORM_SAVE_BEFORE => array(), self::EMBEDDED_FORM_SAVE_AFTER => array());
+        $this->setupNestedSet();
+    }
 
-		if ($this->getObject()->getTable()->isVersionable())
-		{
-			$fields[] = 'version';
-		}
+    /**
+     * Extend the doSave method to handle NestedSets
+     * And to handle the saving of embedded forms in appropriate orders.
+     * 
+     * @param Doctrine_Connection $con
+     */
+    protected function doSave($con = null) {
+        if (null === $con) {
+            $con = $this->getConnection();
+        }
 
-		if ($this->getObject()->getTable()->isNestedSet())
-		{
-			$fields[] = 'lft';
-			$fields[] = 'rgt';
-			$fields[] = 'level';
-			if ($this->getObject()->getTable()->getTemplate('NestedSet')->getOption('hasManyRoots')) {
-				$fields[] = $this->getObject()->getTable()->getTemplate('NestedSet')->getOption('rootColumnName', 'root_id');
-			}
-		}
+        $this->updateObject();
 
-		return $fields;
-	}
+        $this->saveEmbeddedForms($con, $this->getEmbeddedFormsToSave(self::EMBEDDED_FORM_SAVE_BEFORE));
+        $this->getObject()->save($con);
+        $this->saveEmbeddedForms($con, $this->getEmbeddedFormsToSave(self::EMBEDDED_FORM_SAVE_AFTER));
+        $this->doSaveNestedSet($con);
+    }
 
-	protected function filterValuesByEmbeddedMediaForm(array $values, $local)
-	{
-		$formName = $local.'_form';
-			
-		if (!isset($this->embeddedForms[$formName]))
-		{
-			return $values;
-		}
+    /**
+     * Returns an array containing sf
+     * @param integer $when
+     * @throws LogicException
+     */
+    public function getEmbeddedFormsToSave($when = self::EMBEDDED_FORM_SAVE_AFTER) {
+        if (!in_array($when, array(self::EMBEDDED_FORM_SAVE_BEFORE, self::EMBEDDED_FORM_SAVE_AFTER))) {
+            throw new LogicException('Then $when parameter must be equals to before or after');
+        }
+        $return = array();
+        foreach ($this->embeddedFormsSaveTime[$when] as $name) {
+            $return[] = $this->getEmbeddedForm($name);
+        }
+        return $return;
+    }
 
-		$isFileProvided = isset($values[$formName]['file']) && !empty($values[$formName]['file']['size']);
+    /**
+     * @param string $formName
+     * @param integer $when
+     * @throws LogicException $when is out of range
+     */
+    public function setEmbeddedFormSavingTime($formName, $when) {
+        if (!in_array($when, array(self::EMBEDDED_FORM_SAVE_BEFORE, self::EMBEDDED_FORM_SAVE_AFTER))) {
+            throw new LogicException('Given $when parameter is out of range', 0);
+        }
+        $this->embeddedFormsSaveTime[$when][$formName] = $formName;
+        return $this;
+    }
 
-		// media id provided with drag&drop
-		if(!empty($values[$formName]['id']) && !$isFileProvided)
-		{
-			if($this->embeddedForms[$formName]->getObject()->isNew() || $this->embeddedForms[$formName]->getObject()->id != $values[$formName]['id'])
-			{
-				if($media = dmDb::table('DmMedia')->findOneByIdWithFolder($values[$formName]['id']))
-				{
-					$this->embeddedForms[$formName]->setObject($media);
-					$values[$formName]['dm_media_folder_id'] = $media->dm_media_folder_id;
-		    // ajout lionel  issue : https://github.com/diem-project/diem/issues/157
-		    //$this->validatorSchema[$formName]->offsetSet('id', new sfValidatorInteger(array('required' => true)));
-		    // $this->validatorSchema[$formName]->offsetSet('file', new sfValidatorFile(array('required' => false)));
-		    //fin ajout
-				}
-			}
-		}
-		// no existing media, no file, and it is not required : skip all
-		elseif ($this->embeddedForms[$formName]->getObject()->isNew() && !$isFileProvided && !$this->embeddedForms[$formName]->getValidator('file')->getOption('required'))
-		{
-			// remove the embedded media form if the file field was not provided
-			unset($this->embeddedForms[$formName], $values[$formName]);
-			// pass the media form validations
-			$this->validatorSchema[$formName] = new sfValidatorPass;
-		}
+    /**
+     * Saving NestedSet in its own place so we can easily overload it if needed
+     * @param Doctrine_Connection $con
+     */
+    protected function doSaveNestedSet($con = null) {
+        if ($this->object->getTable()->isNestedSet()) {
+            $node = $this->object->getNode();
+            if ($this->nestedSetParentId != $this->object->getNestedSetParentId() || !$node->isValidNode()) {
+                if (empty($this->nestedSetParentId)) {
+                    //save as a root
+                    if ($node->isValidNode()) {
+                        $node->makeRoot($this->object['id']);
+                        $this->object->save($con);
+                    } else {
+                        $this->object->getTable()->getTree()->createRoot($this->object); //calls $this->object->save internally
+                    }
+                } else {
+                    //form validation ensures an existing ID for $this->nestedSetParentId
+                    $nestedSetParent = $this->object->getTable()->find($this->nestedSetParentId);
+                    $nestedSetMethod = ($node->isValidNode() ? 'move' : 'insert') . 'AsFirstChildOf';
+                    $node->$nestedSetMethod($nestedSetParent); //calls $this->object->save internally
+                }
+            }
+        }
+    }
 
-		return $values;
-	}
+    /**
+     * Unset automatic fields like 'created_at', 'updated_at', 'position'
+     * @return dmFormDoctrine
+     */
+    public function unsetAutoFields($autoFields = null) {
+        $autoFields = null === $autoFields ? $this->getAutoFieldsToUnset() : (array) $autoFields;
 
-	protected function processValuesForEmbeddedMediaForm(array $values, $local)
-	{
-		$formName = $local.'_form';
+        foreach ($autoFields as $autoFieldName) {
+            if (isset($this->widgetSchema[$autoFieldName])) {
+                unset($this[$autoFieldName]);
+            }
+        }
+        return $this;
+    }
 
-		if (!isset($this->embeddedForms[$formName]))
-		{
-			return $values;
-		}
+    public function getAutoFieldsToUnset() {
+        $fields = array('created_at', 'updated_at');
 
-		/*
-		 * We have a new file for an existing media.
-		 * Let's create a new media
-		 */
-		if($values[$formName]['file'] && $values[$formName]['id'])
-		{
-			$values[$formName]['id'] = null;
+        if ($this->getObject()->getTable()->isSortable()) {
+            $fields[] = 'position';
+        }
 
-			$media = new DmMedia;
-			$media->Folder = $this->object->getDmMediaFolder();
+        if ($this->getObject()->getTable()->isVersionable()) {
+            $fields[] = 'version';
+        }
 
-			$this->embeddedForms[$formName]->setObject($media);
-		}
+        if ($this->getObject()->getTable()->isNestedSet()) {
+            $fields[] = 'lft';
+            $fields[] = 'rgt';
+            $fields[] = 'level';
+            if ($this->getObject()->getTable()->getTemplate('NestedSet')->getOption('hasManyRoots')) {
+                $fields[] = $this->getObject()->getTable()->getTemplate('NestedSet')->getOption('rootColumnName', 'root_id');
+            }
+        }
 
-		return $values;
-	}
+        return $fields;
+    }
 
-	protected function doUpdateObjectForEmbeddedMediaForm(array $values, $local, $alias)
-	{
-		$formName = $local.'_form';
+    protected function filterValuesByEmbeddedMediaForm(array $values, $local) {
+        $formName = $local . '_form';
 
-		if (!isset($this->embeddedForms[$formName]))
-		{
-			return;
-		}
+        if (!isset($this->embeddedForms[$formName])) {
+            return $values;
+        }
 
-		if (!empty($values[$formName]['remove']))
-		{
-			$this->object->set($alias, null);
-		}
-		else
-		{
-			$this->object->set($alias, $this->embeddedForms[$formName]->getObject());
-		}
-	}
+        $isFileProvided = isset($values[$formName]['file']) && !empty($values[$formName]['file']['size']);
 
-	protected function mergeI18nForm($culture = null)
-	{
-		$this->mergeForm($this->createI18nForm());
-	}
+        // media id provided with drag&drop
+        if (!empty($values[$formName]['id']) && !$isFileProvided) {
+            if ($this->embeddedForms[$formName]->getObject()->isNew() || $this->embeddedForms[$formName]->getObject()->id != $values[$formName]['id']) {
+                if ($media = dmDb::table('DmMedia')->findOneByIdWithFolder($values[$formName]['id'])) {
+                    $this->embeddedForms[$formName]->setObject($media);
+                    $values[$formName]['dm_media_folder_id'] = $media->dm_media_folder_id;
+                    // ajout lionel  issue : https://github.com/diem-project/diem/issues/157
+                    //$this->validatorSchema[$formName]->offsetSet('id', new sfValidatorInteger(array('required' => true)));
+                    // $this->validatorSchema[$formName]->offsetSet('file', new sfValidatorFile(array('required' => false)));
+                    //fin ajout
+                }
+            }
+        }
+        // no existing media, no file, and it is not required : skip all
+        elseif ($this->embeddedForms[$formName]->getObject()->isNew() && !$isFileProvided && !$this->embeddedForms[$formName]->getValidator('file')->getOption('required')) {
+            // remove the embedded media form if the file field was not provided
+            unset($this->embeddedForms[$formName], $values[$formName]);
+            // pass the media form validations
+            $this->validatorSchema[$formName] = new sfValidatorPass;
+        }
 
-	/**
-	 * Create current i18n form
-	 */
-	protected function createI18nForm($culture = null)
-	{
-		if (!$this->isI18n())
-		{
-			throw new dmException(sprintf('The model "%s" is not internationalized.', $this->getModelName()));
-		}
+        return $values;
+    }
 
-		$i18nFormClass = $this->getI18nFormClass();
+    protected function processValuesForEmbeddedMediaForm(array $values, $local) {
+        $formName = $local . '_form';
 
-		$culture = null === $culture ? dmDoctrineRecord::getDefaultCulture() : $culture;
+        if (!isset($this->embeddedForms[$formName])) {
+            return $values;
+        }
 
-		// translation already set, use it
-		if ($this->object->get('Translation')->contains($culture))
-		{
-			$translation = $this->object->get('Translation')->get($culture);
-		}
-		else
-		{
-			$translation = $this->object->get('Translation')->get($culture);
+        /*
+         * We have a new file for an existing media.
+         * Let's create a new media
+         */
+        if ($values[$formName]['file'] && $values[$formName]['id']) {
+            $values[$formName]['id'] = null;
 
-			// populate new translation with fallback values
-			if (!$translation->exists())
-			{
-				if($fallback = $this->object->getI18nFallBack())
-				{
-					$fallBackData = $fallback->toArray();
-					unset($fallBackData['id'], $fallBackData['lang']);
-					$translation->fromArray($fallBackData);
-				}
-			}
-		}
+            $media = new DmMedia;
+            $media->Folder = $this->object->getDmMediaFolder();
 
-		$i18nForm = new $i18nFormClass($translation);
+            $this->embeddedForms[$formName]->setObject($media);
+        }
 
-		unset($i18nForm['id'], $i18nForm['lang']);
+        return $values;
+    }
 
-		return $i18nForm;
-	}
+    protected function doUpdateObjectForEmbeddedMediaForm(array $values, $local, $alias) {
+        $formName = $local . '_form';
 
-	/**
-	 * Sets the current object for this form.
-	 *
-	 * @return dmDoctrineRecord The current object setted.
-	 */
-	public function setObject(dmDoctrineRecord $record)
-	{
-		return $this->object = $record;
-	}
-	
-	public function embedForm($name, sfForm $form, $decorator = null, $savingTime = self::EMBEDDED_FORM_SAVE_AFTER)
-	{
-		parent::embedForm($name, $form, $decorator);
-		$this->setEmbeddedFormSavingTime($name, $savingTime);
-		return $this;
-	}
-	
-	/**
-	* Returns the name of the class to use to embed DmMedia
-	*
-	* @return string
-	*/
-	public function getDmMediaFormForRecord($local)
-	{
-		return 'DmMediaForRecordForm';
-	}
+        if (!isset($this->embeddedForms[$formName])) {
+            return;
+        }
+
+        if (!empty($values[$formName]['remove'])) {
+            $this->object->set($alias, null);
+        } else {
+            $this->object->set($alias, $this->embeddedForms[$formName]->getObject());
+        }
+    }
+
+    protected function mergeI18nForm($culture = null) {
+        $this->mergeForm($this->createI18nForm());
+    }
+
+    /**
+     * Create current i18n form
+     */
+    protected function createI18nForm($culture = null) {
+        if (!$this->isI18n()) {
+            throw new dmException(sprintf('The model "%s" is not internationalized.', $this->getModelName()));
+        }
+
+        $i18nFormClass = $this->getI18nFormClass();
+
+        $culture = null === $culture ? dmDoctrineRecord::getDefaultCulture() : $culture;
+
+        // translation already set, use it
+        if ($this->object->get('Translation')->contains($culture)) {
+            $translation = $this->object->get('Translation')->get($culture);
+        } else {
+            $translation = $this->object->get('Translation')->get($culture);
+
+            // populate new translation with fallback values
+            if (!$translation->exists()) {
+                if ($fallback = $this->object->getI18nFallBack()) {
+                    $fallBackData = $fallback->toArray();
+                    unset($fallBackData['id'], $fallBackData['lang']);
+                    $translation->fromArray($fallBackData);
+                }
+            }
+        }
+
+        $i18nForm = new $i18nFormClass($translation);
+
+        unset($i18nForm['id'], $i18nForm['lang']);
+
+        return $i18nForm;
+    }
+
+    /**
+     * Sets the current object for this form.
+     *
+     * @return dmDoctrineRecord The current object setted.
+     */
+    public function setObject(dmDoctrineRecord $record) {
+        return $this->object = $record;
+    }
+
+    public function embedForm($name, sfForm $form, $decorator = null, $savingTime = self::EMBEDDED_FORM_SAVE_AFTER) {
+        parent::embedForm($name, $form, $decorator);
+        $this->setEmbeddedFormSavingTime($name, $savingTime);
+        return $this;
+    }
+
+    /**
+     * Returns the name of the class to use to embed DmMedia
+     *
+     * @return string
+     */
+    public function getDmMediaFormForRecord($local) {
+        return 'DmMediaForRecordForm';
+    }
+
 }
