@@ -453,7 +453,7 @@ $settings['numTemplate'] = $numTemplate;
 $nomTemplateChoisi = $dispoTemplates[$settings['numTemplate']];
 $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'INFO_LARGE');
 
-// on intÃ¨gre tout le framework
+// on intègre tout le framework
 // 
 
 // on est dans le dossier htdocs:
@@ -484,13 +484,6 @@ $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk
 $dirPageSuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php';
 $this->logBlock('Copie des xxxSuccess.php du theme sur le site ', 'INFO_LARGE');
 $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront/templates', $out, $err);
-
-// recherche de js
-$dossierJs = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/js';
-if (is_dir($dossierJs)){
-    $this->logBlock('Copie du contenu du dossier _js du theme sur le site ', 'INFO_LARGE');
-    $this->getFilesystem()->execute('cp -r ' . $dossierJs .'/* '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/js', $out, $err);
-}
 
 //-------------------------------------------------------------------------------------
 //    chown users 

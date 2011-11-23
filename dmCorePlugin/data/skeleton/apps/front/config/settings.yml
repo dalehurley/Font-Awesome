@@ -32,14 +32,6 @@ all:
 
     # Enable the database manager
     use_database:           true
-    
-    #Chemin vers les JS (en local et en CDN)
-    js_path_framework:			/theme/less/_framework/SPLessCss/Externals/js
-    js_cdn_google:					//ajax.googleapis.com/ajax/libs
-    js_cdn_cdnjs:						//cdnjs.cloudflare.com/ajax/libs
-
-    #Chemin vers les différentes partie du framework
-    less_path:							/theme/less/    
 
   .actions:
   
