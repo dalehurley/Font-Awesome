@@ -20,46 +20,60 @@
  *    );
  *    $this->form->bind(array_merge($request->getParameter('contact'), array('captcha' => $captcha)));
  */
-abstract class PluginDmContactMeForm extends BaseDmContactMeForm
-{
-  public function setup()
-  {
-    parent::setup();
-    
-    $this->validatorSchema['body']
-    ->setOption('required', true)
-    ->setMessage('required', 'Please enter a message');
+abstract class PluginDmContactMeForm extends BaseDmContactMeForm {
 
-    $this->changeToEmail('email');
+    public function setup() {
+        parent::setup();
 
-    $this->widgetSchema->setHelp('email', 'Your email will never be published');
+        $this->validatorSchema['body']
+                ->setOption('required', true)
+                ->setMessage('required', 'Please enter a message');
 
-    $this->widgetSchema['body']->setLabel('Your message');
+        $this->changeToEmail('email');
 
-    if ($this->isCaptchaEnabled())
-    {
-      $this->addCaptcha();
+        $this->widgetSchema->setHelp('email', 'Your email will never be published');
+
+        $this->widgetSchema['body']->setLabel('Your message');
+        $this->widgetSchema['title']->setLabel('Citizen title');
+        $this->widgetSchema['firstname']->setLabel('Firstname');
+        $this->widgetSchema['function']->setLabel('Society function');
+        $this->widgetSchema['postalcode']->setLabel('Postal code');
+        $this->widgetSchema['phone']->setLabel('Phone number');
+
+        $titles = array(
+            'Monsieur' => 'Monsieur',
+            'Madame' => 'Madame',
+            'Mademoiselle' => 'Mademoiselle'
+        );
+        $this->widgetSchema['title'] = new sfWidgetFormSelect(array(
+                    'choices' => $titles
+                ));
+        $this->validatorSchema['title'] = new sfValidatorChoice(array(
+                    'choices' => array_keys($titles)
+                ));
+
+        if ($this->isCaptchaEnabled()) {
+            $this->addCaptcha();
+        }
+       
     }
-  }
 
-  public function addCaptcha()
-  {
-    $this->widgetSchema['captcha'] = new sfWidgetFormReCaptcha(array(
-      'public_key' => sfConfig::get('app_recaptcha_public_key')
-    ));
+    public function addCaptcha() {
+        $this->widgetSchema['captcha'] = new sfWidgetFormReCaptcha(array(
+                    'public_key' => sfConfig::get('app_recaptcha_public_key')
+                ));
 
-    $this->validatorSchema['captcha'] = new sfValidatorReCaptchaDm(array(
-      'private_key' => sfConfig::get('app_recaptcha_private_key')
-    ));
-  }
+        $this->validatorSchema['captcha'] = new sfValidatorReCaptchaDm(array(
+                    'private_key' => sfConfig::get('app_recaptcha_private_key')
+                ));
+    }
 
-  public function isCaptchaEnabled()
-  {
-    return sfConfig::get('app_recaptcha_enabled');
-  }
+    public function isCaptchaEnabled() {
+        return sfConfig::get('app_recaptcha_enabled');
+    }
 
-  public function isQaptchaEnabled()
-  {
-    return sfConfig::get('app_qaptcha_enabled');
-  }
+    public function isQaptchaEnabled() {
+        return sfConfig::get('app_qaptcha_enabled');
+    }
+
 }
