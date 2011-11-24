@@ -6,8 +6,7 @@ echo _open('span.wrapper');
 			$html = _tag('span.title', $agenda->getTitle());
 			//on ajoute le chapeau dans tous les cas
 
-			$html.= _tag('span.teaser', stringTools::str_truncate(
-					    myUser::textEditorStripParagraph($agenda->getChapeau()), $textLength, $textEnd,true));
+			$html.= _tag('span.teaser', stringTools::str_truncate($agenda->getChapeau(), $textLength, $textEnd,true));
 			//On englobe l'ensemble du contenu dans un lien que l'on affiche
 			echo _link($agenda)
 				->set('.link_box')

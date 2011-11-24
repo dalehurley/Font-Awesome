@@ -26,8 +26,7 @@ echo _open('li.element itemscope itemtype="http://schema.org/Article"');
             }
             //on ajoute le chapeau dans tous les cas
 
-            $html.= _tag('span.teaser itemprop="description"', stringTools::str_truncate(
-					    myUser::textEditorStripParagraph($article->getChapeau()), $textLength, $textEnd,true));
+            $html.= _tag('span.teaser itemprop="description"', stringTools::str_truncate($article->getChapeau(), $textLength, $textEnd,true));
     $html.= _close('span.wrapper');
     
     

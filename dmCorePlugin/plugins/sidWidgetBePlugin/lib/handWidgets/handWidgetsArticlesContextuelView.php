@@ -80,6 +80,8 @@ class handWidgetsArticlesContextuelView extends dmWidgetPluginView {
                 
             case 'article/show':
                 break;
+            case 'pageCabinet/show':
+                break;
                 
             default:
                
