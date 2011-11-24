@@ -30,16 +30,16 @@ button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: ba
 .ie6, .ie7 { button, input, select, textarea { vertical-align: middle; } }
 
 // 1. Define line-height as normal to match FF3/4 (set using !important in the UA stylesheet)
-// 2. Correct inner spacing displayed oddly in IE6/7
 button, input { line-height: normal; }
-.ie6, .ie7 { button, input { overflow: visible; } }
 
 // Reintroduce inner spacing in 'table' to avoid overlap and whitespace issues in IE6/7
 .ie6, .ie7 { table button, table input { overflow: auto; } }
 
 // 1. Display hand cursor for clickable form elements
 // 2. Allow styling of clickable form elements in iOS
+// 3. Correct inner spacing displayed oddly in IE7 (doesn't effect IE6)
 button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+.ie7 { button, input[type="button"], input[type="reset"], input[type="submit"] { overflow: visible;} }
 
 // Consistent box sizing and appearance
 input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
