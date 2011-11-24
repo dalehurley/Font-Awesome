@@ -22,7 +22,7 @@ require_once(sfConfig::get('dm_core_dir') . '/lib/os/dmOs.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/project/dmProject.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/task/dmServerCheckTask.class.php');
 
-$this->logBlock(DIEM_VERSION . '-SID installer', 'INFO_LARGE');
+//$this->logBlock(DIEM_VERSION . '-SID installer', 'INFO_LARGE');
 //$this->logSection('Site V3', 'Bienvenue dans l\'installeur des sites V3.');
 //$this->logSection('Diem', 'We will now check if your server matches Symfony '.SYMFONY_VERSION.' and Diem '.DIEM_VERSION.' requirements.');
 //$this->logBlock('Verification du systeme.', 'INFO_LARGE');
