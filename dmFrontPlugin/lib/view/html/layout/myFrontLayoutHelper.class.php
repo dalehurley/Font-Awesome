@@ -134,7 +134,7 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 				</script>";*/
 		//Remplacement par la version optimisée avec Modernizr.load
 		$html = "<script>
-					window._gaq = [['_setAccount','".$gaKey."'],['_trackPageview'],['_trackPageLoadTime']];
+					window._gaq = [['_setAccount','".$gaKey."'],['_trackPageview']];
 					Modernizr.load({
 						load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
 					});
