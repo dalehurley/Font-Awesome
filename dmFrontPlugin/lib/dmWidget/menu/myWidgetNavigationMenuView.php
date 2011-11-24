@@ -1,8 +1,8 @@
 <?php
 
 /**
- * classe d'override de dmFrontPlugin\lib\dmWidget\menu\dmWidgetNavigationMenuView.php 
- * appelée par dmCorePlugin\data\skeleton\config\dm\widget_types.yml
+ * classe d'override de dmFrontPlugin\lib\dmWidget\menu\dmWidgetNavigationMenuView.php
+ * appelée par dmCorePlugin\config\dm\widget_types.yml
  */
 class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 	
