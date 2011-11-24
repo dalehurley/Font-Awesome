@@ -17,8 +17,8 @@ class mainComponents extends myFrontModuleComponents {
 
     public function executeLessDebug() {
         //insertion de la CSS du widget du theme courant
-        //use_stylesheet('/theme/css/widgetMainLessDebug.css');
-
+		$this->getResponse()->addStylesheet(sfConfig::get('sf_css_path_template').'/Widgets/MainLessDebug/MainLessDebug.css');
+		
         //Gabarit de la page visible en environnement de dev
         $currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
         if ($currentGabarit == 'default') {
