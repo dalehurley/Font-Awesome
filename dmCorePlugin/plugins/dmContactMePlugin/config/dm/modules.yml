@@ -3,7 +3,7 @@ Content:
   Feedback:
 
     dmContactMe:
-      name:            ContactMe
+      name:  Contact | Contacts
       credentials: contact_me
       actions:
         form:
