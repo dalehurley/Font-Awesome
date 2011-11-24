@@ -4,6 +4,10 @@ handWidgets:
     cache:              true
     public_name:        (H) Actu articles contextuel
     
+  actuArticlesList:
+    cache:              true
+    public_name:        (H) Actu articles liste
+    
 
     
         

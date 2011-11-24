@@ -8,7 +8,9 @@ _tag('div',
  
     
     $form['nbArticles']->renderRow().   
-    $form['title']->renderRow()
+    $form['title']->renderRow().
+    $form['lien']->renderRow().
+    $form['length']->renderRow()
   
 ); 
 

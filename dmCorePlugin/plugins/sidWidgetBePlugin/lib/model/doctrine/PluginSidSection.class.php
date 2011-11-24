@@ -29,4 +29,6 @@ abstract class PluginSidSection extends BaseSidSection {
 
         return $rubriquePage[0]->name . ' - ' . $sectionPage[0]->name;
     }
+    
+    
 }

@@ -7,14 +7,7 @@ if (count($equipes)) { // si nous avons des actu articles
 
     echo _open('ul.elements');
     foreach ($equipes as $equipe) {
-	//echo _open('li.element');
-
-	//$articleTitle =  $article->getRubriquePageName() . ' :: ' . $article->getSectionPageName();
-	//echo _link($article)->text($article)->title($article->getRubriquePageName() . ' :: ' . $article->getSectionPageName());
-
-	include_partial("objectPartials/equipe", array("equipe" => $equipe, "textLength" => 200, "showLink"=>true, "page" =>$pageEquipe));
-
-	//echo _close('li');
+	include_partial("objectPartials/equipe", array("equipe" => $equipe, "textLength" => $lenght, "showLink"=>true, "page" =>$pageEquipe));
     }
     echo _close('ul');
     

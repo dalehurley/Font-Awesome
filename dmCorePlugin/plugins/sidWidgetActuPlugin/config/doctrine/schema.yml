@@ -60,7 +60,6 @@ SidActuArticle:
 #      notnull: true
     resume:
       type: clob
-      extra: markdown
       notnull: true
     text:
       type: clob

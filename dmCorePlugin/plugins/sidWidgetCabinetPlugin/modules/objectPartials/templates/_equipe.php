@@ -1,8 +1,8 @@
 <?php
 // var partial : $equipe, $textLenght, $textEnd, $showLink
-if (isset($equipe)) {
-    if (!isset($textLength))
-	$textLength = 0;
+//if (isset($equipe)) {
+//    if (!isset($textLength))
+//	$textLength = 0;
     if (!isset($textEnd))
 	$textEnd = ' ...';
         if (!isset($showLink))
@@ -51,7 +51,7 @@ else{
 				echo _close('div');
     echo _close('li');
 
-} else {
-    echo __('This bias needs to be a news item');
-}
+//} else {
+//    echo __('This bias needs to be a news item');
+//}
 ?>

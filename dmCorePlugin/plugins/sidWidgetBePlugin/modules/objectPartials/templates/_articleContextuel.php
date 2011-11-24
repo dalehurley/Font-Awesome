@@ -26,14 +26,18 @@ echo _open('li.element itemscope itemtype="http://schema.org/Article"');
             }
             //on ajoute le chapeau dans tous les cas
 
-            $html.= _tag('span.teaser itemprop="description"', $article->getChapeau());
+            $html.= _tag('span.teaser itemprop="description"', stringTools::str_truncate(
+					    myUser::textEditorStripParagraph($article->getChapeau()), $textLength, $textEnd,true));
     $html.= _close('span.wrapper');
-
+    
+    
+    
     //On englobe l'ensemble du contenu dans un lien que l'on affiche
     echo _link($article)
             ->set('.link_box')
             ->title($article->getTitle())
             ->text($html);
+    echo _link($article->Section)->set('.link_box')->title($article->Section)->text($lien[$article->id]);
 echo _close('li');
 }
 ?>

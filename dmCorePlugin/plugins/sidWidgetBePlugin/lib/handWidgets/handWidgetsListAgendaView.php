@@ -8,6 +8,8 @@ class handWidgetsListAgendaView extends dmWidgetPluginView {
         $this->addRequiredVar(array(
             'nbArticles',
             'title',
+            'lien',
+            'length'
         ));
     }
 
@@ -60,9 +62,11 @@ class handWidgetsListAgendaView extends dmWidgetPluginView {
 
         return $this->getHelper()->renderPartial('handWidgets', 'listAgenda', array(
                     'agendas' => $arrayAgenda, // tableau d'objet
-                    'nbArticles' => $vars['nbArticles'], // ne sert pas
+                    'nbArticles' => $vars['nbArticles'], 
                     'rubrique' => '/' . $rubrique[0]->slug, // pour aller sur la page de la rubrique
                     'rubriqueTitle' => $title, // pour avoir le TITRE de la page  
+                    'lien' => $vars['lien'],
+                    'length' => $vars['length']
                 ));
     }
 

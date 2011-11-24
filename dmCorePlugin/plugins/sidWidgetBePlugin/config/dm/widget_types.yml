@@ -28,4 +28,8 @@ handWidgets:
     cache:              true
     public_name:        (H) Liste sous home par rubrique
     
+  articlesContextuel:
+    cache:              true
+    public_name:        (H) Article contextuel
+    
         

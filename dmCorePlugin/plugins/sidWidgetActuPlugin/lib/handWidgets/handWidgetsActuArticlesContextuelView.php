@@ -10,7 +10,8 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
             'titreLien',
             'nbArticles',
             'longueurTexte',
-            'photo'
+            'photo',
+            'chapo'
         ));
     }
 
@@ -30,6 +31,7 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
         //$arrayArticle[] = $dmPage->module.' - '.$dmPage->action.' - '.$dmPage->record_id;
 
         switch ($dmPage->module . '/' . $dmPage->action) {
+            
             case 'section/show':
                 // il faut que je récupère l'id de la rubrique de la section
                 // je récupère donc l'ancestor de la page courante pour extraire le record_id de ce dernier afin de retrouver la rubrique
@@ -44,6 +46,19 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
                         ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
                         ->limit($vars['nbArticles'])
                         ->execute();
+                
+                // Si il n'y a pas d'actus associées, on en affiche la dernière actu
+
+                if (count($actuArticles) == 0) {
+                    $actuArticles = '';
+                    $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
+                        ->leftJoin('a.SidActuTypeArticle sata')
+                        ->andWhere('a.is_active = ?', true)
+                        ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
+                            ->orderBy('a.updated_at DESC')
+                        ->limit($vars['nbArticles'])
+                        ->execute();
+                }
                 foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
                     $arrayArticle[$actuArticle->id] = $actuArticle;
                 }
@@ -63,16 +78,28 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
                             ->orderBy('a.updated_at DESC')
                             ->limit($vars['nbArticles'])
                             ->execute();
+                    
+                // Si il n'y a pas d'actus associées, on en affiche la dernière actu
+
+                if (count($actuArticles) == 0) {
+                    $actuArticles = '';
+                    $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
+                        ->leftJoin('a.SidActuTypeArticle sata')
+                        ->andWhere('a.is_active = ?', true)
+                        ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
+                            ->orderBy('a.updated_at DESC')
+                        ->limit($vars['nbArticles'])
+                        ->execute();
+                }
                     foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
                         $arrayArticle[$actuArticle->id] = $actuArticle;
                     }
                 }
                 break;
             case 'main/root':
-                // dans la page d'accueil, on renvoie l'actu article mis en avant en home
+                // dans la page d'accueil, on renvoie la dernière actu article
                 $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
                         ->leftJoin('a.SidActuTypeArticle sata')
-                        ->where('a.on_home = ?', true)
                         ->andWhere('a.is_active = ?', true)
                         ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
                         ->orderBy('a.updated_at DESC')
@@ -82,6 +109,7 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
                     $arrayArticle[$actuArticle->id] = $actuArticle;
                 }
                 break;
+                
             case 'sidActuArticle/show':
                 // dans la page d'affichage des actu article on n'affiche pas l'article qui est affiché dans le page.content
                 $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
@@ -92,10 +120,24 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
                         ->orderBy('a.updated_at DESC')
                         ->limit($vars['nbArticles'])
                         ->execute();
+                
+                // Si il n'y a pas d'actus associées, on en affiche la dernière actu
+
+                if (count($actuArticles) == 0) {
+                    $actuArticles = '';
+                    $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
+                        ->leftJoin('a.SidActuTypeArticle sata')
+                        ->andWhere('a.is_active = ?', true)
+                        ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
+                            ->orderBy('a.updated_at DESC')
+                        ->limit($vars['nbArticles'])
+                        ->execute();
+                }
                 foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
                     $arrayArticle[$actuArticle->id] = $actuArticle;
                 }
                 break;
+                
             default:
                 // hors context, on renvoie la dernière actu mise à jour
                 $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
@@ -116,7 +158,9 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
                     'titreBloc' => $vars['titreBloc'],
                     'titreLien' => $vars['titreLien'],
                     'longueurTexte' => $vars['longueurTexte'],
-                    'photo' => $vars['photo']
+                    'photo' => $vars['photo'],
+                    'chapo' => $vars['chapo'],
+            
                 ));
     }
 
