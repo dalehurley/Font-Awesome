@@ -1,13 +1,11 @@
 <?php
 
-class handWidgetsIntroPageCabinetView extends dmWidgetPluginView {
+class handWidgetsPageCabinetView extends dmWidgetPluginView {
 
     public function configure() {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'page',
-            'lenght',	
             'title_page',
             'lien'
         ));
@@ -21,16 +19,20 @@ class handWidgetsIntroPageCabinetView extends dmWidgetPluginView {
      */
     protected function doRender() {
         $vars = $this->getViewVars();
-        $arrayArticle = array();
+        
+        $idDmPage = sfContext::getInstance()->getPage()->id;
+        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
 
-        $pageCabinet = dmDb::table('SidCabinetPageCabinet')->findOneById($vars['page']);
+        $pageCabinet = dmDb::table('SidCabinetPageCabinet')->findOneByIdAndIsActive($dmPage->record_id, true);
         if($vars['title_page'] == NULL || $vars['title_page'] == " "){
         $vars['title_page'] = $pageCabinet->getTitle();
         }
-        return $this->getHelper()->renderPartial('handWidgets', 'introPageCabinet', array(
+        if($vars['lien'] == NULL || $vars['lien'] == " "){
+        $vars['lien'] = __('Contact');
+        }
+        return $this->getHelper()->renderPartial('handWidgets', 'pageCabinet', array(
                     
                     'pageCabinet' => $pageCabinet,
-                    'lenght' => $vars['lenght'],
                     'titlePage' => $vars['title_page'],
                     'lien' => $vars['lien']
                 ));

@@ -1,35 +1,21 @@
 <?php
 
-class handWidgetsIntroPageCabinetForm extends dmWidgetPluginForm {
+class handWidgetsPageCabinetForm extends dmWidgetPluginForm {
 
     public function configure() {
-
-        $this->widgetSchema['page'] = new sfWidgetFormDoctrineChoice(array(
-                    'model' => 'SidCabinetPageCabinet'
-                ));
-        $this->validatorSchema['page'] = new sfValidatorDoctrineChoice(array(
-                    'required' => true,
-                    'model' => 'SidCabinetPageCabinet'
-                ));
-	
-        $this->widgetSchema['lenght'] = new sfWidgetFormInputText(array('default'=>0));
-        $this->validatorSchema['lenght'] = new sfValidatorInteger(array(
-                    'required' => false
-                ));
+       
        $this->widgetSchema['title_page'] = new sfWidgetFormInputText();
         $this->validatorSchema['title_page'] = new sfValidatorString(array(
                     'required' => false
                 ));
         $this->widgetSchema['lien'] = new sfWidgetFormInputText();
         $this->validatorSchema['lien'] = new sfValidatorString(array(
-                    'required' => true
+                    'required' => false
                 ));
         
         $this->widgetSchema->setHelps(array(
-            'page' => 'Choisir une page du cabinet',
-            'lenght' => 'Nombre de caractère du chapeau',
             'title_page'=> 'Titre du bloc',
-            'lien'=> 'Titre du lien pour aller sur la page concernée'
+            'lien'=> 'Titre du lien pour aller sur la page contact'
             
         ));
 
@@ -51,9 +37,9 @@ class handWidgetsIntroPageCabinetForm extends dmWidgetPluginForm {
     }
 
     protected function renderContent($attributes) {
-        return $this->getHelper()->renderPartial('handWidgets', 'introPageCabinetForm', array(
+        return $this->getHelper()->renderPartial('handWidgets', 'pageCabinetForm', array(
             'form' => $this,
-            'id' => 'sid_widget_intro_page cabinet_' . $this->dmWidget->get('id')
+            'id' => 'sid_widget_page cabinet_' . $this->dmWidget->get('id')
         ));
     }
 

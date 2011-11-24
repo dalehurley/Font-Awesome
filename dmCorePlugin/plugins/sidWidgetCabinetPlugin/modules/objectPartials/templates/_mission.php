@@ -20,8 +20,7 @@ elseif ($chapo == 1) $text = $mission->getText();
     echo _link($mission)->text(
 		    $titreBlocMission.
 //		    _tag('span.teaser itemprop="description"', stringTools::str_truncate($mission->getText(), $textLength, $textEnd))
-            _tag('span.teaser itemprop="description"',stringTools::str_truncate(
-					    myUser::textEditorStripParagraph($text), $length, '(...)',true))
+            _tag('span.teaser itemprop="description"',stringTools::str_truncate($text, $length, '(...)',true))
 	    )
 	    ->set('.link_box')
 	    ->title($mission->getTitle());

@@ -3,10 +3,10 @@
 //if (isset($equipe)) {
 //    if (!isset($textLength))
 //	$textLength = 0;
-    if (!isset($textEnd))
-	$textEnd = ' ...';
-        if (!isset($showLink))
-	$showLink = false;
+//    if (!isset($textEnd))
+//	$textEnd = ' ...';
+//        if (!isset($showLink))
+//	$showLink = false;
     
 echo '<li id="equipe_' . $equipe->id . '" class="element" itemscope itemtype="http://schema.org/Person">';
 			echo _open('div.imageWrapper');
