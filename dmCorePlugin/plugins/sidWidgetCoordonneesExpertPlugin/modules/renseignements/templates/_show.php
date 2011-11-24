@@ -57,4 +57,6 @@ echo '<div class="organisation" itemscope itemtype="http://schema.org/Organizati
 		echo '&nbsp;:&nbsp;';
 		echo _tag('span.value itemprop="email"', _link('mailto:' . $renseignements->getEmail())->text($renseignements->getEmail()));
 	echo _close('div');
+        echo 'page : '.$page;
+        
 echo _close('div');

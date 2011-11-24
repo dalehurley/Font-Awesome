@@ -14,13 +14,15 @@ $form->renderGlobalErrors(),
 
 
 _tag('div',
-    $form['type']->renderRow().
     $form['titreBloc']->renderRow().
-    $form['titreLien']->renderRow().	
-    $form['nbArticles']->renderRow().
+    $form['m_rubriques_list_1']->renderRow().
+    $form['titreLien_1']->renderRow().
+        $form['m_rubriques_list_2']->renderRow().
+    $form['titreLien_2']->renderRow().
+        $form['m_rubriques_list_3']->renderRow().
+    $form['titreLien_3']->renderRow().
     $form['longueurTexte']->renderRow().
-    $form['photo']->renderRow().
-    $form['chapo']->renderRow()
+    $form['photo']->renderRow()
          
   
 ); 

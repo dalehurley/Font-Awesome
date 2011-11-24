@@ -2,7 +2,7 @@ handWidgets:
 
   articlesBySection:
     cache:              true
-    public_name:        (H) Articles par section
+    public_name:        (H) Articles par sectionxxx
     
   listArticlesByRubrique:
     cache:              true
@@ -27,5 +27,9 @@ handWidgets:
   listSousHomeByRubrique:
     cache:              true
     public_name:        (H) Liste sous home par rubrique
+    
+  articlesContextuel:
+    cache:              true
+    public_name:        (H) Article contextuel
     
         

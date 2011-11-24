@@ -5,10 +5,12 @@
 // initialisation du compteur
 $i = 1;
 echo _tag('h2.title', $pageName);
+
 echo $sidActuArticlePager->renderNavigationTop();
 echo _open('ul.elements');
-
+ 
 foreach ($sidActuArticlePager as $sidActuArticle) {
+    
     // premiÃ¨re boucle des 6 premiers articles avec photo, titre et chapeau (rÃ©sumÃ©)
     if ($i <= 6) {
         $html = '';
@@ -23,7 +25,6 @@ foreach ($sidActuArticlePager as $sidActuArticle) {
         $html .= _tag('span.title','Sujet : '.$sidActuArticle);
         $html .= _tag('span.teaser',$sidActuArticle->getResume());
         $html .= _close('span.wrapper');
-
         echo _open('li.element');
         echo _link($sidActuArticle)->text($html)->set('.link_box');
         echo _close('li');
@@ -50,7 +51,7 @@ foreach ($sidActuArticlePager as $sidActuArticle) {
     $i++;
     
 }
-
+//
 echo _close('ul');
 
 echo $sidActuArticlePager->renderNavigationBottom();

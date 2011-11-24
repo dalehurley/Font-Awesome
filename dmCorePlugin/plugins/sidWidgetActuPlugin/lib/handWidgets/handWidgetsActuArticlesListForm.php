@@ -1,6 +1,6 @@
 <?php
 
-class handWidgetsActuArticlesContextuelForm extends dmWidgetPluginForm {
+class handWidgetsActuArticlesListForm extends dmWidgetPluginForm {
 
     public function configure() {
         $this->widgetSchema['type'] = new sfWidgetFormDoctrineChoice(array(
@@ -15,15 +15,9 @@ class handWidgetsActuArticlesContextuelForm extends dmWidgetPluginForm {
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => false
                 ));
-	
-        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText();
-        $this->validatorSchema['titreLien'] = new sfValidatorString(array(
-                    'required' => false
-                ));	
 
-        $this->widgetSchema['nbArticles'] = new sfWidgetFormInputText();
+        $this->widgetSchema['nbArticles'] = new sfWidgetFormInputText(array('default' => 0));
         $this->validatorSchema['nbArticles'] = new sfValidatorInteger(array(
-                    'min' => 1,
                     'required' => true
                 ));
         
@@ -40,8 +34,7 @@ class handWidgetsActuArticlesContextuelForm extends dmWidgetPluginForm {
         
         $this->widgetSchema->setHelps(array(
             'type' => 'Le type de l\'article',
-            'titreBloc' => 'Le titre optionnel du bloc.', 
-            'titreLien' => "Le libellé du lien vers tous les articles actus.",	    
+            'titreBloc' => 'Le titre optionnel du bloc.',  
             'nbArticles' => 'Le nombre maximum d\'articles affichés.',            
             'longueurTexte' => 'Longueur du texte avant de la tronquer',
             'photo' => 'affiche ou pas la photo',
@@ -66,7 +59,7 @@ class handWidgetsActuArticlesContextuelForm extends dmWidgetPluginForm {
     }
 
     protected function renderContent($attributes) {
-        return $this->getHelper()->renderPartial('handWidgets', 'actuArticlesContextuelForm', array(
+        return $this->getHelper()->renderPartial('handWidgets', 'actuArticlesListForm', array(
             'form' => $this,
             'id' => 'sid_widget_actu_articles_contextuel_' . $this->dmWidget->get('id')
         ));

@@ -1,9 +1,19 @@
 <?php
+
 if (count($missions)) { // si nous avons des actu articles
     if ($titreBloc != '') {
 	echo _tag('h4.title', $titreBloc);
     }
-    else echo _tag('h4.title', __('Our missions'));
+    else {
+        if($titreMission == NULL){
+        echo _tag('h4.title', __('Our missions'));
+        }
+        else {
+            if($nb == 1){
+                echo _tag('h4.title', current($missions)->getTitle());}
+                else echo _tag('h4.title', __('Our missions'));
+    }
+    }
 
     echo _open('ul.elements');
     foreach ($missions as $mission) {
@@ -12,7 +22,7 @@ if (count($missions)) { // si nous avons des actu articles
 	//$articleTitle =  $article->getRubriquePageName() . ' :: ' . $article->getSectionPageName();
 	//echo _link($article)->text($article)->title($article->getRubriquePageName() . ' :: ' . $article->getSectionPageName());
 
-	include_partial("objectPartials/mission", array("mission" => $mission));
+	include_partial("objectPartials/mission", array("mission" => $mission, "length" => $length, "chapo" => $chapo,"nb"=>$nb, "titreMission" => $titreMission));
 
 	echo _close('li');
     }

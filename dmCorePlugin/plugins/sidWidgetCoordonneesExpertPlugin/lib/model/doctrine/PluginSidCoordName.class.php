@@ -12,5 +12,14 @@
  */
 abstract class PluginSidCoordName extends BaseSidCoordName
 {
+public function show_list_ville() {
 
+        // on récupère le nom de la ville
+        
+
+        $ville = $this->getVille();
+
+        return $ville;
+        
+    }
 }

@@ -38,6 +38,7 @@ generator:
 #          label: 'Mots clés'
         sortable:
           label: 'trier les pages'
+        
       list:
         batch_actions:
           delete:
@@ -77,7 +78,7 @@ generator:
           - updated_at
       form:
         display:
-          Identite: [title, is_active, statut, tel, fax, gsm, email]
+          Identite: [title, is_active, statut, tel, fax, gsm, email, implentation_id]
           Photo: [image_form, image_view]
           Description: [text]
 #          'Mots clés': [tags_list]
