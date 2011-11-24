@@ -32,6 +32,4 @@ css:
     codeEditor:       codeEditor
     pageEditForm:     pageEditForm
     widgetMenuForm:   widgetForm/menu
-    dmWidget:					/theme/css/_templates/BaseTheme/Widgets/NavigationMenu/NavigationMenu.css
-    #ajout des CSS du framework css personnalisé menu:							<?php echo sfConfig::get('css_path_template') ?>/NavigationMenu/NavigationMenu.css
     
