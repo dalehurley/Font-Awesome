@@ -3,7 +3,7 @@
 $html = '';
 
 //lien vers l'image
-$imgLink = myUser::getLessParam('urlImagesTemplate') . '/Page/logo_light.png';
+$imgLink = spLessCss::getLessParam('urlImagesTemplate') . '/Page/logo_light.png';
 //on vérifie que l'image existe
 $imgExist = is_file(sfConfig::get('sf_web_dir') . $imgLink);
 
@@ -12,8 +12,8 @@ if($imgExist){
 		$html.= _media($imgLink)
 				->set('.image')
 				->alt('NomCabinet')
-				->width(myUser::gridGetWidth(1,0))
-				->height(myUser::gridGetHeight(3,0));
+				->width(spLessCss::gridGetWidth(1,0))
+				->height(spLessCss::gridGetHeight(3,0));
 	$html.= _close('span.imageWrapper');
 }
 
