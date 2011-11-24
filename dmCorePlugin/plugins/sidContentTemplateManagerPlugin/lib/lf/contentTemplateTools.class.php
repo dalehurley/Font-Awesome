@@ -18,7 +18,8 @@ class contentTemplateTools {
         'dm_sent_mail',
         'dm_setting',
         'dm_setting_translation',
-        'dm_trans_unit'
+        'dm_trans_unit',
+        'migration_version'
     );
 
     /**
