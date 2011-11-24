@@ -11,7 +11,7 @@ $helper->renderHtmlTag(),
   "\n</head>\n",
   
   $helper->renderBodyTag(),
-  
+        
     $sf_content,
     
     $helper->renderEditBars(),
