@@ -415,7 +415,7 @@ class baseEditorialeTools {
                         mkdir($rubriqueDir);
                         $return[$i]['DIR+'] = $FTPrubrique;
                     } else {
-                        $return[$i]['Répertoire existant rubrique'] = $FTPrubrique;
+                        $return[$i]['Repertoire existant rubrique'] = $FTPrubrique;
                     }
                     $i++;
                 }
@@ -428,7 +428,7 @@ class baseEditorialeTools {
                     $bdRubrique->save();
                     $return[$i]['Rubrique+'] = $FTPrubrique;
                 } else {
-                    $return[$i]['Rubrique existe dejà en base'] = $FTPrubrique;
+                    $return[$i]['Rubrique existe deja en base'] = $FTPrubrique;
                 }
                 $i++;
 
@@ -530,7 +530,7 @@ class baseEditorialeTools {
      * Section : Actualités
      */
 
-    public static function recupArticlesLEA($idArticlePlusVieux, $wgetActive=false) {
+    public static function recupArticlesLEA($idArticlePlusVieux) {
 
         if (sfConfig::get('app_ftp-password') == '' || sfConfig::get('app_ftp-image-password') == '') {
             $return[0]['ERROR'] = 'Seule la base éditoriale peut récupérer les articles de LEA. Vérifier que le apps/front/config/app.yml ait les bonnes variables.';
@@ -562,116 +562,121 @@ class baseEditorialeTools {
             $dossiersSections = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title);
 
             foreach ($dossiersSections as $dossiersSection) {
-                $section = Doctrine_Core::getTable('SidSection')->findOneByTitleAndIsActiveAndRubriqueId($dossiersSection, $bdRubrique->id);
-                if ($section->isNew()) {
-                    $return[$j]['Section en base introuvable ou inactive pour le dossier'] = $dossiersSection;
-                } else {
-                    // récupération des fichiers du dossier de section
-                    $fichierArticles = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection);
-                    foreach ($fichierArticles as $fichierArticle) {
+                $pos = strpos($dossiersSection, '.xml');
+                if ($pos === false) { // on ne traite que les dossiers, un fichier xml dans un dossier rubrique ne doit pas etre traité
+                    $section = Doctrine_Core::getTable('SidSection')->findOneByTitleAndIsActiveAndRubriqueId($dossiersSection, $bdRubrique->id);
+                    if ($section->isNew()) {
+                        $return[$j]['Section en base introuvable ou inactive pour le dossier'] = $dossiersSection;
+                    } else {
+                        // récupération des fichiers du dossier de section
+                        $fichierArticles = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection);
+                        foreach ($fichierArticles as $fichierArticle) {
 
-                        $beginTime = microtime(true);
+                            $beginTime = microtime(true);
 
-                        if (substr($fichierArticle, -4) == '.xml') {  // on en traite que les fichier XML
-                            if (intval(str_replace('.xml', '', $fichierArticle)) > $idArticlePlusVieux) {  // on ne traite que les articles depuis l'idArticlePlusVieux
-                                // j'explore le xml pour récupérer le titre, le chapeau, le n° article de léa(code)
-                                $xml = new DOMDocument();
-                                $xmlFile = sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection . '/' . $fichierArticle;
+                            if (substr($fichierArticle, -4) == '.xml') {  // on en traite que les fichier XML
+                                if (intval(str_replace('.xml', '', $fichierArticle)) > $idArticlePlusVieux) {  // on ne traite que les articles depuis l'idArticlePlusVieux
+                                    // j'explore le xml pour récupérer le titre, le chapeau, le n° article de léa(code)
+                                    $xml = new DOMDocument();
+                                    $xmlFile = sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection . '/' . $fichierArticle;
 
-                                // validation XML    
-                                /*
-                                  if (baseEditorialeTools::validateXmlWithDtd($xmlFile,sfConfig::get('app_dtd-article'))) {
-                                  $return[$j]['Article -> xml validation' . $filename] = 'ok';
-                                  } else {
-                                  $return[$j]['Article -> xml validation' . $filename] = 'ko';
-                                  }
-                                 */
+                                    // validation XML    
+                                    /*
+                                      if (baseEditorialeTools::validateXmlWithDtd($xmlFile,sfConfig::get('app_dtd-article'))) {
+                                      $return[$j]['Article -> xml validation' . $filename] = 'ok';
+                                      } else {
+                                      $return[$j]['Article -> xml validation' . $filename] = 'ko';
+                                      }
+                                     */
 
 
-                                if ($xml->load($xmlFile)) {
+                                    if ($xml->load($xmlFile)) {
 
-                                    $filename = $xml->getElementsByTagName('Code')->item(0)->nodeValue; // l'id LEA est aussi le nom du fichier XML
-                                    $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue;  //titre
-                                    $chapo = $xml->getElementsByTagName('Head')->item(0)->nodeValue; // chapo
-                                    // cas particulier de l'agenda
-                                    if ($chapo == '') {
-                                        $chapo = $xml->getElementsByTagName('Section')->item(0)->nodeValue;
-                                        // on supprime le premier saut de ligne
-                                        if (substr($chapo, 0, 1) == CHR(10)) {
-                                            $chapo = substr($chapo, 1);
+                                        $filename = $xml->getElementsByTagName('Code')->item(0)->nodeValue; // l'id LEA est aussi le nom du fichier XML
+                                        $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue;  //titre
+                                        $chapo = $xml->getElementsByTagName('Head')->item(0)->nodeValue; // chapo
+                                        // cas particulier de l'agenda
+                                        if ($chapo == '') {
+                                            $chapo = $xml->getElementsByTagName('Section')->item(0)->nodeValue;
+                                            // on supprime le premier saut de ligne
+                                            if (substr($chapo, 0, 1) == CHR(10)) {
+                                                $chapo = substr($chapo, 1);
+                                            }
                                         }
-                                    }
-                                    $date_update = $xml->getElementsByTagName('UpdateDate')->item(0)->nodeValue;
-                                    // la date de publication
-                                    $date_publication = $xml->getElementsByTagName('PublicationDate')->item(0)->getElementsByTagName('ISO')->item(0)->nodeValue;
-                                    //$return[$j]['>>>>'] = $date_publication;                                    
-                                    // récupération des <keywords><keyword> du XML dans un tableau
-                                    // de la forme $tagsString = 'tag1, tag2, tag3';
-                                    $articleKeywordsNodes = $xml->getElementsByTagName('Keyword'); // la premiere (et seule normalement) balise Keywords
-                                    $articleKeywordsNodeLength = $articleKeywordsNodes->length; // this value will also change
-                                    $tagsString = '';
-                                    for ($i = 0; $i < $articleKeywordsNodeLength; $i++) {
-                                        $tagsString .= $articleKeywordsNodes->item($i)->nodeValue . ',';
-                                    }
-                                    //$return[$j]['Article ' . $fichierArticle] = 'Tags article: '.$tagsString;
-                                    // je vérifie si l'article est présent dans la base, pour la section en cours (il peut y avoir des doublons sur le filename, un article étant potentiellement présent dans plusieurs rubrique)
-                                    $article = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($filename, $section->id);
+                                        $date_update = $xml->getElementsByTagName('UpdateDate')->item(0)->nodeValue;
+                                        // la date de publication
+                                        $date_publication = $xml->getElementsByTagName('PublicationDate')->item(0)->getElementsByTagName('ISO')->item(0)->nodeValue;
+                                        //$return[$j]['>>>>'] = $date_publication;                                    
+                                        // récupération des <keywords><keyword> du XML dans un tableau
+                                        // de la forme $tagsString = 'tag1, tag2, tag3';
+                                        $articleKeywordsNodes = $xml->getElementsByTagName('Keyword'); // la premiere (et seule normalement) balise Keywords
+                                        $articleKeywordsNodeLength = $articleKeywordsNodes->length; // this value will also change
+                                        $tagsString = '';
+                                        for ($i = 0; $i < $articleKeywordsNodeLength; $i++) {
+                                            $tagsString .= $articleKeywordsNodes->item($i)->nodeValue . ',';
+                                        }
+                                        //$return[$j]['Article ' . $fichierArticle] = 'Tags article: '.$tagsString;
+                                        // je vérifie si l'article est présent dans la base, pour la section en cours (il peut y avoir des doublons sur le filename, un article étant potentiellement présent dans plusieurs rubrique)
+                                        $article = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($filename, $section->id);
 
-                                    if ($article->isNew()) { // l'article n'existe pas, on le crée
-                                        // j'envoie les données id_lea, rubrique et titre dans bdd
-                                        $article->Translation[$arrayLangs[0]]->title = $titre;
-                                        $article->Translation[$arrayLangs[0]]->chapeau = $chapo;
-
-                                        $article->setSectionId($section->id);
-                                        $article->setFilename($filename);
-                                        $article->createdAt = $date_publication;
-                                        $article->save();
-                                        // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
-                                        $article->updatedAt = $date_update;
-                                        $article->save();
-
-                                        //$return[$j]['Article ' . $filename] = 'Insertion dans la base ->' . (microtime(true) - $beginTime) . ' s';
-                                        $nbInsert++;
-                                    } else {  // l'article existe
-                                        // if ($date_update_bdd->filename == "113632"){
-                                        // $return[$j]['>>>'] = $date_update_xml.' - '.$date_update_bdd->updated_at;
-                                        // }
-                                        // Si le xml est plus récent que celui de la bdd, alors j'update le titre, le chapeau et la rubrique
-                                        if ($date_update > $article->updated_at) {
-                                            $filename = $update->getElementsByTagName('Code')->item(0)->nodeValue;
-                                            $titre = $update->getElementsByTagName('Headline')->item(0)->nodeValue;
-                                            $chapo = $update->getElementsByTagName('Head')->item(0)->nodeValue;
-
+                                        if ($article->isNew()) { // l'article n'existe pas, on le crée
+                                            // j'envoie les données id_lea, rubrique et titre dans bdd
                                             $article->Translation[$arrayLangs[0]]->title = $titre;
                                             $article->Translation[$arrayLangs[0]]->chapeau = $chapo;
 
                                             $article->setSectionId($section->id);
-
+                                            $article->setFilename($filename);
+                                            $article->createdAt = $date_publication;
+                                            $article->save();
+                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
                                             $article->updatedAt = $date_update;
-
                                             $article->save();
 
-                                            //$return[$j]['Article ' . $filename] = 'Mise à jour dans la base ->' . (microtime(true) - $beginTime) . ' s';
-                                            $nbMaj++;
-                                        } else {
-                                            //  $return[$j]['Article ' . $filename] = 'Pas de modification ->'.(microtime(true) - $beginTime).' s';
+                                            //$return[$j]['Article ' . $filename] = 'Insertion dans la base ->' . (microtime(true) - $beginTime) . ' s';
+                                            $nbInsert++;
+                                        } else {  // l'article existe
+                                            // if ($date_update_bdd->filename == "113632"){
+                                            // $return[$j]['>>>'] = $date_update_xml.' - '.$date_update_bdd->updated_at;
+                                            // }
+                                            // Si le xml est plus récent que celui de la bdd, alors j'update le titre, le chapeau et la rubrique
+                                            if ($date_update > $article->updated_at) {
+                                                $filename = $update->getElementsByTagName('Code')->item(0)->nodeValue;
+                                                $titre = $update->getElementsByTagName('Headline')->item(0)->nodeValue;
+                                                $chapo = $update->getElementsByTagName('Head')->item(0)->nodeValue;
+
+                                                $article->Translation[$arrayLangs[0]]->title = $titre;
+                                                $article->Translation[$arrayLangs[0]]->chapeau = $chapo;
+
+                                                $article->setSectionId($section->id);
+
+                                                $article->updatedAt = $date_update;
+
+                                                $article->save();
+
+                                                //$return[$j]['Article ' . $filename] = 'Mise à jour dans la base ->' . (microtime(true) - $beginTime) . ' s';
+                                                $nbMaj++;
+                                            } else {
+                                                //  $return[$j]['Article ' . $filename] = 'Pas de modification ->'.(microtime(true) - $beginTime).' s';
+                                            }
                                         }
+                                        // enregistrement des tags
+                                        $article->removeAllTags();
+                                        $article->setTags($tagsString)->save();
+                                    } else {
+                                        $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
                                     }
-                                    // enregistrement des tags
-                                    $article->removeAllTags();
-                                    $article->setTags($tagsString)->save();
                                 } else {
-                                    $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
+
+                                    // $return[$j]['Article ' . $fichierArticle] = 'Article trop vieux < '.$idArticlePlusVieux;
                                 }
-                            } else {
 
-                                // $return[$j]['Article ' . $fichierArticle] = 'Article trop vieux < '.$idArticlePlusVieux;
+                                $j++;
+                                //if ($j > 10) return $return;
                             }
-
-                            $j++;
-                            //if ($j > 10) return $return;
                         }
                     }
+                } else {
+                    // le nom du ossier ne doit pas contenir de .xml...
                 }
             }
         }
