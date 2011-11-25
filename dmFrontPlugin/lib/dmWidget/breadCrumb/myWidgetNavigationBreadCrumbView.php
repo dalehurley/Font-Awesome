@@ -11,10 +11,8 @@ class myWidgetNavigationBreadCrumbView extends dmWidgetNavigationBreadCrumbView 
 
 		//lien vers le js associé au menu
 		$cssLink = sfConfig::get('sf_css_path_template'). '/Widgets/NavigationBreadCrumb/NavigationBreadCrumb.css';
-		//on vérifie que la css
-		$cssExist = is_file(sfConfig::get('sf_web_dir') . $cssLink);
 		//chargement de la CSS si existante
-		if ($cssExist) $stylesheets[] = $cssLink;
+		if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
 
 		return $stylesheets;
 	}

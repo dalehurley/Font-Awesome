@@ -11,10 +11,8 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		
 		//lien vers le js associé au menu
         $cssLink = sfConfig::get('sf_css_path_template'). '/Widgets/NavigationMenu/NavigationMenu.css';
-		//on vérifie que la css
-        $cssExist = is_file(sfConfig::get('sf_web_dir') . $cssLink);
 		//chargement de la CSS si existante
-        if ($cssExist) $stylesheets[] = $cssLink;
+        if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
 		
 		return $stylesheets;
 	}
@@ -26,10 +24,8 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         $vars = $this->getViewVars();
 		//lien vers le js associé au menu
         $jsLink = sfConfig::get('sf_js_path_framework') . '/navigationMenu/' . $vars['menuType'] . '.js';
-        //on vérifie que le js existe
-        $jsExist = is_file(sfConfig::get('sf_web_dir') . $jsLink);
         //chargement du JS si existant
-        if ($jsExist) $javascripts[] = $jsLink;
+        if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) $javascripts[] = $jsLink;
 		
 		return $javascripts;
 	}
