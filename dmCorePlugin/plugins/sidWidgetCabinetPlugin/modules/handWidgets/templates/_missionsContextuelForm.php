@@ -14,7 +14,11 @@ _tag('div',
  
     $form['titreBloc']->renderRow().
     $form['titreLien']->renderRow().	
-    $form['nb']->renderRow()     
+    $form['length']->renderRow().
+    $form['nb']->renderRow().
+    $form['chapo']->renderRow().
+    $form['titreMission']->renderRow()
+    
          
   
 ); 

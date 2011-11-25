@@ -8,21 +8,20 @@ if ($sf_user->hasFlash('contact_form_valid')) {
     echo _tag('p.form_valid', __('Thank you, your contact request has been sent.'));
 } else {
 
-// open the form tag with a dm_contact_form css class
+    // open the form tag with a dm_contact_form css class
     echo $form->open('.contact_form');
 
-    echo _tag('ul.dm_form_elements',
-            _tag('li.dm_form_element.clearfix', $form['title']->label()->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['name']->label()->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['firstname']->label()->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['function']->label()->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['adresse']->label()->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['postalcode']->label()->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['ville']->label()->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['email']->label()->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['phone']->label('phone number')->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['fax']->label()->field()->error()) .
-            _tag('li.dm_form_element.clearfix', $form['body']->label()->field()->error())
+    echo _tag('ul.dm_form_elements', $form['title']->renderRow() .
+            $form['name']->renderRow() .
+            $form['firstname']->renderRow() .
+            $form['function']->renderRow() .
+            $form['adresse']->renderRow() .
+            $form['postalcode']->renderRow() .
+            $form['ville']->renderRow() .
+            $form['email']->renderRow() .
+            $form['phone']->renderRow() .
+            $form['fax']->renderRow() .
+            $form['body']->renderRow()
     );
 
 
@@ -51,10 +50,10 @@ if ($sf_user->hasFlash('contact_form_valid')) {
             });
           });
         </script>';
-        
-    if ($sf_user->hasFlash('bad_qaptcha')) {
-        echo _tag('p.form_valid', __('Bad captcha'));
-    }        
+
+        if ($sf_user->hasFlash('bad_qaptcha')) {
+            echo _tag('p.form_valid', __('Bad captcha'));
+        }
     }
 
 // affichage du captcha (reCaptcha)
@@ -84,8 +83,6 @@ if ($sf_user->hasFlash('contact_form_valid')) {
     </script>'
         . $form['captcha']->field()->error();
     }
-
-    echo $form->renderHiddenFields();
 
     // render hidden fields like the CSRF protection  
     echo $form->renderHiddenFields();

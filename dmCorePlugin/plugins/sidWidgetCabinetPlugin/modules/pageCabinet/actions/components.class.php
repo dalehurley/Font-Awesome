@@ -24,16 +24,16 @@ class pageCabinetComponents extends myFrontModuleComponents
   {
     $query = $this->getShowQuery();
     
-    $this->pageCabinet = $this->getRecord($query);
-    $nom = Doctrine_Query::create()->from('SidCoordName a')
-                        ->where('a.siege_social = ?', true)
-                        ->fetchOne();
-        $this->nom = $nom;
+//    $this->pageCabinet = $this->getRecord($query);
+//    $nom = Doctrine_Query::create()->from('SidCoordName a')
+//                        ->where('a.siege_social = ?', true)
+//                        ->fetchOne();
+//        $this->nom = $nom;
         
-    $pageCabinet = $this->getRecord($query);
-    $replace = array('#Le Nom du Cabinet#', '#le Nom du Cabinet#', '#le nom du cabinet#');
-        $text = str_replace($replace, $nom->getTitle(), $pageCabinet->getText());
-        $this->pageCabinetText = $text;
+    $pagesCabinet = $this->getRecord($query);
+//    $replace = array('#Le Nom du Cabinet#', '#le Nom du Cabinet#', '#le nom du cabinet#');
+//        $pageCabinet = str_replace($replace, $pagesCabinet->getTitle(), $pagesCabinet->getText());
+        $this->pageCabinet = $pagesCabinet;
   }
 
 }

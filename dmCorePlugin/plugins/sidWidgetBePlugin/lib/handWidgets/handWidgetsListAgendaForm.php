@@ -13,6 +13,12 @@ class handWidgetsListAgendaForm extends dmWidgetPluginForm {
         $this->widgetSchema['title'] = new sfWidgetFormInputText();
         $this->validatorSchema['title'] = new sfValidatorString(array('required' => false));
         
+        $this->widgetSchema['lien'] = new sfWidgetFormInputText();
+        $this->validatorSchema['lien'] = new sfValidatorString(array('required' => true));
+        
+        $this->widgetSchema['length'] = new sfWidgetFormInputText(array('default' => 0));
+        $this->validatorSchema['length'] = new sfValidatorInteger();
+        
        
         
         $this->widgetSchema->setHelps(array(

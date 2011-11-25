@@ -13,7 +13,8 @@ _tag('div',
  
     $form['titreBloc']->renderRow().
     $form['titreLien']->renderRow().	
-    $form['nb']->renderRow()     
+    $form['nb']->renderRow().
+    $form['lenght']->renderRow()
          
   
 ); 
