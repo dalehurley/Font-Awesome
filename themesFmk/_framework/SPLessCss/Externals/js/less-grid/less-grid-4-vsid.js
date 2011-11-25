@@ -16,8 +16,8 @@
 		debugAddValue('windowInnerWidth', window.innerWidth);
 		debugAddValue('windowOrientation', window.orientation);
 		
-		$('.main_less_debug').click(function(e){
-			$(this).toggleClass('disabled');
+		$('.debugTemplate').click(function(e){
+			$(this).closest('.dm_widget').toggleClass('disabled');
 		});
 	});
 	
@@ -169,8 +169,8 @@ function createSwitch () {
 		createGrid();
 		
 		//rajout apparition debug si masqué
-		if($('.main_less_debug').hasClass('disabled')){
-			$('.main_less_debug').toggleClass('disabled');
+		if($('.debugTemplate').closest('.dm_widget').hasClass('disabled')){
+			$('.debugTemplate').closest('.dm_widget').toggleClass('disabled');
 		}
 	}, function() {
 		$(this).text('show grid');

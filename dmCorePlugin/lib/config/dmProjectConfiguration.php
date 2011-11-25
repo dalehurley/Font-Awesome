@@ -92,6 +92,7 @@ class dmProjectConfiguration extends sfProjectConfiguration
             'sidWidgetActuPlugin',
             'sidWidgetCabinetPlugin',
             'sidWidgetCoordonneesExpertPlugin',
+			'sidSPLessCssPlugin'
             ) as $embeddedPlugin) {
             $this->setPluginPath($embeddedPlugin, $baseDir . '/dmCorePlugin/plugins/' . $embeddedPlugin);
     }
