@@ -25,6 +25,7 @@ dmWidgetNavigation:
 
   breadCrumb:
     cache:              true
+    view_class:         myWidgetNavigationBreadCrumbView
 
   menu:
     cache:              true
