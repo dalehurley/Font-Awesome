@@ -185,7 +185,7 @@ class contentTemplateTools {
         $return[]['loadDB'] = 'copie des assets';
         
         // load du dossier apps/front/modules/main
-        $output = exec("cp -R " . $dirINmodule ."/* apps/front/modules/main/;");
+        $output = exec("cp -R " . $dirINmodule ."/* apps/front/modules/;");
         $return[]['loadDB'] = 'copie du module main du front';        
 
         return $return;
