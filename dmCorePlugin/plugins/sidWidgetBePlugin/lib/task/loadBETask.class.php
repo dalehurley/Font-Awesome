@@ -6,6 +6,7 @@ class loadBETask extends sfBaseTask {
         // // add your own arguments here
         $this->addArguments(array(
             new sfCommandArgument('verbose', sfCommandArgument::OPTIONAL, 'Verbose task'),
+            new sfCommandArgument('automatic', sfCommandArgument::OPTIONAL, 'Automatic, no confirmation'),
         ));
 
         $this->addOptions(array(
@@ -29,11 +30,28 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
+        
+//-------------------------------------------------------------------------------------
+//    Verification de la présence des dossiers
+//-------------------------------------------------------------------------------------	
+
+        if (!is_dir(sfConfig::get('app_rep-local'))) {
+                $this->logSection('ERROR','Veuillez créer le dossier '.sfConfig::get('app_rep-local'), null, 'ERROR');
+                exit;        
+        }
+        if (!is_dir(sfConfig::get('app_rep-local-json'))) {
+                $this->logSection('ERROR','Veuillez créer le dossier '.sfConfig::get('app_rep-local-json'), null, 'ERROR');
+                exit;        
+        }
+        if (!is_dir(sfConfig::get('app_rep-local-images'))) {
+                $this->logSection('ERROR','Veuillez créer le dossier '.sfConfig::get('app_rep-local-images'), null, 'ERROR');
+                exit;        
+        }        
 
 //-------------------------------------------------------------------------------------
 //    Chargement des rubriques de LEA dans la base de donnees locale
 //-------------------------------------------------------------------------------------	
-	if ($this->askConfirmation(array('Chargement des rubriques de LEA (l\'arbo de dossier rubrique/section) dans la base de donnees locale? (y/n)'), 'QUESTION_LARGE', true)) {
+	if (in_array("automatic", $arguments) || $this->askConfirmation(array("Chargement de l'arbo des dossiers rubrique/section de LEA \n dans le repertoire ".sfConfig::get('app_rep-local')." la base de donnees locale? (y/n)"), 'QUESTION_LARGE', true)) {
 	    $beginTime = microtime(true);
 	    $results = baseEditorialeTools::recupRubriqueSection();
 	    $this->logSection('### loadBE', 'Chargement des rubriques de LEA dans la base de donnees locale.' . ' ->' . (microtime(true) - $beginTime) . ' s');

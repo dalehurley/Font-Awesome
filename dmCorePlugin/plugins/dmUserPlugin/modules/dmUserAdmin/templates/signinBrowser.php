@@ -20,4 +20,4 @@ echo _tag('div.message',
 
 echo _close('div');
 
-echo _link('http://diem-project.org/')->text('Diem CMF CMS for symfony')->set('.generator_link');
+//echo _link('http://diem-project.org/')->text('Diem CMF CMS for symfony')->set('.generator_link');

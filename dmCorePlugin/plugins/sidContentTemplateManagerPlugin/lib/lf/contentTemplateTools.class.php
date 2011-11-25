@@ -98,10 +98,10 @@ class contentTemplateTools {
         $output = exec("mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;");
         $return[]['dumpDB'] = 'copie des assets';
 
-        // save du dossier apps/front/modules
+        // save du dossier apps/front/modules/main
         $dirOUTmodules = $file . "." . $dbname . "." . self::$dumpExtension . ".modules";
-        $output = exec("mkdir " . $dirOUTmodules .";cp -R apps/front/modules " . $dirOUTmodules . "/;");
-        $return[]['dumpDB'] = 'copie des modules du front';
+        $output = exec("mkdir " . $dirOUTmodules .";cp -R apps/front/modules/main " . $dirOUTmodules . "/;");
+        $return[]['dumpDB'] = 'copie du module main du front';
 
         return $return;
     }
@@ -184,9 +184,9 @@ class contentTemplateTools {
         $output = exec("cp -R " . $dirINassets ."/* ". $webDirName . "/;");
         $return[]['loadDB'] = 'copie des assets';
         
-        // load du dossier apps/front/modules
-        $output = exec("cp -R " . $dirINmodule ."/* apps/front/;");
-        $return[]['loadDB'] = 'copie des modules du front';        
+        // load du dossier apps/front/modules/main
+        $output = exec("cp -R " . $dirINmodule ."/* apps/front/modules/;");
+        $return[]['loadDB'] = 'copie du module main du front';        
 
         return $return;
     }
