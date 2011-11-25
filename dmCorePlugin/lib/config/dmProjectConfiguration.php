@@ -10,41 +10,41 @@ class dmProjectConfiguration extends sfProjectConfiguration
     $this->setDmPluginPaths();
 
     $this->enablePlugins(array(
-      'sfDoctrinePlugin',
-      'dmCorePlugin',
-      'dmUserPlugin',
-      'sfWebBrowserPlugin',
-      'sfImageTransformPlugin',
-      'sfFeed2Plugin',
-      'sfFormExtraPlugin',
-  // les plugins additionnels
-      'lfKrumoPlugin',
-      'dmWidgetFeedReaderPlugin',
-      'dmWidgetExcelPlugin', // plugin Excel
+		'sfDoctrinePlugin',
+		'dmCorePlugin',
+		'dmUserPlugin',
+		'sfWebBrowserPlugin',
+		'sfImageTransformPlugin',
+		'sfFeed2Plugin',
+		'sfFormExtraPlugin',
+		// les plugins additionnels
+		'lfKrumoPlugin',
+		'dmWidgetFeedReaderPlugin',
+		'dmWidgetExcelPlugin', // plugin Excel
 		'dmWidgetGalleryPlugin',
-            'sfLESSPlugin',
-            'dmContactMePlugin', // extension de dmcontactPlugin avec qaptcha
-            'dmWidgetXmlPlugin', // plugin d'affichage de données Xml
-            //'dmCkEditorPersoPlugin', // administrable par le client
-            'dmFlowPlayerPlugin',
-            'dmMediaUploadifyerPlugin',
-            'dmBotPlugin',
-            'dmWidgetExternalVideoPlugin',
-            'dmCoreTranslatorPlugin',
-            'sidWidgetBePlugin',  // la base editoriale
-            'dmWidgetGalleryBackgroundPlugin',
-            'dmTagPlugin',
-            'dmCkEditorPlugin',
-            'dmWidgetNivoGalleryPlugin',
-            'sidWidgetBandeauPlugin',
-            // 'sidWidgetBlogPlugin',  // Finalisé mais inutile pour le moment
-            'sidContentTemplateManagerPlugin',  // plugin de gestion des template de contenu
-            'sidWidgetConstantesPlugin',   // plugin de gestion des constantes du site
-            'sidWidgetSitesUtilesPlugin',
-            'dmGoogleMapPlugin',
-            'sidWidgetActuPlugin',
-            'sidWidgetCabinetPlugin',
-            'sidWidgetCoordonneesExpertPlugin',
+        'sfLESSPlugin',
+		'dmContactMePlugin', // extension de dmcontactPlugin avec qaptcha
+		'dmWidgetXmlPlugin', // plugin d'affichage de données Xml
+		//'dmCkEditorPersoPlugin', // administrable par le client
+        'dmFlowPlayerPlugin',
+        'dmMediaUploadifyerPlugin',
+		'dmBotPlugin',
+		'dmWidgetExternalVideoPlugin',
+		'dmCoreTranslatorPlugin',
+		'sidWidgetBePlugin',  // la base editoriale
+		'dmWidgetGalleryBackgroundPlugin',
+		'dmTagPlugin',
+		'dmCkEditorPlugin',
+		'dmWidgetNivoGalleryPlugin',
+		'sidWidgetBandeauPlugin',
+		// 'sidWidgetBlogPlugin',  // Finalisé mais inutile pour le moment
+		'sidContentTemplateManagerPlugin',  // plugin de gestion des template de contenu
+		'sidWidgetConstantesPlugin',   // plugin de gestion des constantes du site
+		'sidWidgetSitesUtilesPlugin',
+		'dmGoogleMapPlugin',
+		'sidWidgetActuPlugin',
+		'sidWidgetCabinetPlugin',
+		'sidWidgetCoordonneesExpertPlugin',
     ));
   }
   
