@@ -11,14 +11,14 @@ class baseEditorialeTools {
      *
      */
     public static function exportArticlesJson() {
-        
+
         $nbArticleTotal = 0;
 
         if (sfConfig::get('app_ftp-password') == '' || sfConfig::get('app_ftp-image-password') == '') {
             $return[0]['ERROR'] = 'Seule la base éditoriale peut récupérer les articles de LEA. Vérifier que le apps/front/config/app.yml ait les bonnes variables.';
             return $return;
-        }  
-        
+        }
+
         $i = 0;
 
         $rubriques = Doctrine_Core::getTable('SidRubrique')->findByIsActive(true);
@@ -51,13 +51,13 @@ class baseEditorialeTools {
                         }
                         // récup des tags
                         $listTags = '';
-                        foreach ($article->getTags() as $tag){
-                            $listTags .= $tag.',';
+                        foreach ($article->getTags() as $tag) {
+                            $listTags .= $tag . ',';
                         }
 
                         $arrayJson[$j]['tags'] = $listTags;
                         //$return[$j]['tags >'] = $listTags;
-                        
+
                         $j++;
                     }
 
@@ -86,7 +86,7 @@ class baseEditorialeTools {
                         fputs($fileRubrique, json_encode($arrayJson));
                         fclose($fileRubrique);
 
-                        $return[$j]['OK : Fichier généré'] = $fileRubriqueName.' ('.count($arrayJson).')';
+                        $return[$j]['OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
                         $nbArticleTotal += count($arrayJson);
                     } catch (Exception $e) {
 
@@ -94,7 +94,7 @@ class baseEditorialeTools {
                     }
                 }
             }
-        $i++;
+            $i++;
         }
 
         $return[$j]['OK : Fichiers générés - Total articles :'] = $nbArticleTotal;
@@ -144,7 +144,7 @@ class baseEditorialeTools {
                         $localSection = substr($localSection, 0, -5);
 
                         // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
-                        $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($localSection, $bdRubrique->id); 
+                        $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($localSection, $bdRubrique->id);
 
                         if ($bdSection->isNew()) { // création de la section en base
                             $bdSection->Translation[$arrayLangs[0]]->title = $localSection;  // On insère dans la langue par défaut
@@ -168,15 +168,15 @@ class baseEditorialeTools {
      */
 
     public static function loadArticlesJson($mode = 'total') {
-        
+
         ini_set("memory_limit", '256M'); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
 
         $return = array();
         $timeBegin = microtime(true);
         $i = 1;
 
-        $return[$i]['MODE'] = $mode; 
-        
+        $return[$i]['MODE'] = $mode;
+
         // Recherche des rubriques abonnées par le site
         $rubriques = Doctrine::getTable('SidRubrique')->findByIsActive(true);
 
@@ -212,60 +212,56 @@ class baseEditorialeTools {
 
                         if (!$sidSection->isActive) {
 
-                            $return[$i]['WARNING - '.$k] = 'Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title . ' non active.';
- 
+                            $return[$i]['WARNING - ' . $k] = 'Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title . ' non active.';
                         } else {
                             //$return[$i]['-> Traitement section - '.$k] = 'Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title ;
-
                             // Récupération du json de la rubrique
                             $repBaseEditoriale = sfConfig::get('app_rep-local-json');
                             $fileRubriqueJsonName = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
 
                             if (!file_exists($fileRubriqueJsonName)) {
-                                $return[$i]['WARNING - '.$k] = 'Le fichier ' . $fileRubriqueJsonName . ' est absent.';
+                                $return[$i]['WARNING - ' . $k] = 'Le fichier ' . $fileRubriqueJsonName . ' est absent.';
                             } else {
                                 $arrayArticlesBaseEditoriale = json_decode(file_get_contents($fileRubriqueJsonName));
-                                
+
 
                                 // trier le tableau json pour n'avoir que les articles depuis le dernier updatedAt des articles
                                 $lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAtBySection($sidSection->id);
                                 //$lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAt();
                                 //$return[$i]['-> Nb Articles total - '.$k] = count($arrayArticlesBaseEditoriale);
-                                
+
                                 $arrayArticlesBaseEditorialeSorted = array();
-                                foreach ($arrayArticlesBaseEditoriale as $article){
+                                foreach ($arrayArticlesBaseEditoriale as $article) {
                                     //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate->updatedAt;
-                                    if ($article->updatedAt > $lastUpdatedDate){
-                                        $arrayArticlesBaseEditorialeSorted[]=$article;
-                                       // $return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
+                                    if ($article->updatedAt > $lastUpdatedDate) {
+                                        $arrayArticlesBaseEditorialeSorted[] = $article;
+                                        // $return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
                                         $k++;
                                     } else {
-                                       //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
-                                       $k++;
+                                        //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
+                                        $k++;
                                     }
                                 }
-                          
+
                                 //$return[$i]['-> Nb Articles nouveaux - '.$k] = count($arrayArticlesBaseEditorialeSorted);
-                               
-                                
                                 // Insertion des articles
                                 $j = 1;
                                 $nbInsert = 0;
                                 $nbMaj = 0;
-                                $nbInchange = 0; 
+                                $nbInchange = 0;
                                 $nbMajDesactivation = 0;
-                                
+
                                 // parametre a ajouter
-                                if ($mode == 'total'){
+                                if ($mode == 'total') {
                                     $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditoriale; // (total)
                                 } else {
                                     $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditorialeSorted; // (incremental)
                                 }
-                                
-                                
+
+
                                 foreach ($arrayArticlesBaseEditorialeChoice as $articleBE) {
 
-                                    $article = Doctrine::getTable('SidArticle')->findOneByFilenameAndSectionId($articleBE->filename,$sidSection->id);
+                                    $article = Doctrine::getTable('SidArticle')->findOneByFilenameAndSectionId($articleBE->filename, $sidSection->id);
                                     if ($article->isNew()) { // l'article n'existe pas en base
                                         $nbInsert++;
                                         foreach ($arrayLangs as $lang) {
@@ -306,7 +302,7 @@ class baseEditorialeTools {
                                         // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
                                         $article->updatedAt = $articleBE->updatedAt;
                                         $article->save();
-                                        
+
                                         // maj des tags de l'article à partir des données Json
                                         $article->removeAllTags();
                                         $article->setTags($articleBE->tags);
@@ -320,16 +316,15 @@ class baseEditorialeTools {
                                         } else {
                                             $nbMajDesactivation++;
                                             //$return[$i]['MAJ article (désactivation)' . $article->filename . ' - ' . $article->id] =  $articleName;
-                                        }                                
-
+                                        }
                                     } else {
                                         // article inchangé
                                         $nbInchange++;
                                     }
-                                    
+
                                     $j++;
                                 }
-                                
+
                                 // infos section
                                 if ($nbInchange != 0) {
                                     $inchange = $nbInchange . ' inchangés | ';
@@ -351,16 +346,16 @@ class baseEditorialeTools {
                                 } else {
                                     $majDesactivation = '';
                                 }
-                                $infos = 'Total: ' . count($arrayArticlesBaseEditoriale).' => ';
-                                if (count($arrayArticlesBaseEditorialeSorted)!=0){
+                                $infos = 'Total: ' . count($arrayArticlesBaseEditoriale) . ' => ';
+                                if (count($arrayArticlesBaseEditorialeSorted) != 0) {
                                     $infos .= ' (' . count($arrayArticlesBaseEditorialeSorted) . ' new) ';
                                 } elseif ($mode == 'incremental') {
                                     $infos .= ' Pas de nouveaux articles. ';
                                 }
-                                        
-                                
+
+
                                 $return[$i]['Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title] =
-                                $infos.$inchange.$maj.$majDesactivation.$insert;
+                                        $infos . $inchange . $maj . $majDesactivation . $insert;
                                 //return $return;
                             }
                         }
@@ -372,11 +367,11 @@ class baseEditorialeTools {
 
             // mise à jour des pages automatiques sur le site
             $timeBeginSyncPages = microtime(true);
-            $return[$i]['Sync pages'] = exec('php symfony dm:sync-pages').'-->'.(microtime(true) - $timeBeginSyncPages) . ' s';
+            $return[$i]['Sync pages'] = exec('php symfony dm:sync-pages') . '-->' . (microtime(true) - $timeBeginSyncPages) . ' s';
 
             // mise à jour de l'index
             $timeBeginSearchUpdate = microtime(true);
-           // $return[$i]['Maj indexation'] = exec('php symfony dm:search-update').'-->'.(microtime(true) - $timeBeginSearchUpdate) . ' s';
+            // $return[$i]['Maj indexation'] = exec('php symfony dm:search-update').'-->'.(microtime(true) - $timeBeginSearchUpdate) . ' s';
 
             $return[$i]['Execution'] = (microtime(true) - $timeBegin) . ' s';
         }
@@ -392,19 +387,18 @@ class baseEditorialeTools {
         $return = array(); // array de logs
         // les languages
         $arrayLangs = sfConfig::get('dm_i18n_cultures');
-        
+
         if (sfConfig::get('app_ftp-password') == '' || sfConfig::get('app_ftp-image-password') == '') {
             $return[0]['ERROR'] = 'Seule la base éditoriale peut récupérer les articles de LEA. Vérifier que le apps/front/config/app.yml ait les bonnes variables.';
             return $return;
-        }         
-        
+        }
+
 
         if (sfConfig::get('app_rep-local') == '') {
             $return[0]['ERROR'] = 'Merci de spécifier la variable app_rep-local dans le app.yml.';
         } else {
-            
-            //$return[0]['OK'] = '................';
 
+            //$return[0]['OK'] = '................';
             // POUR INTERROGER SERVEUR FTP : rubriques
             $FTPrubriques = transfertTools::scandirFtp(
                             sfConfig::get('app_ftp-login'), sfConfig::get('app_ftp-password'), sfConfig::get('app_ftp-host'), sfConfig::get('app_ftp-rep')
@@ -412,7 +406,7 @@ class baseEditorialeTools {
 
             $i = 1;
             foreach ($FTPrubriques as $j => $FTPrubrique) {
-                
+
                 // Vérification présence du dossier
                 $localRubrique = transfertTools::scandirServeur(sfConfig::get('app_rep-local'));
                 if (!in_array($FTPrubrique, $localRubrique)) {
@@ -444,85 +438,91 @@ class baseEditorialeTools {
                 );
 
                 foreach ($FTPsections as $k => $FTPsection) {
-                    // Vérification présence du dossier
-                    $localSection = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $FTPrubrique);
-                    if (!in_array($FTPsection, $localRubrique)) {
-                        $sectionDir = sfConfig::get('app_rep-local') . $FTPrubrique . '/' . $FTPsection;
-                        if (!is_dir($sectionDir)) {
-                            mkdir($sectionDir);
-                            $return[$i]['DIR+'] = $FTPrubrique . '/' . $FTPsection;
+
+                    $pos = strpos($FTPsection, '.xml');
+                    if ($pos === false) {
+
+                        // Vérification présence du dossier
+                        $localSection = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $FTPrubrique);
+                        if (!in_array($FTPsection, $localRubrique)) {
+                            $sectionDir = sfConfig::get('app_rep-local') . $FTPrubrique . '/' . $FTPsection;
+                            if (!is_dir($sectionDir)) {
+                                mkdir($sectionDir);
+                                $return[$i]['DIR+'] = $FTPrubrique . '/' . $FTPsection;
+                            } else {
+                                $return[$i]['Repertoire existant section'] = $FTPrubrique . '/' . $FTPsection;
+                            }
+                            $i++;
+                        }
+
+                        // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
+                        // Warning : La section peut exister et etre inactive
+                        $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($FTPsection, $bdRubrique->id);
+
+                        if ($bdSection->isNew()) { // création de la section en base
+                            $bdSection->Translation[$arrayLangs[0]]->title = $FTPsection;  // On insère dans la langue par défaut
+                            $bdSection->rubrique_id = $bdRubrique->id;
+                            $bdSection->save();
+                            $return[$i]['SECTION+'] = $FTPrubrique . '/' . $FTPsection;
                         } else {
-                            $return[$i]['Répertoire existant section'] = $FTPrubrique . '/' . $FTPsection;
+                            $return[$i]['Section existe deja en base'] = $FTPrubrique . '/' . $FTPsection;
                         }
                         $i++;
-                    }
-
-                    // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
-                    // Warning : La section peut exister et etre inactive
-                    $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($FTPsection, $bdRubrique->id);
-
-                    if ($bdSection->isNew()) { // création de la section en base
-                        $bdSection->Translation[$arrayLangs[0]]->title = $FTPsection;  // On insère dans la langue par défaut
-                        $bdSection->rubrique_id = $bdRubrique->id;
-                        $bdSection->save();
-                        $return[$i]['SECTION+'] = $FTPrubrique . '/' . $FTPsection;
                     } else {
-                        $return[$i]['Section existe dejà en base'] = $FTPrubrique . '/' . $FTPsection;
+                        // le nom du ossier ne doit pas contenir de .xml...
                     }
-                    $i++;
                 }
             }
         }
 
         return $return;
     }
-    
-    
+
     /*
      * récupération des fichiers XMl de LEA
      */
-    public static function recupFilesXmlLEA() {    
-            // récupération des articles de la rubrique effectuée par la commande :
-            // -q : quiet
-            // -A.xml : que les fichiers XML
-            // -c :  en continu, reprise de téléchargement précédent
-            // -r : recursive
-            // -nH : plus de dossier par défaut
-            // --cut-dirs=1 : on supprime le premier dossier pour l'arbo de copie (ie: flux_sid)
-            // -N : estampille Timestamp, verifie date
-            // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine 
-            $nbDirToCut = substr_count(sfConfig::get('app_ftp-rep'), '/');
-            $command = "wget -A.xml -c -N -r -nH -nv --cut-dirs=1 ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local');
 
-	    exec($command, $output);
-}    
-    
-   /*
+    public static function recupFilesXmlLEA() {
+        // récupération des articles de la rubrique effectuée par la commande :
+        // -q : quiet
+        // -A.xml : que les fichiers XML
+        // -c :  en continu, reprise de téléchargement précédent
+        // -r : recursive
+        // -nH : plus de dossier par défaut
+        // --cut-dirs=1 : on supprime le premier dossier pour l'arbo de copie (ie: flux_sid)
+        // -N : estampille Timestamp, verifie date
+        // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine 
+        $nbDirToCut = substr_count(sfConfig::get('app_ftp-rep'), '/');
+        $command = "wget -A.xml -c -N -r -nH -nv --cut-dirs=1 ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local');
+
+        exec($command, $output);
+    }
+
+    /*
      * récupération des fichiers images de LEA
      */
-    public static function recupFilesImagesLEA() {    
-            // récupération des articles de la rubrique effectuée par la commande :
-            // -q : quiet
-            // -A.xml : que les fichiers XML
-            // -c :  en continu, reprise de téléchargement précédent
-            // -r : recursive
-            // -nH : plus de dossier par défaut
-            // --cut-dirs=1 : on supprime le premier dossier pour l'arbo de copie (ie: flux_sid)
-            // -N : estampille Timestamp, verifie date
-            // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine 
 
-            // récupération des images des articles :
-            if (!is_dir(sfConfig::get('app_rep-local-images'))) {
-                mkdir(sfConfig::get('app_rep-local-images'));
-            }
-            // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine 
-            $nbDirToCut = substr_count(sfConfig::get('app_ftp-image-rep'), '/');
+    public static function recupFilesImagesLEA() {
+        // récupération des articles de la rubrique effectuée par la commande :
+        // -q : quiet
+        // -A.xml : que les fichiers XML
+        // -c :  en continu, reprise de téléchargement précédent
+        // -r : recursive
+        // -nH : plus de dossier par défaut
+        // --cut-dirs=1 : on supprime le premier dossier pour l'arbo de copie (ie: flux_sid)
+        // -N : estampille Timestamp, verifie date
+        // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine 
+        // récupération des images des articles :
+        if (!is_dir(sfConfig::get('app_rep-local-images'))) {
+            mkdir(sfConfig::get('app_rep-local-images'));
+        }
+        // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine 
+        $nbDirToCut = substr_count(sfConfig::get('app_ftp-image-rep'), '/');
 
-            $command = "wget -A.jpg -c -N -r -nH -nv --cut-dirs=" . $nbDirToCut . " ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-image-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-image-password')) . "@" . sfConfig::get('app_ftp-image-host') . "/" . sfConfig::get('app_ftp-image-rep') . " -P " . sfConfig::get('app_rep-local-images');
+        $command = "wget -A.jpg -c -N -r -nH -nv --cut-dirs=" . $nbDirToCut . " ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-image-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-image-password')) . "@" . sfConfig::get('app_ftp-image-host') . "/" . sfConfig::get('app_ftp-image-rep') . " -P " . sfConfig::get('app_rep-local-images');
 
-	    exec($command, $output);
-
-}        
+        exec($command, $output);
+    }
 
     /*
      * récupération des articles de LEA
@@ -531,11 +531,11 @@ class baseEditorialeTools {
      */
 
     public static function recupArticlesLEA($idArticlePlusVieux, $wgetActive=false) {
-        
+
         if (sfConfig::get('app_ftp-password') == '' || sfConfig::get('app_ftp-image-password') == '') {
             $return[0]['ERROR'] = 'Seule la base éditoriale peut récupérer les articles de LEA. Vérifier que le apps/front/config/app.yml ait les bonnes variables.';
             return $return;
-        }  
+        }
 
         ini_set("memory_limit", '1024M'); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
         error_reporting(0); // quelques Warning peuvent apparaitre dans les XML, ça n'empêche pas de les traiter...
@@ -573,13 +573,11 @@ class baseEditorialeTools {
                         $beginTime = microtime(true);
 
                         if (substr($fichierArticle, -4) == '.xml') {  // on en traite que les fichier XML
-
-                            if (intval(str_replace('.xml', '', $fichierArticle))  > $idArticlePlusVieux) {  // on ne traite que les articles depuis l'idArticlePlusVieux
-                                
+                            if (intval(str_replace('.xml', '', $fichierArticle)) > $idArticlePlusVieux) {  // on ne traite que les articles depuis l'idArticlePlusVieux
                                 // j'explore le xml pour récupérer le titre, le chapeau, le n° article de léa(code)
                                 $xml = new DOMDocument();
                                 $xmlFile = sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection . '/' . $fichierArticle;
- 
+
                                 // validation XML    
                                 /*
                                   if (baseEditorialeTools::validateXmlWithDtd($xmlFile,sfConfig::get('app_dtd-article'))) {
@@ -596,19 +594,17 @@ class baseEditorialeTools {
                                     $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue;  //titre
                                     $chapo = $xml->getElementsByTagName('Head')->item(0)->nodeValue; // chapo
                                     // cas particulier de l'agenda
-                                    if ($chapo == ''){
-                                       $chapo = $xml->getElementsByTagName('Section')->item(0)->nodeValue;
-                                       // on supprime le premier saut de ligne
-                                       if (substr($chapo, 0, 1) == CHR(10)){
-                                           $chapo = substr($chapo, 1);
-                                       } 
+                                    if ($chapo == '') {
+                                        $chapo = $xml->getElementsByTagName('Section')->item(0)->nodeValue;
+                                        // on supprime le premier saut de ligne
+                                        if (substr($chapo, 0, 1) == CHR(10)) {
+                                            $chapo = substr($chapo, 1);
+                                        }
                                     }
                                     $date_update = $xml->getElementsByTagName('UpdateDate')->item(0)->nodeValue;
                                     // la date de publication
                                     $date_publication = $xml->getElementsByTagName('PublicationDate')->item(0)->getElementsByTagName('ISO')->item(0)->nodeValue;
                                     //$return[$j]['>>>>'] = $date_publication;                                    
-                                    
-                                    
                                     // récupération des <keywords><keyword> du XML dans un tableau
                                     // de la forme $tagsString = 'tag1, tag2, tag3';
                                     $articleKeywordsNodes = $xml->getElementsByTagName('Keyword'); // la premiere (et seule normalement) balise Keywords
@@ -618,8 +614,6 @@ class baseEditorialeTools {
                                         $tagsString .= $articleKeywordsNodes->item($i)->nodeValue . ',';
                                     }
                                     //$return[$j]['Article ' . $fichierArticle] = 'Tags article: '.$tagsString;
-                                    
-
                                     // je vérifie si l'article est présent dans la base, pour la section en cours (il peut y avoir des doublons sur le filename, un article étant potentiellement présent dans plusieurs rubrique)
                                     $article = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($filename, $section->id);
 
@@ -627,7 +621,7 @@ class baseEditorialeTools {
                                         // j'envoie les données id_lea, rubrique et titre dans bdd
                                         $article->Translation[$arrayLangs[0]]->title = $titre;
                                         $article->Translation[$arrayLangs[0]]->chapeau = $chapo;
-                                        
+
                                         $article->setSectionId($section->id);
                                         $article->setFilename($filename);
                                         $article->createdAt = $date_publication;
@@ -666,13 +660,12 @@ class baseEditorialeTools {
                                     // enregistrement des tags
                                     $article->removeAllTags();
                                     $article->setTags($tagsString)->save();
-                                    
                                 } else {
                                     $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
                                 }
                             } else {
-                                
-                               // $return[$j]['Article ' . $fichierArticle] = 'Article trop vieux < '.$idArticlePlusVieux;
+
+                                // $return[$j]['Article ' . $fichierArticle] = 'Article trop vieux < '.$idArticlePlusVieux;
                             }
 
                             $j++;
@@ -721,7 +714,7 @@ class baseEditorialeTools {
         return $return;
     }
 
-   /**
+    /**
      * Désactivation des rubriques et sections si elles n'ont pas d'enfants
      */
     public static function RubriquesSectionsDeactivation() {
@@ -742,11 +735,11 @@ class baseEditorialeTools {
         foreach ($sections as $section) {
 
             // Recherche des sections filles
-            $articles = Doctrine::getTable('SidArticle')->findBySectionIdAndIsActive($section->id,true);
+            $articles = Doctrine::getTable('SidArticle')->findBySectionIdAndIsActive($section->id, true);
             if (count($articles) == 0 || !$section->is_active) {
                 $section->delete();
                 $return[$i]['Section ' . $section . ' supprimée : nb articles'] = count($articles);
-            } 
+            }
             $i++;
         }
 
@@ -764,7 +757,7 @@ class baseEditorialeTools {
             if (count($sections) == 0 || !$rubrique->is_active) {
                 $rubrique->delete();
                 $return[$i]['Rubrique ' . $rubrique . ' supprimée : nb sections'] = count($sections);
-            } 
+            }
             $i++;
         }
 
@@ -794,8 +787,8 @@ class baseEditorialeTools {
             return true;
         }
     }
-    
-     /*
+
+    /*
      * Conversion caracteres pour ligne de commande
      *
      * @return : string
