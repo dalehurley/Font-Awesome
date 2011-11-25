@@ -45,7 +45,7 @@ class dmProjectConfiguration extends sfProjectConfiguration
 		'sidWidgetActuPlugin',
 		'sidWidgetCabinetPlugin',
 		'sidWidgetCoordonneesExpertPlugin',
-		'sidSPLessCss'
+		'sidSPLessCssPlugin'
     ));
   }
   
