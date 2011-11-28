@@ -47,6 +47,7 @@ class handWidgetsListAgendaView extends dmWidgetPluginView {
         foreach ($arrayAgenda as $key => $value) {
             $updated[$key] = $value['updated_at'];
         }
+        if (isset($updated))
         array_multisort($updated, SORT_DESC, $arrayAgenda);
 //        echo count($arrayAgenda);
 //        if(count($arrayAgenda) >= $vars['nbArticles'] ){
