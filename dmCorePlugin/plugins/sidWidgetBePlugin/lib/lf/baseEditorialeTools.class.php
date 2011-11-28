@@ -409,8 +409,9 @@ class baseEditorialeTools {
 
                 // Vérification présence du dossier
                 $localRubrique = transfertTools::scandirServeur(sfConfig::get('app_rep-local'));
+                $rubriqueDir = sfConfig::get('app_rep-local') . $FTPrubrique;
+                
                 if (!in_array($FTPrubrique, $localRubrique)) {
-                    $rubriqueDir = sfConfig::get('app_rep-local') . $FTPrubrique;
                     if (!is_dir($rubriqueDir)) {
                         mkdir($rubriqueDir);
                         $return[$i]['DIR+'] = $FTPrubrique;
@@ -437,11 +438,12 @@ class baseEditorialeTools {
                                 sfConfig::get('app_ftp-login'), sfConfig::get('app_ftp-password'), sfConfig::get('app_ftp-host'), sfConfig::get('app_ftp-rep') . $FTPrubrique
                 );
 
+                $nbSections = 0;
                 foreach ($FTPsections as $k => $FTPsection) {
 
                     $pos = strpos($FTPsection, '.xml');
-                    if ($pos === false) {
-
+                    if ($pos === false && $FTPsection != 'images') { // pas de dossier images (parfois fourni par LEA...)
+                        $nbSections ++;
                         // Vérification présence du dossier
                         $localSection = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $FTPrubrique);
                         if (!in_array($FTPsection, $localRubrique)) {
@@ -471,6 +473,18 @@ class baseEditorialeTools {
                     } else {
                         // le nom du ossier ne doit pas contenir de .xml...
                     }
+                }
+
+                // si pas de sections alors on supprime 
+                if ($nbSections == 0) {
+                    
+                    $command = "rm -R ".$rubriqueDir; // le dossier rubrique local
+                    exec($command, $output);
+                    
+                    $return[$i]['DIR-'] = $rubriqueDir;
+                    $bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitleAndIsActive($FTPrubrique);
+                    $bdRubrique->delete();  // la rubrique en base
+                    $return[$i]['Rubrique-'] = $FTPrubrique;
                 }
             }
         }

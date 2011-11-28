@@ -16,11 +16,11 @@ class transfertTools {
      */
     public static function scandirServeur($dir){
 
-        $arrayDir = scandir($dir);
+        $arrayDirs = scandir($dir);
         $tabDir = array();
-        foreach ($arrayDir as $j => $arrayDirs) {
-            if (($arrayDirs != '.') && ($arrayDirs != '..')) {
-                $tabDir[] = utf8_decode($arrayDirs);
+        foreach ($arrayDirs as $j => $arrayDir) {
+            if (($arrayDir != '.') && ($arrayDir != '..')) {
+               $tabDir[] = utf8_decode($arrayDir);
             }
         }
         return $tabDir;
@@ -42,10 +42,12 @@ class transfertTools {
                 . $password . '@'
                 . $host . '/'
                 . $rep;
+        
         $repFtp = dir($ftpRubrique);
+        $tabRep = array();
         while (($entry = $repFtp->read()) !== false) {
             if ($entry != '.' && $entry != '..') {
-                $tabRep[] = utf8_decode($entry);
+            $tabRep[] = utf8_decode($entry);
             }
         };
         $repFtp->close();

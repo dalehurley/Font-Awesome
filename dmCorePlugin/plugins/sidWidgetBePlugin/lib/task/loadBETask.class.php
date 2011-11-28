@@ -57,7 +57,7 @@ EOF;
             if ($this->askConfirmation(array("Chargement de l'arbo des dossiers rubrique/section de LEA dans le repertoire " . sfConfig::get('app_rep-local') . " la base de donnees locale? (y/n)"), 'QUESTION_LARGE', true)) {
                 $beginTime = microtime(true);
                 $results = baseEditorialeTools::recupRubriqueSection();
-                $this->logSection('### loadBE', 'Chargement des rubriques de LEA dans la base de donnees locale.' . ' ->' . (microtime(true) - $beginTime) . ' s');
+                $this->logSection('### loadBE', "Chargement de l'arbo des dossiers rubrique/section de LEA en local." . " ->" . (microtime(true) - $beginTime) . " s");
                 if (in_array("verbose", $arguments)) {
 
                     foreach ($results as $result) {
