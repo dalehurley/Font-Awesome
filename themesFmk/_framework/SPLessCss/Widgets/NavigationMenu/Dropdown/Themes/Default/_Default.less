@@ -13,62 +13,67 @@
 @menuDropdownPadV: (@gridBaseline/2 - 1px);
 //calcul dimensions flèche
 @menuArrowDim: @gridBaseline/3;
-@menuArrowOffsetX: @gridGutter/6 - 1px;
-@menuArrowOffsetY: @menuDropdownPadV + (@gridBaseline - @menuArrowDim*2)/2;
+//offset de décalage de positionnement
+@menuArrowDecal: @menuArrowDim/2;
+//positionnement initial à droite 
+@menuArrowOffsetX: (@offM - @menuArrowDecal);
+@menuArrowOffsetY: @menuDropdownPadV + (@gridBaseline - @menuArrowDim*2)/2 + 1px;
 
-ul.dropdown {
+.navigation_menu {
 	//gestion grosseur texte
-	li{ font-weight: bold; }
-	ul li { font-weight: normal; }
+	ul li{ font-weight: bold; }
+	ul ul li { font-weight: normal; }
 	
-	li {
+	//gestion des liens
+	.link {
 		background-color: @colorCouleur3Clair;
+		padding: @menuDropdownPadV @menuDropdownPadH @menuDropdownPadV @gridGutter;
+		border-style: solid;
+		border-width: 1px 1px 1px 0;
+		border-color: @colorCouleur3ClairSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup;
+		color: @colorCouleur3Fonce;
+		text-decoration: none;
 		
-		.link {
-			padding: @menuDropdownPadV @menuDropdownPadH @menuDropdownPadV @gridGutter;
-			border-style: solid;
-			border-width: 1px 1px 1px 0;
-			border-color: @colorCouleur3ClairSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup;
-			color: @colorCouleur3Fonce;
-		}
+		&.dm_current { color: @colorCouleur1Moyen; }
+		&.dm_inactive { color: @colorCouleur3; }
 		
-		.dm_current { color: @colorCouleur1Moyen; }
-		.dm_inactive { color: @colorCouleur3; }
-		
-		&.hover, &:hover, &.touch {
-			background-color: @colorCouleur3ClairSup;
-			color: @colorCouleur1;
-		}
+		//LoVe's Hurts Fade Away
+		&:hover, &:focus { color: @colorCouleur1; background-color: @colorCouleur3ClairSup; }
+		&:active { color: @colorCouleur1Moyen; }
 	}
 	
-	//couleurs des liens
-	a, a:link, a:visited { color: @colorCouleur3Fonce; text-decoration: none; }
-	a:hover, a:focus { color: @colorCouleur1; }
-	a:active { color: @colorCouleur1Moyen; }
-	
 	//création de la flèche avec des bordures
-	li.dm_dir {
-		&:after {
-			position: absolute;
-			z-index: 600;
-			display: block;
-			content:"";
-			width: 0;
-			height: 0;
-			right: @menuArrowOffsetX;
-			bottom: @menuArrowOffsetY;
-			border-color: transparent transparent transparent @colorCouleur3Fonce;
-			border-style: solid;
-			border-width: @menuArrowDim;
-		}
-		&.hover, &:hover, &.touch {
+	li {
+		&.dm_dir > .link {
 			&:after {
-				right: @menuArrowOffsetX + @menuArrowDim/2;
-				bottom: @menuArrowOffsetY - @menuArrowDim/2;
-				border-color: @colorCouleur1 transparent transparent transparent;
+				position: absolute;
+				z-index: 250;
+				display: block;
+				content:"";
+				width: 0;
+				height: 0;
+				right: @menuArrowOffsetX;
+				top: @menuArrowOffsetY;
+				border-color: transparent transparent transparent @colorCouleur3Fonce;
+				border-style: solid;
+				border-width: @menuArrowDim;
 			}
 		}
 	}
+}
+
+//comportement flèche différents selon les types de menu
+.navigation_menu ul.dropdown li.dm_dir > .link:hover:after,
+.navigation_menu ul.accordion li.dm_parent > .link:after {
+	right: @menuArrowOffsetX + @menuArrowDecal;
+	top: @menuArrowOffsetY + @menuArrowDecal;
+	border-color: @colorCouleur1 transparent transparent transparent;
+}
+
+
+/*
+ul.dropdown {
+	
 }
 
 //inversion de style automatique en fonction du conteneur
@@ -153,3 +158,4 @@ ul.dropdown {
 		}
 	}
 }
+*/
