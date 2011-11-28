@@ -1,0 +1,307 @@
+#CentreArticle{
+	float:				left;
+	margin:				0 0 0 5px;
+	width:				520px;
+	background-color:	#FFFFFF;
+}
+
+	#ArticleEntete {
+		float:			left;
+		margin-top	:	1em;
+		margin-bottom:	1em;
+	}
+	
+		#ArticleRubrique {
+			float:			left;
+			padding-top:	0.3em;
+		}
+		
+			#ArticleRubrique h3 {
+				font:			bold 100% verdana;
+				color:			#9F9A97;
+			}
+			
+			#ArticleRubrique h3 a {
+				text-decoration:	none;
+				text-transform:		uppercase;
+				font: 				bold 120% "Bitstream Vera Sans", verdana, arial, helvetica, sans-serif;
+			}
+			#developperVente #ArticleRubrique h3 a {
+				color:				#FFAA1E;
+			}
+			#mieuxGerer  #ArticleRubrique h3 a {
+				color:				#41A0D2;
+			}
+			#entreprendre #ArticleRubrique h3 a {
+				color:				#8CC832;
+			}
+		
+		#ArticleDate {
+			float:			right;
+			padding-top:	0.5em;
+			padding-right:	1em;
+			font-size:		90%;
+			color:			#B7B3B1;
+		}
+		
+		#ArticleFonctions {
+			float:		right;
+		}
+		
+		#ArticleBarre {
+			clear:		both;
+			margin-top:	4px;
+			font-size:	0%;
+			height:		4px;
+		}
+		#developperVente #ArticleBarre {
+			background:	#F07C00;
+		}
+		#mieuxGerer #ArticleBarre {
+			background:	#41A0D2;
+		}
+		#entreprendre #ArticleBarre {
+			background:	#8CC832;
+		}
+		
+	
+	#ArticleContenu {
+		font-size:100%;
+	}
+	
+		#ArticleTitre {
+			margin-bottom:		1em;
+			font:				bold 170% verdana;
+			color:				black;
+		}
+		
+		#ArticleImage {
+			float:		right;
+			clear:		right;
+			margin:		0 0 1em 0.5em;
+		}
+		
+		#ArticleSommaire {
+			float:		right;
+			clear:		right;
+			width:		300px;
+			margin:		0 0 2em 0.5em;
+			background:	#F5F5F5;
+		}
+		
+			#ArticleSommaire h4 {
+				padding-bottom:	0.3em;
+				font-size:		100%;
+				color:			#6D6661;
+			}
+			
+			#ArticleSommaire ul {
+				padding-left:	0.5em;
+				list-style:		none;
+			}
+			
+				#ArticleSommaire ul li {
+					padding-left:	7px;
+					background:		url('../images/PuceSommaire.gif') no-repeat 0% 0.4em;
+				}
+				
+					#ArticleSommaire ul li a {
+						text-decoration:	none;
+						font:				100% verdana;
+						color:				#9F9A97;
+					}
+		
+		#ArticlePub {
+			float:		right;
+			clear:		right;
+			margin:		0 0 1em 0.5em;
+			background-color: #E9E7E7;
+			text-align:	center;
+		}
+
+			#ArticlePub h4 {
+				width: 			295px;
+				color: 			#A39E9C;
+				font: 			500 110% verdana, "Bitstream Vera Sans", arial, helvetica, sans-serif;
+				text-align:		left;
+				letter-spacing: -1px;
+				line-height: 	20px;
+				padding-left: 	5px;
+			}
+			
+		#ArticleBoutonForum {
+			float:		right;
+			clear:		right;
+			width:		300px;
+			height: 	30px;
+			margin:		0 0 2em 0.5em;
+			border:		1px solid #BAB7B5;
+			background:	#E9E7E7;
+			text-align: center;
+		}
+		
+			#ArticleBoutonForum  a {
+				display: 		block;
+				width: 			95%;
+				height:			50%;
+				margin:			0.7em 0 0 0.7em;
+				padding-top:	0.2em;
+				color:			white;
+				font-size:		90%;
+				text-decoration:none;
+				font-weight: 	bold;
+				background: 	url('../images/ArticleBoutonForum.gif') no-repeat 100%;
+		}
+		
+		#ArticleIntroduction {
+			padding-bottom:	1em;
+			font-style:		italic;
+		}
+		
+		#ArticleTexte{
+			
+		}
+		
+			#ArticleTexte p {
+				padding-bottom:	0.5em;
+			}
+	
+	#ArticlePiedDePage {
+		margin-top:			0.5em;
+		padding-top:		0.5em;
+		border-style:		dotted;
+		border-width:		1px 0 0 0;
+		border-color:		#cfcccd;
+	}
+	
+		#ArticlePages {
+			color:			#6D6661;
+			font-weight:	bold;
+		}
+		
+		#ArticlePages ul {
+			display: 		inline;
+			list-style:		none;
+		}
+		
+			#ArticlePages ul li {
+				display: 	inline;
+			}
+		
+			#ArticlePages ul li a{
+				text-decoration:	none;
+				color:				#B7B3B1;
+			}
+			
+			#ArticlePages ul li.page a{
+				text-decoration:	none;
+				color:				#6D6661;
+			}
+			
+		#PagePrécédente {
+			display: 		inline;
+			padding-left:	2em;
+		}
+		
+		#PageSuivante {
+			display: 		inline;
+			padding-left:	1em;
+		}
+		
+		#ArticleLienSommaire {
+			padding-top:	0.3em;
+			margin-bottom:	15px;
+		}
+			
+			#ArticleLienSommaire a {
+				padding-right:		10px;
+				text-decoration:	none;
+				color:				#5793FB;
+				background:			url('../images/PuceLienSommaireArticle.gif') right center no-repeat;
+			}
+
+		#ArticleALireEgalement {
+			float:			left;
+			width:			255px;
+			padding-bottom:	5px;
+			border-style:	solid;
+			border-width:	1px;
+			border-color:	#8F8D8C;
+		}
+		
+			#ArticleALireEgalement h4 {
+				height:			16px;
+				padding-top:	0.1em;
+				padding-bottom:	0.15em;
+				color:			white;
+				text-align:		center;
+				font-size:		120%;
+			}
+			#entreprendre #ArticleALireEgalement h4 {
+				background:		#8CC832;
+			}
+			#mieuxGerer #ArticleALireEgalement h4 {
+				background:		#41A0D2;
+			}
+			#developperVente #ArticleALireEgalement h4 {
+				background:		#F07C00;
+			}
+
+			#ArticleALireEgalement ul {
+				padding-left:	0.5em;
+				list-style:		none;
+			}
+			
+				#ArticleALireEgalement ul li {
+					margin-top:		0.4em;
+					padding-left:	7px;
+					background:		url('../images/PuceIndicateurs.gif') no-repeat 0% 0.4em;
+				}
+				
+					#ArticleALireEgalement ul li a {
+						text-decoration:	none;
+						font:				90% verdana;
+						color:				#9F9A97;
+					}
+			
+			#ArticleALireEgalement .BlocRecherche {
+				margin:			0.5em 0.5em 0 0.5em;
+				text-align:		right;
+			}
+	
+				#ArticleALireEgalement .BlocRecherche a {
+					text-decoration:	none;
+					color:				#518DF5;
+					font-size:			90%;
+				}
+			
+/* Style des articles */
+.titreChapitre {
+	color: black;
+	font-size: 160%;
+	font-weight: bold;
+}
+
+.titreParagraphe {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	color: black;
+	font-size: 120%;
+	font-weight: bold;
+}
+
+.chapeauChapitre {
+	font-style: italic;
+	margin: 10px 0;
+}
+
+#ArticleTexte a {
+	text-decoration: none;
+	color: #6A6866;
+}
+#ArticleTexte a:hover {
+	text-decoration: underline;
+}
+#ArticleTitre .texteGrand {
+	font-size: 150% !important;
+}
