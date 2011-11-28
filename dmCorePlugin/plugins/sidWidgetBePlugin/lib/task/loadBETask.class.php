@@ -6,7 +6,7 @@ class loadBETask extends sfBaseTask {
         // // add your own arguments here
         $this->addArguments(array(
             new sfCommandArgument('verbose', sfCommandArgument::OPTIONAL, 'Verbose task'),
-            new sfCommandArgument('automatic', sfCommandArgument::OPTIONAL, 'Automatic, no confirmation'),
+            new sfCommandArgument('automatic', sfCommandArgument::OPTIONAL, 'Automatic : chargement des rubriques existantes'),
         ));
 
         $this->addOptions(array(
@@ -49,30 +49,33 @@ EOF;
         }        
 
 //-------------------------------------------------------------------------------------
-//    Chargement des rubriques de LEA dans la base de donnees locale
+//    Chargement des rubriques de LEA dans le répertoire et la base de donnees locale
 //-------------------------------------------------------------------------------------	
-	if (in_array("automatic", $arguments) || $this->askConfirmation(array("Chargement de l'arbo des dossiers rubrique/section de LEA \n dans le repertoire ".sfConfig::get('app_rep-local')." la base de donnees locale? (y/n)"), 'QUESTION_LARGE', true)) {
-	    $beginTime = microtime(true);
-	    $results = baseEditorialeTools::recupRubriqueSection();
-	    $this->logSection('### loadBE', 'Chargement des rubriques de LEA dans la base de donnees locale.' . ' ->' . (microtime(true) - $beginTime) . ' s');
-	    if (in_array("verbose", $arguments)) {
+        if (in_array("automatic", $arguments)) {
+            // pas de chargement des rubriques quand on est en mode automatic
+        } else {
+            if ($this->askConfirmation(array("Chargement de l'arbo des dossiers rubrique/section de LEA dans le repertoire " . sfConfig::get('app_rep-local') . " la base de donnees locale? (y/n)"), 'QUESTION_LARGE', true)) {
+                $beginTime = microtime(true);
+                $results = baseEditorialeTools::recupRubriqueSection();
+                $this->logSection('### loadBE', "Chargement de l'arbo des dossiers rubrique/section de LEA en local." . " ->" . (microtime(true) - $beginTime) . " s");
+                if (in_array("verbose", $arguments)) {
 
-		foreach ($results as $result) {
-		    foreach ($result as $log => $desc) {
-			$this->logSection(utf8_decode($log), utf8_decode($desc));
-		    }
-		}
-	    }
-	} else {
-	    $this->logSection('>>', 'Pas de chargement des rubriques en base de donnees locale.');
-	}
-
+                    foreach ($results as $result) {
+                        foreach ($result as $log => $desc) {
+                            $this->logSection($log, $desc);
+                        }
+                    }
+                }
+            } else {
+                $this->logSection('>>', 'Pas de chargement des rubriques en base de donnees locale.');
+            }
+        }
 	
 //-------------------------------------------------------------------------------------
 //    recuperation WGET des XML
 //-------------------------------------------------------------------------------------	
 	// chargement des XML et images de LEA ?
-	if ($this->askConfirmation(array('Charger les fichiers  XML dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
+	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Charger les fichiers  XML dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
 	    $results = baseEditorialeTools::recupFilesXmlLEA();
 	    $this->logSection('>>', 'Chargement des XML ...');
 	} else {
@@ -84,7 +87,7 @@ EOF;
 //    recuperation WGET des images 
 //-------------------------------------------------------------------------------------	
 	// chargement des images de LEA ?
-	if ($this->askConfirmation(array('Charger les fichiers images dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
+	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Charger les fichiers images dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
 	    $results = baseEditorialeTools::recupFilesImagesLEA();
 	    $this->logSection('>>', 'Chargement des images...');
 	} else {
@@ -94,16 +97,16 @@ EOF;
 //-------------------------------------------------------------------------------------
 //    ecriture des articles en base ?
 //-------------------------------------------------------------------------------------	
-	if ($this->askConfirmation(array('Lecture des fichiers XML locaux pour creer les articles dans la base de donnees locale? (y/n)'), 'QUESTION_LARGE', true)) {
+	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Lecture des fichiers XML locaux pour creer les articles dans la base de donnees locale? (y/n)'), 'QUESTION_LARGE', true)) {
 
 	    $beginTime = microtime(true);
-	    $results = baseEditorialeTools::recupArticlesLEA($options['idArticlePlusVieux'], $wgetActive);
+	    $results = baseEditorialeTools::recupArticlesLEA($options['idArticlePlusVieux']);
 	    $this->logSection('### loadBE', 'Chargement des articles en XML (filename > ' . $options['idArticlePlusVieux'] . ') de LEA dans la base editoriale.' . ' ->' . (microtime(true) - $beginTime) . ' s');
 	    if (in_array("verbose", $arguments)) {
 
 		foreach ($results as $result) {
 		    foreach ($result as $log => $desc) {
-			$this->logSection(utf8_decode($log), utf8_decode($desc));
+			$this->logSection($log, $desc);
 		    }
 		}
 	    }
@@ -111,11 +114,10 @@ EOF;
 	    $this->logSection('>>', 'La base de donnees locale ne sera pas modifiee.');
 	}
 
-
 //-------------------------------------------------------------------------------------
 //    ecriture des JSON ?
 //-------------------------------------------------------------------------------------	
-	if ($this->askConfirmation(array('Ecriture des fichiers JSON utilises par les sites ? (y/n)'), 'QUESTION_LARGE', true)) {
+	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Ecriture des fichiers JSON utilises par les sites ? (y/n)'), 'QUESTION_LARGE', true)) {
 	    $beginTime = microtime(true);
 	    $results = baseEditorialeTools::exportArticlesJson();
 	    $this->logSection('### loadBE', 'Export des articles par rubrique au format Json.' . ' ->' . (microtime(true) - $beginTime) . ' s');
@@ -123,15 +125,12 @@ EOF;
 
 		foreach ($results as $result) {
 		    foreach ($result as $log => $desc) {
-			$this->logSection(utf8_decode($log), utf8_decode($desc));
+			$this->logSection($log, $desc);
 		    }
 		}
 	    }
 	} else {
-	    $this->logSection('>>', 'Pas de fichiers JSON generes.');
+	    $this->logSection('>>', 'Pas de fichiers JSON genérés.');
 	}	
-	
-
     }
-
 }
