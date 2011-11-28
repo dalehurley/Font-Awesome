@@ -14,7 +14,7 @@ $imgLink='';
         $html.= _media($imgLink)
                 ->set('.image itemprop="image"')
                 ->alt($pageCabinet->getTitle())
-                ->width(myUser::gridGetContentWidth());
+                ->width(spLessCss::gridGetContentWidth());
         $html.= _close('div');
     }
     $html.= _open('span.wrapper');

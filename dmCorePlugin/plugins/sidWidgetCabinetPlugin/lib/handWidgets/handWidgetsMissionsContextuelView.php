@@ -143,9 +143,25 @@ class handWidgetsMissionsContextuelView extends dmWidgetPluginView {
                 }
 
                 break;
+            case 'pageCabinet/equipe':
+                break;
             default:
-            // hors context, on ne renvoie aucun article
+                $actuMissions = Doctrine_Query::create()
+                        ->from('SidCabinetMission p')
+                        ->select('*')
+                        ->where('p.is_active = ? ', array(true))
+                        ->orderBy('RANDOM()')
+                        ->limit($vars['nb'])
+                        ->execute();
+        
+        foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
+            // on compte le nbre de missions pour ne stocker que la quantité demandée
+            if (count($arrayMission) < $vars['nb']) {
+                $arrayMission[$actuMission->id] = $actuMission;
+            }
         }
+        }
+
 
         return $this->getHelper()->renderPartial('handWidgets', 'missionsContextuel', array(
                     'missions' => $arrayMission,
@@ -153,8 +169,8 @@ class handWidgetsMissionsContextuelView extends dmWidgetPluginView {
                     'titreLien' => $vars['titreLien'],
                     'chapo' => $vars['chapo'],
                     'length' => $vars['length'],
-            'titreMission' => $vars['titreMission'],
-            'nb' => $vars['nb']
+                    'titreMission' => $vars['titreMission'],
+                    'nb' => $vars['nb']
                 ));
     }
 

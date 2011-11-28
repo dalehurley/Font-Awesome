@@ -14,7 +14,7 @@ class renseignementsComponents extends myFrontModuleComponents
     $this->renseignements = $this->getRecord($query);
     	$idDmPage = sfContext::getInstance()->getPage()->id;
 	$dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-      $this->page =  $dmPage->module.'/'.$dmPage->action;
+      $this->page =  $dmPage->module.'/'.$dmPage->action.' - '.$dmPage->record_id;
   }
 
 

@@ -2,7 +2,7 @@
 
 class handWidgetsArticlesContextuelForm extends dmWidgetPluginForm {
 
-    public function configure() {
+    public function setup() {
         
         
 
@@ -18,7 +18,7 @@ class handWidgetsArticlesContextuelForm extends dmWidgetPluginForm {
                     'expanded' => false,
                     'add_empty' => '-- choisir rubrique --',
                     'label' => 'Rubrique'));
-        $this->validatorSchema['m_rubriques_list_1'] = new sfValidatorDoctrineChoice(array('model' => 'SidSection', 'multiple' => false));
+        $this->validatorSchema['m_rubriques_list_1'] = new sfValidatorDoctrineChoice(array('model' => 'SidSection', 'multiple' => false, 'required' => false, 'empty_value' => '0'));
 //	
         $this->widgetSchema['titreLien_1'] = new sfWidgetFormInputText(array('label' => 'Titre du lien'));
         $this->validatorSchema['titreLien_1'] = new sfValidatorString(array(
@@ -32,7 +32,8 @@ class handWidgetsArticlesContextuelForm extends dmWidgetPluginForm {
                     'expanded' => false,
                     'add_empty' => '-- choisir rubrique --',
             'label' => 'Rubrique'));
-        $this->validatorSchema['m_rubriques_list_2'] = new sfValidatorDoctrineChoice(array('model' => 'SidSection', 'multiple' => false, 'required' => false));
+        $this->validatorSchema['m_rubriques_list_2'] = new sfValidatorDoctrineChoice(array('model' => 'SidSection','multiple' => false, 'required' => false, 'empty_value' => '0'));
+//        $this->validatorSchema['m_rubriques_list_2'] = new sfValidatorInteger(array('required' => false));
 //	
         $this->widgetSchema['titreLien_2'] = new sfWidgetFormInputText(array('label' => 'Titre du lien'));
         $this->validatorSchema['titreLien_2'] = new sfValidatorString(array(
@@ -46,7 +47,7 @@ class handWidgetsArticlesContextuelForm extends dmWidgetPluginForm {
                     'expanded' => false,
                     'add_empty' => '-- choisir rubrique --',
             'label' => 'Rubrique'));
-        $this->validatorSchema['m_rubriques_list_3'] = new sfValidatorDoctrineChoice(array('model' => 'SidSection', 'multiple' => false, 'required' => false));
+        $this->validatorSchema['m_rubriques_list_3'] = new sfValidatorDoctrineChoice(array('model' => 'SidSection', 'multiple' => false, 'required' => false, 'empty_value' => '0'));
 //	
         $this->widgetSchema['titreLien_3'] = new sfWidgetFormInputText(array('label' => 'Titre du lien'));
         $this->validatorSchema['titreLien_3'] = new sfValidatorString(array(
@@ -74,7 +75,7 @@ class handWidgetsArticlesContextuelForm extends dmWidgetPluginForm {
 //            'chapo' => 'Choisir si on veut afficher le résumé de la page ou le contenu entier de la page'
         ));
 
-        parent::configure();
+        parent::setup();
     }
 
     public function getStylesheets() {
