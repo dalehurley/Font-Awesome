@@ -44,7 +44,7 @@
 	
 	//lancement lorsque le document est chargé
 	$(document).ready(function(){
-		dropdownCompatibility();
+		//dropdownCompatibility();
 	});
 	
 })(jQuery);

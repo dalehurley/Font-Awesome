@@ -1,12 +1,13 @@
 // _Dropdown.less
-// v0.8
-// Last Updated : 2011-08-25 11:00
-// Copyright : SID Presse | 2006-2008 Live Web Institute (http://www.lwis.net)
+// v1.0
+// Last Updated : 2011-11-28 16:45
+// Copyright : SID Presse | 2006-2008 Live Web Institute (http://www.lwis.net) | Stu Nicholls (http://www.cssplay.co.uk)
 // Author : Arnaud GAUDIN
 
 //Compatibilité navigateurs : 	Windows: IE6+, Opera7+, Firefox1+
 //								Mac OS: Safari2+, Firefox2+
 
+//Configuration de base du menu
 ul.dropdown,
 ul.dropdown li,
 ul.dropdown ul {
@@ -16,44 +17,146 @@ ul.dropdown ul {
 }
 
 ul.dropdown {
+	.link { background-color: #bbb; }
+	
+	//################################################
+	//########### 1 CONFIGURATION DE BASE ############
+	//################################################
+	
+	//définitions de la taille de police par défaut
+	font-size: @fontGlobalSize;
+	line-height: @gridBaseline;
+	
+	//gestion profondeur de placement
 	position: relative;
-	z-index: 597;
+	z-index: 100;
 	float: left;
 	
+	//gestion placement vertical
+	.dm_layout_left & {
+		float: left;
+		//rajout border-right invisible pour superposition
+		border-right: 1px solid transparent;
+	}
+	.dm_layout_right & {
+		float: right;
+		//rajout border-left invisible pour superposition
+		border-left: 1px solid transparent;
+	}
+	
+	ul {
+		position: absolute;
+		z-index: 150;
+		top: 100%;
+		left: 0;
+		
+		//gestion placement vertical
+		.dm_layout_left &, .dm_layout_right & { top: 0; }
+		.dm_layout_left & {
+			//débuggage comportement opposé
+			right: auto !important;
+			//rajout border-right invisible pour superposition
+			border-right: 1px solid transparent;
+		}
+		.dm_layout_right & {
+			//débuggage comportement opposé
+			left: auto !important;
+			//rajout border-left invisible pour superposition
+			border-left: 1px solid transparent;
+		}
+		
+		ul {
+			top: 0;
+			left: 100%;
+			z-index: 200;
+		}
+	}
+	
 	li {
-		position: relative;		//rajout debug pour bon placement initial
+		position: relative;
 		float: left;
 		line-height: @gridBaseline;
 		vertical-align: middle;
 		zoom: 1;
+		li { float: none; }
 		
-		//positionnement des liens (toujours ciblé par cette classe)
-		.link { position: relative; display:block; z-index: 601; }
+		//gestion placement vertical
+		.dm_layout_left &, .dm_layout_right & { float: none; }
+		.dm_layout_left & { text-align: left; }
+		.dm_layout_right & { text-align: right; }
+	}
+	
+	//positionnement des liens
+	.link { position: relative; display:block; z-index: 250; }
+	
+	//on configure le tableau afin qu'il n'entre pas en compte dans le design sous IE - requis par IE
+	table { position:absolute; top:0; left:0; border-collapse:collapse; }
+	
+	
+	//################################################
+	//################# 2 DIMENSIONS #################
+	//################################################
+	
+	//NIVEAU 0 : largeur automatique
+	li { width: auto; }
+	
+	//gestion placement vertical
+	.dm_layout_left & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarLeft; 0);
+	}
+	.dm_layout_right & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarRight; 0);
+	}
+	
+	//NIVEAU 1 et + : largeur fixe
+	ul {
+		@gridWidth(2; (@gridGutter*-1));
 		
-		&.hover, &:hover, &.touch {
-			position: relative;
-			z-index: 599;
-			cursor: default;
-			left: 0;
-			
-			& > ul { visibility: visible; }
+		.dm_layout_left & {
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteLeft(@gridCol_SidebarLeft; 0);
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			ul { @gridAbsoluteLeft(2; (@gridGutter*-1)); }
+		}
+		
+		.dm_layout_right & {
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteRight(@gridCol_SidebarRight; 0);
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			ul { @gridAbsoluteRight(2; (@gridGutter*-1)); }
 		}
 	}
 	
-	ul {
-		visibility: hidden;
-		position: absolute;
-		top: 100%;
-		left: 0;
-		z-index: 598;
-		//width: 100%;
-		//largeur du niveau
-		@gridWidth(2; (@gridGutter*-1));
-		
-		li { float: none; }
-		ul {
-			top: 0;
-			left: 100%;				// changé de 99% à 100% ==> débugguer trou rollOver
+	
+	//################################################
+	//################# 2 AFFICHAGE ##################
+	//################################################
+	
+	//GESTION AFFICHAGE (remplacer visibility par une fonction configurable)
+	ul { visibility: hidden; }
+	
+	//GESTION DES APPARITIONS SUR 5 NIVEAUX
+	:hover ul {
+		visibility: visible;
+		ul { visibility: hidden; }
+		:hover ul {
+			visibility:visible;
+			ul { visibility: hidden; }
+			:hover ul {
+				visibility:visible;
+				ul { visibility: hidden; }
+				:hover ul {
+					visibility:visible;
+					ul { visibility: hidden; }
+					:hover ul {
+						visibility:visible;
+						ul { visibility: hidden; }
+						//ZONE D'INSERTION DE NIVEAUX SUPPLÉMENTAIRES
+					}
+				}
+			}
 		}
 	}
 }
