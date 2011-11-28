@@ -10,6 +10,9 @@
 class bandeauComponents extends myFrontModuleComponents {
 
     public function executeShow() {
+		//insertion de la CSS du widget du theme courant
+		$this->getResponse()->addStylesheet(sfConfig::get('sf_css_path_template').'/Widgets/BandeauSmartBandeau/BandeauSmartBandeau.css');
+		
         //    $this->groupe = $this->getRequest()->getParameter('id');
         $query = $this->getShowQuery();
         $this->gererMonBandeau = $this->getRecord($query);

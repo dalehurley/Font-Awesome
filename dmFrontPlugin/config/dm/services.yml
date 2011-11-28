@@ -40,7 +40,8 @@ parameters:
 
   widget_view.class:          dmWidgetBaseView      # Responsible for rendering a widget.
 
-  layout_helper.class:        dmFrontLayoutHelper   # Responsible for rendering the front layout.
+  #layout_helper.class:        dmFrontLayoutHelper   # Responsible for rendering the front layout.
+  layout_helper.class:        myFrontLayoutHelper   # Responsible for rendering the front layout.
 
   page_helper.class:          dmFrontPageBaseHelper # Responsible for rendering the front content.
   page_helper.view_class:     dmFrontPageViewHelper # Simple rendering for normal users

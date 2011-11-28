@@ -25,15 +25,18 @@ dmWidgetNavigation:
 
   breadCrumb:
     cache:              true
+    view_class:         myWidgetNavigationBreadCrumbView
 
   menu:
     cache:              true
+    view_class:         myWidgetNavigationMenuView
     
 dmWidgetSearch:
     
   form:
     cache:              true
     public_name:        Search form
+    view_class:         myWidgetSearchFormView
     
   results:
     cache:              false

@@ -1,21 +1,10 @@
 default:
 
-  http_metas:
-    content-type: text/html
-    #activer si option ChromeFrame désactivée dans le .htaccess
-    #X-UA-Compatible: IE=edge,chrome=1
-
   stylesheets:
     - style
 
   javascripts:
-    - front
-    # js permettant de lancer des traitements : menu... etc 
-    - /theme/js/theme.js   
-    <?php if(sfConfig::get('sf_environment') == 'dev'){ echo '- ' . sfConfig::get('sf_js_path_framework') . '/less-grid/less-grid-4-vsid.js
-'; } ?>
-    <?php /* if (sfContext::getInstance()->getUser()->isSuperAdmin()){ echo '- /js/adminFront.js
-'; } */ ?>
+    - front 
 
   has_layout:     true
-  layout:         layout  
+  layout:         layout

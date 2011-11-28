@@ -60,4 +60,5 @@ all:
       - dmFlowPlayer
       - dmWidgetExternalVideo
       - dmCoreTranslator
+      - sidSPLessCss
     
