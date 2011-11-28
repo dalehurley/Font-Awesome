@@ -49,6 +49,9 @@ EOF;
             exit;
         }        
 
+//------------------------------------------------------------------------------------------------------------
+//    Chargement des rubriques et sections dans la base de donnees locale (en fonction des fichiers json)
+//------------------------------------------------------------------------------------------------------------
         if (in_array("rubriques", $arguments)) {
             $results = baseEditorialeTools::loadRubriqueSectionJson();
 
@@ -79,8 +82,10 @@ EOF;
                     }
                 }
             }            
-            
-            // désactivation des rubriques et section sans enfants
+
+//------------------------------------------------------------------------------------------------------------
+//    désactivation des rubriques et section sans enfants
+//------------------------------------------------------------------------------------------------------------            
             $results = baseEditorialeTools::RubriquesSectionsDeactivation();
 
             if (in_array("verbose", $arguments)) {
