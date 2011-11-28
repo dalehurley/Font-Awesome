@@ -18,7 +18,7 @@
 
       SidActuArticle:
         model: SidActuArticle
-        name: "Mon Article|Mes Articles"
+        name: "Actualité du Cabinet|Actualités du Cabinet"
         credentials: article_contenu
         page: true
 #        parent: SidActuRubrique

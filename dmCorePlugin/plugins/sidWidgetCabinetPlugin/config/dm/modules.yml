@@ -31,9 +31,9 @@
       components:
 #        show:
         list:
-        listParTags:
-          filters: [ dmTag ]
-        blocPhotosEquipe:
+#        listParTags:
+#          filters: [ dmTag ]
+#        blocPhotosEquipe:
     Recrutement:
       model: SidCabinetRecrutement
       page: true
@@ -53,14 +53,14 @@
       components:
         show:
         list:
-        listParTags:
-          filters: [ dmTag ]
-        listArticlesAvecMemeTag:
-          cache:              true
-        listMembresEquipeAvecMemeTag:
-          cache:              true
-        listActusCabinetAvecMemeTag:
-          cache:              true
-        listSitesUtilesAvecMemeTag:
-          cache:              true
+#        listParTags:
+#          filters: [ dmTag ]
+#        listArticlesAvecMemeTag:
+#          cache:              true
+#        listMembresEquipeAvecMemeTag:
+#          cache:              true
+#        listActusCabinetAvecMemeTag:
+#          cache:              true
+#        listSitesUtilesAvecMemeTag:
+#          cache:              true
 
