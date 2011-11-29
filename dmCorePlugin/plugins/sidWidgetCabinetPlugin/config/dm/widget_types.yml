@@ -19,4 +19,20 @@ handWidgets:
     cache:               true
     public_name:         (H) Page du cabinet
     
+  missionsList:
+    cache:              true
+    public_name:        (H) Liste des missions
+    
+  missionShow:
+    cache:              true
+    public_name:        (H) Pages des missions
+    
+  recrutementsList:
+    cache:              true
+    public_name:        (H) Liste des recrutements
+    
+  recrutementShow:
+    cache:              true
+    public_name:        (H) Pages des recrutements
+    
         
