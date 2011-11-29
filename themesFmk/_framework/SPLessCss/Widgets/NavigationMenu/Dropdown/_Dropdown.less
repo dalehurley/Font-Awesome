@@ -147,6 +147,16 @@ ul.dropdown {
 		}
 	}
 	
+	//gestion du debug
+	//.dm_layout_right & > li:nth-child(1),
+	.dm_layout_centerTop & > li:nth-child(1) {
+		& > ul,
+		& > ul > li:nth-child(1) > ul {
+			opacity: 1 !important;
+			visibility: visible !important;
+		}
+	}
+	
 	//GESTION DES APPARITIONS SUR 8 NIVEAUX
 	:hover ul ul,
 	:hover ul :hover ul ul,

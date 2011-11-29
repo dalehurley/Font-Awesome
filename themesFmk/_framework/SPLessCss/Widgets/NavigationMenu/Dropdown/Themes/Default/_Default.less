@@ -24,13 +24,46 @@ ul.dropdown, ul.accordion {
 	li{ font-weight: bold; }
 	ul li { font-weight: normal; }
 	
+	//rajout bordure du haut et sur les côtés
+	#dm_page .dm_layout_left &, #dm_page .dm_layout_left & ul { border-left: 1px solid @colorCouleur1Clair; }
+	#dm_page .dm_layout_right &, #dm_page .dm_layout_right & ul { border-left: 1px solid @colorCouleur1Clair; }
+	#dm_page .dm_layout_centerTop &, #dm_page .dm_layout_centerTop & ul { border-left: 1px solid @colorCouleur1Clair; }
+	
+	//MODIFICATIONS DE DIMENSIONS POUR AJOUTS DE BORDURES SUR LES CÔTÉS
+	//gestion placement vertical
+	#dm_page .dm_layout_centerTop & {
+		ul {
+			margin-left: -1px;
+			@gridWidth(2; (@gridGutter*-1 +1px));
+		}
+		ul ul {
+			@gridWidth(2; (@gridGutter*-1));
+		}
+	}
+	#dm_page .dm_layout_left & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarLeft; 1px);
+		ul { margin-left: -2px; }
+		ul ul { margin-left: -1px; }
+	}
+	#dm_page .dm_layout_right & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarRight; 1px);
+		ul { margin-right: -1px; }
+		ul ul { margin-right: 0; }
+	}
+	
 	//gestion des liens
 	.link {
 		background-color: @colorCouleur3Clair;
-		padding: @menuDropdownPadV @menuDropdownPadH @menuDropdownPadV @gridGutter;
+		//padding: @menuDropdownPadV @menuDropdownPadH @menuDropdownPadV @gridGutter;
+		padding: @gridBaseline/2 @menuDropdownPadH @menuDropdownPadV @gridGutter;
 		border-style: solid;
-		border-width: 1px 1px 1px 0;
-		border-color: @colorCouleur3ClairSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup;
+		//border-width: 1px 1px 1px 0;
+		//border-color: @colorCouleur3ClairSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup;
+		border-width: 0 1px 1px 0;
+		border-color: @colorCouleur1Clair;
+		//border-color: yellow red blue orange;
 		color: @colorCouleur3Fonce;
 		text-decoration: none;
 		
@@ -46,6 +79,24 @@ ul.dropdown, ul.accordion {
 			@transitionCompress(background-color, color; .2s; ease-in-out;0);
 		}
 	}
+	
+	//décalage vertical pour compenser la bordure
+	ul { .dm_layout_left &, .dm_layout_right &, .dm_layout_centerTop & { margin-top: -1px; } }
+	
+	//suppression bordure de gauche pour les cellules de premier niveau
+	//& > li > .link { border-left-width: 0; }
+	
+	//suppression du décalage pour les premiers
+	li.first {
+		& > .link { border-top-width: 1px; }
+		.dm_layout_left &, .dm_layout_right & { ul { margin-top: 0; } }
+	}
+	& > li.first {
+		& > .link, li.first > .link {
+			padding-top: @menuDropdownPadV;
+		}
+	}
+	.dm_layout_centerTop & ul li.first > .link { padding-top: @gridBaseline/2; }
 	
 	li {
 		//création de la flèche avec des bordures
@@ -86,6 +137,7 @@ ul.dropdown, ul.accordion {
 
 //comportement flèche différents selon les types de menu
 ul.dropdown li.dm_dir > .link:hover:after,
+ul.dropdown li.dm_dir:hover > .link:after,
 ul.accordion li.dm_parent > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
@@ -150,9 +202,7 @@ ul.accordion li.dm_parent > .link:after {
 		}
 	}
 }
-*/
 
-/*
 .csstransitions.csstransforms {
 	ul.dropdown li.dm_dir {
 		&:after {
@@ -182,11 +232,6 @@ ul.accordion li.dm_parent > .link:after {
 		}
 	}
 }
-*/
-
-
-
-/*
 
 //ajout des transitions pour navigateurs récents
 .csstransitions.opacity {

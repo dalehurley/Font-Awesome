@@ -9,10 +9,15 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 	public function getStylesheets() {
 		$stylesheets = parent::getStylesheets();
 		
-		//lien vers le js associé au menu
-        $cssLink = sfConfig::get('sf_css_path_template'). '/Widgets/NavigationMenu/NavigationMenu.css';
-		//chargement de la CSS si existante
-        if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
+		//récupération des variables de la vue
+		$vars = $this->getViewVars();
+		//lien vers les css associées au menu
+        $cssLink1 = sfConfig::get('sf_css_path_template'). '/Widgets/NavigationMenu/NavigationMenu.css';
+		$cssLink2 = sfConfig::get('sf_css_path_template'). '/Widgets/NavigationMenu/NavigationMenu.' . $vars['menuType'] . '.css';
+		
+		//chargement des CSS si existantes
+        if (is_file(sfConfig::get('sf_web_dir') . $cssLink1)) $stylesheets[] = $cssLink1;
+        if (is_file(sfConfig::get('sf_web_dir') . $cssLink2)) $stylesheets[] = $cssLink2;
 		
 		return $stylesheets;
 	}
@@ -20,7 +25,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 	public function getJavascripts() {
 		$javascripts = parent::getJavascripts();
 		
-		// get the view vars processed from the form
+		//récupération des variables de la vue
         $vars = $this->getViewVars();
 		//lien vers le js associé au menu
         $jsLink = sfConfig::get('sf_js_path_framework') . '/navigationMenu/' . $vars['menuType'] . '.js';
