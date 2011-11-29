@@ -1,0 +1,22 @@
+// BandeauSmartBandeau.less
+// v1.0
+// Last Updated : 2011-11-25 15:55
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/BaseTheme/Widgets/_Widgets.less";
+
+.bandeau_smart_bandeau {
+	.bandeau_show {
+		color: @colorCouleur3Fonce;
+		font-weight: bold;
+	}
+}
+#dm_page {
+	.dm_page_content, .dm_layout_left, .dm_layout_right {
+		.bandeau_smart_bandeau {
+			.dm_widget_inner{ padding-right: 0; padding-left: 0; }
+		}
+	}
+}

@@ -1,8 +1,10 @@
 <?php 
-// Vars: $gererMonBandeau 
+// Vars: $gererMonBandeau
+
+use_javascript('/sidWidgetBandeauPlugin/js/jquery.marquee.js');
+//<script type="text/javascript" src="/sidWidgetBandeauPlugin/js/jquery.marquee.js"></script> 
 
 echo '
-<script type="text/javascript" src="/sidWidgetBandeauPlugin/js/jquery.marquee.js"></script> 
 <script type="text/javascript">
     $(document).ready(function (){
         $(\'#marquee\').marquee();

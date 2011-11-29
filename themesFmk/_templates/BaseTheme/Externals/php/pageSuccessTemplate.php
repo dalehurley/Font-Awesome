@@ -24,12 +24,8 @@ $currentGabarit = $sf_context->getPage()->get('gabarit');
 if ($currentGabarit == 'default' || $currentGabarit == '') {
     $currentGabarit = spLessCss::getLessParam('templateGabarit');
 }
-// affichage en div.lessDebug
-if ($isDev) {
-    echo dm_get_widget('main', 'lessDebug', array(
-        'css_class' => ''
-    ));
-}
+//affichage du widget de DEBUG du framework
+if ($isDev) echo dm_get_widget('sidSPLessCss', 'debug', array());
 ?>
 
 <div id="dm_page"<?php $isEditMode && print ' class="edit"' ?>>

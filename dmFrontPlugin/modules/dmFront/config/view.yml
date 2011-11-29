@@ -1,0 +1,10 @@
+all:
+
+  http_metas:
+    content-type: text/html
+    #activer si option ChromeFrame désactivée dans le .htaccess
+    #X-UA-Compatible: IE=edge,chrome=1
+    
+  javascripts:
+    <?php if(sfConfig::get('sf_environment') == 'dev'){ echo '- ' . sfConfig::get('sf_js_path_framework') . '/less-grid/less-grid-4-vsid.js
+#'; } ?>

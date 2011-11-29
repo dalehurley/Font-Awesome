@@ -5,5 +5,4 @@ Content:
     main:                   # the main module is required, and must not be removed.
       components:
         header:
-        footer:
-        lessDebug:              # module de deboggage pour themeFmk          
+        footer:        

@@ -35,62 +35,68 @@ class baseEditorialeTools {
 
                 foreach ($sidSections as $sidSection) {
 
-                    // on récupère les articles de cette section
-                    $articles = Doctrine_Core::getTable('SidArticle')->findBySectionId($sidSection->id);
+                    // le fichier json de la section en cours
+                    $fileRubriqueName = $rubriqueDir . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
+                    // on supprime le fichier .json
+                    if (is_file($fileRubriqueName))
+                        unlink($fileRubriqueName);
 
-                    $arrayJson = array();
-                    $j = 0;
-                    foreach ($articles as $article) {
-                        $arrayJson[$j]['filename'] = $article->filename;
-                        $arrayJson[$j]['isActive'] = $article->getIsActive();
-                        $arrayJson[$j]['createdAt'] = $article->createdAt;
-                        $arrayJson[$j]['updatedAt'] = $article->updatedAt;
-                        foreach ($arrayLangs as $lang) {
-                            $arrayJson[$j]['title'][$lang] = $article->getTranslation()->$lang->title;
-                            $arrayJson[$j]['chapeau'][$lang] = $article->getTranslation()->$lang->chapeau;
+                    if (!$sidSection->isActive) {
+                        $return[$i]['KO : Section non active'] = $sidSection;
+                    } else {
+                        // on récupère les articles de cette section
+                        $articles = Doctrine_Core::getTable('SidArticle')->findBySectionId($sidSection->id);
+
+                        $arrayJson = array();
+                        $j = 0;
+                        foreach ($articles as $article) {
+                            $arrayJson[$j]['filename'] = $article->filename;
+                            $arrayJson[$j]['isActive'] = $article->getIsActive();
+                            $arrayJson[$j]['createdAt'] = $article->createdAt;
+                            $arrayJson[$j]['updatedAt'] = $article->updatedAt;
+                            foreach ($arrayLangs as $lang) {
+                                $arrayJson[$j]['title'][$lang] = $article->getTranslation()->$lang->title;
+                                $arrayJson[$j]['chapeau'][$lang] = $article->getTranslation()->$lang->chapeau;
+                            }
+                            // récup des tags
+                            $listTags = '';
+                            foreach ($article->getTags() as $tag) {
+                                $listTags .= $tag . ',';
+                            }
+
+                            $arrayJson[$j]['tags'] = $listTags;
+                            //$return[$j]['tags >'] = $listTags;
+
+                            $j++;
                         }
-                        // récup des tags
-                        $listTags = '';
-                        foreach ($article->getTags() as $tag) {
-                            $listTags .= $tag . ',';
+
+                        /*
+                         * Ecrire dans un fichier json
+                         */
+                        try {
+                            if (sfConfig::get('app_rep-local-json') != '') {
+                                $repBaseEditoriale = sfConfig::get('app_rep-local-json');
+                            } else {
+                                $return[$j]['KO : Merci de spécifier la variable app_rep-local'] = '';
+                            }
+
+                            $rubriqueDir = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title;
+                            if (!is_dir($rubriqueDir)) {
+                                mkdir($rubriqueDir);
+                                $return[$j]['DIR+'] = $rubriqueDir;
+                            }
+
+                            $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
+
+                            fputs($fileRubrique, json_encode($arrayJson));
+                            fclose($fileRubrique);
+
+                            $return[$j]['OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
+                            $nbArticleTotal += count($arrayJson);
+                        } catch (Exception $e) {
+
+                            $return[$j]['ERROR : Exception reçue pour le fichier ' . $fileRubriqueName] = $e->getMessage();
                         }
-
-                        $arrayJson[$j]['tags'] = $listTags;
-                        //$return[$j]['tags >'] = $listTags;
-
-                        $j++;
-                    }
-
-                    /*
-                     * Ecrire dans un fichier json
-                     */
-                    try {
-                        if (sfConfig::get('app_rep-local-json') != '') {
-                            $repBaseEditoriale = sfConfig::get('app_rep-local-json');
-                        } else {
-                            $return[$j]['KO : Merci de spécifier la variable app_rep-local'] = '';
-                        }
-
-                        $rubriqueDir = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title;
-                        if (!is_dir($rubriqueDir)) {
-                            mkdir($rubriqueDir);
-                            $return[$j]['DIR+'] = $rubriqueDir;
-                        }
-                        $fileRubriqueName = $rubriqueDir . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
-
-                        if (is_file($fileRubriqueName))
-                            unlink($fileRubriqueName);
-
-                        $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
-
-                        fputs($fileRubrique, json_encode($arrayJson));
-                        fclose($fileRubrique);
-
-                        $return[$j]['OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
-                        $nbArticleTotal += count($arrayJson);
-                    } catch (Exception $e) {
-
-                        $return[$j]['ERROR : Exception reçue pour le fichier ' . $fileRubriqueName] = $e->getMessage();
                     }
                 }
             }
@@ -120,7 +126,6 @@ class baseEditorialeTools {
 
             $i = 1;
             foreach ($localRubriquesJson as $j => $localRubrique) {
-
 
                 // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
                 $bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitle($localRubrique);
@@ -410,7 +415,7 @@ class baseEditorialeTools {
                 // Vérification présence du dossier
                 $localRubrique = transfertTools::scandirServeur(sfConfig::get('app_rep-local'));
                 $rubriqueDir = sfConfig::get('app_rep-local') . $FTPrubrique;
-                
+
                 if (!in_array($FTPrubrique, $localRubrique)) {
                     if (!is_dir($rubriqueDir)) {
                         mkdir($rubriqueDir);
@@ -443,7 +448,7 @@ class baseEditorialeTools {
 
                     $pos = strpos($FTPsection, '.xml');
                     if ($pos === false && $FTPsection != 'images') { // pas de dossier images (parfois fourni par LEA...)
-                        $nbSections ++;
+                        $nbSections++;
                         // Vérification présence du dossier
                         $localSection = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $FTPrubrique);
                         if (!in_array($FTPsection, $localRubrique)) {
@@ -475,12 +480,11 @@ class baseEditorialeTools {
                     }
                 }
 
-                // si pas de sections alors on supprime 
+                // si pas de sections alors on supprime  la rubrique
                 if ($nbSections == 0) {
-                    
-                    $command = "rm -R ".$rubriqueDir; // le dossier rubrique local
+                    $command = "rm -R " . $rubriqueDir; // le dossier rubrique local
                     exec($command, $output);
-                    
+
                     $return[$i]['DIR-'] = $rubriqueDir;
                     $bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitleAndIsActive($FTPrubrique);
                     $bdRubrique->delete();  // la rubrique en base

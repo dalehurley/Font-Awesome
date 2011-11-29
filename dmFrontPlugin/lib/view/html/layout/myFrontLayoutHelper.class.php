@@ -16,11 +16,12 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		return
 		$this->renderHttpMetas().
 		$this->renderMetas().
+		$this->renderXmlNsHeadTags().
+		$this->renderStylesheets().		
 		$this->renderFavicon().
 		$this->renderTouchIcon().
-		$this->renderStylesheets().
-		$this->renderHeadJavascripts().
-		$this->renderIeHtml5Fix();
+		$this->renderIeHtml5Fix().
+		$this->renderHeadJavascripts();
 	}
 	
 	//Ajout de la variable de gabarit dans les classes CSS appelÃ©es dans le body (par Lionel)
@@ -28,7 +29,6 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
         $options = dmString::toArray($options);
 		
         if ($this->page->get('gabarit') == '' || $this->page->get('gabarit') == 'default') {
-            //$bodyClass = 'default';
 			$bodyClass = spLessCss::getLessParam('templateGabarit');
 		} else {
             $bodyClass = $this->page->get('gabarit');
@@ -49,16 +49,14 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	 */
 	public function renderIeHtml5Fix()
 	{
-		if ($this->isHtml5())
-		{
+		if ($this->isHtml5()) {
 			$html = '<script src="' . sfConfig::get('sf_js_path_framework').'/modernizr/modernizr-2.0.6.custom.min.js"></script>';
 			$html.= "\n";
 			$html.= '<script src="' . sfConfig::get('sf_js_path_framework').'/modernizr/polyfills.js"></script>';
 			$html.= "\n";
 			$html.= '<!--[if (gte IE 6)&(lte IE 8)]><script src="'.sfConfig::get('sf_js_cdn_cdnjs').'/selectivizr/1.0.2/selectivizr-min.js"></script><![endif]-->';
-		}
-		else
-		{
+			$html.= "\n";
+		} else {
 			$html = '';
 		}
 		return $html;
@@ -134,7 +132,7 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 				</script>";*/
 		//Remplacement par la version optimisée avec Modernizr.load
 		$html = "<script>
-					window._gaq = [['_setAccount','".$gaKey."'],['_trackPageview'],['_trackPageLoadTime']];
+					window._gaq = [['_setAccount','".$gaKey."'],['_trackPageview']];
 					Modernizr.load({
 						load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
 					});
