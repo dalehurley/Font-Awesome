@@ -40,10 +40,15 @@
 		//LoVe's Hurts Fade Away
 		&:hover, &:focus { color: @colorCouleur1; background-color: @colorCouleur3ClairSup; }
 		&:active { color: @colorCouleur1Moyen; }
+		
+		//ajout des transitions pour navigateurs récents
+		.csstransitions & {
+			@transitionCompress(background-color, color; .2s; ease-in-out;0);
+		}
 	}
 	
-	//création de la flèche avec des bordures
 	li {
+		//création de la flèche avec des bordures
 		&.dm_dir > .link {
 			&:after {
 				position: absolute;
@@ -57,6 +62,23 @@
 				border-color: transparent transparent transparent @colorCouleur3Fonce;
 				border-style: solid;
 				border-width: @menuArrowDim;
+				
+				//ajout des transitions pour navigateurs récents
+				.csstransitions.csstransforms & {
+					@transitionCompress(all; .15s; ease-in; 0);
+					@origin(25%; 50%);
+				}
+				
+				//inversion de style automatique en fonction du conteneur
+				.dm_layout_right & {
+					right: auto !important;
+					left: @menuArrowOffsetX;
+					border-color: transparent @colorCouleur3Fonce transparent transparent;
+					
+					.csstransitions.csstransforms & {
+						@origin(75%; 50%);
+					}
+				}
 			}
 		}
 	}
@@ -68,33 +90,103 @@
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
 	border-color: @colorCouleur1 transparent transparent transparent;
+	
+	//ajout des transitions pour navigateurs récents
+	.csstransitions.csstransforms & {
+		right: @menuArrowOffsetX;
+		top: @menuArrowOffsetY;
+		border-color: transparent transparent transparent @colorCouleur1;
+		@rotate(90deg);
+	}
+	
+	//inversion de style automatique en fonction du conteneur
+	.dm_layout_right & {
+		right: auto !important;
+		left: @menuArrowOffsetX + @menuArrowDecal;
+		
+		.csstransitions.csstransforms & {
+			left: @menuArrowOffsetX;
+			border-color: transparent @colorCouleur1 transparent transparent;
+			@rotate(-90deg);
+		}
+	}
 }
-
 
 /*
-ul.dropdown {
-	
-}
-
-//inversion de style automatique en fonction du conteneur
-.dm_layout_right {
-	ul.dropdown {
-		li.dm_dir{
+.csstransitions.csstransforms {
+	ul.accordion {
+		.dm_dir > .link {
 			&:after {
-				right: auto !important;
-				left: @menuArrowOffsetX;
-				border-color: transparent @colorCouleur3Fonce transparent transparent;
+				@transitionCompress(all; .15s; ease-in; 0);
+				@origin(25%; 50%);
 			}
-			&.hover, &:hover, &.touch {
+		}
+		.dm_parent > .link {
+			&:after {
+				right: @menuArrowOffsetX;
+				bottom: @menuArrowOffsetY;
+				top: @menuArrowOffsetY;
+				border-color: transparent transparent transparent @colorCouleur1;
+				@rotate(90deg);
+			}
+		}
+	}
+	.dm_layout_right {
+		ul.accordion {
+			.dm_dir > .link {
+				&:after {
+					@origin(75%; 50%);
+				}
+			}
+			.dm_parent > .link {
 				&:after {
 					right: auto !important;
-					left: @menuArrowOffsetX + @menuArrowDim/2;
-					border-color: @colorCouleur3Fonce transparent transparent transparent;
+					left: @menuArrowOffsetX;
+					top: @menuArrowOffsetY;
+					border-color: transparent @colorCouleur3Fonce transparent transparent;
+					@rotate(-90deg);
 				}
 			}
 		}
 	}
 }
+*/
+
+/*
+.csstransitions.csstransforms {
+	ul.dropdown li.dm_dir {
+		&:after {
+			@transitionCompress(all; .15s; ease-in; 0);
+		}
+		&.hover, &:hover, &.touch {
+			&:after {
+				right: @menuArrowOffsetX;
+				bottom: @menuArrowOffsetY;
+				border-color: transparent transparent transparent @colorCouleur1;
+				@origin(25%; 50%);
+				@rotate(90deg);
+			}
+		}
+	}
+	.dm_layout_right {
+		ul.dropdown li.dm_dir {
+			&.hover, &:hover, &.touch {
+				&:after {
+					right: auto !important;
+					left: @menuArrowOffsetX;
+					border-color: transparent @colorCouleur3Fonce transparent transparent;
+					@origin(75%; 50%);
+					@rotate(-90deg);
+				}
+			}
+		}
+	}
+}
+*/
+
+
+
+/*
 
 //ajout des transitions pour navigateurs récents
 .csstransitions.opacity {
@@ -129,33 +221,5 @@ ul.dropdown {
 	}
 }
 
-.csstransitions.csstransforms {
-	ul.dropdown li.dm_dir {
-		&:after {
-			@transitionCompress(all; .15s; ease-in; 0);
-		}
-		&.hover, &:hover, &.touch {
-			&:after {
-				right: @menuArrowOffsetX;
-				bottom: @menuArrowOffsetY;
-				border-color: transparent transparent transparent @colorCouleur1;
-				@origin(25%; 50%);
-				@rotate(90deg);
-			}
-		}
-	}
-	.dm_layout_right {
-		ul.dropdown li.dm_dir {
-			&.hover, &:hover, &.touch {
-				&:after {
-					right: auto !important;
-					left: @menuArrowOffsetX;
-					border-color: transparent @colorCouleur3Fonce transparent transparent;
-					@origin(75%; 50%);
-					@rotate(-90deg);
-				}
-			}
-		}
-	}
-}
+
 */
