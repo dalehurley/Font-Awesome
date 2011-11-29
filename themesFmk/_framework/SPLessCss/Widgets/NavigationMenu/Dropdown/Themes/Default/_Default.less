@@ -19,7 +19,7 @@
 @menuArrowOffsetX: (@offM - @menuArrowDecal);
 @menuArrowOffsetY: @menuDropdownPadV + (@gridBaseline - @menuArrowDim*2)/2 + 1px;
 
-.navigation_menu {
+ul.dropdown, ul.accordion {
 	//gestion grosseur texte
 	ul li{ font-weight: bold; }
 	ul ul li { font-weight: normal; }
@@ -85,8 +85,8 @@
 }
 
 //comportement flèche différents selon les types de menu
-.navigation_menu ul.dropdown li.dm_dir > .link:hover:after,
-.navigation_menu ul.accordion li.dm_parent > .link:after {
+ul.dropdown li.dm_dir > .link:hover:after,
+ul.accordion li.dm_parent > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
 	border-color: @colorCouleur1 transparent transparent transparent;

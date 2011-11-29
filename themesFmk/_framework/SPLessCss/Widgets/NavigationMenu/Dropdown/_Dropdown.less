@@ -133,10 +133,53 @@ ul.dropdown {
 	//################# 2 AFFICHAGE ##################
 	//################################################
 	
-	//GESTION AFFICHAGE (remplacer visibility par une fonction configurable)
-	ul { visibility: hidden; }
+	ul {
+		visibility: hidden;
+		.csstransitions.opacity & {
+			opacity: 0;
+			//@transitionCompress(visibility, opacity; 0, .2s; ease-out; .2s, 0);
+			//safari ne supporte pas la déclaration séparé complète différencié en pseudo classe
+			//@transition(visibility, opacity; 0, .2s; ease-out; .2s, 0);
+			@transitionProperty(visibility, opacity);
+			@transitionDuration(0, .2s);
+			@transitionFunction(ease-out);
+			@transitionDelay(.2s, 0);
+		}
+	}
 	
-	//GESTION DES APPARITIONS SUR 5 NIVEAUX
+	//GESTION DES APPARITIONS SUR 8 NIVEAUX
+	:hover ul ul,
+	:hover ul :hover ul ul,
+	:hover ul :hover ul :hover ul ul,
+	:hover ul :hover ul :hover ul :hover ul ul,
+	:hover ul :hover ul :hover ul :hover ul :hover ul ul,
+	:hover ul :hover ul :hover ul :hover ul :hover ul :hover ul ul,
+	:hover ul :hover ul :hover ul :hover ul :hover ul :hover ul :hover ul ul,
+	:hover ul :hover ul :hover ul :hover ul :hover ul :hover ul :hover ul :hover ul ul {
+		visibility: hidden;
+		.csstransitions.opacity & {
+			opacity: 0;
+			@transitionDelay(.2s, 0);
+		}
+	}
+	
+	:hover ul,
+	:hover ul :hover ul,
+	:hover ul :hover ul :hover ul,
+	:hover ul :hover ul :hover ul :hover ul,
+	:hover ul :hover ul :hover ul :hover ul :hover ul,
+	:hover ul :hover ul :hover ul :hover ul :hover ul :hover ul,
+	:hover ul :hover ul :hover ul :hover ul :hover ul :hover ul :hover ul,
+	:hover ul :hover ul :hover ul :hover ul :hover ul :hover ul :hover ul :hover ul {
+		visibility: visible;
+		.csstransitions.opacity & {
+			opacity: 1;
+			@transitionDelay(0, 0);
+		}
+	}
+	
+	//Ancienne notation répétitive
+	/*
 	:hover ul {
 		visibility: visible;
 		ul { visibility: hidden; }
@@ -158,4 +201,5 @@ ul.dropdown {
 			}
 		}
 	}
+	*/
 }
