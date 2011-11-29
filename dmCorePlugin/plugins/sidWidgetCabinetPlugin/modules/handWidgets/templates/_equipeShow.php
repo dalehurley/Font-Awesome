@@ -11,7 +11,7 @@ if (count($equipes)) { // si nous avons des actu articles
         // si $ville est nulle, on ouvre la div, on place le nom de la ville et on ouvre le ul.elements
         if ($ville == "") {
             echo _open('div.blocImplentation');
-            echo _tag('h4.title', __('Implentation') . $equipe->ImplentationId->ville);
+            echo _tag('h4.title', __('Implantation') .' : '. $equipe->ImplentationId->ville);
             echo _open('ul.elements');
 
             $ville = $equipe->ImplentationId->ville;
@@ -29,7 +29,7 @@ if (count($equipes)) { // si nous avons des actu articles
             echo _close('ul.elements');
             echo _close('div.blocimplentation');
             echo _open('div.blocImplentation');
-            echo _tag('h4.title', __('Implentation') . ' : ' . $equipe->ImplentationId->ville);
+            echo _tag('h4.title', __('Implantation') . ' : ' . $equipe->ImplentationId->ville);
             echo _open('ul.elements');
             include_partial("objectPartials/equipeShow", array("equipe" => $equipe));
 
