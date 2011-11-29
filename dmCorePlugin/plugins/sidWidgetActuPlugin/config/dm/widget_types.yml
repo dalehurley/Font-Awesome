@@ -6,8 +6,11 @@ handWidgets:
     
   actuArticlesList:
     cache:              true
-    public_name:        (H) Actu articles liste
+    public_name:        (H) Liste des actus du Cabinet
     
+  actuArticleShow:
+    cache:              true
+    public_name:        (H) Page des actus du Cabinet
 
     
         
