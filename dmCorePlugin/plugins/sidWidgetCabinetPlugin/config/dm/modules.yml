@@ -52,7 +52,7 @@
       credentials: mission
       components:
         show:
-        list:
+#        list:
 #        listParTags:
 #          filters: [ dmTag ]
 #        listArticlesAvecMemeTag:
