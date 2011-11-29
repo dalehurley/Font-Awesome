@@ -9,9 +9,17 @@
  * 
  * 
  * 
+ * 
  */
 class equipeComponents extends myFrontModuleComponents
 {
 
-  
+  public function executeList(dmWebRequest $request)
+  {
+    $query = $this->getListQuery();
+    
+    $this->equipePager = $this->getPager($query);
+  }
+
+
 }
