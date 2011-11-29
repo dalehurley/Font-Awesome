@@ -47,8 +47,8 @@
 @transitionCompress(@property: all; @duration: .5s; @function: ease; @delay: 0){
 	-webkit-transition: @property @duration @function @delay;
 	-khtml-transition: @property @duration @function @delay;
-	//firefox 7.0 ne supporte pas encore la déclaration compressée donc séparation
-	//-moz-transition: @property @duration @function /* @delay*/;
+	//firefox 9.0 ne supporte pas encore la déclaration compressée avec des virgules entre les propriétés, donc séparation
+	//-moz-transition: @property @duration @function @delay;
 	-moz-transition-property: @property;
 	-moz-transition-duration: @duration;
 	-moz-transition-timing-function: @function;
