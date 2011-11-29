@@ -38,7 +38,6 @@ class handWidgetsListAgendaView extends dmWidgetPluginView {
         // j'enlève le .xml du nom du fichier et je récupère les objets aynat le même filename dans la Bdd
         foreach ($articleAgendas as $articleAgenda) {
             $filename = substr($articleAgenda, 0, strpos($articleAgenda, '.xml'));
-//            echo $filename.'<br />';
             $agenda = dmDb::table('SidArticle')->findOneByFilename($filename);
             $arrayAgenda[] = $agenda;
         }
@@ -48,11 +47,8 @@ class handWidgetsListAgendaView extends dmWidgetPluginView {
             $updated[$key] = $value['updated_at'];
         }
         if (isset($updated))
-        array_multisort($updated, SORT_DESC, $arrayAgenda);
-//        echo count($arrayAgenda);
-//        if(count($arrayAgenda) >= $vars['nbArticles'] ){
+            array_multisort($updated, SORT_DESC, $arrayAgenda);
         $arrayAgenda = array_slice($arrayAgenda, 0, $vars['nbArticles']);
-        //}
 
         // Je personnalise le titre du widget
         if ($vars['title'] == '') {
@@ -63,7 +59,7 @@ class handWidgetsListAgendaView extends dmWidgetPluginView {
 
         return $this->getHelper()->renderPartial('handWidgets', 'listAgenda', array(
                     'agendas' => $arrayAgenda, // tableau d'objet
-                    'nbArticles' => $vars['nbArticles'], 
+                    'nbArticles' => $vars['nbArticles'],
                     'rubrique' => '/' . $rubrique[0]->slug, // pour aller sur la page de la rubrique
                     'rubriqueTitle' => $title, // pour avoir le TITRE de la page  
                     'lien' => $vars['lien'],
