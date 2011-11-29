@@ -12,27 +12,47 @@ class stringTools {
      * @param type $max_length : Longueur maximale de la chaine retournée, si 0 alors la chaîne est retournée complète
      * @param type $replacement : Texte de remplacement
      * @param type $trunc_at_space : Si ce paramètre vaut TRUE, str_truncate() tentera de ne pas tronquer la chaine au milieu d'un mot
+     * @param type $html : Si ce paramètre vaut TRUE, on enléve les balises HTML et on retourne la chaine de texte tronquée (pour des cas particulier)
      * @return type 
      */
-    public static function str_truncate($string, $max_length = 0, $replacement = '', $trunc_at_space = true) {
-	if (strip_tags($string) != $string){ // si la chaîne est formaté en HTML alors on l'a renvoi non tronquée
-            return $string;
+    public static function str_truncate($string, $max_length = 0, $replacement = '', $trunc_at_space = true, $html = false) {
+        if ($html == false) {
+            if (strip_tags($string) != $string) { // si la chaîne est formaté en HTML alors on l'a renvoi non tronquée
+                return $string;
+            }
+
+
+            if ($max_length != 0) {
+                $max_length -= strlen($replacement);
+                $string_length = strlen($string);
+
+                if ($string_length <= $max_length)
+                    return $string;
+
+                if ($trunc_at_space && ($space_position = strrpos($string, ' ', $max_length - $string_length)))
+                    $max_length = $space_position;
+
+                return substr_replace($string, $replacement, $max_length);
+            } else {
+                return $string;
+            }
+        }  else {
+            $stringSimple = strip_tags($string, ' ');
+            if ($max_length != 0) {
+                $max_length -= strlen($replacement);
+                $string_length = strlen($stringSimple);
+
+                if ($string_length <= $max_length)
+                    return $string;
+
+                if ($trunc_at_space && ($space_position = strrpos($stringSimple, ' ', $max_length - $string_length)))
+                    $max_length = $space_position;
+
+                return substr_replace($stringSimple, $replacement, $max_length);
+            } else {
+                return $string;
+            }
         }
-        
-        if ($max_length != 0) {
-	    $max_length -= strlen($replacement);
-	    $string_length = strlen($string);
-
-	    if ($string_length <= $max_length)
-		return $string;
-
-	    if ($trunc_at_space && ($space_position = strrpos($string, ' ', $max_length - $string_length)))
-		$max_length = $space_position;
-
-	    return substr_replace($string, $replacement, $max_length);
-	} else {
-	    return $string;
-	}
     }
 
     public static function strVerticalize($s) {
