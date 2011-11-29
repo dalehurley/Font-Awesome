@@ -45,7 +45,7 @@ class SidCabinetEquipeAdminForm extends BaseSidCabinetEquipeForm {
                 ));
         
         $this->validatorSchema['implentation_id'] = new sfValidatorDoctrineChoice(array('model' => 'SidCoordName'));
-        $this->validatorSchema['m_rubriques_list'] = new sfValidatorDoctrineChoice(array('model' => 'SidRubrique'));
+        $this->validatorSchema['m_rubriques_list'] = new sfValidatorDoctrineChoice(array('model' => 'SidRubrique','required' => false));
 
         $this->widgetSchema->setHelps(array(
             'm_rubriques_list' => 'Vous pouvez lier ce membre de votre equipe à une rubrique (Affichage contextuel).',

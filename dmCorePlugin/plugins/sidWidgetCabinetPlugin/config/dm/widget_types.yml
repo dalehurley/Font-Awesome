@@ -35,4 +35,7 @@ handWidgets:
     cache:              true
     public_name:        (H) Pages des recrutements
     
+  equipeShow:
+    cache:              true
+    public_name:        (H) Page des membres du cabinet
         
