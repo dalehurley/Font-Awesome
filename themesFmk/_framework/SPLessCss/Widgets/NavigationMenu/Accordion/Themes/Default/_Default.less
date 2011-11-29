@@ -4,6 +4,12 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
+
+//Le style est identique au menu dropdown, on importe donc celui-ci puis on l'étend éventuellement.
+@import "_framework/SPLessCss/Widgets/NavigationMenu/Dropdown/Themes/Default/_Default.less";
+
+
+/*
 //CALCUL DES DIMENSIONS POUR LE MENU
 //calcul des paddings
 @menuAccordionPadH: (@gridGutter -1px);
@@ -56,11 +62,11 @@ ul.accordion {
 			border-style: solid;
 			border-width: @menuArrowDim;
 		}
-		/*&:hover:after {
-			right: @menuArrowOffsetX + @menuArrowDecal;
-			top: @menuArrowOffsetY + @menuArrowDecal;
-			border-color: @colorCouleur1 transparent transparent transparent;
-		}*/
+		//&:hover:after {
+		//	right: @menuArrowOffsetX + @menuArrowDecal;
+		//	top: @menuArrowOffsetY + @menuArrowDecal;
+		//	border-color: @colorCouleur1 transparent transparent transparent;
+		//}
 	}
 	.dm_parent > .link {
 		&:after {
@@ -81,11 +87,11 @@ ul.accordion {
 				left: @menuArrowOffsetX;
 				border-color: transparent @colorCouleur3Fonce transparent transparent;
 			}
-			/*&:hover:after {
-				right: auto !important;
-				left: @menuArrowOffsetX + @menuArrowDecal;
-				border-color: @colorCouleur3Fonce transparent transparent transparent;
-			}*/
+			//&:hover:after {
+			//	right: auto !important;
+			//	left: @menuArrowOffsetX + @menuArrowDecal;
+			//	border-color: @colorCouleur3Fonce transparent transparent transparent;
+			//}
 		}
 		.dm_parent > .link {
 			&:after {
@@ -113,14 +119,14 @@ ul.accordion {
 				@transitionCompress(all; .15s; ease-in; 0);
 				@origin(25%; 50%);
 			}
-			/*&:hover:after {
-				right: @menuArrowOffsetX;
-				bottom: @menuArrowOffsetY;
-				top: @menuArrowOffsetY;
-				border-color: transparent transparent transparent @colorCouleur1;
-				@origin(25%; 50%);
-				@rotate(90deg);
-			}*/
+			//&:hover:after {
+			//	right: @menuArrowOffsetX;
+			//	bottom: @menuArrowOffsetY;
+			//	top: @menuArrowOffsetY;
+			//	border-color: transparent transparent transparent @colorCouleur1;
+			//	@origin(25%; 50%);
+			//	@rotate(90deg);
+			//}
 		}
 		.dm_parent > .link {
 			&:after {
@@ -138,14 +144,14 @@ ul.accordion {
 				&:after {
 					@origin(75%; 50%);
 				}
-				/*&:hover:after {
-					right: auto !important;
-					left: @menuArrowOffsetX;
-					top: @menuArrowOffsetY;
-					border-color: transparent @colorCouleur3Fonce transparent transparent;
-					@origin(75%; 50%);
-					@rotate(-90deg);
-				}*/
+				//&:hover:after {
+				//	right: auto !important;
+				//	left: @menuArrowOffsetX;
+				//	top: @menuArrowOffsetY;
+				//	border-color: transparent @colorCouleur3Fonce transparent transparent;
+				//	@origin(75%; 50%);
+				//	@rotate(-90deg);
+				//}
 			}
 			.dm_parent > .link {
 				&:after {
@@ -159,3 +165,4 @@ ul.accordion {
 		}
 	}
 }
+*/
