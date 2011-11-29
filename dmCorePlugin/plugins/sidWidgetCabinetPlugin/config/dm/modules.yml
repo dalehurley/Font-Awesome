@@ -22,8 +22,8 @@
       page: true
       credentials: page_cabinet
       components:
-        list:
-        show:
+#        list:
+#        show:
     Equipe:
       model: SidCabinetEquipe
       page: true
@@ -39,9 +39,9 @@
       page: true
       credentials: recrutement
       components:
-       show:
-       list:
-       annonceRecrutement:
+#       show:
+#       list:
+#       annonceRecrutement:
 
 "Les Missions ou Services":
   "Description des missions ou services":
@@ -51,7 +51,7 @@
       name: "Mission/Services|Missions/Services"
       credentials: mission
       components:
-        show:
+#        show:
 #        list:
 #        listParTags:
 #          filters: [ dmTag ]

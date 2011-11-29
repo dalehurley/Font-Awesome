@@ -27,4 +27,12 @@ handWidgets:
     cache:              true
     public_name:        (H) Pages des missions
     
+  recrutementsList:
+    cache:              true
+    public_name:        (H) Liste des recrutements
+    
+  recrutementShow:
+    cache:              true
+    public_name:        (H) Pages des recrutements
+    
         
