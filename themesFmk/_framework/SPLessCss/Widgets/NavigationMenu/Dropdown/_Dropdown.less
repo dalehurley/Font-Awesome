@@ -7,6 +7,10 @@
 //Compatibilité navigateurs : 	Windows: IE6+, Opera7+, Firefox1+
 //								Mac OS: Safari2+, Firefox2+
 
+//CALCUL DES DIMENSIONS POUR LE MENU
+//nombre de colonnes pour le contenu des cellules
+@menuDropdownCols: 3;
+
 //Configuration de base du menu
 ul.dropdown,
 ul.dropdown li,
@@ -31,16 +35,20 @@ ul.dropdown {
 	z-index: 100;
 	float: left;
 	
+	//rajout border-right invisible pour superposition
+	ul { border-right: 1px solid transparent; }
+	
 	//gestion placement vertical
 	.dm_layout_left & {
 		float: left;
 		//rajout border-right invisible pour superposition
-		border-right: 1px solid transparent;
+		&, & ul { border-right: 1px solid transparent; }
 	}
+	
 	.dm_layout_right & {
 		float: right;
 		//rajout border-left invisible pour superposition
-		border-left: 1px solid transparent;
+		&, & ul { border-left: 1px solid transparent; border-right: 0; }
 	}
 	
 	ul {
@@ -51,18 +59,9 @@ ul.dropdown {
 		
 		//gestion placement vertical
 		.dm_layout_left &, .dm_layout_right & { top: 0; }
-		.dm_layout_left & {
-			//débuggage comportement opposé
-			right: auto !important;
-			//rajout border-right invisible pour superposition
-			border-right: 1px solid transparent;
-		}
-		.dm_layout_right & {
-			//débuggage comportement opposé
-			left: auto !important;
-			//rajout border-left invisible pour superposition
-			border-left: 1px solid transparent;
-		}
+		//débuggage comportements opposés
+		.dm_layout_left & { right: auto !important; }
+		.dm_layout_right & { left: auto !important; }
 		
 		ul {
 			top: 0;
@@ -111,20 +110,20 @@ ul.dropdown {
 	
 	//NIVEAU 1 et + : largeur fixe
 	ul {
-		@gridWidth(2; (@gridGutter*-1));
+		@gridWidth(@menuDropdownCols; (@gridGutter*-1));
 		
 		.dm_layout_left & {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteLeft(@gridCol_SidebarLeft; 0);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
-			ul { @gridAbsoluteLeft(2; (@gridGutter*-1)); }
+			ul { @gridAbsoluteLeft(@menuDropdownCols; (@gridGutter*-1)); }
 		}
 		
 		.dm_layout_right & {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteRight(@gridCol_SidebarRight; 0);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
-			ul { @gridAbsoluteRight(2; (@gridGutter*-1)); }
+			ul { @gridAbsoluteRight(@menuDropdownCols; (@gridGutter*-1)); }
 		}
 	}
 	
@@ -148,14 +147,16 @@ ul.dropdown {
 	}
 	
 	//gestion du debug
-	//.dm_layout_right & > li:nth-child(1),
-	.dm_layout_centerTop & > li:nth-child(1) {
-		& > ul,
-		& > ul > li:nth-child(1) > ul {
-			opacity: 1 !important;
-			visibility: visible !important;
-		}
-	}
+	//.dm_layout_left & > li:nth-child(2) {
+	//.dm_layout_right & > li:nth-child(1) {
+	//.dm_layout_centerTop & > li:nth-child(1) {
+	//	& > ul,
+	//	& > ul > li:nth-child(1) > ul,
+	//	& > ul > li:nth-child(1) > ul > li:nth-child(2) > ul {
+	//		opacity: 1 !important;
+	//		visibility: visible !important;
+	//	}
+	//}
 	
 	//GESTION DES APPARITIONS SUR 8 NIVEAUX
 	:hover ul ul,

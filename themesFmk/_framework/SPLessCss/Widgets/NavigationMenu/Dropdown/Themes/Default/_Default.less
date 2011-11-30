@@ -8,50 +8,75 @@
 //								Mac OS: Safari2+, Firefox2+
 
 //CALCUL DES DIMENSIONS POUR LE MENU
+//nombre de colonnes pour le contenu des cellules
+@menuDropdownCols: 3;
 //calcul des paddings
 @menuDropdownPadH: (@gridGutter -1px);
 @menuDropdownPadV: (@gridBaseline/2 - 1px);
 //calcul dimensions flèche
-@menuArrowDim: @gridBaseline/3;
+@menuArrowColor: @colorCouleur1Fonce;
+@menuArrowColorSup: @colorCouleur1;
+//@menuArrowDim: @gridBaseline/3;
+@menuArrowDim: 4px;
 //offset de décalage de positionnement
 @menuArrowDecal: @menuArrowDim/2;
 //positionnement initial à droite 
 @menuArrowOffsetX: (@offM - @menuArrowDecal);
 @menuArrowOffsetY: @menuDropdownPadV + (@gridBaseline - @menuArrowDim*2)/2 + 1px;
+//couleur de la bordure de séparation du menu
+@menuBorderColor: @colorCouleur1Clair;
+
+
+ul.dropdown {
+	//modifications de dimensions pour ajouts de bordures sur les côtés, et compensation décalage
+	ul {
+		@gridWidth(@menuDropdownCols; (@gridGutter*-1 +1px));
+		margin-left: -1px;
+		//on rajoute 1px en largeur par la suite afin de permettre une superposition des côtés
+		ul {
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
+		}
+	}
+	
+	#dm_page .dm_layout_left & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarLeft; 1px);
+		//on décale de 2px car les menus de gauche ont une bordure de superposition dès le premier niveau
+		ul {
+			margin-left: -2px;
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
+		}
+		ul ul { margin-left: -1px; }
+	}
+	#dm_page .dm_layout_right & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarRight; 1px);
+		ul {
+			margin-right: -1px;
+			margin-left: 0;
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
+		}
+		ul ul { margin-right: 0; }
+	}
+	
+	//rajout bordure en haut sur les menus et gestion décalage
+	#dm_page & ul,
+	#dm_page .dm_layout_left &,
+	#dm_page .dm_layout_right & {
+		li.first > .link { padding-top: @gridBaseline/2; border-top: 1px solid @menuBorderColor; }
+		margin-top: -1px;
+		li.first > ul { margin-top: 0; }
+	}
+}
+
 
 ul.dropdown, ul.accordion {
 	//gestion grosseur texte
 	li{ font-weight: bold; }
 	ul li { font-weight: normal; }
 	
-	//rajout bordure du haut et sur les côtés
-	#dm_page .dm_layout_left &, #dm_page .dm_layout_left & ul { border-left: 1px solid @colorCouleur1Clair; }
-	#dm_page .dm_layout_right &, #dm_page .dm_layout_right & ul { border-left: 1px solid @colorCouleur1Clair; }
-	#dm_page .dm_layout_centerTop &, #dm_page .dm_layout_centerTop & ul { border-left: 1px solid @colorCouleur1Clair; }
-	
-	//MODIFICATIONS DE DIMENSIONS POUR AJOUTS DE BORDURES SUR LES CÔTÉS
-	//gestion placement vertical
-	#dm_page .dm_layout_centerTop & {
-		ul {
-			margin-left: -1px;
-			@gridWidth(2; (@gridGutter*-1 +1px));
-		}
-		ul ul {
-			@gridWidth(2; (@gridGutter*-1));
-		}
-	}
-	#dm_page .dm_layout_left & {
-		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarLeft; 1px);
-		ul { margin-left: -2px; }
-		ul ul { margin-left: -1px; }
-	}
-	#dm_page .dm_layout_right & {
-		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarRight; 1px);
-		ul { margin-right: -1px; }
-		ul ul { margin-right: 0; }
-	}
+	//rajout bordure à gauche sur les menus
+	#dm_page &, #dm_page & ul { border-left: 1px solid @menuBorderColor; }
 	
 	//gestion des liens
 	.link {
@@ -62,7 +87,7 @@ ul.dropdown, ul.accordion {
 		//border-width: 1px 1px 1px 0;
 		//border-color: @colorCouleur3ClairSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup;
 		border-width: 0 1px 1px 0;
-		border-color: @colorCouleur1Clair;
+		border-color: @menuBorderColor;
 		//border-color: yellow red blue orange;
 		color: @colorCouleur3Fonce;
 		text-decoration: none;
@@ -80,24 +105,6 @@ ul.dropdown, ul.accordion {
 		}
 	}
 	
-	//décalage vertical pour compenser la bordure
-	ul { .dm_layout_left &, .dm_layout_right &, .dm_layout_centerTop & { margin-top: -1px; } }
-	
-	//suppression bordure de gauche pour les cellules de premier niveau
-	//& > li > .link { border-left-width: 0; }
-	
-	//suppression du décalage pour les premiers
-	li.first {
-		& > .link { border-top-width: 1px; }
-		.dm_layout_left &, .dm_layout_right & { ul { margin-top: 0; } }
-	}
-	& > li.first {
-		& > .link, li.first > .link {
-			padding-top: @menuDropdownPadV;
-		}
-	}
-	.dm_layout_centerTop & ul li.first > .link { padding-top: @gridBaseline/2; }
-	
 	li {
 		//création de la flèche avec des bordures
 		&.dm_dir > .link {
@@ -110,7 +117,7 @@ ul.dropdown, ul.accordion {
 				height: 0;
 				right: @menuArrowOffsetX;
 				top: @menuArrowOffsetY;
-				border-color: transparent transparent transparent @colorCouleur3Fonce;
+				border-color: transparent transparent transparent @menuArrowColor;
 				border-style: solid;
 				border-width: @menuArrowDim;
 				
@@ -124,7 +131,7 @@ ul.dropdown, ul.accordion {
 				.dm_layout_right & {
 					right: auto !important;
 					left: @menuArrowOffsetX;
-					border-color: transparent @colorCouleur3Fonce transparent transparent;
+					border-color: transparent @menuArrowColor transparent transparent;
 					
 					.csstransitions.csstransforms & {
 						@origin(75%; 50%);
@@ -141,13 +148,13 @@ ul.dropdown li.dm_dir:hover > .link:after,
 ul.accordion li.dm_parent > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
-	border-color: @colorCouleur1 transparent transparent transparent;
+	border-color: @menuArrowColorSup transparent transparent transparent;
 	
 	//ajout des transitions pour navigateurs récents
 	.csstransitions.csstransforms & {
 		right: @menuArrowOffsetX;
 		top: @menuArrowOffsetY;
-		border-color: transparent transparent transparent @colorCouleur1;
+		border-color: transparent transparent transparent @menuArrowColorSup;
 		@rotate(90deg);
 	}
 	
@@ -158,7 +165,7 @@ ul.accordion li.dm_parent > .link:after {
 		
 		.csstransitions.csstransforms & {
 			left: @menuArrowOffsetX;
-			border-color: transparent @colorCouleur1 transparent transparent;
+			border-color: transparent @menuArrowColorSup transparent transparent;
 			@rotate(-90deg);
 		}
 	}
