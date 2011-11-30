@@ -106,7 +106,7 @@
 	$(document).ready(function(){
 		
 		//DEV EN ATTENDANT CHAMP DE SÉLECTION DANS LE WIDGET
-		$('.dm_layout_left, .dm_layout_right').find('ul.dropdown').removeClass('dropdown').addClass('accordion');
+		//$('.dm_layout_left, .dm_layout_right').find('ul.dropdown').removeClass('dropdown').addClass('accordion');
 		
 		accordionSetup();
 	});
