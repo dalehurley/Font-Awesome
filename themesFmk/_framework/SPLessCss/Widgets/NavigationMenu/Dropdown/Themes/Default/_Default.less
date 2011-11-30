@@ -33,7 +33,7 @@ ul.dropdown, ul.accordion {
 	
 	//gestion des liens
 	.link {
-		background-color: @colorCouleur3Clair;
+		background-color: @colorCouleur3ClairSup;
 		//padding: @menuDropdownPadV @menuDropdownPadH @menuDropdownPadV @gridGutter;
 		padding: @gridBaseline/2 @menuDropdownPadH @menuDropdownPadV @gridGutter;
 		border-style: solid;
@@ -45,11 +45,11 @@ ul.dropdown, ul.accordion {
 		color: @colorCouleur3Fonce;
 		text-decoration: none;
 		
-		&.dm_current { color: @colorCouleur1Moyen; }
+		&.dm_current { &, &:hover { color: @colorCouleur1; } }
 		&.dm_inactive { color: @colorCouleur3; }
 		
 		//LoVe's Hurts Fade Away
-		&:hover, &:focus { color: @colorCouleur1; background-color: @colorCouleur3ClairSup; }
+		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
 		&:active { color: @colorCouleur1Moyen; }
 		
 		//ajout des transitions pour navigateurs récents
@@ -177,5 +177,16 @@ ul.accordion {
 	#dm_page & {
 		& > li.first > .link { border-top: 1px solid @menuBorderColor; }
 		margin-top: -1px;
+	}
+	
+	li.dm_parent {
+		& > .link {
+			background-color: @colorCouleur1;
+			color: @colorCouleur3Clair;
+		}
+		/*& > ul > li .link {
+			background-color: @colorCouleur3Clair;
+			&:hover { background-color: @colorCouleur3ClairSup; }
+		}*/
 	}
 }
