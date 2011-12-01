@@ -59,19 +59,16 @@ ul.dropdown {
 	}
 	
 	//couleur de la flèche
-	@menuDropdownArrowColor: @colorCouleur1Fonce;
-	@menuDropdownArrowColorSup: @colorCouleur1;
-	
 	li.dm_dir {
 		& > .link:after {
-			border-color: transparent transparent transparent @menuDropdownArrowColor;
-			.dm_layout_right & { border-color: transparent @menuDropdownArrowColor transparent transparent; }
+			border-color: transparent transparent transparent @menuArrowColor;
+			.dm_layout_right & { border-color: transparent @menuArrowColor transparent transparent; }
 		}
 		& > .link:hover:after,
 		&:hover > .link:after {
-			border-color: @menuDropdownArrowColorSup transparent transparent transparent;
-			.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuDropdownArrowColorSup; }
-			.csstransitions.csstransforms .dm_layout_right & { border-color: transparent @menuDropdownArrowColorSup transparent transparent; }
+			border-color: @menuArrowColorSup transparent transparent transparent;
+			.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
+			.csstransitions.csstransforms .dm_layout_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
 		}
 	}
 }

@@ -25,31 +25,31 @@ ul.accordion {
 	}
 	
 	li.dm_parent {
-		//couleur du lien activé
-		& > .link,
-		li.dm_parent > .link {
-			background-color: @colorCouleur1;
-			color: @colorCouleur3Clair;
-		}
-		
 		//couleur de fond des autres liens
 		& > ul > li > .link {
 			background-color: @colorCouleur3Clair;
 			color: @colorCouleur3;
+			&:hover {
+				//calcul couleur intermédiaire
+				@h1: hue(@colorCouleur3MoyenSup);
+				@s1: saturation(@colorCouleur3MoyenSup);
+				@l1: lightness(@colorCouleur3MoyenSup);
+				@l2: lightness(@colorCouleur3Clair);
+				@l3: (@l2 - @l1) * 2 / 3 + @l1;
+				background-color: hsl(@h1,@s1,@l3);
+				color: @colorCouleur3Sup;
+			}
 		}
 	}
 	
 	//couleur de la flèche
-	@menuAccordionArrowColor: @colorCouleur1Fonce;
-	@menuAccordionArrowColorSup: @colorCouleur1Clair;
-	
 	li.dm_dir > .link:after {
-		border-color: transparent transparent transparent @menuAccordionArrowColor;
-		.dm_layout_right & { border-color: transparent @menuAccordionArrowColor transparent transparent; }
+		border-color: transparent transparent transparent @menuArrowColor;
+		.dm_layout_right & { border-color: transparent @menuArrowColor transparent transparent; }
 	}
 	li.dm_parent > .link:after {
 		border-color: @menuDropdownArrowColorSup transparent transparent transparent;
-		.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuAccordionArrowColorSup; }
-		.csstransitions.csstransforms .dm_layout_right & { border-color: transparent @menuAccordionArrowColorSup transparent transparent; }
+		.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
+		.csstransitions.csstransforms .dm_layout_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
 	}
 }
