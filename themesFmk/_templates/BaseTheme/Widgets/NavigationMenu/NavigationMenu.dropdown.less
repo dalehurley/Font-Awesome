@@ -7,8 +7,71 @@
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
+//Config du widget courant
+@import "_templates/BaseTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
+
 //Importation des classes de composition du menu
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Dropdown/_Dropdown.less";
 
-//Importation du thème par défault de l'accordion (il inclut celui de dropdown)
-@import "_framework/SPLessCss/Widgets/NavigationMenu/Dropdown/Themes/Default/_Default.less";
+
+ul.dropdown {
+	//rajout bordure à gauche sur les menus
+	#dm_page &, #dm_page & ul { border-left: 1px solid @menuBorderColor; }
+	
+	//modifications de dimensions pour ajouts de bordures sur les côtés, et compensation décalage
+	ul {
+		@gridWidth(@menuDropdownCols; (@gridGutter*-1 +1px));
+		margin-left: -1px;
+		//on rajoute 1px en largeur par la suite afin de permettre une superposition des côtés
+		ul {
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
+		}
+	}
+	
+	#dm_page .dm_layout_left & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarLeft; 1px);
+		//on décale de 2px car les menus de gauche ont une bordure de superposition dès le premier niveau
+		ul {
+			margin-left: -2px;
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
+		}
+		ul ul { margin-left: -1px; }
+	}
+	#dm_page .dm_layout_right & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarRight; 1px);
+		ul {
+			margin-right: -1px;
+			margin-left: 0;
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
+		}
+		ul ul { margin-right: 0; }
+	}
+	
+	//rajout bordure en haut sur les menus et gestion décalage
+	#dm_page & ul,
+	#dm_page .dm_layout_left &,
+	#dm_page .dm_layout_right & {
+		li.first > .link { padding-top: @gridBaseline/2; border-top: 1px solid @menuBorderColor; }
+		margin-top: -1px;
+		li.first > ul { margin-top: 0; }
+	}
+	
+	//couleur de la flèche
+	@menuDropdownArrowColor: @colorCouleur1Fonce;
+	@menuDropdownArrowColorSup: @colorCouleur1;
+	
+	li.dm_dir {
+		& > .link:after {
+			border-color: transparent transparent transparent @menuDropdownArrowColor;
+			.dm_layout_right & { border-color: transparent @menuDropdownArrowColor transparent transparent; }
+		}
+		& > .link:hover:after,
+		&:hover > .link:after {
+			border-color: @menuDropdownArrowColorSup transparent transparent transparent;
+			.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuDropdownArrowColorSup; }
+			.csstransitions.csstransforms .dm_layout_right & { border-color: transparent @menuDropdownArrowColorSup transparent transparent; }
+		}
+	}
+}

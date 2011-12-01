@@ -7,12 +7,124 @@
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
+//Config du widget courant
+@import "_templates/BaseTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
+
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/NavigationMenu/_NavigationMenu.less";
 
 //Importation des classes de composition du menu
 //@import "_framework/SPLessCss/Widgets/NavigationMenu/Dropdown/_Dropdown.less";
 //@import "_framework/SPLessCss/Widgets/NavigationMenu/Dropdown/Themes/Default/_Default.less";
+
+ul.dropdown, ul.accordion {
+	//gestion grosseur texte
+	li {
+		font-weight: bold;
+		text-transform: uppercase;
+		word-spacing: -0.05em;
+		letter-spacing: -0.05em;
+	}
+	ul li {
+		font-weight: normal;
+		text-transform: capitalize;
+	}
+	
+	//gestion des liens
+	.link {
+		background-color: @colorCouleur3ClairSup;
+		//padding: @menuDropdownPadV @menuDropdownPadH @menuDropdownPadV @gridGutter;
+		padding: @gridBaseline/2 @menuDropdownPadH @menuDropdownPadV @gridGutter;
+		border-style: solid;
+		//border-width: 1px 1px 1px 0;
+		//border-color: @colorCouleur3ClairSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup;
+		border-width: 0 1px 1px 0;
+		border-color: @menuBorderColor;
+		//border-color: yellow red blue orange;
+		color: @colorCouleur3Fonce;
+		text-decoration: none;
+		outline: 0;
+		
+		&.dm_current { &, &:hover { color: @colorCouleur1; } }
+		&.dm_inactive { color: @colorCouleur3; }
+		
+		//LoVe's Hurts Fade Away
+		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
+		&:active { color: @colorCouleur1Moyen; }
+		
+		//ajout des transitions pour navigateurs récents
+		.csstransitions & {
+			@transitionCompress(background-color, color; .2s; ease-in-out;0);
+		}
+	}
+	
+	li {
+		//création de la flèche avec des bordures
+		&.dm_dir > .link {
+			&:after {
+				position: absolute;
+				z-index: 250;
+				display: block;
+				content:"";
+				width: 0;
+				height: 0;
+				right: @menuArrowOffsetX;
+				top: @menuArrowOffsetY;
+				//border-color: transparent transparent transparent @menuDropdownArrowColor;
+				border-color: transparent;
+				border-style: solid;
+				border-width: @menuArrowDim;
+				
+				//ajout des transitions pour navigateurs récents
+				.csstransitions.csstransforms & {
+					@transitionCompress(all; .15s; ease-in; 0);
+					@origin(25%; 50%);
+				}
+				
+				//inversion de style automatique en fonction du conteneur
+				.dm_layout_right & {
+					right: auto !important;
+					left: @menuArrowOffsetX;
+					//border-color: transparent @menuDropdownArrowColor transparent transparent;
+					
+					.csstransitions.csstransforms & {
+						@origin(75%; 50%);
+					}
+				}
+			}
+		}
+	}
+}
+
+//comportement flèche différents selon les types de menu
+ul.dropdown li.dm_dir > .link:hover:after,
+ul.dropdown li.dm_dir:hover > .link:after,
+ul.accordion li.dm_parent > .link:after {
+	right: @menuArrowOffsetX + @menuArrowDecal;
+	top: @menuArrowOffsetY + @menuArrowDecal;
+	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
+	
+	//ajout des transitions pour navigateurs récents
+	.csstransitions.csstransforms & {
+		right: @menuArrowOffsetX;
+		top: @menuArrowOffsetY;
+		//border-color: transparent transparent transparent @menuDropdownArrowColorSup;
+		@rotate(90deg);
+	}
+	
+	//inversion de style automatique en fonction du conteneur
+	.dm_layout_right & {
+		right: auto !important;
+		left: @menuArrowOffsetX + @menuArrowDecal;
+		
+		.csstransitions.csstransforms & {
+			left: @menuArrowOffsetX;
+			//border-color: transparent @menuDropdownArrowColorSup transparent transparent;
+			@rotate(-90deg);
+		}
+	}
+}
+
 
 /*
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Dropdown/_Dropdown.vertical.less";

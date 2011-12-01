@@ -7,5 +7,49 @@
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
+//Config du widget courant
+@import "_templates/BaseTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
+
 //Importation des classes de composition du menu
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Accordion/_Accordion.less";
+
+
+ul.accordion {
+	//rajout bordure à gauche sur le menu principal
+	#dm_page & { border-left: 1px solid @menuBorderColor; }
+	
+	//rajout bordure en haut sur le menu principal et gestion décalage
+	#dm_page & {
+		& > li.first > .link { border-top: 1px solid @menuBorderColor; }
+		margin-top: -1px;
+	}
+	
+	li.dm_parent {
+		//couleur du lien activé
+		& > .link,
+		li.dm_parent > .link {
+			background-color: @colorCouleur1;
+			color: @colorCouleur3Clair;
+		}
+		
+		//couleur de fond des autres liens
+		& > ul > li > .link {
+			background-color: @colorCouleur3Clair;
+			color: @colorCouleur3;
+		}
+	}
+	
+	//couleur de la flèche
+	@menuAccordionArrowColor: @colorCouleur1Fonce;
+	@menuAccordionArrowColorSup: @colorCouleur1Clair;
+	
+	li.dm_dir > .link:after {
+		border-color: transparent transparent transparent @menuAccordionArrowColor;
+		.dm_layout_right & { border-color: transparent @menuAccordionArrowColor transparent transparent; }
+	}
+	li.dm_parent > .link:after {
+		border-color: @menuDropdownArrowColorSup transparent transparent transparent;
+		.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuAccordionArrowColorSup; }
+		.csstransitions.csstransforms .dm_layout_right & { border-color: transparent @menuAccordionArrowColorSup transparent transparent; }
+	}
+}
