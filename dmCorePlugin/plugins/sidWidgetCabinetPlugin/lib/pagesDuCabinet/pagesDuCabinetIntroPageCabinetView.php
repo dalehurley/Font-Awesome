@@ -1,6 +1,6 @@
 <?php
 
-class handWidgetsIntroPageCabinetView extends dmWidgetPluginView {
+class pagesDuCabinetIntroPageCabinetView extends dmWidgetPluginView {
 
     public function configure() {
         parent::configure();
@@ -27,7 +27,7 @@ class handWidgetsIntroPageCabinetView extends dmWidgetPluginView {
         if($vars['title_page'] == NULL || $vars['title_page'] == " "){
         $vars['title_page'] = $pageCabinet->getTitle();
         }
-        return $this->getHelper()->renderPartial('handWidgets', 'introPageCabinet', array(
+        return $this->getHelper()->renderPartial('pagesDuCabinet', 'introPageCabinet', array(
                     
                     'pageCabinet' => $pageCabinet,
                     'lenght' => $vars['lenght'],

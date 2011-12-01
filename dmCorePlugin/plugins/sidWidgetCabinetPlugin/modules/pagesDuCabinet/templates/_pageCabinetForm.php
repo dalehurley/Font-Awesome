@@ -1,6 +1,6 @@
 <?php
 echo _tag('ul.help',
-	_tag('li',"Ce widget permet d'afficher l'intro d'une page de cabinet")
+	_tag('li',"Ce widget permet d'afficher la page de cabinet avec un titre et un lien vers page contact sur mesure")
 	);
 
 echo
@@ -8,14 +8,10 @@ echo
 $form->renderGlobalErrors(),
 
 _tag('div',
- 
-    $form['page']->renderRow().
-    $form['lenght']->renderRow().
+    
     $form['title_page']->renderRow().
     $form['lien']->renderRow()
-          
 ); 
-
 
 
 
