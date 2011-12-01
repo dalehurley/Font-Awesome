@@ -14,8 +14,6 @@
 @menuDropdownPadH: (@gridGutter -1px);
 @menuDropdownPadV: (@gridBaseline/2 - 1px);
 //calcul dimensions flèche
-@menuArrowColor: @colorCouleur1Fonce;
-@menuArrowColorSup: @colorCouleur1;
 //@menuArrowDim: @gridBaseline/3;
 @menuArrowDim: 4px;
 //offset de décalage de positionnement
@@ -28,8 +26,16 @@
 
 ul.dropdown, ul.accordion {
 	//gestion grosseur texte
-	li{ font-weight: bold; }
-	ul li { font-weight: normal; }
+	li {
+		font-weight: bold;
+		text-transform: uppercase;
+		word-spacing: -0.05em;
+		letter-spacing: -0.05em;
+	}
+	ul li {
+		font-weight: normal;
+		text-transform: capitalize;
+	}
 	
 	//gestion des liens
 	.link {
@@ -44,6 +50,7 @@ ul.dropdown, ul.accordion {
 		//border-color: yellow red blue orange;
 		color: @colorCouleur3Fonce;
 		text-decoration: none;
+		outline: 0;
 		
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
 		&.dm_inactive { color: @colorCouleur3; }
@@ -70,7 +77,8 @@ ul.dropdown, ul.accordion {
 				height: 0;
 				right: @menuArrowOffsetX;
 				top: @menuArrowOffsetY;
-				border-color: transparent transparent transparent @menuArrowColor;
+				//border-color: transparent transparent transparent @menuDropdownArrowColor;
+				border-color: transparent;
 				border-style: solid;
 				border-width: @menuArrowDim;
 				
@@ -84,7 +92,7 @@ ul.dropdown, ul.accordion {
 				.dm_layout_right & {
 					right: auto !important;
 					left: @menuArrowOffsetX;
-					border-color: transparent @menuArrowColor transparent transparent;
+					//border-color: transparent @menuDropdownArrowColor transparent transparent;
 					
 					.csstransitions.csstransforms & {
 						@origin(75%; 50%);
@@ -101,13 +109,13 @@ ul.dropdown li.dm_dir:hover > .link:after,
 ul.accordion li.dm_parent > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
-	border-color: @menuArrowColorSup transparent transparent transparent;
+	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
 	
 	//ajout des transitions pour navigateurs récents
 	.csstransitions.csstransforms & {
 		right: @menuArrowOffsetX;
 		top: @menuArrowOffsetY;
-		border-color: transparent transparent transparent @menuArrowColorSup;
+		//border-color: transparent transparent transparent @menuDropdownArrowColorSup;
 		@rotate(90deg);
 	}
 	
@@ -118,11 +126,12 @@ ul.accordion li.dm_parent > .link:after {
 		
 		.csstransitions.csstransforms & {
 			left: @menuArrowOffsetX;
-			border-color: transparent @menuArrowColorSup transparent transparent;
+			//border-color: transparent @menuDropdownArrowColorSup transparent transparent;
 			@rotate(-90deg);
 		}
 	}
 }
+
 
 ul.dropdown {
 	//rajout bordure à gauche sur les menus
@@ -167,6 +176,23 @@ ul.dropdown {
 		margin-top: -1px;
 		li.first > ul { margin-top: 0; }
 	}
+	
+	//couleur de la flèche
+	@menuDropdownArrowColor: @colorCouleur1Fonce;
+	@menuDropdownArrowColorSup: @colorCouleur1;
+	
+	li.dm_dir {
+		& > .link:after {
+			border-color: transparent transparent transparent @menuDropdownArrowColor;
+			.dm_layout_right & { border-color: transparent @menuDropdownArrowColor transparent transparent; }
+		}
+		& > .link:hover:after,
+		&:hover > .link:after {
+			border-color: @menuDropdownArrowColorSup transparent transparent transparent;
+			.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuDropdownArrowColorSup; }
+			.csstransitions.csstransforms .dm_layout_right & { border-color: transparent @menuDropdownArrowColorSup transparent transparent; }
+		}
+	}
 }
 
 ul.accordion {
@@ -180,13 +206,31 @@ ul.accordion {
 	}
 	
 	li.dm_parent {
-		& > .link {
+		//couleur du lien activé
+		& > .link,
+		li.dm_parent > .link {
 			background-color: @colorCouleur1;
 			color: @colorCouleur3Clair;
 		}
-		/*& > ul > li .link {
+		
+		//couleur de fond des autres liens
+		& > ul > li > .link {
 			background-color: @colorCouleur3Clair;
-			&:hover { background-color: @colorCouleur3ClairSup; }
-		}*/
+			color: @colorCouleur3;
+		}
+	}
+	
+	//couleur de la flèche
+	@menuAccordionArrowColor: @colorCouleur1Fonce;
+	@menuAccordionArrowColorSup: @colorCouleur1Clair;
+	
+	li.dm_dir > .link:after {
+		border-color: transparent transparent transparent @menuAccordionArrowColor;
+		.dm_layout_right & { border-color: transparent @menuAccordionArrowColor transparent transparent; }
+	}
+	li.dm_parent > .link:after {
+		border-color: @menuDropdownArrowColorSup transparent transparent transparent;
+		.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuAccordionArrowColorSup; }
+		.csstransitions.csstransforms .dm_layout_right & { border-color: transparent @menuAccordionArrowColorSup transparent transparent; }
 	}
 }
