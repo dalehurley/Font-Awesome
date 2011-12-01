@@ -1,5 +1,5 @@
 <?php
-
+// vars : $missions, $nbMissions, $titreBloc, $longueurTexte
 if (count($missions)) { // si nous avons des actu articles
     if($nbMissions == 1){
         if ($titreBloc != true) {
@@ -12,7 +12,7 @@ if (count($missions)) { // si nous avons des actu articles
     echo _open('ul.elements');
     foreach ($missions as $mission) {
 
-	include_partial("objectPartials/missionsList", array("article" => $mission,"textLength" => $longueurTexte,"textEnd" => '(...)','titreBloc' => $titreBloc,"chapo" => $chapo));
+	include_partial("objectPartials/missionsList", array("article" => $mission,"longueurTexte" => $longueurTexte,"textEnd" => '(...)','titreBloc' => $titreBloc));
 
     }
     echo _close('ul');

@@ -1,5 +1,4 @@
 <?php
-
 if (count($equipes)) { // si nous avons des actu articles
     if ($titreBloc != '') {
 	echo _tag('h4.title', $titreBloc);

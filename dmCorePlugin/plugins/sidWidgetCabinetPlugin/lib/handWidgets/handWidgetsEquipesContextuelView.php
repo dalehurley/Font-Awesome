@@ -89,8 +89,9 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
                             ->leftJoin('sas.SidRubrique s')
                             ->where('s.id = ? ', array($rubrique->sidRubriqueId))
                             ->execute();
-
-                    if (count($actuEquipes) == 0) {
+                
+                }
+                    if (count($rubriques) == 0) {
                         $actuEquipes = '';
                         $actuEquipes = dmDb::table('SidCabinetEquipe')
                                 ->createQuery('p')
@@ -106,7 +107,7 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
                             $arrayEquipe[$actuEquipe->id] = $actuEquipe;
                         }
                     }
-                }
+                
                 break;
             case 'mission/show':
                 // on cherche la rubrique de l'article
@@ -120,7 +121,9 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
                             ->leftJoin('sas.SidRubrique s')
                             ->where('s.id = ? ', array($rubrique->sidRubriqueId))
                             ->execute();
-                    if (count($actuEquipes) == 0) {
+                }
+                    if (count($rubriques) == 0) {
+                        
                         $actuEquipes = '';
                         $actuEquipes = dmDb::table('SidCabinetEquipe')
                                 ->createQuery('p')
@@ -136,7 +139,7 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
                             $arrayEquipe[$actuEquipe->id] = $actuEquipe;
                         }
                     }
-                }
+                
                 break;
 
             default:

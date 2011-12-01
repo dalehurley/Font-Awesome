@@ -8,8 +8,7 @@ class handWidgetsMissionsListView extends dmWidgetPluginView {
         $this->addRequiredVar(array(
             'titreBloc',
             'nbMissions',
-            'longueurTexte',
-            'chapo'
+            'longueurTexte'
         ));
     }
 
@@ -66,8 +65,8 @@ class handWidgetsMissionsListView extends dmWidgetPluginView {
                     'missions' => $arrayMissions,
                     'nbMissions' => $vars['nbMissions'],
                     'titreBloc' => $vars['titreBloc'],
-                    'longueurTexte' => $vars['longueurTexte'],
-                    'chapo' => $vars['chapo'],
+                    'longueurTexte' => $vars['longueurTexte']//,
+//                    'chapo' => $vars['chapo'],
             
                 ));
     }
