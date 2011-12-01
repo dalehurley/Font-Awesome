@@ -91,6 +91,18 @@ ul.dropdown {
 			&:active { color: @colorCouleur1Moyen; }
 		}
 		
+		//modification de la couleur de la flèche
+		li.dm_dir {
+			& > .link:after {
+				border-color: transparent transparent transparent @colorCouleur3Moyen;
+			}
+			& > .link:hover:after,
+			&:hover > .link:after {
+				border-color: @colorCouleur3Clair transparent transparent transparent;
+				.csstransitions.csstransforms & { border-color: transparent transparent transparent @colorCouleur3Clair; }
+			}
+		}
+		
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
@@ -100,6 +112,42 @@ ul.dropdown {
 				background-color: transparent;
 			}
 			& > ul { padding-top: @gridBaseline/4; }
+			
+			&.dm_dir {
+				& > .link:after {
+					//replacement
+					right: 50%;
+					top: 100%;
+					border-color: @colorCouleur3Moyen transparent transparent transparent;
+					border-width: @menuArrowDim @menuArrowDim*4;
+					
+					//ajout des transitions pour navigateurs récents
+					.csstransitions.csstransforms.opacity & {
+						//ajout délai apparition flèche
+						@transitionCompress(all; 0.15s; ease-in; .15s);
+						opacity: 0;
+						//suppression animation rotation
+						@origin(50%; 50%);
+						@transformNone();
+						//replacement correct
+						@translate(50%; (@gridBaseline/4 -1px));
+					}
+				}
+				& > .link:hover:after,
+				&:hover > .link:after {
+					//replacement
+					right: 50%;
+					top: 100%;
+					border-width: @menuArrowDim*2 @menuArrowDim*4;
+					border-color: @colorCouleur3Clair transparent transparent transparent;
+					
+					//ajout des transitions pour navigateurs récents
+					.csstransitions.csstransforms.opacity & {
+						opacity: 1;
+						border-color: @colorCouleur3Clair transparent transparent transparent;
+					}
+				}
+			}
 		}
 	}
 }
