@@ -1,4 +1,5 @@
 <?php
+// vars : $articles, $titreBloc, $longueurTexte, $nbArticles, $photo, $titreLien, $chapo
 
 if (count($articles)) { // si nous avons des actu articles
     if($nbArticles == 1){
@@ -11,7 +12,7 @@ if (count($articles)) { // si nous avons des actu articles
     echo _open('ul.elements');
     foreach ($articles as $article) {
 
-	include_partial("objectPartials/actuArticle", array("article" => $article,"textLength" => $longueurTexte,"textEnd" => '(...)',"photo" => $vars['photo'],"nbArticle" => $nbArticles,'titreBloc' => $titreBloc,"chapo" => $chapo));
+	include_partial("objectPartials/actuArticle", array("article" => $article,"textLength" => $longueurTexte,"textEnd" => '(...)',"photo" => $photo,"nbArticle" => $nbArticles,'titreBloc' => $titreBloc,"chapo" => $chapo));
 
     }
     echo _close('ul');

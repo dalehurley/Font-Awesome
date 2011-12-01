@@ -1,4 +1,5 @@
 <?php
+// vars : $articles, $titreBloc
 
 if (count($articles)) { // si nous avons des actu articles
 
