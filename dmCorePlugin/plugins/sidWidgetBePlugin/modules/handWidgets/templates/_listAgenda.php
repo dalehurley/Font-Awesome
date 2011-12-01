@@ -1,5 +1,7 @@
 <?php
 // var $agendas - var $rubriqueTitle - var $rubrique
+
+if(count($agendas)){
 echo _tag('h4.title', $rubriqueTitle);
 
 echo _open('ul.elements');
@@ -17,4 +19,5 @@ if (count($agendas)) {
     echo _close('li');
     echo _close('ul');
     echo _close('div');
+}
 }

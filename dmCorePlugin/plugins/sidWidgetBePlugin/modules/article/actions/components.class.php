@@ -45,14 +45,14 @@ class articleComponents extends myFrontModuleComponents
     $this->articlePager->setOption('ajax', true);
   }
 
-  public function executeShow()
-  {
-    $query = $this->getShowQuery();
-    	$this->article = $this->getRecord($query);
-   $ancestors = $this->context->getPage()->getNode()->getAncestors(); 
-   $nomSection = $ancestors[count($ancestors)-1]->getName();
-   $this->nomSection = $nomSection;
-  }
+  public function executeShow() {
+        $query = $this->getShowQuery();
+        $this->article = $this->getRecord($query);
+        $this->route = $this->getPage()->getTitle();
+        $ancestors = $this->context->getPage()->getNode()->getAncestors();
+        $this->section = $ancestors[count($ancestors)-1]->getTitle();
+        $this->rubrique = $ancestors[count($ancestors)-2]->getTitle();
+    }
 
   public function executeListBySectionSlide()
   {

@@ -13,8 +13,8 @@ $form->renderGlobalErrors(),
 _tag('div',
     $form['titreBloc']->renderRow().	
     $form['nbMissions']->renderRow().
-    $form['longueurTexte']->renderRow().
-    $form['chapo']->renderRow()
+    $form['longueurTexte']->renderRow()//.
+//    $form['chapo']->renderRow()
          
   
 ); 

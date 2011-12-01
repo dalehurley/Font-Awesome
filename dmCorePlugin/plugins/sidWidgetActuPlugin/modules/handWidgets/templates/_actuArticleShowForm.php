@@ -1,7 +1,7 @@
 <?php
 
 echo _tag('ul.help',
-	_tag('li',"Ce widget permet d'afficher la page de l'articles d'actu")
+	_tag('li',"Ce widget permet d'afficher la page de l'actu du cabinet")
 	);
 
 

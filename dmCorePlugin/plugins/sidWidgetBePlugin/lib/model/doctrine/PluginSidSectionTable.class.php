@@ -59,5 +59,17 @@ class PluginSidSectionTable extends myDoctrineTable {
             return $a->fetchOne();
         }
     }
+    
+    public function order_by_title() {
+
+        $a = $this->createQuery('s')
+                ->leftJoin('s.Translation st')
+                ->orderBy('st.title');
+        return $a->execute();
+        
+
+//        return  $sectionPage[0]->name. ' - ' . $rubriquePage[0]->name;
+//        return  $sectionPage[0]->name;
+    }
 
 }
