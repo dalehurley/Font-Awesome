@@ -22,7 +22,7 @@
       page: true
       credentials: page_cabinet
       components:
-#        list:
+        list:
 #        show:
     Equipe:
       model: SidCabinetEquipe

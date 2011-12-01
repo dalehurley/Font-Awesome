@@ -8,8 +8,8 @@ Content:
       name: Rubrique|Rubriques
       credentials: rubrique
       components:
-        list:
-        show:
+#        list:
+#        show:
 
     Section:
       model: SidSection
@@ -18,15 +18,15 @@ Content:
       name: Section|Sections
       credentials: section
       components:
-        listByRubrique:
-          filters: [ Rubrique ]
-          cache:              true
-        list:
-          cache:              true
-        show:
-          cache:              true
-        menuDesSectionsDeRubrique:
-          cache: true
+#        listByRubrique:
+#          filters: [ Rubrique ]
+#          cache:              true
+#        list:
+#          cache:              true
+#        show:
+#          cache:              true
+#        menuDesSectionsDeRubrique:
+#          cache: true
 
     Article:
       model: SidArticle
@@ -44,16 +44,16 @@ Content:
         listBySectionFeature:
           filters: [ Section ]
           cache:              true             
-        list:
-          cache:              true
-        listSlide:
-          cache:              true   
-        listFeature:
-          cache:              true            
+#        list:
+#          cache:              true
+#        listSlide:
+#          cache:              true   
+#        listFeature:
+#          cache:              true            
         show:
           cache:              true
-        dernierArticleDeChaqueCategorie:
-          cache:              true
+#        dernierArticleDeChaqueCategorie:
+#          cache:              true
         listeParTags:
           filters: [ dmTag ]
 #        showArticlesAvecMemeTag:
@@ -62,17 +62,17 @@ Content:
 #          cache:              true
 #        showMembresEquipeAvecMemeTag:
 #          cache:              true
-        listArticlesAvecMemeTag:
-          cache:              true
-        listMissionsAvecMemeTag:
-          cache:              true
-        listMembresEquipeAvecMemeTag:
-          cache:              true
-        listActusCabinetAvecMemeTag:
-          cache:              true
-        listSitesUtilesAvecMemeTag:
-          cache:              true
-        showArticleWithPhoto:
-          cache: true
-        showArticleWithTitle:
-          cache: true
+#        listArticlesAvecMemeTag:
+#          cache:              true
+#        listMissionsAvecMemeTag:
+#          cache:              true
+#        listMembresEquipeAvecMemeTag:
+#          cache:              true
+#        listActusCabinetAvecMemeTag:
+#          cache:              true
+#        listSitesUtilesAvecMemeTag:
+#          cache:              true
+#        showArticleWithPhoto:
+#          cache: true
+#        showArticleWithTitle:
+#          cache: true

@@ -38,4 +38,13 @@ handWidgets:
   equipeShow:
     cache:              true
     public_name:        (H) Page des membres du cabinet
-        
+
+#pagesDuCabinet:
+#  
+#  introPageCabinet:
+#    cache:              true
+#    public_name:        (H) Intro pages cabinet
+#    
+#  pageCabinet:
+#    cache:               true
+#    public_name:         (H) Page du cabinet

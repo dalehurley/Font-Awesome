@@ -16,7 +16,7 @@ $imgLink = '/uploads/' . $pageCabinet->getImage();
 // on vérifie d'abord si le texte est plus long que la longueur demandé
 // si oui, on tronque après un espace
     if (strlen($pageCabinet->getResume()) > $lenght) {
-        $chapo = stringTools::str_truncate($pageCabinet->getResume(), $lenght, '(...)', true);
+        $chapo = stringTools::str_truncate($pageCabinet->getResume(), $lenght, '(...)', true, true);
     }
     else
 // si non, on laisse le texte original
