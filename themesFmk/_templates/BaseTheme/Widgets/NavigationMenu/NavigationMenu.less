@@ -43,7 +43,6 @@ ul.dropdown, ul.accordion {
 		
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
 		&.dm_inactive { color: @colorCouleur3; }
-		
 		//LoVe's Hurts Fade Away
 		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
 		&:active { color: @colorCouleur1Moyen; }
@@ -130,6 +129,31 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 	&:hover { color: @colorCouleur3ClairSup; }
 }
 
+//Mise en page et themage personnalisé du menu de navigation dans la zone du header
+.dm_layout_centerTop {
+	.navigation_menu {
+		//permet d'étendre la zone en débordement de la page
+		margin-left: -100%;
+		margin-right: -100%;
+		
+		//dégradé vertical en fond
+		//@verticalGradient(@colorCouleur2Clair; @colorCouleur2);
+		background-color: @colorCouleur2;
+		
+		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
+		.dm_widget_inner {
+			position: relative;
+			@gridSiteWidth();
+			margin-left: auto;
+			margin-right: auto;
+			padding-top: @gridBaseline/4;
+			padding-bottom: @gridBaseline/4;
+		}
+	}
+}
+
+
+
 /*
 //Mise en page et themage personnalisé du menu de navigation dans les sidebars
 .dm_layout_left, .dm_layout_right {
@@ -151,20 +175,11 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 //Mise en page et themage personnalisé du menu de navigation dans la zone du header
 .dm_layout_centerTop {
 	.navigation_menu {
-		//permet d'étendre la zone en débordement de la page
-		margin-left: -100%;
-		margin-right: -100%;
 		
-		//dégradé vertical en fond
-		@verticalGradient(@colorCouleur2Clair; @colorCouleur2);
 		
-		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
-		.dm_widget_inner {
-			position: relative;
-			@gridSiteWidth();
-			margin-left: auto;
-			margin-right: auto;
-		}
+		
+		
+		
 		
 		//on affecte les dimensions en fonction du conteneur
 		ul.dropdown {

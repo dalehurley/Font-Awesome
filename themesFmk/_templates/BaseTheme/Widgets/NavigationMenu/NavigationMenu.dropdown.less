@@ -13,7 +13,6 @@
 //Importation des classes de composition du menu
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Dropdown/_Dropdown.less";
 
-
 ul.dropdown {
 	//rajout bordure à gauche sur les menus
 	#dm_page &, #dm_page & ul { border-left: 1px solid @menuBorderColor; }
@@ -69,6 +68,38 @@ ul.dropdown {
 			border-color: @menuArrowColorSup transparent transparent transparent;
 			.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
 			.csstransitions.csstransforms .dm_layout_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
+		}
+	}
+	
+	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
+	.dm_layout_centerTop .navigation_menu & {
+		//ajout ombre
+		ul {
+			border-right: 0;
+			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2Moyen);
+		}
+		
+		//modification de couleurs du menu
+		.link {
+			background-color: @colorCouleur2;
+			color: @colorCouleur3Clair;
+			
+			&.dm_current { &, &:hover { color: @colorCouleur1MoyenSup; } }
+			&.dm_inactive { color: @colorCouleur3Moyen; }
+			//LoVe's Hurts Fade Away
+			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Sup; }
+			&:active { color: @colorCouleur1Moyen; }
+		}
+		
+		//gestion des cellules de premier niveau
+		& > li {
+			& > .link {
+				padding-top: @gridBaseline/4;
+				padding-bottom: @gridBaseline/4;
+				border-bottom: 0;
+				background-color: transparent;
+			}
+			& > ul { padding-top: @gridBaseline/4; }
 		}
 	}
 }
