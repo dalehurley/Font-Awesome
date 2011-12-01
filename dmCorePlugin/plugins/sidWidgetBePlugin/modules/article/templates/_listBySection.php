@@ -1,13 +1,14 @@
-<?php // Vars: $articlePager
-echo _tag('h2.title', $parent.' > '.$route);
+<?php // Vars: $articlePager, $parent, $route
+use_helper('Date');
+echo _tag('h2.title', $parent.' - '.$route);
 
 echo _tag('div.navigation.navigationTop', $articlePager->renderNavigationTop());
 
 $i = 0;
 // Cas particulier pour les dossiers
-if($this->context->getPage()->getName() == 'Dossiers'){
-    $i=2;
-}
+//if($this->context->getPage()->getName() == 'Dossiers'){
+//    $i=2;
+//}
 
 echo _open('ul.elements');
 	foreach ($articlePager as $article)
@@ -21,7 +22,8 @@ echo _open('ul.elements');
 				);
 			}
 
-			$date = new DateTime($article->created_at);
+//			$date = new DateTime($article->created_at);
+//			
 			// je vérifie la longueur du texte
 			if(strlen($article->getChapeau()) > 200){
 			$chapeauEntier = substr($article->getChapeau(), 0, 200);
@@ -30,7 +32,8 @@ echo _open('ul.elements');
 			}
 			else $chapo = $article->getChapeau();
 			// fin vérif longueur du texte
-			if($i == 0){
+                        // 
+//			if($i == 0){
 				//lien vers l'image
 				$imgLink = '/_images/lea' . $article->filename . '-p.jpg';
 				//on vérifie que l'image existe
@@ -47,13 +50,15 @@ echo _open('ul.elements');
 							->width(spLessCss::gridGetWidth(spLessCss::getLessParam('thumbL_col')))
                             ->height(spLessCss::gridGetHeight(spLessCss::getLessParam('thumbL_bl')));
 					$html.= _close('span.imageWrapper');
-				}
+//				}
 
 				$html.= _open('span.wrapper');
-					$html.= _tag('span.title itemprop="name"', $article->getTitle());
-                                        $html.= _tag('span.date','('.$date->format('d/m/Y').')');
+                                      $html.= _tag('span.title itemprop="name"', $article->getTitle());
+//                                        $html.= _tag('span.date','('.$date->format('d/m/Y').')');
+                                      $html.= _tag('span.date','('.format_date($article->created_at,'p').')');
 				//on ajoute le chapeau dans tous les cas
 				$html.= _tag('span.teaser itemprop="description"', $chapo);
+                                
 				$html.= _close('span.wrapper');
 
 				//On englobe l'ensemble du contenu dans un lien que l'on affiche
@@ -62,23 +67,45 @@ echo _open('ul.elements');
 						->title($article->getTitle())
 						->text($html);
 			}else{
+                            
 				//echo _open('span.wrapper');
-				echo _link($article)->text(_tag('span.wrapper',_tag('span.title',''.$article._tag('span.date','('.$date->format('d/m/Y').')'))._tag('span.teaser',$chapo)))->set('.link_box');
+				echo _link($article)->text(
+                                        _tag('span.wrapper',
+                                                _tag('span.title',''.$article).
+                                                _tag('span.date','('.format_date($article->created_at,'p').')'.$article->filename).
+                                                _tag('span.teaser',$chapo)
+                                            )
+                                        )
+                                        ->set('.link_box');
 			}
 			//echo _close('span');
 			echo _close('li');
 		}
 		else
 		{
-			if($i == 3){
-				if($this->context->getPage()->getName() == 'Dossiers'){echo _tag('p', __('Other folders').'"'.$parent.'"');}
+			
+//                    $date = new DateTime($article->created_at);
+                    if(strlen($article->getChapeau()) > 150){
+			$chapeauEntier = substr($article->getChapeau(), 0, 150);
+						$space = strrpos($chapeauEntier,' ');
+						$chapo = substr($chapeauEntier, 0, $space).' (...)';
 			}
+			else $chapo = $article->getChapeau();
+                    
+//                    if($i == 3){
+//				if($this->context->getPage()->getName() == 'Dossiers'){echo _tag('p', __('Other folders').'"'.$parent.'"');}
+//			}
 			echo _open('li.element');
 
 			$date = new DateTime($article->created_at);
-			echo _open('span.wrapper');
-			echo _link($article)->text(_tag('span.title',''.$article._tag('span.date','('.$date->format('d/m/Y').')')))->set('.link_box');
-			echo _close('span');
+			echo _link($article)->text(
+                                        _tag('span.wrapper',
+                                                _tag('span.title',''.$article).
+                                                _tag('span.date','('.format_date($article->created_at,'p').')').
+                                                _tag('span.teaser',$chapo)
+                                            )
+                                        )
+                                        ->set('.link_box');
 			echo _close('li');
 		}
 		$i++;

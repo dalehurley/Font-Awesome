@@ -32,4 +32,8 @@ handWidgets:
     cache:              true
     public_name:        (H) Article contextuel
     
+  filActualite:
+    cache:              true
+    public_name:        (H) Fil d'actualité
+    
         
