@@ -75,24 +75,25 @@ class baseEditorialeTools {
                          */
                         try {
                             if (sfConfig::get('app_rep-local-json') != '') {
-                                $repBaseEditoriale = sfConfig::get('app_rep-local-json');
+                                if ($j) { // s'il y'a des sections
+                                    $repBaseEditoriale = sfConfig::get('app_rep-local-json');
+                                    $rubriqueDir = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title;
+                                    if (!is_dir($rubriqueDir)) {
+                                        mkdir($rubriqueDir);
+                                        $return[$j]['DIR+'] = $rubriqueDir;
+                                    }
+
+                                    $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
+
+                                    fputs($fileRubrique, json_encode($arrayJson));
+                                    fclose($fileRubrique);
+
+                                    $return[$j]['OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
+                                    $nbArticleTotal += count($arrayJson);
+                                }
                             } else {
                                 $return[$j]['KO : Merci de spécifier la variable app_rep-local'] = '';
                             }
-
-                            $rubriqueDir = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title;
-                            if (!is_dir($rubriqueDir)) {
-                                mkdir($rubriqueDir);
-                                $return[$j]['DIR+'] = $rubriqueDir;
-                            }
-
-                            $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
-
-                            fputs($fileRubrique, json_encode($arrayJson));
-                            fclose($fileRubrique);
-
-                            $return[$j]['OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
-                            $nbArticleTotal += count($arrayJson);
                         } catch (Exception $e) {
 
                             $return[$j]['ERROR : Exception reçue pour le fichier ' . $fileRubriqueName] = $e->getMessage();
@@ -384,7 +385,51 @@ class baseEditorialeTools {
     }
 
     /*
-     * récupération des rubriques
+     * Nettoyage du repertoire local
+     * - Suppression des dossiers vides
+     * - Suppression des fichiers autres que .xml
+     * - Suppression des fichiers .xml dans les dossiers rubriques
+     */
+
+    public static function nettoyageRepLocal() {
+    
+        // suppression des dossiers vides
+        exec('find ' . sfConfig::get('app_rep-local') . '* -type d -empty -delete -print');
+        // supprimer les fichiers dans les dossiers rubriques, maxdepth à 1 permet de ne chercher que dans le dossier spécifié et les sous dossiers directs
+        exec('find '.sfConfig::get('app_rep-local').'* -maxdepth 1 -type f -delete -print');
+        // Parcourir les dossiers des sections pour supprimer les fichiers non .xml et les dossiers eventuels
+        $dir = sfConfig::get('app_rep-local');
+        $rubriques = scandir($dir);
+        foreach ($rubriques as $j => $rubrique) { // les dossiers des rubriques
+            if (($rubrique != '.') && ($rubrique != '..')) {
+                if (is_dir($dir . $rubrique)) {
+                    $sections = scandir($dir . $rubrique);
+                    foreach ($sections as $j => $section) { // les dossiers des sections
+                        if (($section != '.') && ($section != '..')) {
+                            $articles = scandir($dir . $rubrique . '/' . $section);
+                            foreach ($articles as $j => $article) { // les fichiers des sections
+                                if (($article != '.') && ($article != '..')) {
+                                    if (is_file($dir . $rubrique . '/' . $section . '/' .$article)) {
+                                        if (substr($article, -4) != '.xml') {
+                                            unlink($dir . $rubrique . '/' . $section . '/' .$article);
+                                        }
+                                    } else {
+                                        if (is_dir($dir . $rubrique . '/' . $section . '/' .$article)){   // on supprime un eventuel dossier dans un dossier de section
+                                            exec('rm -R "'.$dir . $rubrique . '/' . $section . '/' .$article.'"');
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    /*
+     * récupération des rubriques, seulement lorsque l'on veut ajouter des rubriques/sections de LEA ou à l'init
+     * 
      */
 
     public static function recupRubriqueSection() {
@@ -393,38 +438,20 @@ class baseEditorialeTools {
         // les languages
         $arrayLangs = sfConfig::get('dm_i18n_cultures');
 
-        if (sfConfig::get('app_ftp-password') == '' || sfConfig::get('app_ftp-image-password') == '') {
-            $return[0]['ERROR'] = 'Seule la base éditoriale peut récupérer les articles de LEA. Vérifier que le apps/front/config/app.yml ait les bonnes variables.';
-            return $return;
-        }
-
-
         if (sfConfig::get('app_rep-local') == '') {
             $return[0]['ERROR'] = 'Merci de spécifier la variable app_rep-local dans le app.yml.';
         } else {
 
             //$return[0]['OK'] = '................';
             // POUR INTERROGER SERVEUR FTP : rubriques
-            $FTPrubriques = transfertTools::scandirFtp(
-                            sfConfig::get('app_ftp-login'), sfConfig::get('app_ftp-password'), sfConfig::get('app_ftp-host'), sfConfig::get('app_ftp-rep')
-            );
+            $rubriques = transfertTools::scandirServeur(sfConfig::get('app_rep-local'));
 
             $i = 1;
-            foreach ($FTPrubriques as $j => $FTPrubrique) {
+            foreach ($rubriques as $j => $rubrique) {
 
                 // Vérification présence du dossier
-                $localRubrique = transfertTools::scandirServeur(sfConfig::get('app_rep-local'));
-                $rubriqueDir = sfConfig::get('app_rep-local') . $FTPrubrique;
+                $rubriqueDir = sfConfig::get('app_rep-local') . $rubrique;
 
-                if (!in_array($FTPrubrique, $localRubrique)) {
-                    if (!is_dir($rubriqueDir)) {
-                        mkdir($rubriqueDir);
-                        $return[$i]['DIR+'] = $FTPrubrique;
-                    } else {
-                        $return[$i]['Repertoire existant rubrique'] = $FTPrubrique;
-                    }
-                    $i++;
-                }
 
                 // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
                 $bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitleAndIsActive($FTPrubrique);
@@ -439,56 +466,26 @@ class baseEditorialeTools {
                 $i++;
 
                 // POUR INTERROGER SERVEUR FTP : section de la rubrique en cours
-                $FTPsections = transfertTools::scandirFtp(
-                                sfConfig::get('app_ftp-login'), sfConfig::get('app_ftp-password'), sfConfig::get('app_ftp-host'), sfConfig::get('app_ftp-rep') . $FTPrubrique
-                );
+                $sections = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $rubrique);
 
                 $nbSections = 0;
-                foreach ($FTPsections as $k => $FTPsection) {
+                foreach ($sections as $k => $section) {
 
-                    $pos = strpos($FTPsection, '.xml');
-                    if ($pos === false && $FTPsection != 'images') { // pas de dossier images (parfois fourni par LEA...)
                         $nbSections++;
-                        // Vérification présence du dossier
-                        $localSection = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $FTPrubrique);
-                        if (!in_array($FTPsection, $localRubrique)) {
-                            $sectionDir = sfConfig::get('app_rep-local') . $FTPrubrique . '/' . $FTPsection;
-                            if (!is_dir($sectionDir)) {
-                                mkdir($sectionDir);
-                                $return[$i]['DIR+'] = $FTPrubrique . '/' . $FTPsection;
-                            } else {
-                                $return[$i]['Repertoire existant section'] = $FTPrubrique . '/' . $FTPsection;
-                            }
-                            $i++;
-                        }
-
                         // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
                         // Warning : La section peut exister et etre inactive
-                        $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($FTPsection, $bdRubrique->id);
+                        $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($section, $bdRubrique->id);
 
                         if ($bdSection->isNew()) { // création de la section en base
-                            $bdSection->Translation[$arrayLangs[0]]->title = $FTPsection;  // On insère dans la langue par défaut
+                            $bdSection->Translation[$arrayLangs[0]]->title = $section;  // On insère dans la langue par défaut
                             $bdSection->rubrique_id = $bdRubrique->id;
                             $bdSection->save();
-                            $return[$i]['SECTION+'] = $FTPrubrique . '/' . $FTPsection;
+                            $return[$i]['SECTION+'] = $rubrique . '/' . $section;
                         } else {
-                            $return[$i]['Section existe deja en base'] = $FTPrubrique . '/' . $FTPsection;
+                            $return[$i]['Section existe deja en base'] = $rubrique . '/' . $section;
                         }
                         $i++;
-                    } else {
-                        // le nom du ossier ne doit pas contenir de .xml...
-                    }
-                }
 
-                // si pas de sections alors on supprime  la rubrique
-                if ($nbSections == 0) {
-                    $command = "rm -R " . $rubriqueDir; // le dossier rubrique local
-                    exec($command, $output);
-
-                    $return[$i]['DIR-'] = $rubriqueDir;
-                    $bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitleAndIsActive($FTPrubrique);
-                    $bdRubrique->delete();  // la rubrique en base
-                    $return[$i]['Rubrique-'] = $FTPrubrique;
                 }
             }
         }
@@ -580,8 +577,6 @@ class baseEditorialeTools {
             $dossiersSections = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title);
 
             foreach ($dossiersSections as $dossiersSection) {
-                $pos = strpos($dossiersSection, '.xml');
-                if ($pos === false) { // on ne traite que les dossiers, un fichier xml dans un dossier rubrique ne doit pas etre traité
                     $section = Doctrine_Core::getTable('SidSection')->findOneByTitleAndIsActiveAndRubriqueId($dossiersSection, $bdRubrique->id);
                     if ($section->isNew()) {
                         $return[$j]['Section en base introuvable ou inactive pour le dossier'] = $dossiersSection;
@@ -693,9 +688,6 @@ class baseEditorialeTools {
                             }
                         }
                     }
-                } else {
-                    // le nom du ossier ne doit pas contenir de .xml...
-                }
             }
         }
         $return[0]['Article Insérés dans la base'] = $nbInsert;
@@ -712,7 +704,7 @@ class baseEditorialeTools {
                 $sidArticles = Doctrine_Core::getTable('SidArticle')->findBySectionId($sidSection->id);
 
                 // on scanne les fichiers du serveurs, les absents sont inactifs
-                $repArticle = transfertTools::scandirFtp(sfConfig::get('app_ftp-login'), sfConfig::get('app_ftp-password'), sfConfig::get('app_ftp-host'), sfConfig::get('app_ftp-rep') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title);
+                $repArticle = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title);
                 $k = 1;
                 foreach ($sidArticles as $sidArticle) {
                     if (!in_array($sidArticle->filename . '.xml', $repArticle)) {
