@@ -30,7 +30,7 @@
       credentials: equipe
       components:
 #        show:
-        list:
+#        list:
 #        listParTags:
 #          filters: [ dmTag ]
 #        blocPhotosEquipe:
