@@ -110,10 +110,38 @@ ul.dropdown {
 				padding-bottom: @gridBaseline/4;
 				border-bottom: 0;
 				background-color: transparent;
+				//ajout des transitions pour navigateurs récents
+				.csstransitions & {
+					@transitionCompress(all; .2s; ease-in-out; 0);
+				}
 			}
+			
+			//élargissement en pleine hauteur pour les dossiers
+			&.dm_dir {
+				&:hover > .link,
+				& > .link:hover {
+					padding-top: @gridBaseline/2;
+					padding-bottom: @menuDropdownPadV;
+					margin-top: @gridBaseline/-4;
+					margin-bottom: (@gridBaseline/4 - 1px) * -1;
+				}
+			}
+			
+			//compensation décalage du sous-menu
 			& > ul { padding-top: @gridBaseline/4; }
 			
 			&.dm_dir {
+				//masquage de la flèche
+				& > .link:after {
+					display: none;
+					visibility: hidden;
+					//suppression animation rotation
+					@transformNone();
+					@transitionNone();
+				}
+				
+				//TEST D'ANIMATION DIFFÉRENCIÉE DE LA FLÈCHE
+				/*
 				& > .link:after {
 					//replacement
 					right: 50%;
@@ -147,6 +175,7 @@ ul.dropdown {
 						border-color: @colorCouleur3Clair transparent transparent transparent;
 					}
 				}
+				*/
 			}
 		}
 	}
