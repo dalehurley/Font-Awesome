@@ -40,6 +40,7 @@ ul.dropdown, ul.accordion {
 		color: @colorCouleur3Fonce;
 		text-decoration: none;
 		outline: 0;
+		cursor: pointer;
 		
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
 		&.dm_inactive { color: @colorCouleur3; }
@@ -49,7 +50,7 @@ ul.dropdown, ul.accordion {
 		
 		//ajout des transitions pour navigateurs récents
 		.csstransitions & {
-			@transitionCompress(background-color, color; .2s; ease-in-out;0);
+			@transitionCompress(background-color, color; .2s; ease-in-out; 0);
 		}
 	}
 	
