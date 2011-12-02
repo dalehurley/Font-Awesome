@@ -76,7 +76,7 @@ ul.dropdown {
 		//ajout ombre
 		ul {
 			border-right: 0;
-			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2Moyen);
+			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
 		}
 		
 		//modification de couleurs du menu
@@ -106,29 +106,37 @@ ul.dropdown {
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
-				padding-top: @gridBaseline/4;
-				padding-bottom: @gridBaseline/4;
+				margin-top: floor(@gridBaseline / 4) + 1px;
+				margin-bottom: floor(@gridBaseline / 4) + 1px;
+				padding-top: floor(@gridBaseline / 4) + 0px;
+				padding-bottom: floor(@gridBaseline / 4) + 0px;
 				border-bottom: 0;
-				background-color: transparent;
 				//ajout des transitions pour navigateurs récents
-				.csstransitions & {
-					@transitionCompress(all; .2s; ease-in-out; 0);
-				}
+				//.csstransitions & {
+				//	@transitionCompress(all; .2s; ease-in-out; 0);
+				//}
+			}
+			//pleine hauteur lors du rollOver
+			&:hover > .link,
+			& > .link:hover,
+			& > .link:focus {
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: @gridBaseline/2;
+				padding-bottom: @gridBaseline/2;
+				margin-left: -1px;
+				border-left: 1px solid @menuBorderColor;
 			}
 			
 			//élargissement en pleine hauteur pour les dossiers
-			&.dm_dir {
-				&:hover > .link,
-				& > .link:hover {
-					padding-top: @gridBaseline/2;
-					padding-bottom: @menuDropdownPadV;
-					margin-top: @gridBaseline/-4;
-					margin-bottom: (@gridBaseline/4 - 1px) * -1;
-				}
+			&.dm_dir:hover > .link,
+			&.dm_dir > .link:hover,
+			&.dm_dir > .link:focus {
+				padding-bottom: @menuDropdownPadV;
+				border-bottom: 1px solid @menuBorderColor;
 			}
-			
 			//compensation décalage du sous-menu
-			& > ul { padding-top: @gridBaseline/4; }
+			//& > ul { padding-top: @gridBaseline/4; }
 			
 			&.dm_dir {
 				//masquage de la flèche
