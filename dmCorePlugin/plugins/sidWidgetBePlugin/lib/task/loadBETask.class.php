@@ -49,15 +49,45 @@ EOF;
         }        
 
 //-------------------------------------------------------------------------------------
-//    Chargement des rubriques de LEA dans le répertoire et la base de donnees locale
+//    recuperation WGET des XML
 //-------------------------------------------------------------------------------------	
-        if (in_array("automatic", $arguments)) {
-            // pas de chargement des rubriques quand on est en mode automatic
-        } else {
-            if ($this->askConfirmation(array("Chargement de l'arbo des dossiers rubrique/section de LEA dans le repertoire " . sfConfig::get('app_rep-local') . " la base de donnees locale? (y/n)"), 'QUESTION_LARGE', true)) {
+	// chargement des XML et images de LEA ?
+	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Charger les fichiers  XML dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
+	    $results = baseEditorialeTools::recupFilesXmlLEA();
+	    $this->logSection('>>', 'Chargement des XML ...');
+	} else {
+	    $this->logSection('>>', 'Pas de chargement des XML.');
+	}	
+	
+//-------------------------------------------------------------------------------------
+//    nettoyage des XML 
+//-------------------------------------------------------------------------------------	
+	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Nettoyage du repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
+	    $results = baseEditorialeTools::nettoyageRepLocal();
+	    $this->logSection('>>', 'Nettoyage du repertoire local...');
+	} else {
+	    $this->logSection('>>', 'Pas de nettoyage du repertoire local.');
+	}        
+	
+//-------------------------------------------------------------------------------------
+//    recuperation WGET des images 
+//-------------------------------------------------------------------------------------	
+	// chargement des images de LEA ?
+	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Charger les fichiers images dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
+	    $results = baseEditorialeTools::recupFilesImagesLEA();
+	    $this->logSection('>>', 'Chargement des images...');
+	} else {
+	    $this->logSection('>>', 'Pas de chargement des images.');
+	}
+        
+//-------------------------------------------------------------------------------------
+//    Ecriture des rubriques/sections en base ?
+//-------------------------------------------------------------------------------------	
+        if (!in_array("automatic", $arguments)) { // seulement lorsque l'on veut ajouter des rubriques/sections de LEA
+            if ($this->askConfirmation(array("Ecriture rubriques/sections (A partir du repertoire " . sfConfig::get('app_rep-local') . ") la base de donnees locale? (y/n)"), 'QUESTION_LARGE', true)) {
                 $beginTime = microtime(true);
                 $results = baseEditorialeTools::recupRubriqueSection();
-                $this->logSection('### loadBE', "Chargement de l'arbo des dossiers rubrique/section de LEA en local." . " ->" . (microtime(true) - $beginTime) . " s");
+                $this->logSection('### loadBE', "Ecriture rubriques/sections en base de donnees." . " ->" . (microtime(true) - $beginTime) . " s");
                 if (in_array("verbose", $arguments)) {
 
                     foreach ($results as $result) {
@@ -70,32 +100,8 @@ EOF;
                 $this->logSection('>>', 'Pas de chargement des rubriques en base de donnees locale.');
             }
         }
-	
 //-------------------------------------------------------------------------------------
-//    recuperation WGET des XML
-//-------------------------------------------------------------------------------------	
-	// chargement des XML et images de LEA ?
-	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Charger les fichiers  XML dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
-	    $results = baseEditorialeTools::recupFilesXmlLEA();
-	    $this->logSection('>>', 'Chargement des XML ...');
-	} else {
-	    $this->logSection('>>', 'Pas de chargement des XML.');
-	}	
-	
-	
-//-------------------------------------------------------------------------------------
-//    recuperation WGET des images 
-//-------------------------------------------------------------------------------------	
-	// chargement des images de LEA ?
-	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Charger les fichiers images dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
-	    $results = baseEditorialeTools::recupFilesImagesLEA();
-	    $this->logSection('>>', 'Chargement des images...');
-	} else {
-	    $this->logSection('>>', 'Pas de chargement des images.');
-	}
-
-//-------------------------------------------------------------------------------------
-//    ecriture des articles en base ?
+//    Ecriture des articles en base ?
 //-------------------------------------------------------------------------------------	
 	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Lecture des fichiers XML locaux pour creer les articles dans la base de donnees locale? (y/n)'), 'QUESTION_LARGE', true)) {
 
