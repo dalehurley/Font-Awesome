@@ -78,11 +78,13 @@
 	}
 	.dm_layout_left {
 		.dm_zones {
+			background-color: lightcoral;
 			//permet de sortir de la zone
-			padding: (@offsetPad - @offsetBorder);
-			margin: (@gridBaseline - @offsetPad) (@offsetPad * -1);
+			//padding: (@offsetPad - @offsetBorder);
+			//margin: (@gridBaseline - @offsetPad) (@offsetPad * -1);
+			margin: @gridBaseline (@offsetPad * -1) (@gridBaseline - @offsetPad) (@offsetPad * -1);
 			//ajout d'une bordure dont l'épaisseur a été déduite
-			border: @offsetBorder solid @colorCouleur1Clair;
+			//border: @offsetBorder solid @colorCouleur1Clair;
 		}
 		
 		.dm_widget {
@@ -102,6 +104,7 @@
 	}
 	.dm_page_content, .dm_layout_right {
 		.dm_zones {
+			background-color: lightgreen;
 			//permet de sortir de la zone
 			margin: (@gridBaseline - @offsetPad) (@offsetPad * -1) @offsetPad (@offsetPad * -1);
 		}
