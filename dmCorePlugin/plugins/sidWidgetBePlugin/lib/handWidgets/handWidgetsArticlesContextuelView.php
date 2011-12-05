@@ -31,79 +31,36 @@ class handWidgetsArticlesContextuelView extends dmWidgetPluginView {
         $arrayRubriquesLists = array();
         $arrayTitreLiens = array();
         $arrayLienIds = array();
-//        if($vars['m_rubriques_list_1']!== null){$arrayRubriquesLists[] = $vars['m_rubriques_list_1'];}else $arrayRubriquesLists[] = 0;
-//        if(!is_object($vars['m_rubriques_list_2'])){$arrayRubriquesLists[] = $vars['m_rubriques_list_2'];}else
-//        if($vars['m_rubriques_list_3']!== null){$arrayRubriquesLists[] = $vars['m_rubriques_list_3'];}else $arrayRubriquesLists[] = 0;
+
         // Mise en tableau des $vars['m_rubriques_list_]
-        array_push($arrayRubriquesLists, $vars['m_rubriques_list_1'],$vars['m_rubriques_list_2'],$vars['m_rubriques_list_3']);
+        array_push($arrayRubriquesLists, $vars['m_rubriques_list_1'], $vars['m_rubriques_list_2'], $vars['m_rubriques_list_3']);
         // Mise en tableau des $vars['titreLien_]
-        array_push($arrayTitreLiens,$vars['titreLien_1'],$vars['titreLien_2'],$vars['titreLien_3']);
-        
+        array_push($arrayTitreLiens, $vars['titreLien_1'], $vars['titreLien_2'], $vars['titreLien_3']);
+
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
         switch ($dmPage->module . '/' . $dmPage->action) {
-            
-            
-            case 'main/root':
-                
-                // dans la page d'accueil, on renvoie le dernièr article des rubriques choisies
-                foreach ($arrayRubriquesLists as $i=>$rubriqueList){
-                    if($rubriqueList != 0){
-                        $articles = Doctrine_Query::create()->from('SidArticle sa')
-                        ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $rubriqueList))
-                        ->orderBy('sa.updated_at DESC')
-                                ->limit(1)
-                        ->execute();
-                        
-                        foreach ($articles as $article) { // on stocke les NB actu article 
-                            
-                    $arrayArticle[$article->id] = $article;
-                    $arrayLienIds[$article->id] = $arrayTitreLiens[$i];
-                    
-                    
-                }
-                        
-                    }
-                }
-                
-//                $articles = Doctrine_Query::create()->from('SidArticle sa')
-//                        ->leftJoin('sa.SidSection ss')
-//                        ->leftJoin('ss.SidRubrique sr')
-//                        ->Where('sa.is_active = ?', true)
-//                        ->andWhere('sr.id = ?', array(48))
-//                        ->orderBy('a.updated_at DESC')
-//                        ->limit($vars['nbArticles'])
-//                        ->execute();
-//                
-//                foreach ($articles as $article) { // on stock les NB actu article 
-//                    $arrayArticle[$article->id] = $article;
-//                }
-                break;
-                
+
             case 'article/show':
                 break;
-            case 'pageCabinet/show':
+            case 'article/list':
                 break;
-                
+
             default:
-               
+
                 // dans la page d'accueil, on renvoie le dernièr article des rubriques choisies
-                foreach ($arrayRubriquesLists as $i=>$rubriqueList){
-                    if($rubriqueList != null){
+                foreach ($arrayRubriquesLists as $i => $rubriqueList) {
+                    if ($rubriqueList != null) {
                         $articles = Doctrine_Query::create()->from('SidArticle sa')
-                        ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $rubriqueList))
-                        ->orderBy('sa.updated_at DESC')
+                                ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $rubriqueList))
+                                ->orderBy('sa.updated_at DESC')
                                 ->limit(1)
-                        ->execute();
-                        
+                                ->execute();
+
                         foreach ($articles as $article) { // on stocke les NB actu article 
-                            
-                    $arrayArticle[$article->id] = $article;
-                    $arrayLienIds[$article->id] = $arrayTitreLiens[$i];
-                    
-                    
-                }
-                        
+                            $arrayArticle[$article->id] = $article;
+                            $arrayLienIds[$article->id] = $arrayTitreLiens[$i];
+                        }
                     }
                 }
         }
@@ -111,13 +68,9 @@ class handWidgetsArticlesContextuelView extends dmWidgetPluginView {
         return $this->getHelper()->renderPartial('handWidgets', 'articlesContextuel', array(
                     'articles' => $arrayArticle,
                     'lien' => $arrayLienIds,
-//                    'nbArticles' => $vars['nbArticles'],
                     'titreBloc' => $vars['titreBloc'],
-//            'titreLien_2' => $vars['titreLien_2'],
-//            'titreLien_3' => $vars['titreLien_3'],
                     'longueurTexte' => $vars['longueurTexte'],
                     'photo' => $vars['photo']
-            
                 ));
     }
 
