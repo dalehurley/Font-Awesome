@@ -20,7 +20,8 @@
 		//ajout fond
 		background-color: @colorCouleur2Fonce;
 		//bordure de séparation
-		border-bottom: 1px solid @colorCouleur3Clair;
+		//border-bottom: 1px solid @colorCouleur3Clair;
+		border-bottom: 1px solid red;
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
@@ -65,11 +66,27 @@
 	}
 }
 
+
+
+//hack iPad et iPhone
+@media screen and (-webkit-min-device-pixel-ratio:0) and (orientation:landscape) {
+	.dm_layout_top .search_form input.query {
+		background-color: orange;
+		padding-bottom: 3px;
+	}
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) and (orientation:portrait) {
+	.dm_layout_top .search_form input.query {
+		background-color: purple;
+		padding-bottom: 3px;
+	}
+}
+
+
 //hack webkit (Safari et Chrome)
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	.dm_layout_top {
-		.search_form {
-			input.query { padding-bottom: 4px; }
-		}
+	.dm_layout_top .search_form input.query {
+		background-color: lime;
+		padding-bottom: 4px;
 	}
 }
