@@ -73,6 +73,9 @@ ul.dropdown {
 	
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
 	.dm_layout_centerTop .navigation_menu & {
+		//supression bordure à gauche sur le premier niveau
+		#dm_page & { border-left: 0; }
+		
 		//ajout ombre
 		ul {
 			border-right: 0;
@@ -135,8 +138,21 @@ ul.dropdown {
 				padding-bottom: @menuDropdownPadV;
 				border-bottom: 1px solid @menuBorderColor;
 			}
-			//compensation décalage du sous-menu
-			//& > ul { padding-top: @gridBaseline/4; }
+			
+			//rajout bordure à gauche sur la première cellule
+			&.first {
+				& > .link { border-left: 1px solid @menuBorderColor; }
+				//suppression décalage lors du rollOver
+				&:hover > .link,
+				& > .link:hover,
+				& > .link:focus { margin-left: 0; }
+				
+				//gestion décalage pour la première cellule
+				ul {
+					margin-left: 0;
+					ul { margin-left: -1px; }
+				}
+			}
 			
 			&.dm_dir {
 				//masquage de la flèche
