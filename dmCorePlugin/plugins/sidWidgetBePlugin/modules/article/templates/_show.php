@@ -1,6 +1,8 @@
 <?php
 // Vars: $article
 // Vars: $articleTags
+// Vars: $rubrique
+// Vars: $section
 
 $xmlFile = sfConfig::get('app_rep-local') .
         $article->getSection()->getRubrique() .
@@ -55,9 +57,8 @@ $output = $obj;
 //Modifications ARNAUD : structure sÃ©mantique d'un article
 //_tag ne supporte par les attributs sans valeur
 //echo _open('div.article', array('itemscope' => '', 'itemtype' => 'http://schema.org/Article'));
+echo _tag('h2.title',$rubrique.' - '.$section);
 echo '<article itemscope itemtype="http://schema.org/Article">';
-
-	echo _tag('h2.title itemprop="name"', $article->title);
 
 	//lien vers l'image
 	$imgLink = '/_images/lea' . $article->filename . '-g.jpg';
@@ -75,6 +76,8 @@ echo '<article itemscope itemtype="http://schema.org/Article">';
 						//->height(spLessCss::gridGetHeight(14,0))
 		echo _close('div');
 	}
+        
+        echo _tag('h2.title itemprop="name"', $article->title);
 	
 	/*
 	echo _open('section.contentTop');
