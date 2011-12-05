@@ -6,9 +6,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelForm extends dmWidgetP
         
         
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array());
+        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Dossiers'));
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
-                    'required' => false
+                    'required' => true
                 ));
         
         $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array());
@@ -37,12 +37,10 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelForm extends dmWidgetP
 //        
         $this->widgetSchema->setHelps(array(
 //            'm_rubriques_list' => 'Vous pouvez choisir les rubriques des article à afficher en page d\'accueil ou hors contexte',
-            'titreBloc' => 'Le titre optionnel du bloc.', 
-            'titreLien' => "Le libellé du lien vers tous les articles actus.",	    
+            'titreBloc' => 'Le titre OBLIGATOIRE du bloc', 
+            'titreLien' => "Le libellé du lien vers la liste de tous les contenus de la section choisie dans la rubrique affichée(contextuel).",	    
             'nbArticle' => 'Le nombre maximum d\'articles affichés.',            
             'longueurTexte' => 'Longueur du texte avant de la tronquer',
-//            'photo' => 'affiche ou pas la photo',
-//            'chapo' => 'Choisir si on veut afficher le résumé de la page ou le contenu entier de la page'
         ));
 
         parent::setup();
