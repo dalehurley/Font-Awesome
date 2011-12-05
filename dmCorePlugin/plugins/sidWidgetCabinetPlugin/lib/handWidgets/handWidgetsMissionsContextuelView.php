@@ -10,31 +10,18 @@ class handWidgetsMissionsContextuelView extends dmWidgetPluginView {
             'titreLien',
             'length',
             'nb',
-            'chapo',
-            'titreMission'
+            'chapo'
         ));
     }
 
-    /**
-     * On affiche NB articles Actu selon 3 types:
-     * 1) il est sur une dmPage automatique de type "Rubrique" : on affiche les missions qui sont dans cette rubrique
-     * 2) il est sur une dmPage automatique de type "Section" : on affiche les missions qui sont dans la rubrique de cette section
-     * 3) il est sur une page du module mission : on n'affiche rien
-     * 4) il est sur une page article du cabinet : on affaiche les missions qui ont la même rubrique
-     * 5) il est sur une page ni Rubrique ni Section, automatique ou pas : on affiche les articles de la rubrique choisie par défaut
-     *  
-     */
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayMission = array();
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-        //echo $dmPage->module.'/'.$dmPage->action;
-        //$arrayArticle[] = $dmPage->module.' - '.$dmPage->action.' - '.$dmPage->record_id;
 
         switch ($dmPage->module . '/' . $dmPage->action) {
-//                switch ($dmPage->module) {
             case 'section/show':
                 // il faut que je récupère l'id de la rubrique de la section
                 // je récupère donc l'ancestor de la page courante pour extraire le record_id de ce dernier afin de retrouver la rubrique
@@ -102,7 +89,6 @@ class handWidgetsMissionsContextuelView extends dmWidgetPluginView {
             case 'sidActuArticle/show':
                 // on cherche la rubrique de l'article
                 $rubriques = dmDb::table('SidActuArticleSidRubrique')->findBySidActuArticleId($dmPage->record_id);
-//                         $rubriques = dmDb::table('SidRubrique')->findById($dmPage->record_id);
                 // on parcourt les sections pour extraire les articles
                 foreach ($rubriques as $rubrique) {
                     $actuMissions = dmDb::table('SidCabinetMission')
@@ -131,7 +117,10 @@ class handWidgetsMissionsContextuelView extends dmWidgetPluginView {
                     }
                 }
                 break;
-            case 'main/root':
+
+            case 'pageCabinet/equipe':
+                break;
+            default:
                 $actuMissions = dmDb::table('SidCabinetMission')
                         ->createQuery('a')
                         ->orderBy('a.updated_at DESC')
@@ -141,25 +130,6 @@ class handWidgetsMissionsContextuelView extends dmWidgetPluginView {
                 foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
                     $arrayMission[$actuMission->id] = $actuMission;
                 }
-
-                break;
-            case 'pageCabinet/equipe':
-                break;
-            default:
-                $actuMissions = Doctrine_Query::create()
-                        ->from('SidCabinetMission p')
-                        ->select('*')
-                        ->where('p.is_active = ? ', array(true))
-                        ->orderBy('RANDOM()')
-                        ->limit($vars['nb'])
-                        ->execute();
-        
-        foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
-            // on compte le nbre de missions pour ne stocker que la quantité demandée
-            if (count($arrayMission) < $vars['nb']) {
-                $arrayMission[$actuMission->id] = $actuMission;
-            }
-        }
         }
 
 
@@ -169,7 +139,6 @@ class handWidgetsMissionsContextuelView extends dmWidgetPluginView {
                     'titreLien' => $vars['titreLien'],
                     'chapo' => $vars['chapo'],
                     'length' => $vars['length'],
-                    'titreMission' => $vars['titreMission'],
                     'nb' => $vars['nb']
                 ));
     }

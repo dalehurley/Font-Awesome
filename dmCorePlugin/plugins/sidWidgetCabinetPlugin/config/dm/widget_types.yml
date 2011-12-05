@@ -1,41 +1,82 @@
-handWidgets:
+#handWidgets:
 
-  missionsContextuel:
-    cache:              true
-    public_name:        (H) Missions contextuel
+#  missionsContextuel:
+#    cache:              true
+#    public_name:        (H) Missions contextuel
     
-  equipesContextuel:
-    cache:              true
-    public_name:        (H) Equipes contextuel
+#  equipesContextuel:
+#    cache:              true
+#    public_name:        (H) Equipes contextuel
     
-  introPageCabinet:
-    cache:              true
-    public_name:        (H) Intro pages cabinet
+#  introPageCabinet:
+#    cache:              true
+#    public_name:        (H) Intro pages cabinet
 #    
 #  introPresentationsCabinet:
 #    cache:              true
 #    public_name:        (H) Accueil presentations cabinet
+#  pageCabinet:
+#    cache:               true
+#    public_name:         (H) Page du cabinet
+    
+#  missionsList:
+#    cache:              true
+#    public_name:        (H) Liste des missions
+#    
+#  missionShow:
+#    cache:              true
+#    public_name:        (H) Pages des missions
+    
+#  recrutementsList:
+#    cache:              true
+#    public_name:        (H) Liste des recrutements
+#    
+#  recrutementShow:
+#    cache:              true
+#    public_name:        (H) Pages des recrutements
+    
+#  equipeShow:
+#    cache:              true
+#    public_name:        (H) Page des membres du cabinet
+
+pagesDuCabinet:
+  
+  introPageCabinet:
+    cache:              true
+    public_name:        (pagesDuCabinet) Intro pages cabinet
+    
   pageCabinet:
     cache:               true
-    public_name:         (H) Page du cabinet
+    public_name:         (pagesDuCabinet) Page du cabinet
+    
+missions:
+  missionsContextuel:
+    cache:              true
+    public_name:        (missions) Missions contextuel
     
   missionsList:
     cache:              true
-    public_name:        (H) Liste des missions
+    public_name:        (missions) Liste des missions
     
   missionShow:
     cache:              true
-    public_name:        (H) Pages des missions
+    public_name:        (missions) Pages des missions
     
-  recrutementsList:
+equipeCabinet:
+  equipesContextuel:
     cache:              true
-    public_name:        (H) Liste des recrutements
-    
-  recrutementShow:
-    cache:              true
-    public_name:        (H) Pages des recrutements
+    public_name:        (equipeCabinet) Equipes contextuel
     
   equipeShow:
     cache:              true
-    public_name:        (H) Page des membres du cabinet
-        
+    public_name:        (equipeCabinet) Page des membres du cabinet
+    
+recrutementsCabinet:
+  
+  recrutementsList:
+    cache:              true
+    public_name:        (recrutementCabinet) Liste des recrutements
+    
+  recrutementShow:
+    cache:              true
+    public_name:        (recrutementCabinet) Pages des recrutements
