@@ -116,7 +116,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                 }
                 break;
                 
-                default;
+                default : $articles=array();
                     break;
                 
         }
