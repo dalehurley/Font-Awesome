@@ -16,12 +16,12 @@
 
 ul.accordion {
 	//rajout bordure à gauche sur le menu principal
-	#dm_page & { border-left: 1px solid @menuBorderColor; }
+	#dm_page & { border-left: 1px solid @zonesBorderColor; }
 	
 	//rajout bordure en haut sur le menu principal et gestion décalage
 	#dm_page & {
-		& > li.first > .link { border-top: 1px solid @menuBorderColor; }
-		margin-top: -1px;
+		& > li.first > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @zonesBorderColor; }
+		margin-top: 0px;
 	}
 	
 	li.dm_parent {
