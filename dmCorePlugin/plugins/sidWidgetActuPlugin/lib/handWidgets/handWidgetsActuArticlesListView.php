@@ -24,7 +24,28 @@ class handWidgetsActuArticlesListView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayArticle = array();
+        $idDmPage = sfContext::getInstance()->getPage()->id;
+        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
         
+        switch ($dmPage->module.'/'.$dmPage->action){
+            
+            case 'sidActuArticle/show':
+                if($vars['nbArticles'] == 0) { $nb = dmDb::table('SidActuArticle')->count();}
+        else $nb = $vars['nbArticles'];
+
+        $actuArticles = Doctrine_Query::create()
+                ->from('SidActuArticle a')
+                ->leftJoin('a.SidActuTypeArticle sata')
+                ->where('a.is_active = ? and sata.sid_actu_type_id = ? and a.id <> ?', array(true,$vars['type'],$dmPage->record_id))
+                ->orderBy('a.updated_at DESC')
+                ->limit($nb)
+                ->execute();
+        
+        foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
+                    $arrayArticle[$actuArticle->id] = $actuArticle;
+                }
+                break;
+        default:
         if($vars['nbArticles'] == 0) { $nb = dmDb::table('SidActuArticle')->count();}
         else $nb = $vars['nbArticles'];
 
@@ -39,6 +60,8 @@ class handWidgetsActuArticlesListView extends dmWidgetPluginView {
         foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
                     $arrayArticle[$actuArticle->id] = $actuArticle;
                 }
+                
+        }
 
         return $this->getHelper()->renderPartial('handWidgets', 'actuArticlesList', array(
                     'articles' => $arrayArticle,

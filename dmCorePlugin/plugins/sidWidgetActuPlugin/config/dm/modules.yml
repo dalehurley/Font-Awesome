@@ -18,15 +18,15 @@
 
       SidActuArticle:
         model: SidActuArticle
-        name: "Mon Article|Mes Articles"
+        name: "Actualité du Cabinet|Actualités du Cabinet"
         credentials: article_contenu
         page: true
 #        parent: SidActuRubrique
         components:
-          list:
-            filters: [ SidActuTypeContenu ]
-          show:
-            filters: [ SidActuTypeContenu ]
+#          list:
+#            filters: [ SidActuTypeContenu ]
+#          show:
+#            filters: [ SidActuTypeContenu ]
 #          listParRubrique:
 #            filters: [ SidActuRubrique, SidActuTypeContenu ]
 #          listParTags:

@@ -8,7 +8,8 @@ class handWidgetsIntroPageCabinetView extends dmWidgetPluginView {
         $this->addRequiredVar(array(
             'page',
             'lenght',	
-            'title_page'
+            'title_page',
+            'lien'
         ));
     }
 
@@ -30,7 +31,8 @@ class handWidgetsIntroPageCabinetView extends dmWidgetPluginView {
                     
                     'pageCabinet' => $pageCabinet,
                     'lenght' => $vars['lenght'],
-                    'titlePage' => $vars['title_page']
+                    'titlePage' => $vars['title_page'],
+                    'lien' => $vars['lien']
                 ));
     }
 

@@ -20,11 +20,16 @@ class handWidgetsIntroPageCabinetForm extends dmWidgetPluginForm {
         $this->validatorSchema['title_page'] = new sfValidatorString(array(
                     'required' => false
                 ));
+        $this->widgetSchema['lien'] = new sfWidgetFormInputText();
+        $this->validatorSchema['lien'] = new sfValidatorString(array(
+                    'required' => true
+                ));
         
         $this->widgetSchema->setHelps(array(
             'page' => 'Choisir une page du cabinet',
             'lenght' => 'Nombre de caractère du chapeau',
-            'title_page'=> 'Titre du bloc'
+            'title_page'=> 'Titre du bloc',
+            'lien'=> 'Titre du lien pour aller sur la page concernée'
             
         ));
 

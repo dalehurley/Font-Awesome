@@ -14,4 +14,4 @@ echo _tag('ul.choices',
 
 echo _close('div');
 
-echo _link('http://diem-project.org/')->text('Diem CMF CMS for symfony')->set('.generator_link');
+//echo _link('http://diem-project.org/')->text('Diem CMF CMS for symfony')->set('.generator_link');

@@ -32,6 +32,9 @@ class handWidgetsActuArticlesContextuelView extends dmWidgetPluginView {
 
         switch ($dmPage->module . '/' . $dmPage->action) {
             
+            case 'pageCabinet/equipe':
+                break;
+            
             case 'section/show':
                 // il faut que je récupère l'id de la rubrique de la section
                 // je récupère donc l'ancestor de la page courante pour extraire le record_id de ce dernier afin de retrouver la rubrique

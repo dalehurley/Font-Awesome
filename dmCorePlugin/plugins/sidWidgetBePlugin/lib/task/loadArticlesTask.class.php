@@ -49,6 +49,9 @@ EOF;
             exit;
         }        
 
+//------------------------------------------------------------------------------------------------------------
+//    Chargement des rubriques et sections dans la base de donnees locale (en fonction des fichiers json)
+//------------------------------------------------------------------------------------------------------------
         if (in_array("rubriques", $arguments)) {
             $results = baseEditorialeTools::loadRubriqueSectionJson();
 
@@ -56,7 +59,7 @@ EOF;
                 $this->logSection('### loadArticles', 'Chargement des rubriques/sections de la base editoriale.');
                 foreach ($results as $result) {
                     foreach ($result as $log => $desc) {
-                        $this->logSection(utf8_decode($log), utf8_decode($desc),null,utf8_decode($log));
+                        $this->logSection($log, $desc,null,$log);
                     }
                 }
             }
@@ -75,19 +78,21 @@ EOF;
                 $this->logSection('### loadArticles', 'Chargements des articles.');
                 foreach ($results as $result) {
                     foreach ($result as $log => $desc) {
-                        $this->logSection(utf8_decode($log), utf8_decode($desc),null,utf8_decode($log));
+                        $this->logSection($log, $desc,null,$log);
                     }
                 }
             }            
-            
-            // désactivation des rubriques et section sans enfants
+
+//------------------------------------------------------------------------------------------------------------
+//    désactivation des rubriques et section sans enfants
+//------------------------------------------------------------------------------------------------------------            
             $results = baseEditorialeTools::RubriquesSectionsDeactivation();
 
             if (in_array("verbose", $arguments)) {
                 $this->logSection('### loadArticles', 'Désactivation des rubriques et sections n\'ayant pas d\'enfants.');
                 foreach ($results as $result) { 
                     foreach ($result as $log => $desc) {
-                        $this->logSection(utf8_decode($log), utf8_decode($desc),null,utf8_decode($log));
+                        $this->logSection($log, $desc,null,$log);
                     }
                 }
             }

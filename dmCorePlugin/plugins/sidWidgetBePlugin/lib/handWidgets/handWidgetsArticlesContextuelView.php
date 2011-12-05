@@ -31,7 +31,9 @@ class handWidgetsArticlesContextuelView extends dmWidgetPluginView {
         $arrayRubriquesLists = array();
         $arrayTitreLiens = array();
         $arrayLienIds = array();
-        
+//        if($vars['m_rubriques_list_1']!== null){$arrayRubriquesLists[] = $vars['m_rubriques_list_1'];}else $arrayRubriquesLists[] = 0;
+//        if(!is_object($vars['m_rubriques_list_2'])){$arrayRubriquesLists[] = $vars['m_rubriques_list_2'];}else
+//        if($vars['m_rubriques_list_3']!== null){$arrayRubriquesLists[] = $vars['m_rubriques_list_3'];}else $arrayRubriquesLists[] = 0;
         // Mise en tableau des $vars['m_rubriques_list_]
         array_push($arrayRubriquesLists, $vars['m_rubriques_list_1'],$vars['m_rubriques_list_2'],$vars['m_rubriques_list_3']);
         // Mise en tableau des $vars['titreLien_]
@@ -46,7 +48,7 @@ class handWidgetsArticlesContextuelView extends dmWidgetPluginView {
                 
                 // dans la page d'accueil, on renvoie le dernièr article des rubriques choisies
                 foreach ($arrayRubriquesLists as $i=>$rubriqueList){
-                    if($rubriqueList != null){
+                    if($rubriqueList != 0){
                         $articles = Doctrine_Query::create()->from('SidArticle sa')
                         ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $rubriqueList))
                         ->orderBy('sa.updated_at DESC')
@@ -79,6 +81,8 @@ class handWidgetsArticlesContextuelView extends dmWidgetPluginView {
                 break;
                 
             case 'article/show':
+                break;
+            case 'pageCabinet/show':
                 break;
                 
             default:

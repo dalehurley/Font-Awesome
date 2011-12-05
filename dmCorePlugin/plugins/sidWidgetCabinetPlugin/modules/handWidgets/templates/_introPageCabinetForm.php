@@ -11,7 +11,8 @@ _tag('div',
  
     $form['page']->renderRow().
     $form['lenght']->renderRow().
-    $form['title_page']->renderRow()
+    $form['title_page']->renderRow().
+    $form['lien']->renderRow()
           
 ); 
 

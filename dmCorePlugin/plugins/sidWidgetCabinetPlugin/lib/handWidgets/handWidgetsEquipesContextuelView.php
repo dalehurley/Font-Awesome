@@ -83,10 +83,12 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
 		}
 		break;
                 // on n'affiche rien si on est sur une page du module equipe
-                case 'equipe/show':
-                        break;
-                    case 'equipe/list':
-                        break;
+//                case 'equipe/show':
+//                        break;
+//                case 'equipe/list':
+//                    break;
+                case 'pageCabinet/equipe':
+                    break;
                     // on affiche les equipes ayant les mêmes rubriques que la page actu du cabinet
                      case 'sidActuArticle/show':
                          // on cherche la rubrique de l'article
@@ -165,7 +167,20 @@ class handWidgetsEquipesContextuelView extends dmWidgetPluginView {
                 
                 break;
 	    default:
-		// hors context, on ne renvoie aucun article
+		 $actuEquipes = dmDb::table('SidCabinetEquipe')
+			->createQuery('p')
+			->where('p.is_active = ? ', array(true))
+                            ->orderBy('RANDOM()')
+			->limit($vars['nb'])
+			->execute();
+                
+                    
+                                    foreach ($actuEquipes as $actuEquipe) { // on stock les NB actu article 
+                                        // on compte le nbre de missions pour ne stocker que la quantité demandée
+                                         if (count($arrayEquipe) < $vars['nb']) {
+                                            $arrayEquipe[$actuEquipe->id] = $actuEquipe;
+                                        }
+                                    }
 	}
         
         $pageEquipe = dmDb::table('dmPage')->createQuery('a')->where('a.module = ? and a.action = ? and a.record_id = ?', array('pageCabinet', 'equipe',0 ))->execute();
