@@ -54,16 +54,16 @@ Content:
           cache:              true
 #        dernierArticleDeChaqueCategorie:
 #          cache:              true
-        listeParTags:
-          filters: [ dmTag ]
+#        listeParTags:
+#          filters: [ dmTag ]
 #        showArticlesAvecMemeTag:
 #          cache:              true
 #        showMissionsAvecMemeTag:
 #          cache:              true
 #        showMembresEquipeAvecMemeTag:
 #          cache:              true
-#        listArticlesAvecMemeTag:
-#          cache:              true
+        listArticlesAvecMemeTag:
+          cache:              true
 #        listMissionsAvecMemeTag:
 #          cache:              true
 #        listMembresEquipeAvecMemeTag:
