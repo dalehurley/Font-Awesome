@@ -7,11 +7,11 @@
 // Tablet Landscape	: 1024px	(on compte sans la scrollbar)
 // Colonnes			: 8
 // Scrollbar		: 0
-// and (min-width: 992px) and (max-width: 1024px) and (orientation:landscape)
+// and (min-width: 992px) and (max-width: 1024px)
 // and (min-width: 1024px)
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1024px) and (orientation:landscape) {
 	//ajout infos de debug
-	.debugTemplate .debugInfo .screenType .value:after { content: "TabletLandscapeTEST"; }
+	.debugTemplate .debugInfo .screenType .value:after { content: "TabletLandscape"; }
 	//désactivation de la scrollBar
 	html { overflow-y: hidden; }
 	/*
