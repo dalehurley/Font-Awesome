@@ -7,11 +7,13 @@ if (sfConfig::get('sf_environment') == 'dev') {
             'div.debug', array('onClick' => '$(this).hide();'), _tag('span.type', 'id LEA&#160;:') . ' ' . _tag('span.value', $article->filename)
     );
 }
+if($photo == 1){
 //lien vers l'image
 $imgLink = '/_images/lea' . $article->filename . '-p.jpg';
 //on vérifie que l'image existe
 $imgExist = is_file(sfConfig::get('sf_web_dir') . $imgLink);
-
+}
+else $imgExist = false;
 //composition du html contenu dans le lien (ne peux contenir que des span)
 $html = '';
 

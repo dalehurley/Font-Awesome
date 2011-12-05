@@ -4,7 +4,7 @@ class recrutementsCabinetRecrutementShowForm extends dmWidgetPluginForm {
 
     public function configure() {
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => __('Recruitement')));
+        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Recrutement'));
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => true
                 ));

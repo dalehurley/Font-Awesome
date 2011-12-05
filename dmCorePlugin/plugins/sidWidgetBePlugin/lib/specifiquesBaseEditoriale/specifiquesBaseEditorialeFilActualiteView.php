@@ -10,7 +10,8 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
             'titreLien',
             'longueurTexte',
             'nbArticle',
-            'section'
+            'section',
+            'photo'
         ));
     }
 
@@ -30,7 +31,16 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-
+        switch($dmPage->module.'/'.$dmPage->action){
+            
+            case 'article/show':
+                
+                break;
+            
+            
+       
+            
+            default :
         // je récupère les ids des articles appartenants aux sections choisies
         foreach ($vars['section'] as $section) {
             // je récupère UN article (le plus récemment mis à jour) de chaque section
@@ -59,6 +69,13 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
         }
         array_multisort($updated, SORT_DESC, $arrayFilActus);
         $arrayFilActus = array_slice($arrayFilActus, 0, $vars['nbArticle']);
+        }
+        
+//        foreach ($arrayFilActus as $key => $value) {
+//            $updated[$key] = $value['updated_at'];
+//        }
+//        array_multisort($updated, SORT_DESC, $arrayFilActus);
+//        $arrayFilActus = array_slice($arrayFilActus, 0, $vars['nbArticle']);
 
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'filActualite', array(
                     'articles' => $arrayFilActus,
@@ -66,7 +83,8 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                     'titreLien' => $vars['titreLien'],
                     'longueurTexte' => $vars['longueurTexte'],
                     'section' => $vars['section'],
-                    'arrayRubrique' => $arrayRubrique
+                    'arrayRubrique' => $arrayRubrique,
+                    'photo' => $vars['photo']
                 ));
     }
 

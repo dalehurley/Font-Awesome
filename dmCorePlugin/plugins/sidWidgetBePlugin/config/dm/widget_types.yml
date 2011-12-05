@@ -24,9 +24,9 @@ handWidgets:
 #    cache:              true
 #    public_name:        (H) Liste articles par section par rubrique
 #    
-#  listSousHomeByRubrique:
-#    cache:              true
-#    public_name:        (H) Liste sous home par rubrique
+  listSousHomeByRubrique:
+    cache:              true
+    public_name:        (H) Liste sous home par rubrique
     
 #  articlesContextuel:
 #    cache:              true
@@ -38,15 +38,19 @@ handWidgets:
     
 specifiquesBaseEditoriale:
   
-  articlesContextuel:
-    cache:              true
-    public_name:        (H) Article contextuel
+#  articlesContextuel:
+#    cache:              true
+#    public_name:        (specifiquesBaseEditoriale) Article contextuel
 
   listAgenda:
     cache:              true
-    public_name:        (H) Liste agenda
+    public_name:        (specifiquesBaseEditoriale) Liste agenda
     
   filActualite:
     cache:              true
-    public_name:        (H) Fil d'actualité
+    public_name:        (specifiquesBaseEditoriale) Fil d'actualité
+    
+  articlesBySectionContextuel:
+    cache:              true
+    public_name:        (specifiquesBaseEditoriale) Article by Section contextuel
         

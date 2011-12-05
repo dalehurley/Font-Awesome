@@ -4,7 +4,7 @@ class equipeCabinetEquipeShowForm extends dmWidgetPluginForm {
 
     public function configure() {
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => __('Our team, your partners')));
+        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Notre équipe, vos conseils'));
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => true
                 ));

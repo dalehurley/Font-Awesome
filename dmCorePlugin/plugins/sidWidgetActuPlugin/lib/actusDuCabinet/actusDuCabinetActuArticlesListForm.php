@@ -18,7 +18,7 @@ class actusDuCabinetActuArticlesListForm extends dmWidgetPluginForm {
 
         $this->widgetSchema['nbArticles'] = new sfWidgetFormInputText(array('default' => 0));
         $this->validatorSchema['nbArticles'] = new sfValidatorInteger(array(
-                    'required' => true
+                    'required' => true,
                 ));
         
         $this->widgetSchema['longueurTexte'] = new sfWidgetFormInputText(array('default' => 0));

@@ -4,12 +4,12 @@ class equipeCabinetEquipesContextuelForm extends dmWidgetPluginForm {
 
     public function configure() {
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => __('Your advisor')));
+        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Votre conseil'));
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => false
                 ));
 	
-        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('default' => __('All our missions')));
+        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('default' => 'Toutes nos missions'));
         $this->validatorSchema['titreLien'] = new sfValidatorString(array(
                     'required' => false
                 ));		

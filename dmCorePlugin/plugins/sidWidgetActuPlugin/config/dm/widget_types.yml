@@ -16,15 +16,15 @@ actusDuCabinet:
 
   actuArticlesContextuel:
     cache:              true
-    public_name:        (H) Actu articles contextuel
+    public_name:        (actusDuCabinet) Actu articles contextuel
     
   actuArticlesList:
     cache:              true
-    public_name:        (H) Liste des actus du Cabinet
+    public_name:        (actusDuCabinet) Liste des actus du Cabinet
     
   actuArticleShow:
     cache:              true
-    public_name:        (H) Page des actus du Cabinet
+    public_name:        (actusDuCabinet) Page des actus du Cabinet
 
     
         

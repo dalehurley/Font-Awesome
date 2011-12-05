@@ -1,16 +1,12 @@
 <?php
+
 echo
 
 $form->renderGlobalErrors(),
+ _tag('div', $form['title']->renderRow() .
+        $form['lien']->renderRow() .
+        $form['nbArticles']->renderRow() .
+        $form['length']->renderRow()
+);
 
-
-_tag('div',
- 
-    
-    $form['nbArticles']->renderRow().   
-    $form['title']->renderRow().
-    $form['lien']->renderRow().
-    $form['length']->renderRow()
-  
-); 
 

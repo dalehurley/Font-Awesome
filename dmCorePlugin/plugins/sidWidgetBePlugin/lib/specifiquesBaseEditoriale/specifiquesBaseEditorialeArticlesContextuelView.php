@@ -7,6 +7,7 @@ class specifiquesBaseEditorialeArticlesContextuelView extends dmWidgetPluginView
 
         $this->addRequiredVar(array(
             'titreBloc',
+            'section',
             'm_rubriques_list_1',
             'titreLien_1',
             'm_rubriques_list_2',
@@ -14,7 +15,7 @@ class specifiquesBaseEditorialeArticlesContextuelView extends dmWidgetPluginView
             'm_rubriques_list_3',
             'titreLien_3',
             'longueurTexte',
-            'photo',
+//            'photo',
         ));
     }
 
@@ -28,14 +29,14 @@ class specifiquesBaseEditorialeArticlesContextuelView extends dmWidgetPluginView
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayArticle = array();
-        $arrayRubriquesLists = array();
-        $arrayTitreLiens = array();
-        $arrayLienIds = array();
+//        $arrayRubriquesLists = array();
+//        $arrayTitreLiens = array();
+//        $arrayLienIds = array();
 
         // Mise en tableau des $vars['m_rubriques_list_]
-        array_push($arrayRubriquesLists, $vars['m_rubriques_list_1'], $vars['m_rubriques_list_2'], $vars['m_rubriques_list_3']);
+//        array_push($arrayRubriquesLists, $vars['m_rubriques_list_1'], $vars['m_rubriques_list_2'], $vars['m_rubriques_list_3']);
         // Mise en tableau des $vars['titreLien_]
-        array_push($arrayTitreLiens, $vars['titreLien_1'], $vars['titreLien_2'], $vars['titreLien_3']);
+//        array_push($arrayTitreLiens, $vars['titreLien_1'], $vars['titreLien_2'], $vars['titreLien_3']);
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
@@ -63,6 +64,38 @@ class specifiquesBaseEditorialeArticlesContextuelView extends dmWidgetPluginView
                         }
                     }
                 }
+                
+                
+//                // je récupère les ids des articles appartenants aux sections choisies
+//                foreach ($vars['section'] as $section) {
+//                    // je récupère UN article (le plus récemment mis à jour) de chaque section
+//                    $articles = dmDb::table('SidArticle')
+//                            ->createQuery('a')
+//                            ->where('a.section_id = ? AND a.is_active = ?', array($section, true))
+//                            ->orderBy('updated_at DESC')
+//                            ->limit(1)
+//                            ->execute();
+//                    // Pour cet article, je le mets dans un tableau général et je mets dans un tableau le nom de la page de la Rubrique
+//                    foreach ($articles as $article) {
+//
+//                        $rubriquePage = dmDb::table('DmPage') //->findAllBySectionId($vars['section']);
+//                                ->createQuery('p')
+//                                ->where('p.module = ? and p.action=? and p.record_id=?', array('rubrique', 'show', $article->Section->rubrique_id))
+//                                ->limit(1)
+//                                ->execute();
+//
+//                        $arrayRubrique[$article->id] = $rubriquePage[0]->name;
+//
+//                        $arrayFilActus[$article->id] = $article;
+//                    }
+//                }
+//                foreach ($arrayFilActus as $key => $value) {
+//                    $updated[$key] = $value['updated_at'];
+//                }
+//                array_multisort($updated, SORT_DESC, $arrayFilActus);
+//                $arrayFilActus = array_slice($arrayFilActus, 0, $vars['nbArticle']);
+
+                
         }
 
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'articlesContextuel', array(

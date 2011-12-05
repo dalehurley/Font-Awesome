@@ -4,7 +4,7 @@ class missionsMissionShowForm extends dmWidgetPluginForm {
 
     public function configure() {
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => __('Our missions')));
+        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Nos missions'));
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => true
                 ));

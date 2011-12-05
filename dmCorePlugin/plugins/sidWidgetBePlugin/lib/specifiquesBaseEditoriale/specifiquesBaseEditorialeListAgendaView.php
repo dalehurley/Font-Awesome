@@ -59,11 +59,11 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
             $arrayAgenda = array_slice($arrayAgenda, 0, $vars['nbArticles']);
 
             // Je personnalise le titre du widget
-            if ($vars['title'] == '') {
-                $title = $rubrique[0]->name;
-            }
-            else
-                $title = $vars['title'];
+//            if ($vars['title'] == '') {
+//                $title = $rubrique[0]->name;
+//            }
+//            else
+//                $title = $vars['title'];
             return $this->getHelper()->renderPartial('handWidgets', 'listAgenda', array(
                         'agendas' => $arrayAgenda, // tableau d'objet
                         'nbArticles' => $vars['nbArticles'],

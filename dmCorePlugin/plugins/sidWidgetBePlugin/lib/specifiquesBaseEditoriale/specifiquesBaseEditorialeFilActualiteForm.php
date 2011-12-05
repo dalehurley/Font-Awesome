@@ -16,12 +16,12 @@ class specifiquesBaseEditorialeFilActualiteForm extends dmWidgetPluginForm {
 
         $this->validatorSchema['section'] = new sfValidatorDoctrineChoice(array('model' => 'SidSection', 'multiple' => true, 'required' => true));
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText();
+        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Actualités'));
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => true
                 ));
 
-        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText();
+        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('default' => 'Nos articles en'));
         $this->validatorSchema['titreLien'] = new sfValidatorString(array(
                     'required' => true
                 ));
@@ -35,6 +35,9 @@ class specifiquesBaseEditorialeFilActualiteForm extends dmWidgetPluginForm {
         $this->validatorSchema['nbArticle'] = new sfValidatorInteger(array(
                     'required' => true
                 ));
+        
+        $this->widgetSchema['photo'] = new sfWidgetFormInputCheckbox(array('default'=> true));
+        $this->validatorSchema['photo']  = new sfValidatorBoolean();
 
 
         $this->widgetSchema->setHelps(array(
@@ -42,7 +45,8 @@ class specifiquesBaseEditorialeFilActualiteForm extends dmWidgetPluginForm {
             'titreLien' => 'Le titre OBLIGATOIRE du lien vers les articles de la section.',
             'longueurTexte' => 'Longueur du texte avant de la tronquer',
             'nbArticle' => 'Le nbre d\'articles à afficher',
-            'section' => 'La section à afficher'
+            'section' => 'La section à afficher',
+            'photo' => 'affiche ou pas la photo',
         ));
 
         parent::setup();

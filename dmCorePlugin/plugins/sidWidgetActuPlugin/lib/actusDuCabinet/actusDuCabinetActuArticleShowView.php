@@ -1,6 +1,6 @@
 <?php
 
-class actuDuCabinetActusArticleShowView extends dmWidgetPluginView {
+class actusDuCabinetActuArticleShowView extends dmWidgetPluginView {
 
     public function configure() {
         parent::configure();

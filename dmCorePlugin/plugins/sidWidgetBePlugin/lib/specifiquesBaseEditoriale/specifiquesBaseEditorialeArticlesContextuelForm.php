@@ -6,7 +6,7 @@ class specifiquesBaseEditorialeArticlesContextuelForm extends dmWidgetPluginForm
         
         
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => __('News')));
+        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Actualités'));
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => false
                 ));

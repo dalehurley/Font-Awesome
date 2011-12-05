@@ -9,7 +9,7 @@ class missionsMissionsContextuelForm extends dmWidgetPluginForm {
                     'required' => false
                 ));
 
-        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('label' => 'Titre du lien','default' => __('All our missions')));
+        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('label' => 'Titre du lien','default' => 'Toutes nos missions'));
         $this->validatorSchema['titreLien'] = new sfValidatorString(array(
                     'required' => true
                 ));
