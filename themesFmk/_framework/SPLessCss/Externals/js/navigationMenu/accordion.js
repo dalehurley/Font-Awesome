@@ -104,10 +104,6 @@
 	//gestion du menu accordion
 	//lancement lorsque le document est chargé
 	$(document).ready(function(){
-		
-		//DEV EN ATTENDANT CHAMP DE SÉLECTION DANS LE WIDGET
-		//$('.dm_layout_left, .dm_layout_right').find('ul.dropdown').removeClass('dropdown').addClass('accordion');
-		
 		accordionSetup();
 	});
 	
