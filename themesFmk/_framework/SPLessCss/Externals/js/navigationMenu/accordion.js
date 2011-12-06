@@ -20,9 +20,8 @@
 		// iterate and reformat each matched element
 		return this.each(function() {
 			$this = $(this);
-			// build element specific options
-			var o = $.meta ? $.extend({}, opts, $this.data()) : opts;
-			//alert("options.duration : " + o.duration + " options.easing : " + o.easing);
+			//on récupère les options passées en JSON dans le container et on les mixe avec celles déjà présentes
+			var o = $.metadata ? $.extend({}, opts, $this.closest('.dm_widget_navigation_menu_container').metadata()) : opts;
 			
 			$this.find('li.dm_dir').each(function() {
 				//on ne lance l'événement click que sur le lien enfant
@@ -135,8 +134,7 @@
 	//lancement automatique de la fonction
 	$(document).ready(function(){
 		$('ul.accordion').menuAccordion();
-		/*
-		$('ul.accordion').menuAccordion({
+		/*$('ul.accordion').menuAccordion({
 									duration: 500
 									});*/
 	});

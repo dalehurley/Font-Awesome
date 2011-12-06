@@ -42,7 +42,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		if (!isset($vars['menuType']))
             $vars['menuType'] = "default";
 
-        //on ajoute la classe du type de menu provenant du framework less (Ã  terme overridÃ© dans un paramÃ¨tre du widget)
+        //on ajoute la classe du type de menu provenant du paramètre du widget
         //$vars['menu']->ulClass(myUser::getLessParam('templateMenu'));
         $vars['menu']->ulClass($vars['menuType']);
 		
@@ -75,8 +75,14 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		
 		//récupération html de base du menu
 		$html = parent::doRender();
-		//ajout container nav
-		$html = $this->getHelper()->tag('nav role="navigation"', $html);
+		//récupération du helper (évite d'appeler la fonction à chaque fois)
+		$helper = $this->getHelper();
+		
+		//ajout container nav avec options par défault passées en JSON (à voir pour intégration propre avec chaque type de menu)
+		$html = $helper->tag('nav.dm_widget_navigation_menu_container role="navigation"', array('json' => array(
+			'duration'		=> 500,
+			'easing'		=> 'swing'
+		)), $html);
 		
 		// cache the HTML
         if ($this->isCachable()) {
