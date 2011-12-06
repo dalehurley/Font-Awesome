@@ -77,12 +77,20 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		$html = parent::doRender();
 		//récupération du helper (évite d'appeler la fonction à chaque fois)
 		$helper = $this->getHelper();
+		//récupération des variables
+		$vars = $this->getViewVars();
 		
-		//ajout container nav avec options par défault passées en JSON (à voir pour intégration propre avec chaque type de menu)
-		$html = $helper->tag('nav.dm_widget_navigation_menu_container role="navigation"', array('json' => array(
-			'duration'		=> 500,
-			'easing'		=> 'swing'
-		)), $html);
+		//génération des paramètres du menu en fonction de son type (à voir pour intégration propre avec chaque type de menu, cf dmWidgetContentNivoGallery pour méthode)
+		$menuParam = array();
+		if($vars['menuType'] === 'accordion' ){
+			$menuParam = array('json' => array(
+											'duration'		=> 250,
+											'easing'		=> 'swing'
+											));
+		}
+		
+		//ajout container nav avec options par défault
+		$html = $helper->tag('nav.dm_widget_navigation_menu_container role="navigation"', $menuParam, $html);
 		
 		// cache the HTML
         if ($this->isCachable()) {
