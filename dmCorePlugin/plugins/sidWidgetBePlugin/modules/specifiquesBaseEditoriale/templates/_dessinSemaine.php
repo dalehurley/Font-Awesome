@@ -34,3 +34,33 @@ foreach ($dessins as $dessin) {
 echo _close('ul');
 echo _close('li');
 
+?>
+
+
+    <div id="gallery" class="ad-gallery">
+      <div class="ad-image-wrapper">
+      </div>
+      <div class="ad-controls">
+      </div>
+      <div class="ad-nav">
+        <div class="ad-thumbs">
+          <ul class="ad-thumb-list">
+            <li>
+              <a href="images/1.jpg">
+                <img src="images/thumbs/t1.jpg" class="image0">
+              </a>
+            </li>
+            <li>
+              <a href="images/10.jpg">
+                <img src="images/thumbs/t10.jpg" title="A title for 10.jpg" alt="This is a nice, and incredibly descriptive, description of the image 10.jpg" class="image1">
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="descriptions">
+
+    </div>
