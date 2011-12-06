@@ -9,9 +9,8 @@
 //permet d'isoler le code du reste de l'environnement javascript
 (function($) {
 	
-	// plugin definition
+	//Définition du plugin
 	$.fn.menuAccordion = function(options) {
-		
 		//test ajout de debug
 		$.fn.menuAccordion.debug("Activation du menu : " + $(this).attr("class"));
 		
@@ -125,7 +124,7 @@
 			window.console.log(txt);
 	}
 	
-	// plugin defaults
+	//Paramètres par défaut
 	$.fn.menuAccordion.defaults = {
 		duration: 250,
 		easing: 'swing'
