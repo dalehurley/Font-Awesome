@@ -11,7 +11,6 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
             'section',
             'longueurTexte',
             'nbArticle'
-//            'photo',
         ));
     }
 
@@ -52,10 +51,13 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                 ->limit($vars['nbArticle'])
                                 ->execute();
                         
-//                        $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module,$dmPage->action,$dmPage->record_id);
-//                        $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section',$dmPage->action,$sectionPages[0]);
+                        
+//                        echo'totto '. $rubriqueName->name.'<br />';
+//                        echo'totto '.$sectionName->name;
                     }
                 }
+                $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module,$dmPage->action,$dmPage->record_id);
+                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section',$dmPage->action,$sectionPages[0]->id);
                 
                 break;
                 
@@ -81,11 +83,12 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                 ->execute();
                         
                         $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique','show',$rubrique->id);
-                        $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module,$dmPage->action,$sectionPages[0]);
-                        echo $rubriqueName[0].' - '.$sectionName[0];
+                        $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module,$dmPage->action,$sectionPages[0]->id);
+//                        echo $rubriqueName->name.' - '.$sectionName->name;
                     }
                 }
-                
+                $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique','show',$rubrique->id);
+                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module,$dmPage->action,$sectionPages[0]->id);
                 break;
                 
                 case 'article/show':
@@ -109,14 +112,18 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                 ->limit($vars['nbArticle'])
                                 ->execute();
                         
-                        $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique','show',$rubrique->id);
-                        $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module,$dmPage->action,$sectionPages[0]);
-                        echo $rubriqueName[0].' - '.$sectionName[0];
+                        
+//                        echo $rubriqueName->name.' - '.$sectionName->name;
                     }
                 }
+                $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique','show',$rubrique->id);
+                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section',$dmPage->action,$articleId->section_id);
                 break;
                 
-                default;
+                default : 
+                    $articles = array();
+                    $rubriqueName ="";
+                    $sectionName="";
                     break;
                 
         }
@@ -133,10 +140,10 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                     'articles' => $articles,
 //                    'lien' => $arrayLienIds,
                     'titreBloc' => $vars['titreBloc'],
+                    'titreLien' => $vars['titreLien'],
                     'longueurTexte' => $vars['longueurTexte'],
-//                    'photo' => $vars['photo']
-//                    'rubrique' => $rubriqueName[0]->getName(),
-//                    'section' => $sectionName[0]->getName()
+                    'rubrique' => $rubriqueName,
+                    'section' => $sectionName
                 ));
     }
 
