@@ -21,15 +21,27 @@ class baseEditorialeTools {
 
         $i = 0;
 
-        $rubriques = Doctrine_Core::getTable('SidRubrique')->findByIsActive(true);
-        //$rubriques = Doctrine_Core::getTable('SidRubrique')->allRubrique();
+        // les languages
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+
+        //$rubriques = Doctrine_Core::getTable('SidRubrique')->findByIsActive(true);
+        $rubriques = Doctrine_Core::getTable('SidRubrique')->findAll();
+        
+        $k=0;
+        
+        $repBaseEditoriale = sfConfig::get('app_rep-local-json');
+        
+        // purge de tous les fichiers json
+        exec('rm -R '.$repBaseEditoriale);
+        // création du dossier d'export
+        exec('mkdir '.$repBaseEditoriale);
+        
         foreach ($rubriques as $rubrique) {
-
-            // les languages
-            $arrayLangs = sfConfig::get('dm_i18n_cultures');
-
+            $rubriqueDir = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title;
+            
             if (!$rubrique->isActive) {
-                $return[$i]['KO : Rubrique non active'] = $rubrique;
+                $k++;
+                $return[$k]['('.$k.') KO : Rubrique non active'] = $rubrique;
             } else {
                 $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueId($rubrique->id);
 
@@ -42,7 +54,8 @@ class baseEditorialeTools {
                         unlink($fileRubriqueName);
 
                     if (!$sidSection->isActive) {
-                        $return[$i]['KO : Section non active'] = $sidSection;
+                        $k++;
+                        $return[$k]['('.$k.') KO : Section non active'] = $sidSection;
                     } else {
                         // on récupère les articles de cette section
                         $articles = Doctrine_Core::getTable('SidArticle')->findBySectionId($sidSection->id);
@@ -75,12 +88,11 @@ class baseEditorialeTools {
                          */
                         try {
                             if (sfConfig::get('app_rep-local-json') != '') {
-                                if ($j) { // s'il y'a des sections
-                                    $repBaseEditoriale = sfConfig::get('app_rep-local-json');
-                                    $rubriqueDir = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title;
+                                //if ($j) { // s'il y'a des articles
+                                   $k++;
                                     if (!is_dir($rubriqueDir)) {
                                         mkdir($rubriqueDir);
-                                        $return[$j]['DIR+'] = $rubriqueDir;
+                                        $return[$k]['DIR+'] = $rubriqueDir;
                                     }
 
                                     $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
@@ -88,15 +100,16 @@ class baseEditorialeTools {
                                     fputs($fileRubrique, json_encode($arrayJson));
                                     fclose($fileRubrique);
 
-                                    $return[$j]['OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
+                                    $return[$k]['('.$k.') OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
                                     $nbArticleTotal += count($arrayJson);
-                                }
+                               // }
                             } else {
-                                $return[$j]['KO : Merci de spécifier la variable app_rep-local'] = '';
+                                $k++;
+                                $return[$k]['KO : Merci de spécifier la variable app_rep-local'] = '';
                             }
                         } catch (Exception $e) {
-
-                            $return[$j]['ERROR : Exception reçue pour le fichier ' . $fileRubriqueName] = $e->getMessage();
+                            $k++;
+                            $return[$k]['ERROR : Exception reçue pour le fichier ' . $fileRubriqueName] = $e->getMessage();
                         }
                     }
                 }
@@ -104,7 +117,8 @@ class baseEditorialeTools {
             $i++;
         }
 
-        $return[$j]['OK : Fichiers générés - Total articles :'] = $nbArticleTotal;
+        $k++;
+        $return[$k]['Fichiers générés - Total articles :'] = $nbArticleTotal;
         return $return;
     }
 
@@ -425,6 +439,8 @@ class baseEditorialeTools {
                 }
             }
         }
+        // suppression des dossiers vides à nouveau, au cas où des dossiers se seraient vidés.
+        exec('find ' . sfConfig::get('app_rep-local') . '* -type d -empty -delete -print');
     }
     
     /*
@@ -454,14 +470,14 @@ class baseEditorialeTools {
 
 
                 // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
-                $bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitleAndIsActive($FTPrubrique);
+                $bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitleAndIsActive($rubrique, true);
 
                 if ($bdRubrique->isNew()) { // création de la rubrique en base
-                    $bdRubrique->Translation[$arrayLangs[0]]->title = $FTPrubrique;  // On insère dans la langue par défaut
+                    $bdRubrique->Translation[$arrayLangs[0]]->title = $rubrique;  // On insère dans la langue par défaut
                     $bdRubrique->save();
-                    $return[$i]['Rubrique+'] = $FTPrubrique;
+                    $return[$i]['Rubrique+'] = $rubrique;
                 } else {
-                    $return[$i]['Rubrique existe deja en base'] = $FTPrubrique;
+                    $return[$i]['Rubrique existe deja en base'] = $rubrique;
                 }
                 $i++;
 
