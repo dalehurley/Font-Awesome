@@ -66,27 +66,20 @@
 	}
 }
 
-
-
-//hack iPad et iPhone
-@media screen and (-webkit-min-device-pixel-ratio:0) and (orientation:landscape) {
-	.dm_layout_top .search_form input.query {
-		background-color: orange;
-		padding-bottom: 3px;
-	}
-}
-@media screen and (-webkit-min-device-pixel-ratio:0) and (orientation:portrait) {
-	.dm_layout_top .search_form input.query {
-		background-color: purple;
-		padding-bottom: 3px;
-	}
-}
-
-
 //hack webkit (Safari et Chrome)
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	.dm_layout_top .search_form input.query {
-		background-color: lime;
-		padding-bottom: 4px;
-	}
+	.dm_layout_top .search_form input.query { padding-bottom: 4px; }
 }
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletLandscape() {
+	.dm_layout_top .search_form input.query { padding-bottom: 3px; }
+}
+
+@templateMedia_TabletPortrait(){
+	.dm_layout_top .search_form input.query { padding-bottom: 3px; }
+}
+
+//importation des requêtes média
+@import "_framework/SPLessCss/Grids/Medias/_TabletLandscape.less";
+@import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";
