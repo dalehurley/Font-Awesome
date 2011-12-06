@@ -53,4 +53,8 @@ specifiquesBaseEditoriale:
   articlesBySectionContextuel:
     cache:              true
     public_name:        (specifiquesBaseEditoriale) Article by Section contextuel
+
+  dessinSemaine:
+    cache:              true
+    public_name:        Dessins de la semaine
         
