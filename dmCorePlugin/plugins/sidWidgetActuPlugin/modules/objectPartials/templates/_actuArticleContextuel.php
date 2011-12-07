@@ -1,11 +1,5 @@
 <?php
 // var partial : $article, $textLength, $textEnd
-//if (isset($article)) {
-//    if ($textLength == false)
-//	$textLength = 0;
-//    if (!isset($textEnd))
-//	$textEnd = ' ...';
-//	 
 // Si il n'y a que 1 article et que le titreBloc est vide, on enlève le titre de l'article pour le mettre dans la partie supérieure du Bloc
  if($nbArticle == 1){
       if ($titreBloc == ''){ 
@@ -40,13 +34,10 @@
 						spLessCss::textEditorStripParagraph($article->getResume()), 
 						$textLength, 
 						$textEnd,
-                                                                                                            true)
+                                                true)
 			    ))
 	    ->set('.link_box')
 	    ->title($article->getTitle());
     echo _close('span');
     echo _close('li');
-//} else {
-//    echo __('This bias needs to be a news item');
-//}
 ?>
