@@ -28,39 +28,37 @@ if ($currentGabarit == 'default' || $currentGabarit == '') {
 if ($isDev) echo dm_get_widget('sidSPLessCss', 'debug', array());
 ?>
 
-<div id="dm_page"<?php $isEditMode && print ' class="edit"' ?>>
-    <div id="dm_page_inner">
-        <?php echo $helper->renderArea('layout.top', '.clearfix') ?>
-
-        <div id="dm_main" class="dm_layout clearfix">
-            <div id="dm_main_inner" class="clearfix">
-                <?php echo $helper->renderArea('layout.centerTop', '.clearfix') ?>
-                <?php
-                //La zone de contenu est toujours insérée dans la page, quel que soit le gabarit choisi
-                echo $helper->renderArea('page.content');
-                if ($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-left') {
-                    echo $helper->renderArea('layout.left');
-                }
-                if ($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-right') {
-
-                    // une variable $pageRight peut être définie dans les pageSuccess.php du site (avant 
-                    // l'include du présent fichier) et permet, si elle est égale à TRUE, de rendre la colonne de droite en mode page
-                    // RAPPEL : 
-                    //   area en mode page : les widgets de cette area ne sont visibles que sur la page en cours
-                    //   area en mode layout : les widgets de cette area sont visibles dans toutes les pages utilisant ce layout et/ou cette area
-                    if (isset($pageRight) && $pageRight) {
-                        echo $helper->renderArea('page.right');
-                    } else {
-                        echo $helper->renderArea('layout.right');
-                    }
-                }
-                ?>
-                <?php echo $helper->renderArea('layout.centerBottom', '.clearfix') ?>
-            </div>
-        </div>
-        <?php echo $helper->renderArea('layout.bottom', '.clearfix') ?>
-    </div>
+<div id="dm_page">
+	<div id="dm_page_inner">
+		
+		<header id="dm_header">
+			dm_header
+		</header>
+		
+		<div id="dm_main" class="dm_layout clearfix">
+			<div id="dm_main_inner" class="clearfix">
+				
+				<div id="dm_custom_top">
+					dm_custom_top
+				</div>
+				
+				<section id="dm_content">
+					dm_content
+				</section>
+				
+				<aside id="dm_sidebar_left">
+					dm_sidebar_left
+				</aside>
+				
+				<aside id="dm_sidebar_right">
+					dm_sidebar_right
+				</aside>
+				
+			</div>
+		</div>
+		
+		<footer id="dm_footer">
+			dm_footer
+		</footer>
+	</div>
 </div>
-
-
-

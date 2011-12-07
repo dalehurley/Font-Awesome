@@ -27,7 +27,7 @@
 .ie6 {
 	body{ text-align: center; }
 	#dm_page { text-align: left; }
-	.dm_page_content, .dm_layout_left, .dm_layout_right {
+	#dm_content, #dm_sidebar_left, #dm_sidebar_right {
 		display: inline;			//display inline or double your floated margin! [1]
 		overflow: hidden;			//in ie6, overflow auto is broken [2] and so is overflow visible [3]
 		overflow-y: visible;
@@ -39,69 +39,105 @@
 }
 
 //GESTION DE L'ORDRE DE PRIORITÉ DES PROFONDEURS D'AFFICHAGE DANS CE SYSTÈME DE GRILLE (du plus haut au plus bas)
+//On intercale 100 entre chaque profondeur de façon à pouvoir rajouter des profondeurs intermédiaires personnalisées dans le template
 #dm_page {
-	.dm_layout_top { z-index: 8; }
-	.dm_layout_centerTop { z-index: 7; }
-	.dm_layout_right { z-index: 6; }
-	.dm_layout_left { z-index: 5; }
-	.dm_content { z-index: 4; }
-	.dm_layout_centerBottom { z-index: 3; }
-	.dm_layout_bottom { z-index: 2; }
+	#dm_header { z-index: 500; }
+	//.dm_layout_centerTop { z-index: 450; }
+	#dm_sidebar_right { z-index: 400; }
+	#dm_sidebar_left { z-index: 300; }
+	#dm_content { z-index: 200; }
+	//.dm_layout_centerBottom { z-index: 150; }
+	#dm_footer { z-index: 100; }
 }
 
 //CONFIGURATION D'UNE AREA PAR DÉFAULT (correspond à tous les dm_layout_*)
 .dm_area { position: relative; }
 
 //PLACEMENT HEADER ET FOOTER
-//.dm_layout_top, .dm_layout_bottom { }
+//#dm_header, #dm_footer { }
 //couleurs de débug
-.dm_layout_top { @gridDebugBgc(#999); }
-.dm_layout_bottom { @gridDebugBgc(#888); }
+#dm_header { @gridDebugBgc(#999); }
+#dm_footer { @gridDebugBgc(#888); }
 
 //PLACEMENT LAYOUT SITUÉS AU CENTRE
-.dm_layout_centerTop, .dm_layout_centerBottom { clear: both; }
+//.dm_layout_centerTop, .dm_layout_centerBottom { clear: both; }
 
 //CONFIGURATION ZONE DE CONTENU EN FONCTION DE LA PRÉSENCE DES SIDEBARS
-.dm_page_content,
-.no-sidebar .dm_page_content { float: left; }
+#dm_content,
+.no-sidebar #dm_content { float: left; }
 
 //PLACEMENT SIDEBARS
-.dm_layout_left, .dm_layout_right { float: left; padding: 0; }
+#dm_sidebar_left, #dm_sidebar_right { float: left; padding: 0; }
 
 //chargement fonction automatique de placement général (paramètres par défaut chargés)
 @gridAutoLayout();
 
+//ajout des transitions pour les navigateurs Safari (surtout optimisé pour iPad et iPhone)
+@media only screen and (-webkit-min-device-pixel-ratio:0) {
+	.csstransitions {
+		#dm_sidebar_right {
+			@transition(width, margin-left, margin-right);
+		}
+		/*#dm_content {
+			@transition(width, margin-left, margin-right);
+		}*/
+		#dm_main_inner {
+			@transitionCompress(width);
+		}
+	}
+}
+@media only screen and (-webkit-min-device-pixel-ratio:0) and (orientation:landscape) {
+	.csstransitions {
+		//on introduit un décalage temporel dans la réorganisation de l'interface
+		#dm_sidebar_right {
+			//@transitionDelay(.2s);
+			@transitionNone();
+		}
+		/*#dm_content {
+			@transitionDelay(.3s);
+		}*/
+	}
+}
+@media only screen and (-webkit-min-device-pixel-ratio:0) and (orientation:portrait) {
+	.csstransitions {
+		//on réinitialise les temps de réaction, #dm_content
+		#dm_main_inner, #dm_sidebar_right {
+			@transitionDelay(0);
+		}
+	}
+}
+
 //debug pour masquage sidebars
-.sidebar-right .dm_layout_left,
-.sidebar-left .dm_layout_right,
-.no-sidebar .dm_layout_left,
-.no-sidebar .dm_layout_right {
+.sidebar-right #dm_sidebar_left,
+.sidebar-left #dm_sidebar_right,
+.no-sidebar #dm_sidebar_left,
+.no-sidebar #dm_sidebar_right {
 	display: none;
 	visibility: hidden;
 }
 
 /*
-.dm_page_content,
-.no-sidebar .dm_page_content {
+#dm_content,
+.no-sidebar #dm_content {
 	float: left;
 	width: @gridWidth_Site;
 	margin-left: 0;
 	margin-right: @gridWidth_Site * -1;
 }
 
-.sidebar-left .dm_page_content {
+.sidebar-left #dm_content {
 	width: @gridWidth_Site - @gridWidth_SidebarLeft - @gridGutter;
 	margin-left: @gridWidth_SidebarLeft + @gridGutter;
 	margin-right: @gridWidth_Site * -1;
 }
 
-.sidebar-right .dm_page_content {
+.sidebar-right #dm_content {
 	width: @gridWidth_Site - @gridWidth_SidebarRight - @gridGutter;
 	margin-left: 0;
 	margin-right: (@gridWidth_Site - @gridWidth_SidebarRight - @gridGutter) * -1;
 }
 
-.two-sidebars .dm_page_content {
+.two-sidebars #dm_content {
 	width: @gridWidth_Site - @gridWidth_SidebarLeft - @gridWidth_SidebarRight - @gridGutter * 2;
 	margin-left: @gridWidth_SidebarLeft + @gridGutter;
 	margin-right: (@gridWidth_Site - @gridWidth_SidebarRight - @gridGutter) * -1;
@@ -109,13 +145,13 @@
 */
 
 /*
-.dm_layout_left {
+#dm_sidebar_left {
 	width: @gridWidth_SidebarLeft;
 	margin-left: 0;
 	margin-right: @gridWidth_SidebarLeft * -1;
 }
 
-.dm_layout_right {
+#dm_sidebar_right {
 	width: @gridWidth_SidebarRight;
 	margin-left: @gridWidth_Site - @gridWidth_SidebarRight;
 	margin-right: @gridWidth_Site * -1;

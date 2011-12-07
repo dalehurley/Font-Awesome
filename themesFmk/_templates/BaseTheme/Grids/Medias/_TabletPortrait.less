@@ -7,17 +7,18 @@
 //Requête média pour adapter le design en fonction du support
 @templateMedia_TabletPortrait() {
 	//chargement fonction automatique de placement général
-	@gridAutoLayoutHideSidebarLeft(@gridScreen_TabletPortrait;@gridCol_TabletPortrait);
+	//@gridAutoLayout(@gridScreen_TabletPortrait;@gridCol_TabletPortrait);
+	//gridAutoLayoutHideSidebarLeft
+	@gridAutoLayoutPortrait(@gridScreen_TabletPortrait;@gridCol_TabletPortrait);
 	
 	#dm_main_inner {
 		@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; @gridPadding);
-		background-color: darkred;
+		//background-color: darkred;
 		//@gridDebugBgc(#a88);
 	}
 	
+	
 	//replacement spécial des sidebars
-	
-	
 	/*
 	//ajout des transitions pour navigateurs récents
 	.csstransitions.opacity {
