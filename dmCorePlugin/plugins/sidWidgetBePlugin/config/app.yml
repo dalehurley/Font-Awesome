@@ -13,6 +13,9 @@ all:
   rep-local: /data/www/_lib/baseEditoriale/actualitesLea/
   rep-local-json: /data/www/_lib/baseEditoriale/actualitesLeaJson/
   rep-local-images: /data/www/_lib/baseEditoriale/_images/
+  
+  rep-local-dessin-semaine: /data/www/_lib/baseEditoriale/dessinSemaine/
+  xml-dessin: source_dessin.xml
 
   xsl-article: articleLep.xsl
   dtd-article: lepechos.dtd
