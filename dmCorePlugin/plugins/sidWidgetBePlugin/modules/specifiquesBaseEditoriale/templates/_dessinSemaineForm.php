@@ -3,7 +3,8 @@
 echo
 
 $form->renderGlobalErrors(),
- _tag('div', $form['title']->renderRow() 
+ _tag('div', $form['title']->renderRow() .
+        $form['effect']->renderRow()
 );
 
 
