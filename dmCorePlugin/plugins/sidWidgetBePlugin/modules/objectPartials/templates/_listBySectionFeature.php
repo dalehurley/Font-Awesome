@@ -16,11 +16,11 @@ foreach ($articlePager as $article) {
                                         <h3>' . $article . '</h3>'.
                                     //    '<span>'. $article->chapeau .'</span>'.
                                    '</a>
-                              </li>';
+                                </li>';
             
             $listImgOutput .= ' <li>
                                     <img style="width:463px;height:240px;" src="' . $imageLink . '" alt="" title="' . $article . '" />
-                                    '. _link($article)->text(__('En savoir plus')).'
+                                    '. _link($article)->text(__('Learn more')).'
                                 </li>';
             
             $nbImg++;

@@ -6,7 +6,7 @@ $nbImg = 0;
 foreach ($articlePager as $article) {
     $imageLink = '/_images/lea' . $article->filename . '-g.jpg'; // /_images/ est le dossier local au site en lien symbolique avec la base editoriale
     if (is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
-        $listImg .= _link($article)->text('<img src="' . $imageLink . '" alt="" title="' . ucfirst($article->Section->Rubrique).'::'.ucfirst($article->Section).'->'.$article . '" />');
+        $listImg .= _link($article)->text('<img src="' . $imageLink . '" width="462px" alt="" title="' . $article . '" />');
         $nbImg++;
     }
 }

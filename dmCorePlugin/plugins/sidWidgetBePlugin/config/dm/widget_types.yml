@@ -1,46 +1,10 @@
 handWidgets:
-
-#  articlesBySection:
-#    cache:              true
-#    public_name:        (H) Articles par sectionxxx
-#    
-#  listArticlesByRubrique:
-#    cache:              true
-#    public_name:        (H) Liste articles par rubrique
     
-#  listAgenda:
-#    cache:              true
-#    public_name:        (H) Liste agenda
-    
-#  articlesByRubriqueMultiple:
-#    cache:              true
-#    public_name:        (H) Articles par rubrique multiple
-#    
-#  listArticlesBySection:
-#    cache:              true
-#    public_name:        (H) Liste articles par section
-#    
-#  listArticlesBySectionByRubrique:
-#    cache:              true
-#    public_name:        (H) Liste articles par section par rubrique
-#    
   listSousHomeByRubrique:
     cache:              true
     public_name:        (H) Liste sous home par rubrique
-    
-#  articlesContextuel:
-#    cache:              true
-#    public_name:        (H) Article contextuel
-    
-#  filActualite:
-#    cache:              true
-#    public_name:        (H) Fil d'actualité
-    
+      
 specifiquesBaseEditoriale:
-  
-#  articlesContextuel:
-#    cache:              true
-#    public_name:        (specifiquesBaseEditoriale) Article contextuel
 
   listAgenda:
     cache:              true
