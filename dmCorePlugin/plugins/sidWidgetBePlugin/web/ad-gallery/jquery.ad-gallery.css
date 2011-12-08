@@ -24,6 +24,8 @@
     margin-bottom: 10px;
     position: relative;
     overflow: hidden;
+    background-color: white;
+    border: solid 1px #CCC;
 }
 .ad-gallery .ad-image-wrapper .ad-loader {
     position: absolute;
