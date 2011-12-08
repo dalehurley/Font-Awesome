@@ -4,6 +4,13 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
+@frameworkMedia_MobileLandscape() {
+	//ajout infos de debug
+	.debugTemplate .debugInfo .screenType .value:after { content: "MobileLandscape"; }
+	//désactivation de la scrollBar
+	html { overflow-y: hidden; }
+}
+
 // Mobile landscape	: 480px
 // Colonnes			: 5
 // Scrollbar		: 0
