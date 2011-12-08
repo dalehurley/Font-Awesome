@@ -57,74 +57,99 @@
 
 //stylage des colonnes
 #dm_page {
-	//calcul décalage intérieur
-	@offsetBorder: 1px;
-	@offsetPad: (@gridGutter / 3);
+	//.dm_layout_left .dm_zones { background-color: lightcoral; }
+	//.dm_layout_right .dm_zones { background-color: lightgreen; }
+	//.dm_page_content .dm_zones { background-color: #aaa; }
 	
 	.dm_page_content, .dm_layout_left, .dm_layout_right {
+		//meilleure gestion uniformisée des bordures
+		.dm_zones {
+			margin: @gridBaseline (@zonesOffsetPad * -1);
+		}
+		
 		.dm_widget {
+			margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
+			
 			.dm_widget_inner {
+				padding: (@zonesOffsetPad - @zonesOffsetBorder);
+				//ajout d'une bordure dont l'épaisseur a été déduite
+				border: @zonesOffsetBorder solid @zonesBorderColor;
+				//suppression bordures sous niveaux
+				.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
+				
 				//& > .title, article > .title {
 				& > .title {
 					background-color: @colorCouleur3Clair;
 					color: @colorCouleur1Moyen;
-					margin-right: (@offsetPad * -1 +1px);
-					margin-bottom: (@gridBaseline - @offsetPad);
-					margin-left: (@offsetPad * -1 +1px);
-					padding: (@offsetPad -1px);
+					margin: (@zonesOffsetPad * -1 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1 +1px);
+					padding: (@zonesOffsetPad -1px);
+					border-bottom: 1px solid @zonesBorderColor;
 				}
 			}
 		}
 	}
-	.dm_layout_left {
-		.dm_zones {
-			//permet de sortir de la zone
-			padding: (@offsetPad - @offsetBorder);
-			margin: (@gridBaseline - @offsetPad) (@offsetPad * -1);
-			//ajout d'une bordure dont l'épaisseur a été déduite
-			border: @offsetBorder solid @colorCouleur1Clair;
-		}
-		
+	
+	.dm_page_content, .dm_layout_right {
 		.dm_widget {
-			margin-top: @gridBaseline;
-			&:first-child { margin-top: 0; }
-			//suppression marges sous niveaux
-			.dm_widget { margin-top: 0; }
-			
 			.dm_widget_inner {
-				& > .title {
-					margin-top: (@offsetPad * -1);
-					border-top: 1px solid @colorCouleur1Clair;
-					border-bottom: 1px solid @colorCouleur1Clair;
-				}
+				
+				
 			}
 		}
+	}
+	
+	.dm_layout_left {
+		.dm_widget {
+			.dm_widget_inner {
+				background-color: @colorCouleur3ClairSup;
+				//.organisation { background-color: purple; }
+				/*
+				& > .title {
+					margin-top: (@zonesOffsetPad * -1);
+					//border-top: 1px solid red;
+					border: 0;
+					padding-top: @gridBaseline/2;
+					padding-bottom: @gridBaseline/2;
+				}*/
+			}
+		}
+	}
+	
+	/*
+	.dm_layout_left {
+		.dm_zones {
+			background-color: lightcoral;
+			//permet de sortir de la zone
+			//padding: (@zonesOffsetPad - @zonesOffsetBorder);
+			//margin: (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1);
+			//ajout d'une bordure dont l'épaisseur a été déduite
+			//border: @zonesOffsetBorder solid @colorCouleur1Clair;
+		}
+		
 	}
 	.dm_page_content, .dm_layout_right {
 		.dm_zones {
+			background-color: lightgreen;
 			//permet de sortir de la zone
-			margin: (@gridBaseline - @offsetPad) (@offsetPad * -1) @offsetPad (@offsetPad * -1);
+			//margin: (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1) @zonesOffsetPad (@zonesOffsetPad * -1);
+			//margin: @gridBaseline (@zonesOffsetPad * -1) @zonesOffsetPad (@zonesOffsetPad * -1);
 		}
 		
 		.dm_widget {
-			margin-bottom: (@gridBaseline - @offsetPad * 2);
+			margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
 			.dm_widget_inner {
-				padding: (@offsetPad - @offsetBorder);
+				padding: (@zonesOffsetPad - @zonesOffsetBorder);
 				//ajout d'une bordure dont l'épaisseur a été déduite
-				border: @offsetBorder solid @colorCouleur1Clair;
+				border: @zonesOffsetBorder solid @colorCouleur1Clair;
 				//suppression bordures sous niveaux
 				.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
 				
 				& > .title {
-					margin-top: (@offsetPad * -1 +1px);
+					margin-top: (@zonesOffsetPad * -1 +1px);
 					border-bottom: 1px solid @colorCouleur1Clair;
 				}
 			}
 		}
 	}
-}
-
-.dm_page_content, .dm_layout_left, .dm_layout_right {
-	.dm_zones {
-	}
+	*/
 }

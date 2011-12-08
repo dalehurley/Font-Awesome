@@ -9,14 +9,8 @@
 // Scrollbar		: 32
 // and (max-width: 1919px) 
 @media only screen and (min-width: 1648px) {
-	//ajout infos de debug
-	.debugTemplate .debugInfo .screenType .value:after { content: "DesktopWSXGAplus"; }
-	/*
-	#dm_main {
-		@gridSiteWidth(@gridScreen_DesktopWSXGAplus;@gridCol_DesktopWSXGAplus);
-		@gridDebugBgc(#a8a);
-	}
-	*/
+	//importation des adaptations média du framework
+	@frameworkMedia_DesktopWSXGAplus();
 	//importation des adaptations média du template
 	@templateMedia_DesktopWSXGAplus();
 }

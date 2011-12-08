@@ -11,8 +11,8 @@
   $.fn.adGallery = function(options) {
     var defaults = { loader_image: 'loader.gif',
                      start_at_index: 0,
-                     description_wrapper: false,
-                     thumb_opacity: 0.7,
+                     description_wrapper: $('.ad-descriptions'),
+                     thumb_opacity: 0.5,
                      animate_first_image: false,
                      animation_speed: 400,
                      width: false,
@@ -24,15 +24,16 @@
                        enable: true,
                        autostart: false,
                        speed: 5000,
-                       start_label: 'Start',
-                       stop_label: 'Stop',
+                       start_label: 'Lecture',
+                       stop_label: 'Pause',
+                       gallery_info_prefix: 'Dessin ',
                        stop_on_scroll: true,
-                       countdown_prefix: '(',
-                       countdown_sufix: ')',
+                       countdown_prefix: '[',
+                       countdown_sufix: ' s]',
                        onStart: false,
                        onStop: false
                      },
-                     effect: 'slide-hori', // or 'slide-vert', 'fade', or 'resize', 'none'
+                     effect: 'slide-vert', // or 'slide-hori', 'slide-vert', 'fade', or 'resize', 'none'
                      enable_keyboard_move: true,
                      cycle: true,
                      callbacks: {
@@ -71,8 +72,12 @@
       desc.css('bottom', '-'+ desc[0].offsetHeight +'px');
       desc.animate({bottom: 0}, this.settings.animation_speed * 2);
     };
+//    if(this.current_description) {
+//      this.current_description.animate({bottom: '-'+ this.current_description[0].offsetHeight +'px'}, this.settings.animation_speed * 2);
+//    };
+// modif lionel
     if(this.current_description) {
-      this.current_description.animate({bottom: '-'+ this.current_description[0].offsetHeight +'px'}, this.settings.animation_speed * 2);
+      this.current_description.hide();
     };
     return {old_image: {top: old_image_top},
             new_image: {top: current_top}};
@@ -91,8 +96,12 @@
       desc.css('bottom', '-'+ desc[0].offsetHeight +'px');
       desc.animate({bottom: 0}, this.settings.animation_speed * 2);
     };
+//    if(this.current_description) {
+//      this.current_description.animate({bottom: '-'+ this.current_description[0].offsetHeight +'px'}, this.settings.animation_speed * 2);
+//    };
+// modif lionel
     if(this.current_description) {
-      this.current_description.animate({bottom: '-'+ this.current_description[0].offsetHeight +'px'}, this.settings.animation_speed * 2);
+      this.current_description.hide();
     };
     return {old_image: {left: old_image_left},
             new_image: {left: current_left}};
@@ -104,6 +113,11 @@
     var current_left = parseInt(img_container.css('left'), 10);
     var current_top = parseInt(img_container.css('top'), 10);
     img_container.css({width: 0, height: 0, top: this.image_wrapper_height / 2, left: this.image_wrapper_width / 2});
+    // ajout lionel
+    if(this.current_description) {
+      this.current_description.hide();
+    };    
+    
     return {old_image: {width: 0,
                         height: 0,
                         top: this.image_wrapper_height / 2,
@@ -116,6 +130,11 @@
 
   function FadeAnimation(img_container, direction, desc) {
     img_container.css('opacity', 0);
+    // ajout lionel
+    if(this.current_description) {
+      this.current_description.hide();
+    };
+    
     return {old_image: {opacity: 0},
             new_image: {opacity: 1}};
   };
@@ -123,6 +142,11 @@
   // Sort of a hack, will clean this up... eventually
   function NoneAnimation(img_container, direction, desc) {
     img_container.css('opacity', 0);
+    // ajout lionel
+    if(this.current_description) {
+      this.current_description.hide();
+    };
+    
     return {old_image: {opacity: 0},
             new_image: {opacity: 1},
             speed: 0};
@@ -377,7 +401,7 @@
       this.prev_link.add(this.next_link).mouseover(
         function(e) {
           // IE 6 hides the wrapper div, so we have to set it's width
-          $(this).css('height', context.image_wrapper_height);
+          //$(this).css('height', context.image_wrapper_height);  // supprimer par lionel (bug sous chrome/FF) et pas de support IE6 nécessaire
           $(this).find('div').show();
         }
       ).mouseout(
@@ -454,7 +478,7 @@
       );
     },
     _afterShow: function() {
-      this.gallery_info.html((this.current_index + 1) +' / '+ this.images.length);
+      this.gallery_info.html(this.settings.slideshow.gallery_info_prefix+' '+(this.current_index + 1) +'/'+ this.images.length);
       if(!this.settings.cycle) {
         // Needed for IE
         this.prev_link.show().css('height', this.image_wrapper_height);
@@ -493,7 +517,7 @@
       img_container.css('top', '0px');
       if(image_height < this.image_wrapper_height) {
         var dif = this.image_wrapper_height - image_height;
-        img_container.css('top', (dif / 2) +'px');
+        //img_container.css('top', (dif / 2) +'px');
       };
       img_container.css('left', '0px');
       if(image_width < this.image_wrapper_width) {
@@ -558,6 +582,12 @@
         img.attr('width', size.width);
         img.attr('height', size.height);
         img_container.css({width: size.width +'px', height: size.height +'px'});
+        
+        // ajout lionel
+        this.image_wrapper.css({height: size.height +'px'});
+        //this.image_wrapper.find('.ad-next').css({height: size.height +'px'});
+        
+        
         this._centerImage(img_container, size.width, size.height);
         var desc = this._getDescription(image, img_container);
         if(desc) {

@@ -67,9 +67,18 @@
 
 //hack webkit (Safari et Chrome)
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	.dm_layout_top {
-		.search_form {
-			input.query { padding-bottom: 4px; }
-		}
-	}
+	.dm_layout_top .search_form input.query { padding-bottom: 4px; }
 }
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletLandscape() {
+	.dm_layout_top .search_form input.query { padding-bottom: 3px; }
+}
+
+@templateMedia_TabletPortrait(){
+	.dm_layout_top .search_form input.query { padding-bottom: 3px; }
+}
+
+//importation des requêtes média
+@import "_framework/SPLessCss/Grids/Medias/_TabletLandscape.less";
+@import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";

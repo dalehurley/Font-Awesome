@@ -17,7 +17,7 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
         $xml = new DOMDocument();
         $xmlFile = sfConfig::get('app_rep-local-dessin-semaine') . sfConfig::get('app_xml-dessin');
 
-        $listDessin = __('Loading...');
+        $listDessin = '';
 
         if ($xml->load($xmlFile)) {
 
@@ -39,7 +39,7 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
 
                 //lien vers l'image du dessin
                 $dessins[$idArticle]['imgLinkBig'] = '/_images/' . $idArticle . '-b.jpg';
-                //$dessins[$idArticle]['imgLinkSmall'] = '/_images/' . $idArticle . '-a.jpg';                
+                $dessins[$idArticle]['imgLinkSmall'] = '/_images/' . $idArticle . '-a.jpg';                
  
             }
         } else {
@@ -48,6 +48,7 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
 
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'dessinSemaine', array(
                     'rubriqueTitle' => $vars['title'], // pour avoir le TITRE de la page 
+                    'effect' => $vars['effect'], // pour avoir le TITRE de la page 
                     'dessins' => $dessins
                 ));
     }

@@ -1,28 +1,46 @@
 // accordion.js
-// v0.1
-// Last Updated : 2011-10-07 09:30
+// v1.0
+// Last Updated : 2011-12-06 12:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
+// TODO : gestion événement mobile avec jQueryMobile : http://jquerymobile.com/demos/1.0/docs/api/events.html
+
 //permet d'isoler le code du reste de l'environnement javascript
-(function($){
+(function($) {
 	
-	//paramètrage de la future classe en attendant code propre
-	var accordionDuration = 250;
-	//voir pour intégration jQuery UI dans front
-	var accordionEasing = 'swing';
+	//Définition du plugin
+	$.fn.menuAccordion = function(options) {
+		//test ajout de debug
+		$.fn.menuAccordion.debug("Activation du menu : " + $(this).attr("class"));
+		
+		// build main options before element iteration
+		var opts = $.extend({}, $.fn.menuAccordion.defaults, options);
+		// iterate and reformat each matched element
+		return this.each(function() {
+			$this = $(this);
+			//on récupère les options passées en JSON dans le container et on les mixe avec celles déjà présentes
+			var o = $.metadata ? $.extend({}, opts, $this.closest('.dm_widget_navigation_menu_container').metadata()) : opts;
+			
+			$this.find('li.dm_dir').each(function() {
+				//on ne lance l'événement click que sur le lien enfant
+				$.fn.menuAccordion.addEvent(this, o);
+			});
+		});
+	};
 	
-	accordionToggle = function(li) {
+	//gestion ouverture de chaque li
+	$.fn.menuAccordion.toggle = function(li, options) {
 		//si le menu est ouvert on le ferme
 		if($(li).hasClass('dm_parent')) {
 			$(li).find('> ul').animate(
 				{ height: 'hide', opacity: 'hide' },
 				{
-					duration: accordionDuration,
+					duration: options.duration,
 					complete: function(){
 						$(li).removeClass('dm_parent');
 						//activation écouteur
-						accordionAddEvent(li);
+						$.fn.menuAccordion.addEvent(li, options);
 					}
 				}
 			);
@@ -34,24 +52,24 @@
 			$(li).addClass('dm_parent');
 			$(li).find('> ul').hide();
 			//désactivation écouteur
-			accordionRemoveEvent(li);
+			$.fn.menuAccordion.removeEvent(li);
 			
 			$(li).find('> ul').animate(
 				{ height: 'show', opacity: 'show' },
-				{ duration: accordionDuration }
+				{ duration: options.duration }
 			);
 		}
 	}
 	
-	accordionSibChild = function(li) {
+	//gestion des li de même niveau et des enfants
+	$.fn.menuAccordion.sibChild = function(li, options) {
 		//fermeture des autres et de leurs enfants
 		if(!$(li).hasClass('dm_parent')) {
 			//alert("!! dm_parent : "+$(li).find('> .link').text());
 			//on sélectionne tous les autres dm_parent ouverts du même niveau et on les ferme
 			$(li).parent().find('li.dm_parent').each(function(index) {
 				//ouverture/fermeture du menu
-				accordionToggle(this);
-				//alert("sib"+index+" : "+$(this).find('> .link').text());
+				$.fn.menuAccordion.toggle(this, options);
 			});
 		}
 		
@@ -61,54 +79,63 @@
 			//on sélectionne les dm_parent ouverts enfants et on les ferme
 			$(li).find('li.dm_parent').each(function(index) {
 				//ouverture/fermeture du menu
-				accordionToggle(this);
-				//alert("child"+index+" : "+$(this).find('> .link').text());
+				$.fn.menuAccordion.toggle(this, options);
 			});
 		}
 	}
 	
-	accordionBind = function(e) {
+	//gestion ajouts des événements sur les li
+	$.fn.menuAccordion.bindEvent = function(e) {
+		//récupération des options passées dans l'événement
+		options = e.data;
+		
+		//ciblage du lien
 		link = e.target;
 		
 		//on récupère le plus proche dm_dir
 		li = $(link).closest('li.dm_dir');
 		
 		//fermeture des siblings et éventuellements des children
-		accordionSibChild(li);
+		$.fn.menuAccordion.sibChild(li, options);
 		
 		//ouverture/fermeture du menu
-		accordionToggle(li);
+		$.fn.menuAccordion.toggle(li, options);
 		
 		//désactivation comportement par défaut
 		e.preventDefault();
 		return false;
 	}
 	
-	accordionAddEvent = function(li) {
+	//ajout de l'événement sur le lien
+	$.fn.menuAccordion.addEvent = function(li, options) {
 		//on ne lance l'événement click que sur le lien enfant (on enlève le handler avant de l'ajouter au cas où une instance multiple se produit)
-		$(li).find('> .link').unbind('click', accordionBind).bind('click', accordionBind);
+		$(li).find('> .link').unbind('click', $.fn.menuAccordion.bindEvent).bind('click', options, $.fn.menuAccordion.bindEvent);
 	}
 	
-	accordionRemoveEvent = function(li) {
+	//suppression de l'événement sur le lien
+	$.fn.menuAccordion.removeEvent = function(li) {
 		//on ne lance l'événement click que sur le lien enfant (on enlève le handler avant de l'ajouter au cas où une instance multiple se produit)
-		$(li).find('> .link').unbind('click', accordionBind);
+		$(li).find('> .link').unbind('click', $.fn.menuAccordion.bindEvent);
 	}
 	
-	accordionSetup = function() {
-		$('ul.accordion li.dm_dir').each(function() {
-			//on ne lance l'événement click que sur le lien enfant (on enlève le handler avant de l'ajouter au cas où une instance multiple se produit)
-			accordionAddEvent(this);
-		});
+	//fonction de debuggage
+	$.fn.menuAccordion.debug = function(txt){
+		if (window.console && window.console.log)
+			window.console.log(txt);
 	}
 	
-	//gestion du menu accordion
-	//lancement lorsque le document est chargé
+	//Paramètres par défaut
+	$.fn.menuAccordion.defaults = {
+		duration: 250,
+		easing: 'swing'
+	};
+	
+	//lancement automatique de la fonction
 	$(document).ready(function(){
-		
-		//DEV EN ATTENDANT CHAMP DE SÉLECTION DANS LE WIDGET
-		$('.dm_layout_left, .dm_layout_right').find('ul.dropdown').removeClass('dropdown').addClass('accordion');
-		
-		accordionSetup();
+		$('ul.accordion').menuAccordion();
+		/*$('ul.accordion').menuAccordion({
+									duration: 500
+									});*/
 	});
 	
 })(jQuery);

@@ -19,7 +19,7 @@ class dmWidgetNavigationMenuView extends dmWidgetPluginView {
 
         $vars['menu'] = $this->getService('menu', $menuClass ? $menuClass : null);
         
-        if (isset($vars['ulClass'])) { // correction suite ajout de myWidgetNavigationMenuVien qui redéfini le ulClass
+        if (isset($vars['ulClass'])) { // correction suite ajout de myWidgetNavigationMenuView qui redéfini le ulClass
             $vars['menu']->ulClass($vars['ulClass']);
         }
         if (!is_null($menuName)) {

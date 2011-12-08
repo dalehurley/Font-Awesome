@@ -8,14 +8,8 @@
 // Colonnes			: 20
 // Scrollbar		: 32
 @media only screen and (min-width: 1888px) {
-	//ajout infos de debug
-	.debugTemplate .debugInfo .screenType .value:after { content: "DesktopWUXGA"; }
-	/*
-	#dm_main {
-		@gridSiteWidth(@gridScreen_DesktopWUXGA;@gridCol_DesktopWUXGA);
-		@gridDebugBgc(#b88);
-	}
-	*/
+	//importation des adaptations média du framework
+	@frameworkMedia_DesktopWUXGA();
 	//importation des adaptations média du template
 	@templateMedia_DesktopWUXGA();
 }

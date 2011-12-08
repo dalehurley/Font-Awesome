@@ -7,18 +7,10 @@
 // Tablet Portrait	: 768px	(on compte sans la scrollbar)
 // Colonnes			: 8
 // Scrollbar		: 0
-// and (min-width: 768px) and (max-width: 991px) and (orientation:portrait)
-@media only screen and (max-width: 1023px) {  	// max-width: 1023 - 31 = 991px
-	//ajout infos de debug
-	.debugTemplate .debugInfo .screenType .value:after { content: "TabletPortrait"; }
-	//désactivation de la scrollBar
-	html { overflow-y: hidden; }
-	/*
-	#dm_main {
-		@gridSiteWidth(@gridScreen_TabletPortrait;@gridCol_TabletPortrait;0);
-		@gridDebugBgc(#a88);
-	}
-	*/
+// and (min-width: 768px) and (max-width: 991px)
+@media only screen and (max-width: 1023px) and (orientation:portrait) {  	// max-width: 1023 - 31 = 991px
+	//importation des adaptations média du framework
+	@frameworkMedia_TabletPortrait();
 	//importation des adaptations média du template
 	@templateMedia_TabletPortrait();
 }
