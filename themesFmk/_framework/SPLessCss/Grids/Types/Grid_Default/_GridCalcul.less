@@ -59,19 +59,19 @@
 		margin-left: 0;
 		margin-right: @getGridWidth_Site * -1;
 	}
-
+	
 	.sidebar-left #dm_content {
 		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
 		margin-right: @getGridWidth_Site * -1;
 	}
-
+	
 	.sidebar-right #dm_content {
 		width: @getGridWidth_Site - @getGridWidth_SidebarRight - @gridGutter;
 		margin-left: 0;
 		margin-right: (@getGridWidth_Site - @getGridWidth_SidebarRight - @gridGutter) * -1;
 	}
-
+	
 	.two-sidebars #dm_content {
 		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @getGridWidth_SidebarRight - @gridGutter * 2;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
@@ -86,7 +86,6 @@
 	}
 	
 	#dm_sidebar_right {
-		clear: none;
 		width: @getGridWidth_SidebarRight;
 		margin-left: @getGridWidth_Site - @getGridWidth_SidebarRight;
 		margin-right: @getGridWidth_Site * -1;
