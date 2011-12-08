@@ -27,114 +27,103 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-        
+
         switch ($dmPage->module . '/' . $dmPage->action) {
-        
+
             case 'rubrique/show':
 
                 $rubrique = dmDb::table('SidRubrique')->findOneById($dmPage->record_id);
 
                 foreach ($vars['section'] as $section) {
                     $sectionPages = Doctrine_Query::create()->from('SidSection sa')
-                                ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
-                                ->orderBy('sa.updated_at DESC')
-                                ->limit(1)
-                                ->execute();
-        
+                            ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
+                            ->orderBy('sa.updated_at DESC')
+                            ->limit(1)
+                            ->execute();
+
                     if ($sectionPages[0]->rubrique_id == $rubrique->id) {
 
-                        
+
                         $articles = Doctrine_Query::create()->from('SidArticle sa')
                                 ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $sectionPages[0]->id))
                                 ->orderBy('sa.updated_at DESC')
-                                
                                 ->limit($vars['nbArticle'])
                                 ->execute();
-                        
-                        
-//                        echo'totto '. $rubriqueName->name.'<br />';
-//                        echo'totto '.$sectionName->name;
                     }
+                    else
+                        $articles = array();
                 }
-                $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module,$dmPage->action,$dmPage->record_id);
-                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section',$dmPage->action,$sectionPages[0]->id);
-                
+
+                $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module, $dmPage->action, $dmPage->record_id);
+                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section', $dmPage->action, $sectionPages[0]->id);
+
                 break;
-                
-                
+
+
             case 'section/show':
 
                 $sectionId = dmDb::table('SidSection')->findOneById($dmPage->record_id);
                 $rubrique = dmDb::table('SidRubrique')->findOneById($sectionId->rubrique_id);
 
                 foreach ($vars['section'] as $section) {
-                    
+
                     $sectionPages = Doctrine_Query::create()->from('SidSection sa')
-                                ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
-                                ->orderBy('sa.updated_at DESC')
-                                ->limit(1)
-                                ->execute();
-                    
+                            ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
+                            ->orderBy('sa.updated_at DESC')
+                            ->limit(1)
+                            ->execute();
+
                     if ($sectionPages[0]->rubrique_id == $rubrique->id) {
                         $articles = Doctrine_Query::create()->from('SidArticle sa')
                                 ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $section))
                                 ->orderBy('sa.updated_at DESC')
                                 ->limit($vars['nbArticle'])
                                 ->execute();
-                        
-                        $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique','show',$rubrique->id);
-                        $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module,$dmPage->action,$sectionPages[0]->id);
-//                        echo $rubriqueName->name.' - '.$sectionName->name;
+
+                        $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
+                        $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module, $dmPage->action, $sectionPages[0]->id);
                     }
+                    else
+                        $articles = array();
                 }
-                $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique','show',$rubrique->id);
-                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module,$dmPage->action,$sectionPages[0]->id);
+                $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
+                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module, $dmPage->action, $sectionPages[0]->id);
                 break;
-                
-                case 'article/show':
+
+            case 'article/show':
 
                 $articleId = dmDb::table('SidArticle')->findOneById($dmPage->record_id);
                 $rubrique = dmDb::table('SidRubrique')->findOneById($articleId->Section->rubrique_id);
 
                 foreach ($vars['section'] as $section) {
-                    
+
                     $sectionPages = Doctrine_Query::create()->from('SidSection sa')
-                                ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
-                                ->orderBy('sa.updated_at DESC')
-                                ->limit(1)
-                                ->execute();
-                    
+                            ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
+                            ->orderBy('sa.updated_at DESC')
+                            ->limit(1)
+                            ->execute();
+
                     if ($sectionPages[0]->rubrique_id == $rubrique->id) {
                         $articles = Doctrine_Query::create()->from('SidArticle sa')
                                 ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $section))
                                 ->orderBy('sa.updated_at DESC')
-                                
                                 ->limit($vars['nbArticle'])
                                 ->execute();
-                        
-                        
-//                        echo $rubriqueName->name.' - '.$sectionName->name;
                     }
+                    else
+                        $articles = array();
                 }
-                $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique','show',$rubrique->id);
-                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section',$dmPage->action,$articleId->section_id);
+                $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
+                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section', $dmPage->action, $articleId->section_id);
                 break;
-                
-                default : 
-                    $articles = array();
-                    $rubriqueName ="";
-                    $sectionName="";
-                    break;
-                
-        }
-        
-//                foreach ($arrayFilActus as $key => $value) {
-//                    $updated[$key] = $value['updated_at'];
-//                }
-//                array_multisort($updated, SORT_DESC, $arrayFilActus);
-//                $arrayFilActus = array_slice($arrayFilActus, 0, $vars['nbArticle']);
 
-                
+            default :
+                $articles = array();
+                $rubriqueName = "";
+                $sectionName = "";
+                break;
+        }
+
 
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'articlesBySectionContextuel', array(
                     'articles' => $articles,

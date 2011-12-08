@@ -1,5 +1,4 @@
 <?php
-
 // vars : $articles, $titreBloc, $titreLien, $longueurTexte, $articles, $rubrique, $section
 if (count($articles)) { // si nous avons des actu articles
 
