@@ -1,31 +1,10 @@
-<?php // Vars: $articlePager
+<?php // Vars: $articles
 
-//echo $articlePager->renderNavigationTop();
-//
-//echo _open('ul.elements');
-//
-//foreach ($articlePager as $article)
-//{
-//  echo _open('li.element');
-//
-//    echo _link($article);
-//
-//  echo _close('li');
-//}
-//
-//echo _close('ul');
-//
-//echo $articlePager->renderNavigationBottom();
 if(count($articles) != NULL){
     echo _tag('h4.title', __('Related articles'));
 	echo _open('ul.elements');
 		foreach ($articles as $articleTag) {
-			echo _open('li.element');
-				//à améliorer ! (pas le temps ce matin)
-				echo _link($articleTag)
-//					->text(_tag('span.rubrique', $nomPages[$articleTag->id]['rubrique']).' > '._tag('span.section', $nomPages[$articleTag->id]['section']).' > '._tag('span', $articleTag));
-                        ->text(_tag('span.wrapper',_tag('span.title',$articleTag)))->set('.link_box');
-			echo _close('li');
+			include_partial("objectPartials/listArticlesAvecMemeTag", array("articleTag" => $articleTag));
 		}
 	echo _close('ul');
 }

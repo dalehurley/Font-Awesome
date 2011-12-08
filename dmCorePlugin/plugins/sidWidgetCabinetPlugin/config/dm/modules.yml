@@ -1,17 +1,3 @@
-#Accueil:
-#  "Page d\'accueil":
-#    Accueil:
-#      model: SidCabinetAccueil
-#      name: Accueil|Accueil
-#      credentials: accueil
-#      components:
-#       showPresentation:
-#       showMission:
-#       showEquipe:
-#       showBureauPrincipal:
-#       showBureauSecondaire:
-#       showEntete:
-
 "Le Cabinet":
 
   "Description du Cabinet":
@@ -22,26 +8,19 @@
       page: true
       credentials: page_cabinet
       components:
-        list:
-#        show:
+
     Equipe:
       model: SidCabinetEquipe
       page: true
       credentials: equipe
       components:
-#        show:
-#        list:
-#        listParTags:
-#          filters: [ dmTag ]
-#        blocPhotosEquipe:
+
     Recrutement:
       model: SidCabinetRecrutement
       page: true
       credentials: recrutement
       components:
-#       show:
-#       list:
-#       annonceRecrutement:
+
 
 "Les Missions ou Services":
   "Description des missions ou services":
@@ -51,16 +30,5 @@
       name: "Mission/Services|Missions/Services"
       credentials: mission
       components:
-#        show:
-#        list:
-#        listParTags:
-#          filters: [ dmTag ]
-#        listArticlesAvecMemeTag:
-#          cache:              true
-#        listMembresEquipeAvecMemeTag:
-#          cache:              true
-#        listActusCabinetAvecMemeTag:
-#          cache:              true
-#        listSitesUtilesAvecMemeTag:
-#          cache:              true
+
 

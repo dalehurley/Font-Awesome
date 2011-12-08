@@ -15,9 +15,15 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
         if ($currentGabarit == 'default') {
             $currentGabarit = spLessCss::getLessParam('templateGabarit');
         }
+        
+        // affichage de la page courante
+        $idDmPage = sfContext::getInstance()->getPage()->id;
+	$dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $page =  $dmPage->module.'/'.$dmPage->action.' - '.$dmPage->record_id;
 		
 		$this->html = _tag('div.debugTemplate',
 						_tag('div.debugInfo',
+                                                        _tag('span.info.currentPage', 'currentPage : ' . _tag('span.value', $page)) . tag('br').
 							_tag('span.info.mainTemplate', 'mainTemplate : ' . _tag('span.value', spLessCss::getLessParam('mainTemplate'))) . tag('br') .
 							_tag('span.info.version', 'templateVersion : ' . _tag('span.value', spLessCss::getLessParam('templateVersion'))) . tag('br') .
 							_tag('span.info.date', 'templateDate : ' . _tag('span.value', spLessCss::getLessParam('templateDate'))) . tag('br') .
@@ -30,6 +36,7 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 							_tag('span.info.gridColWidth', 'gridColWidth : ' . _tag('span.value', spLessCss::getLessParam('gridColWidth'))) . tag('br') .
 							_tag('span.info.gridGutter', 'gridGutter : ' . _tag('span.value', spLessCss::getLessParam('gridGutter'))) . tag('br') .
 							_tag('span.info.screenType', 'screenType : ' . _tag('span.value')) . tag('br')
+                                                        
 							)
 						);
 	}
