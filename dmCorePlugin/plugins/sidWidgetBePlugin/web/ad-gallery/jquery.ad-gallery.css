@@ -177,9 +177,9 @@
 .ad-gallery .ad-thumbs li a.ad-active img {
     border: 3px solid #616161;
 }
-/* Can't do display none, since Opera won't load the images then */
+/* Can't  do display none, since Opera won't load the images then */
 .ad-preloads {
     position: absolute;
     left: -9000px;
-    top: -9000px;
+    top: -9000px; 
 }
