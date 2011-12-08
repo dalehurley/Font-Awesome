@@ -51,9 +51,6 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                 ->limit($vars['nbArticle'])
                                 ->execute();
                         
-                        
-//                        echo'totto '. $rubriqueName->name.'<br />';
-//                        echo'totto '.$sectionName->name;
                     }
                 }
                 $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module,$dmPage->action,$dmPage->record_id);
