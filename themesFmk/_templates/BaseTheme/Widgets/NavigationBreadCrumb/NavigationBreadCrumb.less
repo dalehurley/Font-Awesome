@@ -11,19 +11,15 @@
 @import "_framework/SPLessCss/Widgets/NavigationBreadCrumb/_NavigationBreadCrumb.less";
 
 .navigation_bread_crumb {
-	//calcul décalage intérieur (identique aux areas)
-	@offsetBorder: 1px;
-	@offsetPad: (@gridGutter / 3);
-	
 	.dm_widget_inner {
 		//permet de sortir de la zone
-		padding: 0 (@offsetPad - @offsetBorder) (@offsetPad - @offsetBorder) (@offsetPad - @offsetBorder);
-		margin: 0 (@offsetPad * -1) (@offsetPad * -1) (@offsetPad * -1);
+		padding: 0 (@zonesOffsetPad - @zonesOffsetBorder) (@zonesOffsetPad - @zonesOffsetBorder) (@zonesOffsetPad - @zonesOffsetBorder);
+		margin: 0 (@zonesOffsetPad * -1) (@zonesOffsetPad * -1) (@zonesOffsetPad * -1);
 		
 		//ajout d'une bordure dont l'épaisseur a été déduite
-		border-right: @offsetBorder solid @colorCouleur1Clair;
-		border-bottom: @offsetBorder solid @colorCouleur1Clair;
-		border-left: @offsetBorder solid @colorCouleur1Clair;
+		border-right: @zonesOffsetBorder solid @zonesBorderColor;
+		border-bottom: @zonesOffsetBorder solid @zonesBorderColor;
+		border-left: @zonesOffsetBorder solid @zonesBorderColor;
 	}
 	
 	ol {

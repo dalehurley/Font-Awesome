@@ -9,10 +9,15 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 	public function getStylesheets() {
 		$stylesheets = parent::getStylesheets();
 		
-		//lien vers le js associé au menu
-        $cssLink = sfConfig::get('sf_css_path_template'). '/Widgets/NavigationMenu/NavigationMenu.css';
-		//chargement de la CSS si existante
-        if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
+		//récupération des variables de la vue
+		$vars = $this->getViewVars();
+		//lien vers les css associées au menu
+        $cssLink1 = sfConfig::get('sf_css_path_template'). '/Widgets/NavigationMenu/NavigationMenu.css';
+		$cssLink2 = sfConfig::get('sf_css_path_template'). '/Widgets/NavigationMenu/NavigationMenu.' . $vars['menuType'] . '.css';
+		
+		//chargement des CSS si existantes
+        if (is_file(sfConfig::get('sf_web_dir') . $cssLink1)) $stylesheets[] = $cssLink1;
+        if (is_file(sfConfig::get('sf_web_dir') . $cssLink2)) $stylesheets[] = $cssLink2;
 		
 		return $stylesheets;
 	}
@@ -20,7 +25,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 	public function getJavascripts() {
 		$javascripts = parent::getJavascripts();
 		
-		// get the view vars processed from the form
+		//récupération des variables de la vue
         $vars = $this->getViewVars();
 		//lien vers le js associé au menu
         $jsLink = sfConfig::get('sf_js_path_framework') . '/navigationMenu/' . $vars['menuType'] . '.js';
@@ -37,7 +42,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		if (!isset($vars['menuType']))
             $vars['menuType'] = "default";
 
-        //on ajoute la classe du type de menu provenant du framework less (Ã  terme overridÃ© dans un paramÃ¨tre du widget)
+        //on ajoute la classe du type de menu provenant du paramètre du widget
         //$vars['menu']->ulClass(myUser::getLessParam('templateMenu'));
         $vars['menu']->ulClass($vars['menuType']);
 		
@@ -70,8 +75,22 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		
 		//récupération html de base du menu
 		$html = parent::doRender();
-		//ajout container nav
-		$html = $this->getHelper()->tag('nav role="navigation"', $html);
+		//récupération du helper (évite d'appeler la fonction à chaque fois)
+		$helper = $this->getHelper();
+		//récupération des variables
+		$vars = $this->getViewVars();
+		
+		//génération des paramètres du menu en fonction de son type (à voir pour intégration propre avec chaque type de menu, cf dmWidgetContentNivoGallery pour méthode)
+		$menuParam = array();
+		if($vars['menuType'] === 'accordion' ){
+			$menuParam = array('json' => array(
+											'duration'		=> 250,
+											'easing'		=> 'swing'
+											));
+		}
+		
+		//ajout container nav avec options par défault
+		$html = $helper->tag('nav.dm_widget_navigation_menu_container role="navigation"', $menuParam, $html);
 		
 		// cache the HTML
         if ($this->isCachable()) {

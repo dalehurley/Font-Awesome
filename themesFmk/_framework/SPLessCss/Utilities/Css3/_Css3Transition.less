@@ -1,6 +1,6 @@
 // _Css3Transition.less
-// v1.1
-// Last Updated : 2011-08-25 17:35
+// v1.2
+// Last Updated : 2011-12-02 11:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -12,6 +12,17 @@
 //@duration	[time]*
 //@function	[ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier(<number>, <number>, <number>, <number>)]*
 //@delay	[time]*
+
+//suppression de toute transition
+@transitionNone(){
+	-webkit-transition: none;
+	-khtml-transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
+}
+
 @transition(@property: all; @duration: .5s; @function: ease; @delay: 0) {
 	-webkit-transition-property: @property;
 	-webkit-transition-duration: @duration;
@@ -47,8 +58,8 @@
 @transitionCompress(@property: all; @duration: .5s; @function: ease; @delay: 0){
 	-webkit-transition: @property @duration @function @delay;
 	-khtml-transition: @property @duration @function @delay;
-	//firefox 7.0 ne supporte pas encore la déclaration compressée donc séparation
-	//-moz-transition: @property @duration @function /* @delay*/;
+	//firefox 9.0 ne supporte pas encore la déclaration compressée avec des virgules entre les propriétés, donc séparation
+	//-moz-transition: @property @duration @function @delay;
 	-moz-transition-property: @property;
 	-moz-transition-duration: @duration;
 	-moz-transition-timing-function: @function;
