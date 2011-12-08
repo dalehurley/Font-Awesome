@@ -1,0 +1,9 @@
+adresses:
+  
+  siegeSocial:
+    cache:              true
+    public_name:        (adresses) Adresse du siège social
+    
+  multiples:
+    cache:               true
+    public_name:         (adresses) Toutes les adresse du cabinet

@@ -34,6 +34,9 @@ echo '<br/>';
 					echo '&nbsp;:&nbsp;';
 					echo _tag('span.value', _link('mailto:' . $equipe->getEmail())->text($equipe->getEmail())->set('itemprop="email"'));
 				echo _close('span');
+                                
+
+                                
 if($showLink == true){
 				echo _link($page)->text(
 					_tag('span.description itemprop="description"', stringTools::str_truncate(

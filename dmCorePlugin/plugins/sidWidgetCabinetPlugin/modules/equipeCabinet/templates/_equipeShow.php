@@ -1,6 +1,6 @@
 <?php
 
-// vars  $equipes, $titreBloc
+// vars  $equipes, $titreBloc, $nomRubrique
 
 
 if (count($equipes)) { // si nous avons des actu articles
@@ -19,7 +19,7 @@ if (count($equipes)) { // si nous avons des actu articles
 
         // si $ville n'est pas nulle et identique à la ville d'implentation du membre, on execute uniquement le partial
         if ($ville == $equipe->ImplentationId->ville && $ville != "") {
-            include_partial("objectPartials/equipeShow", array("equipe" => $equipe));
+            include_partial("objectPartials/equipeShow", array("equipe" => $equipe, "nomRubrique" => $nomRubrique));
             $ville = $equipe->ImplentationId->ville;
         }
 
@@ -31,7 +31,7 @@ if (count($equipes)) { // si nous avons des actu articles
             echo _open('div.blocImplentation');
             echo _tag('h4.title', __('Implantation') . ' : ' . $equipe->ImplentationId->ville);
             echo _open('ul.elements');
-            include_partial("objectPartials/equipeShow", array("equipe" => $equipe));
+            include_partial("objectPartials/equipeShow", array("equipe" => $equipe, "nomRubrique" => $nomRubrique));
 
             $ville = $equipe->ImplentationId->ville;
         }
