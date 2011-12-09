@@ -11,7 +11,6 @@ class baseEditorialeTools {
      *
      */
     public static function exportArticlesJson() {
-
         $nbArticleTotal = 0;
 
         if (sfConfig::get('app_ftp-password') == '' || sfConfig::get('app_ftp-image-password') == '') {
@@ -20,28 +19,27 @@ class baseEditorialeTools {
         }
 
         $i = 0;
-
         // les languages
         $arrayLangs = sfConfig::get('dm_i18n_cultures');
 
         //$rubriques = Doctrine_Core::getTable('SidRubrique')->findByIsActive(true);
         $rubriques = Doctrine_Core::getTable('SidRubrique')->findAll();
-        
-        $k=0;
-        
+
+        $k = 0;
+
         $repBaseEditoriale = sfConfig::get('app_rep-local-json');
-        
+
         // purge de tous les fichiers json
-        exec('rm -R '.$repBaseEditoriale);
+        exec('rm -R ' . $repBaseEditoriale);
         // création du dossier d'export
-        exec('mkdir '.$repBaseEditoriale);
-        
+        exec('mkdir ' . $repBaseEditoriale);
+
         foreach ($rubriques as $rubrique) {
             $rubriqueDir = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title;
-            
+
             if (!$rubrique->isActive) {
                 $k++;
-                $return[$k]['('.$k.') KO : Rubrique non active'] = $rubrique;
+                $return[$k]['(' . $k . ') KO : Rubrique non active'] = $rubrique;
             } else {
                 $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueId($rubrique->id);
 
@@ -55,7 +53,7 @@ class baseEditorialeTools {
 
                     if (!$sidSection->isActive) {
                         $k++;
-                        $return[$k]['('.$k.') KO : Section non active'] = $sidSection;
+                        $return[$k]['(' . $k . ') KO : Section non active'] = $sidSection;
                     } else {
                         // on récupère les articles de cette section
                         $articles = Doctrine_Core::getTable('SidArticle')->findBySectionId($sidSection->id);
@@ -89,20 +87,20 @@ class baseEditorialeTools {
                         try {
                             if (sfConfig::get('app_rep-local-json') != '') {
                                 //if ($j) { // s'il y'a des articles
-                                   $k++;
-                                    if (!is_dir($rubriqueDir)) {
-                                        mkdir($rubriqueDir);
-                                        $return[$k]['DIR+'] = $rubriqueDir;
-                                    }
+                                $k++;
+                                if (!is_dir($rubriqueDir)) {
+                                    mkdir($rubriqueDir);
+                                    $return[$k]['DIR+'] = $rubriqueDir;
+                                }
 
-                                    $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
+                                $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
 
-                                    fputs($fileRubrique, json_encode($arrayJson));
-                                    fclose($fileRubrique);
+                                fputs($fileRubrique, json_encode($arrayJson));
+                                fclose($fileRubrique);
 
-                                    $return[$k]['('.$k.') OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
-                                    $nbArticleTotal += count($arrayJson);
-                               // }
+                                $return[$k]['(' . $k . ') OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
+                                $nbArticleTotal += count($arrayJson);
+                                // }
                             } else {
                                 $k++;
                                 $return[$k]['KO : Merci de spécifier la variable app_rep-local'] = '';
@@ -188,8 +186,7 @@ class baseEditorialeTools {
      */
 
     public static function loadArticlesJson($mode = 'total') {
-
-        ini_set("memory_limit", '256M'); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
+        ini_set("memory_limit", '1024M'); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
 
         $return = array();
         $timeBegin = microtime(true);
@@ -204,13 +201,15 @@ class baseEditorialeTools {
             $return[$i]['ERROR'] = 'Aucune rubrique. Veuillez lancer la commande "php symfony loadArticles rubriques verbose"';
         }
 
-
         if (sfConfig::get('app_rep-local-json') == '') {
             $return[$i]['ERROR'] = 'Merci de spécifier la variable app_rep-local-json dans le app.yml.';
         } else {
 
             // les languages
             $arrayLangs = sfConfig::get('dm_i18n_cultures');
+
+            // repertoire loacl des json
+            $repBaseEditoriale = sfConfig::get('app_rep-local-json');
 
             // boucle sur les rubriques
             foreach ($rubriques as $rubrique) {
@@ -229,154 +228,160 @@ class baseEditorialeTools {
                     $k = 1;
                     foreach ($sidSections as $sidSection) {
 
-
-                        if (!$sidSection->isActive) {
-
-                            $return[$i]['WARNING - ' . $k] = 'Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title . ' non active.';
+                        if (!is_dir($repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title)) {
+                            $return[$i]['WARNING'] = 'Le repertoire ' . $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title . ' n\'existe pas.';
+                            // on supprime alors la rubrique
+                            $rubrique->delete();
+                            $return[$i]['Rubrique ' . $rubrique . ' supprimé car ' . $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title . ' n\'existe pas.'] = " ";
                         } else {
-                            //$return[$i]['-> Traitement section - '.$k] = 'Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title ;
-                            // Récupération du json de la rubrique
-                            $repBaseEditoriale = sfConfig::get('app_rep-local-json');
-                            $fileRubriqueJsonName = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
-
-                            if (!file_exists($fileRubriqueJsonName)) {
-                                $return[$i]['WARNING - ' . $k] = 'Le fichier ' . $fileRubriqueJsonName . ' est absent.';
+                            if (!$sidSection->isActive) {
+                                $return[$i]['WARNING'] = 'Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title . ' non active.';
                             } else {
-                                $arrayArticlesBaseEditoriale = json_decode(file_get_contents($fileRubriqueJsonName));
+                                //$return[$i]['-> Traitement section - '.$k] = 'Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title ;
+                                // Récupération du json de la rubrique
+                                $fileRubriqueJsonName = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
 
-
-                                // trier le tableau json pour n'avoir que les articles depuis le dernier updatedAt des articles
-                                $lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAtBySection($sidSection->id);
-                                //$lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAt();
-                                //$return[$i]['-> Nb Articles total - '.$k] = count($arrayArticlesBaseEditoriale);
-
-                                $arrayArticlesBaseEditorialeSorted = array();
-                                foreach ($arrayArticlesBaseEditoriale as $article) {
-                                    //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate->updatedAt;
-                                    if ($article->updatedAt > $lastUpdatedDate) {
-                                        $arrayArticlesBaseEditorialeSorted[] = $article;
-                                        // $return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
-                                        $k++;
-                                    } else {
-                                        //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
-                                        $k++;
-                                    }
-                                }
-
-                                //$return[$i]['-> Nb Articles nouveaux - '.$k] = count($arrayArticlesBaseEditorialeSorted);
-                                // Insertion des articles
-                                $j = 1;
-                                $nbInsert = 0;
-                                $nbMaj = 0;
-                                $nbInchange = 0;
-                                $nbMajDesactivation = 0;
-
-                                // parametre a ajouter
-                                if ($mode == 'total') {
-                                    $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditoriale; // (total)
+                                if (!file_exists($fileRubriqueJsonName)) {
+                                    $return[$i]['WARNING'] = 'Le fichier ' . $fileRubriqueJsonName . ' est absent.';
+                                    // on supprime alors la section si le fichier json est absent
+                                    $sidSection->delete();
+                                    $return[$i]['Section ' . $sidSection . ' supprimée car ' . $fileRubriqueJsonName . ' absent'] = " ";
                                 } else {
-                                    $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditorialeSorted; // (incremental)
-                                }
+                                    $arrayArticlesBaseEditoriale = json_decode(file_get_contents($fileRubriqueJsonName));
 
 
-                                foreach ($arrayArticlesBaseEditorialeChoice as $articleBE) {
+                                    // trier le tableau json pour n'avoir que les articles depuis le dernier updatedAt des articles
+                                    $lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAtBySection($sidSection->id);
+                                    //$lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAt();
+                                    //$return[$i]['-> Nb Articles total - '.$k] = count($arrayArticlesBaseEditoriale);
 
-                                    $article = Doctrine::getTable('SidArticle')->findOneByFilenameAndSectionId($articleBE->filename, $sidSection->id);
-                                    if ($article->isNew()) { // l'article n'existe pas en base
-                                        $nbInsert++;
-                                        foreach ($arrayLangs as $lang) {
-                                            if (isset($articleBE->title->$lang))
-                                                $article->Translation[$lang]->title = $articleBE->title->$lang;
-                                            if (isset($articleBE->chapeau->$lang))
-                                                $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
-                                        }
-
-                                        $article->sectionId = $sidSection->id;  // la rubrique/section en cours de traitement
-                                        $article->filename = $articleBE->filename;
-                                        $article->isActive = $articleBE->isActive;
-
-                                        $article->createdAt = $articleBE->createdAt;
-                                        $article->save();
-                                        // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
-                                        $article->updatedAt = $articleBE->updatedAt;
-                                        $article->save();
-
-                                        // maj des tags de l'article à partir des données Json
-                                        $article->removeAllTags();
-                                        $article->setTags($articleBE->tags);
-                                        $article->save();
-
-                                        $articleName = $articleBE->title->$arrayLangs[0];
-
-                                        //$return[$i]['Insertion article ' . $article->filename . ' - ' . $article->id] =  $articleName;
-                                    } elseif ($article->updatedAt < $articleBE->updatedAt) {    // l'article doit etre mis à jour 
-                                        foreach ($arrayLangs as $lang) {
-                                            if (isset($articleBE->title->$lang))
-                                                $article->Translation[$lang]->title = $articleBE->title->$lang;
-                                            if (isset($articleBE->chapeau->$lang))
-                                                $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
-                                        }
-
-                                        $article->isActive = $articleBE->isActive;
-
-                                        // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
-                                        $article->updatedAt = $articleBE->updatedAt;
-                                        $article->save();
-
-                                        // maj des tags de l'article à partir des données Json
-                                        $article->removeAllTags();
-                                        $article->setTags($articleBE->tags);
-                                        $article->save();
-
-                                        $articleName = $articleBE->title->$arrayLangs[0];
-
-                                        if ($articleBE->isActive) {
-                                            $nbMaj++;
-                                            //$return[$i]['MAJ article ' . $article->filename . ' - ' . $article->id] =  $articleName;
+                                    $arrayArticlesBaseEditorialeSorted = array();
+                                    foreach ($arrayArticlesBaseEditoriale as $article) { // on ne garde que les articles récents
+                                        //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate->updatedAt;
+                                        if ($article->updatedAt > $lastUpdatedDate) {
+                                            $arrayArticlesBaseEditorialeSorted[] = $article;
+                                            // $return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
+                                            $k++;
                                         } else {
-                                            $nbMajDesactivation++;
-                                            //$return[$i]['MAJ article (désactivation)' . $article->filename . ' - ' . $article->id] =  $articleName;
+                                            //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
+                                            $k++;
                                         }
-                                    } else {
-                                        // article inchangé
-                                        $nbInchange++;
                                     }
 
-                                    $j++;
-                                }
+                                    //$return[$i]['-> Nb Articles nouveaux - '.$k] = count($arrayArticlesBaseEditorialeSorted);
+                                    // Insertion des articles
+                                    $j = 1;
+                                    $nbInsert = 0;
+                                    $nbMaj = 0;
+                                    $nbInchange = 0;
+                                    $nbMajDesactivation = 0;
 
-                                // infos section
-                                if ($nbInchange != 0) {
-                                    $inchange = $nbInchange . ' inchangés | ';
-                                } else {
-                                    $inchange = '';
-                                }
-                                if ($nbMaj != 0) {
-                                    $maj = $nbMaj . ' maj | ';
-                                } else {
-                                    $maj = '';
-                                }
-                                if ($nbInsert != 0) {
-                                    $insert = $nbInsert . ' inserés | ';
-                                } else {
-                                    $insert = '';
-                                }
-                                if ($nbMajDesactivation != 0) {
-                                    $majDesactivation = $nbMajDesactivation . ' maj désactivation ';
-                                } else {
-                                    $majDesactivation = '';
-                                }
-                                $infos = 'Total: ' . count($arrayArticlesBaseEditoriale) . ' => ';
-                                if (count($arrayArticlesBaseEditorialeSorted) != 0) {
-                                    $infos .= ' (' . count($arrayArticlesBaseEditorialeSorted) . ' new) ';
-                                } elseif ($mode == 'incremental') {
-                                    $infos .= ' Pas de nouveaux articles. ';
-                                }
+                                    // parametre a ajouter
+                                    if ($mode == 'total') {
+                                        $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditoriale; // (total)
+                                    } else {
+                                        $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditorialeSorted; // (incremental)
+                                    }
+
+                                    foreach ($arrayArticlesBaseEditorialeChoice as $articleBE) {
+
+                                        $article = Doctrine::getTable('SidArticle')->findOneByFilenameAndSectionId($articleBE->filename, $sidSection->id);
+                                        if ($article->isNew()) { // l'article n'existe pas en base
+                                            $nbInsert++;
+                                            foreach ($arrayLangs as $lang) {
+                                                if (isset($articleBE->title->$lang))
+                                                    $article->Translation[$lang]->title = $articleBE->title->$lang;
+                                                if (isset($articleBE->chapeau->$lang))
+                                                    $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
+                                            }
+
+                                            $article->sectionId = $sidSection->id;  // la rubrique/section en cours de traitement
+                                            $article->filename = $articleBE->filename;
+                                            $article->isActive = $articleBE->isActive;
+
+                                            $article->createdAt = $articleBE->createdAt;
+                                            $article->save();
+                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
+                                            $article->updatedAt = $articleBE->updatedAt;
+                                            $article->save();
+
+                                            // maj des tags de l'article à partir des données Json
+                                            $article->removeAllTags();
+                                            $article->setTags($articleBE->tags);
+                                            $article->save();
+
+                                            $articleName = $articleBE->title->$arrayLangs[0];
+
+                                            //$return[$i]['Insertion article ' . $article->filename . ' - ' . $article->id] =  $articleName;
+                                        } elseif ($article->updatedAt < $articleBE->updatedAt) {    // l'article doit etre mis à jour 
+                                            foreach ($arrayLangs as $lang) {
+                                                if (isset($articleBE->title->$lang))
+                                                    $article->Translation[$lang]->title = $articleBE->title->$lang;
+                                                if (isset($articleBE->chapeau->$lang))
+                                                    $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
+                                            }
+
+                                            $article->isActive = $articleBE->isActive;
+
+                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
+                                            $article->updatedAt = $articleBE->updatedAt;
+                                            $article->save();
+
+                                            // maj des tags de l'article à partir des données Json
+                                            $article->removeAllTags();
+                                            $article->setTags($articleBE->tags);
+                                            $article->save();
+
+                                            $articleName = $articleBE->title->$arrayLangs[0];
+
+                                            if ($articleBE->isActive) {
+                                                $nbMaj++;
+                                                //$return[$i]['MAJ article ' . $article->filename . ' - ' . $article->id] =  $articleName;
+                                            } else {
+                                                $nbMajDesactivation++;
+                                                //$return[$i]['MAJ article (désactivation)' . $article->filename . ' - ' . $article->id] =  $articleName;
+                                            }
+                                        } else {
+                                            // article inchangé
+                                            $nbInchange++;
+                                        }
+
+                                        $j++;
+                                    }
+
+                                    // infos section
+                                    if ($nbInchange != 0) {
+                                        $inchange = $nbInchange . ' inchangés | ';
+                                    } else {
+                                        $inchange = '';
+                                    }
+                                    if ($nbMaj != 0) {
+                                        $maj = $nbMaj . ' maj | ';
+                                    } else {
+                                        $maj = '';
+                                    }
+                                    if ($nbInsert != 0) {
+                                        $insert = $nbInsert . ' inserés | ';
+                                    } else {
+                                        $insert = '';
+                                    }
+                                    if ($nbMajDesactivation != 0) {
+                                        $majDesactivation = $nbMajDesactivation . ' maj désactivation ';
+                                    } else {
+                                        $majDesactivation = '';
+                                    }
+                                    $infos = 'Total: ' . count($arrayArticlesBaseEditoriale) . ' => ';
+                                    if (count($arrayArticlesBaseEditorialeSorted) != 0) {
+                                        $infos .= ' (' . count($arrayArticlesBaseEditorialeSorted) . ' new) ';
+                                    } elseif ($mode == 'incremental') {
+                                        $infos .= ' Pas de nouveaux articles. ';
+                                    }
 
 
-                                $return[$i]['Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title] =
-                                        $infos . $inchange . $maj . $majDesactivation . $insert;
-                                //return $return;
+                                    $return[$i]['Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title] =
+                                            $infos . $inchange . $maj . $majDesactivation . $insert;
+                                    //return $return;
+                                }
                             }
                         }
                         $k++;
@@ -384,10 +389,6 @@ class baseEditorialeTools {
                 }
                 $i++;
             }
-
-            // mise à jour des pages automatiques sur le site
-            $timeBeginSyncPages = microtime(true);
-            $return[$i]['Sync pages'] = exec('php symfony dm:sync-pages') . '-->' . (microtime(true) - $timeBeginSyncPages) . ' s';
 
             // mise à jour de l'index
             $timeBeginSearchUpdate = microtime(true);
@@ -399,6 +400,49 @@ class baseEditorialeTools {
     }
 
     /*
+     * Mise à jour des pages automatiques
+     */
+
+    public static function syncPages() {
+        // mise à jour des pages automatiques sur le site
+        $return[]['Sync pages'] = exec('php symfony dm:sync-pages');
+
+        return $return;
+    }
+
+    /*
+     * Replacement des name/slug/title et description des dmPages
+     */
+
+    public static function renameDmPages() {
+
+        $renames = sfConfig::get('app_dm-pages_rename');
+        foreach ($renames as $old => $new) {
+            
+            echo "-----". $old . " -> " . $new . "\n";
+     
+            // on met en minuscule les valeurs
+            $old = strtolower($old);
+            $new = strtolower($new);
+            // la requête de renommage de la table dmPage
+            // title avec majuscule sur la première lettre
+            $reqRename = "update dm_page_translation set 
+                slug= REPLACE(slug,'" . $old . "', '" . $new . "')  ,
+                name= REPLACE(name,'" . $old . "', '" . $new . "')  ,
+                title= REPLACE(title,'" . ucwords($old) . "', '" . ucwords($new) . "') ,  
+                description= REPLACE(description,'" . $old . "', '" . $new . "')";
+            
+            echo "----->". $reqRename . "\n";
+            
+            //dmDb::pdo($reqRename);
+        }
+
+        $return[]['Rename DmPages'] = '';
+
+        return $return;
+    }
+
+    /*
      * Nettoyage du repertoire local
      * - Suppression des dossiers vides
      * - Suppression des fichiers autres que .xml
@@ -406,11 +450,11 @@ class baseEditorialeTools {
      */
 
     public static function nettoyageRepLocal() {
-    
+
         // suppression des dossiers vides
         exec('find ' . sfConfig::get('app_rep-local') . '* -type d -empty -delete -print');
         // supprimer les fichiers dans les dossiers rubriques, maxdepth à 1 permet de ne chercher que dans le dossier spécifié et les sous dossiers directs
-        exec('find '.sfConfig::get('app_rep-local').'* -maxdepth 1 -type f -delete -print');
+        exec('find ' . sfConfig::get('app_rep-local') . '* -maxdepth 1 -type f -delete -print');
         // Parcourir les dossiers des sections pour supprimer les fichiers non .xml et les dossiers eventuels
         $dir = sfConfig::get('app_rep-local');
         $rubriques = scandir($dir);
@@ -423,13 +467,13 @@ class baseEditorialeTools {
                             $articles = scandir($dir . $rubrique . '/' . $section);
                             foreach ($articles as $j => $article) { // les fichiers des sections
                                 if (($article != '.') && ($article != '..')) {
-                                    if (is_file($dir . $rubrique . '/' . $section . '/' .$article)) {
+                                    if (is_file($dir . $rubrique . '/' . $section . '/' . $article)) {
                                         if (substr($article, -4) != '.xml') {
-                                            unlink($dir . $rubrique . '/' . $section . '/' .$article);
+                                            unlink($dir . $rubrique . '/' . $section . '/' . $article);
                                         }
                                     } else {
-                                        if (is_dir($dir . $rubrique . '/' . $section . '/' .$article)){   // on supprime un eventuel dossier dans un dossier de section
-                                            exec('rm -R "'.$dir . $rubrique . '/' . $section . '/' .$article.'"');
+                                        if (is_dir($dir . $rubrique . '/' . $section . '/' . $article)) {   // on supprime un eventuel dossier dans un dossier de section
+                                            exec('rm -R "' . $dir . $rubrique . '/' . $section . '/' . $article . '"');
                                         }
                                     }
                                 }
@@ -442,7 +486,7 @@ class baseEditorialeTools {
         // suppression des dossiers vides à nouveau, au cas où des dossiers se seraient vidés.
         exec('find ' . sfConfig::get('app_rep-local') . '* -type d -empty -delete -print');
     }
-    
+
     /*
      * récupération des rubriques, seulement lorsque l'on veut ajouter des rubriques/sections de LEA ou à l'init
      * 
@@ -487,21 +531,20 @@ class baseEditorialeTools {
                 $nbSections = 0;
                 foreach ($sections as $k => $section) {
 
-                        $nbSections++;
-                        // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
-                        // Warning : La section peut exister et etre inactive
-                        $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($section, $bdRubrique->id);
+                    $nbSections++;
+                    // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
+                    // Warning : La section peut exister et etre inactive
+                    $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($section, $bdRubrique->id);
 
-                        if ($bdSection->isNew()) { // création de la section en base
-                            $bdSection->Translation[$arrayLangs[0]]->title = $section;  // On insère dans la langue par défaut
-                            $bdSection->rubrique_id = $bdRubrique->id;
-                            $bdSection->save();
-                            $return[$i]['SECTION+'] = $rubrique . '/' . $section;
-                        } else {
-                            $return[$i]['Section existe deja en base'] = $rubrique . '/' . $section;
-                        }
-                        $i++;
-
+                    if ($bdSection->isNew()) { // création de la section en base
+                        $bdSection->Translation[$arrayLangs[0]]->title = $section;  // On insère dans la langue par défaut
+                        $bdSection->rubrique_id = $bdRubrique->id;
+                        $bdSection->save();
+                        $return[$i]['SECTION+'] = $rubrique . '/' . $section;
+                    } else {
+                        $return[$i]['Section existe deja en base'] = $rubrique . '/' . $section;
+                    }
+                    $i++;
                 }
             }
         }
@@ -593,117 +636,117 @@ class baseEditorialeTools {
             $dossiersSections = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title);
 
             foreach ($dossiersSections as $dossiersSection) {
-                    $section = Doctrine_Core::getTable('SidSection')->findOneByTitleAndIsActiveAndRubriqueId($dossiersSection, $bdRubrique->id);
-                    if ($section->isNew()) {
-                        $return[$j]['Section en base introuvable ou inactive pour le dossier'] = $dossiersSection;
-                    } else {
-                        // récupération des fichiers du dossier de section
-                        $fichierArticles = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection);
-                        foreach ($fichierArticles as $fichierArticle) {
+                $section = Doctrine_Core::getTable('SidSection')->findOneByTitleAndIsActiveAndRubriqueId($dossiersSection, $bdRubrique->id);
+                if ($section->isNew()) {
+                    $return[$j]['Section en base introuvable ou inactive pour le dossier'] = $dossiersSection;
+                } else {
+                    // récupération des fichiers du dossier de section
+                    $fichierArticles = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection);
+                    foreach ($fichierArticles as $fichierArticle) {
 
-                            $beginTime = microtime(true);
+                        $beginTime = microtime(true);
 
-                            if (substr($fichierArticle, -4) == '.xml') {  // on en traite que les fichier XML
-                                if (intval(str_replace('.xml', '', $fichierArticle)) > $idArticlePlusVieux) {  // on ne traite que les articles depuis l'idArticlePlusVieux
-                                    // j'explore le xml pour récupérer le titre, le chapeau, le n° article de léa(code)
-                                    $xml = new DOMDocument();
-                                    $xmlFile = sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection . '/' . $fichierArticle;
+                        if (substr($fichierArticle, -4) == '.xml') {  // on en traite que les fichier XML
+                            if (intval(str_replace('.xml', '', $fichierArticle)) > $idArticlePlusVieux) {  // on ne traite que les articles depuis l'idArticlePlusVieux
+                                // j'explore le xml pour récupérer le titre, le chapeau, le n° article de léa(code)
+                                $xml = new DOMDocument();
+                                $xmlFile = sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection . '/' . $fichierArticle;
 
-                                    // validation XML    
-                                    /*
-                                      if (baseEditorialeTools::validateXmlWithDtd($xmlFile,sfConfig::get('app_dtd-article'))) {
-                                      $return[$j]['Article -> xml validation' . $filename] = 'ok';
-                                      } else {
-                                      $return[$j]['Article -> xml validation' . $filename] = 'ko';
-                                      }
-                                     */
+                                // validation XML    
+                                /*
+                                  if (baseEditorialeTools::validateXmlWithDtd($xmlFile,sfConfig::get('app_dtd-article'))) {
+                                  $return[$j]['Article -> xml validation' . $filename] = 'ok';
+                                  } else {
+                                  $return[$j]['Article -> xml validation' . $filename] = 'ko';
+                                  }
+                                 */
 
 
-                                    if ($xml->load($xmlFile)) {
+                                if ($xml->load($xmlFile)) {
 
-                                        $filename = $xml->getElementsByTagName('Code')->item(0)->nodeValue; // l'id LEA est aussi le nom du fichier XML
-                                        $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue;  //titre
-                                        $chapo = $xml->getElementsByTagName('Head')->item(0)->nodeValue; // chapo
-                                        // cas particulier de l'agenda
-                                        if ($chapo == '') {
-                                            $chapo = $xml->getElementsByTagName('Section')->item(0)->nodeValue;
-                                            // on supprime le premier saut de ligne
-                                            if (substr($chapo, 0, 1) == CHR(10)) {
-                                                $chapo = substr($chapo, 1);
-                                            }
+                                    $filename = $xml->getElementsByTagName('Code')->item(0)->nodeValue; // l'id LEA est aussi le nom du fichier XML
+                                    $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue;  //titre
+                                    $chapo = $xml->getElementsByTagName('Head')->item(0)->nodeValue; // chapo
+                                    // cas particulier de l'agenda
+                                    if ($chapo == '') {
+                                        $chapo = $xml->getElementsByTagName('Section')->item(0)->nodeValue;
+                                        // on supprime le premier saut de ligne
+                                        if (substr($chapo, 0, 1) == CHR(10)) {
+                                            $chapo = substr($chapo, 1);
                                         }
-                                        $date_update = $xml->getElementsByTagName('UpdateDate')->item(0)->nodeValue;
-                                        // la date de publication
-                                        $date_publication = $xml->getElementsByTagName('PublicationDate')->item(0)->getElementsByTagName('ISO')->item(0)->nodeValue;
-                                        //$return[$j]['>>>>'] = $date_publication;                                    
-                                        // récupération des <keywords><keyword> du XML dans un tableau
-                                        // de la forme $tagsString = 'tag1, tag2, tag3';
-                                        $articleKeywordsNodes = $xml->getElementsByTagName('Keyword'); // la premiere (et seule normalement) balise Keywords
-                                        $articleKeywordsNodeLength = $articleKeywordsNodes->length; // this value will also change
-                                        $tagsString = '';
-                                        for ($i = 0; $i < $articleKeywordsNodeLength; $i++) {
-                                            $tagsString .= $articleKeywordsNodes->item($i)->nodeValue . ',';
-                                        }
-                                        //$return[$j]['Article ' . $fichierArticle] = 'Tags article: '.$tagsString;
-                                        // je vérifie si l'article est présent dans la base, pour la section en cours (il peut y avoir des doublons sur le filename, un article étant potentiellement présent dans plusieurs rubrique)
-                                        $article = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($filename, $section->id);
+                                    }
+                                    $date_update = $xml->getElementsByTagName('UpdateDate')->item(0)->nodeValue;
+                                    // la date de publication
+                                    $date_publication = $xml->getElementsByTagName('PublicationDate')->item(0)->getElementsByTagName('ISO')->item(0)->nodeValue;
+                                    //$return[$j]['>>>>'] = $date_publication;                                    
+                                    // récupération des <keywords><keyword> du XML dans un tableau
+                                    // de la forme $tagsString = 'tag1, tag2, tag3';
+                                    $articleKeywordsNodes = $xml->getElementsByTagName('Keyword'); // la premiere (et seule normalement) balise Keywords
+                                    $articleKeywordsNodeLength = $articleKeywordsNodes->length; // this value will also change
+                                    $tagsString = '';
+                                    for ($i = 0; $i < $articleKeywordsNodeLength; $i++) {
+                                        $tagsString .= $articleKeywordsNodes->item($i)->nodeValue . ',';
+                                    }
+                                    //$return[$j]['Article ' . $fichierArticle] = 'Tags article: '.$tagsString;
+                                    // je vérifie si l'article est présent dans la base, pour la section en cours (il peut y avoir des doublons sur le filename, un article étant potentiellement présent dans plusieurs rubrique)
+                                    $article = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($filename, $section->id);
 
-                                        if ($article->isNew()) { // l'article n'existe pas, on le crée
-                                            // j'envoie les données id_lea, rubrique et titre dans bdd
+                                    if ($article->isNew()) { // l'article n'existe pas, on le crée
+                                        // j'envoie les données id_lea, rubrique et titre dans bdd
+                                        $article->Translation[$arrayLangs[0]]->title = $titre;
+                                        $article->Translation[$arrayLangs[0]]->chapeau = $chapo;
+
+                                        $article->setSectionId($section->id);
+                                        $article->setFilename($filename);
+                                        $article->createdAt = $date_publication;
+                                        $article->save();
+                                        // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
+                                        $article->updatedAt = $date_update;
+                                        $article->save();
+
+                                        //$return[$j]['Article ' . $filename] = 'Insertion dans la base ->' . (microtime(true) - $beginTime) . ' s';
+                                        $nbInsert++;
+                                    } else {  // l'article existe
+                                        // if ($date_update_bdd->filename == "113632"){
+                                        // $return[$j]['>>>'] = $date_update_xml.' - '.$date_update_bdd->updated_at;
+                                        // }
+                                        // Si le xml est plus récent que celui de la bdd, alors j'update le titre, le chapeau et la rubrique
+                                        if ($date_update > $article->updated_at) {
+                                            $filename = $update->getElementsByTagName('Code')->item(0)->nodeValue;
+                                            $titre = $update->getElementsByTagName('Headline')->item(0)->nodeValue;
+                                            $chapo = $update->getElementsByTagName('Head')->item(0)->nodeValue;
+
                                             $article->Translation[$arrayLangs[0]]->title = $titre;
                                             $article->Translation[$arrayLangs[0]]->chapeau = $chapo;
 
                                             $article->setSectionId($section->id);
-                                            $article->setFilename($filename);
-                                            $article->createdAt = $date_publication;
-                                            $article->save();
-                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
+
                                             $article->updatedAt = $date_update;
+
                                             $article->save();
 
-                                            //$return[$j]['Article ' . $filename] = 'Insertion dans la base ->' . (microtime(true) - $beginTime) . ' s';
-                                            $nbInsert++;
-                                        } else {  // l'article existe
-                                            // if ($date_update_bdd->filename == "113632"){
-                                            // $return[$j]['>>>'] = $date_update_xml.' - '.$date_update_bdd->updated_at;
-                                            // }
-                                            // Si le xml est plus récent que celui de la bdd, alors j'update le titre, le chapeau et la rubrique
-                                            if ($date_update > $article->updated_at) {
-                                                $filename = $update->getElementsByTagName('Code')->item(0)->nodeValue;
-                                                $titre = $update->getElementsByTagName('Headline')->item(0)->nodeValue;
-                                                $chapo = $update->getElementsByTagName('Head')->item(0)->nodeValue;
-
-                                                $article->Translation[$arrayLangs[0]]->title = $titre;
-                                                $article->Translation[$arrayLangs[0]]->chapeau = $chapo;
-
-                                                $article->setSectionId($section->id);
-
-                                                $article->updatedAt = $date_update;
-
-                                                $article->save();
-
-                                                //$return[$j]['Article ' . $filename] = 'Mise à jour dans la base ->' . (microtime(true) - $beginTime) . ' s';
-                                                $nbMaj++;
-                                            } else {
-                                                //  $return[$j]['Article ' . $filename] = 'Pas de modification ->'.(microtime(true) - $beginTime).' s';
-                                            }
+                                            //$return[$j]['Article ' . $filename] = 'Mise à jour dans la base ->' . (microtime(true) - $beginTime) . ' s';
+                                            $nbMaj++;
+                                        } else {
+                                            //  $return[$j]['Article ' . $filename] = 'Pas de modification ->'.(microtime(true) - $beginTime).' s';
                                         }
-                                        // enregistrement des tags
-                                        $article->removeAllTags();
-                                        $article->setTags($tagsString)->save();
-                                    } else {
-                                        $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
                                     }
+                                    // enregistrement des tags
+                                    $article->removeAllTags();
+                                    $article->setTags($tagsString)->save();
                                 } else {
-
-                                    // $return[$j]['Article ' . $fichierArticle] = 'Article trop vieux < '.$idArticlePlusVieux;
+                                    $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
                                 }
+                            } else {
 
-                                $j++;
-                                //if ($j > 10) return $return;
+                                // $return[$j]['Article ' . $fichierArticle] = 'Article trop vieux < '.$idArticlePlusVieux;
                             }
+
+                            $j++;
+                            //if ($j > 10) return $return;
                         }
                     }
+                }
             }
         }
         $return[0]['Article Insérés dans la base'] = $nbInsert;

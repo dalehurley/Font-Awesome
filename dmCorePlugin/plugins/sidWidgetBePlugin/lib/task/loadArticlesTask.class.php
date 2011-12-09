@@ -83,10 +83,10 @@ EOF;
                 }
             }            
 
-//------------------------------------------------------------------------------------------------------------
-//    désactivation des rubriques et section sans enfants
-//------------------------------------------------------------------------------------------------------------            
-            $results = baseEditorialeTools::RubriquesSectionsDeactivation();
+            //------------------------------------------------------------------------------------------------------------
+            //    désactivation des rubriques et section sans enfants
+            //------------------------------------------------------------------------------------------------------------            
+//            $results = baseEditorialeTools::RubriquesSectionsDeactivation();
 
             if (in_array("verbose", $arguments)) {
                 $this->logSection('### loadArticles', 'Désactivation des rubriques et sections n\'ayant pas d\'enfants.');
@@ -95,11 +95,38 @@ EOF;
                         $this->logSection($log, $desc,null,$log);
                     }
                 }
-            }
+            }            
+            
+            //------------------------------------------------------------------------------------------------------------
+            //    Synchronisation des pages automatiques
+            //------------------------------------------------------------------------------------------------------------            
+//            $results = baseEditorialeTools::syncPages();
+
+            if (in_array("verbose", $arguments)) {
+                $this->logSection('### loadArticles', 'Synchronisation des pages automatiques.');
+                foreach ($results as $result) { 
+                    foreach ($result as $log => $desc) {
+                        $this->logSection($log, $desc,null,$log);
+                    }
+                }
+            }            
+
+            //------------------------------------------------------------------------------------------------------------
+            //    Replacement des name/slug/title et description des dmPages juste synchronisées
+            //------------------------------------------------------------------------------------------------------------            
+            $results = baseEditorialeTools::renameDmPages();
+
+            if (in_array("verbose", $arguments)) {
+                $this->logSection('### loadArticles', 'Renommage des pages automatiques.');
+                foreach ($results as $result) { 
+                    foreach ($result as $log => $desc) {
+                        $this->logSection($log, $desc,null,$log);
+                    }
+                }
+            }  
+            
         } else {
             // rien... Ni load articles ni load rubriques...
         } 
-        
     }
-
 }

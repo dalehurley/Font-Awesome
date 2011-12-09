@@ -22,14 +22,9 @@ all:
 
   nb-min-articles-slide: 3     # nombre minimum d'article pour afficher le slide Nivo slider
  
-#  vielles connexions
-#  ftp-image-host: xml.expertinfos.com
-#  ftp-image-login: siddev
-#  ftp-image-password:  #siddev86              uniquement pour la BaseEditoriale
-#  ftp-image-rep: actu/_photos/
-#  ftp-image-host: ftp.expertinfos.com
-#  ftp-image-login: sidftp
-#  ftp-image-password: #q8zib7              uniquement pour la BaseEditoriale
-#  ftp-image-rep: xmlClients/actu/_photos/
-
-
+  dm-pages:     
+    # les renommages de pages (nom/slug/title/desc)
+    # ancien : nouveau
+    rename:
+      ec_echeancier: agenda 
+      ec_multimedia: multimédia
