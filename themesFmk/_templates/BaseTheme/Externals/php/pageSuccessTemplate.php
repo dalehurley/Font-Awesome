@@ -10,7 +10,6 @@
  * Ce fichier reste dans le core, il est appelé en include dans les sites par les fichiers XXXXSuccess.php
  * 
  */
-
 //Valeurs par défaut de configuration de la page
 $pageOptionsDefault = spLessCss::pageTemplateGetOptionsDefault();
 
