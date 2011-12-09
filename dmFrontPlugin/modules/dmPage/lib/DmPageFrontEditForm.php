@@ -9,7 +9,7 @@ class DmPageFrontEditForm extends DmPageForm
   {
     parent::configure();
     
-    $this->useFields(array('id', 'module', 'action', 'slug', 'name', 'title', 'h1', 'gabarit', 'description', 'keywords', 'is_active', 'is_secure', 'credentials', 'is_indexable'), false);
+    $this->useFields(array('id', 'module', 'action', 'slug', 'name', 'title', 'h1', 'gabarit', 'description', 'keywords', 'is_active', 'is_secure', 'credentials', 'is_indexable', 'is_visible_bread_crumb'), false);
     
     if(!sfConfig::get('dm_seo_use_keywords'))
     {
@@ -53,6 +53,7 @@ class DmPageFrontEditForm extends DmPageForm
     $this->widgetSchema['is_active']->setLabel('Available');
     $this->widgetSchema['is_secure']->setLabel('Requires authentication');
     $this->widgetSchema['is_indexable']->setLabel('Search engine crawlers');
+    $this->widgetSchema['is_visible_bread_crumb']->setLabel('Visible in bread-crumb');
     
     // ajout lionel: ajout du champ gabarit pour la page
         $templateChoice = array(
@@ -97,7 +98,8 @@ class DmPageFrontEditForm extends DmPageForm
       'is_secure' => $this->object->is_secure,
       'credentials' => $this->object->credentials,
       'is_indexable' => $this->object->is_indexable,
-      'parent_id' => $this->object->getNodeParentId()
+      'parent_id' => $this->object->getNodeParentId(),
+      'is_visible_bread_crumb' => $this->object->is_visible_bread_crumb
     ));
   }
   
