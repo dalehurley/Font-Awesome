@@ -56,9 +56,19 @@ $pageOptionsDefault = array(
 									)
 					);
 
-//Personnalisation des valeurs de la pages
+//Personnalisation des valeurs de la page
 $pageOptionsCustom['areas']['dm_content']['clearfix'] = true;
 
+//ajout d'un nouvelle Area
+$pageOptionsCustomAreas['areas']['dm_content_test_bis'] = array(
+						'areaName'	=> 'contentTestBis',
+						'isActive'	=> true,
+						'isPage'	=> false,
+						'clearfix'	=> false
+					);
+
+
+/*
 $pageOptionsCustom['areas']['dm_content_test'] = array(
 														//'index'		=> 6,
 														'areaName'	=> 'contentTest',
@@ -66,24 +76,24 @@ $pageOptionsCustom['areas']['dm_content_test'] = array(
 														'isPage'	=> false,
 														'clearfix'	=> false
 													);
-
+*/
 
 //On remplace les valeurs par défaut que si la variable de remplissage existe
 $pageOptions = (isset($pageOptionsCustom)) ? array_replace_recursive($pageOptionsDefault, $pageOptionsCustom) : $pageOptionsDefault;
 
-//ajout d'un nouvelle Area
-$pageNewArea['dm_content_test_bis'] = array(
-						'areaName'	=> 'contentTestBis',
-						'isActive'	=> true,
-						'isPage'	=> false,
-						'clearfix'	=> false
-					);
+
+$pageOptions = spLessCss::pageTemplateInsertArea($pageOptions, $pageOptionsCustomAreas, 0);
+
+
+
+
 //position d'insertion (commence à zéro)
+/*
 $insInd = 2;
 $firstPart = array_slice($pageOptions['areas'], 0, $insInd, true);
 $lastPart = array_slice($pageOptions['areas'], $insInd, (count($pageOptions['areas']) - $insInd), true);
 $pageOptions['areas'] = array_merge($firstPart,$pageNewArea,$lastPart);
-
+*/
 
 //AJOUT DE VARIABLES DISPONIBLES DANS LA PAGE
 //Environnement de dev

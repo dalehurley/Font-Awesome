@@ -27,6 +27,25 @@ class spLessCss extends dmFrontUser {
 			print_r($ex);
 		}*/
 	}
+	
+	//fonction d'insertion de nouvelle Area dans le pageTemplateSuccess
+	public static function pageTemplateInsertArea($options = array(), $insertArea = array(), $insertIndex = 'last') {
+		//on définit l'index area au cas où
+		if(!isset($options['area'])) {
+			$options['area'] = array();
+		}
+		//on définit une valeur spéciale pour la fin de l'index
+		if($insertIndex === 'last') {
+			$insertIndex = count($options['area']);
+		}
+		//extraction des portions de Areas se trouvant avant et après l'index
+		$firstPart = array_slice($options['areas'], 0, $insertIndex, true);
+		$lastPart = array_slice($options['areas'], $insertIndex, (count($options['areas']) - $insertIndex), true);
+		
+		//assemblage du tout et sortie
+		$options['areas'] = array_merge($firstPart,$insertArea['areas'],$lastPart);
+		return $options;
+	}
 
 	//calcul de la valeur finale
 	public static function lessCalculator($str) {
