@@ -113,10 +113,13 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
                         $agenda = dmDb::table('SidArticle')->findOneByFilename($arrayGlobalAgenda['filename']);
                         $arrayAgenda[] = $agenda;
                     }
-
                     $title = $rubrique[0]->name;
                     $vars['lien'] = "";
                     }
+                    else {
+                        $title = "";
+                        $vars['lien'] = "";}
+                    
                 }
                 return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'listAgenda', array(
                             'agendas' => $arrayAgenda, // tableau d'objet
