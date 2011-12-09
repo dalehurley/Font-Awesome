@@ -84,7 +84,7 @@ EOF;
 //    Ecriture des rubriques/sections en base ?
 //-------------------------------------------------------------------------------------	
         if (!in_array("automatic", $arguments)) { // seulement lorsque l'on veut ajouter des rubriques/sections de LEA
-            if ($this->askConfirmation(array("Ecriture rubriques/sections (a partir du repertoire " . sfConfig::get('app_rep-local') . ") dans la base de donnees locale) ? (y/n)"), 'QUESTION_LARGE', true)) {
+            if ($this->askConfirmation(array("Ecriture rubriques/sections (a partir du repertoire " . sfConfig::get('app_rep-local') . ") dans la base de donnees locale ? (y/n)"), 'QUESTION_LARGE', true)) {
                 $beginTime = microtime(true);
                 $results = baseEditorialeTools::recupRubriqueSection();
                 $this->logSection('### loadBE', "Ecriture rubriques/sections en base de donnees." . " ->" . (microtime(true) - $beginTime) . " s");
@@ -92,7 +92,7 @@ EOF;
 
                     foreach ($results as $result) {
                         foreach ($result as $log => $desc) {
-                            $this->logSection($log, $desc);
+                            $this->logSection($log, $desc,null,$log);
                         }
                     }
                 }
@@ -112,7 +112,7 @@ EOF;
 
 		foreach ($results as $result) {
 		    foreach ($result as $log => $desc) {
-			$this->logSection($log, $desc);
+			$this->logSection($log, $desc,null,$log);
 		    }
 		}
 	    }
@@ -131,7 +131,7 @@ EOF;
 
 		foreach ($results as $result) {
 		    foreach ($result as $log => $desc) {
-			$this->logSection($log, $desc);
+			$this->logSection($log, $desc,null,$log);
 		    }
 		}
 	    }
