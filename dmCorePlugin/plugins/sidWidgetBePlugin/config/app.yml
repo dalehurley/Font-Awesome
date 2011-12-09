@@ -25,6 +25,27 @@ all:
   dm-pages:     
     # les renommages de pages (nom/slug/title/desc)
     # ancien : nouveau
-    rename:
+    rename-fr:
       ec_echeancier: agenda 
       ec_multimedia: multimédia
+#cgp_bourse   
+#cgp_immobilier          
+# ec_juridique   
+#ec_social
+#cgp_famille  
+#cgp_placement           
+#ec_fiscal      
+#cgp_fiscal   
+#ec_creation_entreprise  
+#ec_gestion     
+#ec_patrimoine
+#cgp_actualites  
+#cgp_dossiers  
+#cgp_faq
+#ec_chiffres
+#ec_loi_de_finances
+#ec_actualites  
+#ec_dossiers  
+#ec_faq
+#ec_paie
+#ec_aides

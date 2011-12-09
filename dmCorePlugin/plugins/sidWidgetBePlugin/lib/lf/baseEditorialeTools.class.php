@@ -416,29 +416,62 @@ class baseEditorialeTools {
 
     public static function renameDmPages() {
 
-        $renames = sfConfig::get('app_dm-pages_rename');
-        foreach ($renames as $old => $new) {
+        // les languages
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+
+        foreach ($arrayLangs as $lang) { // pour chaque lang utilisées et définies dans le fichier config/dm/config.yml
+            $renames = sfConfig::get('app_dm-pages_rename-'.$lang);
             
-            echo "-----". $old . " -> " . $new . "\n";
-     
-            // on met en minuscule les valeurs
-            $old = strtolower($old);
-            $new = strtolower($new);
-            // la requête de renommage de la table dmPage
-            // title avec majuscule sur la première lettre
-            $reqRename = "update dm_page_translation set 
-                slug= REPLACE(slug,'" . $old . "', '" . $new . "')  ,
-                name= REPLACE(name,'" . $old . "', '" . $new . "')  ,
-                title= REPLACE(title,'" . ucwords($old) . "', '" . ucwords($new) . "') ,  
-                description= REPLACE(description,'" . $old . "', '" . $new . "')";
-            
-            echo "----->". $reqRename . "\n";
-            
-            //dmDb::pdo($reqRename);
+            // gestion AGENDA/ECHEANCIER des dates du style 201112 à transformer en décembre 2011
+            // ajouter les entrées du type 201112 => 'Décembre 2012' dans le tableau renames
+            $pages = dmDb::query('DmPage p')
+                    ->withI18n($lang)   // la langue par défaul seuelemnt (@todo à rendre multilingue)
+                    //->where("pTranslation.name like '2%'")
+                    ->execute();
+            foreach ($pages as $page) {
+                if (preg_match("/[0-9]{6}/", $page->name, $matches)) {
+                    $renames[$page->name] = stringTools::dateNumericToString($page->name);
+                }
+            }
+
+
+            foreach ($renames as $old => $new) {
+                echo "-----" . $old . " -> " . $new . "\n";
+                // on met en minuscule les valeurs
+                $old = strtolower($old);
+                $new = strtolower($new);
+                // la requête de renommage de la table dmPage
+//            $reqRename = "update dm_page_translation set 
+//                name= REPLACE(lower(name),'" . $old . "', '" . $new . "')  ,
+//                title= REPLACE(lower(title),'" . $old . "', '" . $new . "') ,  
+//                description= REPLACE(lower(description),'" . $old . "', '" . $new . "')";
+                // la fonction REPLACE est case sensitive, à la place on utilise les fonctions INSERT et INSTR afin de remplacer la chaîne
+                $reqRename = "update dm_page_translation set 
+                name= INSERT(name, INSTR(LOWER(name), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "') ,
+                title= INSERT(title, INSTR(LOWER(title), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "') ,
+                description= INSERT(description, INSTR(LOWER(description), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "');";
+                //echo "----->". $reqRename . "\n";
+                dmDb::pdo($reqRename);
+
+                // gestion du slug
+                $pages = dmDb::query('DmPage p')
+                        ->withI18n($lang)   // la langue par défaul seuelemnt (@todo à rendre multilaingue)
+                        ->where("pTranslation.slug like '%" . $old . "%'")
+                        ->execute();
+                foreach ($pages as $page) {
+                    $newSlug = str_replace($old, $new, $page->Translation[$lang]->slug); // le nouveau slug
+                    if (!$page->getTable()->isSlugUniqueByLang($newSlug, $page->get('id'), $lang)) { // on vérifie qu'il est unique
+                        $page->Translation[$lang]->slug = $page->getTable()->createUniqueSlugByLang($newSlug, $page->get('id'), null, $lang); // on crée un unique
+                    } else {
+                        $page->Translation[$lang]->slug = $newSlug;
+                    }
+                    $page->save();
+                }
+
+            }
         }
 
         $return[]['Rename DmPages'] = '';
-
         return $return;
     }
 
