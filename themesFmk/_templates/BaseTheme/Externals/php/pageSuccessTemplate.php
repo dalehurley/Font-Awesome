@@ -15,97 +15,88 @@
 ?>
 
 <?php
+//Gabarit de la page
+$currentGabarit = $sf_context->getPage()->get('gabarit');
+if ($currentGabarit == 'default' || $currentGabarit == '') {
+    $currentGabarit = spLessCss::getLessParam('templateGabarit');
+}
+
+$currentGabarit = 'no-sidebar';
+
 //Valeurs par défaut de configuration de la page
 $pageOptionsDefault = array(
-							'areas'	=> array(
-								'dm_custom_top'		=>	array(
-														//'index'		=> 1,
+							'idDev'				=> ((sfConfig::get('sf_environment') == 'dev') ? true : false),
+							'currentGabarit'	=> $currentGabarit,
+							'areas'				=> array(
+								/*'dm_custom_top'		=>	array(
 														'areaName'	=> 'customTop',
 														'isActive'	=> true,
 														'isPage'	=> false,
 														'clearfix'	=> true
-													),
+													),*/
 								'dm_content'		=>	array(
-														//'index'		=> 2,
 														'areaName'	=> 'content',
 														'isActive'	=> true,
 														'isPage'	=> true,
 														'clearfix'	=> false
 													),
 								'dm_sidebar_left'	=>	array(
-														//'index'		=> 3,
 														'areaName'	=> 'left',
-														'isActive'	=> true,
+														'isActive'	=> (($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-left') ? true : false),
 														'isPage'	=> false,
 														'clearfix'	=> false
 													),
 								'dm_sidebar_right'	=>	array(
-														//'index'		=> 4,
 														'areaName'	=> 'right',
-														'isActive'	=> true,
+														'isActive'	=> (($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-right') ? true : false),
 														'isPage'	=> false,
 														'clearfix'	=> false
-													),
+													)/*,
 								'dm_custom_bottom'	=>	array(
-														//'index'		=> 5,
 														'areaName'	=> 'customBottom',
 														'isActive'	=> true,
 														'isPage'	=> false,
 														'clearfix'	=> true
-													)
+													)*/
 									)
 					);
 
+
 //Personnalisation des valeurs de la page
-$pageOptionsCustom['areas']['dm_content']['clearfix'] = true;
+//$pageOptionsCustom['areas']['dm_content']['clearfix'] = true;
 
 //ajout d'un nouvelle Area
-$pageOptionsCustomAreas['areas']['dm_content_test_bis'] = array(
-						'areaName'	=> 'contentTestBis',
-						'isActive'	=> true,
-						'isPage'	=> false,
-						'clearfix'	=> false
-					);
-
-
-/*
-$pageOptionsCustom['areas']['dm_content_test'] = array(
-														//'index'		=> 6,
-														'areaName'	=> 'contentTest',
-														'isActive'	=> true,
-														'isPage'	=> false,
-														'clearfix'	=> false
-													);
-*/
+$pageOptionsCustom['areas']['dm_custom_top'] = array(
+											'index'		=> 0,
+											'areaName'	=> 'customTop',
+											'isActive'	=> true,
+											'isPage'	=> false,
+											'clearfix'	=> true
+											);
+$pageOptionsCustom['areas']['dm_custom_bottom'] = array(
+											'areaName'	=> 'customBottom',
+											'isActive'	=> true,
+											'isPage'	=> false,
+											'clearfix'	=> true
+											);
 
 //On remplace les valeurs par défaut que si la variable de remplissage existe
-$pageOptions = (isset($pageOptionsCustom)) ? array_replace_recursive($pageOptionsDefault, $pageOptionsCustom) : $pageOptionsDefault;
-
-
-$pageOptions = spLessCss::pageTemplateInsertArea($pageOptions, $pageOptionsCustomAreas, 0);
+$pageOptions = (isset($pageOptionsCustom)) ? spLessCss::pageTemplateCustomOptions($pageOptionsDefault, $pageOptionsCustom) : $pageOptionsDefault;
 
 
 
 
-//position d'insertion (commence à zéro)
-/*
-$insInd = 2;
-$firstPart = array_slice($pageOptions['areas'], 0, $insInd, true);
-$lastPart = array_slice($pageOptions['areas'], $insInd, (count($pageOptions['areas']) - $insInd), true);
-$pageOptions['areas'] = array_merge($firstPart,$pageNewArea,$lastPart);
-*/
 
 //AJOUT DE VARIABLES DISPONIBLES DANS LA PAGE
-//Environnement de dev
-$isDev = (sfConfig::get('sf_environment') == 'dev') ? true : false;
 
-//Gabarit de la page visible en environnement de dev
-$currentGabarit = $sf_context->getPage()->get('gabarit');
-if ($currentGabarit == 'default' || $currentGabarit == '') {
-    $currentGabarit = spLessCss::getLessParam('templateGabarit');
-}
+
+
+
+
 //affichage du widget de DEBUG du framework
-if ($isDev) echo dm_get_widget('sidSPLessCss', 'debug', array());
+if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
+
+
 ?>
 
 <div id="dm_page">
@@ -131,6 +122,8 @@ if ($isDev) echo dm_get_widget('sidSPLessCss', 'debug', array());
 						echo "<br/>";
 						echo "isActive :".$value['isActive'];
 						echo "<br/>";
+						echo "clearfix :".$value['clearfix'];
+						echo "<br/>";
 						echo "<br/>";
 					}
 					
@@ -144,10 +137,6 @@ if ($isDev) echo dm_get_widget('sidSPLessCss', 'debug', array());
 				
 				<section id="dm_content">
 					dm_content
-					<br/><br/>
-					$pageOptionsDefault : <?php var_dump($pageOptionsDefault); ?>
-					<br/><br/>
-					$pageOptionsCustom : <?php var_dump($pageOptionsCustom); ?>
 					<br/><br/>
 					$pageOptions : <?php var_dump($pageOptions); ?>
 				</section>

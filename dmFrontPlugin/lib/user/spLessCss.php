@@ -28,22 +28,35 @@ class spLessCss extends dmFrontUser {
 		}*/
 	}
 	
+	
+	
+	
+	
+	
 	//fonction d'insertion de nouvelle Area dans le pageTemplateSuccess
-	public static function pageTemplateInsertArea($options = array(), $insertArea = array(), $insertIndex = 'last') {
-		//on définit l'index area au cas où
-		if(!isset($options['area'])) {
-			$options['area'] = array();
+	public static function pageTemplateCustomOptions($options = array(), $customOptions = array()) {
+		//on parcourt toutes les zones à insérer
+		foreach ($customOptions['areas'] as $id => $area) {
+			//on vérifie si un index est définit pour la zone, sinon on la rajoute à la fin
+			if(isset($area['index'])) {
+				//récupération de l'index d'insertion
+				$insertIndex = $area['index'];
+				
+				//extraction des portions de Areas se trouvant avant et après l'index
+				$firstPart = array_slice($options['areas'], 0, $insertIndex, true);
+				$lastPart = array_slice($options['areas'], $insertIndex, (count($options['areas']) - $insertIndex), true);
+				
+				//assemblage dans un tableau temporaire de la zone à rajouter
+				$rajout[$id] = $area;
+				
+				//assemblage du tout
+				$options['areas'] = array_merge($firstPart,$rajout,$lastPart);
+				
+			}
 		}
-		//on définit une valeur spéciale pour la fin de l'index
-		if($insertIndex === 'last') {
-			$insertIndex = count($options['area']);
-		}
-		//extraction des portions de Areas se trouvant avant et après l'index
-		$firstPart = array_slice($options['areas'], 0, $insertIndex, true);
-		$lastPart = array_slice($options['areas'], $insertIndex, (count($options['areas']) - $insertIndex), true);
+		//une fois que l'on a vérifié toutes les zones à insérer on fusionne les modifications de zones éventuellement présentes
+		$options = array_replace_recursive($options, $customOptions);
 		
-		//assemblage du tout et sortie
-		$options['areas'] = array_merge($firstPart,$insertArea['areas'],$lastPart);
 		return $options;
 	}
 
