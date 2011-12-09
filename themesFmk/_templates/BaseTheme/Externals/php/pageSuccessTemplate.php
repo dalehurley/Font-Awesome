@@ -14,9 +14,6 @@
 //Valeurs par défaut de configuration de la page
 $pageOptionsDefault = spLessCss::pageTemplateGetOptionsDefault();
 
-//Personnalisation des valeurs de la page
-//$pageOptionsCustom['areas']['dm_content']['clearfix'] = true;
-
 //Ajout de nouvelles zones
 $pageOptionsCustom['areas']['dm_custom_top'] = array(
 											'index'		=> 0,
@@ -35,7 +32,6 @@ $pageOptionsCustom['areas']['dm_custom_bottom'] = array(
 //On remplace les valeurs par défaut que si la variable de remplissage existe
 $pageOptions = (isset($pageOptionsCustom)) ? spLessCss::pageTemplateCustomOptions($pageOptionsDefault, $pageOptionsCustom) : $pageOptionsDefault;
 
-
 //affichage du widget de DEBUG du framework
 if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
 ?>
@@ -43,61 +39,26 @@ if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
 <div id="dm_page">
 	<div id="dm_page_inner">
 		
-		<header id="dm_header" class="clearfix">
-			dm_header
-		</header>
+		<?php echo $helper->renderArea('layout.top', '#dm_header.clearfix') ?>
 		
 		<div id="dm_main" class="dm_layout clearfix">
 			<div id="dm_main_inner" class="clearfix">
 				
 				<?php
-					
-					//génération des areas de la page
-					echo "Génération des areas de la page";
-					echo "<br/>";
-					
-					foreach ($pageOptions['areas'] as $key => $value) {
-						echo "ID area :".$key;
-						echo "<br/>";
-						echo "areaName :".$value['areaName'];
-						echo "<br/>";
-						echo "isActive :".$value['isActive'];
-						echo "<br/>";
-						echo "clearfix :".$value['clearfix'];
-						echo "<br/>";
-						echo "<br/>";
+					foreach ($pageOptions['areas'] as $id => $area) {
+						//composition des options de la Area à afficher
+						$areaType = ($area['isPage']) ? 'page' : 'layout';
+						$areaName = $area['areaName'];
+						$areaClass = ($area['clearfix']) ? 'clearfix' : '';
+						
+						//affichage de la zone
+						echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . '.' . $areaClass);
 					}
 				?>
-				
-				
-				
-				<div id="dm_custom_top" class="clearfix">
-					dm_custom_top
-				</div>
-				
-				<section id="dm_content">
-					dm_content
-					<br/><br/>
-					$pageOptions : <?php var_dump($pageOptions); ?>
-				</section>
-				
-				<aside id="dm_sidebar_left">
-					dm_sidebar_left
-				</aside>
-				
-				<aside id="dm_sidebar_right">
-					dm_sidebar_right
-				</aside>
-				
-				<div id="dm_custom_bottom" class="clearfix">
-					dm_custom_bottom
-				</div>
-				
 			</div>
 		</div>
 		
-		<footer id="dm_footer" class="clearfix">
-			dm_footer
-		</footer>
+		<?php echo $helper->renderArea('layout.bottom', '#dm_footer.clearfix') ?>
+		
 	</div>
 </div>

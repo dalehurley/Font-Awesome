@@ -16,7 +16,7 @@ class spLessCss extends dmFrontUser {
 							'idDev'				=> ((sfConfig::get('sf_environment') == 'dev') ? true : false),
 							'currentGabarit'	=> $currentGabarit,
 							'areas'				=> array(
-								'dm_content'		=>	array(
+								'dm_page_content'		=>	array(
 														'areaName'	=> 'content',
 														'isActive'	=> true,
 														'isPage'	=> true,
