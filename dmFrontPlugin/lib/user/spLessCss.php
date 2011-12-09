@@ -2,7 +2,44 @@
 
 class spLessCss extends dmFrontUser {
 	
-	
+	//options de page par défaut
+	public static function pageTemplateGetOptionsDefault() {
+		
+		//récupération du gabarit de la page
+		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
+		if ($currentGabarit == 'default' || $currentGabarit == '') {
+			$currentGabarit = spLessCss::getLessParam('templateGabarit');
+		}
+		
+		//composition des options de page par défault
+		$pageTemplateOptionsDefault = array(
+							'idDev'				=> ((sfConfig::get('sf_environment') == 'dev') ? true : false),
+							'currentGabarit'	=> $currentGabarit,
+							'areas'				=> array(
+								'dm_content'		=>	array(
+														'areaName'	=> 'content',
+														'isActive'	=> true,
+														'isPage'	=> true,
+														'clearfix'	=> false
+													),
+								'dm_sidebar_left'	=>	array(
+														'areaName'	=> 'left',
+														'isActive'	=> (($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-left') ? true : false),
+														'isPage'	=> false,
+														'clearfix'	=> false
+													),
+								'dm_sidebar_right'	=>	array(
+														'areaName'	=> 'right',
+														'isActive'	=> (($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-right') ? true : false),
+														'isPage'	=> false,
+														'clearfix'	=> false
+													)
+												)
+							);
+		
+		//retour de la valeur
+		return $pageTemplateOptionsDefault;
+	}
 	
 	//fonction d'insertion de nouvelle Area dans le pageTemplateSuccess
 	public static function pageTemplateCustomOptions($options = array(), $customOptions = array()) {
