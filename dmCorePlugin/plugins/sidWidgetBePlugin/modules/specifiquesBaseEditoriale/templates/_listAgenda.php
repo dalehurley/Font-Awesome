@@ -1,7 +1,7 @@
 <?php
 // var $agendas - var $rubriqueTitle - var $rubrique
 if(count($agendas)){
-    echo _tag('h4.title', $rubriqueTitle);
+    echo _tag('h2.title', $rubriqueTitle);
 
     echo _open('ul.elements');
     foreach ($agendas as $agenda) {

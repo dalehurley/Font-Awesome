@@ -1,5 +1,6 @@
 <?php // Vars: $articlePager, $parent, $route
 use_helper('Date');
+
 echo _tag('h2.title', $parent.' - '.$route);
 
 echo _tag('div.navigation.navigationTop', $articlePager->renderNavigationTop());
@@ -13,7 +14,9 @@ $i = 0;
 echo _open('ul.elements');
 	foreach ($articlePager as $article)
 	{
+            
             include_partial("objectPartials/listBySection", array("article" => $article, "i" => $i));
+            $i++;
             
 	}
 echo _close('ul');

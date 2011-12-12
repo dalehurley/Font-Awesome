@@ -1,6 +1,7 @@
 <?php // Vars: $article
 if($i<3){
-			echo _open('li.element');
+			
+                        echo _open('li.element');
 			// on affiche un message que pour l'environnement de dev
 			if (sfConfig::get('sf_environment') == 'dev') {
 				echo _tag(
@@ -61,6 +62,7 @@ if($i<3){
 			}
 			//echo _close('span');
 			echo _close('li');
+//                        $i++;
 		}
 		else
 		{
@@ -82,5 +84,6 @@ if($i<3){
                                         )
                                         ->set('.link_box');
 			echo _close('li');
+//                        $i++;
 		}
-		$i++;
+		
