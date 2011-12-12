@@ -434,7 +434,6 @@ class baseEditorialeTools {
                 }
             }
 
-
             foreach ($renames as $old => $new) {
                 echo "-----" . $old . " -> " . $new . "\n";
                 // on met en minuscule les valeurs
@@ -445,21 +444,34 @@ class baseEditorialeTools {
 //                name= REPLACE(lower(name),'" . $old . "', '" . $new . "')  ,
 //                title= REPLACE(lower(title),'" . $old . "', '" . $new . "') ,  
 //                description= REPLACE(lower(description),'" . $old . "', '" . $new . "')";
-                // la fonction REPLACE est case sensitive, à la place on utilise les fonctions INSERT et INSTR afin de remplacer la chaîne
-                $reqRename = "update dm_page_translation set 
-                name= INSERT(name, INSTR(LOWER(name), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "') ,
-                title= INSERT(title, INSTR(LOWER(title), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "') ,
-                description= INSERT(description, INSTR(LOWER(description), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "');";
-                //echo "----->". $reqRename . "\n";
-                dmDb::pdo($reqRename);
+
+                // gestion du name
+                $pagesNameNotRenamed = dmDb::query('DmPage p')
+                        ->withI18n($lang)   // la langue par défaul seuelemnt (@todo à rendre multilaingue)
+                        ->where("LOWER(pTranslation.name) like '%" . $old . "%'")
+                        ->count();
+                foreach ($pagesNameNotRenamed as $page) {
+                    $page->Translation[$lang]->name = $new;
+                    $page->save();
+                }                
+                
+//                if ($pagesNotRenamed) {
+//                    // la fonction REPLACE est case sensitive, à la place on utilise les fonctions INSERT et INSTR afin de remplacer la chaîne
+//                    $reqRename = "update dm_page_translation set 
+//                name= INSERT(name, INSTR(LOWER(name), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "') ,
+//                title= INSERT(title, INSTR(LOWER(title), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "') ,
+//                description= INSERT(description, INSTR(LOWER(description), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "');";
+//                    //echo "----->". $reqRename . "\n";
+//                   // dmDb::pdo($reqRename);
+//                }
 
                 // gestion du slug
-                $pages = dmDb::query('DmPage p')
+                $pagesSlugNotRenamed = dmDb::query('DmPage p')
                         ->withI18n($lang)   // la langue par défaul seuelemnt (@todo à rendre multilaingue)
                         ->where("pTranslation.slug like '%" . $old . "%'")
                         ->execute();
-                foreach ($pages as $page) {
-                    $newSlug = str_replace($old, $new, $page->Translation[$lang]->slug); // le nouveau slug
+                foreach ($pagesSlugNotRenamed as $page) {
+                    $newSlug = dmString::slugify(str_replace($old, $new, $page->Translation[$lang]->slug)); // le nouveau slug
                     if (!$page->getTable()->isSlugUniqueByLang($newSlug, $page->get('id'), $lang)) { // on vérifie qu'il est unique
                         $page->Translation[$lang]->slug = $page->getTable()->createUniqueSlugByLang($newSlug, $page->get('id'), null, $lang); // on crée un unique
                     } else {
@@ -467,7 +479,6 @@ class baseEditorialeTools {
                     }
                     $page->save();
                 }
-
             }
         }
 
