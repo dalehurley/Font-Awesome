@@ -54,6 +54,8 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 			$html.= "\n";
 			$html.= '<!--[if (gte IE 6)&(lte IE 8)]><script src="'.sfConfig::get('sf_js_cdn_cdnjs').'/selectivizr/1.0.2/selectivizr-min.js"></script><![endif]-->';
 			$html.= "\n";
+			//$html.= '<script src="'.sfConfig::get('sf_js_cdn_microsoft').'/jquery.mobile/1.0/jquery.mobile-1.0.min.js"></script>';
+			//$html.= "\n";
 		} else {
 			$html = '';
 		}
