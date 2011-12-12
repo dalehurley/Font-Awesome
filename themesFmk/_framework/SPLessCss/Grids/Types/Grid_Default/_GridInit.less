@@ -10,7 +10,7 @@
 //Container possible : body | #dm_page | #dm_main
 
 //Ajout infos de debug par défaut
-.debugTemplate .debugInfo .screenType .value:after { content: @gridScreenType; }
+.debugTemplate .debugInfo .screenType .value { &, &:after { content: @gridScreenType; } }
 
 //PLACEMENT GÉNÉRAL
 #dm_page {

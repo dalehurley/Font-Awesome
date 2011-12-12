@@ -6,7 +6,7 @@
 
 @frameworkMedia_TabletLandscape() {
 	//ajout infos de debug
-	.debugTemplate .debugInfo .screenType .value:after { content: "TabletLandscape"; }
+	.debugTemplate .debugInfo .screenType .value { &, &:after { content: "TabletLandscape"; } }
 	//désactivation de la scrollBar
 	html { overflow-y: hidden; }
 }

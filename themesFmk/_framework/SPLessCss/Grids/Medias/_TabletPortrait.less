@@ -6,7 +6,7 @@
 
 @frameworkMedia_TabletPortrait() {
 	//ajout infos de debug
-	.debugTemplate .debugInfo .screenType .value:after { content: "TabletPortrait"; }
+	.debugTemplate .debugInfo .screenType .value { &, &:after { content: "TabletPortrait"; } }
 	//désactivation de la scrollBar
 	html { overflow-y: hidden; }
 }

@@ -6,7 +6,7 @@
 
 @frameworkMedia_MobilePortrait() {
 	//ajout infos de debug
-	.debugTemplate .debugInfo .screenType .value:after { content: "MobilePortrait"; }
+	.debugTemplate .debugInfo .screenType .value { &, &:after { content: "MobilePortrait"; } }
 	//désactivation de la scrollBar
 	html { overflow-y: hidden; }
 }
