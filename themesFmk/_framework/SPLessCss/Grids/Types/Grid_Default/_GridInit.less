@@ -1,6 +1,6 @@
 // _GridInit.less
-// v1.1
-// Last Updated : 2011-09-22 14:30
+// v1.2
+// Last Updated : 2011-12-12 10:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -72,47 +72,6 @@
 //chargement fonction automatique de placement général (paramètres par défaut chargés)
 @gridAutoLayout();
 
-//ajout des transitions pour les navigateurs Safari (surtout optimisé pour iPad et iPhone)
-@media only screen and (-webkit-min-device-pixel-ratio:0) {
-	/*
-	.csstransitions {
-		#dm_sidebar_right {
-			@transition(width, margin-left, margin-right);
-		}
-		//#dm_content {
-		//	@transition(width, margin-left, margin-right);
-		//}
-		#dm_main_inner {
-			@transitionCompress(width);
-		}
-	}
-	*/
-}
-@media only screen and (-webkit-min-device-pixel-ratio:0) and (orientation:landscape) {
-	/*
-	.csstransitions {
-		//on introduit un décalage temporel dans la réorganisation de l'interface
-		#dm_sidebar_right {
-			//@transitionDelay(.2s);
-			@transitionNone();
-		}
-		//#dm_content {
-		//	@transitionDelay(.3s);
-		//}
-	}
-	*/
-}
-@media only screen and (-webkit-min-device-pixel-ratio:0) and (orientation:portrait) {
-	/*
-	.csstransitions {
-		//on réinitialise les temps de réaction, #dm_content
-		#dm_main_inner, #dm_sidebar_right {
-			@transitionDelay(0);
-		}
-	}
-	*/
-}
-
 //debug pour masquage sidebars
 .sidebar-right #dm_sidebar_left,
 .sidebar-left #dm_sidebar_right,
@@ -121,48 +80,6 @@
 	display: none;
 	visibility: hidden;
 }
-
-/*
-#dm_content,
-.no-sidebar #dm_content {
-	float: left;
-	width: @gridWidth_Site;
-	margin-left: 0;
-	margin-right: @gridWidth_Site * -1;
-}
-
-.sidebar-left #dm_content {
-	width: @gridWidth_Site - @gridWidth_SidebarLeft - @gridGutter;
-	margin-left: @gridWidth_SidebarLeft + @gridGutter;
-	margin-right: @gridWidth_Site * -1;
-}
-
-.sidebar-right #dm_content {
-	width: @gridWidth_Site - @gridWidth_SidebarRight - @gridGutter;
-	margin-left: 0;
-	margin-right: (@gridWidth_Site - @gridWidth_SidebarRight - @gridGutter) * -1;
-}
-
-.two-sidebars #dm_content {
-	width: @gridWidth_Site - @gridWidth_SidebarLeft - @gridWidth_SidebarRight - @gridGutter * 2;
-	margin-left: @gridWidth_SidebarLeft + @gridGutter;
-	margin-right: (@gridWidth_Site - @gridWidth_SidebarRight - @gridGutter) * -1;
-}
-*/
-
-/*
-#dm_sidebar_left {
-	width: @gridWidth_SidebarLeft;
-	margin-left: 0;
-	margin-right: @gridWidth_SidebarLeft * -1;
-}
-
-#dm_sidebar_right {
-	width: @gridWidth_SidebarRight;
-	margin-left: @gridWidth_Site - @gridWidth_SidebarRight;
-	margin-right: @gridWidth_Site * -1;
-}
-*/
 
 //Appels des classes de placement des différents éléments dans la grille (présentes dans le sous-dossier layout)
 @import "_framework/SPLessCss/Grids/Types/Grid_Default/Layout/Elements/_Elements.less";
