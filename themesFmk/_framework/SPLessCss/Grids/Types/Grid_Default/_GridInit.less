@@ -74,37 +74,43 @@
 
 //ajout des transitions pour les navigateurs Safari (surtout optimisé pour iPad et iPhone)
 @media only screen and (-webkit-min-device-pixel-ratio:0) {
+	/*
 	.csstransitions {
 		#dm_sidebar_right {
 			@transition(width, margin-left, margin-right);
 		}
-		/*#dm_content {
-			@transition(width, margin-left, margin-right);
-		}*/
+		//#dm_content {
+		//	@transition(width, margin-left, margin-right);
+		//}
 		#dm_main_inner {
 			@transitionCompress(width);
 		}
 	}
+	*/
 }
 @media only screen and (-webkit-min-device-pixel-ratio:0) and (orientation:landscape) {
+	/*
 	.csstransitions {
 		//on introduit un décalage temporel dans la réorganisation de l'interface
 		#dm_sidebar_right {
 			//@transitionDelay(.2s);
 			@transitionNone();
 		}
-		/*#dm_content {
-			@transitionDelay(.3s);
-		}*/
+		//#dm_content {
+		//	@transitionDelay(.3s);
+		//}
 	}
+	*/
 }
 @media only screen and (-webkit-min-device-pixel-ratio:0) and (orientation:portrait) {
+	/*
 	.csstransitions {
 		//on réinitialise les temps de réaction, #dm_content
 		#dm_main_inner, #dm_sidebar_right {
 			@transitionDelay(0);
 		}
 	}
+	*/
 }
 
 //debug pour masquage sidebars

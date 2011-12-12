@@ -6,17 +6,18 @@
 
 //TAILLE PAR DEFAUT : TabletLandscape
 
-#dm_main {
-	
-}
-
 #dm_main_inner {
 	@gridSiteWidth(@gridScreen; @gridCol; @gridPadding);
 	margin-left: auto;
 	margin-right: auto;
 }
 
-
-#dm_custom_top {
-	
+//rajout des transitions pour le changement de résolution
+.csstransitions {
+	#dm_sidebar_right {
+		@transition(width, margin-left, margin-right);
+	}
+	#dm_main_inner {
+		@transitionCompress(width);
+	}
 }
