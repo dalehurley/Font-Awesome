@@ -52,8 +52,6 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		if ($this->isHtml5()) {
 			$html = '<script src="' . sfConfig::get('sf_js_path_framework').'/modernizr/modernizr-2.0.6.custom.min.js"></script>';
 			$html.= "\n";
-			$html.= '<script src="' . sfConfig::get('sf_js_path_framework').'/modernizr/polyfills.js"></script>';
-			$html.= "\n";
 			$html.= '<!--[if (gte IE 6)&(lte IE 8)]><script src="'.sfConfig::get('sf_js_cdn_cdnjs').'/selectivizr/1.0.2/selectivizr-min.js"></script><![endif]-->';
 			$html.= "\n";
 		} else {
