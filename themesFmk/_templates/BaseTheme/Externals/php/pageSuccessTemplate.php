@@ -51,7 +51,10 @@ if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
 						$areaClass = ($area['clearfix']) ? 'clearfix' : '';
 						
 						//affichage de la zone
-						echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . '.' . $areaClass);
+						//echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . '.' . $areaClass);
+						
+						//div vides de test pour la mise en page
+						echo '<div id="' . (($id === 'dm_page_content') ? 'dm_content' : $id) . '" class="' . (($area['clearfix']) ? 'clearfix ' . $areaName : $areaName) .'">' . $areaName . '</div>';
 					}
 				?>
 			</div>
