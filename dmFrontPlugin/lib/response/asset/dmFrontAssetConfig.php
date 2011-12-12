@@ -42,6 +42,7 @@ class dmFrontAssetConfig extends dmAssetConfig
     if ($this->userCanEdit())
     {
       return array(
+	    'lib.jquerymobile',
         'lib.jquery',
         sfConfig::get('sf_web_debug') ? 'lib.symfony_debug' : null,
         'lib.metadata',
@@ -81,6 +82,7 @@ class dmFrontAssetConfig extends dmAssetConfig
     }
     
     return array(
+	  'lib.jquerymobile',
       'lib.jquery',
       sfConfig::get('sf_web_debug') ? 'lib.symfony_debug' : null,
       'lib.metadata',
