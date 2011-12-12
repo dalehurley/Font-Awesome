@@ -16,9 +16,11 @@ class handWidgetsListSousHomeByRubriqueView extends dmWidgetPluginView {
         $arrayGlobal = array();
         $articles = array();
         $vars = $this->getViewVars();
+        
         $namePage = $this->context->getPage()->getName();
         $recordPage = $this->context->getPage()->getRecordId();
-        
+        $nomRubrique = dmDb::table('SidRubrique')->findOneById($recordPage);
+        if($nomRubrique != 'ec_echeancier'){
         $sections = dmDb::table('SidSection')
                 ->createQuery('p')
                 ->where('p.is_active = ? and p.rubrique_id=? ', array(true,$recordPage))
@@ -64,6 +66,7 @@ class handWidgetsListSousHomeByRubriqueView extends dmWidgetPluginView {
             //'link' => $sectionPage,
             //'sectionName' => $title,    // on envoi la première page trouvée         
         ));
+    }
     }
 
 }

@@ -49,7 +49,7 @@ if ($imgExist) {
 echo _open('div.navigation.navigationBottom');
 //	echo _open('ul.elements');
 //	    echo _open('li.element');
-echo _link($article->Section)->text($titreLien . ' ' . $arrayRubrique[$article->id]);
+echo _link($article->Section)->text($titreLien . ' ' . $arrayRubrique[$article->filename]);
 //	    echo _close('li');
 //	echo _close('ul');
 echo _close('div');
