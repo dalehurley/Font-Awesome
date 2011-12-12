@@ -5,6 +5,8 @@
  *
  */
 class baseEditorialeTools {
+    
+    const memoryNeeded = '1024M';
 
     /**
      * création d'un fichier Json des articles actifs de toutes les rubriques
@@ -186,7 +188,7 @@ class baseEditorialeTools {
      */
 
     public static function loadArticlesJson($mode = 'total') {
-        ini_set("memory_limit", '1024M'); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
+        ini_set("memory_limit", self::memoryNeeded); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
 
         $return = array();
         $timeBegin = microtime(true);
@@ -415,9 +417,11 @@ class baseEditorialeTools {
      */
 
     public static function renameDmPages() {
-
+        // retour
+        $return = array();
         // les languages
         $arrayLangs = sfConfig::get('dm_i18n_cultures');
+        $nbPagesModified = 0;
 
         foreach ($arrayLangs as $lang) { // pour chaque lang utilisées et définies dans le fichier config/dm/config.yml
             $renames = sfConfig::get('app_dm-pages_rename-'.$lang);
@@ -435,54 +439,40 @@ class baseEditorialeTools {
             }
 
             foreach ($renames as $old => $new) {
-                echo "-----" . $old . " -> " . $new . "\n";
+          	$beginTime = microtime(true);
                 // on met en minuscule les valeurs
                 $old = strtolower($old);
                 $new = strtolower($new);
-                // la requête de renommage de la table dmPage
-//            $reqRename = "update dm_page_translation set 
-//                name= REPLACE(lower(name),'" . $old . "', '" . $new . "')  ,
-//                title= REPLACE(lower(title),'" . $old . "', '" . $new . "') ,  
-//                description= REPLACE(lower(description),'" . $old . "', '" . $new . "')";
 
-                // gestion du name
-                $pagesNameNotRenamed = dmDb::query('DmPage p')
-                        ->withI18n($lang)   // la langue par défaul seuelemnt (@todo à rendre multilaingue)
-                        ->where("LOWER(pTranslation.name) like '%" . $old . "%'")
-                        ->count();
-                foreach ($pagesNameNotRenamed as $page) {
-                    $page->Translation[$lang]->name = $new;
-                    $page->save();
-                }                
-                
-//                if ($pagesNotRenamed) {
-//                    // la fonction REPLACE est case sensitive, à la place on utilise les fonctions INSERT et INSTR afin de remplacer la chaîne
-//                    $reqRename = "update dm_page_translation set 
-//                name= INSERT(name, INSTR(LOWER(name), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "') ,
-//                title= INSERT(title, INSTR(LOWER(title), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "') ,
-//                description= INSERT(description, INSTR(LOWER(description), LOWER('" . $old . "')), LENGTH('" . $old . "'), '" . $new . "');";
-//                    //echo "----->". $reqRename . "\n";
-//                   // dmDb::pdo($reqRename);
-//                }
-
-                // gestion du slug
-                $pagesSlugNotRenamed = dmDb::query('DmPage p')
-                        ->withI18n($lang)   // la langue par défaul seuelemnt (@todo à rendre multilaingue)
-                        ->where("pTranslation.slug like '%" . $old . "%'")
+                // AUTO_MOD
+                // au début il est égal à snthdk [slug name title h1 description keyword]
+                // on met auto_mod = 'hk' pour que la tache sync-pages n'aie plus d'effet sur les sntd les cette page, car modifiée manuellement
+                // 
+                // gestion des name / title / description
+                $pagesNotRenamed = dmDb::query('DmPage p')
+                        ->withI18n($lang)   
+                        ->where("LOWER(pTranslation.name) like '%" . $old . "%' OR LOWER(pTranslation.title) like '%" . $old . "%' OR LOWER(pTranslation.description) like '%" . $old . "%' OR LOWER(pTranslation.slug) like '%" . $old . "%'")
                         ->execute();
-                foreach ($pagesSlugNotRenamed as $page) {
-                    $newSlug = dmString::slugify(str_replace($old, $new, $page->Translation[$lang]->slug)); // le nouveau slug
+
+                //echo "count ".$old."   ".count($pagesNotRenamed)."\n";
+                foreach ($pagesNotRenamed as $page) {
+                    $page->Translation[$lang]->name = $new;
+                    $page->Translation[$lang]->title = $new;
+                    $page->Translation[$lang]->description = $new;
+                    $page->Translation[$lang]->auto_mod = 'hk'; // plus de ntd modifiable par sync-pages
+                    // gestion slug
+                    $newSlug = str_replace($old, dmString::slugify($new), $page->Translation[$lang]->slug); // le nouveau slug
                     if (!$page->getTable()->isSlugUniqueByLang($newSlug, $page->get('id'), $lang)) { // on vérifie qu'il est unique
-                        $page->Translation[$lang]->slug = $page->getTable()->createUniqueSlugByLang($newSlug, $page->get('id'), null, $lang); // on crée un unique
+                        $page->Translation[$lang]->slug = $page->getTable()->createUniqueSlugByLang($newSlug, $page->get('id'), null, $lang); // on crée un slug unique
                     } else {
                         $page->Translation[$lang]->slug = $newSlug;
                     }
                     $page->save();
                 }
+
+                //$return[]['Rename dmPages : '.$old] = " -> " . $new ." [".(microtime(true) - $beginTime) . " s]";
             }
         }
-
-        $return[]['Rename DmPages'] = '';
         return $return;
     }
 
@@ -655,7 +645,7 @@ class baseEditorialeTools {
             return $return;
         }
 
-        ini_set("memory_limit", '1024M'); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
+        ini_set("memory_limit", self::memoryNeeded); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
         error_reporting(0); // quelques Warning peuvent apparaitre dans les XML, ça n'empêche pas de les traiter...
 
         $resultQuery = array(); // [numéro id rubrique de la bdd] [nom rubrique bdd]
@@ -837,7 +827,7 @@ class baseEditorialeTools {
      */
     public static function RubriquesSectionsDeactivation() {
 
-        ini_set("memory_limit", '256M'); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
+        ini_set("memory_limit", self::memoryNeeded); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
 
         $return = array();
         $timeBegin = microtime(true);
