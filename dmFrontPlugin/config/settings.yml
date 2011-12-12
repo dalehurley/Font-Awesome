@@ -1,11 +1,12 @@
 all:
   .settings:
     #Gestion des différents CDN
-    js_cdn_google:					//ajax.googleapis.com/ajax/libs
-    js_cdn_cdnjs:						//cdnjs.cloudflare.com/ajax/libs
+    js_cdn_google:          //ajax.googleapis.com/ajax/libs
+    js_cdn_microsoft:       //ajax.aspnetcdn.com/ajax
+    js_cdn_cdnjs:           //cdnjs.cloudflare.com/ajax/libs
     #Ressources javascript
-    js_path_framework:			/theme/less/_framework/SPLessCss/Externals/js
-    js_path_template:				/theme/less/_templates/<?php echo spLessCss::getLessParam('mainTemplate') ?>/Externals/js
+    js_path_framework:      /theme/less/_framework/SPLessCss/Externals/js
+    js_path_template:       /theme/less/_templates/<?php echo spLessCss::getLessParam('mainTemplate') ?>/Externals/js
     #Ressources CSS
-    css_path_framework:			/theme/css/_framework/SPLessCss
-    css_path_template:			/theme/css/_templates/<?php echo spLessCss::getLessParam('mainTemplate') ?>
+    css_path_framework:     /theme/css/_framework/SPLessCss
+    css_path_template:      /theme/css/_templates/<?php echo spLessCss::getLessParam('mainTemplate') ?>
