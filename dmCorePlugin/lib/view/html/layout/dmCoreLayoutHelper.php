@@ -196,7 +196,8 @@ class dmCoreLayoutHelper extends dmConfigurable
 					$stylesheetTag = sprintf('<!--[if %s]>%s<![endif]-->', $options['condition'], $stylesheetTag);
 				}
 
-				$html .= $stylesheetTag."\n";
+				$html.= $stylesheetTag;
+				$html.= PHP_EOL;
 			}
 		}
 
@@ -228,7 +229,7 @@ class dmCoreLayoutHelper extends dmConfigurable
 			{
 				$scriptTag = sprintf('<!--[if %s]>%s<![endif]-->', $options['condition'], $scriptTag);
 			}
-			$html .= $scriptTag."\n";
+			$html .= PHP_EOL . $scriptTag;
 		}
 
 		return $html;
