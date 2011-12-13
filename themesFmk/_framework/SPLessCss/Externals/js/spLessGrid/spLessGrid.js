@@ -10,13 +10,14 @@
 	//Définition du plugin
 	$.fn.spLessGrid = function() {
 		//Ajout de debug
-		$.fn.spLessGrid.debug("spLessGrid : initialisation");
+		$.fn.spLessGrid.debug("spLessGrid | " + $.mobile);
 		
 		//lorsque la page est redimenssionée
 		$(window).resize(function() {
 			$.fn.spLessGrid.debugUpdateValue('windowInnerWidth', window.innerWidth);
 			$.fn.spLessGrid.debugUpdateValue('windowOrientation', window.orientation);
 		});
+		
 		
 		//on vérifie la présence du jQueryMobile
 		
@@ -31,18 +32,21 @@
 				$.fn.spLessGrid.updateGrid(o);
 			});
 			
+			$(window).bind("orientationchange", function (event) {
+				$.fn.spLessGrid.updateGrid(o);
+			});
+			
+			//gestion de la disparition de la zone de débug
+			$this.bind('click', $.fn.spLessGrid.toggleDisplay);
+			
 			//ajout de paramètres personnalisés en JS à la sortie de débug
 			$.fn.spLessGrid.debugAddValue('windowInnerWidth', window.innerWidth);
 			$.fn.spLessGrid.debugAddValue('windowOrientation', window.orientation);
 			
 			//on ajoute la grille
-			$.fn.spLessGrid.createSwitch(o);
+			$.fn.spLessGrid.createSwitch(this, o);
 		});
 	};
-	
-	
-	
-	
 	
 	/*
 	//fonction d'extraction de valeur de background-image
@@ -55,6 +59,19 @@
 
 		return extract;
 	}*/
+	
+	//gestion apparition de la zone de debug
+	$.fn.spLessGrid.toggleDisplay = function(e, active) {
+		var getWidget = $(e.target).closest('.dm_widget');
+		
+		if(active == true) {
+			if($(getWidget).hasClass('disabled')){
+				$(getWidget).removeClass('disabled');
+			}
+		}else{
+			$(getWidget).toggleClass('disabled');
+		}
+	}
 	
 	//mise à jour de la grille
 	$.fn.spLessGrid.updateGrid = function(options) {
@@ -119,7 +136,7 @@
 	}
 	
 	//création du switch
-	$.fn.spLessGrid.createSwitch = function(options) {
+	$.fn.spLessGrid.createSwitch = function(debug, options) {
 		//calcul positionnement à droite du bouton
 		var switchPositionRight = 100;
 		if ($("#sfWebDebugBar").length > 0){
@@ -140,10 +157,11 @@
 			//mise à jour de la grille
 			$.fn.spLessGrid.updateGrid(options);
 			
-			//rajout apparition debug si masqué
-			if($('.debugTemplate').closest('.dm_widget').hasClass('disabled')){
-				$('.debugTemplate').closest('.dm_widget').toggleClass('disabled');
-			}
+			//réapparition de la zone de debug
+			var param = new Object;
+			param.target = debug;
+			$.fn.spLessGrid.toggleDisplay(param, true);
+			
 		}, function() {
 			$(this).text('show grid');
 			$('#less-grid').hide();
@@ -174,11 +192,11 @@
 	//Paramètres par défaut
 	$.fn.spLessGrid.debugTemplate = $('.debugTemplate');
 	
-	//lancement automatique de la fonction lors du chargement de la page
-	$(document).ready(function(){
+	$.fn.spLessGrid.initialize = function() {
 		$.fn.spLessGrid.debugTemplate.spLessGrid();
-	});
-	
-	
+	}
+		
+	//lancement automatique de la fonction lors du chargement de la page (événement différent selon la présence de jQueryMobile)
+	$(document).bind(($.mobile ? "pageinit" : "ready"), $.fn.spLessGrid.initialize);
 	
 })(jQuery);
