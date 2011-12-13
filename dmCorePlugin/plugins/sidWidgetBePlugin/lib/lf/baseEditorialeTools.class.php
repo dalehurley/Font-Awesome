@@ -456,9 +456,9 @@ class baseEditorialeTools {
 
                 //echo "count ".$old."   ".count($pagesNotRenamed)."\n";
                 foreach ($pagesNotRenamed as $page) {
-                    $page->Translation[$lang]->name = str_replace($old, $new, $page->Translation[$lang]->name);
-                    $page->Translation[$lang]->title = str_replace($old, $new, $page->Translation[$lang]->title);
-                    $page->Translation[$lang]->description = str_replace($old, $new, $page->Translation[$lang]->description);
+                    $page->Translation[$lang]->name = str_replace($old, $new, strtolower($page->Translation[$lang]->name));
+                    $page->Translation[$lang]->title = str_replace($old, $new, strtolower($page->Translation[$lang]->title));
+                    $page->Translation[$lang]->description = str_replace($old, $new, strtolower($page->Translation[$lang]->description));
                     $page->Translation[$lang]->auto_mod = 'hk'; // plus de sntd modifiable par sync-pages
                     // gestion slug
                     $newSlug = str_replace($old, dmString::slugify($new), $page->Translation[$lang]->slug); // le nouveau slug
@@ -638,7 +638,7 @@ class baseEditorialeTools {
      * Section : Actualités
      */
 
-    public static function recupArticlesLEA($idArticlePlusVieux) {
+    public static function recupArticlesLEA() {
 
         if (sfConfig::get('app_ftp-password') == '' || sfConfig::get('app_ftp-image-password') == '') {
             $return[0]['ERROR'] = 'Seule la base éditoriale peut récupérer les articles de LEA. Vérifier que le apps/front/config/app.yml ait les bonnes variables.';
@@ -681,8 +681,7 @@ class baseEditorialeTools {
                         $beginTime = microtime(true);
 
                         if (substr($fichierArticle, -4) == '.xml') {  // on en traite que les fichier XML
-                            if (intval(str_replace('.xml', '', $fichierArticle)) > $idArticlePlusVieux) {  // on ne traite que les articles depuis l'idArticlePlusVieux
-                                // j'explore le xml pour récupérer le titre, le chapeau, le n° article de léa(code)
+                                 // j'explore le xml pour récupérer le titre, le chapeau, le n° article de léa(code)
                                 $xml = new DOMDocument();
                                 $xmlFile = sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection . '/' . $fichierArticle;
 
@@ -771,10 +770,6 @@ class baseEditorialeTools {
                                 } else {
                                     $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
                                 }
-                            } else {
-
-                                // $return[$j]['Article ' . $fichierArticle] = 'Article trop vieux < '.$idArticlePlusVieux;
-                            }
 
                             $j++;
                             //if ($j > 10) return $return;
