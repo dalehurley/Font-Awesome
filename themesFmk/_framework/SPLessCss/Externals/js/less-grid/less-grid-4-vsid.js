@@ -7,7 +7,6 @@
 (function($){
 	//lorsque la page est chargée
 	$(document).ready(function() {
-		alert("document Ready");
 		/*
 		//ajout du switch de page
 		createSwitch();
