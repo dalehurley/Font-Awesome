@@ -8,5 +8,5 @@ all:
   javascripts:
     - <?php echo sfConfig::get('sf_js_path_framework'); ?>/modernizr/polyfills.js
     - <?php echo sfConfig::get('sf_js_path_framework'); ?>/spLessGrid/spLessGrid.js
-    <?php if(sfConfig::get('sf_environment') == 'dev'){ echo '- ' . sfConfig::get('sf_js_path_framework') . '/less-grid/less-grid-4-vsid.js
+    <?php if(sfConfig::get('sf_environment') != 'dev'){ echo '- ' . sfConfig::get('sf_js_path_framework') . '/less-grid/less-grid-4-vsid.js
 #'; } ?>
