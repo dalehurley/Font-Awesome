@@ -35,10 +35,10 @@ $pageOptions = (isset($pageOptionsCustom)) ? spLessCss::pageTemplateCustomOption
 if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
 ?>
 
-<div id="dm_page">
+<div id="dm_page" data-role="page">
 	<div id="dm_page_inner">
 		
-		<?php echo $helper->renderArea('layout.top', '#dm_header.clearfix') ?>
+		<?php echo $helper->renderArea('layout.top', '#dm_header.clearfix data-role="header"') ?>
 		
 		<div id="dm_main" class="dm_layout clearfix">
 			<div id="dm_main_inner" class="clearfix">
@@ -60,7 +60,7 @@ if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
 			</div>
 		</div>
 		
-		<?php echo $helper->renderArea('layout.bottom', '#dm_footer.clearfix') ?>
+		<?php echo $helper->renderArea('layout.bottom', '#dm_footer data-role="footer"') ?>
 		
 	</div>
 </div>
