@@ -456,10 +456,10 @@ class baseEditorialeTools {
 
                 //echo "count ".$old."   ".count($pagesNotRenamed)."\n";
                 foreach ($pagesNotRenamed as $page) {
-                    $page->Translation[$lang]->name = $new;
-                    $page->Translation[$lang]->title = $new;
-                    $page->Translation[$lang]->description = $new;
-                    $page->Translation[$lang]->auto_mod = 'hk'; // plus de ntd modifiable par sync-pages
+                    $page->Translation[$lang]->name = str_replace($old, $new, $page->Translation[$lang]->name);
+                    $page->Translation[$lang]->title = str_replace($old, $new, $page->Translation[$lang]->title);
+                    $page->Translation[$lang]->description = str_replace($old, $new, $page->Translation[$lang]->description);
+                    $page->Translation[$lang]->auto_mod = 'hk'; // plus de sntd modifiable par sync-pages
                     // gestion slug
                     $newSlug = str_replace($old, dmString::slugify($new), $page->Translation[$lang]->slug); // le nouveau slug
                     if (!$page->getTable()->isSlugUniqueByLang($newSlug, $page->get('id'), $lang)) { // on vérifie qu'il est unique
@@ -470,7 +470,7 @@ class baseEditorialeTools {
                     $page->save();
                 }
 
-                //$return[]['Rename dmPages : '.$old] = " -> " . $new ." [".(microtime(true) - $beginTime) . " s]";
+                $return[]['Rename dmPages : '.$old] = " -> " . $new ." [".(microtime(true) - $beginTime) . " s]";
             }
         }
         return $return;
