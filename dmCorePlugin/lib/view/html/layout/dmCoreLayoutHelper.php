@@ -228,7 +228,7 @@ class dmCoreLayoutHelper extends dmConfigurable
 			{
 				$scriptTag = sprintf('<!--[if %s]>%s<![endif]-->', $options['condition'], $scriptTag);
 			}
-			$html .= $scriptTag;
+			$html .= $scriptTag."\n";
 		}
 
 		return $html;
