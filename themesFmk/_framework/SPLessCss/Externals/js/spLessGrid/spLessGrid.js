@@ -1,6 +1,6 @@
-// spLessGrid.js - Pour SPLessCss
-// v1.1
-// Last Updated : 2011-12-12 14:50
+// spLessGrid.js - Pour le framework SPLessCss
+// v1.2
+// Last Updated : 2011-12-14 16:35
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
@@ -10,55 +10,64 @@
 	//Définition du plugin
 	$.fn.spLessGrid = function() {
 		//Ajout de debug
-		$.fn.spLessGrid.debug("spLessGrid | " + $.mobile);
+		$.fn.spLessGrid.debug("spLessGrid | jQueryMobile : " + $.mobile);
+		
+		//on récupère les options passées en JSON dans le container
+		var options = $.metadata ? $(this).metadata() : new Array();
 		
 		//lorsque la page est redimenssionée
 		$(window).resize(function() {
-			$.fn.spLessGrid.debugUpdateValue('windowInnerWidth', window.innerWidth);
-			$.fn.spLessGrid.debugUpdateValue('windowOrientation', window.orientation);
+			
 		});
 		
+		//déclaration de la variable de délay de mise à jour
+		var timeoutID = "";
 		
-		//on vérifie la présence du jQueryMobile
+		//ajout des événéments sur la page (indépendamment de la présence de jQueryMobile, l'événement est géré si existant)
+		$(window).bind("pageinit resize orientationchange", function(e) {
+			
+			if(e.type == "pageinit"){
+				//ajout de paramètres personnalisés en JS à la sortie de débug
+				$.fn.spLessGrid.debugAddValue('windowInnerWidth', window.innerWidth);
+				$.fn.spLessGrid.debugAddValue('windowOrientation', window.orientation);
+			}else{
+				$.fn.spLessGrid.debugUpdateValue('windowInnerWidth', window.innerWidth);
+				
+				//on actualise la valeur de l'orientation que si celle-ci est gérée par le support
+				if(e.orientation != undefined){
+					$.fn.spLessGrid.debugUpdateValue('windowOrientation', e.orientation);
+				}else{
+					$.fn.spLessGrid.debugUpdateValue('windowOrientation', 'N/A');
+				}
+				
+				//suppression du délay si déjà déclaré
+				if(timeoutID != null) this.clearTimeout(timeoutID);
+				//on décale dans le temps le lancement de l'actualisation (évite un lancement trop fréquent et permet d'actualiser sur les touchScreens)
+				timeoutID = this.setTimeout(function(){
+					$.fn.spLessGrid.updateGrid(options);
+				},250);
+			}
+		});
+		
+		//TEST : on vérifie la présence du jQueryMobile
+		if($.mobile) {
+			$(this).live("tap taphold swipe swipeleft swiperight", function(e) {
+				$(this).toggleClass(e.type);
+			});
+		}
 		
 		// iterate and reformat each matched element
 		return this.each(function() {
-			$this = $(this);
-			//on récupère les options passées en JSON dans le container
-			var o = $.metadata ? $this.metadata() : new Array();
-			
-			//lorsque la page est redimenssionée
-			$(window).resize(function() {
-				$.fn.spLessGrid.updateGrid(o);
-			});
-			
-			$(window).bind("orientationchange", function (event) {
-				$.fn.spLessGrid.updateGrid(o);
-			});
+			//ciblage du widget
+			var getWidget = $(this).closest('.dm_widget');
 			
 			//gestion de la disparition de la zone de débug
-			$this.bind('click', $.fn.spLessGrid.toggleDisplay);
-			
-			//ajout de paramètres personnalisés en JS à la sortie de débug
-			$.fn.spLessGrid.debugAddValue('windowInnerWidth', window.innerWidth);
-			$.fn.spLessGrid.debugAddValue('windowOrientation', window.orientation);
+			$(this).bind('click', $.fn.spLessGrid.toggleDisplay);
 			
 			//on ajoute la grille
-			$.fn.spLessGrid.createSwitch(this, o);
+			$.fn.spLessGrid.createSwitch(this, options);
 		});
 	};
-	
-	/*
-	//fonction d'extraction de valeur de background-image
-	$.fn.spLessGrid.extractCssBgiValue = function(stringValue){
-		//permet de récupérer la valeur numérique située dans une chaine de type : url(http://sitev3-trunk-arnaud.com/80%)
-		var indexStart = stringValue.lastIndexOf('/') + 1;
-		var indexEnd = stringValue.lastIndexOf(')');
-
-		var extract = stringValue.substring(indexStart, indexEnd).replace('"','').replace("'","");
-
-		return extract;
-	}*/
 	
 	//gestion apparition de la zone de debug
 	$.fn.spLessGrid.toggleDisplay = function(e, active) {
@@ -195,7 +204,7 @@
 	$.fn.spLessGrid.initialize = function() {
 		$.fn.spLessGrid.debugTemplate.spLessGrid();
 	}
-		
+	
 	//lancement automatique de la fonction lors du chargement de la page (événement différent selon la présence de jQueryMobile)
 	$(document).bind(($.mobile ? "pageinit" : "ready"), $.fn.spLessGrid.initialize);
 	
