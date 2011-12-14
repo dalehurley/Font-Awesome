@@ -31,9 +31,9 @@ class dmFrontAssetConfig extends dmAssetConfig
     }
     
     return array(
-      sfConfig::get('sf_web_debug') ? 'lib.symfony_debug' : null,
-      'core.tool',
-      'front.base'
+      sfConfig::get('sf_web_debug') ? 'lib.symfony_debug' : null
+      //'core.tool',
+      //'front.base'
     );
   }
   
