@@ -14,11 +14,21 @@
 		var isTouchDevice = 'ontouchstart' in document.documentElement;
 		
 		if(isTouchDevice){
+			/*
 			$("*").live("touchstart", function() {
 				$(this).addClass("touch");
 				}).live("touchend", function() {
 					$(this).removeClass("touch");
-				});
+				});*/
+			/*	
+			$(".debugTemplate").live("tap", function() {
+				$(this).addClass("touch");
+			});*/
+			/*
+			$(".debugTemplate").live("tap taphold swipe swipeleft swiperight", function(e) {
+				$(this).toggleClass(e.type);
+			});
+			*/
 		}
 		
 		/*
