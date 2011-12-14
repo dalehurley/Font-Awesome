@@ -15,7 +15,9 @@
 		//permet d'étendre la zone en débordement de la page
 		margin-left: -100%;
 		margin-right: -100%;
+		width: auto;
 		margin-bottom: @gridBaseline;
+		padding: 0;
 		
 		//ajout fond
 		background-color: @colorCouleur2Fonce;
@@ -72,11 +74,26 @@
 
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletLandscape() {
-	#dm_header .search_form input.query { padding-bottom: 3px; }
+	#dm_header {
+		.search_form {
+			
+			//correction du bug sur le champ de saisi
+			input.query { padding-bottom: 3px; }
+		}
+	}
 }
 
 @templateMedia_TabletPortrait(){
-	#dm_header .search_form input.query { padding-bottom: 3px; }
+	#dm_header {
+		.search_form {
+			.dm_widget_inner {
+				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+			}
+			
+			//correction du bug sur le champ de saisi
+			input.query { padding-bottom: 3px; }
+		}
+	}
 }
 
 //importation des requêtes média
