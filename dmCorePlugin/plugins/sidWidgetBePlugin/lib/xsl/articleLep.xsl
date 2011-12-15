@@ -41,6 +41,14 @@
                 <xsl:attribute name="itemprop">description</xsl:attribute>
                 <xsl:value-of select="Data/Introduction/Heading/Head"/>
             </xsl:element>
+
+            <xsl:for-each select = "Data/Sections/Section/MultimediaInserts/MultimediaInsert">
+                <xsl:apply-templates select="*[not(self::PixelWidth) and not(self::FileName) and not(self::PixelHeight) and not(self::FileType)]"/>
+                <xsl:variable name="image" select="FileName"/>
+                <xsl:variable name="width" select="PixelWidth"/>
+                <xsl:variable name="height" select="PixelHeight"/>
+                <img src="/_images/images{$image}" width="{$width}" height="{$height}"/>
+            </xsl:for-each>
             
             <xsl:element name="p">
                 <xsl:attribute name="class">meta</xsl:attribute>
@@ -53,11 +61,11 @@
         <xsl:element name="section">
             <xsl:attribute name="class">contentBody</xsl:attribute>
             <xsl:attribute name="itemprop">articleBody</xsl:attribute>
-            
+
             <xsl:for-each select = "Data/Sections/Section">
-                <xsl:apply-templates select="*[not(self::LinkMetadata) and not(self::MultimediaInserts) and not(self::Files) and not(self::Signature) and not(self::titretable) and not(self::renvoistable) and not(self::Reference)]"/>
+                <xsl:apply-templates select="*[not(self::MultimediaInserts) and not(self::LinkMetadata) and not(self::Files) and not(self::Signature) and not(self::titretable) and not(self::renvoistable) and not(self::Reference)]"/>
             </xsl:for-each>
-            
+          
             <xsl:if test = "Data/Sections/Section/Reference">
                 <xsl:apply-templates select="Data/Sections/Section/Reference"/>
             </xsl:if>
@@ -176,6 +184,7 @@
             <i><xsl:value-of select = "."/></i>
         </xsl:if>
     </xsl:template>
+
     
     <!-- TEMPLATES DES TABLEAUX -->
     

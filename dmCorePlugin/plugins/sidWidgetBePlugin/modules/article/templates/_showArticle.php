@@ -3,6 +3,14 @@
 /*
  * Retourne un article xml formaté par le XSL, en html
  */
+$xml = sfConfig::get('app_rep-local') .
+        $article->getSection()->getRubrique() .
+        '/' .
+        $article->getSection() .
+        '/' .
+        $article->filename .
+        '.xml';
+$xsl = dm::getDir() . '/dmCorePlugin/plugins/sidWidgetBePlugin/lib/xsl/' . sfConfig::get('app_xsl-article');
 
 $return = '';
 
@@ -11,12 +19,7 @@ $rubrique = $article->getRubriquePageName();
 
 // vérification des fichiers xml
 if (!is_file($xml)) {
-
-    if (sfConfig::get('sf_environment') == 'dev') {
-        $return .= _tag(
-                'div.debug', array('onClick' => '$(this).hide();'), __('Error : missed file') . '  ' . $xml
-        );
-    }
+    echo debugTools::infoDebug(array(__('Error : missed file') => $xml),'warning');
 }
 
 $doc_xml = new DOMDocument();
@@ -24,28 +27,10 @@ if ($doc_xml->load($xml)) {
     // Je charge en mï¿½moire mon document XSL
     // vérification des fichiers xsl
     if (!is_file($xsl)) {
-
-        if (sfConfig::get('sf_environment') == 'dev') {
-            $return .= _tag(
-                    'div.debug', array('onClick' => '$(this).hide();'), __('Error : missed file') . '  ' . $xsl
-            );
-        }
+        echo debugTools::infoDebug(array(__('Error : missed file') => $xsl),'warning');
     }
-    $doc_xsl = new DOMDocument();
-    $doc_xsl->load($xsl);
-
-// Configuration du transformateur xsl
-    $moteurXslt = new xsltProcessor();
-    $moteurXslt->importstylesheet($doc_xsl);
-
-// Transformation du document XML en XHTML et sauvegarde du résultat (Arnaud : j'ai remplacé transformtodoc par transformToXML)
-    $output = $moteurXslt->transformToXML($doc_xml);
-
-
-
 
     $return .= _tag('h2.title', $rubrique . ' - ' . $section);
-
     $return .= '<article itemscope itemtype="http://schema.org/Article">';
 
     //lien vers l'image
@@ -65,16 +50,14 @@ if ($doc_xml->load($xml)) {
         $return .= _close('div');
     }
 
-
     $return .= _tag('h2.title itemprop="name"', $article->title);
 
-
-    //$return .= _tag('span.teaser itemprop="description"', $article->chapeau);
-
-
-
-    //Contenu de l'article
-    $return .= $output;
+    $doc_xsl = new DOMDocument();
+    $doc_xsl->load($xsl);
+    $moteurXslt = new xsltProcessor();
+    $moteurXslt->importstylesheet($doc_xsl);
+    
+    $return .= $moteurXslt->transformToXML($doc_xml);
 
 //Fermeture de l'article
     $return .= _close('article');

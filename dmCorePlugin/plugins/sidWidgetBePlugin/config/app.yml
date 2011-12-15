@@ -22,6 +22,8 @@ all:
 
   nb-min-articles-slide: 3     # nombre minimum d'article pour afficher le slide Nivo slider
  
+  mod-affichage-article-dossier: raw  # mode d'affichage des articles connexes d'un dossier, link (un lien vers l'article) ou raw (affichage de l'article dans la page)
+ 
   dm-pages:     
     # les renommages de pages (nom/slug/title/desc)
     # ancien : nouveau
