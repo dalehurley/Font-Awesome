@@ -11,9 +11,8 @@
 
     Equipe:
       model: SidCabinetEquipe
-      page: true
+      page: false
       credentials: equipe
-      components:
 
     Recrutement:
       model: SidCabinetRecrutement

@@ -6,8 +6,8 @@ Content:
       credentials: tags
       model:            DmTag
       name:             Tag
-      page:             true
+      page:             false
       components:
-        list:
-        show:
-        popular:
+#        list:
+#        show:
+#        popular:

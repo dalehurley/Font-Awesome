@@ -1,10 +1,10 @@
 <?php
 // vars $recrutements, $nbMissions, $titreBloc, $longueurTexte
-
+echo _tag('h4.title', $titreBloc);
 
 if (count($recrutements)) { // si nous avons des actu articles
     
-    echo _tag('h4.title', $titreBloc);
+    
     
     echo _open('ul.elements');
     foreach ($recrutements as $recrutement) {
@@ -15,4 +15,5 @@ if (count($recrutements)) { // si nous avons des actu articles
     echo _close('ul');
 
     
-} // sinon on affiche rien
+} 
+else echo _tag('p','{{recrutement}}');
