@@ -24,10 +24,10 @@ class articleComponents extends myFrontModuleComponents
   public function executeShow() {
         $query = $this->getShowQuery();
         $this->article = $this->getRecord($query);
-        $this->route = $this->getPage()->getTitle();
-        $ancestors = $this->context->getPage()->getNode()->getAncestors();
-        $this->section = $ancestors[count($ancestors)-1]->getTitle();
-        $this->rubrique = $ancestors[count($ancestors)-2]->getTitle();
+//        $this->route = $this->getPage()->getTitle();
+//        $ancestors = $this->context->getPage()->getNode()->getAncestors();
+//        $this->section = $ancestors[count($ancestors)-1]->getTitle();
+//        $this->rubrique = $ancestors[count($ancestors)-2]->getTitle();
     }
 
   public function executeListBySectionSlide()
