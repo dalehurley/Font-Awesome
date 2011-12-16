@@ -1,6 +1,6 @@
 // spLessGrid.js - Pour le framework SPLessCss
-// v1.2
-// Last Updated : 2011-12-14 16:35
+// v1.2.1
+// Last Updated : 2011-12-16 16:20
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
@@ -15,27 +15,23 @@
 		//on récupère les options passées en JSON dans le container
 		var options = $.metadata ? $(this).metadata() : new Array();
 		
-		//lorsque la page est redimenssionée
-		$(window).resize(function() {
-			
-		});
-		
 		//déclaration de la variable de délay de mise à jour
 		var timeoutID = "";
 		
 		//ajout des événéments sur la page (indépendamment de la présence de jQueryMobile, l'événement est géré si existant)
 		$(window).bind("pageinit resize orientationchange", function(e) {
+			//actualisation de la dimension de la page
+			$.fn.spLessGrid.debugUpdateValue('windowInnerWidth', window.innerWidth);
 			
-			if(e.type == "pageinit"){
-				//ajout de paramètres personnalisés en JS à la sortie de débug
-				$.fn.spLessGrid.debugAddValue('windowInnerWidth', window.innerWidth);
-				//affichage de l'orientation que si gérée par le support
-				if(window.orientation != undefined) $.fn.spLessGrid.debugAddValue('windowOrientation', window.orientation);
-			}else{
-				$.fn.spLessGrid.debugUpdateValue('windowInnerWidth', window.innerWidth);
-				//actualisation de l'orientation que si gérée par le support
-				if(e.orientation != undefined) $.fn.spLessGrid.debugUpdateValue('windowOrientation', e.orientation);
-				
+			//récupération de la valeur d'orientation
+			var orientation = false;
+			if(e.orientation != undefined)				orientation = e.orientation;
+			else if(window.orientation != undefined)	orientation = ((window.orientation === 90 || window.orientation === -90) ? "landscape" : "portrait");
+			//actualisation de l'orientation si gérée par le support
+			if(orientation) $.fn.spLessGrid.debugUpdateValue('windowOrientation', orientation);
+			
+			//on actualise affiche la grille sur si on change de taille ou d'orientation
+			if(e.type != "pageinit"){
 				//suppression du délay si déjà déclaré
 				if(timeoutID != null) this.clearTimeout(timeoutID);
 				//on décale dans le temps le lancement de l'actualisation (évite un lancement trop fréquent et permet d'actualiser sur les touchScreens)
@@ -46,11 +42,11 @@
 		});
 		
 		//TEST : on vérifie la présence du jQueryMobile
-		if($.mobile) {
-			$(this).live("tap taphold swipe swipeleft swiperight", function(e) {
-				$(this).toggleClass(e.type);
-			});
-		}
+		//if($.mobile) {
+		//	$(this).live("tap taphold swipe swipeleft swiperight", function(e) {
+		//		$(this).toggleClass(e.type);
+		//	});
+		//}
 		
 		// iterate and reformat each matched element
 		return this.each(function() {

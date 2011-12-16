@@ -69,6 +69,13 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 								'info'	=>	'screenType'
 							),
 							array(
+								'info'	=>	'windowInnerWidth'
+							),
+							array(
+								'info'	=>	'windowOrientation',
+								'value'	=>	'n/a'
+							),
+							array(
 								'info'	=>	'pageCurrent',
 								'value'	=>	$pageCurrent
 							)
