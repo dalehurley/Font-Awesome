@@ -18,7 +18,7 @@
 	margin: 0;
 	
 	//suppression bordure et padding
-	#dm_page .dm_page_content &, #dm_page .dm_layout_left &, #dm_page .dm_layout_right & {
+	#dm_page #dm_content &, #dm_page #dm_sidebar_left &, #dm_page #dm_sidebar_right & {
 		.dm_widget_inner {
 			border: 0;
 			padding: 0 0 @zonesOffsetPad 0;
@@ -26,16 +26,16 @@
 		}
 	}
 	/*
-	#dm_page .dm_page_content &, #dm_page .dm_layout_right & {
+	#dm_page #dm_content &, #dm_page #dm_sidebar_right & {
 		.dm_widget_inner { padding: 0 0 @zonesOffsetPad 0; }
 	}
-	#dm_page .dm_layout_left & {
+	#dm_page #dm_sidebar_left & {
 		.dm_widget_inner { padding: 0; }
 	}
 	*/
 	
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
-	#dm_page .dm_layout_centerTop & {
+	#dm_page #dm_custom_top & {
 		//permet d'étendre la zone en débordement de la page
 		margin-left: -100%;
 		margin-right: -100%;
@@ -118,7 +118,7 @@ ul.dropdown, ul.accordion {
 				}
 				
 				//inversion de style automatique en fonction du conteneur
-				.dm_layout_right & {
+				#dm_sidebar_right & {
 					right: auto !important;
 					left: @menuArrowOffsetX;
 					//border-color: transparent @menuDropdownArrowColor transparent transparent;
@@ -149,7 +149,7 @@ ul.accordion li.dm_parent > .link:after {
 	}
 	
 	//inversion de style automatique en fonction du conteneur
-	.dm_layout_right & {
+	#dm_sidebar_right & {
 		right: auto !important;
 		left: @menuArrowOffsetX + @menuArrowDecal;
 		
@@ -163,7 +163,7 @@ ul.accordion li.dm_parent > .link:after {
 
 //mise en couleur des cellules ouvertes
 ul.dropdown li.dm_dir:hover > .link,
-.dm_layout_centerTop .navigation_menu ul.dropdown li.dm_dir:hover > .link,
+#dm_custom_top .navigation_menu ul.dropdown li.dm_dir:hover > .link,
 ul.accordion li.dm_parent > .link,
 ul.accordion li.dm_parent li.dm_parent > .link {
 	background-color: @colorCouleur1;
@@ -171,9 +171,23 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 	&:hover { color: @colorCouleur3ClairSup; }
 }
 
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletPortrait(){
+	#dm_page #dm_custom_top {
+		.navigation_menu {
+			.dm_widget_inner {
+				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+			}
+		}
+	}
+}
+
+//importation des requêtes média
+@import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";
+
 /*
 //Mise en page et themage personnalisé du menu de navigation dans les sidebars
-.dm_layout_left, .dm_layout_right {
+#dm_sidebar_left, #dm_sidebar_right {
 	.navigation_menu {
 		//suppression dégradé de fond
 		//background: transparent;
@@ -190,7 +204,7 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 */
 /*
 //Mise en page et themage personnalisé du menu de navigation dans la zone du header
-.dm_layout_centerTop {
+#dm_custom_top {
 	.navigation_menu {
 		
 		
@@ -291,7 +305,7 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 
 //ajout styles navigateur récents
 .rgba {
-	.dm_layout_centerTop {
+	#dm_custom_top {
 		.navigation_menu {
 			ul.dropdown {
 				//ajout couleur de fond pour correspondance transparence
@@ -325,7 +339,7 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 }
 
 .csstransitions.csstransforms.opacity {
-	.dm_layout_centerTop {
+	#dm_custom_top {
 		.navigation_menu {
 			ul.dropdown {
 				//liens de tous les niveaux
