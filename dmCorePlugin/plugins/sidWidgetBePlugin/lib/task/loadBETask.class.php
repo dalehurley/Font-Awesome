@@ -12,8 +12,7 @@ class loadBETask extends sfBaseTask {
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'front'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
-            new sfCommandOption('idArticlePlusVieux', null, sfCommandOption::PARAMETER_REQUIRED, 'idArticlePlusVieux', '0'), // l'id le plus vieux à prendre en compte
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine')
                 // add your own options here
         ));
 
@@ -106,8 +105,8 @@ EOF;
 	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Lecture des fichiers XML locaux pour creer les articles dans la base de donnees locale? (y/n)'), 'QUESTION_LARGE', true)) {
 
 	    $beginTime = microtime(true);
-	    $results = baseEditorialeTools::recupArticlesLEA($options['idArticlePlusVieux']);
-	    $this->logSection('### loadBE', 'Chargement des articles en XML (filename > ' . $options['idArticlePlusVieux'] . ') de LEA dans la base editoriale.' . ' ->' . (microtime(true) - $beginTime) . ' s');
+	    $results = baseEditorialeTools::recupArticlesLEA();
+	    $this->logSection('### loadBE', 'Chargement des articles en XML de LEA dans la base editoriale.' . ' ->' . (microtime(true) - $beginTime) . ' s');
 	    if (in_array("verbose", $arguments)) {
 
 		foreach ($results as $result) {

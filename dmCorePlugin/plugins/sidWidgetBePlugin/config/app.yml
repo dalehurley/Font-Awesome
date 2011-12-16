@@ -25,6 +25,27 @@ all:
   dm-pages:     
     # les renommages de pages (nom/slug/title/desc)
     # ancien : nouveau
-    rename:
-      ec_echeancier: agenda 
+    rename-fr:
+      ec_echeancier: échéancier 
       ec_multimedia: multimédia
+      cgp_bourse: bourse   
+      cgp_immobilier: immobilier          
+      cgp_fiscal: fiscal   
+      cgp_actualites: actualités  
+      cgp_dossiers: dossiers  
+      cgp_faq: questions/réponses
+      cgp_famille: famille  
+      cgp_placement: placement           
+      ec_juridique: juridique   
+      ec_social: social
+      ec_fiscal: fiscal      
+      ec_creation_entreprise: "création d''entreprise"
+      ec_gestion: gestion     
+      ec_patrimoine: patrimoine
+      ec_chiffres: chiffres
+      ec_loi_de_finances: loi de finances
+      ec_actualites: actualités  
+      ec_dossiers: dossiers  
+      ec_faq: questions/réponses
+      ec_paie: paie
+      ec_aides: aides

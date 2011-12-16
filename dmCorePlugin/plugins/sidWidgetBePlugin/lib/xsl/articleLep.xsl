@@ -55,13 +55,17 @@
             <xsl:attribute name="itemprop">articleBody</xsl:attribute>
             
             <xsl:for-each select = "Data/Sections/Section">
-                <xsl:apply-templates select="*[not(self::MultimediaInserts) and not(self::Files) and not(self::Signature) and not(self::titretable) and not(self::renvoistable) and not(self::Reference)]"/>
+                <xsl:apply-templates select="*[not(self::LinkMetadata) and not(self::MultimediaInserts) and not(self::Files) and not(self::Signature) and not(self::titretable) and not(self::renvoistable) and not(self::Reference)]"/>
             </xsl:for-each>
             
             <xsl:if test = "Data/Sections/Section/Reference">
                 <xsl:apply-templates select="Data/Sections/Section/Reference"/>
             </xsl:if>
         </xsl:element>
+        
+
+
+        
         
         <!-- Footer de l'article -->
         <!--<xsl:element name="footer">

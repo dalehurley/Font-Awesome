@@ -5,6 +5,8 @@
  *
  */
 class baseEditorialeTools {
+    
+    const memoryNeeded = '1024M';
 
     /**
      * création d'un fichier Json des articles actifs de toutes les rubriques
@@ -186,7 +188,7 @@ class baseEditorialeTools {
      */
 
     public static function loadArticlesJson($mode = 'total') {
-        ini_set("memory_limit", '1024M'); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
+        ini_set("memory_limit", self::memoryNeeded); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
 
         $return = array();
         $timeBegin = microtime(true);
@@ -415,30 +417,62 @@ class baseEditorialeTools {
      */
 
     public static function renameDmPages() {
+        // retour
+        $return = array();
+        // les languages
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+        $nbPagesModified = 0;
 
-        $renames = sfConfig::get('app_dm-pages_rename');
-        foreach ($renames as $old => $new) {
+        foreach ($arrayLangs as $lang) { // pour chaque lang utilisées et définies dans le fichier config/dm/config.yml
+            $renames = sfConfig::get('app_dm-pages_rename-'.$lang);
             
-            echo "-----". $old . " -> " . $new . "\n";
-     
-            // on met en minuscule les valeurs
-            $old = strtolower($old);
-            $new = strtolower($new);
-            // la requête de renommage de la table dmPage
-            // title avec majuscule sur la première lettre
-            $reqRename = "update dm_page_translation set 
-                slug= REPLACE(slug,'" . $old . "', '" . $new . "')  ,
-                name= REPLACE(name,'" . $old . "', '" . $new . "')  ,
-                title= REPLACE(title,'" . ucwords($old) . "', '" . ucwords($new) . "') ,  
-                description= REPLACE(description,'" . $old . "', '" . $new . "')";
-            
-            echo "----->". $reqRename . "\n";
-            
-            //dmDb::pdo($reqRename);
+            // gestion AGENDA/ECHEANCIER des dates du style 201112 à transformer en décembre 2011
+            // ajouter les entrées du type 201112 => 'Décembre 2012' dans le tableau renames
+            $pages = dmDb::query('DmPage p')
+                    ->withI18n($lang)   // la langue par défaul seuelemnt (@todo à rendre multilingue)
+                    //->where("pTranslation.name like '2%'")
+                    ->execute();
+            foreach ($pages as $page) {
+                if (preg_match("/[0-9]{6}/", $page->name, $matches)) {
+                    $renames[$page->name] = stringTools::dateNumericToString($page->name);
+                }
+            }
+
+            foreach ($renames as $old => $new) {
+          	$beginTime = microtime(true);
+                // on met en minuscule les valeurs
+                $old = strtolower($old);
+                $new = strtolower($new);
+
+                // AUTO_MOD
+                // au début il est égal à snthdk [slug name title h1 description keyword]
+                // on met auto_mod = 'hk' pour que la tache sync-pages n'aie plus d'effet sur les sntd les cette page, car modifiée manuellement
+                // 
+                // gestion des name / title / description
+                $pagesNotRenamed = dmDb::query('DmPage p')
+                        ->withI18n($lang)   
+                        ->where("LOWER(pTranslation.name) like '%" . $old . "%' OR LOWER(pTranslation.title) like '%" . $old . "%' OR LOWER(pTranslation.description) like '%" . $old . "%' OR LOWER(pTranslation.slug) like '%" . $old . "%'")
+                        ->execute();
+
+                //echo "count ".$old."   ".count($pagesNotRenamed)."\n";
+                foreach ($pagesNotRenamed as $page) {
+                    $page->Translation[$lang]->name = str_replace($old, $new, strtolower($page->Translation[$lang]->name));
+                    $page->Translation[$lang]->title = str_replace($old, $new, strtolower($page->Translation[$lang]->title));
+                    $page->Translation[$lang]->description = str_replace($old, $new, strtolower($page->Translation[$lang]->description));
+                    $page->Translation[$lang]->auto_mod = 'hk'; // plus de sntd modifiable par sync-pages
+                    // gestion slug
+                    $newSlug = str_replace($old, dmString::slugify($new), $page->Translation[$lang]->slug); // le nouveau slug
+                    if (!$page->getTable()->isSlugUniqueByLang($newSlug, $page->get('id'), $lang)) { // on vérifie qu'il est unique
+                        $page->Translation[$lang]->slug = $page->getTable()->createUniqueSlugByLang($newSlug, $page->get('id'), null, $lang); // on crée un slug unique
+                    } else {
+                        $page->Translation[$lang]->slug = $newSlug;
+                    }
+                    $page->save();
+                }
+
+                $return[]['Rename dmPages : '.$old] = " -> " . $new ." [".(microtime(true) - $beginTime) . " s]";
+            }
         }
-
-        $return[]['Rename DmPages'] = '';
-
         return $return;
     }
 
@@ -604,14 +638,14 @@ class baseEditorialeTools {
      * Section : Actualités
      */
 
-    public static function recupArticlesLEA($idArticlePlusVieux) {
+    public static function recupArticlesLEA() {
 
         if (sfConfig::get('app_ftp-password') == '' || sfConfig::get('app_ftp-image-password') == '') {
             $return[0]['ERROR'] = 'Seule la base éditoriale peut récupérer les articles de LEA. Vérifier que le apps/front/config/app.yml ait les bonnes variables.';
             return $return;
         }
 
-        ini_set("memory_limit", '1024M'); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
+        ini_set("memory_limit", self::memoryNeeded); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
         error_reporting(0); // quelques Warning peuvent apparaitre dans les XML, ça n'empêche pas de les traiter...
 
         $resultQuery = array(); // [numéro id rubrique de la bdd] [nom rubrique bdd]
@@ -647,8 +681,7 @@ class baseEditorialeTools {
                         $beginTime = microtime(true);
 
                         if (substr($fichierArticle, -4) == '.xml') {  // on en traite que les fichier XML
-                            if (intval(str_replace('.xml', '', $fichierArticle)) > $idArticlePlusVieux) {  // on ne traite que les articles depuis l'idArticlePlusVieux
-                                // j'explore le xml pour récupérer le titre, le chapeau, le n° article de léa(code)
+                                 // j'explore le xml pour récupérer le titre, le chapeau, le n° article de léa(code)
                                 $xml = new DOMDocument();
                                 $xmlFile = sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection . '/' . $fichierArticle;
 
@@ -737,10 +770,6 @@ class baseEditorialeTools {
                                 } else {
                                     $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
                                 }
-                            } else {
-
-                                // $return[$j]['Article ' . $fichierArticle] = 'Article trop vieux < '.$idArticlePlusVieux;
-                            }
 
                             $j++;
                             //if ($j > 10) return $return;
@@ -793,7 +822,7 @@ class baseEditorialeTools {
      */
     public static function RubriquesSectionsDeactivation() {
 
-        ini_set("memory_limit", '256M'); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
+        ini_set("memory_limit", self::memoryNeeded); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
 
         $return = array();
         $timeBegin = microtime(true);
