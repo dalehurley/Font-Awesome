@@ -29,16 +29,12 @@
 			if(e.type == "pageinit"){
 				//ajout de paramètres personnalisés en JS à la sortie de débug
 				$.fn.spLessGrid.debugAddValue('windowInnerWidth', window.innerWidth);
-				$.fn.spLessGrid.debugAddValue('windowOrientation', window.orientation);
+				//affichage de l'orientation que si gérée par le support
+				if(window.orientation != undefined) $.fn.spLessGrid.debugAddValue('windowOrientation', window.orientation);
 			}else{
 				$.fn.spLessGrid.debugUpdateValue('windowInnerWidth', window.innerWidth);
-				
-				//on actualise la valeur de l'orientation que si celle-ci est gérée par le support
-				if(e.orientation != undefined){
-					$.fn.spLessGrid.debugUpdateValue('windowOrientation', e.orientation);
-				}else{
-					$.fn.spLessGrid.debugUpdateValue('windowOrientation', 'N/A');
-				}
+				//actualisation de l'orientation que si gérée par le support
+				if(e.orientation != undefined) $.fn.spLessGrid.debugUpdateValue('windowOrientation', e.orientation);
 				
 				//suppression du délay si déjà déclaré
 				if(timeoutID != null) this.clearTimeout(timeoutID);
