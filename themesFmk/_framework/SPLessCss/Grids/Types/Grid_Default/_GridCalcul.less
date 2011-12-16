@@ -110,7 +110,7 @@
 
 	.two-sidebars #dm_content {
 		background-color: #baa;
-		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter !important;
+		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
 		margin-right: @getGridWidth_Site * -1;
 	}
@@ -118,10 +118,15 @@
 	//PLACEMENT SIDEBARS
 	//placement de la sidebarRight en dessous du contenu
 	#dm_sidebar_right {
+		background-color: #977;
 		clear: both;
 		width: @getGridWidth_Site;
 		margin-left: 0;
 		margin-right: 0;
-		background-color: #977;
+	}
+	
+	.two-sidebars #dm_sidebar_right {
+		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
+		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
 	}
 }

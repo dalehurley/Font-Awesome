@@ -17,6 +17,24 @@
 		@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
 	}
 	
+	//on affiche les widgets sur 4 colonnes dans la sidebar-right
+	#dm_sidebar_right {
+		//on décale la sidebar en hauteur pour la détacher du contenu
+		margin-top: @gridBaseline;
+		
+		.dm_widget {
+			float: left;
+			margin-left: @zonesOffsetPad;
+			@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad * -2));
+			
+			//on pase à la ligne un widget sur 2
+			&:first-child, &:nth-child(odd) {
+				clear: left;
+				margin-left: 0;
+			}
+		}
+	}
+	
 	/*
 	//suppression du délai de transition
 	.csstransitions {
