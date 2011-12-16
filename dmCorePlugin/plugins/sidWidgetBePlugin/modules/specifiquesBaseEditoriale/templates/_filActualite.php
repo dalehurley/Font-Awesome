@@ -10,5 +10,21 @@ if (count($articles)) { // si nous avons des actu articles
 
     }
     echo _close('ul');
+    
+  
 }
 
+?>
+    wwwwwwwwwwwwwwwwwww
+    
+
+    <link rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.dialog.css">
+    	<script>
+	$(function() {
+		$( "#dialog" ).dialog({ resizable: true });
+	});
+	</script>
+    
+        <div id="dialog" title="Basic dialog">
+	<p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>

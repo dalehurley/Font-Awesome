@@ -455,8 +455,8 @@ class baseEditorialeTools {
 
                 //echo "count ".$old."   ".count($pagesNotRenamed)."\n";
                 foreach ($pagesNotRenamed as $page) {
-                    $page->Translation[$lang]->name = str_replace($old, $new, strtolower($page->Translation[$lang]->name));
-                    $page->Translation[$lang]->title = str_replace($old, $new, strtolower($page->Translation[$lang]->title));
+                    $page->Translation[$lang]->name = str_replace($old, ucfirst($new), strtolower($page->Translation[$lang]->name));
+                    $page->Translation[$lang]->title = str_replace($old, ucfirst($new), strtolower($page->Translation[$lang]->title));
                     $page->Translation[$lang]->description = str_replace($old, $new, strtolower($page->Translation[$lang]->description));
                     $page->Translation[$lang]->auto_mod = 'hk'; // plus de sntd modifiable par sync-pages
                     // gestion slug

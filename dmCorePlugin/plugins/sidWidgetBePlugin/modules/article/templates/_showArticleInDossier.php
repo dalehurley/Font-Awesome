@@ -13,8 +13,8 @@ $xml = sfConfig::get('app_rep-local') .
 $xsl = dm::getDir() . '/dmCorePlugin/plugins/sidWidgetBePlugin/lib/xsl/' . sfConfig::get('app_xsl-article');
 
 $return = '';
-$section = $article->getSectionPageName();
-$rubrique = $article->getRubriquePageName();
+$section = $article->getSectionPagetitle();
+$rubrique = $article->getRubriquePageTitle();
 
 // vérification des fichiers xml
 if (!is_file($xml)) {
