@@ -14,6 +14,16 @@
 $pageOptionsDefault = spLessCss::pageTemplateGetOptionsDefault();
 
 //Ajout de nouvelles zones
+/*
+//Debug ancienne zone pour déplacement anciens widgets
+$pageOptionsCustom['areas']['centerTop'] = array(
+											'index'		=> 0,
+											'areaName'	=> 'centerTop',
+											'isActive'	=> true,
+											'isPage'	=> false,
+											'clearfix'	=> true
+											);
+*/
 $pageOptionsCustom['areas']['dm_custom_top'] = array(
 											'index'		=> 0,
 											'areaName'	=> 'customTop',
@@ -51,10 +61,10 @@ if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
 						$areaClass = ($area['clearfix']) ? 'clearfix' : '';
 						
 						//affichage de la zone
-						//echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . '.' . $areaClass);
+						echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . '.' . $areaClass);
 						
 						//div vides de test pour la mise en page
-						echo '<div id="' . (($id === 'dm_page_content') ? 'dm_content' : $id) . '" class="' . (($area['clearfix']) ? 'clearfix ' . $areaName : $areaName) .'">' . $areaName . '</div>';
+						//echo '<div id="' . (($id === 'dm_page_content') ? 'dm_content' : $id) . '" class="' . (($area['clearfix']) ? 'clearfix ' . $areaName : $areaName) .'">' . $areaName . '</div>';
 					}
 				?>
 			</div>
