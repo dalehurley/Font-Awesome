@@ -1,4 +1,5 @@
 <?php
+// vars : $equipes, $titreBloc, $titreLien, $pageEquipe, $lenght, $rubrique, $nomRubrique
 if (count($equipes)) { // si nous avons des actu articles
     if ($titreBloc != '') {
 	echo _tag('h4.title', $titreBloc);
@@ -6,7 +7,7 @@ if (count($equipes)) { // si nous avons des actu articles
 
     echo _open('ul.elements');
     foreach ($equipes as $equipe) {
-	include_partial("objectPartials/introEquipe", array("equipe" => $equipe));
+	include_partial("objectPartials/introEquipe", array("equipe" => $equipe,"rubrique" => $rubrique, "nomRubrique" => $nomRubrique));
     }
     echo _close('ul');
     

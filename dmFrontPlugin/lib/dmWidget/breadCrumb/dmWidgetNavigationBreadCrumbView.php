@@ -49,10 +49,12 @@ class dmWidgetNavigationBreadCrumbView extends dmWidgetPluginView
     $baseQuery = dmDb::table('DmPage')
                  ->createQuery('p')
                  ->withI18n();
+    // modif stef pour faire afficher ou pas le nom des pages dans le fil d'ariane en fonction du champ is_visible_bread_crumb (0 ou 1)
+    $baseQuery->where('pTranslation.is_visible_bread_crumb = ?',true);
     
     if (!isset($this->compiledVars['includeInactivePages']) || !$this->compiledVars['includeInactivePages'])
     {
-      $baseQuery->where('pTranslation.is_active = ?', true);
+      $baseQuery->where('pTranslation.is_active = ?' ,true);
     }
     
     $treeObject->setBaseQuery($baseQuery);

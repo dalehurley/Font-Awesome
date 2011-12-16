@@ -12,8 +12,7 @@ class loadBETask extends sfBaseTask {
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'front'),
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
-            new sfCommandOption('idArticlePlusVieux', null, sfCommandOption::PARAMETER_REQUIRED, 'idArticlePlusVieux', '0'), // l'id le plus vieux à prendre en compte
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine')
                 // add your own options here
         ));
 
@@ -84,7 +83,7 @@ EOF;
 //    Ecriture des rubriques/sections en base ?
 //-------------------------------------------------------------------------------------	
         if (!in_array("automatic", $arguments)) { // seulement lorsque l'on veut ajouter des rubriques/sections de LEA
-            if ($this->askConfirmation(array("Ecriture rubriques/sections (A partir du repertoire " . sfConfig::get('app_rep-local') . ") la base de donnees locale? (y/n)"), 'QUESTION_LARGE', true)) {
+            if ($this->askConfirmation(array("Ecriture rubriques/sections (a partir du repertoire " . sfConfig::get('app_rep-local') . ") dans la base de donnees locale ? (y/n)"), 'QUESTION_LARGE', true)) {
                 $beginTime = microtime(true);
                 $results = baseEditorialeTools::recupRubriqueSection();
                 $this->logSection('### loadBE', "Ecriture rubriques/sections en base de donnees." . " ->" . (microtime(true) - $beginTime) . " s");
@@ -92,7 +91,7 @@ EOF;
 
                     foreach ($results as $result) {
                         foreach ($result as $log => $desc) {
-                            $this->logSection($log, $desc);
+                            $this->logSection($log, $desc,null,$log);
                         }
                     }
                 }
@@ -106,13 +105,13 @@ EOF;
 	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Lecture des fichiers XML locaux pour creer les articles dans la base de donnees locale? (y/n)'), 'QUESTION_LARGE', true)) {
 
 	    $beginTime = microtime(true);
-	    $results = baseEditorialeTools::recupArticlesLEA($options['idArticlePlusVieux']);
-	    $this->logSection('### loadBE', 'Chargement des articles en XML (filename > ' . $options['idArticlePlusVieux'] . ') de LEA dans la base editoriale.' . ' ->' . (microtime(true) - $beginTime) . ' s');
+	    $results = baseEditorialeTools::recupArticlesLEA();
+	    $this->logSection('### loadBE', 'Chargement des articles en XML de LEA dans la base editoriale.' . ' ->' . (microtime(true) - $beginTime) . ' s');
 	    if (in_array("verbose", $arguments)) {
 
 		foreach ($results as $result) {
 		    foreach ($result as $log => $desc) {
-			$this->logSection($log, $desc);
+			$this->logSection($log, $desc,null,$log);
 		    }
 		}
 	    }
@@ -131,7 +130,7 @@ EOF;
 
 		foreach ($results as $result) {
 		    foreach ($result as $log => $desc) {
-			$this->logSection($log, $desc);
+			$this->logSection($log, $desc,null,$log);
 		    }
 		}
 	    }

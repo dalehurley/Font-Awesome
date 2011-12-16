@@ -206,6 +206,38 @@ class PluginDmPageTable extends myDoctrineTable
     return $slug;
   }
   
+  public function isSlugUniqueByLang($slug, $id, $lang)
+  {
+    return !$this->getI18nTable()->createQuery('pt')
+    ->where('pt.lang = ?', $lang)
+    ->andwhere('pt.id != ?', $id ? $id : 0)
+    ->andWhere('pt.slug = ?', $slug)
+    ->exists();
+  }
+
+  public function createUniqueSlugByLang($slug, $id, $parentSlug = null, $lang)
+  {
+    if(null === $parentSlug)
+    {
+      $parentSlug = $this->getI18nTable()->createQuery('pt')
+      ->where('pt.id = ?', $this->findOneById($id)->getNodeParentId())
+      ->andWhere('pt.lang = ?', $lang)
+      ->select('pt.slug')
+      ->fetchValue();
+    }
+    
+    if($slug == $parentSlug)
+    {
+      $slug .= '/'.$id;
+    }
+    else
+    {
+      $slug .= '-'.$id;
+    }
+    
+    return $slug;
+  }
+  
   /**
    * Queries
    */

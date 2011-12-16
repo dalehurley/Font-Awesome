@@ -1,17 +1,6 @@
 <?php
 use_helper('Date');
 // var partial : $article, $titreBloc
-//if (isset($article)) {
-//    if ($textLength == false)
-//	$textLength = 0;
-//    if (!isset($textEnd))
-//	$textEnd = ' ...';
-//	 
-// Si il n'y a que 1 article et que le titreBloc est vide, on enlève le titre de l'article pour le mettre dans la partie supérieure du Bloc
- 
-//     if ($titreBloc == true) {
-//            echo _tag('h2.title itemprop="name"', $articles->getTitle());
-//        }
         
 echo '<article itemscope itemtype="http://schema.org/Article">';
 if ($titreBloc == true) {

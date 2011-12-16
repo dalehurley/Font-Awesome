@@ -16,6 +16,8 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayEquipe = array();
+        $arrayRubrique = array();
+        $arrayNomRubrique = array();
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
@@ -25,25 +27,22 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                 // je récupère donc l'ancestor de la page courante pour extraire le record_id de ce dernier afin de retrouver la rubrique
                 $ancestors = $this->context->getPage()->getNode()->getAncestors();
                 $recordId = $ancestors[count($ancestors) - 1]->getRecordId();
-                $actuEquipes = dmDb::table('SidCabinetEquipe')
+                $rubriqueEquipes = dmDb::table('SidCabinetEquipe')
                         ->createQuery('p')
                         ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                         ->leftJoin('sas.SidRubrique s')
                         ->where('s.id = ? ', array($recordId))
                         ->limit($vars['nb'])
                         ->execute();
-
-                if (count($actuEquipes) == 0) {
-                    $actuEquipes = '';
-                    $actuEquipes = dmDb::table('SidCabinetEquipe')
+                // si il n'y a pas de contexte ou pas de collaborateur affecté à une rubrique
+                if (count($rubriqueEquipes) == 0) {
+                    $rubriqueEquipes = '';
+                    $rubriqueEquipes = dmDb::table('SidCabinetEquipe')
                             ->createQuery('p')
                             ->where('p.is_active = ? ', array(true))
                             ->orderBy('RANDOM()')
                             ->limit($vars['nb'])
                             ->execute();
-                }
-                foreach ($actuEquipes as $actuEquipe) { // on stock les NB actu article 
-                    $arrayEquipe[$actuEquipe->id] = $actuEquipe;
                 }
                 break;
             case 'rubrique/show':
@@ -51,7 +50,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                 $rubriques = dmDb::table('SidRubrique')->findById($dmPage->record_id);
                 // on parcourt les sections pour extraire les articles
                 foreach ($rubriques as $rubrique) {
-                    $actuEquipes = dmDb::table('SidCabinetEquipe')
+                    $rubriqueEquipes = dmDb::table('SidCabinetEquipe')
                             ->createQuery('p')
                             ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                             ->leftJoin('sas.SidRubrique s')
@@ -59,17 +58,14 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                             ->limit($vars['nb'])
                             ->execute();
 
-                    if (count($actuEquipes) == 0) {
-                        $actuEquipes = '';
-                        $actuEquipes = dmDb::table('SidCabinetEquipe')
+                    if (count($rubriqueEquipes) == 0) {
+                        $rubriqueEquipes = '';
+                        $rubriqueEquipes = dmDb::table('SidCabinetEquipe')
                                 ->createQuery('p')
                                 ->where('p.is_active = ? ', array(true))
                                 ->orderBy('RANDOM()')
                                 ->limit($vars['nb'])
                                 ->execute();
-                    }
-                    foreach ($actuEquipes as $actuEquipe) { // on stock les NB actu article 
-                        $arrayEquipe[$actuEquipe->id] = $actuEquipe;
                     }
                 }
                 break;
@@ -80,10 +76,9 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
             case 'sidActuArticle/show':
                 // on cherche la rubrique de l'article
                 $rubriques = dmDb::table('SidActuArticleSidRubrique')->findBySidActuArticleId($dmPage->record_id);
-//                         $rubriques = dmDb::table('SidRubrique')->findById($dmPage->record_id);
                 // on parcourt les sections pour extraire les articles
                 foreach ($rubriques as $rubrique) {
-                    $actuEquipes = dmDb::table('SidCabinetEquipe')
+                    $rubriqueEquipes = dmDb::table('SidCabinetEquipe')
                             ->createQuery('p')
                             ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                             ->leftJoin('sas.SidRubrique s')
@@ -92,30 +87,22 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                 
                 }
                     if (count($rubriques) == 0) {
-                        $actuEquipes = '';
-                        $actuEquipes = dmDb::table('SidCabinetEquipe')
+                        $rubriqueEquipes = '';
+                        $rubriqueEquipes = dmDb::table('SidCabinetEquipe')
                                 ->createQuery('p')
                                 ->where('p.is_active = ? ', array(true))
                                 ->orderBy('RANDOM()')
                                 ->limit($vars['nb'])
                                 ->execute();
                     }
-
-                    foreach ($actuEquipes as $actuEquipe) { // on stock les NB actu article 
-                        // on compte le nbre de missions pour ne stocker que la quantité demandée
-                        if (count($arrayEquipe) < $vars['nb']) {
-                            $arrayEquipe[$actuEquipe->id] = $actuEquipe;
-                        }
-                    }
                 
                 break;
             case 'mission/show':
                 // on cherche la rubrique de l'article
                 $rubriques = dmDb::table('SidCabinetMissionSidRubrique')->findBySidCabinetMissionId($dmPage->record_id);
-//                         $rubriques = dmDb::table('SidRubrique')->findById($dmPage->record_id);
                 // on parcourt les sections pour extraire les articles
                 foreach ($rubriques as $rubrique) {
-                    $actuEquipes = dmDb::table('SidCabinetEquipe')
+                    $rubriqueEquipes = dmDb::table('SidCabinetEquipe')
                             ->createQuery('p')
                             ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                             ->leftJoin('sas.SidRubrique s')
@@ -132,30 +119,39 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                                 ->limit($vars['nb'])
                                 ->execute();
                     }
-
-                    foreach ($actuEquipes as $actuEquipe) { // on stock les NB actu article 
-                        // on compte le nbre de missions pour ne stocker que la quantité demandée
-                        if (count($arrayEquipe) < $vars['nb']) {
-                            $arrayEquipe[$actuEquipe->id] = $actuEquipe;
-                        }
-                    }
                 
                 break;
 
             default:
-                $actuEquipes = dmDb::table('SidCabinetEquipe')
+                $rubriqueEquipes = dmDb::table('SidCabinetEquipe')
                         ->createQuery('p')
                         ->where('p.is_active = ? ', array(true))
                         ->orderBy('RANDOM()')
                         ->limit($vars['nb'])
                         ->execute();
-
-
-                foreach ($actuEquipes as $actuEquipe) { // on stock les NB actu article 
-                    // on compte le nbre de missions pour ne stocker que la quantité demandée
-                    if (count($arrayEquipe) < $vars['nb']) {
-                        $arrayEquipe[$actuEquipe->id] = $actuEquipe;
+                
+                
+                // je stocke les collaborateurs et leur(s) rubrique(s) respective(s)
+                foreach ($rubriqueEquipes as $rubriqueEquipe) { // on stock les NB actu article 
+                    $arrayEquipe[$rubriqueEquipe->id] = $rubriqueEquipe;
+                    $rubriques = $rubriqueEquipe->getMRubriques();
+                    $nomRubrique = "";
+                    // je resort les rubriques
+                    if(count($rubriques) == 1){
+                        // je prépare la variable pour l'affichage de la rubrique
+                        $pageRubriques = dmDb::table('DmPage')->findByModuleAndActionAndRecordId('rubrique', 'show', $rubriques[0]->id);
+                        $arrayNomRubrique[$rubriqueEquipe->id] = $pageRubriques[0]->name;
                     }
+                    if(count($rubriques) != 1) {
+                        $nomRubrique = '';
+                            // je prépare la variable pour l'affichage des rubriques
+                            foreach($rubriques as $rubrique){
+                                $pageRubriques = dmDb::table('DmPage')->findByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
+                                $nomRubrique .= $pageRubriques[0]->name.' ';
+                            }
+                            $arrayNomRubrique[$rubriqueEquipe->id] = $nomRubrique;
+                    }
+                    
                 }
         }
 
@@ -167,7 +163,9 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                     'titreBloc' => $vars['titreBloc'],
                     'titreLien' => $vars['titreLien'],
                     'pageEquipe' => $pageEquipe[0],
-                    'lenght' => $vars['lenght']
+                    'lenght' => $vars['lenght'],
+                    'rubrique' => $arrayRubrique,
+                    'nomRubrique' => $arrayNomRubrique
                 ));
     }
 
