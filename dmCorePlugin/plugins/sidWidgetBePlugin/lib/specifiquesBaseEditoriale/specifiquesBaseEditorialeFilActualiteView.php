@@ -37,9 +37,6 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                 
                 break;
             
-            
-       
-            
             default :
         // je récupère les ids des articles appartenants aux sections choisies
         foreach ($vars['section'] as $section) {
@@ -59,9 +56,9 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                         ->limit(1)
                         ->execute();
 
-                $arrayRubrique[$article->id] = $rubriquePage[0]->name;
+                $arrayRubrique[$article->filename] = $rubriquePage[0]->name;
 
-                $arrayFilActus[$article->id] = $article;
+                $arrayFilActus[$article->filename] = $article;
             }
         }
         foreach ($arrayFilActus as $key => $value) {

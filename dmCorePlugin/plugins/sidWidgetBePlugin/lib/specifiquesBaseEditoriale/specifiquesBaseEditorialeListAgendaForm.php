@@ -4,7 +4,7 @@ class specifiquesBaseEditorialeListAgendaForm extends dmWidgetPluginForm {
 
     public function configure() {
 
-        $this->widgetSchema['nbArticles'] = new sfWidgetFormInputText();
+        $this->widgetSchema['nbArticles'] = new sfWidgetFormInputText(array('default' => 2));
         $this->validatorSchema['nbArticles'] = new sfValidatorInteger(array(
                     'max' => 4,
                     'min' => 1,
@@ -19,12 +19,14 @@ class specifiquesBaseEditorialeListAgendaForm extends dmWidgetPluginForm {
         $this->widgetSchema['length'] = new sfWidgetFormInputText(array('default' => 0));
         $this->validatorSchema['length'] = new sfValidatorInteger();
         
-       
+        $this->widgetSchema['pageCentrale']       = new sfWidgetFormInputCheckbox(array('default'=> false));
+        $this->validatorSchema['pageCentrale']    = new sfValidatorBoolean();
         
         $this->widgetSchema->setHelps(array(
             'nbArticles' => 'entre 1 et 4',
             'title' => 'Personnaliser le titre du widget',
             'lien' => 'Lien vers la page list du mois en cours',
+            'pageCentrale' => 'Pour affichage en "sous-home" de l\'echéancier'
         ));
 
         parent::configure();

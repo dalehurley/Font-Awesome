@@ -1,16 +1,8 @@
 <?php //  var articles - titreBloc - rubrique - link - sectionName
-//  foreach ($articles as $article){
-//      echo _tag('h4.title', $article);
-//  }
-// var $articles - var $rubriqueTitle - var $rubrique - var $photoArticle - var $titreBloc
-//Gestion affichage du titre du block
-//Si un article affiché, son titre est affiché, sinon la rubrique est affichée
 
 if (count($articles) != NULL) {
     echo _tag('h2.title', ucfirst($rubrique));
-
-
-
+    
 //Affichage des articles
     echo _open('ul.elements');
     foreach ($articles as $article) {
@@ -55,12 +47,4 @@ if (count($articles) != NULL) {
                 echo '</li>';
         }
     echo _close('ul');
-
-//    echo _open('div.navigation.navigationBottom');
-//    echo _open('ul.elements');
-//    echo _open('li.element');
-//    echo _link($rubrique)->text('Découvrir notre rubrique ' . $rubriqueTitle);
-//    echo _close('li');
-//    echo _close('ul');
-//    echo _close('div');
 }

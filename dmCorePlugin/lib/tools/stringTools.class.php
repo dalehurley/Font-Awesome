@@ -172,6 +172,20 @@ class stringTools {
 
 	return $str;
     }
+    
+    /*
+     * Transforme date 201112 to Décembre 2011
+     */
+    public static function dateNumericToString($date) {
+
+        $year = substr($date, 0, 4);
+        $month = substr($date, 4, 2);
+        $search = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12');
+        $replace = array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
+
+        return str_replace($search, $replace, $month).' '.$year;
+    }
+    
 
 }
 

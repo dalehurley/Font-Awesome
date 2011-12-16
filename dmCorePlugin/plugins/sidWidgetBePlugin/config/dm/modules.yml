@@ -8,8 +8,7 @@ Content:
       name: Rubrique|Rubriques
       credentials: rubrique
       components:
-#        list:
-#        show:
+
 
     Section:
       model: SidSection
@@ -18,15 +17,7 @@ Content:
       name: Section|Sections
       credentials: section
       components:
-#        listByRubrique:
-#          filters: [ Rubrique ]
-#          cache:              true
-#        list:
-#          cache:              true
-#        show:
-#          cache:              true
-#        menuDesSectionsDeRubrique:
-#          cache: true
+
 
     Article:
       model: SidArticle
@@ -43,36 +34,8 @@ Content:
           cache:              true   
         listBySectionFeature:
           filters: [ Section ]
-          cache:              true             
-#        list:
-#          cache:              true
-#        listSlide:
-#          cache:              true   
-#        listFeature:
-#          cache:              true            
+          cache:              true            
         show:
           cache:              true
-#        dernierArticleDeChaqueCategorie:
-#          cache:              true
-#        listeParTags:
-#          filters: [ dmTag ]
-#        showArticlesAvecMemeTag:
-#          cache:              true
-#        showMissionsAvecMemeTag:
-#          cache:              true
-#        showMembresEquipeAvecMemeTag:
-#          cache:              true
         listArticlesAvecMemeTag:
           cache:              true
-#        listMissionsAvecMemeTag:
-#          cache:              true
-#        listMembresEquipeAvecMemeTag:
-#          cache:              true
-#        listActusCabinetAvecMemeTag:
-#          cache:              true
-#        listSitesUtilesAvecMemeTag:
-#          cache:              true
-#        showArticleWithPhoto:
-#          cache: true
-#        showArticleWithTitle:
-#          cache: true

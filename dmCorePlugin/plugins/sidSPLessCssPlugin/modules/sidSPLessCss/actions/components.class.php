@@ -12,6 +12,12 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 		
 		//récupération des valeurs de configuration par défaut de la page
 		$pageTemplateOptionsDefault = spLessCss::pageTemplateGetOptionsDefault();
+
+        // affichage de la page courante
+        $idDmPage = sfContext::getInstance()->getPage()->id;
+		$dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $pageCurrent =  $dmPage->module.'/'.$dmPage->action.' - '.$dmPage->record_id;
+		
 		
 		//stockage des paramètres à afficher
 		$paramSpLessCss = array(
@@ -61,6 +67,10 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 							),
 							array(
 								'info'	=>	'screenType'
+							),
+							array(
+								'info'	=>	'pageCurrent',
+								'value'	=>	$pageCurrent
 							)
 						);
 		
