@@ -18,9 +18,4 @@ class mainComponents extends myFrontModuleComponents
     // Your code here
   }
 
-  public function executeSitemap()
-  {
-    $this->menu = $this->getService('sitemap_menu')->build();
-  }
-
 }
