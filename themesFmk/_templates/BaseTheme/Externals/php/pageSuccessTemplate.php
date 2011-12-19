@@ -13,30 +13,11 @@
 //Valeurs par défaut de configuration de la page
 $pageOptionsDefault = spLessCss::pageTemplateGetOptionsDefault();
 
-//Ajout de nouvelles zones
-/*
 //Debug ancienne zone pour déplacement anciens widgets
-$pageOptionsCustom['areas']['centerTop'] = array(
-											'index'		=> 0,
-											'areaName'	=> 'centerTop',
-											'isActive'	=> true,
-											'isPage'	=> false,
-											'clearfix'	=> true
-											);
-*/
-$pageOptionsCustom['areas']['dm_custom_top'] = array(
-											'index'		=> 0,
-											'areaName'	=> 'customTop',
-											'isActive'	=> true,
-											'isPage'	=> false,
-											'clearfix'	=> true
-											);
-$pageOptionsCustom['areas']['dm_custom_bottom'] = array(
-											'areaName'	=> 'customBottom',
-											'isActive'	=> true,
-											'isPage'	=> false,
-											'clearfix'	=> true
-											);
+//$pageOptionsCustom['areas']['centerTop'] = array('index' => 0, 'areaName' => 'centerTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
+//Ajout de nouvelles zones
+$pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' => 'customTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
+$pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 
 //On remplace les valeurs par défaut que si la variable de remplissage existe
 $pageOptions = (isset($pageOptionsCustom)) ? spLessCss::pageTemplateCustomOptions($pageOptionsDefault, $pageOptionsCustom) : $pageOptionsDefault;
@@ -58,10 +39,11 @@ if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
 						//composition des options de la Area à afficher
 						$areaType = ($area['isPage']) ? 'page' : 'layout';
 						$areaName = $area['areaName'];
-						$areaClass = ($area['clearfix']) ? 'clearfix' : '';
+						$areaClass = ($area['clearfix']) ? 'clearfix' : null;
+						$areaRole = ($area['areaName'] == "content") ? ' data-role="content"' : null;
 						
 						//affichage de la zone
-						echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . '.' . $areaClass);
+						echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . '.' . $areaClass . $areaRole);
 						
 						//div vides de test pour la mise en page
 						//echo '<div id="' . (($id === 'dm_page_content') ? 'dm_content' : $id) . '" class="' . (($area['clearfix']) ? 'clearfix ' . $areaName : $areaName) .'">' . $areaName . '</div>';
