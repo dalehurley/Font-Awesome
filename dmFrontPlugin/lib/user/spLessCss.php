@@ -8,7 +8,7 @@ class spLessCss extends dmFrontUser {
 		//récupération du gabarit de la page
 		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
 		if ($currentGabarit == 'default' || $currentGabarit == '') {
-			$currentGabarit = spLessCss::getLessParam('templateGabarit');
+			$currentGabarit = self::getLessParam('templateGabarit');
 		}
 		
 		//composition des options de page par défault
@@ -38,7 +38,7 @@ class spLessCss extends dmFrontUser {
 							);
 		
 		//on fusionne des éventuelles propriétés personnalisées injectées dans la fonction
-		$pageOptions = (count($optionsCustom) === 0) ? $pageTemplateOptionsDefault : spLessCss::pageTemplateCustomOptions($pageTemplateOptionsDefault, $optionsCustom);
+		$pageOptions = (count($optionsCustom) === 0) ? $pageTemplateOptionsDefault : self::pageTemplateCustomOptions($pageTemplateOptionsDefault, $optionsCustom);
 		
 		//retour de la valeur
 		return $pageOptions;
@@ -132,9 +132,9 @@ class spLessCss extends dmFrontUser {
 		//on dégage les pourcentages de façon manuelle
 		$variableValue = str_replace('%', '', $variableValue);
 
-		$detectisNumeric = spLessCss::lessIsNumeric($variableValue);
+		$detectisNumeric = self::lessIsNumeric($variableValue);
 		if($detectisNumeric>0){
-			$variableValue = spLessCss::lessCalculator($variableValue);
+			$variableValue = self::lessCalculator($variableValue);
 		}else{
 			//À améliorer éventuellement : suppression des crochets dans les string contenant des variables
 			$variableValue = str_replace('{', '', $variableValue);
@@ -180,12 +180,12 @@ class spLessCss extends dmFrontUser {
 				
 				if($detectSubVariableRecursive > 0){
 					//on relance la fonction de façon récursive
-					$variableValue = spLessCss::parseLessVariable($variableValue, $parameterValue);
+					$variableValue = self::parseLessVariable($variableValue, $parameterValue);
 				}
 			}
 		}
 		//on supprime toutes les unités
-		$variableValue = spLessCss::parseLessValue($variableValue);
+		$variableValue = self::parseLessValue($variableValue);
 
 		return $variableValue;
 	}
@@ -255,7 +255,7 @@ class spLessCss extends dmFrontUser {
                 if ($detectVariable > 0) {
                     $options['type'] = 'variable';
 					
-					$lessParserParamValue = spLessCss::parseLessVariable($lessParserParamValue, $parameterValue);
+					$lessParserParamValue = self::parseLessVariable($lessParserParamValue, $parameterValue);
 					
                     //remplissage du tableau de valeurs
                     $parameterValue['variable'][$lessParserParamName] = $lessParserParamValue;
@@ -269,7 +269,7 @@ class spLessCss extends dmFrontUser {
                     $compoImportURL = sfConfig::get('sf_web_dir') . '/theme/less/' . $lessParserParamValue;
 
                     //appel récursif de la fonction
-                    $parameterValue = spLessCss::loadLessParameters(array(
+                    $parameterValue = self::loadLessParameters(array(
                                 //'type'		=> 'import',
                                 'lessFile' => $compoImportURL
                                     ), $parameterValue
@@ -287,7 +287,7 @@ class spLessCss extends dmFrontUser {
     //fonction permettant de sortir la valeur d'un paramÃ¨tre less
     public static function getLessParam($variable = '') {
         $lessInitURL = sfConfig::get('sf_web_dir') . "/theme/less/_framework/SPLessCss/Config/_ConfigInit.less";
-        $lessVariableImport = spLessCss::loadLessParameters(array(
+        $lessVariableImport = self::loadLessParameters(array(
                     'lessFile' => $lessInitURL
                 ));
 
@@ -299,7 +299,7 @@ class spLessCss extends dmFrontUser {
 
         $lessInitURL = sfConfig::get('sf_web_dir') . "/theme/less/_framework/SPLessCss/Config/_ConfigInit.less";
 
-        $lessVariableImport = spLessCss::loadLessParameters(array(
+        $lessVariableImport = self::loadLessParameters(array(
                     'lessFile' => $lessInitURL
                 ));
 
@@ -317,8 +317,8 @@ class spLessCss extends dmFrontUser {
 		//récupération des valeurs de dimension de la grille
 		$nbreCols = intval($nbreCols);
 		$padSub = intval($padSub);
-		$gridColWidth = intval(spLessCss::getLessParam('gridColWidth'));
-		$gridGutter = intval(spLessCss::getLessParam('gridGutter'));
+		$gridColWidth = intval(self::getLessParam('gridColWidth'));
+		$gridGutter = intval(self::getLessParam('gridGutter'));
 		//calcul des paramètres
 		$elementWidth = $gridColWidth * $nbreCols + $gridGutter * ($nbreCols -1) - $padSub;
 
@@ -330,7 +330,7 @@ class spLessCss extends dmFrontUser {
 		//récupération des valeurs de dimension de la grille
 		$nbreLine = intval($nbreLine);
 		$padSub = intval($padSub);
-		$gridBaseline = intval(spLessCss::getLessParam('gridBaseline'));
+		$gridBaseline = intval(self::getLessParam('gridBaseline'));
 		//calcul des paramètres
 		$elementHeight = ($gridBaseline * $nbreLine) - $padSub;
 
@@ -342,13 +342,13 @@ class spLessCss extends dmFrontUser {
 		//récupération du gabarit courant
 		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
 		if ($currentGabarit == 'default' || $currentGabarit == '') {
-			$currentGabarit = spLessCss::getLessParam('templateGabarit');
+			$currentGabarit = self::getLessParam('templateGabarit');
 		}
 
 		//récupération des valeurs de colonnes
-		$gridCol = spLessCss::lessCalculator(spLessCss::getLessParam('gridCol'));
-		$gridCol_SidebarLeft = spLessCss::lessCalculator(spLessCss::getLessParam('gridCol_SidebarLeft'));
-		$gridCol_SidebarRight = spLessCss::lessCalculator(spLessCss::getLessParam('gridCol_SidebarRight'));
+		$gridCol = self::lessCalculator(self::getLessParam('gridCol'));
+		$gridCol_SidebarLeft = self::lessCalculator(self::getLessParam('gridCol_SidebarLeft'));
+		$gridCol_SidebarRight = self::lessCalculator(self::getLessParam('gridCol_SidebarRight'));
 		
 		if($currentGabarit === 'sidebar-left'){
 			$gridCol_Content = $gridCol - $gridCol_SidebarLeft;
@@ -362,7 +362,7 @@ class spLessCss extends dmFrontUser {
 			$gridCol_Content = $gridCol;
 		}
 		//calcul de la dimension du contenu
-		$contentWidth = spLessCss::gridGetWidth($gridCol_Content);
+		$contentWidth = self::gridGetWidth($gridCol_Content);
 		
 		return $contentWidth;
 	}
