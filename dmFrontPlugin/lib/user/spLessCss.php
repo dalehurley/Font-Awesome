@@ -2,6 +2,21 @@
 
 class spLessCss extends dmFrontUser {
 	
+	//récupération du layout par défaut du template sélectionné
+	public static function pageSuccessTemplateInclude() {
+		//Ciblage du layout de page par défaut du template sélectionné
+		$pageSuccessTemplateInclude = sfConfig::get('dm_core_dir') . '/../themesFmk/_templates/' . self::getLessParam('mainTemplate') . '/Externals/php/layouts/pageSuccessTemplate.php';
+		
+		//on retourne un tableau contenant 3 clefs
+		$includeInfo = array(
+							'isFile'	=>	is_file($pageSuccessTemplateInclude),
+							'errorMsg'	=>	'Le fichier "' . $pageSuccessTemplateInclude . '" est introuvable',
+							'include'	=>	$pageSuccessTemplateInclude
+						);
+		
+		return $includeInfo;
+	}
+	
 	//options de page par défaut
 	public static function pageTemplateGetOptions($optionsCustom = array()) {
 		
