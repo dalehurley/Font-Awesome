@@ -6,5 +6,7 @@ all:
     #X-UA-Compatible: IE=edge,chrome=1
     
   javascripts:
-    <?php if(sfConfig::get('sf_environment') == 'dev'){ echo '- ' . sfConfig::get('sf_js_path_framework') . '/less-grid/less-grid-4-vsid.js
+    - <?php echo sfConfig::get('sf_js_path_framework'); ?>/modernizr/polyfills.js
+    - <?php echo sfConfig::get('sf_js_path_framework'); ?>/spLessGrid/spLessGrid.js
+    <?php if(sfConfig::get('sf_environment') != 'dev'){ echo '- ' . sfConfig::get('sf_js_path_framework') . '/less-grid/less-grid-4-vsid.js
 #'; } ?>
