@@ -3,7 +3,7 @@
 class spLessCss extends dmFrontUser {
 	
 	//options de page par défaut
-	public static function pageTemplateGetOptionsDefault() {
+	public static function pageTemplateGetOptions($optionsCustom = array()) {
 		
 		//récupération du gabarit de la page
 		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
@@ -37,8 +37,11 @@ class spLessCss extends dmFrontUser {
 												)
 							);
 		
+		//on fusionne des éventuelles propriétés personnalisées injectées dans la fonction
+		$pageOptions = (count($optionsCustom) === 0) ? $pageTemplateOptionsDefault : spLessCss::pageTemplateCustomOptions($pageTemplateOptionsDefault, $optionsCustom);
+		
 		//retour de la valeur
-		return $pageTemplateOptionsDefault;
+		return $pageOptions;
 	}
 	
 	//fonction d'insertion de nouvelle Area dans le pageTemplateSuccess

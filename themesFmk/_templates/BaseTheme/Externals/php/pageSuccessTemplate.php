@@ -10,17 +10,14 @@
  * Ce fichier reste dans le core, il est appelé en include dans les sites par les fichiers XXXXSuccess.php
  * 
  */
-//Valeurs par défaut de configuration de la page
-$pageOptionsDefault = spLessCss::pageTemplateGetOptionsDefault();
-
 //Debug ancienne zone pour déplacement anciens widgets
 //$pageOptionsCustom['areas']['centerTop'] = array('index' => 0, 'areaName' => 'centerTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 //Ajout de nouvelles zones
 $pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' => 'customTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 $pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 
-//On remplace les valeurs par défaut que si la variable de remplissage existe
-$pageOptions = (isset($pageOptionsCustom)) ? spLessCss::pageTemplateCustomOptions($pageOptionsDefault, $pageOptionsCustom) : $pageOptionsDefault;
+//Récupération des options de la page (avec fusion des options personnalisées)
+$pageOptions = spLessCss::pageTemplateGetOptions($pageOptionsCustom);
 
 //affichage du widget de DEBUG du framework
 if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
@@ -33,7 +30,6 @@ if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
 		
 		<div id="dm_main" class="dm_layout clearfix">
 			<div id="dm_main_inner" class="clearfix">
-				
 				<?php
 					foreach ($pageOptions['areas'] as $id => $area) {
 						//composition des options de la Area à afficher
