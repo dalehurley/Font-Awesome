@@ -2,6 +2,39 @@
 
 class spLessCss extends dmFrontUser {
 	
+	//génération du listing des icônes
+	public static function spriteGetListing() {
+		//emplacement et récupération des thèmes de sprites
+		$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites';
+		$getThemes = sfFinder::type('directory')->follow_link()->relative()->in($urlThemes);
+		
+		//création du tableau de stockage des sprites
+		$spriteListing = array();
+		
+		//on parcourt tous les thèmes repérés
+		foreach ($getThemes as $theme) {
+			//emplacement et récupération des sprites du thème
+			$urlSprites = $urlThemes . '/' . $theme;
+			$getSprites = sfFinder::type('file')->name('*.svg')->follow_link()->relative()->in($urlSprites);
+			
+			//remplissage des sprites
+			//$spriteListing[$theme] = array();
+			$spriteListing[$theme] = $getSprites;
+			
+			//on parcourt les sprites trouvées dans le theme
+			foreach ($getSprites as $value) {
+				//décomposition du nom categorie-icone.svg
+				
+			}
+		}
+		
+		
+		//$urlFiles = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites/Default';
+		//$testFinder = sfFinder::type('file')->name('*.svg')->follow_link()->in($urlFiles);
+		
+		echo "TEST spriteListing : " . print_r($spriteListing, true);
+	}
+	
 	//récupération du layout par défaut du template sélectionné
 	public static function pageSuccessTemplateInclude() {
 		//Ciblage du layout de page par défaut du template sélectionné
