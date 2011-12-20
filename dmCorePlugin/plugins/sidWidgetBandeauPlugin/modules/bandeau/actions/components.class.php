@@ -72,35 +72,62 @@ class bandeauComponents extends myFrontModuleComponents {
             if ($this->getPage()->getTitle() == $bandeau->getGroupeBandeau()) {
                 $this->bandeauId = $bandeau->id;
                 break;
-            } else {
+            } 
+            else {
                 $ancestors = $this->context->getPage()->getNode()->getAncestors();
-                if (count($ancestors) > 1) {
-                    if ($ancestors[count($ancestors) - 1]->getTitle() == $bandeau->getGroupeBandeau()) {
+//                if (count($ancestors) > 1) {
+                    $i=0;
+                   foreach($ancestors as $i=>$ancestor){
+                       if ($ancestor->getTitle() == $bandeau->getGroupeBandeau()) {
                         $this->bandeauId = $bandeau->id;
-                        
-                        $nomParent = $ancestors[count($ancestors) - 1]->getTitle();
-                        if(!isset($nomParent)){ 
-            $groupe = dmDb::table('SidGroupeBandeauTranslation')->findOneByTitle('Accueil');
-            $bandeauDefaut = Doctrine_Query::create()->from('SidBandeau a')
-                                ->where('a.groupe_bandeau_id = ?', $groupe->id)
-                                ->execute();
-//            echo $bandeauDefaut[0]->id;
-            $this->bandeauId = $bandeauDefaut[0]->id;}
+                        $nomParent = $ancestor->getTitle();
+                        break;
                     }
-                    
-                }
-            }
-        }
-        $this->nomPage = $this->getPage()->getTitle();
-        if (isset($nomParent)) {
-            $this->parent = $nomParent;
-//        if (!isset($nomParent)){
-//            
-//            $bandeau = dmDb::table('SidBandeau')->findByIsActiveAndGroupeBandeauId(true, $groupe[0]->id);
-//            $this->bandeauId = $bandeau[0]->id;
+                       $i++;
+                       
+                   }
+                       
+                }       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+//                    echo 'ancestor '.count($ancestors). ' '.$ancestors[count($ancestors) - 1]->getTitle().'<br />';
+//                    if ($ancestors[count($ancestors) - 1]->getTitle() == $bandeau->getGroupeBandeau()) {
+//                        $this->bandeauId = $bandeau->id;
+//                        
+//                        $nomParent = $ancestors[count($ancestors) - 1]->getTitle();
+//                        if(!isset($nomParent)){ 
+//            $groupe = dmDb::table('SidGroupeBandeauTranslation')->findOneByTitle('Accueil');
+//            $bandeauDefaut = Doctrine_Query::create()->from('SidBandeau a')
+//                                ->where('a.groupe_bandeau_id = ?', $groupe->id)
+//                                ->execute();
+////            echo $bandeauDefaut[0]->id;
+//            $this->bandeauId = $bandeauDefaut[0]->id;}
+//                    }
+//                    
+//                }
+//            }
 //        }
-        };
-        
+        $this->nomPage = $this->getPage()->getTitle();
+//        if (isset($nomParent)) {
+//            $this->parent = $nomParent;
+////        if (!isset($nomParent)){
+////            
+////            $bandeau = dmDb::table('SidBandeau')->findByIsActiveAndGroupeBandeauId(true, $groupe[0]->id);
+////            $this->bandeauId = $bandeau[0]->id;
+////        }
+//        };
+        } 
     }
 
 }

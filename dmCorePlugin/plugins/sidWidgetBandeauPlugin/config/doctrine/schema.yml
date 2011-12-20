@@ -5,13 +5,20 @@ SidGroupeBandeau:
     I18n:
       fields: [ title ]
   columns:
-    title:
+    dm_page_id:
       type: string(40)
       notnull: true
     is_active:
       type: boolean
       notnull: true
       default: true
+  relations:
+    DmPageBandeau:
+      class: DmPage
+      local: dm_page_id
+      foreign: id
+      foreignAlias: SidGroupeBandeau
+      onDelete: Cascade
 
 SidBandeau:
   actAs:
