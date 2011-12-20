@@ -7,7 +7,6 @@
       name: "La page du Cabinet|Les pages du Cabinet"
       page: true
       credentials: page_cabinet
-      components:
 
     Equipe:
       model: SidCabinetEquipe
@@ -18,8 +17,6 @@
       model: SidCabinetRecrutement
       page: true
       credentials: recrutement
-      components:
-
 
 "Les Missions ou Services":
   "Description des missions ou services":
@@ -28,6 +25,5 @@
       page: true
       name: "Mission/Services|Missions/Services"
       credentials: mission
-      components:
 
 

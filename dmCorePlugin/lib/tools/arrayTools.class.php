@@ -92,7 +92,7 @@ class arrayTools {
      */
     public static function stringToArray($string) {
         preg_match_all('/
-      \s(\w-*\w+)           # key                               \\1
+      \s*(\w*\-*\w+)           # key                               \\1
       \s*=\s*               # =
       (\'|")?               # values may be included in \' or " \\2
       (.*?)                 # value                             \\3
@@ -104,7 +104,7 @@ class arrayTools {
 
         $attributes = array();
         foreach ($matches as $val) {
-            $attributes[$val[1]] = self::literalize($val[3]);
+            $attributes[$val[1]] = sfToolkit::literalize($val[3]);
         }
 
         return $attributes;
