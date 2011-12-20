@@ -31,9 +31,9 @@ class dmFrontAssetConfig extends dmAssetConfig
     }
     
     return array(
-      sfConfig::get('sf_web_debug') ? 'lib.symfony_debug' : null,
-      'core.tool',
-      'front.base'
+      sfConfig::get('sf_web_debug') ? 'lib.symfony_debug' : null
+      //'core.tool',
+      //'front.base'
     );
   }
   
@@ -43,6 +43,7 @@ class dmFrontAssetConfig extends dmAssetConfig
     {
       return array(
         'lib.jquery',
+	    'lib.mobile-core',
         sfConfig::get('sf_web_debug') ? 'lib.symfony_debug' : null,
         'lib.metadata',
         'lib.cookie',
@@ -82,6 +83,7 @@ class dmFrontAssetConfig extends dmAssetConfig
     
     return array(
       'lib.jquery',
+	  'lib.mobile-core',
       sfConfig::get('sf_web_debug') ? 'lib.symfony_debug' : null,
       'lib.metadata',
       'core.config',
