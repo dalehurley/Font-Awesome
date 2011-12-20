@@ -22,7 +22,6 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
         //$namePage = $this->context->getPage()->getName();
         $recordPage = $this->context->getPage()->getRecordId();
         $nomRubrique = dmDb::table('SidRubrique')->findOneById($recordPage);
-
         // initialisation des tableaux
         $arrayArticle = array();
         $arrayArticleAgenda = array();
@@ -121,7 +120,7 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
         // si le répertoire n'existe pas ...
         else if ($noRep == true && ($vars['pageCentrale'] == false)) {
             $arrayAgendas = array();
-
+            $title = '';
             return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'listAgenda', array(
                         'agendas' => $arrayAgendas, // tableau d'objet
                     ));
@@ -148,8 +147,7 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
                         $title = $vars['title'];
                     }
                 }
-            }
-            return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'listAgenda', array(
+                 return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'listAgenda', array(
                         'agendas' => $arrayAgendas, // tableau d'objet
                         'nbArticles' => $vars['nbArticles'],
                         'rubrique' => '/' . $rubrique[0]->slug, // pour aller sur la page de la rubrique
@@ -157,6 +155,8 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
                         'lien' => $vars['lien'],
                         'length' => $vars['length']
                     ));
+            }
+           
         }
     }
 
