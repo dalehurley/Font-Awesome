@@ -31,7 +31,89 @@ class spLessCss extends dmFrontUser {
 				$spriteListing[$theme][$decomp[0]][$decomp[1]]['urlRel'] = sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme . '/' . $sprite;
 			}
 		}
+		//print_r($spriteListing);
+		
 		return $spriteListing;
+	}
+	
+	//copie de toutes les icônes et changement des couleurs
+	public static function spriteGenerate(){
+		//récupération du listing des sprites
+		$spriteListing = self::spriteGetListing();
+		
+		//on parcourt les themes
+		foreach ($spriteListing as $theme => $categories) {
+			//création du dossier du thème si non présent
+			$urlTheme = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme;
+			if(!is_dir($urlTheme)){
+				$testMkdir = mkdir($urlTheme, 0775, true);
+				//affichage d'un message en cas d'erreur
+				if(!$testMkdir) die("spLessCss | spriteGenerate : erreur de création de l'arborescence de dossiers");
+			}
+			
+			//création de l'image container pour l'ensemble du theme
+			$imgTheme = new sfImage();
+			$imgTheme->setMIMEType('image/png');
+			$imgTheme->setAdapter('GD');			
+			//$imgTheme->setAdapter('ImageMagick');
+			//$imgTheme = $imageGD->execute($imgTheme);
+			
+			//variable de placement et de comptage
+			$dim = 64;
+			$numCat = 0;
+			
+			//on parcourt les catégories du theme
+			foreach ($categories as $category => $sprites) {
+				//incrémentation numéro de catégorie
+				$numCat++;
+				$numSprite = 0;
+				
+				//on parcourt les sprites de la catégorie
+				foreach ($sprites as $sprite => $value) {
+					//incrémentation numéro de sprite
+					$numSprite++;
+					
+					//url absolue du fichier livré au client
+					$urlClient = sfConfig::get('sf_web_dir') . $value['urlRel'];
+					
+					//composition des commandes à exécuter
+					$commandeCopy = "cp ". $value['urlAbs'] . " " . $urlClient;
+					
+					//exécution de la commande
+					exec($commandeCopy);
+					
+					//on récupère toutes les occurences de la couleur spriteCouleur dans le fichier
+					$isMatchColors = preg_match_all('/\#\#spriteCouleur\d[A-Za-z]*\#\#/', file_get_contents($urlClient), $matchColors);
+					
+					//on parcourt les couleurs trouvées et on les remplace
+					foreach ($matchColors[0] as $colorToken) {
+						//on enlève les délimiteurs ## de la couleur
+						$colorKey = substr($colorToken, 2, -2);
+						//on récupère la valeur de la couleur correspondante
+						$colorValue = self::getLessParam($colorKey);
+						
+						//composition de la commmande de changement de couleurs
+						$commandeColor = "perl -pi -w -e 's/" . $colorToken . "/". $colorValue ."/g;' " . $urlClient;
+						
+						//exécution de la commande
+						exec($commandeColor);
+					}
+					
+					//déclaration de la variable pour récupérer l'image courante
+					//http://www.mediawiki.org/wiki/Manual:Mime_type_detection
+					//$imageSprite = new sfImage($urlClient, 'image/svg+xml', 'ImageMagick');
+					//$imageSprite->setMIMEType('image/svg+xml');
+					
+					//création du remplissage
+					//$imageGD  = new sfImageFillGD($numSprite * $dim, $numCat * $dim, $imageSprite);
+					//application du remplissage
+					//$imgTheme = $imageGD->execute($imgTheme);
+				}
+			}
+			
+			//enregistrement de l'image du thème
+			$imgTheme->saveAs($urlTheme . '.png');
+		}
 	}
 	
 	//récupération du layout par défaut du template sélectionné
