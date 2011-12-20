@@ -8,6 +8,7 @@ class arrayTools {
     /*
      * test si le tableau est multidimensionnel
      */
+
     public static function array_is2D($array) {
         return is_array($array) ? count($array) === count($array, COUNT_RECURSIVE) : -1;
     }
@@ -19,6 +20,7 @@ class arrayTools {
      * @param int $limit dimensions that shall be considered (-1 means no limit )
      * @return int counted elements
      */
+
     public static function multicount($array, $limit = -1) {
         $cnt = 0;
         $limit = $limit > 0 ? (int) $limit : -1;
@@ -37,7 +39,7 @@ class arrayTools {
         return $cnt;
     }
 
-     /**
+    /**
      * Fonction permettant d'effacer certaines lignes dans un fichier
      *
      * @param string $fileInput     le fichier origine à effacer
@@ -78,6 +80,34 @@ class arrayTools {
         return $return;
     }
 
+    /**
+     * Converts string to array
+     * Credits : symfony 1.4
+     *
+     * Modification pour gérer les attribut html5 avec un -, exemple data-role (arnaudgaudin)
+     * 
+     * @param  string $string  the value to convert to array
+     *
+     * @return array
+     */
+    public static function stringToArray($string) {
+        preg_match_all('/
+      \s(\w-*\w+)           # key                               \\1
+      \s*=\s*               # =
+      (\'|")?               # values may be included in \' or " \\2
+      (.*?)                 # value                             \\3
+      (?(2) \\2)            # matching \' or " if needed        \\4
+      \s*(?:
+        (?=\w+\s*=) | \s*$  # followed by another key= or the end of the string
+      )
+    /x', $string, $matches, PREG_SET_ORDER);
 
+        $attributes = array();
+        foreach ($matches as $val) {
+            $attributes[$val[1]] = self::literalize($val[3]);
+        }
+
+        return $attributes;
+    }
 
 }
