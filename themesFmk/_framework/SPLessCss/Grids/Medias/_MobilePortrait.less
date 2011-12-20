@@ -4,6 +4,13 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
+@frameworkMedia_MobilePortrait() {
+	//ajout infos de debug
+	.debugTemplate .debugInfo .screenType .value { &, &:after { content: "MobilePortrait"; } }
+	//désactivation de la scrollBar
+	html { overflow-y: hidden; }
+}
+
 // Mobile Portrait	: 320px
 // Colonnes			: 3
 // Scrollbar		: 0

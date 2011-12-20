@@ -4,6 +4,13 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
+@frameworkMedia_TabletPortrait() {
+	//ajout infos de debug
+	.debugTemplate .debugInfo .screenType .value { &, &:after { content: "TabletPortrait"; } }
+	//désactivation de la scrollBar
+	html { overflow-y: hidden; }
+}
+
 // Tablet Portrait	: 768px	(on compte sans la scrollbar)
 // Colonnes			: 8
 // Scrollbar		: 0

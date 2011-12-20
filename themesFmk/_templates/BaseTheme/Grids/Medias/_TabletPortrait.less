@@ -6,39 +6,38 @@
 
 //Requête média pour adapter le design en fonction du support
 @templateMedia_TabletPortrait() {
-	//chargement fonction automatique de placement général
-	@gridAutoLayoutHideSidebarLeft(@gridScreen_TabletPortrait;@gridCol_TabletPortrait);
+	//chargement fonction automatique de replacement en mode portrait
+	@gridAutoLayoutPortrait(@gridScreen_TabletPortrait;@gridCol_TabletPortrait);
 	
 	#dm_main_inner {
 		@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; @gridPadding);
-		background-color: darkred;
-		//@gridDebugBgc(#a88);
 	}
 	
-	//replacement spécial des sidebars
+	#dm_header .dm_zones {
+		@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+	}
 	
-	
-	/*
-	//ajout des transitions pour navigateurs récents
-	.csstransitions.opacity {
-		.dm_layout_left {
-			@transitionCompress(width, height, padding-left; .5s; ease-in-out;0);
+	//on affiche les widgets sur 4 colonnes dans la sidebar-right
+	#dm_sidebar_right {
+		.dm_widget {
+			float: left;
+			margin-left: @zonesOffsetPad;
+			@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad * -2));
 			
-			.dm_zones {
-				opacity: 0;
-				@transitionProperty(visibility, opacity);
-				@transitionDuration(.5s);
-				@transitionFunction(ease-out);
-				@transitionDelay(.5s, 0);
-			}
-			
-			&:hover, &.touch {
-				.dm_zones {
-					opacity: 1;
-					@transitionDelay(0);
-				}
+			//on pase à la ligne un widget sur 2
+			&:first-child, &:nth-child(odd) {
+				clear: left;
+				margin-left: 0;
 			}
 		}
 	}
-	*/
+	
+	/*
+	//suppression du délai de transition
+	.csstransitions {
+		//on réinitialise les temps de réaction, #dm_content
+		#dm_main_inner, #dm_sidebar_right {
+			@transitionDelay(0);
+		}
+	}*/
 }

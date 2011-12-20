@@ -1,15 +1,15 @@
-/* 
-	less grid v4.0 - For Less Framework 4.
-	(c) Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
-*/
+// less-grid-4-vsid.js - For Less Framework 4, version SPlessCss
+// v1.4
+// Last Updated : 2011-12-12 10:45
+// Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
+// Author : Arnaud GAUDIN | Arnau March
 
 (function($){
 	//lorsque la page est chargée
 	$(document).ready(function() {
-		
+		/*
+		//ajout du switch de page
 		createSwitch();
-		
-		//test lancement auto grille :
 		//createGrid();
 		
 		//ajout de paramètres personnalisés en JS à la sortie de débug
@@ -19,8 +19,10 @@
 		$('.debugTemplate').click(function(e){
 			$(this).closest('.dm_widget').toggleClass('disabled');
 		});
+		*/
 	});
 	
+	/*
 	//lorsque la page est redimenssionée
 	$(window).resize(function() {
 		//update de la grille
@@ -34,7 +36,7 @@
 		debugUpdateValue('windowInnerWidth', window.innerWidth);
 		debugUpdateValue('windowOrientation', window.orientation);
 	});
-	
+	*/
 })(jQuery);
 
 //fonction d'ajout de valeur à la sortie de debug
@@ -155,10 +157,12 @@ function createSwitch () {
 	if ($("#sfWebDebugBar").length > 0){
 		switchPositionRight += $('#sfWebDebugBar').outerWidth();
 	}
-
-	$('body').append('<span id="less-grid-switch">show grid</span>');
-	$('#less-grid-switch').css('right', switchPositionRight);	
 	
+	$('body').append('<span id="less-grid-switch">show grid</span>');
+	
+	$('#less-grid-switch').css('right', switchPositionRight);
+	
+	/*
 	$('#less-grid-switch').toggle(function() {
 		$(this).text("x");
 		$('#less-grid').show();
@@ -178,5 +182,5 @@ function createSwitch () {
 		$('#less-baseline').hide();
 		$(this).attr('rel','off');
 	});
-	
+	*/
 }
