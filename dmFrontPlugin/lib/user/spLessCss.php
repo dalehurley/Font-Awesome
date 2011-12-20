@@ -18,21 +18,20 @@ class spLessCss extends dmFrontUser {
 			$getSprites = sfFinder::type('file')->name('*.svg')->follow_link()->relative()->in($urlSprites);
 			
 			//remplissage des sprites
-			//$spriteListing[$theme] = array();
-			$spriteListing[$theme] = $getSprites;
+			$spriteListing[$theme] = array();
 			
 			//on parcourt les sprites trouvées dans le theme
-			foreach ($getSprites as $value) {
+			foreach ($getSprites as $sprite) {
 				//décomposition du nom categorie-icone.svg
+				$decomp = explode('-', substr($sprite, 0, -4));
 				
+				//on part du modèle suivant :
+				//categorie-icone.svg
+				$spriteListing[$theme][$decomp[0]][$decomp[1]]['urlAbs'] = $urlSprites . '/' . $sprite;
+				$spriteListing[$theme][$decomp[0]][$decomp[1]]['urlRel'] = sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme . '/' . $sprite;
 			}
 		}
-		
-		
-		//$urlFiles = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites/Default';
-		//$testFinder = sfFinder::type('file')->name('*.svg')->follow_link()->in($urlFiles);
-		
-		echo "TEST spriteListing : " . print_r($spriteListing, true);
+		return $spriteListing;
 	}
 	
 	//récupération du layout par défaut du template sélectionné
