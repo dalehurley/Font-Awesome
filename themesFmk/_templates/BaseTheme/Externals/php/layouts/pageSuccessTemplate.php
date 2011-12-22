@@ -22,7 +22,7 @@ $pageOptions = spLessCss::pageTemplateGetOptions($pageOptionsCustom);
 //affichage du widget de DEBUG du framework
 if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
 
-spLessCss::spriteGenerate();
+spLessCss::spriteInit();
 ?>
 
 <div id="dm_page" data-role="page">
