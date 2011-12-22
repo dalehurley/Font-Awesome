@@ -41,6 +41,14 @@ class spLessCss extends dmFrontUser {
 		//récupération du listing des sprites
 		$spriteListing = self::spriteGetListing();
 		
+		//calcul de la densité (par défaut résolution de 72dpi)
+		$resizeRatio = 4;
+		$density = floor(72 * $resizeRatio);
+		$densityExec = ($resizeRatio != 1) ? ' -density ' . $density : null;
+		
+		//dimension par défaut des miniatures
+		$dim = 64;
+		
 		//on parcourt les themes
 		foreach ($spriteListing as $theme => $categories) {
 			//création du dossier du thème si non présent
@@ -51,15 +59,14 @@ class spLessCss extends dmFrontUser {
 				if(!$testMkdir) die("spLessCss | spriteGenerate : erreur de création de l'arborescence de dossiers");
 			}
 			
-			//création de l'image container pour l'ensemble du theme
-			$imgTheme = new sfImage();
-			$imgTheme->setMIMEType('image/png');
-			$imgTheme->setAdapter('GD');			
-			//$imgTheme->setAdapter('ImageMagick');
-			//$imgTheme = $imageGD->execute($imgTheme);
+			//Requête : génération de la requête d'assemblage des sprites
+			$convertExec = "convert";
+			
+			//Requête : ajout des options de sortie
+			$convertExec.= " -background none";
+			$convertExec.= $densityExec;
 			
 			//variable de placement et de comptage
-			$dim = 64;
 			$numCat = 0;
 			
 			//on parcourt les catégories du theme
@@ -67,6 +74,9 @@ class spLessCss extends dmFrontUser {
 				//incrémentation numéro de catégorie
 				$numCat++;
 				$numSprite = 0;
+				
+				//Requête : ouverture parenthèse
+				$convertExec.= " \(";
 				
 				//on parcourt les sprites de la catégorie
 				foreach ($sprites as $sprite => $value) {
@@ -79,8 +89,13 @@ class spLessCss extends dmFrontUser {
 					//composition des commandes à exécuter
 					$commandeCopy = "cp ". $value['urlAbs'] . " " . $urlClient;
 					
-					//exécution de la commande
+					//exécution de la commande de copie
 					exec($commandeCopy);
+					
+					//on récupère les dimensions de l'image dans un tableau
+					$spriteInfo = explode('-', exec('identify -format "%w-%h" ' . $urlClient));
+					$spriteWidth = $spriteInfo[0];
+					$spriteHeight = $spriteInfo[1];
 					
 					//on récupère toutes les occurences de la couleur spriteCouleur dans le fichier
 					$isMatchColors = preg_match_all('/\#\#spriteCouleur\d[A-Za-z]*\#\#/', file_get_contents($urlClient), $matchColors);
@@ -99,20 +114,19 @@ class spLessCss extends dmFrontUser {
 						exec($commandeColor);
 					}
 					
-					//déclaration de la variable pour récupérer l'image courante
-					//http://www.mediawiki.org/wiki/Manual:Mime_type_detection
-					//$imageSprite = new sfImage($urlClient, 'image/svg+xml', 'ImageMagick');
-					//$imageSprite->setMIMEType('image/svg+xml');
-					
-					//création du remplissage
-					//$imageGD  = new sfImageFillGD($numSprite * $dim, $numCat * $dim, $imageSprite);
-					//application du remplissage
-					//$imgTheme = $imageGD->execute($imgTheme);
+					//Requête : ajout nom de fichier
+					$convertExec.= " " . $urlClient;
 				}
+				
+				//Requête : append horizontal et fermeture parenthèse
+				$convertExec.= " +append \)";
 			}
 			
-			//enregistrement de l'image du thème
-			$imgTheme->saveAs($urlTheme . '.png');
+			//Requête : ajout assemblage vertical et fichier de sortie
+			$convertExec.= " -append " . $urlTheme . ".png";
+			
+			//Requête : exécution
+			exec($convertExec);
 		}
 	}
 	
