@@ -2,8 +2,19 @@
 
 class spLessCss extends dmFrontUser {
 	
+	//génération de toutes les sprites dans toutes les dimensions
+	public static function spriteInit() {
+		//génération des Sprites à différentes résolutions
+		self::spriteGenerate(0.25);
+		self::spriteGenerate(0.5);
+		self::spriteGenerate(1);
+		self::spriteGenerate(2);
+		
+		//TODO : séparation changement couleurs de génération PNG pour éviter de refaire l'ensemble à chaque fois
+	}
+
 	//génération du listing des icônes
-	public static function spriteGetListing() {
+	private static function spriteGetListing() {
 		//emplacement et récupération des thèmes de sprites
 		$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites';
 		$getThemes = sfFinder::type('directory')->follow_link()->relative()->in($urlThemes);
@@ -37,17 +48,16 @@ class spLessCss extends dmFrontUser {
 	}
 	
 	//copie de toutes les icônes et changement des couleurs
-	public static function spriteGenerate(){
+	private static function spriteGenerate($resizeRatio = 1, $dim = 64){
 		//récupération du listing des sprites
 		$spriteListing = self::spriteGetListing();
 		
 		//calcul de la densité (par défaut résolution de 72dpi)
-		$resizeRatio = 4;
-		$density = floor(72 * $resizeRatio);
+		$density = 72 * $resizeRatio;
 		$densityExec = ($resizeRatio != 1) ? ' -density ' . $density : null;
 		
-		//dimension par défaut des miniatures
-		$dim = 64;
+		//calcul dimension finale de la miniature
+		$dimFinal = $dim * $resizeRatio;
 		
 		//on parcourt les themes
 		foreach ($spriteListing as $theme => $categories) {
@@ -92,11 +102,6 @@ class spLessCss extends dmFrontUser {
 					//exécution de la commande de copie
 					exec($commandeCopy);
 					
-					//on récupère les dimensions de l'image dans un tableau
-					$spriteInfo = explode('-', exec('identify -format "%w-%h" ' . $urlClient));
-					$spriteWidth = $spriteInfo[0];
-					$spriteHeight = $spriteInfo[1];
-					
 					//on récupère toutes les occurences de la couleur spriteCouleur dans le fichier
 					$isMatchColors = preg_match_all('/\#\#spriteCouleur\d[A-Za-z]*\#\#/', file_get_contents($urlClient), $matchColors);
 					
@@ -114,7 +119,18 @@ class spLessCss extends dmFrontUser {
 						exec($commandeColor);
 					}
 					
+					//on récupère les dimensions de l'image dans un tableau
+					$spriteInfo = explode('-', exec('identify -format "%w-%h" ' . $urlClient));
+					$spriteWidth = $spriteInfo[0];
+					$spriteHeight = $spriteInfo[1];
+					
+					//on vérifie si l'une des dimensions ne correspond pas à la dimenssion de base définie, puis on remultiplie par le ratio général
+					$spriteResizeRatio = $dim / max($spriteWidth, $spriteHeight);
+					$spriteDensity = 72 * $spriteResizeRatio * $resizeRatio;
+					$spriteDensityExec = ($spriteResizeRatio != 1) ? ' -density ' . $spriteDensity : null;
+					
 					//Requête : ajout nom de fichier
+					$convertExec.= $spriteDensityExec;
 					$convertExec.= " " . $urlClient;
 				}
 				
@@ -123,7 +139,7 @@ class spLessCss extends dmFrontUser {
 			}
 			
 			//Requête : ajout assemblage vertical et fichier de sortie
-			$convertExec.= " -append " . $urlTheme . ".png";
+			$convertExec.= " -append " . $urlTheme . "-" . $dimFinal . ".png";
 			
 			//Requête : exécution
 			exec($convertExec);
