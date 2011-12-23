@@ -2,21 +2,34 @@
 
 class spLessCss extends dmFrontUser {
 	
-	//génération de toutes les sprites dans toutes les dimensions
-	public static function spriteInit() {
-		//génération des Sprites à différentes résolutions
-		self::spriteGenerate(0.25);
-		self::spriteGenerate(0.5);
-		self::spriteGenerate(1);
-		self::spriteGenerate(2);
+	//fonction d'inialisation de la page (permet de centraliser les fonctionns appelées)
+	public static function pageInit() {
+		$pageOptions = self::pageTemplateGetOptions();
 		
-		//TODO : séparation changement couleurs de génération PNG pour éviter de refaire l'ensemble à chaque fois
+		//génération des sprites
+		if ($pageOptions['idDev']) self::spriteInit();
+	}
+		
+	//génération de toutes les sprites dans toutes les dimensions
+	private static function spriteInit() {
+		//récupération du listing des sprites
+		$spriteListing = self::spriteGetListing();
+		
+		//purge des miniatures
+		self::spriteReset($spriteListing);
+		
+		//génération des Sprites à différentes résolutions
+		self::spriteGenerate($spriteListing, 0.25);
+		self::spriteGenerate($spriteListing, 0.5);
+		self::spriteGenerate($spriteListing, 1);
+		self::spriteGenerate($spriteListing, 2);
 	}
 
 	//génération du listing des icônes
 	private static function spriteGetListing() {
 		//emplacement et récupération des thèmes de sprites
 		$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites';
+		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
 		$getThemes = sfFinder::type('directory')->follow_link()->relative()->in($urlThemes);
 		
 		//création du tableau de stockage des sprites
@@ -28,8 +41,10 @@ class spLessCss extends dmFrontUser {
 			$urlSprites = $urlThemes . '/' . $theme;
 			$getSprites = sfFinder::type('file')->name('*.svg')->follow_link()->relative()->in($urlSprites);
 			
-			//remplissage des sprites
-			$spriteListing[$theme] = array();
+			
+			//emplacement et récupération des sprites assemblées déjà générées
+			$urlSpritesClient = $urlThemesClient . '/' . $theme;
+			$spriteListing[$theme]['output'] =  sfFinder::type('file')->name($theme . '-*.png')->follow_link()->in($urlThemesClient);
 			
 			//on parcourt les sprites trouvées dans le theme
 			foreach ($getSprites as $sprite) {
@@ -38,43 +53,80 @@ class spLessCss extends dmFrontUser {
 				
 				//on part du modèle suivant :
 				//categorie-icone.svg
-				$spriteListing[$theme][$decomp[0]][$decomp[1]]['urlAbs'] = $urlSprites . '/' . $sprite;
-				$spriteListing[$theme][$decomp[0]][$decomp[1]]['urlRel'] = sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme . '/' . $sprite;
+				$spriteListing[$theme]['categories'][$decomp[0]][$decomp[1]]['urlFramework'] = $urlSprites . '/' . $sprite;
+				$spriteListing[$theme]['categories'][$decomp[0]][$decomp[1]]['urlClient'] = $urlSpritesClient . '/' . $sprite;
 			}
 		}
-		//print_r($spriteListing);
 		
 		return $spriteListing;
 	}
 	
-	//copie de toutes les icônes et changement des couleurs
-	private static function spriteGenerate($resizeRatio = 1, $dim = 64){
-		//récupération du listing des sprites
-		$spriteListing = self::spriteGetListing();
+	//purge des miniatures
+	private static function spriteReset($spriteListing = array()){
+		//on parcourt les themes
+		foreach ($spriteListing as $theme => $info) {
+			//récupération des miniatures assemblées déjà générées et des catégories
+			$outputs = $info['output'];
+			$categories = $info['categories'];
+			
+			//suppression des assemblages déjà générés
+			foreach ($outputs as $output) {
+				if(is_file($output)) {
+					$testUnlink = unlink($output);
+					//affichage d'un message en cas d'erreur
+					if(!$testUnlink) die("spLessCss | spriteInit : erreur de suppression du fichier d'assemblage : " . $output);
+				}
+			}
+			
+			//suppression des SVG déjà générés
+			foreach ($categories as $category => $sprites) {
+				foreach ($sprites as $sprite => $value) {
+					if(is_file($value['urlClient'])) {
+						$testUnlink = unlink($value['urlClient']);
+						//affichage d'un message en cas d'erreur
+						if(!$testUnlink) die("spLessCss | spriteInit : erreur de suppression du fichier SVG : " . $value['urlClient']);
+					}
+				}
+			}
+			
+			//suppression des dossiers de thème
+			$urlThemeClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme;
+			if(is_dir($urlThemeClient)){
+				$testRmdir = rmdir($urlThemeClient);
+				//affichage d'un message en cas d'erreur
+				if(!$testRmdir) die("spLessCss | spriteGenerate : erreur de suppression du dossier : " . $urlThemeClient);
+			}
+		}
 		
+	}
+	
+	//copie de toutes les icônes et changement des couleurs
+	private static function spriteGenerate($spriteListing = array(), $resizeRatio = 1, $dim = 64){
 		//calcul de la densité (par défaut résolution de 72dpi)
 		$density = 72 * $resizeRatio;
-		$densityExec = ($resizeRatio != 1) ? ' -density ' . $density : null;
+		$execDensity = ($resizeRatio != 1) ? ' -density ' . $density : null;
 		
 		//calcul dimension finale de la miniature
 		$dimFinal = $dim * $resizeRatio;
 		
 		//on parcourt les themes
-		foreach ($spriteListing as $theme => $categories) {
+		foreach ($spriteListing as $theme => $info) {
+			//récupération des catégories
+			$categories = $info['categories'];
+			
 			//création du dossier du thème si non présent
-			$urlTheme = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme;
-			if(!is_dir($urlTheme)){
-				$testMkdir = mkdir($urlTheme, 0775, true);
+			$urlThemeClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme;
+			if(!is_dir($urlThemeClient)){
+				$testMkdir = mkdir($urlThemeClient, 0775, true);
 				//affichage d'un message en cas d'erreur
 				if(!$testMkdir) die("spLessCss | spriteGenerate : erreur de création de l'arborescence de dossiers");
 			}
 			
-			//Requête : génération de la requête d'assemblage des sprites
-			$convertExec = "convert";
-			
-			//Requête : ajout des options de sortie
-			$convertExec.= " -background none";
-			$convertExec.= $densityExec;
+			//Requête : préparations des composantes assemblées par la suite
+			$execConvert = "convert";
+			$execConvertOptions = " -background none";
+			$execConvertDensityGeneral = true;
+			$execConvertAppend = "";
 			
 			//variable de placement et de comptage
 			$numCat = 0;
@@ -86,24 +138,21 @@ class spLessCss extends dmFrontUser {
 				$numSprite = 0;
 				
 				//Requête : ouverture parenthèse
-				$convertExec.= " \(";
+				$execConvertAppend.= " \(";
 				
 				//on parcourt les sprites de la catégorie
 				foreach ($sprites as $sprite => $value) {
 					//incrémentation numéro de sprite
 					$numSprite++;
 					
-					//url absolue du fichier livré au client
-					$urlClient = sfConfig::get('sf_web_dir') . $value['urlRel'];
-					
 					//composition des commandes à exécuter
-					$commandeCopy = "cp ". $value['urlAbs'] . " " . $urlClient;
+					$execCopy = "cp ". $value['urlFramework'] . " " . $value['urlClient'];
 					
 					//exécution de la commande de copie
-					exec($commandeCopy);
+					exec($execCopy);
 					
 					//on récupère toutes les occurences de la couleur spriteCouleur dans le fichier
-					$isMatchColors = preg_match_all('/\#\#spriteCouleur\d[A-Za-z]*\#\#/', file_get_contents($urlClient), $matchColors);
+					$isMatchColors = preg_match_all('/\#\#spriteCouleur\d[A-Za-z]*\#\#/', file_get_contents($value['urlClient']), $matchColors);
 					
 					//on parcourt les couleurs trouvées et on les remplace
 					foreach ($matchColors[0] as $colorToken) {
@@ -113,36 +162,41 @@ class spLessCss extends dmFrontUser {
 						$colorValue = self::getLessParam($colorKey);
 						
 						//composition de la commmande de changement de couleurs
-						$commandeColor = "perl -pi -w -e 's/" . $colorToken . "/". $colorValue ."/g;' " . $urlClient;
+						$execColor = "perl -pi -w -e 's/" . $colorToken . "/". $colorValue ."/g;' " . $value['urlClient'];
 						
 						//exécution de la commande
-						exec($commandeColor);
+						exec($execColor);
 					}
 					
 					//on récupère les dimensions de l'image dans un tableau
-					$spriteInfo = explode('-', exec('identify -format "%w-%h" ' . $urlClient));
+					$spriteInfo = explode('-', exec('identify -format "%w-%h" ' . $value['urlClient']));
 					$spriteWidth = $spriteInfo[0];
 					$spriteHeight = $spriteInfo[1];
 					
 					//on vérifie si l'une des dimensions ne correspond pas à la dimenssion de base définie, puis on remultiplie par le ratio général
 					$spriteResizeRatio = $dim / max($spriteWidth, $spriteHeight);
 					$spriteDensity = 72 * $spriteResizeRatio * $resizeRatio;
-					$spriteDensityExec = ($spriteResizeRatio != 1) ? ' -density ' . $spriteDensity : null;
+					if($spriteResizeRatio != 1) {
+						$execSpriteDensity = ' -density ' . $spriteDensity;
+						$execConvertAppend.= $execSpriteDensity;
+						$execConvertDensityGeneral = false;
+					}
 					
 					//Requête : ajout nom de fichier
-					$convertExec.= $spriteDensityExec;
-					$convertExec.= " " . $urlClient;
+					$execConvertAppend.= " " . $value['urlClient'];
 				}
 				
 				//Requête : append horizontal et fermeture parenthèse
-				$convertExec.= " +append \)";
+				$execConvertAppend.= " +append \)";
 			}
 			
-			//Requête : ajout assemblage vertical et fichier de sortie
-			$convertExec.= " -append " . $urlTheme . "-" . $dimFinal . ".png";
+			//Requête : assemblage final
+			if($execConvertDensityGeneral) $execConvertOptions.= $execDensity;
+			$execConvert.= $execConvertOptions . $execConvertAppend;
+			$execConvert.= " -append " . $urlThemeClient . "-" . $dimFinal . ".png";
 			
 			//Requête : exécution
-			exec($convertExec);
+			exec($execConvert);
 		}
 	}
 	
