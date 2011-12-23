@@ -1,0 +1,15 @@
+//_SpritesUtils.less
+// v1.0
+// Last Updated : 2011-12-23 15:45
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+
+@spriteDefinition(@theme: "Default"; @category; @name; @dim: 64; @offX: 0; @offY: 0) {
+	width: @dim * 1px;
+	height: @dim * 1px;
+	//.svg & { background-image: url(@{urlImagesClient}/Sprites/@{theme}/@{category}-@{name}.svg); }
+	
+	background-image: url(@{urlImagesClient}/Sprites/@{theme}-@{dim}.png);
+	background-position: (@offX * @dim * 1px) (@offY * @dim * 1px);
+}
