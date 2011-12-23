@@ -3,11 +3,21 @@
 class spLessCss extends dmFrontUser {
 	
 	//fonction d'inialisation de la page (permet de centraliser les fonctionns appelées)
-	public static function pageInit() {
-		$pageOptions = self::pageTemplateGetOptions();
+	public static function pageInit($optionsCustom = array()) {
+		//Récupération des options de la page (avec fusion des options personnalisées)
+		$pageOptions = self::pageTemplateGetOptions($optionsCustom);
 		
-		//génération des sprites
-		if ($pageOptions['idDev']) self::spriteInit();
+		//action à effectuer uniquement en DEV
+		if ($pageOptions['idDev']) {
+			
+			//génération des sprites
+			self::spriteInit();
+		
+			//affichage du widget de DEBUG du framework
+			echo dm_get_widget('sidSPLessCss', 'debug', array());
+		}
+		
+		return $pageOptions;
 	}
 		
 	//génération de toutes les sprites dans toutes les dimensions

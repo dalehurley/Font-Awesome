@@ -16,16 +16,9 @@
 $pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' => 'customTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 $pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 
-//Récupération des options de la page (avec fusion des options personnalisées)
-$pageOptions = spLessCss::pageTemplateGetOptions($pageOptionsCustom);
-
-//affichage du widget de DEBUG du framework
-if ($pageOptions['idDev']) echo dm_get_widget('sidSPLessCss', 'debug', array());
-
-//Fonction d'initalisation de la page
-spLessCss::pageInit();
+//Initialisation de la page et récupération des options de la page (avec fusion des options personnalisées)
+$pageOptions = spLessCss::pageInit($pageOptionsCustom);
 ?>
-
 <div id="dm_page" data-role="page">
 	<div id="dm_page_inner">
 		
