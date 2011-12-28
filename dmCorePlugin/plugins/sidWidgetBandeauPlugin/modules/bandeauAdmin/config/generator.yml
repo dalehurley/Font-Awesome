@@ -27,8 +27,8 @@ generator:
           credentials: [ super_admin ]  # pour ne pas faire apparaitre le bouton "enregister et retour à la liste" dans le bandeau du haut quand on n'a pas la permission SUPER_ADMIN
         _save_and_next:
           credentials: [ super_admin ]
-#        _save_and_add:
-#          credentials: [ super_admin ]
+        _save_and_add:
+          credentials: [ super_admin ]
 
       fields:
         is_active:
@@ -73,8 +73,8 @@ generator:
           - is_active
           - debut_date
           - fin_date
-          - created_at
-          - updated_at
+#          - created_at
+#          - updated_at
         sort:
           - position
           - asc
@@ -87,8 +87,8 @@ generator:
           - is_active
           - debut_date
           - fin_date
-          - created_at
-          - updated_at
+#          - created_at
+#          - updated_at
       form:
         
         display:
