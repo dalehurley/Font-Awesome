@@ -15,7 +15,6 @@ generator:
       list:
         display:
           - '=title'
-          - sid_bandeau_list
           - is_active
           - created_at
           - updated_at
@@ -24,7 +23,7 @@ generator:
           - asc
         table_method: getAdminListQuery
         table_count_method: ~
-        sortable: true
+        sortable: false
       filter:
         display:
           - title
@@ -33,8 +32,8 @@ generator:
           - updated_at
       form:
         display:
-          'Le groupe de bandeaux': [title, is_active]
-          'Mes bandeaux': [sid_bandeau_list]
+          'Nom du groupe': [title, is_active]
+          'La page du groupe': [dm_page_id]
         class: SidGroupeBandeauAdminForm
         fields: {  }
       edit: ~
