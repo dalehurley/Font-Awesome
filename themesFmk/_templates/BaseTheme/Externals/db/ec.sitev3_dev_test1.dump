@@ -601,18 +601,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_groupe_bandeau` WRITE;
 /*!40000 ALTER TABLE `sid_groupe_bandeau` DISABLE KEYS */;
-INSERT INTO `sid_groupe_bandeau` (`id`, `is_active`, `created_at`, `updated_at`, `position`) VALUES (1,1,'2011-09-08 02:08:26','2011-10-12 11:56:19',-1),(2,1,'2011-09-08 02:08:34','2011-09-08 02:08:34',-2),(3,1,'2011-09-08 02:08:48','2011-09-14 19:57:49',-3),(4,1,'2011-09-08 02:09:43','2011-09-08 02:09:43',-4),(5,1,'2011-09-08 06:42:22','2011-09-08 06:42:22',-5),(6,1,'2011-09-08 06:45:21','2011-09-08 06:45:21',-6),(7,1,'2011-09-08 06:45:43','2011-09-08 06:45:43',-7),(8,1,'2011-09-19 16:29:07','2011-09-19 16:29:07',-8);
+INSERT INTO `sid_groupe_bandeau` (`id`, `is_active`, `created_at`, `updated_at`, `dm_page_id`, `title`) VALUES (1,1,'2011-12-21 16:26:07','2011-12-21 16:26:07',1,'Le bandeau de la page d\'accueil'),(2,1,'2011-12-21 16:26:55','2011-12-21 16:26:55',1595,'Le bandeau de la page de missions'),(3,1,'2011-12-21 16:27:33','2011-12-21 16:27:33',1658,'Le bandeau des pages du cabinet'),(4,1,'2011-12-21 16:28:21','2011-12-21 16:28:21',6290,'Le bandeau des pages fiscal'),(5,1,'2011-12-21 16:28:50','2011-12-21 16:28:50',6293,'Le bandeau des pages multimédia'),(6,1,'2011-12-21 16:29:31','2011-12-21 16:29:31',6555,'Le bandeau des pages actualités du cabinet');
 /*!40000 ALTER TABLE `sid_groupe_bandeau` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `sid_groupe_bandeau_translation`
---
-
-LOCK TABLES `sid_groupe_bandeau_translation` WRITE;
-/*!40000 ALTER TABLE `sid_groupe_bandeau_translation` DISABLE KEYS */;
-INSERT INTO `sid_groupe_bandeau_translation` (`id`, `title`, `lang`) VALUES (1,'Accueil','fr'),(2,'Défaut','fr'),(3,'Missions','fr'),(4,'Le Cabinet','fr'),(5,'Equipe','fr'),(6,'Fiscal','fr'),(7,'Juridique','fr'),(8,'Social','fr');
-/*!40000 ALTER TABLE `sid_groupe_bandeau_translation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
