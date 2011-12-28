@@ -16,4 +16,13 @@
 		//@gridDebugBgc(#8b8);
 	}
 	*/
+	
+	//Suppression de la transition lors du passage en mode paysage
+	.csstransitions {
+		//on introduit un décalage temporel dans la réorganisation de l'interface
+		#dm_sidebar_right {
+			//@transitionDelay(.2s);
+			@transitionNone();
+		}
+	}
 }

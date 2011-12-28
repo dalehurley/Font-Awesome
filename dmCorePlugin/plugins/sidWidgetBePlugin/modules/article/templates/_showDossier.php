@@ -10,8 +10,8 @@ $xml = sfConfig::get('app_rep-local') .
 $xsl = dm::getDir() . '/dmCorePlugin/plugins/sidWidgetBePlugin/lib/xsl/' . sfConfig::get('app_xsl-article');
 
 
-$section = $article->getSectionPageName();
-$rubrique = $article->getRubriquePageName();
+$section = $article->getSectionPageTitle();
+$rubrique = $article->getRubriquePageTitle();
 
 $return = '';
 

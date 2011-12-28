@@ -10,12 +10,14 @@
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/SearchForm/_SearchForm.less";
 
-.dm_layout_top {
+#dm_header {
 	.search_form {
 		//permet d'étendre la zone en débordement de la page
 		margin-left: -100%;
 		margin-right: -100%;
+		width: auto;
 		margin-bottom: @gridBaseline;
+		padding: 0;
 		
 		//ajout fond
 		background-color: @colorCouleur2Fonce;
@@ -67,16 +69,31 @@
 
 //hack webkit (Safari et Chrome)
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	.dm_layout_top .search_form input.query { padding-bottom: 4px; }
+	#dm_header .search_form input.query { padding-bottom: 4px; }
 }
 
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletLandscape() {
-	.dm_layout_top .search_form input.query { padding-bottom: 3px; }
+	#dm_header {
+		.search_form {
+			
+			//correction du bug sur le champ de saisi
+			input.query { padding-bottom: 3px; }
+		}
+	}
 }
 
 @templateMedia_TabletPortrait(){
-	.dm_layout_top .search_form input.query { padding-bottom: 3px; }
+	#dm_header {
+		.search_form {
+			.dm_widget_inner {
+				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+			}
+			
+			//correction du bug sur le champ de saisi
+			input.query { padding-bottom: 3px; }
+		}
+	}
 }
 
 //importation des requêtes média

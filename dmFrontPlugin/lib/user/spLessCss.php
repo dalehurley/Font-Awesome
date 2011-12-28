@@ -2,30 +2,88 @@
 
 class spLessCss extends dmFrontUser {
 	
-	//test d'utilisation des fonctions intégrées à less
-	public static function testLessExec() {
-		$lessInitURL = sfConfig::get('sf_web_dir') . "/theme/less/_framework/SPLessCss/Config/_ConfigInit.less";
-
-		$infoTest = lessc::cexecute($lessInitURL);
-		$infoTest2 = sfLESS::getConfig();
-		$infoTest3 = sfLess::getCompileResults();
-		$infoTest4 = sfLESSUtils::getCssHeader();
-		//$getImportDir = $test->importDir;
-		print_r($infoTest4);
+	//récupération du layout par défaut du template sélectionné
+	public static function pageSuccessTemplateInclude() {
+		//Ciblage du layout de page par défaut du template sélectionné
+		$pageSuccessTemplateInclude = sfConfig::get('dm_core_dir') . '/../themesFmk/_templates/' . self::getLessParam('mainTemplate') . '/Externals/php/layouts/pageSuccessTemplate.php';
 		
+		//on retourne un tableau contenant 3 clefs
+		$includeInfo = array(
+							'isFile'	=>	is_file($pageSuccessTemplateInclude),
+							'errorMsg'	=>	'Le fichier "' . $pageSuccessTemplateInclude . '" est introuvable',
+							'include'	=>	$pageSuccessTemplateInclude
+						);
 		
-		//test de compilation personnalisée
-		$inputLess = sfConfig::get('sf_web_dir') . "/theme/less/widgetMainLessDebug.less";
-		$outputCss = sfConfig::get('sf_web_dir') . "/theme/css/widgets/testExportMainLessDebug.css";
+		return $includeInfo;
+	}
+	
+	//options de page par défaut
+	public static function pageTemplateGetOptions($optionsCustom = array()) {
 		
-		/*
-		try {
-			lessc::ccompile($inputLess, $outputCss);
+		//récupération du gabarit de la page
+		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
+		if ($currentGabarit == 'default' || $currentGabarit == '') {
+			$currentGabarit = self::getLessParam('templateGabarit');
 		}
-		catch(exception $ex) {
-			exit($ex->getMessage());
-			print_r($ex);
-		}*/
+		
+		//composition des options de page par défault
+		$pageTemplateOptionsDefault = array(
+							'idDev'				=> ((sfConfig::get('sf_environment') == 'dev') ? true : false),
+							'currentGabarit'	=> $currentGabarit,
+							'areas'				=> array(
+								'dm_page_content'		=>	array(
+														'areaName'	=> 'content',
+														'isActive'	=> true,
+														'isPage'	=> true,
+														'clearfix'	=> false
+													),
+								'dm_sidebar_left'	=>	array(
+														'areaName'	=> 'left',
+														'isActive'	=> (($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-left') ? true : false),
+														'isPage'	=> false,
+														'clearfix'	=> false
+													),
+								'dm_sidebar_right'	=>	array(
+														'areaName'	=> 'right',
+														'isActive'	=> (($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-right') ? true : false),
+														'isPage'	=> false,
+														'clearfix'	=> false
+													)
+												)
+							);
+		
+		//on fusionne des éventuelles propriétés personnalisées injectées dans la fonction
+		$pageOptions = (count($optionsCustom) === 0) ? $pageTemplateOptionsDefault : self::pageTemplateCustomOptions($pageTemplateOptionsDefault, $optionsCustom);
+		
+		//retour de la valeur
+		return $pageOptions;
+	}
+	
+	//fonction d'insertion de nouvelle Area dans le pageTemplateSuccess
+	public static function pageTemplateCustomOptions($options = array(), $customOptions = array()) {
+		//on parcourt toutes les zones à insérer
+		foreach ($customOptions['areas'] as $id => $area) {
+			//on vérifie si un index est définit pour la zone, sinon on la rajoute à la fin
+			if(isset($area['index'])) {
+				//récupération de l'index d'insertion
+				$insertIndex = $area['index'];
+				
+				//extraction des portions de Areas se trouvant avant et après l'index
+				$firstPart = array_slice($options['areas'], 0, $insertIndex, true);
+				$lastPart = array_slice($options['areas'], $insertIndex, (count($options['areas']) - $insertIndex), true);
+				
+				//assemblage dans un tableau temporaire de la zone à rajouter
+				$rajout[$id] = $area;
+				
+				//assemblage du tout
+				$options['areas'] = array_merge($firstPart,$rajout,$lastPart);
+				
+			}
+		}
+		//une fois que l'on a vérifié toutes les zones à insérer on fusionne les modifications de zones éventuellement présentes
+		$options = array_replace_recursive($options, $customOptions);
+		
+		return $options;
 	}
 
 	//calcul de la valeur finale
@@ -89,9 +147,9 @@ class spLessCss extends dmFrontUser {
 		//on dégage les pourcentages de façon manuelle
 		$variableValue = str_replace('%', '', $variableValue);
 
-		$detectisNumeric = spLessCss::lessIsNumeric($variableValue);
+		$detectisNumeric = self::lessIsNumeric($variableValue);
 		if($detectisNumeric>0){
-			$variableValue = spLessCss::lessCalculator($variableValue);
+			$variableValue = self::lessCalculator($variableValue);
 		}else{
 			//À améliorer éventuellement : suppression des crochets dans les string contenant des variables
 			$variableValue = str_replace('{', '', $variableValue);
@@ -137,12 +195,12 @@ class spLessCss extends dmFrontUser {
 				
 				if($detectSubVariableRecursive > 0){
 					//on relance la fonction de façon récursive
-					$variableValue = spLessCss::parseLessVariable($variableValue, $parameterValue);
+					$variableValue = self::parseLessVariable($variableValue, $parameterValue);
 				}
 			}
 		}
 		//on supprime toutes les unités
-		$variableValue = spLessCss::parseLessValue($variableValue);
+		$variableValue = self::parseLessValue($variableValue);
 
 		return $variableValue;
 	}
@@ -212,7 +270,7 @@ class spLessCss extends dmFrontUser {
                 if ($detectVariable > 0) {
                     $options['type'] = 'variable';
 					
-					$lessParserParamValue = spLessCss::parseLessVariable($lessParserParamValue, $parameterValue);
+					$lessParserParamValue = self::parseLessVariable($lessParserParamValue, $parameterValue);
 					
                     //remplissage du tableau de valeurs
                     $parameterValue['variable'][$lessParserParamName] = $lessParserParamValue;
@@ -226,7 +284,7 @@ class spLessCss extends dmFrontUser {
                     $compoImportURL = sfConfig::get('sf_web_dir') . '/theme/less/' . $lessParserParamValue;
 
                     //appel récursif de la fonction
-                    $parameterValue = spLessCss::loadLessParameters(array(
+                    $parameterValue = self::loadLessParameters(array(
                                 //'type'		=> 'import',
                                 'lessFile' => $compoImportURL
                                     ), $parameterValue
@@ -244,7 +302,7 @@ class spLessCss extends dmFrontUser {
     //fonction permettant de sortir la valeur d'un paramÃ¨tre less
     public static function getLessParam($variable = '') {
         $lessInitURL = sfConfig::get('sf_web_dir') . "/theme/less/_framework/SPLessCss/Config/_ConfigInit.less";
-        $lessVariableImport = spLessCss::loadLessParameters(array(
+        $lessVariableImport = self::loadLessParameters(array(
                     'lessFile' => $lessInitURL
                 ));
 
@@ -256,7 +314,7 @@ class spLessCss extends dmFrontUser {
 
         $lessInitURL = sfConfig::get('sf_web_dir') . "/theme/less/_framework/SPLessCss/Config/_ConfigInit.less";
 
-        $lessVariableImport = spLessCss::loadLessParameters(array(
+        $lessVariableImport = self::loadLessParameters(array(
                     'lessFile' => $lessInitURL
                 ));
 
@@ -274,8 +332,8 @@ class spLessCss extends dmFrontUser {
 		//récupération des valeurs de dimension de la grille
 		$nbreCols = intval($nbreCols);
 		$padSub = intval($padSub);
-		$gridColWidth = intval(spLessCss::getLessParam('gridColWidth'));
-		$gridGutter = intval(spLessCss::getLessParam('gridGutter'));
+		$gridColWidth = intval(self::getLessParam('gridColWidth'));
+		$gridGutter = intval(self::getLessParam('gridGutter'));
 		//calcul des paramètres
 		$elementWidth = $gridColWidth * $nbreCols + $gridGutter * ($nbreCols -1) - $padSub;
 
@@ -287,7 +345,7 @@ class spLessCss extends dmFrontUser {
 		//récupération des valeurs de dimension de la grille
 		$nbreLine = intval($nbreLine);
 		$padSub = intval($padSub);
-		$gridBaseline = intval(spLessCss::getLessParam('gridBaseline'));
+		$gridBaseline = intval(self::getLessParam('gridBaseline'));
 		//calcul des paramètres
 		$elementHeight = ($gridBaseline * $nbreLine) - $padSub;
 
@@ -299,13 +357,13 @@ class spLessCss extends dmFrontUser {
 		//récupération du gabarit courant
 		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
 		if ($currentGabarit == 'default' || $currentGabarit == '') {
-			$currentGabarit = spLessCss::getLessParam('templateGabarit');
+			$currentGabarit = self::getLessParam('templateGabarit');
 		}
 
 		//récupération des valeurs de colonnes
-		$gridCol = spLessCss::lessCalculator(spLessCss::getLessParam('gridCol'));
-		$gridCol_SidebarLeft = spLessCss::lessCalculator(spLessCss::getLessParam('gridCol_SidebarLeft'));
-		$gridCol_SidebarRight = spLessCss::lessCalculator(spLessCss::getLessParam('gridCol_SidebarRight'));
+		$gridCol = self::lessCalculator(self::getLessParam('gridCol'));
+		$gridCol_SidebarLeft = self::lessCalculator(self::getLessParam('gridCol_SidebarLeft'));
+		$gridCol_SidebarRight = self::lessCalculator(self::getLessParam('gridCol_SidebarRight'));
 		
 		if($currentGabarit === 'sidebar-left'){
 			$gridCol_Content = $gridCol - $gridCol_SidebarLeft;
@@ -319,7 +377,7 @@ class spLessCss extends dmFrontUser {
 			$gridCol_Content = $gridCol;
 		}
 		//calcul de la dimension du contenu
-		$contentWidth = spLessCss::gridGetWidth($gridCol_Content);
+		$contentWidth = self::gridGetWidth($gridCol_Content);
 		
 		return $contentWidth;
 	}

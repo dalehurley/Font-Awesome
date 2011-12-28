@@ -10,5 +10,7 @@ if (count($articles)) { // si nous avons des actu articles
 
     }
     echo _close('ul');
+    
+  
 }
 

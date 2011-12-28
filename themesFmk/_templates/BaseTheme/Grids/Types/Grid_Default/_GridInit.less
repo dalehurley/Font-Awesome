@@ -6,12 +6,28 @@
 
 //TAILLE PAR DEFAUT : TabletLandscape
 
-#dm_main {
-	
+
+//GESTION DE L'ORDRE DE PRIORITÉ DES PROFONDEURS D'AFFICHAGE DANS CE SYSTÈME DE GRILLE (du plus haut au plus bas)
+//On intercale 100 entre chaque profondeur de façon à pouvoir rajouter des profondeurs intermédiaires personnalisées dans le template
+#dm_page {
+	#dm_custom_top { z-index: 450; }
+	#dm_custom_bottom { z-index: 150; }
 }
 
 #dm_main_inner {
 	@gridSiteWidth(@gridScreen; @gridCol; @gridPadding);
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#dm_custom_bottom { clear : both; }
+
+//rajout des transitions pour le changement de résolution
+.csstransitions {
+	#dm_sidebar_right {
+		@transition(width, margin-left, margin-right);
+	}
+	#dm_main_inner {
+		@transitionCompress(width);
+	}
 }

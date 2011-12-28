@@ -17,13 +17,13 @@ abstract class PluginSidArticle extends BaseSidArticle {
      * @return string section's page's name of the article
      * 
      */
-    public function getSectionPageName() {
+    public function getSectionPageTitle() {
         $sectionPage = dmDb::table('DmPage')
                 ->createQuery('p')
                 ->where('p.module = ? and action=? and record_id=?', array('section', 'show', $this->getSection()->id))
                 ->limit(1)
                 ->execute();
-        return $sectionPage[0]->name;
+        return $sectionPage[0]->title;
     }
     
      /**
@@ -31,13 +31,13 @@ abstract class PluginSidArticle extends BaseSidArticle {
      * @return string rubrique's page's name of the article
      * 
      */
-    public function getRubriquePageName() {
+    public function getRubriquePageTitle() {
         $rubriquePage = dmDb::table('DmPage')
                 ->createQuery('p')
                 ->where('p.module = ? and action=? and record_id=?', array('rubrique', 'show', $this->getSection()->getRubrique()->id))
                 ->limit(1)
                 ->execute();
-        return $rubriquePage[0]->name;
+        return $rubriquePage[0]->title;
     }
 
 }
