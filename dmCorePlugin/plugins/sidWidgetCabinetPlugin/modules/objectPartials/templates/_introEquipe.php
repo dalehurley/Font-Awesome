@@ -14,7 +14,7 @@ $html ="";
 			$html .= _open('div.wrapper');
 				$html .= _open('div.subWrapper');
                                         $html .= _tag('span.responsableTitle itemprop="responsableTitle"', __('Responsable in').' '.$nomRubrique[$equipe->id]).'<br />';
-					$html .= _tag('span.jobTitle itemprop="jobTitle"', $equipe->getStatut()).'<br />';
+//					$html .= _tag('span.jobTitle itemprop="jobTitle"', $equipe->getStatut()).'<br />';
                                         $html .= _tag('span.name itemprop="name"', $equipe->getTitle());
                                         $html .= '<br />';
                                         $html .= _open('span.telephone');
