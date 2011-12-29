@@ -651,6 +651,32 @@ class baseEditorialeTools {
 
         exec($command, $output);
     }
+    
+        /*
+     * récupération des fichiers images de LEA
+     */
+
+    public static function recupFilesDessins() {
+        // récupération des articles de la rubrique effectuée par la commande :
+        // -q : quiet
+        // -A.xml : que les fichiers XML
+        // -c :  en continu, reprise de téléchargement précédent
+        // -r : recursive
+        // -nH : plus de dossier par défaut
+        // --cut-dirs=1 : on supprime le premier dossier pour l'arbo de copie (ie: flux_sid)
+        // -N : estampille Timestamp, verifie date
+        // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine 
+        // récupération des images des articles :
+        if (!is_dir(sfConfig::get('app_rep-local-dessin-semaine'))) {
+            mkdir(sfConfig::get('app_rep-local-dessin-semaine'));
+        }
+        // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine 
+        $nbDirToCut = substr_count(sfConfig::get('app_ftp-dessin-rep'), '/');
+
+        $command = "wget -A.jpg -c -N -r -nH -nv --cut-dirs=" . $nbDirToCut . " ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-password')) . "@" . sfConfig::get('app_ftp-dessin-host') . "/" . sfConfig::get('app_ftp-dessin-rep') . " -P " . sfConfig::get('app_rep-local-dessin-semaine');
+
+        exec($command, $output);
+    }
 
     /*
      * récupération des articles de LEA
@@ -714,8 +740,10 @@ class baseEditorialeTools {
                               }
                              */
 
-
                             if ($xml->load($xmlFile)) {
+                                // traitement des dossiers : 
+                                // on recherche le dataType du xml en cours
+                                $dataType = xmlTools::getLabelXml($xml, "DataType");
 
                                 $filename = $xml->getElementsByTagName('Code')->item(0)->nodeValue; // l'id LEA est aussi le nom du fichier XML
                                 $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue;  //titre
@@ -752,6 +780,15 @@ class baseEditorialeTools {
                                     $article->setSectionId($section->id);
                                     $article->setFilename($filename);
                                     $article->createdAt = $date_publication;
+
+                                    // traitement des dossiers : 
+                                    // - on met article.is_dossier à true 
+                                    if ($dataType == 'DOSSIER') {
+                                        $article->isDossier = true;
+                                    } else {
+                                        $article->isDossier = false;
+                                    }
+
                                     $article->save();
                                     // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
                                     $article->updatedAt = $date_update;
@@ -820,11 +857,13 @@ class baseEditorialeTools {
                             $sidArticle->setIsActive(false);
                             $sidArticle->save();
                             $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article désactivé'] = $sidArticle->filename;
+                            $j++;
                         }
                     } elseif (!$sidArticle->getIsActive()) {
                         $sidArticle->setIsActive(true);
                         $sidArticle->save();
                         $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article réactivé'] = $sidArticle->filename;
+                        $j++;
                     } else {
                         //$return[$j][$rubrique . ' - ' . $k . ' - Article déjà actif'] = $sidArticle->filename;
                     }
@@ -834,6 +873,19 @@ class baseEditorialeTools {
             }
         }
 
+        // traitement des dossiers : 
+        // Purge des articles présents dans une section contenant un dossier
+        // on considère qu'une section contenant un article de datatype=dossier, donc ayant is dossier à true, ne contient que des dossiers, il faut donc supprimer les articles = ceux qui ont is_dossier à false
+        // les articles ayant is_dossier à true
+        $dossiers = Doctrine_Core::getTable('SidArticle')->findByIsDossier(true);
+        foreach ($dossiers as $dossier) {
+            $articles = Doctrine_Core::getTable('SidArticle')->findByIsDossierAndSectionId(false,$dossier->sectionId);
+            foreach ($articles as $article) {
+                $article->delete();
+                $return[$j]['section '.$dossier->sectionId. ' contient un dossier']= 'Articles supprimés de la base';
+            }
+        }
+        
         return $return;
     }
 
