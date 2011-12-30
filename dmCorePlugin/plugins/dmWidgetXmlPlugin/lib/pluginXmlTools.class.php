@@ -1,6 +1,6 @@
 <?php
 
-class xmlTools {
+class pluginXmlTools {
 
     public static function dom2array($root) {
         $result = array();

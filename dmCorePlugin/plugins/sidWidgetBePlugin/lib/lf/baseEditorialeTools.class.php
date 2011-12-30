@@ -412,7 +412,8 @@ class baseEditorialeTools {
     }
 
     /*
-     * Replacement des name/slug/title et description des dmPages
+     * Replacement des name/slug/title et description des dmPages en fonction du tableau présent dans app.yml
+     * 
      */
 
     public static function renameDmPages() {
@@ -743,7 +744,7 @@ class baseEditorialeTools {
                             if ($xml->load($xmlFile)) {
                                 // traitement des dossiers : 
                                 // on recherche le dataType du xml en cours
-                                $dataType = xmlTools::getLabelXml($xml, "DataType");
+                                $dataType = xmlTools::getLabelXml($xmlFile, "DataType");
 
                                 $filename = $xml->getElementsByTagName('Code')->item(0)->nodeValue; // l'id LEA est aussi le nom du fichier XML
                                 $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue;  //titre
@@ -813,6 +814,14 @@ class baseEditorialeTools {
 
                                         $article->updatedAt = $date_update;
 
+                                        // traitement des dossiers : 
+                                        // - on met article.is_dossier à true 
+                                        if ($dataType == 'DOSSIER') {
+                                            $article->isDossier = true;
+                                        } else {
+                                            $article->isDossier = false;
+                                        }
+
                                         $article->save();
 
                                         //$return[$j]['Article ' . $filename] = 'Mise à jour dans la base ->' . (microtime(true) - $beginTime) . ' s';
@@ -837,8 +846,7 @@ class baseEditorialeTools {
         }
         $return[0]['Article Insérés dans la base'] = $nbInsert;
         $return[1]['Article MAJ dans la base'] = $nbMaj;
-        $return[$j]['Tous les articles'] = 'Mise à jour / insertion dans la base ->' . (microtime(true) - $beginTimeRubriques) . ' s';
-
+        
         // VERIFICATION SI ARTICLE DANS LA BDD SONT PRESENTS en XML, et désactivation si absent
         foreach ($bdRubriques as $bdRubrique) {
 
@@ -878,13 +886,34 @@ class baseEditorialeTools {
         // on considère qu'une section contenant un article de datatype=dossier, donc ayant is dossier à true, ne contient que des dossiers, il faut donc supprimer les articles = ceux qui ont is_dossier à false
         // les articles ayant is_dossier à true
         $dossiers = Doctrine_Core::getTable('SidArticle')->findByIsDossier(true);
+        $listSectionId = array();
         foreach ($dossiers as $dossier) {
-            $articles = Doctrine_Core::getTable('SidArticle')->findByIsDossierAndSectionId(false,$dossier->sectionId);
+            // récupération des sectionsId dans un tableau
+            $listSectionId[] = $dossier->sectionId;
+        }
+        // purge des doublons d'id section
+        $listSectionId = array_unique($listSectionId);
+        
+        // suppression des articles
+        foreach ($listSectionId as $sectionId) {
+            $articles = Doctrine_Core::getTable('SidArticle')->findByIsDossierAndSectionId(false, $sectionId);
+            $section = Doctrine_Core::getTable('SidSection')->findOneById($sectionId);
+            $nbarticles = 0;
             foreach ($articles as $article) {
                 $article->delete();
-                $return[$j]['section '.$dossier->sectionId. ' contient un dossier']= 'Articles supprimés de la base';
+                $nbarticles++;
             }
+            $return[]['La section ' . $section . ' contient un article (dataType=DOSSIER) -> '] = $nbarticles . ' articles (dataType=ARTICLE) supprimés de la base de données';
         }
+        
+        // Constat final
+        $articles = Doctrine_Core::getTable('SidArticle')->findByIsDossier(false);
+        $return[]['Nombre articles'] = $articles->count();
+        $dossiers = Doctrine_Core::getTable('SidArticle')->findByIsDossier(true);
+        $return[]['Nombre dossiers'] = $dossiers->count();
+        
+        // temps d'execution
+        $return[]['Tous les articles'] = 'Mise à jour / insertion dans la base ->' . (microtime(true) - $beginTimeRubriques) . ' s';
         
         return $return;
     }

@@ -14,9 +14,9 @@ all:
   rep-local-json: /data/www/_lib/baseEditoriale/actualitesLeaJson/
   rep-local-images: /data/www/_lib/baseEditoriale/_images/
   
-  ftp-dessin-host: 91.194.100.233
-  ftp-dessin-login: AdminPoitiers
-  ftp-dessin-password: zorglub             
+  ftp-dessin-host: 91.194.100.237
+  ftp-dessin-login: Sid_presse
+  ftp-dessin-password: #  '#AM86np3qD'           uniquement pour la BaseEditoriale  
   ftp-dessin-rep: sitesexpert-infos/_infos/_photos/  
   
   rep-local-dessin-semaine: /data/www/_lib/baseEditoriale/dessinSemaine/
