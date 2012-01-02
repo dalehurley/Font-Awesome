@@ -2,7 +2,7 @@
 // vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
 if (count($articles)) { // si nous avons des actu articles
 
-    echo _tag('h2.title', $titreBloc);
+    echo _tag('h4.title', $titreBloc);
     echo _open('ul.elements');
     foreach ($articles as $article){
 

@@ -6,7 +6,10 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'title'
+            'title',
+            'effect',
+            'filDActu',
+            'titreLien'
         ));
     }
 
@@ -46,11 +49,21 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
             $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
         }
 
+        if($vars['filDActu'] == false){
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'dessinSemaine', array(
                     'rubriqueTitle' => $vars['title'], // pour avoir le TITRE de la page 
                     'effect' => $vars['effect'], // pour avoir le TITRE de la page 
                     'dessins' => $dessins
                 ));
+        }
+        else {
+            reset($dessins);
+            return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'blocDessinSemaine', array(
+                    'rubriqueTitle' => $vars['title'], // pour avoir le TITRE de la page 
+                    'dessins' => current($dessins),
+                    'titreLien' => $vars['titreLien']
+                ));
+        }
     }
 
 }

@@ -30,8 +30,6 @@ generator:
       fields:
         is_active:
           label: Active
-        on_home:
-          label: "Publié sur la page d'accueil"
       list:
         batch_actions:
           delete:
@@ -43,7 +41,6 @@ generator:
         display:
           - '=title'
           - is_active
-          - on_home
           - created_at
           - updated_at
 #          - text
@@ -57,13 +54,12 @@ generator:
         display:
           - title
           - is_active
-          - on_home
           - created_at
           - updated_at
 #          - text
       form:
         display:
-          Type de l'offre: [is_active, on_home]
+          Type de l'offre: [is_active]
           Titre de l'offre: [title]
           Text: [text]
         class: SidCabinetRecrutementAdminForm

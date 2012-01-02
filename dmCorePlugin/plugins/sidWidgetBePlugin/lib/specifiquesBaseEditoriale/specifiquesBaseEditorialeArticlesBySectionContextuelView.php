@@ -94,7 +94,6 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
 
                 $articleId = dmDb::table('SidArticle')->findOneById($dmPage->record_id);
                 $rubrique = dmDb::table('SidRubrique')->findOneById($articleId->Section->rubrique_id);
-
                 foreach ($vars['section'] as $section) {
 
                     $sectionPages = Doctrine_Query::create()->from('SidSection sa')
@@ -102,16 +101,16 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                             ->orderBy('sa.updated_at DESC')
                             ->limit(1)
                             ->execute();
-
                     if ($sectionPages[0]->rubrique_id == $rubrique->id) {
                         $articles = Doctrine_Query::create()->from('SidArticle sa')
                                 ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $section))
                                 ->orderBy('sa.updated_at DESC')
                                 ->limit($vars['nbArticle'])
                                 ->execute();
+                        break;
                     }
-                    else
-                        $articles = array();
+//                    else
+//                        $articles = array();
                 }
                 $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
                 $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section', $dmPage->action, $articleId->section_id);
@@ -123,7 +122,6 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                 $sectionName = "";
                 break;
         }
-
 
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'articlesBySectionContextuel', array(
                     'articles' => $articles,
