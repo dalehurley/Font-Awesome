@@ -34,36 +34,16 @@ class spLessCss extends dmFrontUser {
 		$output_L = self::spriteGenerate($spriteListing, 'L');
 		$output_X = self::spriteGenerate($spriteListing, 'X');
 		
-		//chemin vers le fichier de config des sprites
-		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites/_SpriteGenerate.less';
+		//composition des définitions de fichiers
+		$lessDefinitions = $output_S . PHP_EOL;
+		$lessDefinitions.= $output_M . PHP_EOL;
+		$lessDefinitions.= $output_L . PHP_EOL;
+		$lessDefinitions.= $output_X . PHP_EOL;
 		
-		//création du système de fichier
-		$fs = new sfFilesystem();
-		
-		//suppression préventive du fichier
-		if(is_file($urlSpriteGenerate)) $fs->remove($urlSpriteGenerate);
-		
-		//création du fichier
-		$fs->touch($urlSpriteGenerate);
-		
-		//ajout des données de copyright dans le fichier
-		$headerInfo = "// _SpriteGenerate.less" . PHP_EOL;
-		$headerInfo.= "// v1.0" . PHP_EOL;
-		$headerInfo.= "// Last Updated : " . date('Y-m-d H:i') . PHP_EOL;
-		$headerInfo.= "// Copyright : SID Presse" . PHP_EOL;
-		$headerInfo.= "// Author : Arnaud GAUDIN" . PHP_EOL;
-		
-		//composition des données contenues dans le fichier
-		$fileContent = $headerInfo . PHP_EOL;
-		$fileContent.= $output_S . PHP_EOL;
-		$fileContent.= $output_M . PHP_EOL;
-		$fileContent.= $output_L . PHP_EOL;
-		$fileContent.= $output_X . PHP_EOL;
-		
-		//écriture du fichier
-		file_put_contents($urlSpriteGenerate, $fileContent);
+		//génération du fichier less de sortie
+		self::spriteLessGenerate($lessDefinitions);
 	}
-
+	
 	//génération du listing des icônes
 	private static function spriteGetListing() {
 		//emplacement et récupération des thèmes de sprites
@@ -137,6 +117,34 @@ class spLessCss extends dmFrontUser {
 			}
 		}
 		
+	}
+	
+	//génération des appels de la fonctions less de génération des sprites
+	private static function spriteLessGenerate($lessDefinitions = "") {
+		//chemin vers le fichier de config des sprites
+		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites/_SpriteGenerate.less';
+		
+		//création du système de fichier
+		$fs = new sfFilesystem();
+		
+		//suppression préventive du fichier
+		if(is_file($urlSpriteGenerate)) $fs->remove($urlSpriteGenerate);
+		
+		//création du fichier
+		$fs->touch($urlSpriteGenerate);
+		
+		//ajout des données de copyright dans le fichier
+		$headerInfo = "// _SpriteGenerate.less" . PHP_EOL;
+		$headerInfo.= "// v1.0" . PHP_EOL;
+		$headerInfo.= "// Last Updated : " . date('Y-m-d H:i') . PHP_EOL;
+		$headerInfo.= "// Copyright : SID Presse" . PHP_EOL;
+		$headerInfo.= "// Author : Arnaud GAUDIN" . PHP_EOL;
+		
+		//composition des données contenues dans le fichier
+		$fileContent = $headerInfo . PHP_EOL . $lessDefinitions;
+		
+		//écriture du fichier
+		file_put_contents($urlSpriteGenerate, $fileContent);
 	}
 	
 	//génération d'un appel LESS de la fonction de génération de sprite
