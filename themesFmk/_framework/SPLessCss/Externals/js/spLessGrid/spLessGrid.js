@@ -144,7 +144,7 @@
 			switchPositionRight += $('#sfWebDebugBar').outerWidth();
 		}
 		
-		$('body').append('<span id="less-grid-switch">show grid</span>');
+		$('body').append('<span id="less-grid-switch">afficher la grille</span>');
 
 		$('#less-grid-switch').css('right', switchPositionRight);
 		
@@ -164,7 +164,7 @@
 			$.fn.spLessGrid.toggleDisplay(param, true);
 			
 		}, function() {
-			$(this).text('show grid');
+			$(this).text('afficher la grille');
 			$('#less-grid').hide();
 			$('#less-baseline').hide();
 			$(this).attr('rel','off');
