@@ -29,11 +29,13 @@
 @imageFormatWidth_A: 178px;
 @imageFormatHeight_A: 113px;
 
-//Dimensions des sprites par défaut
-@spriteFormat_S: 16px;
-@spriteFormat_M: 32px;
-@spriteFormat_L: 64px;
-@spriteFormat_X: 128px;
+//Dimensions des sprites par défaut (imposé par le format SVG utilisé)
+@spriteFormat: 64px;
+//Déclinaisons à différentes tailles
+@spriteFormat_S: @spriteFormat / 4;
+@spriteFormat_M: @spriteFormat / 2;
+@spriteFormat_L: @spriteFormat;
+@spriteFormat_X: @spriteFormat * 2;
 
 //CONFIGURATION DES POLICES
 // Permet d'afficher la même police sur les différents systèmes d'exploitation.
