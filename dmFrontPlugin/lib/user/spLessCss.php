@@ -29,10 +29,10 @@ class spLessCss extends dmFrontUser {
 		self::spriteReset($spriteListing);
 		
 		//génération des Sprites à différentes résolutions
-		self::spriteGenerate($spriteListing, 0.25);
-		self::spriteGenerate($spriteListing, 0.5);
-		self::spriteGenerate($spriteListing, 1);
-		self::spriteGenerate($spriteListing, 2);
+		self::spriteGenerate($spriteListing, 'S');
+		self::spriteGenerate($spriteListing, 'M');
+		self::spriteGenerate($spriteListing, 'L');
+		self::spriteGenerate($spriteListing, 'X');
 	}
 
 	//génération du listing des icônes
@@ -111,13 +111,18 @@ class spLessCss extends dmFrontUser {
 	}
 	
 	//copie de toutes les icônes et changement des couleurs
-	private static function spriteGenerate($spriteListing = array(), $resizeRatio = 1, $dim = 64){
+	private static function spriteGenerate($spriteListing = array(), $spriteFormat = 'L'){
+		//dimension par défaut des sprites (imposé par le format SVG utilisé)
+		$dimDefault = intval(self::getLessParam('spriteFormat'));
+		//dimension des sprites dans les paramètres du framework (égale à S, M, L ou X)
+		$dimFramework = intval(self::getLessParam('spriteFormat_' . $spriteFormat));
+		
+		//calcul du ratio de redimenssionnement
+		$resizeRatio = $dimFramework / $dimDefault;
+		
 		//calcul de la densité (par défaut résolution de 72dpi)
 		$density = 72 * $resizeRatio;
 		$execDensity = ($resizeRatio != 1) ? ' -density ' . $density : null;
-		
-		//calcul dimension finale de la miniature
-		$dimFinal = $dim * $resizeRatio;
 		
 		//on parcourt les themes
 		foreach ($spriteListing as $theme => $info) {
@@ -184,7 +189,7 @@ class spLessCss extends dmFrontUser {
 					$spriteHeight = $spriteInfo[1];
 					
 					//on vérifie si l'une des dimensions ne correspond pas à la dimenssion de base définie, puis on remultiplie par le ratio général
-					$spriteResizeRatio = $dim / max($spriteWidth, $spriteHeight);
+					$spriteResizeRatio = $dimDefault / max($spriteWidth, $spriteHeight);
 					$spriteDensity = 72 * $spriteResizeRatio * $resizeRatio;
 					if($spriteResizeRatio != 1) {
 						$execSpriteDensity = ' -density ' . $spriteDensity;
@@ -203,7 +208,7 @@ class spLessCss extends dmFrontUser {
 			//Requête : assemblage final
 			if($execConvertDensityGeneral) $execConvertOptions.= $execDensity;
 			$execConvert.= $execConvertOptions . $execConvertAppend;
-			$execConvert.= " -append " . $urlThemeClient . "-" . $dimFinal . ".png";
+			$execConvert.= " -append " . $urlThemeClient . "-" . $spriteFormat . ".png";
 			
 			//Requête : exécution
 			exec($execConvert);
