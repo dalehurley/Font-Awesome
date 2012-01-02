@@ -35,7 +35,7 @@ class spLessCss extends dmFrontUser {
 		$output_X = self::spriteGenerate($spriteListing, 'X');
 		
 		//chemin vers le fichier de config des sprites
-		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_template') . '/Sprites/_SpriteGenerate.less';
+		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites/_SpriteGenerate.less';
 		
 		//création du système de fichier
 		$fs = new sfFilesystem();
@@ -149,8 +149,6 @@ class spLessCss extends dmFrontUser {
 		$output.= '-' . $name;
 		$output.= '-' . $spriteFormat;
 		
-		//séparateur en tabulation
-		//$output.= ' 		';
 		//ouverture fonction LESS
 		$output.= ' { @spriteDefinition(';
 		
