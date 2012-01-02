@@ -29,10 +29,39 @@ class spLessCss extends dmFrontUser {
 		self::spriteReset($spriteListing);
 		
 		//génération des Sprites à différentes résolutions
-		self::spriteGenerate($spriteListing, 'S');
-		self::spriteGenerate($spriteListing, 'M');
-		self::spriteGenerate($spriteListing, 'L');
-		self::spriteGenerate($spriteListing, 'X');
+		$output_S = self::spriteGenerate($spriteListing, 'S');
+		$output_M = self::spriteGenerate($spriteListing, 'M');
+		$output_L = self::spriteGenerate($spriteListing, 'L');
+		$output_X = self::spriteGenerate($spriteListing, 'X');
+		
+		//chemin vers le fichier de config des sprites
+		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_template') . '/Sprites/_SpriteGenerate.less';
+		
+		//création du système de fichier
+		$fs = new sfFilesystem();
+		
+		//suppression préventive du fichier
+		if(is_file($urlSpriteGenerate)) $fs->remove($urlSpriteGenerate);
+		
+		//création du fichier
+		$fs->touch($urlSpriteGenerate);
+		
+		//ajout des données de copyright dans le fichier
+		$headerInfo = "// _SpriteGenerate.less" . PHP_EOL;
+		$headerInfo.= "// v1.0" . PHP_EOL;
+		$headerInfo.= "// Last Updated : " . date('Y-m-d H:i') . PHP_EOL;
+		$headerInfo.= "// Copyright : SID Presse" . PHP_EOL;
+		$headerInfo.= "// Author : Arnaud GAUDIN" . PHP_EOL;
+		
+		//composition des données contenues dans le fichier
+		$fileContent = $headerInfo . PHP_EOL;
+		$fileContent.= $output_S . PHP_EOL;
+		$fileContent.= $output_M . PHP_EOL;
+		$fileContent.= $output_L . PHP_EOL;
+		$fileContent.= $output_X . PHP_EOL;
+		
+		//écriture du fichier
+		file_put_contents($urlSpriteGenerate, $fileContent);
 	}
 
 	//génération du listing des icônes
@@ -110,6 +139,39 @@ class spLessCss extends dmFrontUser {
 		
 	}
 	
+	//génération d'un appel LESS de la fonction de génération de sprite
+	private static function spriteLessDefinition($theme = "Default", $category, $name, $spriteFormat = "L", $offX = 0, $offY = 0) {
+		
+		//composition du nom de la classe
+		$output = '.sprite';
+		if($theme != "Default") $output.= '-' . $theme;
+		$output.= '-' . $category;
+		$output.= '-' . $name;
+		$output.= '-' . $spriteFormat;
+		
+		//séparateur en tabulation
+		//$output.= ' 		';
+		//ouverture fonction LESS
+		$output.= ' { @spriteDefinition(';
+		
+		//ajout paramètres
+		$output.= '"' . $theme . '"';
+		$output.= '; "' . $category . '"';
+		$output.= '; "' . $name . '"';
+		$output.= '; "' . $spriteFormat . '"';
+		$output.= '; @spriteFormat_' . $spriteFormat;
+		$output.= '; ' . $offX;
+		$output.= '; ' . $offY;
+		
+		//fermeture fonction LESS
+		$output.= '); }';
+		
+		//Ajout retour ligne
+		$output.= PHP_EOL;
+		
+		return $output;
+	}
+	
 	//copie de toutes les icônes et changement des couleurs
 	private static function spriteGenerate($spriteListing = array(), $spriteFormat = 'L'){
 		//dimension par défaut des sprites (imposé par le format SVG utilisé)
@@ -123,6 +185,9 @@ class spLessCss extends dmFrontUser {
 		//calcul de la densité (par défaut résolution de 72dpi)
 		$density = 72 * $resizeRatio;
 		$execDensity = ($resizeRatio != 1) ? ' -density ' . $density : null;
+		
+		//génération du code LESS en sortie
+		$output = "";
 		
 		//on parcourt les themes
 		foreach ($spriteListing as $theme => $info) {
@@ -148,8 +213,6 @@ class spLessCss extends dmFrontUser {
 			
 			//on parcourt les catégories du theme
 			foreach ($categories as $category => $sprites) {
-				//incrémentation numéro de catégorie
-				$numCat++;
 				$numSprite = 0;
 				
 				//Requête : ouverture parenthèse
@@ -157,9 +220,6 @@ class spLessCss extends dmFrontUser {
 				
 				//on parcourt les sprites de la catégorie
 				foreach ($sprites as $sprite => $value) {
-					//incrémentation numéro de sprite
-					$numSprite++;
-					
 					//composition des commandes à exécuter
 					$execCopy = "cp ". $value['urlFramework'] . " " . $value['urlClient'];
 					
@@ -199,10 +259,19 @@ class spLessCss extends dmFrontUser {
 					
 					//Requête : ajout nom de fichier
 					$execConvertAppend.= " " . $value['urlClient'];
+					
+					//ajout de l'appel LESS à la variable de sortie
+					$output.= self::spriteLessDefinition($theme, $category, $sprite, $spriteFormat, $numSprite, $numCat);
+					
+					//incrémentation numéro de sprite
+					$numSprite++;
 				}
 				
 				//Requête : append horizontal et fermeture parenthèse
 				$execConvertAppend.= " +append \)";
+				
+				//incrémentation numéro de catégorie
+				$numCat++;
 			}
 			
 			//Requête : assemblage final
@@ -213,6 +282,9 @@ class spLessCss extends dmFrontUser {
 			//Requête : exécution
 			exec($execConvert);
 		}
+		
+		//retour de la valeur de sortie LESS
+		return $output;	
 	}
 	
 	//récupération du layout par défaut du template sélectionné
