@@ -195,6 +195,9 @@
 	
 	$.fn.spLessGrid.initialize = function() {
 		$.fn.spLessGrid.debugTemplate.spLessGrid();
+		
+		//désactivation de l'Ajax pour les transitions de page
+		if($.mobile) $.mobile.ajaxEnabled = false;
 	}
 	
 	//lancement automatique de la fonction lors du chargement de la page (événement différent selon la présence de jQueryMobile)
