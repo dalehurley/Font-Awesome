@@ -880,32 +880,7 @@ class baseEditorialeTools {
                 }
             }
         }
-
-        // traitement des dossiers : 
-        // Purge des articles présents dans une section contenant un dossier
-        // on considère qu'une section contenant un article de datatype=dossier, donc ayant is dossier à true, ne contient que des dossiers, il faut donc supprimer les articles = ceux qui ont is_dossier à false
-        // les articles ayant is_dossier à true
-        $dossiers = Doctrine_Core::getTable('SidArticle')->findByIsDossier(true);
-        $listSectionId = array();
-        foreach ($dossiers as $dossier) {
-            // récupération des sectionsId dans un tableau
-            $listSectionId[] = $dossier->sectionId;
-        }
-        // purge des doublons d'id section
-        $listSectionId = array_unique($listSectionId);
-        
-        // suppression des articles
-        foreach ($listSectionId as $sectionId) {
-            $articles = Doctrine_Core::getTable('SidArticle')->findByIsDossierAndSectionId(false, $sectionId);
-            $section = Doctrine_Core::getTable('SidSection')->findOneById($sectionId);
-            $nbarticles = 0;
-            foreach ($articles as $article) {
-                $article->delete();
-                $nbarticles++;
-            }
-            $return[]['La section ' . $section . ' contient un article (dataType=DOSSIER) -> '] = $nbarticles . ' articles (dataType=ARTICLE) supprimés de la base de données';
-        }
-        
+       
         // Constat final
         $articles = Doctrine_Core::getTable('SidArticle')->findByIsDossier(false);
         $return[]['Nombre articles'] = $articles->count();

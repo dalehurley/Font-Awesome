@@ -48,6 +48,9 @@ if ($doc_xml->load($xml)) {
     $doc_xsl->load($xsl);
     $moteurXslt = new xsltProcessor();
     $moteurXslt->importstylesheet($doc_xsl);
+    //  on envoie un parametre permettant d'afficher l'image
+    $moteurXslt->setParameter('', 'imageAffiche', 'true');
+    
     $output = $moteurXslt->transformToXML($doc_xml);
     $return .= $output;
 } else {
