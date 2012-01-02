@@ -4,28 +4,19 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
-@testDim: 64;
+.sprite-test { float: left; background-color: @colorCouleur3Clair; }
 
-.sprite-navigation-home {
-	float: left;
-	background-color: @colorCouleur3Clair;
-	@spriteDefinition("Default"; "navigation"; "home"; @testDim; 0; 0);
-}
+.sprite-navigation-home-M 		{ @spriteDefinition("Default";	"navigation";		"home";		"M"; @spriteFormat_M; 0; 0); }
+.sprite-navigation-search-M 	{ @spriteDefinition("Default";	"navigation";		"search";	"M"; @spriteFormat_M; 1; 0); }
+.sprite-socialnetwork-global-M 	{ @spriteDefinition("Default";	"socialnetwork";	"global";	"M"; @spriteFormat_M; 0; 1); }
+.sprite-socialnetwork-twitter-M	{ @spriteDefinition("Default";	"socialnetwork";	"twitter";	"M"; @spriteFormat_M; 1; 1); }
 
-.sprite-navigation-search {
-	float: left;
-	background-color: @colorCouleur3Clair;
-	@spriteDefinition("Default"; "navigation"; "home"; @testDim; 1; 0);
-}
+.sprite-navigation-home-L		{ @spriteDefinition("Default";	"navigation";		"home";		"L"; @spriteFormat_L; 0; 0); }
+.sprite-navigation-search-L		{ @spriteDefinition("Default";	"navigation";		"search";	"L"; @spriteFormat_L; 1; 0); }
+.sprite-socialnetwork-global-L	{ @spriteDefinition("Default";	"socialnetwork";	"global";	"L"; @spriteFormat_L; 0; 1); }
+.sprite-socialnetwork-twitter-L	{ @spriteDefinition("Default";	"socialnetwork";	"twitter";	"L"; @spriteFormat_L; 1; 1); }
 
-.sprite-socialnetwork-global {
-	float: left;
-	background-color: @colorCouleur3Clair;
-	@spriteDefinition("Default"; "socialnetwork"; "global"; @testDim; 0; 1);
-}
-
-.sprite-socialnetwork-twitter {
-	float: left;
-	background-color: @colorCouleur3Clair;
-	@spriteDefinition("Default"; "socialnetwork"; "twitter"; @testDim; 1; 1);
-}
+.sprite-navigation-home-X		{ @spriteDefinition("Default";	"navigation";		"home";		"X"; @spriteFormat_X; 0; 0); }
+.sprite-navigation-search-X		{ @spriteDefinition("Default";	"navigation";		"search";	"X"; @spriteFormat_X; 1; 0); }
+.sprite-socialnetwork-global-X	{ @spriteDefinition("Default";	"socialnetwork";	"global";	"X"; @spriteFormat_X; 0; 1); }
+.sprite-socialnetwork-twitter-X	{ @spriteDefinition("Default";	"socialnetwork";	"twitter";	"X"; @spriteFormat_X; 1; 1); }

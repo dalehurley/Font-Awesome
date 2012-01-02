@@ -5,11 +5,12 @@
 // Author : Arnaud GAUDIN
 
 
-@spriteDefinition(@theme: "Default"; @category; @name; @dim: 64; @offX: 0; @offY: 0) {
+@spriteDefinition(@theme: "Default"; @category; @name; @spriteFormat: "L"; @dim: @spriteFormat_L; @offX: 0; @offY: 0) {
 	width: @dim * 1px;
 	height: @dim * 1px;
-	//.svg & { background-image: url(@{urlImagesClient}/Sprites/@{theme}/@{category}-@{name}.svg); }
-	
-	background-image: url(@{urlImagesClient}/Sprites/@{theme}-@{dim}.png);
-	background-position: (@offX * @dim * 1px) (@offY * @dim * 1px);
+	background-image: url(@{urlImagesClient}/Sprites/@{theme}-@{spriteFormat}.png);
+	background-position: (@offX * @dim * -1px) (@offY * @dim * -1px);
+	background-repeat: no-repeat;
+	//remplacement de l'image par du SVG pour les navigateurs modernes
+	.svg & { background-image: url(@{urlImagesClient}/Sprites/@{theme}/@{category}-@{name}.svg); background-position: 0 0; }
 }
