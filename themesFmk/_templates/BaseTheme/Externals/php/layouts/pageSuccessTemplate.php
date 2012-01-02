@@ -20,13 +20,29 @@ $pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBot
 $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 ?>
 <div class="clearfix">
-	<div class="sprite-navigation-home">
+	<div class="sprite-test sprite-navigation-home-M">
 	</div>
-	<div class="sprite-navigation-search">
+	<div class="sprite-test sprite-navigation-search-M">
 	</div>
-	<div class="sprite-socialnetwork-global">
+	<div class="sprite-test sprite-socialnetwork-global-M">
 	</div>
-	<div class="sprite-socialnetwork-twitter">
+	<div class="sprite-test sprite-socialnetwork-twitter-M">
+	</div>
+	<div class="sprite-test sprite-navigation-home-L">
+	</div>
+	<div class="sprite-test sprite-navigation-search-L">
+	</div>
+	<div class="sprite-test sprite-socialnetwork-global-L">
+	</div>
+	<div class="sprite-test sprite-socialnetwork-twitter-L">
+	</div>
+	<div class="sprite-test sprite-navigation-home-X">
+	</div>
+	<div class="sprite-test sprite-navigation-search-X">
+	</div>
+	<div class="sprite-test sprite-socialnetwork-global-X">
+	</div>
+	<div class="sprite-test sprite-socialnetwork-twitter-X">
 	</div>
 </div>
 
