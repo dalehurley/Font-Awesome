@@ -1,6 +1,6 @@
 // spLessGrid.js - Pour le framework SPLessCss
-// v1.2.1
-// Last Updated : 2011-12-16 16:20
+// v1.2.5
+// Last Updated : 2012-01-03 16:30
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
@@ -48,28 +48,6 @@
 		//	});
 		//}
 		
-		
-		
-		$("#spriteInit").bind("click", function(e) {
-			//récupération de l'url de l'actions
-			var action = $(this).attr('formaction');
-			
-			//lancement de l'appel Ajax
-			//$('#spriteResult').load(getAction, function(response, status, xhr) {
-			//	
-			//	alert('Génération des sprites terminées : ' + response);
-			//	
-			//});
-			
-			//lancement requête AJAX
-			$.fn.spLessGrid.spriteGenerate(action, {testData: "testValue"});
-			
-			//désactivation comportement par défaut
-			e.preventDefault();
-		 	return false;
-		});
-		
-		
 		// iterate and reformat each matched element
 		return this.each(function() {
 			//ciblage du widget
@@ -80,22 +58,50 @@
 			
 			//on ajoute la grille
 			$.fn.spLessGrid.createSwitch(this, options);
+			
+			//gestion de la génération des sprites
+			$(this).find(".spriteInit").bind('click', $.fn.spLessGrid.spriteBind);
 		});
 	};
 	
+	//gestion du click de génération des sprites
+	$.fn.spLessGrid.spriteBind = function(e) {
+		//récupération de l'url de l'actions
+		var action = $(this).attr('formaction');
+		
+		//ajout et ciblage de la bar de progression
+		if($(this).siblings(".spriteProgress").length == 0) $(this).parent().append('<div class="spriteProgress disabled"><div class="picker"></div></div>');
+		var progressBar = $(this).siblings(".spriteProgress");
+		
+		//lancement requête AJAX
+		$.fn.spLessGrid.spriteGenerate(action, {prct: 0}, progressBar);
+		
+		//désactivation comportement par défaut
+		e.preventDefault();
+	 	return false;
+	}
+	
 	//gestion de l'actualisation AJAX des sprites
-	$.fn.spLessGrid.spriteGenerate = function(action, dataRecup) {
+	$.fn.spLessGrid.spriteGenerate = function(action, dataRecup, progressBar) {
+		//on initialise la barre de progression
+		if(dataRecup.prct == 0) {
+			if(progressBar.hasClass('disabled')) progressBar.removeClass('disabled');
+			progressBar.width('0%').find(".picker").text(0);
+		}
 		
 		$.getJSON(action, dataRecup, function(data) {
-			//alert('Génération des sprites terminées : ' + data);
+			//on appel la fonction de façon récursive si on a pas atteint 100
+			if(data.prct < 100) $.fn.spLessGrid.spriteGenerate(action, data, progressBar);
 			
-			var testRecup = "";
-			$.each(data, function(key, val) {
-				testRecup+= key + " : " + val + " | ";
-			});
-			alert("testRecup : " + testRecup);
+			//actualisation de la barre de progression
+			progressBar.stop().animate({width: data.prct + '%'}, 1000, function() {
+				//disparition et suppression à la fin de l'animation
+				if(data.prct == 100) {
+					$(progressBar).addClass('disabled');
+					setTimeout(function(){ $(progressBar).remove(); },200);
+				}
+			}).find(".picker").text(data.prct);
 		});
-		
 	}
 	
 	//gestion apparition de la zone de debug
