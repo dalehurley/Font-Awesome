@@ -986,5 +986,77 @@ class baseEditorialeTools {
         return $text;
     }
 
+    /*
+     * Rapport dossier et articles fils
+     *
+     * @return : string
+     */
+
+    public static function rapportDossier() {
+
+        // on cherche les dossiers
+        $dossiers = Doctrine_Core::getTable('SidArticle')->findByIsDossier(true);
+
+        foreach ($dossiers as $dossier) {
+            $xml = sfConfig::get('app_rep-local') .
+                    $dossier->getSection()->getRubrique() .
+                    '/' .
+                    $dossier->getSection() .
+                    '/' .
+                    $dossier->filename .
+                    '.xml';
+
+            $doc_xml = new DOMDocument();
+            if ($doc_xml->load($xml)) {
+
+                $sections = $doc_xml->getElementsByTagName("Section");
+                $linkedArticles = array();
+
+                foreach ($sections as $section) {
+                    $AssociatedWiths = $section->getElementsByTagName("AssociatedWith");
+                    foreach ($AssociatedWiths as $AssociatedWith) {
+                        $linkedArticles[] = (isset($AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue)) ? $AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue : "";
+                    }
+                }
+                //  affichage brut des articles
+                $returnArticle = '';
+                foreach ($linkedArticles as $linkedArticle) {
+                    $returnArticle .= $linkedArticle. ' / ';
+                }
+
+                $return[]['Dossier ' . $dossier->getSection()->getRubrique() . ' / '. $dossier->getSection() . ' / '. $dossier->filename . ''] = $returnArticle;
+            } else {
+                $return = 'ERREUR : XML invalide :' . $xml;
+            }
+        }
+        
+        return $return;
+    }
+    
+    /*
+     * Rapport be total 
+     *
+     * @return : string
+     */
+
+    public static function rapportTotal() {
+
+        $rub = Doctrine_Core::getTable('SidRubrique')->findByIsActive(true);
+        $return[]['Nombre rubriques'] = $rub->count();
+        
+        $sect = Doctrine_Core::getTable('SidSection')->findByIsActive(true);
+        $return[]['Nombre sections'] = $sect->count();
+        
+        $articles = Doctrine_Core::getTable('SidArticle')->findByIsDossier(false);
+        $return[]['Nombre articles'] = $articles->count();
+        
+        $dossiers = Doctrine_Core::getTable('SidArticle')->findByIsDossier(true);
+        $return[]['Nombre dossiers'] = $dossiers->count();
+        
+        return $return;
+    }
+    
+    
+    
 }
 

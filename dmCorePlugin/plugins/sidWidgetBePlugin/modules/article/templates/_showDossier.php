@@ -33,6 +33,9 @@ if ($doc_xml->load($xml)) {
     $moteurXslt = new xsltProcessor();
     $moteurXslt->importstylesheet($doc_xsl);
 
+    // afficher l'image du xsl
+    //$moteurXslt->setParameter('', 'imageAffiche', 'true');
+    
     $return .= $moteurXslt->transformToXML($doc_xml);
 
 
@@ -40,7 +43,6 @@ if ($doc_xml->load($xml)) {
     $linkedArticles = array();
 
     foreach ($sections as $section) {
-
         $AssociatedWiths = $section->getElementsByTagName("AssociatedWith");
         foreach ($AssociatedWiths as $AssociatedWith) {
             $linkedArticles[] = (isset($AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue)) ? $AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue : "";
