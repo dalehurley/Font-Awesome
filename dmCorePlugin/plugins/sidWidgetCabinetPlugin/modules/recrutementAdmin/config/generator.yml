@@ -43,7 +43,7 @@ generator:
         display:
           - '=title'
           - is_active
-          - on_home
+#          - on_home
           - created_at
           - updated_at
 #          - text
@@ -57,13 +57,13 @@ generator:
         display:
           - title
           - is_active
-          - on_home
+#          - on_home
           - created_at
           - updated_at
 #          - text
       form:
         display:
-          Type de l'offre: [is_active, on_home]
+          Type de l'offre: [is_active]
           Titre de l'offre: [title]
           Text: [text]
         class: SidCabinetRecrutementAdminForm

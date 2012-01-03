@@ -70,8 +70,8 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                 }
                 break;
             // on n'affiche rien si on est sur une page du module equipe
-            case 'pageCabinet/equipe':
-                break;
+//            case 'pageCabinet/equipe':
+//                break;
             // on affiche les equipes ayant les mêmes rubriques que la page actu du cabinet
             case 'sidActuArticle/show':
                 // on cherche la rubrique de l'article
@@ -130,7 +130,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->limit($vars['nb'])
                         ->execute();
                 
-                
+            }    
                 // je stocke les collaborateurs et leur(s) rubrique(s) respective(s)
                 foreach ($rubriqueEquipes as $rubriqueEquipe) { // on stock les NB actu article 
                     $arrayEquipe[$rubriqueEquipe->id] = $rubriqueEquipe;
@@ -153,10 +153,9 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                     }
                     
                 }
-        }
+        
 
         $pageEquipe = dmDb::table('dmPage')->createQuery('a')->where('a.module = ? and a.action = ? and a.record_id = ?', array('pageCabinet', 'equipe', 0))->execute();
-
         return $this->getHelper()->renderPartial('equipeCabinet', 'equipesContextuel', array(
                     'equipes' => $arrayEquipe,
                     'nb' => $vars['nb'],
