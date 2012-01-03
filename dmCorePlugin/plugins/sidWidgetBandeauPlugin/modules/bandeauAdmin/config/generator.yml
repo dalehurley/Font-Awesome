@@ -16,7 +16,7 @@ generator:
         _add:              # le client ne peut pas créer un bandeau, le bouton Ajouter de l'admin n'apparaitra pas
           credentials: [[ super_admin , admin ]]   # seule la permission super_admin a droit
         _delete:
-          credentials: [[ super_admin , admin ]]  # il faut les permissions super_admin ET admin
+          credentials: [ super_admin ]  # il faut les permissions super_admin ET admin
         _save:
           credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
         history:
@@ -62,7 +62,7 @@ generator:
         # Pour filter les batch_actions de manière globale dans les list
         batch_actions:
           delete:
-            credentials: [ super_admin, admin  ]  # il faut les permissions super_admin ET admin
+            credentials: [ super_admin ]  # il faut les permissions super_admin ET admin
           activate:
             credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
           deactivate:
