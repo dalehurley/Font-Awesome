@@ -24,6 +24,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayArticle = array();
+        $sectionNamePage = "";
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
@@ -55,7 +56,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                 }
 
                 $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module, $dmPage->action, $dmPage->record_id);
-                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section', $dmPage->action, $sectionPages[0]->id);
+//                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section', $dmPage->action, $sectionPages[0]->id);
 
                 break;
 
@@ -81,13 +82,13 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                 ->execute();
 
                         $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
-                        $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module, $dmPage->action, $sectionPages[0]->id);
+//                        $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module, $dmPage->action, $sectionPages[0]->id);
                     }
                     else
                         $articles = array();
                 }
                 $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
-                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module, $dmPage->action, $sectionPages[0]->id);
+//                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module, $dmPage->action, $sectionPages[0]->id);
                 break;
 
             case 'article/show':
@@ -109,12 +110,14 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                 ->orderBy('sa.updated_at DESC')
                                 ->limit($vars['nbArticle'])
                                 ->execute();
+                       
                     }
-                    else
-                        $articles = array();
+                    
+//                    else
+//                        $articles = array();
                 }
                 $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
-                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section', $dmPage->action, $articleId->section_id);
+//                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section', $dmPage->action, $articleId->section_id);
                 break;
 
             default :
@@ -122,6 +125,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                 $rubriqueName = "";
                 $sectionName = "";
                 break;
+        }
+        if(count($articles) >0){
+        $sectionNamePage = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('section','show',$articles[0]->Section->id);
         }
 
 
@@ -132,7 +138,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                     'titreLien' => $vars['titreLien'],
                     'longueurTexte' => $vars['longueurTexte'],
                     'rubrique' => $rubriqueName,
-                    'section' => $sectionName
+                    'section' => $sectionNamePage
                 ));
     }
 
