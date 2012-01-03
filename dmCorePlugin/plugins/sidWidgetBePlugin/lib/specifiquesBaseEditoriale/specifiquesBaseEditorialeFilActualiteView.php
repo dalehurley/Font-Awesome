@@ -34,7 +34,7 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
         switch($dmPage->module.'/'.$dmPage->action){
             
             case 'article/show':
-                
+                $arrayFilActus = array();
                 break;
             
             default :
@@ -61,6 +61,7 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                 $arrayFilActus[$article->filename] = $article;
             }
         }
+
         foreach ($arrayFilActus as $key => $value) {
             $updated[$key] = $value['updated_at'];
         }

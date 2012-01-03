@@ -69,13 +69,12 @@ class bandeauComponents extends myFrontModuleComponents {
     public function executeSmartBandeau() {
         $bandeaux = dmDb::table('SidBandeau')->findByIsActive(true);
         foreach ($bandeaux as $bandeau) {
+            
             if ($this->getPage()->id == $bandeau->GroupeBandeau->dm_page_id) {
                 $this->bandeauId = $bandeau->id;
                 break;
             } else {
                 $ancestors = $this->context->getPage()->getNode()->getAncestors();
-                
-                if (count($ancestors) > 1) {
                     $i = count($ancestors)-1;
                     foreach ($ancestors as $i => $ancestor) {
                         if ($ancestor->id == $bandeau->GroupeBandeau->dm_page_id) {
@@ -85,18 +84,8 @@ class bandeauComponents extends myFrontModuleComponents {
                         else
                             $i--;
                     }
-                }
             }
         }
-//        $this->nomPage = $this->getPage()->getTitle();
-//        if (isset($nomParent)) {
-//            $this->parent = $nomParent;
-//        if (!isset($nomParent)){
-//            
-//            $bandeau = dmDb::table('SidBandeau')->findByIsActiveAndGroupeBandeauId(true, $groupe[0]->id);
-//            $this->bandeauId = $bandeau[0]->id;
-//        }
-//        };
     }
 
 }

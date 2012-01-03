@@ -9,6 +9,8 @@
  */
 class SidBandeauAdminForm extends BaseSidBandeauForm
 {
+    protected static $dmPageList = array();
+    
   public function configure()
   {
     parent::configure();
@@ -26,10 +28,16 @@ class SidBandeauAdminForm extends BaseSidBandeauForm
             'behavior' => '<b>va et vient : votre message "rebondit" sur les bords du cadre, <br />défilement : votre message défile sur la page dans le sens de votre choix</b>') );
         
     
-        if (sfContext::getInstance()->getUser()->hasCredential('admin_bandeau_lite') && !sfContext::getInstance()->getUser()->isSuperAdmin()){
-                $this->widgetSchema['groupe_bandeau_id'] = new sfWidgetFormInputHidden();
-        }
-        
-        
+//        if (sfContext::getInstance()->getUser()->hasCredential('admin_bandeau_lite') && !sfContext::getInstance()->getUser()->isSuperAdmin()){
+//            
+//                $this->widgetSchema['groupe_bandeau_id'] = new sfWidgetFormInputHidden();
+//                $this->validatorSchema['groupe_bandeau_id'] = new sfValidatorDoctrineChoice(array('model' => 'SidBandeau'));
+//$nomBandeau = dmDb::table('DmUser')->findOneById(sfContext::getInstance()->getUser()->id);           
+//                $this->widgetSchema['groupe_bandeau_id_2'] = new sfWidgetFormInputText(array('default' => $nomBandeau));
+//                $this->validatorSchema['groupe_bandeau_id_2'] = new sfValidatorString(array(
+//                    'required' => false
+//                ));
+////                
+//        }
     }
 }

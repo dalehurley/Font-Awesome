@@ -11,11 +11,13 @@ generator:
 #      actions: ~
       # Pour filter les actions de manière globale dans les form d'update /create
       actions:
-        new:              # le client ne peut pas créer un bandeau, le bouton Ajouter de l'admin n'apparaitra pas
-          credentials: [ super_admin ]   # seule la permission super_admin a droit
-        delete:
-          credentials: [ super_admin, admin ]  # il faut les permissions super_admin ET admin
-        save:
+        _new:              # le client ne peut pas créer un bandeau, le bouton Ajouter de l'admin n'apparaitra pas
+          credentials: [[ super_admin , admin ]]   # seule la permission super_admin a droit
+        _add:              # le client ne peut pas créer un bandeau, le bouton Ajouter de l'admin n'apparaitra pas
+          credentials: [[ super_admin , admin ]]   # seule la permission super_admin a droit
+        _delete:
+          credentials: [ super_admin ]  # il faut les permissions super_admin ET admin
+        _save:
           credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
         history:
           credentials: [[ super_admin , admin ]]
@@ -49,26 +51,28 @@ generator:
         width:
           label: Largeur visible
         height:
-          label: Hauteur visible          
-        category:
-          label: Catégorie
+          label: Hauteur visible
         groupe_bandeau_id:
-          label: Catégorie   
+          label: Sélection de la page reliée au bandeau
+
         title:
           label: Libellé
+        
       list:
         # Pour filter les batch_actions de manière globale dans les list
         batch_actions:
           delete:
-            credentials: [ super_admin, admin  ]  # il faut les permissions super_admin ET admin
+            credentials: [ super_admin ]  # il faut les permissions super_admin ET admin
           activate:
             credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
           deactivate:
             credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+          new:              # le client ne peut pas créer un bandeau, le bouton Ajouter de l'admin n'apparaitra pas
+            credentials: [ super_admin ]   # seule la permission super_admin a droit
 
         display:
           - groupe_bandeau_id
-          #- _titre
+#          - _titre
           - =title
           - is_active
           - debut_date
@@ -92,18 +96,20 @@ generator:
       form:
         
         display:
-          Votre message: [title]
+
+          Votre message : [title]
           #Le type de bandeau: [category] // plus utilisé
  
-<?php     
+<?php
 if (sfContext::getInstance()->getUser()->hasCredential('admin_bandeau_lite') && !sfContext::getInstance()->getUser()->isSuperAdmin()){ // si l'utilisateur a la permission admin_bandeau_lite et qu'il n'est pas superAdmin'?>
-          Visible sur le site ?: [is_active]
-          Définition de l'animation: [behavior, direction, scrollamount, boucle]
-          Date du message: [debut_date, fin_date]
+          Page apparentée au bandeau : [groupe_bandeau_id]
+          Visible sur le site ? : [is_active]
+          Définition de l'animation : [behavior, direction, scrollamount, boucle]
+          Date du message : [debut_date, fin_date]
 <?php } else { ?>
-          Le type de bandeau: [groupe_bandeau_id]
-          Visible sur le site ?: [is_active]
-          Définition de l'animation: [behavior, boucle, direction, scrollamount, height, width]
+          Page apparentée au bandeau : [groupe_bandeau_id]
+          Visible sur le site ? : [is_active]
+          Définition de l'animation : [behavior, boucle, direction, scrollamount, height, width]
           Date du message: [debut_date, fin_date]
 <?php } ?>
         class: SidBandeauAdminForm

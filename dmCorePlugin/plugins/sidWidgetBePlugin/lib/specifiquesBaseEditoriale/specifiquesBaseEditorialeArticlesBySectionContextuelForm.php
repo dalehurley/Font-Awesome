@@ -34,6 +34,8 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelForm extends dmWidgetP
                     'required' => false
                 ));
 
+        $this->widgetSchema['isDossier'] = new sfWidgetFormInputCheckbox(array('default'=> false));
+        $this->validatorSchema['isDossier']  = new sfValidatorBoolean();
 //        
         $this->widgetSchema->setHelps(array(
 //            'm_rubriques_list' => 'Vous pouvez choisir les rubriques des article à afficher en page d\'accueil ou hors contexte',
@@ -41,6 +43,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelForm extends dmWidgetP
             'titreLien' => "Le libellé du lien vers la liste de tous les contenus de la section choisie dans la rubrique affichée(contextuel).",	    
             'nbArticle' => 'Le nombre maximum d\'articles affichés.',            
             'longueurTexte' => 'Longueur du texte avant de la tronquer',
+            'isDossier' => 'Pour afficher uniquement des dossiers dans le bloc contextuel'
         ));
 
         parent::setup();

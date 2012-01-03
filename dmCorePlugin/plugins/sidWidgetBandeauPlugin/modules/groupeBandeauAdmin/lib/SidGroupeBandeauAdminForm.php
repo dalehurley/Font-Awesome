@@ -34,7 +34,7 @@ class SidGroupeBandeauAdminForm extends BaseSidGroupeBandeauForm
            self::$dmPageList[$dmPageId->id] = $prefixe.$dmPageId->getTitle();
        }
         
-        $this->widgetSchema['dm_page_id'] = new sfWidgetFormchoice(array('choices' => self::$dmPageList)); 
+        $this->widgetSchema['dm_page_id'] = new sfWidgetFormChoice(array('choices' => self::$dmPageList)); 
         $this->validatorSchema['dm_page_id'] = new sfValidatorChoice(array('choices' => array_keys(self::$dmPageList)));
 }
 }

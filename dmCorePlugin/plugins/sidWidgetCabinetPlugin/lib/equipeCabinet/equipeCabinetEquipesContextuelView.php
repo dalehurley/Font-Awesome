@@ -155,7 +155,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->limit($vars['nb'])
                         ->execute();
                 
-              };  
+            }    
                 // je stocke les collaborateurs et leur(s) rubrique(s) respective(s)
                 foreach ($rubriqueEquipes as $rubriqueEquipe) { // on stock les NB collaborateur 
                     $arrayEquipe[$rubriqueEquipe->id] = $rubriqueEquipe;

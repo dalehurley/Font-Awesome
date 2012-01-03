@@ -7,7 +7,7 @@ if (count($pageCabinet)) { // si nous avons des actu articles
     echo _open('div.navigation.navigationBottom');
         echo _open('ul.elements');
             echo _open('li.element');
-                echo _link($pageCabinet)->text(strtoupper($lien));
+                echo _link($pageCabinet)->text($lien);
             echo _close('li');
         echo _close('ul');
     echo _close('div');
