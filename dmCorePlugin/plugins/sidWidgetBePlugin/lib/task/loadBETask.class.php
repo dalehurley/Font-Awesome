@@ -87,7 +87,7 @@ EOF;
 	// chargement des images de LEA ?
 	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Charger les fichiers dessins de la semaine dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
 	    $results = baseEditorialeTools::recupFilesDessins();
-	    $this->logSection('>>', 'Chargement des images...');
+	    $this->logSection('>>', 'Chargement des dessins de la semaine...');
 	} else {
 	    $this->logSection('>>', 'Pas de chargement des dessins de la semaine.');
 	}
