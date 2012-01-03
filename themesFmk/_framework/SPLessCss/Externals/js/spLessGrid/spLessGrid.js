@@ -99,6 +99,12 @@
 				if(data.prct == 100) {
 					$(progressBar).addClass('disabled');
 					setTimeout(function(){ $(progressBar).remove(); },200);
+					
+					//actualisation des arrières plan de tous les éléments de la page
+					$("*").each(function(index) {
+					    var getBgi = $(this).css('backgroundImage');
+						$(this).css('backgroundImage', getBgi);
+					});
 				}
 			}).find(".picker").text(data.prct);
 		});
