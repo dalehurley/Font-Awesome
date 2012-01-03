@@ -98,11 +98,20 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 		}
 		
 		$this->html = _open('div.debugTemplate', array('json' => $debugParam));
+		
 		$this->html.= _open('div.debugInfo');
-		
 		$this->html.= $debugDisplay;
-		
 		$this->html.= _close('div.debugInfo');
+		
+		$this->html.= _tag('br');
+		$this->html.= _open('div.debugUtils');
+		
+		$this->html.= _tag('button', array('id' => 'spriteInit', 'type' => 'submit', 'formaction' => 'sprite_init'), 'Génération des sprites');
+		$this->html.= _tag('span', array('id' => 'spriteLoader'), 'loader') . _tag('br');
+		$this->html.= _tag('span', array('id' => 'spriteResult'));
+		
+		$this->html.= _close('div.debugUtils');
+		
 		$this->html.= _close('div.debugTemplate');
 	}
 }
