@@ -24,6 +24,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayArticle = array();
+        $articles = array();
         $sectionNamePage = "";
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
