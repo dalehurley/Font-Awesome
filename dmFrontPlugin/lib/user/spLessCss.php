@@ -23,20 +23,6 @@ class spLessCss extends dmFrontUser {
 	//génération de toutes les sprites dans toutes les dimensions
 	public static function spriteInit($spriteFormat = '', $spriteListing = array (), $lessDefinitions = '') {
 		
-		//génération des Sprites à différentes résolutions
-		/*
-		$output_S = self::spriteGenerate($spriteListing, 'S');
-		$output_M = self::spriteGenerate($spriteListing, 'M');
-		$output_L = self::spriteGenerate($spriteListing, 'L');
-		$output_X = self::spriteGenerate($spriteListing, 'X');
-		
-		//composition des définitions de fichiers
-		$lessDefinitions = $output_S . PHP_EOL;
-		$lessDefinitions.= $output_M . PHP_EOL;
-		$lessDefinitions.= $output_L . PHP_EOL;
-		$lessDefinitions.= $output_X . PHP_EOL;
-		*/
-		
 		//Si on est au début de l'action
 		if($spriteFormat == '') {
 			//récupération du listing des sprites
