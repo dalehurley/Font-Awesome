@@ -12,5 +12,5 @@
  */
 abstract class PluginSidGroupeBandeau extends BaseSidGroupeBandeau
 {
-
+    
 }
