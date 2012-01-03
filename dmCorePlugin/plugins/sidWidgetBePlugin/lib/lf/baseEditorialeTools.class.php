@@ -669,16 +669,13 @@ class baseEditorialeTools {
         // -nH : plus de dossier par défaut
         // --cut-dirs=1 : on supprime le premier dossier pour l'arbo de copie (ie: flux_sid)
         // -N : estampille Timestamp, verifie date
-        // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine 
         // récupération des images des articles :
         if (!is_dir(sfConfig::get('app_rep-local-dessin-semaine'))) {
             mkdir(sfConfig::get('app_rep-local-dessin-semaine'));
         }
-        // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine 
-        $nbDirToCut = substr_count(sfConfig::get('app_ftp-dessin-rep'), '/');
 
-        $command = "wget -A.jpg -c -N -r -nH -nv --cut-dirs=" . $nbDirToCut . " ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-password')) . "@" . sfConfig::get('app_ftp-dessin-host') . "/" . sfConfig::get('app_ftp-dessin-rep') . " -P " . sfConfig::get('app_rep-local-dessin-semaine');
-
+        $command = "wget -c -N ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-password')) . "@" . sfConfig::get('app_ftp-dessin-host') . "/" . sfConfig::get('app_ftp-dessin-rep') . "" .sfConfig::get('app_xml-dessin'). " -P " . sfConfig::get('app_rep-local-dessin-semaine');
+echo $command;
         exec($command, $output);
     }
 

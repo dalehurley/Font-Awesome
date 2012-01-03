@@ -17,7 +17,7 @@ all:
   ftp-dessin-host: 91.194.100.237
   ftp-dessin-login: Sid_presse
   ftp-dessin-password: #  '#AM86np3qD'           uniquement pour la BaseEditoriale  
-  ftp-dessin-rep: sitesexpert-infos/_infos/_photos/  
+  ftp-dessin-rep: sitesexpert-infos/_infos/  
   
   rep-local-dessin-semaine: /data/www/_lib/baseEditoriale/dessinSemaine/
   xml-dessin: source_dessin.xml
