@@ -48,6 +48,28 @@
 		//	});
 		//}
 		
+		
+		
+		$("#spriteInit").bind("click", function(e) {
+			//récupération de l'url de l'actions
+			var action = $(this).attr('formaction');
+			
+			//lancement de l'appel Ajax
+			//$('#spriteResult').load(getAction, function(response, status, xhr) {
+			//	
+			//	alert('Génération des sprites terminées : ' + response);
+			//	
+			//});
+			
+			//lancement requête AJAX
+			$.fn.spLessGrid.spriteGenerate(action, {testData: "testValue"});
+			
+			//désactivation comportement par défaut
+			e.preventDefault();
+		 	return false;
+		});
+		
+		
 		// iterate and reformat each matched element
 		return this.each(function() {
 			//ciblage du widget
@@ -60,6 +82,21 @@
 			$.fn.spLessGrid.createSwitch(this, options);
 		});
 	};
+	
+	//gestion de l'actualisation AJAX des sprites
+	$.fn.spLessGrid.spriteGenerate = function(action, dataRecup) {
+		
+		$.getJSON(action, dataRecup, function(data) {
+			//alert('Génération des sprites terminées : ' + data);
+			
+			var testRecup = "";
+			$.each(data, function(key, val) {
+				testRecup+= key + " : " + val + " | ";
+			});
+			alert("testRecup : " + testRecup);
+		});
+		
+	}
 	
 	//gestion apparition de la zone de debug
 	$.fn.spLessGrid.toggleDisplay = function(e, active) {
