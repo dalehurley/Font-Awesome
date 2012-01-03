@@ -21,7 +21,7 @@ class spLessCss extends dmFrontUser {
 	}
 		
 	//génération de toutes les sprites dans toutes les dimensions
-	public static function spriteInit($spriteFormat = "", $spriteListing = array (), $lessDefinitions = "") {
+	public static function spriteInit($spriteFormat = '', $spriteListing = array (), $lessDefinitions = '') {
 		
 		//génération des Sprites à différentes résolutions
 		/*
@@ -37,11 +37,8 @@ class spLessCss extends dmFrontUser {
 		$lessDefinitions.= $output_X . PHP_EOL;
 		*/
 		
-		//on définit le pourcentage d'avancement en fonction de la miniature effectuée
-		$prct = 0;
-		
 		//Si on est au début de l'action
-		if($prct == 0) {
+		if($spriteFormat == '') {
 			//récupération du listing des sprites
 			$spriteListing = self::spriteGetListing();
 			
@@ -49,18 +46,28 @@ class spLessCss extends dmFrontUser {
 			self::spriteReset($spriteListing);
 		}
 		
+		//on définit le pourcentage d'avancement en fonction de la miniature effectuée
+		//on change également la valeur de spriteFormat pour la boucle suivante
 		switch ($spriteFormat) {
-			case 'S':
+			case '':
+				$spriteFormat = 'S';
 				$prct = 25;
 				break;
-			case 'M':
+			case 'S':
+				$spriteFormat = 'M';
 				$prct = 50;
 				break;
-			case 'L':
+			case 'M':
+				$spriteFormat = 'L';
 				$prct = 75;
 				break;
-			case 'X':
+			case 'L':
+				$spriteFormat = 'X';
 				$prct = 100;
+				break;
+			case 'X':
+				//on quite la fonction pour éviter une boucle infinie
+				return false;
 				break;
 			default:
 				$prct = 0;
@@ -75,6 +82,7 @@ class spLessCss extends dmFrontUser {
 		
 		//Renvoi de valeurs pour l'affichage
 		return array(
+			'spriteFormat'		=> $spriteFormat,
 			'spriteListing'		=> $spriteListing,
 			'lessDefinitions'	=> $lessDefinitions,
 			'prct'				=> $prct
