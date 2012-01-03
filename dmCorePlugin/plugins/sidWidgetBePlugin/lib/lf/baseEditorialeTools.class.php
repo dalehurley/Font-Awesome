@@ -64,6 +64,7 @@ class baseEditorialeTools {
                         foreach ($articles as $article) {
                             $arrayJson[$j]['filename'] = $article->filename;
                             $arrayJson[$j]['isActive'] = $article->getIsActive();
+                            $arrayJson[$j]['isDossier'] = $article->getIsDossier();
                             $arrayJson[$j]['createdAt'] = $article->createdAt;
                             $arrayJson[$j]['updatedAt'] = $article->updatedAt;
                             foreach ($arrayLangs as $lang) {
@@ -299,6 +300,7 @@ class baseEditorialeTools {
                                             $article->sectionId = $sidSection->id;  // la rubrique/section en cours de traitement
                                             $article->filename = $articleBE->filename;
                                             $article->isActive = $articleBE->isActive;
+                                            $article->isDossier = $articleBE->isDossier;
 
                                             $article->createdAt = $articleBE->createdAt;
                                             $article->save();
@@ -323,7 +325,8 @@ class baseEditorialeTools {
                                             }
 
                                             $article->isActive = $articleBE->isActive;
-
+                                            $article->isDossier = $articleBE->isDossier;
+                                            
                                             // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
                                             $article->updatedAt = $articleBE->updatedAt;
                                             $article->save();
@@ -997,6 +1000,8 @@ class baseEditorialeTools {
         // on cherche les dossiers
         $dossiers = Doctrine_Core::getTable('SidArticle')->findByIsDossier(true);
 
+        $return = array();
+        
         foreach ($dossiers as $dossier) {
             $xml = sfConfig::get('app_rep-local') .
                     $dossier->getSection()->getRubrique() .
