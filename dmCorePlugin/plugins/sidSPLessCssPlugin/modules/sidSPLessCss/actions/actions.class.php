@@ -12,13 +12,14 @@ class sidSPLessCssActions extends myFrontModuleActions
 			//on récupère les valeurs passées dans la requête
 			$parameters = $request->getGetParameters();
 			
-			//lancement de l'initialisation des sprites et récupération des valeurs d'avancement
-			$spriteValues = json_encode(spLessCss::spriteInit($spriteFormat = "S"));
+			//lancement des sprites avec récupération des paramètres passés dans la requête
+			$spriteValues = spLessCss::spriteInit($parameters['spriteFormat'], $parameters['spriteListing'], $parameters['lessDefinitions']);
 			
-			//$testJson = json_encode(array('prct' => 50, 'testResult' => 'Message de fin de test JSON'));
+			//assemblage des valeurs et encodage en JSON
+			$jsonOutput = json_encode(array_merge($parameters, $spriteValues));
 			
-			return $this->renderText($spriteValues);
-			//return $this->renderText('Génération AJAX terminée');
+			//sortie de valeurs en AJAX
+			return $this->renderText($jsonOutput);
 		}
 	}
 }
