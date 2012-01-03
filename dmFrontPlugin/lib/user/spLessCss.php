@@ -11,7 +11,7 @@ class spLessCss extends dmFrontUser {
 		if ($pageOptions['idDev']) {
 			
 			//génération des sprites
-			self::spriteInit();
+			//self::spriteInit();
 		
 			//affichage du widget de DEBUG du framework
 			echo dm_get_widget('sidSPLessCss', 'debug', array());
@@ -21,14 +21,10 @@ class spLessCss extends dmFrontUser {
 	}
 		
 	//génération de toutes les sprites dans toutes les dimensions
-	private static function spriteInit() {
-		//récupération du listing des sprites
-		$spriteListing = self::spriteGetListing();
-		
-		//purge des miniatures
-		self::spriteReset($spriteListing);
+	public static function spriteInit($spriteFormat = "", $spriteListing = array (), $lessDefinitions = "") {
 		
 		//génération des Sprites à différentes résolutions
+		/*
 		$output_S = self::spriteGenerate($spriteListing, 'S');
 		$output_M = self::spriteGenerate($spriteListing, 'M');
 		$output_L = self::spriteGenerate($spriteListing, 'L');
@@ -39,9 +35,50 @@ class spLessCss extends dmFrontUser {
 		$lessDefinitions.= $output_M . PHP_EOL;
 		$lessDefinitions.= $output_L . PHP_EOL;
 		$lessDefinitions.= $output_X . PHP_EOL;
+		*/
 		
-		//génération du fichier less de sortie
-		self::spriteLessGenerate($lessDefinitions);
+		//on définit le pourcentage d'avancement en fonction de la miniature effectuée
+		$prct = 0;
+		
+		//Si on est au début de l'action
+		if($prct == 0) {
+			//récupération du listing des sprites
+			$spriteListing = self::spriteGetListing();
+			
+			//purge des miniatures
+			self::spriteReset($spriteListing);
+		}
+		
+		switch ($spriteFormat) {
+			case 'S':
+				$prct = 25;
+				break;
+			case 'M':
+				$prct = 50;
+				break;
+			case 'L':
+				$prct = 75;
+				break;
+			case 'X':
+				$prct = 100;
+				break;
+			default:
+				$prct = 0;
+				break;
+		}
+		
+		//génération des sprites à la résolution sélectionnée
+		$lessDefinitions.= self::spriteGenerate($spriteListing, $spriteFormat) . PHP_EOL;
+		
+		//Si on est à la fin de l'action, génération du fichier less de sortie
+		if($prct == 100) self::spriteLessGenerate($lessDefinitions);
+		
+		//Renvoi de valeurs pour l'affichage
+		return array(
+			'spriteListing'		=> $spriteListing,
+			'lessDefinitions'	=> $lessDefinitions,
+			'prct'				=> $prct
+		);
 	}
 	
 	//génération du listing des icônes
