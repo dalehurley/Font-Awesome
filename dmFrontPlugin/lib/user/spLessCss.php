@@ -153,7 +153,7 @@ class spLessCss extends dmFrontUser {
 	//génération des appels de la fonctions less de génération des sprites
 	private static function spriteLessGenerate($lessDefinitions = "") {
 		//chemin vers le fichier de config des sprites
-		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites/_SpriteGenerate.less';
+		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteGenerate.less';
 		
 		//création du système de fichier
 		$fs = new sfFilesystem();
