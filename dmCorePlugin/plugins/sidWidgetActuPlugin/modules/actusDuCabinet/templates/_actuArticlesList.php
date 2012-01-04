@@ -18,4 +18,5 @@ if (count($articles)) { // si nous avons des actu articles
     echo _close('ul');
 
     
-} // sinon on affiche rien
+} // sinon on affiche la constante de la page concernée
+else echo'{{actualites_du_cabinet}}';

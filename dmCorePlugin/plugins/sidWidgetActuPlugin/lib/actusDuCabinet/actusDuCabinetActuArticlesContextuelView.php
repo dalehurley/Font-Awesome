@@ -25,8 +25,8 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
 
         switch ($dmPage->module . '/' . $dmPage->action) {
 
-            case 'pageCabinet/equipe':
-                break;
+//            case 'pageCabinet/equipe':
+//                break;
 
             case 'section/show':
                 // il faut que je récupère l'id de la rubrique de la section
@@ -93,7 +93,7 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                 }
                 break;
 
-            case 'sidActuArticle/show':
+//            case 'sidActuArticle/show':
                 // dans la page d'affichage des actu article on n'affiche pas l'article qui est affiché dans le page.content
 //                $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
 //                        ->leftJoin('a.SidActuTypeArticle sata')
@@ -119,9 +119,9 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
 //                foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
 //                    $arrayArticle[$actuArticle->id] = $actuArticle;
 //                }
-                break;
-            case 'sidActuArticle/list':
-                break;
+//                break;
+//            case 'sidActuArticle/list':
+//                break;
 
             default:
                 // hors context, on renvoie la dernière actu mise à jour

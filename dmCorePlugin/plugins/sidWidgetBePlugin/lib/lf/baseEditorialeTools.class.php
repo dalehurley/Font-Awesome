@@ -64,6 +64,7 @@ class baseEditorialeTools {
                         foreach ($articles as $article) {
                             $arrayJson[$j]['filename'] = $article->filename;
                             $arrayJson[$j]['isActive'] = $article->getIsActive();
+                            $arrayJson[$j]['isDossier'] = $article->getIsDossier();
                             $arrayJson[$j]['createdAt'] = $article->createdAt;
                             $arrayJson[$j]['updatedAt'] = $article->updatedAt;
                             foreach ($arrayLangs as $lang) {
@@ -299,6 +300,7 @@ class baseEditorialeTools {
                                             $article->sectionId = $sidSection->id;  // la rubrique/section en cours de traitement
                                             $article->filename = $articleBE->filename;
                                             $article->isActive = $articleBE->isActive;
+                                            $article->isDossier = $articleBE->isDossier;
 
                                             $article->createdAt = $articleBE->createdAt;
                                             $article->save();
@@ -323,7 +325,8 @@ class baseEditorialeTools {
                                             }
 
                                             $article->isActive = $articleBE->isActive;
-
+                                            $article->isDossier = $articleBE->isDossier;
+                                            
                                             // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
                                             $article->updatedAt = $articleBE->updatedAt;
                                             $article->save();
@@ -412,7 +415,8 @@ class baseEditorialeTools {
     }
 
     /*
-     * Replacement des name/slug/title et description des dmPages
+     * Replacement des name/slug/title et description des dmPages en fonction du tableau présent dans app.yml
+     * 
      */
 
     public static function renameDmPages() {
@@ -455,8 +459,8 @@ class baseEditorialeTools {
 
                 //echo "count ".$old."   ".count($pagesNotRenamed)."\n";
                 foreach ($pagesNotRenamed as $page) {
-                    $page->Translation[$lang]->name = str_replace($old, $new, strtolower($page->Translation[$lang]->name));
-                    $page->Translation[$lang]->title = str_replace($old, $new, strtolower($page->Translation[$lang]->title));
+                    $page->Translation[$lang]->name = str_replace($old, ucfirst($new), strtolower($page->Translation[$lang]->name));
+                    $page->Translation[$lang]->title = str_replace($old, ucfirst($new), strtolower($page->Translation[$lang]->title));
                     $page->Translation[$lang]->description = str_replace($old, $new, strtolower($page->Translation[$lang]->description));
                     $page->Translation[$lang]->auto_mod = 'hk'; // plus de sntd modifiable par sync-pages
                     // gestion slug
@@ -651,6 +655,29 @@ class baseEditorialeTools {
 
         exec($command, $output);
     }
+    
+        /*
+     * récupération des fichiers images de LEA
+     */
+
+    public static function recupFilesDessins() {
+        // récupération des articles de la rubrique effectuée par la commande :
+        // -q : quiet
+        // -A.xml : que les fichiers XML
+        // -c :  en continu, reprise de téléchargement précédent
+        // -r : recursive
+        // -nH : plus de dossier par défaut
+        // --cut-dirs=1 : on supprime le premier dossier pour l'arbo de copie (ie: flux_sid)
+        // -N : estampille Timestamp, verifie date
+        // récupération des images des articles :
+        if (!is_dir(sfConfig::get('app_rep-local-dessin-semaine'))) {
+            mkdir(sfConfig::get('app_rep-local-dessin-semaine'));
+        }
+
+        $command = "wget -c -N ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-password')) . "@" . sfConfig::get('app_ftp-dessin-host') . "/" . sfConfig::get('app_ftp-dessin-rep') . "" .sfConfig::get('app_xml-dessin'). " -P " . sfConfig::get('app_rep-local-dessin-semaine');
+echo $command;
+        exec($command, $output);
+    }
 
     /*
      * récupération des articles de LEA
@@ -714,8 +741,10 @@ class baseEditorialeTools {
                               }
                              */
 
-
                             if ($xml->load($xmlFile)) {
+                                // traitement des dossiers : 
+                                // on recherche le dataType du xml en cours
+                                $dataType = xmlTools::getLabelXml($xmlFile, "DataType");
 
                                 $filename = $xml->getElementsByTagName('Code')->item(0)->nodeValue; // l'id LEA est aussi le nom du fichier XML
                                 $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue;  //titre
@@ -752,6 +781,15 @@ class baseEditorialeTools {
                                     $article->setSectionId($section->id);
                                     $article->setFilename($filename);
                                     $article->createdAt = $date_publication;
+
+                                    // traitement des dossiers : 
+                                    // - on met article.is_dossier à true 
+                                    if ($dataType == 'DOSSIER') {
+                                        $article->isDossier = true;
+                                    } else {
+                                        $article->isDossier = false;
+                                    }
+
                                     $article->save();
                                     // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
                                     $article->updatedAt = $date_update;
@@ -775,6 +813,14 @@ class baseEditorialeTools {
                                         $article->setSectionId($section->id);
 
                                         $article->updatedAt = $date_update;
+
+                                        // traitement des dossiers : 
+                                        // - on met article.is_dossier à true 
+                                        if ($dataType == 'DOSSIER') {
+                                            $article->isDossier = true;
+                                        } else {
+                                            $article->isDossier = false;
+                                        }
 
                                         $article->save();
 
@@ -800,8 +846,7 @@ class baseEditorialeTools {
         }
         $return[0]['Article Insérés dans la base'] = $nbInsert;
         $return[1]['Article MAJ dans la base'] = $nbMaj;
-        $return[$j]['Tous les articles'] = 'Mise à jour / insertion dans la base ->' . (microtime(true) - $beginTimeRubriques) . ' s';
-
+        
         // VERIFICATION SI ARTICLE DANS LA BDD SONT PRESENTS en XML, et désactivation si absent
         foreach ($bdRubriques as $bdRubrique) {
 
@@ -820,11 +865,13 @@ class baseEditorialeTools {
                             $sidArticle->setIsActive(false);
                             $sidArticle->save();
                             $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article désactivé'] = $sidArticle->filename;
+                            $j++;
                         }
                     } elseif (!$sidArticle->getIsActive()) {
                         $sidArticle->setIsActive(true);
                         $sidArticle->save();
                         $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article réactivé'] = $sidArticle->filename;
+                        $j++;
                     } else {
                         //$return[$j][$rubrique . ' - ' . $k . ' - Article déjà actif'] = $sidArticle->filename;
                     }
@@ -833,7 +880,16 @@ class baseEditorialeTools {
                 }
             }
         }
-
+       
+        // Constat final
+        $articles = Doctrine_Core::getTable('SidArticle')->findByIsDossier(false);
+        $return[]['Nombre articles'] = $articles->count();
+        $dossiers = Doctrine_Core::getTable('SidArticle')->findByIsDossier(true);
+        $return[]['Nombre dossiers'] = $dossiers->count();
+        
+        // temps d'execution
+        $return[]['Tous les articles'] = 'Mise à jour / insertion dans la base ->' . (microtime(true) - $beginTimeRubriques) . ' s';
+        
         return $return;
     }
 
@@ -930,5 +986,79 @@ class baseEditorialeTools {
         return $text;
     }
 
+    /*
+     * Rapport dossier et articles fils
+     *
+     * @return : string
+     */
+
+    public static function rapportDossier() {
+
+        // on cherche les dossiers
+        $dossiers = Doctrine_Core::getTable('SidArticle')->findByIsDossier(true);
+
+        $return = array();
+        
+        foreach ($dossiers as $dossier) {
+            $xml = sfConfig::get('app_rep-local') .
+                    $dossier->getSection()->getRubrique() .
+                    '/' .
+                    $dossier->getSection() .
+                    '/' .
+                    $dossier->filename .
+                    '.xml';
+
+            $doc_xml = new DOMDocument();
+            if ($doc_xml->load($xml)) {
+
+                $sections = $doc_xml->getElementsByTagName("Section");
+                $linkedArticles = array();
+
+                foreach ($sections as $section) {
+                    $AssociatedWiths = $section->getElementsByTagName("AssociatedWith");
+                    foreach ($AssociatedWiths as $AssociatedWith) {
+                        $linkedArticles[] = (isset($AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue)) ? $AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue : "";
+                    }
+                }
+                //  affichage brut des articles
+                $returnArticle = '';
+                foreach ($linkedArticles as $linkedArticle) {
+                    $returnArticle .= $linkedArticle. ' / ';
+                }
+
+                $return[]['Dossier ' . $dossier->getSection()->getRubrique() . ' / '. $dossier->getSection() . ' / '. $dossier->filename . ''] = $returnArticle;
+            } else {
+                $return = 'ERREUR : XML invalide :' . $xml;
+            }
+        }
+        
+        return $return;
+    }
+    
+    /*
+     * Rapport be total 
+     *
+     * @return : string
+     */
+
+    public static function rapportTotal() {
+
+        $rub = Doctrine_Core::getTable('SidRubrique')->findByIsActive(true);
+        $return[]['Nombre rubriques'] = $rub->count();
+        
+        $sect = Doctrine_Core::getTable('SidSection')->findByIsActive(true);
+        $return[]['Nombre sections'] = $sect->count();
+        
+        $articles = Doctrine_Core::getTable('SidArticle')->findByIsDossier(false);
+        $return[]['Nombre articles'] = $articles->count();
+        
+        $dossiers = Doctrine_Core::getTable('SidArticle')->findByIsDossier(true);
+        $return[]['Nombre dossiers'] = $dossiers->count();
+        
+        return $return;
+    }
+    
+    
+    
 }
 

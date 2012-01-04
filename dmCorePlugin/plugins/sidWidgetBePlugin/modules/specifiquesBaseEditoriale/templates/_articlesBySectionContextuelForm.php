@@ -18,7 +18,8 @@ _tag('div',
     $form['section']->renderRow().
     $form['titreLien']->renderRow().
     $form['nbArticle']->renderRow().
-    $form['longueurTexte']->renderRow()
+    $form['longueurTexte']->renderRow().
+    $form['isDossier']->renderRow()
          
   
 ); 

@@ -199,5 +199,11 @@
 	
 	//lancement automatique de la fonction lors du chargement de la page (événement différent selon la présence de jQueryMobile)
 	$(document).bind(($.mobile ? "pageinit" : "ready"), $.fn.spLessGrid.initialize);
+        
+        // lioshi : ajout paramètre ajaxEnabled à false pour ne pas avoir le bug d'affichage:
+        // - clic sur un lien
+        // - ouverture dans la même page avec création d'une nouvelle div dmPage
+        $.mobile.ajaxEnabled = false;
+        
 	
 })(jQuery);

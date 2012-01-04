@@ -26,6 +26,8 @@ $.widget('ui.dmWidget', {
       data:         {widget_id: widget.getId()},
       title:        $('a.dm_widget_edit', widget.element).tipsyTitle(),
       width:        '600', // this should be revised and if possible - made dependant on content's width
+      height:       '500',
+//      overflow:     'scroll',
       'class':      'dm_widget_edit_dialog_wrap '+dialogClass,
       resizable:    true,
       resize:       function(event, ui)

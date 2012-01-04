@@ -1,12 +1,7 @@
 <?php
 
 echo _open('li.element');
-// on affiche un message que pour l'environnement de dev
-if (sfConfig::get('sf_environment') == 'dev') {
-    echo _tag(
-            'div.debug', array('onClick' => '$(this).hide();'), _tag('span.type', 'id LEA&#160;:') . ' ' . _tag('span.value', $article->filename)
-    );
-}
+
 if($photo == 1){
 //lien vers l'image
 $imgLink = '/_images/lea' . $article->filename . '-p.jpg';

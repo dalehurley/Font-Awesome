@@ -1,155 +1,141 @@
 <?php
 
-class dmFrontPageEditHelper extends dmFrontPageBaseHelper
-{
-  protected
-  $user,
-  $i18n,
-  $widgetTypeManager;
+class dmFrontPageEditHelper extends dmFrontPageBaseHelper {
 
-  public function initialize(array $options)
-  {
-    parent::initialize($options);
+    protected
+    $user,
+    $i18n,
+    $widgetTypeManager;
 
-    /*
-     * Prepare some services for later access
-     */
-    $this->user = $this->serviceContainer->getService('user');
-    $this->i18n = $this->serviceContainer->getService('i18n');
-    $this->widgetTypeManager = $this->serviceContainer->getService('widget_type_manager');
-    $this->moduleManager = $this->serviceContainer->getService('module_manager');
-  }
+    public function initialize(array $options) {
+        parent::initialize($options);
 
-  public function renderZone(array $zone)
-  {
-    $style = (!$zone['width'] || $zone['width'] === '100%') ? '' : ' style="width: '.$zone['width'].';"';
-    
-    $html = '<div id="dm_zone_'.$zone['id'].'" class="'.dmArray::toHtmlCssClasses(array('dm_zone', $zone['css_class'])).'"'.$style.'>';
-
-    if ($this->user->can('zone_edit'))
-    {
-      $html .= '<a class="dm dm_zone_edit" title="'.$this->i18n->__('Edit this zone').'"></a>';
+        /*
+         * Prepare some services for later access
+         */
+        $this->user = $this->serviceContainer->getService('user');
+        $this->i18n = $this->serviceContainer->getService('i18n');
+        $this->widgetTypeManager = $this->serviceContainer->getService('widget_type_manager');
+        $this->moduleManager = $this->serviceContainer->getService('module_manager');
     }
 
-    $html .= '<div class="dm_widgets">';
+    public function renderZone(array $zone) {
+        $style = (!$zone['width'] || $zone['width'] === '100%') ? '' : ' style="width: ' . $zone['width'] . ';"';
 
-    $html .= $this->renderZoneInner($zone);
+        $html = '<div id="dm_zone_' . $zone['id'] . '" class="' . dmArray::toHtmlCssClasses(array('dm_zone', $zone['css_class'])) . '"' . $style . '>';
 
-    $html .= '</div>';
+        // ajout lioshi
+        // récupération du type de l'area qui contient la zone
+        $dmZone = dmDb::table('DmZone')->findOneById($zone['id']);
+        $dmArea = dmDb::table('DmArea')->findOneById($dmZone->dm_area_id);
 
-    $html .= '</div>';
-
-    return $html;
-  }
-
-  public function renderWidget(array $widget)
-  {
-    $this->executeWidgetAction($widget);
-    
-    //it the widget is called programmatically, it has no id and can not be edited
-    if(!isset($widget['id']))
-    {
-      $widget['id'] = 'programmatically_'.substr(md5(serialize($widget)), 0, 6); // give a unique id
-      $is_programmatically = true;
-    }
-    else
-    {
-      $is_programmatically = false;
-    }
-
-    list($widgetWrapClass, $widgetInnerClass) = $this->getWidgetContainerClasses($widget);
-
-    /*
-     * Open widget wrap with wrapped user's classes
-     */
-    $html = '<div class="'.$widgetWrapClass.'" id="dm_widget_'.$widget['id'].'">';
-
-    if (!$is_programmatically)
-    {
-    
-      /*
-       * Add edit button if required
-       */
-      if ($this->user->can('widget_edit'))
-      {
-        try
-        {
-          $widgetPublicName = $this->serviceContainer->getService('widget_type_manager')->getWidgetType($widget)->getPublicName();
-        }
-        catch(Exception $e)
-        {
-          $widgetPublicName = $widget['module'].'.'.$widget['action'];
+        if ($this->user->can('zone_edit')) {
+            $html .= '<a class="dm dm_zone_edit" title="' . $this->i18n->__('Edit this zone') . ' [AREA=' . $dmArea->type . ']' . '"></a>';
         }
 
-        $title = $this->i18n->__('Edit this %1%', array('%1%' => $this->i18n->__($widgetPublicName)));
+        $html .= '<div class="dm_widgets">';
 
-        $html .= '<a class="dm dm_widget_edit" title="'.htmlentities($title, ENT_COMPAT, 'UTF-8').'"></a>';
-      }
+        $html .= $this->renderZoneInner($zone);
 
-      /*
-       * Add fast record edit button if required
-       */
-      if('show' === $widget['action'] && $this->user->can('widget_edit_fast') && $this->user->can('widget_edit_fast_record'))
-      {
-        if($module = $this->moduleManager->getModuleOrNull($widget['module']))
-        {
-          if($module->hasModel())
-          {
-            $html .= sprintf('<a class="dm dm_widget_record_edit" title="%s"></a>',
-              $this->i18n->__('Edit this %1%', array('%1%' => $this->i18n->__($module->getName()))),
-              $widget['id']
-            );
-          }
-        }
-      }
+        $html .= '</div>';
 
-      /*
-       * Add fast edit button if required
-       */
-      elseif(!$this->user->can('widget_edit') && $this->user->can('widget_edit_fast'))
-      {
-        $fastEditPermission = 'widget_edit_fast_'.dmString::underscore(str_replace('dmWidget', '', $widget['module'])).'_'.$widget['action'];
+        $html .= '</div>';
 
-        if($this->user->can($fastEditPermission))
-        {
-          try
-          {
-            $widgetPublicName = $this->serviceContainer->getService('widget_type_manager')->getWidgetType($widget)->getPublicName();
-          }
-          catch(Exception $e)
-          {
-            $widgetPublicName = $widget['module'].'.'.$widget['action'];
-          }
-
-          $html .= sprintf('<a class="dm dm_widget_fast_edit" title="%s"></a>',
-            $this->i18n->__('Edit this %1%', array('%1%' => $this->i18n->__(dmString::lcfirst($widgetPublicName)))),
-            $widget['id']
-          );
-        }
-      }
+        return $html;
     }
 
-    /*
-     * Open widget inner with user's classes
-     */
-    $html .= '<div class="'.$widgetInnerClass.'">';
+    public function renderWidget(array $widget) {
+        $this->executeWidgetAction($widget);
 
-    /*
-     * get widget inner content
-     */
-    $html .= $this->renderWidgetInner($widget);
+        //it the widget is called programmatically, it has no id and can not be edited
+        if (!isset($widget['id'])) {
+            $widget['id'] = 'programmatically_' . substr(md5(serialize($widget)), 0, 6); // give a unique id
+            $is_programmatically = true;
+        } else {
+            $is_programmatically = false;
+        }
 
-    /*
-     * Close widget inner
-     */
-    $html .= '</div>';
+        list($widgetWrapClass, $widgetInnerClass) = $this->getWidgetContainerClasses($widget);
 
-    /*
-     * Close widget wrap
-     */
-    $html .= '</div>';
+        /*
+         * Open widget wrap with wrapped user's classes
+         */
+        $html = '<div class="' . $widgetWrapClass . '" id="dm_widget_' . $widget['id'] . '">';
 
-    return $html;
-  }
+        if (!$is_programmatically) {
+
+            /*
+             * Add edit button if required
+             */
+            if ($this->user->can('widget_edit')) {
+                try {
+                    $widgetPublicName = $this->serviceContainer->getService('widget_type_manager')->getWidgetType($widget)->getPublicName();
+                } catch (Exception $e) {
+                    $widgetPublicName = $widget['module'] . '.' . $widget['action'];
+                }
+
+                // ajout lioshi
+                // récupération du type de l'area qui contient la zone et le widget
+                $dmWidget = dmDb::table('DmWidget')->findOneById($widget['id']);
+                $dmZone = dmDb::table('DmZone')->findOneById($dmWidget->dm_zone_id);
+                $dmArea = dmDb::table('DmArea')->findOneById($dmZone->dm_area_id);
+
+                $title = $this->i18n->__('Edit this %1%', array('%1%' => $this->i18n->__($widgetPublicName)));
+
+                $html .= '<a class="dm dm_widget_edit" title="' . htmlentities($title, ENT_COMPAT, 'UTF-8') .' [AREA='.$dmArea->type.']'. '"></a>';
+            }
+
+            /*
+             * Add fast record edit button if required
+             */
+            if ('show' === $widget['action'] && $this->user->can('widget_edit_fast') && $this->user->can('widget_edit_fast_record')) {
+                if ($module = $this->moduleManager->getModuleOrNull($widget['module'])) {
+                    if ($module->hasModel()) {
+                        $html .= sprintf('<a class="dm dm_widget_record_edit" title="%s"></a>', $this->i18n->__('Edit this %1%', array('%1%' => $this->i18n->__($module->getName()))), $widget['id']
+                        );
+                    }
+                }
+            }
+
+            /*
+             * Add fast edit button if required
+             */ elseif (!$this->user->can('widget_edit') && $this->user->can('widget_edit_fast')) {
+                $fastEditPermission = 'widget_edit_fast_' . dmString::underscore(str_replace('dmWidget', '', $widget['module'])) . '_' . $widget['action'];
+
+                if ($this->user->can($fastEditPermission)) {
+                    try {
+                        $widgetPublicName = $this->serviceContainer->getService('widget_type_manager')->getWidgetType($widget)->getPublicName();
+                    } catch (Exception $e) {
+                        $widgetPublicName = $widget['module'] . '.' . $widget['action'];
+                    }
+
+                    $html .= sprintf('<a class="dm dm_widget_fast_edit" title="%s"></a>', $this->i18n->__('Edit this %1%', array('%1%' => $this->i18n->__(dmString::lcfirst($widgetPublicName)))), $widget['id']
+                    );
+                }
+            }
+        }
+
+        /*
+         * Open widget inner with user's classes
+         */
+        $html .= '<div class="' . $widgetInnerClass . '">';
+
+        /*
+         * get widget inner content
+         */
+        $html .= $this->renderWidgetInner($widget);
+
+        /*
+         * Close widget inner
+         */
+        $html .= '</div>';
+
+        /*
+         * Close widget wrap
+         */
+        $html .= '</div>';
+
+        return $html;
+    }
 
 }

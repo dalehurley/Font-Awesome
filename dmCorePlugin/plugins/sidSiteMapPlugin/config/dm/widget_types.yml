@@ -1,0 +1,6 @@
+sitemap:
+
+  planDuSite:
+    cache:              true
+    public_name:        (sitemap) affichage du plan du site
+    

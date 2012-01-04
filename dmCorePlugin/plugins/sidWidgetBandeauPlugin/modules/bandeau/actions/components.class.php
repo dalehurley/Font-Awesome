@@ -10,9 +10,9 @@
 class bandeauComponents extends myFrontModuleComponents {
 
     public function executeShow() {
-		//insertion de la CSS du widget du theme courant
-		$this->getResponse()->addStylesheet(sfConfig::get('sf_css_path_template').'/Widgets/BandeauSmartBandeau/BandeauSmartBandeau.css');
-		
+        //insertion de la CSS du widget du theme courant
+        $this->getResponse()->addStylesheet(sfConfig::get('sf_css_path_template') . '/Widgets/BandeauSmartBandeau/BandeauSmartBandeau.css');
+
         //    $this->groupe = $this->getRequest()->getParameter('id');
         $query = $this->getShowQuery();
         $this->gererMonBandeau = $this->getRecord($query);
@@ -69,38 +69,23 @@ class bandeauComponents extends myFrontModuleComponents {
     public function executeSmartBandeau() {
         $bandeaux = dmDb::table('SidBandeau')->findByIsActive(true);
         foreach ($bandeaux as $bandeau) {
-            if ($this->getPage()->getTitle() == $bandeau->getGroupeBandeau()) {
+            
+            if ($this->getPage()->id == $bandeau->GroupeBandeau->dm_page_id) {
                 $this->bandeauId = $bandeau->id;
                 break;
             } else {
                 $ancestors = $this->context->getPage()->getNode()->getAncestors();
-                if (count($ancestors) > 1) {
-                    if ($ancestors[count($ancestors) - 1]->getTitle() == $bandeau->getGroupeBandeau()) {
-                        $this->bandeauId = $bandeau->id;
-                        
-                        $nomParent = $ancestors[count($ancestors) - 1]->getTitle();
-                        if(!isset($nomParent)){ 
-            $groupe = dmDb::table('SidGroupeBandeauTranslation')->findOneByTitle('Accueil');
-            $bandeauDefaut = Doctrine_Query::create()->from('SidBandeau a')
-                                ->where('a.groupe_bandeau_id = ?', $groupe->id)
-                                ->execute();
-//            echo $bandeauDefaut[0]->id;
-            $this->bandeauId = $bandeauDefaut[0]->id;}
+                    $i = count($ancestors)-1;
+                    foreach ($ancestors as $i => $ancestor) {
+                        if ($ancestor->id == $bandeau->GroupeBandeau->dm_page_id) {
+                            $this->bandeauId = $bandeau->id;
+                            break;
+                        }
+                        else
+                            $i--;
                     }
-                    
-                }
             }
         }
-        $this->nomPage = $this->getPage()->getTitle();
-        if (isset($nomParent)) {
-            $this->parent = $nomParent;
-//        if (!isset($nomParent)){
-//            
-//            $bandeau = dmDb::table('SidBandeau')->findByIsActiveAndGroupeBandeauId(true, $groupe[0]->id);
-//            $this->bandeauId = $bandeau[0]->id;
-//        }
-        };
-        
     }
 
 }

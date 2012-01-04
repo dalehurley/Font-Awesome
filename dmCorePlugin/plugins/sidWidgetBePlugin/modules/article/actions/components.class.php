@@ -80,8 +80,8 @@ class articleComponents extends myFrontModuleComponents
         
         if(count($array) != NULL){
     foreach($array as $article){
-    $nomPage['section'] = $article->getSectionPageName();
-    $nomPage['rubrique'] = $article->getRubriquePageName();
+    $nomPage['section'] = $article->getSectionPageTitle();
+    $nomPage['rubrique'] = $article->getRubriquePageTitle();
     $nomPages[$article->id] = $nomPage;
     $nomPage = array();
     }

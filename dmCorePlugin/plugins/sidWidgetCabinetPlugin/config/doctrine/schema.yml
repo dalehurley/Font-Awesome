@@ -211,7 +211,7 @@ SidCabinetRecrutement:
       type: boolean
       notnull: true
       default: true
-    on_home:
-      type: boolean
-      notnull: true
-      default: false
+#    on_home:
+#      type: boolean
+#      notnull: true
+#      default: false

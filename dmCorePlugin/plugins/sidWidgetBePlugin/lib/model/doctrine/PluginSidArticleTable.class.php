@@ -26,7 +26,7 @@ class PluginSidArticleTable extends myDoctrineTable {
 
         $q = $this->createQuery('c')
                 ->leftJoin('c.SidRubrique.Translation rt')
-                ->where('rt.title = ? and is_active = ?', array($rubrique, true));
+                ->where('rt.title = ? and c.is_active = ?', array($rubrique, true));
 
         return $q->execute();
     }

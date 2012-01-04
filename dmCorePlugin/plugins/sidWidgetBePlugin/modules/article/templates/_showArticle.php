@@ -14,8 +14,8 @@ $xsl = dm::getDir() . '/dmCorePlugin/plugins/sidWidgetBePlugin/lib/xsl/' . sfCon
 
 $return = '';
 
-$section = $article->getSectionPageName();
-$rubrique = $article->getRubriquePageName();
+$section = $article->getSectionPageTitle();
+$rubrique = $article->getRubriquePagetitle();
 
 // vérification des fichiers xml
 if (!is_file($xml)) {

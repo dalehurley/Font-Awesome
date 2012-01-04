@@ -12,5 +12,14 @@
  */
 abstract class PluginSidBandeau extends BaseSidBandeau
 {
+public function show_groupe_select() {
 
+        // on récupère l'id du groupe du bandeau
+        $idGroupeBandeau = dmDb::table('SidGroupeBandeau')
+                ->createQuery('a')
+                ->leftJoin('a.SidBandeau b')
+                ->where('b.id = ?',$this->id)
+                ->fetchOne();
+                return $idGroupeBandeau->title/*.sfContext::getInstance()->getId()*/;
+        }
 }

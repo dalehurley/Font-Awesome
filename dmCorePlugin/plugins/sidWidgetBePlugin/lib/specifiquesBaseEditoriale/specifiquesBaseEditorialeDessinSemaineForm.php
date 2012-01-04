@@ -15,6 +15,12 @@ class specifiquesBaseEditorialeDessinSemaineForm extends dmWidgetPluginForm {
         $this->widgetSchema['title'] = new sfWidgetFormInputText(array('default' => 'Dessin de la semaine'));
         $this->validatorSchema['title'] = new sfValidatorString(array('required' => true));
 
+        $this->widgetSchema['filDActu'] = new sfWidgetFormInputCheckbox(array('default'=> false));
+        $this->validatorSchema['filDActu'] = new sfValidatorBoolean();
+        
+        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('default' => 'LES AUTRES DESSINS'));
+        $this->validatorSchema['titreLien'] = new sfValidatorString(array('required' => true));
+        
         //effect: 'fade' // or 'slide-hori', 'slide-vert', 'fade', or 'resize', 'none'
         $this->widgetSchema['effect'] = new sfWidgetFormchoice(array('choices' => self::$effects)); 
         $this->validatorSchema['effect'] = new sfValidatorChoice(array('choices' => array_keys(self::$effects)));
