@@ -19,6 +19,7 @@ $pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBot
 //Initialisation de la page et récupération des options de la page (avec fusion des options personnalisées)
 $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 ?>
+<!--
 <div class="clearfix">
 	<div class="sprite-test sprite-navigation-home-M">
 	</div>
@@ -45,6 +46,7 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 	<div class="sprite-test sprite-socialnetwork-twitter-X">
 	</div>
 </div>
+-->
 
 <div id="dm_page" data-role="page">
 	<div id="dm_page_inner">
