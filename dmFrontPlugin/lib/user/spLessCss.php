@@ -21,13 +21,18 @@ class spLessCss extends dmFrontUser {
 	}
 		
 	//génération de toutes les sprites dans toutes les dimensions
-	public static function spriteInit($spriteFormat = '', $lessDefinitions = '') {
+	public static function spriteInit($spriteFormat = '') {
 		
 		//récupération du listing des sprites
 		$spriteListing = self::spriteGetListing();
 		
-		//Si on est au début de l'action, purge des miniatures
-		if($spriteFormat == '') self::spriteReset();
+		//Si on est au début de l'action
+		if($spriteFormat == '') {
+			//purge des miniatures
+			self::spriteReset();
+			//initialisation du fichier de sortie less
+			self::spriteLessGenerate(0);
+		}
 		
 		//on définit le pourcentage d'avancement en fonction de la miniature effectuée
 		//on change également la valeur de spriteFormat pour la boucle suivante
@@ -58,16 +63,16 @@ class spLessCss extends dmFrontUser {
 		}
 		
 		//génération des sprites à la résolution sélectionnée
-		$lessDefinitions.= self::spriteGenerate($spriteListing, $spriteFormat) . PHP_EOL;
+		$lessDefinitions = self::spriteGenerate($spriteListing, $spriteFormat) . PHP_EOL;
 		
-		//Si on est à la fin de l'action, génération du fichier less de sortie
-		if($prct == 100) self::spriteLessGenerate($lessDefinitions);
+		//Génération du fichier less de sortie
+		self::spriteLessGenerate($prct, $lessDefinitions);
 		
 		//Renvoi de valeurs pour l'affichage
 		return array(
 			'spriteFormat'		=> $spriteFormat,
-			//'spriteListing'		=> $spriteListing,
-			'lessDefinitions'	=> $lessDefinitions,
+			//'spriteListing'	=> $spriteListing,
+			//'lessDefinitions'	=> $lessDefinitions,
 			'prct'				=> $prct
 		);
 	}
@@ -154,31 +159,44 @@ class spLessCss extends dmFrontUser {
 	}
 	
 	//génération des appels de la fonctions less de génération des sprites
-	private static function spriteLessGenerate($lessDefinitions = "") {
+	private static function spriteLessGenerate($prct = 0, $lessDefinitions = "") {
 		//chemin vers le fichier de config des sprites
 		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteGenerate.less';
 		
 		//création du système de fichier
-		$fs = new sfFilesystem();
+		//$fs = new sfFilesystem();
 		
-		//suppression préventive du fichier
-		if(is_file($urlSpriteGenerate)) $fs->remove($urlSpriteGenerate);
+		//Initialisation du fichier
+		if($prct == 0) {
+			//suppression préventive du fichier
+			//if(is_file($urlSpriteGenerate)) $fs->remove($urlSpriteGenerate);
+			
+			//création du fichier
+			//$fs->touch($urlSpriteGenerate);
+			
+			//ajout des données de copyright dans le fichier
+			$headerInfo = "// _SpriteGenerate.less" . PHP_EOL;
+			$headerInfo.= "// v1.0" . PHP_EOL;
+			$headerInfo.= "// Last Updated : " . date('Y-m-d H:i') . PHP_EOL;
+			$headerInfo.= "// Copyright : SID Presse" . PHP_EOL;
+			$headerInfo.= "// Author : Arnaud GAUDIN" . PHP_EOL . PHP_EOL;
+			
+			//écriture du fichier (création si inexistant, remplacement dans le cas contraire)
+			$testPutContent = file_put_contents($urlSpriteGenerate, $headerInfo);
+			
+		} else {
+			//sinon on rajoute à la fin du fichier les définitions passées en paramètre
+			$testPutContent = file_put_contents($urlSpriteGenerate, $lessDefinitions, FILE_APPEND);
+		}
 		
-		//création du fichier
-		$fs->touch($urlSpriteGenerate);
-		
-		//ajout des données de copyright dans le fichier
-		$headerInfo = "// _SpriteGenerate.less" . PHP_EOL;
-		$headerInfo.= "// v1.0" . PHP_EOL;
-		$headerInfo.= "// Last Updated : " . date('Y-m-d H:i') . PHP_EOL;
-		$headerInfo.= "// Copyright : SID Presse" . PHP_EOL;
-		$headerInfo.= "// Author : Arnaud GAUDIN" . PHP_EOL;
+		//gestion de l'erreur d'écriture dans le fichier
+		if(!$testPutContent) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteGenerate);
 		
 		//composition des données contenues dans le fichier
-		$fileContent = $headerInfo . PHP_EOL . $lessDefinitions;
+		//$fileContent = $headerInfo . PHP_EOL . $lessDefinitions;
 		
 		//écriture du fichier
-		file_put_contents($urlSpriteGenerate, $fileContent);
+		//file_put_contents($urlSpriteGenerate, $fileContent);
 	}
 	
 	//génération d'un appel LESS de la fonction de génération de sprite
