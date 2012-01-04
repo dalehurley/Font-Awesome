@@ -75,9 +75,7 @@
 			//suppression du dégradé
 			&, .cssgradients & { background-color: @colorCouleur3Clair; }
 			//changement couleur d'appui
-			.boxshadow & {
-				&:active { @insetShadow(0; 0; @offM; @offS; @colorCouleur3); }
-			}
+			.boxshadow &:active { @insetShadow(0; 0; @offM; @offS; @colorCouleur3Sup); }
 			//suppression texte
 			text-indent: -9999em;
 			//suppression bordure de gauche
