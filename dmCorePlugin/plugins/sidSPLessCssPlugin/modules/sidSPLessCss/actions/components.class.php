@@ -18,7 +18,7 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
         $pageCurrent =  $dmPage->module.'/'.$dmPage->action.' - '.$dmPage->record_id;
         // récupération du Layout de la page en cours
-        $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');		
+        $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
 		
 		//stockage des paramètres à afficher
 		$paramSpLessCss = array(
