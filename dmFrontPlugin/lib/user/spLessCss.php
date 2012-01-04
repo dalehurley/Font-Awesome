@@ -29,7 +29,7 @@ class spLessCss extends dmFrontUser {
 			$spriteListing = self::spriteGetListing();
 			
 			//purge des miniatures
-			self::spriteReset($spriteListing);
+			self::spriteReset();
 		}
 		
 		//on définit le pourcentage d'avancement en fonction de la miniature effectuée
@@ -112,42 +112,47 @@ class spLessCss extends dmFrontUser {
 	}
 	
 	//purge des miniatures
-	private static function spriteReset($spriteListing = array()){
-		//on parcourt les themes
-		foreach ($spriteListing as $theme => $info) {
-			//récupération des miniatures assemblées déjà générées et des catégories
-			$outputs = $info['output'];
-			$categories = $info['categories'];
-			
-			//suppression des assemblages déjà générés
-			foreach ($outputs as $output) {
-				if(is_file($output)) {
-					$testUnlink = unlink($output);
-					//affichage d'un message en cas d'erreur
-					if(!$testUnlink) die("spLessCss | spriteInit : erreur de suppression du fichier d'assemblage : " . $output);
-				}
+	private static function spriteReset(){
+		//emplacement et récupération des thèmes de sprites
+		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+		$getThemesClient = sfFinder::type('directory')->follow_link()->relative()->in($urlThemesClient);
+		
+		//récupération des miniatures assemblées déjà générées
+		$outputs = sfFinder::type('file')->name('*-*.png')->follow_link()->in($urlThemesClient);
+		//suppression des assemblages déjà générés
+		foreach ($outputs as $output) {
+			if(is_file($output)) {
+				$testUnlink = unlink($output);
+				//affichage d'un message en cas d'erreur
+				if(!$testUnlink) die("spLessCss | spriteInit : erreur de suppression du fichier d'assemblage : " . $output);
 			}
+		}
+		
+		//suppression des SVG déjà générés dans chaque thème généré et suppression de ces derniers
+		foreach ($getThemesClient as $themeClient) {
+			//emplacement et récupération des sprites du thème
+			$urlSpritesClient = $urlThemesClient . '/' . $themeClient;
+			$getSpritesClient = sfFinder::type('file')->name('*.svg')->follow_link()->relative()->in($urlSpritesClient);
+			
 			
 			//suppression des SVG déjà générés
-			foreach ($categories as $category => $sprites) {
-				foreach ($sprites as $sprite => $value) {
-					if(is_file($value['urlClient'])) {
-						$testUnlink = unlink($value['urlClient']);
-						//affichage d'un message en cas d'erreur
-						if(!$testUnlink) die("spLessCss | spriteInit : erreur de suppression du fichier SVG : " . $value['urlClient']);
-					}
+			foreach ($getSpritesClient as $spriteClient) {
+				$urlSpriteClient = $urlSpritesClient . '/' . $spriteClient;
+				if(is_file($urlSpriteClient)) {
+					$testUnlink = unlink($urlSpriteClient);
+					//affichage d'un message en cas d'erreur
+					if(!$testUnlink) die("spLessCss | spriteInit : erreur de suppression du fichier SVG : " . $urlSpriteClient);
 				}
 			}
 			
-			//suppression des dossiers de thème
-			$urlThemeClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme;
+			//suppression du dossier du thème
+			$urlThemeClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $themeClient;
 			if(is_dir($urlThemeClient)){
 				$testRmdir = rmdir($urlThemeClient);
 				//affichage d'un message en cas d'erreur
 				if(!$testRmdir) die("spLessCss | spriteGenerate : erreur de suppression du dossier : " . $urlThemeClient);
 			}
 		}
-		
 	}
 	
 	//génération des appels de la fonctions less de génération des sprites
