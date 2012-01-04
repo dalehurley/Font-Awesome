@@ -9,10 +9,6 @@ class spLessCss extends dmFrontUser {
 		
 		//action à effectuer uniquement en DEV
 		if ($pageOptions['idDev']) {
-			
-			//génération des sprites
-			//self::spriteInit();
-		
 			//affichage du widget de DEBUG du framework
 			echo dm_get_widget('sidSPLessCss', 'debug', array());
 		}
@@ -71,8 +67,6 @@ class spLessCss extends dmFrontUser {
 		//Renvoi de valeurs pour l'affichage
 		return array(
 			'spriteFormat'		=> $spriteFormat,
-			//'spriteListing'	=> $spriteListing,
-			//'lessDefinitions'	=> $lessDefinitions,
 			'prct'				=> $prct
 		);
 	}
@@ -163,17 +157,8 @@ class spLessCss extends dmFrontUser {
 		//chemin vers le fichier de config des sprites
 		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteGenerate.less';
 		
-		//création du système de fichier
-		//$fs = new sfFilesystem();
-		
 		//Initialisation du fichier
 		if($prct == 0) {
-			//suppression préventive du fichier
-			//if(is_file($urlSpriteGenerate)) $fs->remove($urlSpriteGenerate);
-			
-			//création du fichier
-			//$fs->touch($urlSpriteGenerate);
-			
 			//ajout des données de copyright dans le fichier
 			$headerInfo = "// _SpriteGenerate.less" . PHP_EOL;
 			$headerInfo.= "// v1.0" . PHP_EOL;
@@ -191,12 +176,6 @@ class spLessCss extends dmFrontUser {
 		
 		//gestion de l'erreur d'écriture dans le fichier
 		if(!$testPutContent) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteGenerate);
-		
-		//composition des données contenues dans le fichier
-		//$fileContent = $headerInfo . PHP_EOL . $lessDefinitions;
-		
-		//écriture du fichier
-		//file_put_contents($urlSpriteGenerate, $fileContent);
 	}
 	
 	//génération d'un appel LESS de la fonction de génération de sprite
