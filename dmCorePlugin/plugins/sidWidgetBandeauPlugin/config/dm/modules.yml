@@ -4,8 +4,8 @@
       model: SidGroupeBandeau
       name: "Mon groupe de bandeaux|Mes groupes de bandeaux"
       credentials: groupe_bandeau
-      components:
-        show:
+#      components:
+#        show:
 
     Bandeau:
       model: SidBandeau

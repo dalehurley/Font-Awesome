@@ -1,6 +1,6 @@
 <?php
 /**
- * Mission actions
+ * Mission/Services actions
  */
 class missionActions extends myFrontModuleActions
 {

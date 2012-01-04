@@ -2,13 +2,7 @@
 if($i<3){
 			
                         echo _open('li.element');
-			// on affiche un message que pour l'environnement de dev
-			if (sfConfig::get('sf_environment') == 'dev') {
-				echo _tag(
-					'div.debug', array('onClick' => '$(this).hide();'), _tag('span.type', 'id LEA&#160;:').' '._tag('span.value', $article->filename)
-				);
-			}
-//			
+				
 			// je vérifie la longueur du texte
 			if(strlen($article->getChapeau()) > 200){
 			$chapo = stringTools::str_truncate($article->getChapeau(), 200, '(...)', true);

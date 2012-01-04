@@ -124,7 +124,12 @@ class dmFrontLinkTagPage extends dmFrontLinkTag
       if($this->user && !$this->page->_getI18n('is_active') && !$this->user->can('site_view'))
       {
         $attributes['class'][] = 'dm_inactive';
-        $attributes['tag'] = 'span';
+        // ajout lioshi
+        // Plus de span pour les lien inacti (page en disponible = false) 
+        // mais à la place un a avec un href vide, pour fonctionnement ok sur terminaux avec des fonctions tactiles
+        // $attributes['tag'] = 'span';
+        $attributes['tag'] = 'a';
+        $attributes['href'] = '';
       }
 
       // current page

@@ -70,6 +70,10 @@ SidArticle:
       type: boolean
       notnull: true
       default: true
+    is_dossier:
+      type: boolean
+      notnull: true
+      default: false
   relations:
     Section:
       class: SidSection

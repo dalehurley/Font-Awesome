@@ -6,7 +6,6 @@
  */
 class transfertTools {
 
-
     /**
      * scanne et met en tableau le contenu d'un rep sans les . et ..
      *

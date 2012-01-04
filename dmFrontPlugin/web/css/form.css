@@ -88,3 +88,7 @@
 .dm_form .dm_help.no_margin {
   margin-left: 0;
 }
+
+form .dm_form_element .checkbox_list li label{
+    width: 350px;
+}

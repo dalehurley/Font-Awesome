@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    
+    <xsl:param name="imageAffiche"></xsl:param> 
     <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" omit-xml-declaration="yes" />
     
     <!-- Ce XSL est largement inspiré de la standardisation sémantique utilisée par Google  -->
@@ -47,7 +47,10 @@
                 <xsl:variable name="image" select="FileName"/>
                 <xsl:variable name="width" select="PixelWidth"/>
                 <xsl:variable name="height" select="PixelHeight"/>
-                <img src="/_images/images{$image}" width="{$width}" height="{$height}"/>
+                <!-- parametre passé par php, initialisé dans cette xsl à vide -->
+                <xsl:if test="$imageAffiche">
+                        <img src="/_images/images{$image}" width="{$width}" height="{$height}"/>
+                </xsl:if>
             </xsl:for-each>
             
             <xsl:element name="p">
