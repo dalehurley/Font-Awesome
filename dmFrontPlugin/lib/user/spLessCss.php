@@ -21,16 +21,13 @@ class spLessCss extends dmFrontUser {
 	}
 		
 	//génération de toutes les sprites dans toutes les dimensions
-	public static function spriteInit($spriteFormat = '', $spriteListing = array (), $lessDefinitions = '') {
+	public static function spriteInit($spriteFormat = '', $lessDefinitions = '') {
 		
-		//Si on est au début de l'action
-		if($spriteFormat == '') {
-			//récupération du listing des sprites
-			$spriteListing = self::spriteGetListing();
-			
-			//purge des miniatures
-			self::spriteReset();
-		}
+		//récupération du listing des sprites
+		$spriteListing = self::spriteGetListing();
+		
+		//Si on est au début de l'action, purge des miniatures
+		if($spriteFormat == '') self::spriteReset();
 		
 		//on définit le pourcentage d'avancement en fonction de la miniature effectuée
 		//on change également la valeur de spriteFormat pour la boucle suivante
@@ -69,7 +66,7 @@ class spLessCss extends dmFrontUser {
 		//Renvoi de valeurs pour l'affichage
 		return array(
 			'spriteFormat'		=> $spriteFormat,
-			'spriteListing'		=> $spriteListing,
+			//'spriteListing'		=> $spriteListing,
 			'lessDefinitions'	=> $lessDefinitions,
 			'prct'				=> $prct
 		);
@@ -94,7 +91,8 @@ class spLessCss extends dmFrontUser {
 			
 			//emplacement et récupération des sprites assemblées déjà générées
 			$urlSpritesClient = $urlThemesClient . '/' . $theme;
-			$spriteListing[$theme]['output'] =  sfFinder::type('file')->name($theme . '-*.png')->follow_link()->in($urlThemesClient);
+			//désactivation car plus utilisé et mal actualisé à cause de la latence du serveur
+			//$spriteListing[$theme]['output'] =  sfFinder::type('file')->name($theme . '-*.png')->follow_link()->in($urlThemesClient);
 			
 			//on parcourt les sprites trouvées dans le theme
 			foreach ($getSprites as $sprite) {
