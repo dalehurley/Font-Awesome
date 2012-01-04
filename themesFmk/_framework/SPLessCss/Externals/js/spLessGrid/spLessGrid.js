@@ -96,9 +96,12 @@
 			//actualisation de la barre de progression
 			progressBar.stop().animate({width: data.prct + '%'}, 1000, function() {
 				//disparition et suppression à la fin de l'animation
-				if(data.prct == 100) {
+				if(data.prct >= 100) {
 					$(progressBar).addClass('disabled');
 					setTimeout(function(){ $(progressBar).remove(); },200);
+					
+					//message de débug
+					$.fn.spLessGrid.debug("spLessGrid | spriteGenerate : génération des sprites terminées");
 					
 					//rechargement de la page
 					window.location.reload();
