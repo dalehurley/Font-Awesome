@@ -14,11 +14,14 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
         ? sfConfig::get('app_dmWidgetNivoGalleryPlugin_js')
         : 'dmWidgetNivoGalleryPlugin.nivo'));
     
+	//ciblage CSS personnalisée du framework
+	$cssLink = sfConfig::get('sf_css_path_template'). '/Widgets/ContentNivoGallery/ContentNivoGallery.css';
+	
     $this->addStylesheet(array('dmWidgetNivoGalleryPlugin.view',
-      sfConfig::get('app_dmWidgetNivoGalleryPlugin_css')
-        ? sfConfig::get('app_dmWidgetNivoGalleryPlugin_css')
-        : 'dmWidgetNivoGalleryPlugin.nivo'));
-    
+      //sfConfig::get('app_dmWidgetNivoGalleryPlugin_css')
+      //  ? sfConfig::get('app_dmWidgetNivoGalleryPlugin_css')
+      //  : 'dmWidgetNivoGalleryPlugin.nivo'));
+	  $cssLink));
   }
 
   protected function filterViewVars(array $vars = array())
