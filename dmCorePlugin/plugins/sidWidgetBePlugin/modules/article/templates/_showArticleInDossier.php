@@ -18,7 +18,7 @@ $rubrique = $article->getRubriquePageTitle();
 
 // vérification des fichiers xml
 if (!is_file($xml)) {
-    $return .= debugTools::infoDebug(array(__('Error : missed file')=>$xml),'warning');
+    $return .= debugTools::infoDebug(array(__('Error : missed file').'1'=>$xml),'warning');
 }
 
 $doc_xml = new DOMDocument();

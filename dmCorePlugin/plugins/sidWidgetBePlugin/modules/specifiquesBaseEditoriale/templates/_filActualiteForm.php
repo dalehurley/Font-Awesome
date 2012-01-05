@@ -1,6 +1,6 @@
 <?php
 
-echo _tag('ul.help', _tag('li', "Ce widget permet d'afficher les derniers articles d'actu, les derniers dossiers, les dernière faqet le dessin de la semaine.")
+echo _tag('ul.help', _tag('li', "Ce widget permet d'afficher les derniers articles d'actu, les derniers dossiers, les dernière faq et le dessin de la semaine.")
 );
 
 

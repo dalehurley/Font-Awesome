@@ -12,7 +12,12 @@ class articleComponents extends myFrontModuleComponents
   public function executeListBySection()
   {
     $query = $this->getListQuery();
-    
+    // récupération des données pour filtrage des dossiers
+    $section_id = $this->getPage()->getRecordId();
+    $articleDossier = dmDb::table('SidArticle')->findByIsDossierAndSectionId(true,$section_id);
+    if(count($articleDossier)>0){
+        $query->addWhere('is_dossier = true');
+    }
     $this->articlePager = $this->getPager($query);
     $this->route = $this->getPage()->getTitle();
     $ancestors = $this->context->getPage()->getNode()->getAncestors();
