@@ -18,13 +18,8 @@ $rubrique = $article->getRubriquePageTitle();
 
 // vérification des fichiers xml
 if (!is_file($xml)) {
-<<<<<<< HEAD
-    $return .= debugTools::infoDebug(array(__('Error : missed file').'1'=>$xml),'warning');
-}
-=======
     $return .= debugTools::infoDebug(array(__('Error : missed file') => $xml), 'warning');
 } else {
->>>>>>> f4e90b3ac7c9d249eb802d89b48143addaca31b0
 
     $doc_xml = new DOMDocument();
     if ($doc_xml->load($xml)) {
