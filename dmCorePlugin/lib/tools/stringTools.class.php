@@ -185,7 +185,18 @@ class stringTools {
 
         return str_replace($search, $replace, $month).' '.$year;
     }
-    
+
+     /*
+     * Transforme date 13/06/2015 to 20150613
+     */
+    public static function dateFrenchToInt($date) {
+
+        $year = substr($date, 6, 4);
+        $month = substr($date, 3, 2);
+        $day = substr($date, 0, 2);
+        
+        return $year.$month.$day;
+    }
 
 }
 
