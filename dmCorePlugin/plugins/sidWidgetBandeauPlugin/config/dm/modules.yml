@@ -11,7 +11,6 @@
       model: SidBandeau
       name: "Mon bandeau|Mes bandeaux"
       credentials: bandeau
-      parent: GroupeBandeau
       components:
         show:
         smartBandeau:
