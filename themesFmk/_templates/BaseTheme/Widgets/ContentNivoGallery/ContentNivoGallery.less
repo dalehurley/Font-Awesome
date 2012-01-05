@@ -64,8 +64,16 @@
 	.nivo-directionNav {
 		a {
 			display:block;
+			
+			//gestion dimension sprite
+			@spriteDimension(@spriteFormat_M);
+			//chargement thème de sprite
+			@spriteBgi("Default"; @spriteFormat_M);
+			
 			width:30px;
 			height:30px;
+			
+			
 			background-color: red;
 			background-image: url(/dmWidgetNivoGalleryPlugin/images/arrows.png);
 			background-repeat: no-repeat;
@@ -73,10 +81,13 @@
 			border:0;
 			
 			&.nivo-nextNav {
-				background-position:-30px 0;
+				@spriteBgiSvg("Default"; "navigation"; "home");
+				@spriteBgp-navigation-home-S();
 				right:15px;
 			}
 			&.nivo-prevNav {
+				@spriteBgiSvg("Default"; "navigation"; "search");
+				@spriteBgp-navigation-search-S();
 				left:15px;
 			}
 		}
