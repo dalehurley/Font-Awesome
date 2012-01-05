@@ -25,10 +25,13 @@ class SidGroupeBandeauAdminForm extends BaseSidGroupeBandeauForm
                 ->where('p.action LIKE ?','list')
                 ->orWhere('p.module LIKE ? and p.action LIKE ?',array('rubrique', 'show'))
                 ->orWhere('p.module LIKE ? and p.action LIKE ?', array('main', 'root'))
+                ->orderBy('lft')
                 ->execute();
         
        foreach($dmPageGroupe as $dmPageId){
-           self::$dmPageList[$dmPageId->id] = $dmPageId->getTitle();
+           // ajout du préfixe : autant de tirets que de niveaux
+           $prefixe = str_repeat(' - ', $dmPageId->level);
+           self::$dmPageList[$dmPageId->id] = $prefixe.$dmPageId->getTitle();
        }
         
         $this->widgetSchema['dm_page_id'] = new sfWidgetFormChoice(array('choices' => self::$dmPageList)); 

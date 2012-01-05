@@ -10,3 +10,7 @@ all:
     #Ressources CSS
     css_path_framework:     /theme/css/_framework/SPLessCss
     css_path_template:      /theme/css/_templates/<?php echo spLessCss::getLessParam('mainTemplate') ?>
+    #Ressources graphiques
+    img_path_framework:     /theme/less/_framework/SPLessCss/Images
+    img_path_template:      /theme/less/_templates/<?php echo spLessCss::getLessParam('mainTemplate') ?>/Images
+    img_path_client:        /theme/images
