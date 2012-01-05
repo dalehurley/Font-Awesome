@@ -161,10 +161,10 @@ SidCabinetMission:
       type: clob
       extra: ckeditor
       notnull: true
-    on_home:
-      type: boolean
-      notnull: true
-      default: false
+#    on_home:
+#      type: boolean
+#      notnull: true
+#      default: false
     is_active:
       type: boolean
       notnull: true
