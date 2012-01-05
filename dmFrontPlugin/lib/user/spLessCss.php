@@ -235,7 +235,7 @@ class spLessCss extends dmFrontUser {
 		
 		//composition du tableau de sortie
 		$output['function'] = '@sprite' . $nomSprite . '() { ' . $appelFoncDef . ' }' . PHP_EOL . '@spriteBgp' . $nomSprite . '() { ' . $appelFoncBgp . ' }';
-		$output['generate'] = '.sprite' . $nomSprite . ' { ' . '@' . $nomSprite . '(); }';
+		$output['generate'] = '.sprite' . $nomSprite . ' { ' . '@sprite' . $nomSprite . '(); }';
 		
 		//retour du tableau de valeurs
 		return $output;
