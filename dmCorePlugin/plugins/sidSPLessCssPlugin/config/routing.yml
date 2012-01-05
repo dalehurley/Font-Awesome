@@ -1,0 +1,3 @@
+spriteInit:
+  url:   /sprite_init
+  param: { module: sidSPLessCss, action: spriteInit }

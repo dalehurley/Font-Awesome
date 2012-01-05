@@ -43,9 +43,11 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	 * Ancien lien : //ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js
 	 *
 	 * Configuration de la version 2 de Modernizr
-	 * CSS3 : tout activer sauf : Flexible Box Model (flexbox), CSS Generated Content
+	 * CSS3 : tout activer sauf : Flexible Box Model (flexbox)
 	 * HTML5 : activer les paramètres suivant : Canvas, Canvas Text, HTML5 Audio, HTML5 Video, Input Attributes, Input Types
+	 * Misc : activer Inline SVG, SVG, SVG clip path, Touch Events
 	 * Extra : HTML5 Shim/IEPP, Modernizr.load, MQ Polyfill, Media Queries, Add CSS Classes, Modernizr.testStyles(), Modernizr.testProp(), Modernizr.testAllProps(), Modernizr._prefixes, Modernizr._domPrefixes
+	 * Community add-ons : tout activer en attendant filtrage nécessaire
 	 */
 	public function renderIeHtml5Fix()
 	{

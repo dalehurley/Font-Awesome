@@ -1,6 +1,6 @@
 // spLessGrid.js - Pour le framework SPLessCss
-// v1.2.1
-// Last Updated : 2011-12-16 16:20
+// v1.2.5
+// Last Updated : 2012-01-03 16:30
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
@@ -58,8 +58,57 @@
 			
 			//on ajoute la grille
 			$.fn.spLessGrid.createSwitch(this, options);
+			
+			//gestion de la génération des sprites
+			$(this).find(".spriteInit").bind('click', $.fn.spLessGrid.spriteBind);
 		});
 	};
+	
+	//gestion du click de génération des sprites
+	$.fn.spLessGrid.spriteBind = function(e) {
+		//récupération de l'url de l'actions
+		var action = $(this).attr('formaction');
+		
+		//ajout et ciblage de la bar de progression
+		if($(this).siblings(".spriteProgress").length == 0) $(this).parent().append('<div class="spriteProgress disabled"><div class="picker"></div></div>');
+		var progressBar = $(this).siblings(".spriteProgress");
+		
+		//lancement requête AJAX
+		$.fn.spLessGrid.spriteGenerate(action, {prct: 0}, progressBar);
+		
+		//désactivation comportement par défaut
+		e.preventDefault();
+	 	return false;
+	}
+	
+	//gestion de l'actualisation AJAX des sprites
+	$.fn.spLessGrid.spriteGenerate = function(action, dataRecup, progressBar) {
+		//on initialise la barre de progression
+		if(dataRecup.prct == 0) {
+			if(progressBar.hasClass('disabled')) progressBar.removeClass('disabled');
+			progressBar.width('0%').find(".picker").text(0);
+		}
+		
+		$.getJSON(action, dataRecup, function(data) {
+			//on appel la fonction de façon récursive si on a pas atteint 100
+			if(data.prct < 100) $.fn.spLessGrid.spriteGenerate(action, data, progressBar);
+			
+			//actualisation de la barre de progression
+			progressBar.stop().animate({width: data.prct + '%'}, 1000, function() {
+				//disparition et suppression à la fin de l'animation
+				if(data.prct >= 100) {
+					$(progressBar).addClass('disabled');
+					setTimeout(function(){ $(progressBar).remove(); },200);
+					
+					//message de débug
+					$.fn.spLessGrid.debug("spLessGrid | spriteGenerate : génération des sprites terminées");
+					
+					//rechargement de la page
+					window.location.reload();
+				}
+			}).find(".picker").text(data.prct);
+		});
+	}
 	
 	//gestion apparition de la zone de debug
 	$.fn.spLessGrid.toggleDisplay = function(e, active) {
@@ -144,7 +193,7 @@
 			switchPositionRight += $('#sfWebDebugBar').outerWidth();
 		}
 		
-		$('body').append('<span id="less-grid-switch">show grid</span>');
+		$('body').append('<span id="less-grid-switch">afficher la grille</span>');
 
 		$('#less-grid-switch').css('right', switchPositionRight);
 		
@@ -164,7 +213,7 @@
 			$.fn.spLessGrid.toggleDisplay(param, true);
 			
 		}, function() {
-			$(this).text('show grid');
+			$(this).text('afficher la grille');
 			$('#less-grid').hide();
 			$('#less-baseline').hide();
 			$(this).attr('rel','off');
@@ -195,15 +244,12 @@
 	
 	$.fn.spLessGrid.initialize = function() {
 		$.fn.spLessGrid.debugTemplate.spLessGrid();
+		
+		//désactivation de l'Ajax pour les transitions de page
+		if($.mobile) $.mobile.ajaxEnabled = false;
 	}
 	
 	//lancement automatique de la fonction lors du chargement de la page (événement différent selon la présence de jQueryMobile)
 	$(document).bind(($.mobile ? "pageinit" : "ready"), $.fn.spLessGrid.initialize);
-        
-        // lioshi : ajout paramètre ajaxEnabled à false pour ne pas avoir le bug d'affichage:
-        // - clic sur un lien
-        // - ouverture dans la même page avec création d'une nouvelle div dmPage
-        $.mobile.ajaxEnabled = false;
-        
 	
 })(jQuery);

@@ -2,6 +2,351 @@
 
 class spLessCss extends dmFrontUser {
 	
+	//fonction d'inialisation de la page (permet de centraliser les fonctionns appelées)
+	public static function pageInit($optionsCustom = array()) {
+		//Récupération des options de la page (avec fusion des options personnalisées)
+		$pageOptions = self::pageTemplateGetOptions($optionsCustom);
+		
+		//action à effectuer uniquement en DEV
+		if ($pageOptions['idDev']) {
+			//affichage du widget de DEBUG du framework
+			echo dm_get_widget('sidSPLessCss', 'debug', array());
+		}
+		
+		return $pageOptions;
+	}
+		
+	//génération de toutes les sprites dans toutes les dimensions
+	public static function spriteInit($spriteFormat = '') {
+		
+		//récupération du listing des sprites
+		$spriteListing = self::spriteGetListing();
+		
+		//Si on est au début de l'action
+		if($spriteFormat == '') {
+			//purge des miniatures
+			self::spriteReset();
+			//initialisation du fichier de sortie less
+			self::spriteLessGenerate(0);
+		}
+		
+		//on définit le pourcentage d'avancement en fonction de la miniature effectuée
+		//on change également la valeur de spriteFormat pour la boucle suivante
+		switch ($spriteFormat) {
+			case '':
+				$spriteFormat = 'S';
+				$prct = 25;
+				break;
+			case 'S':
+				$spriteFormat = 'M';
+				$prct = 50;
+				break;
+			case 'M':
+				$spriteFormat = 'L';
+				$prct = 75;
+				break;
+			case 'L':
+				$spriteFormat = 'X';
+				$prct = 100;
+				break;
+			case 'X':
+				//on quite la fonction pour éviter une boucle infinie
+				return false;
+				break;
+			default:
+				$prct = 0;
+				break;
+		}
+		
+		//génération des sprites à la résolution sélectionnée
+		$lessDefinitions = self::spriteGenerate($spriteListing, $spriteFormat);
+		
+		//Génération du fichier less de sortie
+		self::spriteLessGenerate($prct, $lessDefinitions);
+		
+		//Renvoi de valeurs pour l'affichage
+		return array(
+			'spriteFormat'		=> $spriteFormat,
+			'prct'				=> $prct
+		);
+	}
+	
+	//génération du listing des icônes
+	private static function spriteGetListing() {
+		//emplacement et récupération des thèmes de sprites
+		$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites';
+		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+		$getThemes = sfFinder::type('directory')->follow_link()->relative()->in($urlThemes);
+		
+		//création du tableau de stockage des sprites
+		$spriteListing = array();
+		
+		//on parcourt tous les thèmes repérés
+		foreach ($getThemes as $theme) {
+			//emplacement et récupération des sprites du thème
+			$urlSprites = $urlThemes . '/' . $theme;
+			$getSprites = sfFinder::type('file')->name('*.svg')->follow_link()->relative()->in($urlSprites);
+			
+			
+			//emplacement et récupération des sprites assemblées déjà générées
+			$urlSpritesClient = $urlThemesClient . '/' . $theme;
+			//désactivation car plus utilisé et mal actualisé à cause de la latence du serveur
+			//$spriteListing[$theme]['output'] =  sfFinder::type('file')->name($theme . '-*.png')->follow_link()->in($urlThemesClient);
+			
+			//on parcourt les sprites trouvées dans le theme
+			foreach ($getSprites as $sprite) {
+				//décomposition du nom categorie-icone.svg
+				$decomp = explode('-', substr($sprite, 0, -4));
+				
+				//on part du modèle suivant :
+				//categorie-icone.svg
+				$spriteListing[$theme]['categories'][$decomp[0]][$decomp[1]]['urlFramework'] = $urlSprites . '/' . $sprite;
+				$spriteListing[$theme]['categories'][$decomp[0]][$decomp[1]]['urlClient'] = $urlSpritesClient . '/' . $sprite;
+			}
+		}
+		
+		return $spriteListing;
+	}
+	
+	//purge des miniatures
+	private static function spriteReset(){
+		//emplacement et récupération des thèmes de sprites
+		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+		$getThemesClient = sfFinder::type('directory')->follow_link()->relative()->in($urlThemesClient);
+		
+		//récupération des miniatures assemblées déjà générées
+		$outputs = sfFinder::type('file')->name('*-*.png')->follow_link()->in($urlThemesClient);
+		//suppression des assemblages déjà générés
+		foreach ($outputs as $output) {
+			if(is_file($output)) {
+				$testUnlink = unlink($output);
+				//affichage d'un message en cas d'erreur
+				if(!$testUnlink) die("spLessCss | spriteInit : erreur de suppression du fichier d'assemblage : " . $output);
+			}
+		}
+		
+		//suppression des SVG déjà générés dans chaque thème généré et suppression de ces derniers
+		foreach ($getThemesClient as $themeClient) {
+			//emplacement et récupération des sprites du thème
+			$urlSpritesClient = $urlThemesClient . '/' . $themeClient;
+			$getSpritesClient = sfFinder::type('file')->name('*.svg')->follow_link()->relative()->in($urlSpritesClient);
+			
+			
+			//suppression des SVG déjà générés
+			foreach ($getSpritesClient as $spriteClient) {
+				$urlSpriteClient = $urlSpritesClient . '/' . $spriteClient;
+				if(is_file($urlSpriteClient)) {
+					$testUnlink = unlink($urlSpriteClient);
+					//affichage d'un message en cas d'erreur
+					if(!$testUnlink) die("spLessCss | spriteInit : erreur de suppression du fichier SVG : " . $urlSpriteClient);
+				}
+			}
+			
+			//suppression du dossier du thème
+			$urlThemeClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $themeClient;
+			if(is_dir($urlThemeClient)){
+				$testRmdir = rmdir($urlThemeClient);
+				//affichage d'un message en cas d'erreur
+				if(!$testRmdir) die("spLessCss | spriteGenerate : erreur de suppression du dossier : " . $urlThemeClient);
+			}
+		}
+	}
+	
+	//génération des appels de la fonctions less de génération des sprites
+	private static function spriteLessGenerate($prct = 0, $lessDefinitions = array()) {
+		//chemin vers le fichier de config des sprites
+		$urlSpriteFunctions = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteFunctions.less';
+		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteGenerate.less';
+		
+		//Initialisation des fichier
+		if($prct == 0) {
+			//ajout des données de copyright dans le fichier
+			//$headerInfo = "// _SpriteGenerate.less" . PHP_EOL;
+			$headerInfo = "// v1.0" . PHP_EOL;
+			$headerInfo.= "// Last Updated : " . date('Y-m-d H:i') . PHP_EOL;
+			$headerInfo.= "// Copyright : SID Presse" . PHP_EOL;
+			$headerInfo.= "// Author : Arnaud GAUDIN" . PHP_EOL . PHP_EOL;
+			
+			//compositions des headers pour les deux type de fichiers
+			$headerInfoFunctions = "// _SpriteFunctions.less" . PHP_EOL . $headerInfo;
+			$headerInfoGenerate = "// _SpriteGenerate.less" . PHP_EOL . $headerInfo;
+			
+			//écriture du fichier (création si inexistant, remplacement dans le cas contraire)
+			$testPutContentFunctions = file_put_contents($urlSpriteFunctions, $headerInfoFunctions);
+			$testPutContentGenerate = file_put_contents($urlSpriteGenerate, $headerInfoGenerate);
+		} else {
+			//assemblage en string des déclarations à ajouter dans le fichier pour grouper les écritures
+			$lessDefinitionFunctions = "";
+			$lessDefinitionGenerate = "";
+
+			//sinon on rajoute à la fin du fichier les définitions passées en paramètre
+			foreach ($lessDefinitions as $lessDefinition) {
+				$lessDefinitionFunctions.= $lessDefinition['function'] . PHP_EOL;
+				$lessDefinitionGenerate.= $lessDefinition['generate'] . PHP_EOL;
+			}
+			
+			//ajout de retours ligne à la fin de la boucle
+			$lessDefinitionFunctions.= PHP_EOL;
+			$lessDefinitionGenerate.= PHP_EOL;
+			
+			//écriture dans les fichiers
+			$testPutContentFunctions = file_put_contents($urlSpriteFunctions, $lessDefinitionFunctions, FILE_APPEND);
+			$testPutContentGenerate = file_put_contents($urlSpriteGenerate, $lessDefinitionGenerate, FILE_APPEND);
+		}
+		
+		//gestion de l'erreur d'écriture dans le fichier
+		if(!$testPutContentFunctions) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteFunctions);
+		if(!$testPutContentGenerate) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteGenerate);
+	}
+	
+	//génération d'un appel LESS de la fonction de génération de sprite
+	private static function spriteLessDefinition($theme = "Default", $category, $name, $spriteFormat = "L", $offX = 0, $offY = 0) {
+		//@sprite-navigation-test-S() { @spriteDefinition("Default"; "navigation"; "home"; "S"; @spriteFormat_S; 0; 0); }
+		//.sprite-navigation-test-S { @sprite-navigation-test-S(); }
+		
+		//composition du nom de la sprite
+		$nomSprite = 'sprite';
+		if($theme != "Default") $nomSprite.= '-' . $theme;
+		$nomSprite.= '-' . $category;
+		$nomSprite.= '-' . $name;
+		$nomSprite.= '-' . $spriteFormat;
+		
+		//ouverture fonction LESS
+		$appelFonction = '@spriteDefinition(';
+		//ajout paramètres
+		$appelFonction.= '"' . $theme . '"';
+		$appelFonction.= '; "' . $category . '"';
+		$appelFonction.= '; "' . $name . '"';
+		$appelFonction.= '; "' . $spriteFormat . '"';
+		$appelFonction.= '; @spriteFormat_' . $spriteFormat;
+		$appelFonction.= '; ' . $offX;
+		$appelFonction.= '; ' . $offY;
+		//fermeture fonction LESS
+		$appelFonction.= ');';
+		
+		//composition du tableau de sortie
+		$output['function'] = '@' . $nomSprite . '() { ' . $appelFonction . ' }';
+		$output['generate'] = '.' . $nomSprite . ' { ' . '@' . $nomSprite . '(); }';
+		
+		//retour du tableau de valeurs
+		return $output;
+	}
+	
+	//copie de toutes les icônes et changement des couleurs
+	private static function spriteGenerate($spriteListing = array(), $spriteFormat = 'L'){
+		//dimension par défaut des sprites (imposé par le format SVG utilisé)
+		$dimDefault = intval(self::getLessParam('spriteFormat'));
+		//dimension des sprites dans les paramètres du framework (égale à S, M, L ou X)
+		$dimFramework = intval(self::getLessParam('spriteFormat_' . $spriteFormat));
+		
+		//calcul du ratio de redimenssionnement
+		$resizeRatio = $dimFramework / $dimDefault;
+		
+		//calcul de la densité (par défaut résolution de 72dpi)
+		$density = 72 * $resizeRatio;
+		$execDensity = ($resizeRatio != 1) ? ' -density ' . $density : null;
+		
+		//génération du code LESS en sortie
+		$output = array();
+		
+		//on parcourt les themes
+		foreach ($spriteListing as $theme => $info) {
+			//récupération des catégories
+			$categories = $info['categories'];
+			
+			//création du dossier du thème si non présent
+			$urlThemeClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme;
+			if(!is_dir($urlThemeClient)){
+				$testMkdir = mkdir($urlThemeClient, 0775, true);
+				//affichage d'un message en cas d'erreur
+				if(!$testMkdir) die("spLessCss | spriteGenerate : erreur de création de l'arborescence de dossiers");
+			}
+			
+			//Requête : préparations des composantes assemblées par la suite
+			$execConvert = "convert";
+			$execConvertOptions = " -background none";
+			$execConvertDensityGeneral = true;
+			$execConvertAppend = "";
+			
+			//variable de placement et de comptage
+			$numCat = 0;
+			
+			//on parcourt les catégories du theme
+			foreach ($categories as $category => $sprites) {
+				$numSprite = 0;
+				
+				//Requête : ouverture parenthèse
+				$execConvertAppend.= " \(";
+				
+				//on parcourt les sprites de la catégorie
+				foreach ($sprites as $sprite => $value) {
+					//composition des commandes à exécuter
+					$execCopy = "cp ". $value['urlFramework'] . " " . $value['urlClient'];
+					
+					//exécution de la commande de copie
+					exec($execCopy);
+					
+					//on récupère toutes les occurences de la couleur spriteCouleur dans le fichier
+					$isMatchColors = preg_match_all('/\#\#spriteCouleur\d[A-Za-z]*\#\#/', file_get_contents($value['urlClient']), $matchColors);
+					
+					//on parcourt les couleurs trouvées et on les remplace
+					foreach ($matchColors[0] as $colorToken) {
+						//on enlève les délimiteurs ## de la couleur
+						$colorKey = substr($colorToken, 2, -2);
+						//on récupère la valeur de la couleur correspondante
+						$colorValue = self::getLessParam($colorKey);
+						
+						//composition de la commmande de changement de couleurs
+						$execColor = "perl -pi -w -e 's/" . $colorToken . "/". $colorValue ."/g;' " . $value['urlClient'];
+						
+						//exécution de la commande
+						exec($execColor);
+					}
+					
+					//on récupère les dimensions de l'image dans un tableau
+					$spriteInfo = explode('-', exec('identify -format "%w-%h" ' . $value['urlClient']));
+					$spriteWidth = $spriteInfo[0];
+					$spriteHeight = $spriteInfo[1];
+					
+					//on vérifie si l'une des dimensions ne correspond pas à la dimenssion de base définie, puis on remultiplie par le ratio général
+					$spriteResizeRatio = $dimDefault / max($spriteWidth, $spriteHeight);
+					$spriteDensity = 72 * $spriteResizeRatio * $resizeRatio;
+					if($spriteResizeRatio != 1) {
+						$execSpriteDensity = ' -density ' . $spriteDensity;
+						$execConvertAppend.= $execSpriteDensity;
+						$execConvertDensityGeneral = false;
+					}
+					
+					//Requête : ajout nom de fichier
+					$execConvertAppend.= " " . $value['urlClient'];
+					
+					//ajout de l'appel LESS à la variable de sortie
+					$output[] = self::spriteLessDefinition($theme, $category, $sprite, $spriteFormat, $numSprite, $numCat);
+					
+					//incrémentation numéro de sprite
+					$numSprite++;
+				}
+				
+				//Requête : append horizontal et fermeture parenthèse
+				$execConvertAppend.= " +append \)";
+				
+				//incrémentation numéro de catégorie
+				$numCat++;
+			}
+			
+			//Requête : assemblage final
+			if($execConvertDensityGeneral) $execConvertOptions.= $execDensity;
+			$execConvert.= $execConvertOptions . $execConvertAppend;
+			$execConvert.= " -append " . $urlThemeClient . "-" . $spriteFormat . ".png";
+			
+			//Requête : exécution
+			exec($execConvert);
+		}
+		
+		//retour de la valeur de sortie LESS
+		return $output;	
+	}
+	
 	//récupération du layout par défaut du template sélectionné
 	public static function pageSuccessTemplateInclude() {
 		//Ciblage du layout de page par défaut du template sélectionné
@@ -60,7 +405,7 @@ class spLessCss extends dmFrontUser {
 	}
 	
 	//fonction d'insertion de nouvelle Area dans le pageTemplateSuccess
-	public static function pageTemplateCustomOptions($options = array(), $customOptions = array()) {
+	private static function pageTemplateCustomOptions($options = array(), $customOptions = array()) {
 		//on parcourt toutes les zones à insérer
 		foreach ($customOptions['areas'] as $id => $area) {
 			//on vérifie si un index est définit pour la zone, sinon on la rajoute à la fin

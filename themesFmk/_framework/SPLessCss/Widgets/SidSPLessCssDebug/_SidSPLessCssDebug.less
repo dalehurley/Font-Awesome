@@ -38,6 +38,53 @@
 			top: 0;
 			font-weight: bold;
 		}
+		
+		.debugUtils {
+			background-color: @colorCouleur3;
+			.rgba & { background-color: fadeout(@colorCouleur3Sup, 50%); }
+			margin-bottom: @gridBaseline;
+			
+			.spriteInit {
+				width: 100%;
+			}
+			
+			.spriteProgress {
+				//disparition lorsque désactivé
+				&.disabled { opacity: 0; visibility: hidden; }
+				
+				//animation disparition (syntaxe lessPHP v0.3.0)
+				.csstransitions & {
+					@transitionProperty(visibility, opacity);
+					@transitionDuration(.2s);
+					@transitionFunction(ease-out);
+					@transitionDelay(.2s, 0);
+				}
+				
+				//stylage en bar de progression
+				position: relative;
+				overflow: visible;
+				@verticalGradient(@colorCouleur1Clair; @colorCouleur1);
+				.rgba & { @verticalGradient(fadeout(@colorCouleur1, 25%); fadeout(@colorCouleur1Moyen, 25%)); }
+				height: @gridBaseline;
+				width: 100%;
+				
+				.picker {
+					display: block;
+					float: left;
+					padding: 0 @offS;
+					line-height: @gridBaseline;
+					height: @gridBaseline;
+					background-color: @colorCouleur3Fonce;
+					color: @colorCouleur3ClairSup;
+					font-weight: bold;
+				}
+			}
+		}
+		
+		.debugInfo {
+			background-color: @colorCouleur3Clair;
+			.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 50%); }
+		}
 	}
 }
 
