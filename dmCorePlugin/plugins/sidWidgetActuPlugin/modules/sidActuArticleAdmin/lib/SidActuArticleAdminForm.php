@@ -46,13 +46,13 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 
     public function setup() {
 	parent::setup();
-	$this->widgetSchema['m_sections_list'] = new sfWidgetFormDoctrineChoice(array(
-		    'model' => 'SidSection',
-		    'method' => 'show_rubrique_section',
-		    'multiple' => true,
-		    'expanded' => true,  // pour avoir des cases à cocher
-		    //'add_empty' => '-- Sections --'
-		));
+//	$this->widgetSchema['m_sections_list'] = new sfWidgetFormDoctrineChoice(array(
+//		    'model' => 'SidSection',
+//		    'method' => 'show_rubrique_section',
+//		    'multiple' => true,
+//		    'expanded' => true,  // pour avoir des cases à cocher
+//		    //'add_empty' => '-- Sections --'
+//		));
         $this->widgetSchema->setHelps(array(
             'file_form' => 'Vous pouvez insérer des fichiers : Pdf, Word, OpenOffice ainsi que des images',
             'title_file' => 'nouveau nom de votre fichier',
@@ -67,6 +67,9 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 		    'expanded' => true,  // pour avoir des cases à cocher
 		    //'add_empty' => '-- Sections --'
 		));
+      
+        $this->widgetSchema['sid_actu_type_list'] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'SidActuType', 'expanded' => true));
+
     }
     
 
