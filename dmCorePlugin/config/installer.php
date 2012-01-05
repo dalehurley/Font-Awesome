@@ -553,9 +553,10 @@ if ($nomDumpChoisi != $libelleEmptyDump) { // on fait un loadDB si on a choisi u
 //-------------------------------------------------------------------------------------
 //    Les permissions
 //-------------------------------------------------------------------------------------
-$this->logBlock('Chmod -R 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css" pour laisser php ecrire via lessPlugin', 'INFO_LARGE');
+$this->logBlock('Chmod -R 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme" pour laisser php ecrire via lessPlugin et sprite_init', 'INFO_LARGE');
 $out = $err = null;
-$this->getFilesystem()->execute('sudo chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/css', $out, $err);
+$this->getFilesystem()->execute('sudo chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme', $out, $err);
+
 
 $this->logBlock('Les permissions (dm:permissions)', 'INFO_LARGE');
 $out = $err = null;
