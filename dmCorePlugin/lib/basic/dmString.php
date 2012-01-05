@@ -308,7 +308,7 @@ class dmString extends sfInflector
     }
 
     $opt = array_merge($opt, sfToolkit::stringToArray($string)); 
-    // modif pour gestion attribut HTML5
+    // modif pour gestion attribut HTML5 (plus besoin, le submodule projectdiem/symfony a été mis à jour)
     //$opt = array_merge($opt, arrayTools::stringToArray($string)); 
     
     $string = '';

@@ -40,7 +40,7 @@ abstract class PluginDmSetting extends BaseDmSetting
   public function getParamsArray()
   {
     return $this->get('params') ? sfToolkit::stringToArray($this->get('params')) : array();
-    // modif pour gestion attribut HTML5
+    // modif pour gestion attribut HTML5 (plus besoin, le submodule projectdiem/symfony a été mis à jour)
     //return $this->get('params') ? arrayTools::stringToArray($this->get('params')) : array();
     
   }
