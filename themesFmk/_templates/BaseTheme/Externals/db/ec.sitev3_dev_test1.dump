@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.14, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.1.44, for apple-darwin8.11.1 (i386)
 --
--- Host: localhost    Database: sitev3_dev_test_tenor_2
+-- Host: localhost    Database: sitev3_dev_test1
 -- ------------------------------------------------------
--- Server version	5.5.14
+-- Server version	5.1.44
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -224,7 +224,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `dm_user` WRITE;
 /*!40000 ALTER TABLE `dm_user` DISABLE KEYS */;
-INSERT INTO `dm_user` (`id`, `username`, `email`, `algorithm`, `salt`, `password`, `is_active`, `is_super_admin`, `last_login`, `forgot_password_code`, `created_at`, `updated_at`) VALUES (1,'admin','admin@sitediem.com','sha1','df35970750a0f1dc622a18e0410bd08e','f9a75d5f1acc8c6efd76400abd15ef1575dde098',1,1,'2012-01-03 16:27:35',NULL,'2011-11-16 14:23:09','2011-11-16 14:23:09'),(2,'client','client@client.fr','sha1','1ecbcc7d51d509c40c13c00a9a62ee14','9c4e226396030f4e6674335b7274dc210483d7e8',1,0,'2012-01-03 13:46:48',NULL,'2011-11-16 14:45:56','2011-11-16 14:45:56');
+INSERT INTO `dm_user` (`id`, `username`, `email`, `algorithm`, `salt`, `password`, `is_active`, `is_super_admin`, `last_login`, `forgot_password_code`, `created_at`, `updated_at`) VALUES (1,'admin','admin@sitediem.com','sha1','df35970750a0f1dc622a18e0410bd08e','f9a75d5f1acc8c6efd76400abd15ef1575dde098',1,1,'2012-01-04 17:49:44',NULL,'2011-11-16 14:23:09','2011-11-16 14:23:09'),(2,'client','client@client.fr','sha1','1ecbcc7d51d509c40c13c00a9a62ee14','9c4e226396030f4e6674335b7274dc210483d7e8',1,0,'2012-01-03 13:46:48',NULL,'2011-11-16 14:45:56','2011-11-16 14:45:56');
 /*!40000 ALTER TABLE `dm_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -730,4 +730,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-01-03 17:25:57
+-- Dump completed on 2012-01-04 17:56:30
