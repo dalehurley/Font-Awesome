@@ -51,11 +51,12 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
     //$this->widgetSchema['width'] = new sfWidgetFormInputText(array(), array('size' => 5));
     $this->widgetSchema['width'] = new sfWidgetFormSelect(array(
 	  'choices' => array(
-		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol')),
-		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_Content')),
-		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_SidebarLeft')),
-		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_SidebarRight'))
-	  )
+		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol'))				=> 'gridCol',
+		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_Content'))		=> 'gridCol_Content',
+		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_SidebarLeft'))	=> 'gridCol_SidebarLeft',
+		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_SidebarRight'))	=> 'gridCol_SidebarRight'
+	  ),
+	  'default' => spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_Content'))
 	));
 	$this->validatorSchema['width'] = new dmValidatorCssSize(array(
       'required' => true
@@ -65,11 +66,13 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
 	//création des choix de hauteur
 	$choicesHeight = array();
 	for ($i = 1; $i <= 40; $i++) {
-		$choicesHeight[] = spLessCss::gridGetHeight($i);
+		$value = spLessCss::gridGetHeight($i);
+		$choicesHeight[$value] = $value;
 	}
 	
 	$this->widgetSchema['height'] = new sfWidgetFormSelect(array(
-	  'choices' => $choicesHeight
+	  'choices' => $choicesHeight,
+	  'default' => spLessCss::gridGetHeight(20)
 	));
 	$this->validatorSchema['height'] = new dmValidatorCssSize(array(
       'required' => true
