@@ -37,21 +37,6 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 </div>
 */
 ?>
-<div class="clearfix">
-	<div class="sprite-test sprite-internet-home-X">
-	</div>
-	<div class="sprite-test sprite-internet-search-X">
-	</div>
-	<div class="sprite-test sprite-internet-back-X">
-	</div>
-	<div class="sprite-test sprite-internet-forward-X">
-	</div>
-	<div class="sprite-test sprite-internet-email-X">
-	</div>
-	<div class="sprite-test sprite-internet-like-X">
-	</div>
-</div>
-
 <div id="dm_page" data-role="page">
 	<div id="dm_page_inner">
 		
