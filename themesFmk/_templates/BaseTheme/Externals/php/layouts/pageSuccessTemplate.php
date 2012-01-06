@@ -30,6 +30,10 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 	</div>
 	<div class="sprite-test sprite-internet-forward-X">
 	</div>
+	<div class="sprite-test sprite-internet-email-X">
+	</div>
+	<div class="sprite-test sprite-internet-like-X">
+	</div>
 </div>
 */
 ?>
@@ -41,6 +45,10 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 	<div class="sprite-test sprite-internet-back-X">
 	</div>
 	<div class="sprite-test sprite-internet-forward-X">
+	</div>
+	<div class="sprite-test sprite-internet-email-X">
+	</div>
+	<div class="sprite-test sprite-internet-like-X">
 	</div>
 </div>
 
