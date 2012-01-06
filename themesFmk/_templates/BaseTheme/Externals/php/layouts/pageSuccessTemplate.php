@@ -22,25 +22,28 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 //À rajouter pour tester quelques sprites
 /*
 <div class="clearfix">
-	<div class="sprite-test sprite-navigation-home-M">
+	<div class="sprite-test sprite-internet-home-X">
 	</div>
-	<div class="sprite-test sprite-navigation-search-M">
+	<div class="sprite-test sprite-internet-search-X">
 	</div>
-	<div class="sprite-test sprite-socialnetwork-global-M">
+	<div class="sprite-test sprite-internet-back-X">
 	</div>
-	<div class="sprite-test sprite-socialnetwork-twitter-M">
-	</div>
-	<div class="sprite-test sprite-navigation-home-L">
-	</div>
-	<div class="sprite-test sprite-navigation-search-L">
-	</div>
-	<div class="sprite-test sprite-socialnetwork-global-L">
-	</div>
-	<div class="sprite-test sprite-socialnetwork-twitter-L">
+	<div class="sprite-test sprite-internet-forward-X">
 	</div>
 </div>
 */
 ?>
+<div class="clearfix">
+	<div class="sprite-test sprite-internet-home-X">
+	</div>
+	<div class="sprite-test sprite-internet-search-X">
+	</div>
+	<div class="sprite-test sprite-internet-back-X">
+	</div>
+	<div class="sprite-test sprite-internet-forward-X">
+	</div>
+</div>
+
 <div id="dm_page" data-role="page">
 	<div id="dm_page_inner">
 		
