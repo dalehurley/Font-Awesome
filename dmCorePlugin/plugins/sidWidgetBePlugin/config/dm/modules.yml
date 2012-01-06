@@ -29,12 +29,6 @@ Content:
         listBySection:
           filters: [ Section ]
           cache:              true
-        listBySectionSlide:
-          filters: [ Section ]
-          cache:              true   
-        listBySectionFeature:
-          filters: [ Section ]
-          cache:              true            
         show:
           cache:              true
         listArticlesAvecMemeTag:
