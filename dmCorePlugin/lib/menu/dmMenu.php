@@ -442,10 +442,10 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
       dmDb::table('DmPage')->createQuery('p')
       ->withI18n($this->user->getCulture(), null, 'p')
       ->select('p.*, pTranslation.*')
-// ajout stef le 04/01/2012 pour classer les fils par ordre alphabétique
-      ->orderBy('pTranslation.title ASC')
+// ajout stef pour trier par ordre d'integration les sous menus (utiles pour les sections des rubriques dans le menu de gauche)
+            ->orderBy('p.record_id')
+// fin ajout
     );
-
     if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
             foreach ($pageChildren as $childPage) {
                 // ajout lionel
