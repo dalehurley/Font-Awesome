@@ -1,6 +1,6 @@
 // spLessGrid.js - Pour le framework SPLessCss
-// v1.2.5
-// Last Updated : 2012-01-03 16:30
+// v1.2.6
+// Last Updated : 2012-01-06 14:30
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
@@ -224,13 +224,17 @@
 	$.fn.spLessGrid.debugAddValue = function(info, value) {
 		htmlOutput = '<span class="info ' + info + '">' + info + ' : <span class="value">' + value + '</span></span><br />';
 		//ajout de la valeur à la sortie de debug
-		$.fn.spLessGrid.debugTemplate.find('.debugInfo').append(htmlOutput);
+		$.fn.spLessGrid.debugTemplate.each(function(){
+			$(this).find('.debugInfo').append(htmlOutput);
+		});
 	}
 
 	//fonction d'update de valeur à la sortie de debug
 	$.fn.spLessGrid.debugUpdateValue = function(info, value) {
 		//changement de la valeur dans la sortie de debug
-		htmtOutput = $.fn.spLessGrid.debugTemplate.find('.debugInfo .info.' + info + ' .value').text(value);
+		$.fn.spLessGrid.debugTemplate.each(function(){
+			$(this).find('.debugInfo .info.' + info + ' .value').text(value);
+		});
 	}
 	
 	//fonction de debuggage
@@ -243,7 +247,10 @@
 	$.fn.spLessGrid.debugTemplate = $('.debugTemplate');
 	
 	$.fn.spLessGrid.initialize = function() {
-		$.fn.spLessGrid.debugTemplate.spLessGrid();
+		//lancement de la fonction que si le block de débug est bien présent
+		$.fn.spLessGrid.debugTemplate.each(function() {
+			$(this).spLessGrid();
+		});
 		
 		//désactivation de l'Ajax pour les transitions de page
 		if($.mobile) $.mobile.ajaxEnabled = false;
