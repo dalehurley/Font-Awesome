@@ -105,8 +105,8 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
     $helper = $this->getHelper();
     $count = count($vars['medias']);
     
-    $html = $helper->open('div#dm_widget_nivo_gallery_container');
-    $html .= $helper->open('div#dm_widget_nivo_gallery', array('json' => array(
+    $html = $helper->open('div.dm_widget_nivo_gallery_container');
+    $html .= $helper->open('div.dm_widget_nivo_gallery', array('json' => array(
       'fx'             => dmArray::get($vars, 'fx', '0.5', 'fade'),
       'animspeed'      => dmArray::get($vars, 'animspeed', 0.5),
       'pausetime'      => dmArray::get($vars, 'pausetime', 3),

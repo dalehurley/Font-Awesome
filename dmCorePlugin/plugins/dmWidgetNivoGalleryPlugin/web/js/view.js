@@ -2,8 +2,8 @@
   
   $('#dm_page div.dm_widget.content_nivo_gallery').live('dmWidgetLaunch', function()
   {
-    var $gallerycontainer = $(this).find('div#dm_widget_nivo_gallery_container');
-    var $gallery = $($gallerycontainer).find('div#dm_widget_nivo_gallery');
+    var $gallerycontainer = $(this).find('.dm_widget_nivo_gallery_container');
+    var $gallery = $($gallerycontainer).find('.dm_widget_nivo_gallery');
 
     // only if elements in gallery
     if(!$gallery.find('>img').length)
