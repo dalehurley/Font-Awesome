@@ -1,6 +1,6 @@
 // _ContentNivoGallery.less
-// v1.0
-// Last Updated : 2012-01-05 14:55
+// v1.1
+// Last Updated : 2012-01-09 11:25
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -10,65 +10,36 @@
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/ContentNivoGallery/_ContentNivoGallery.less";
 
-
 .content_nivo_gallery {
-	background-color: lightcoral;
 	
-	.dm_widget_nivo_gallery_container {
-		background-color: lightblue;
-		
-		.dm_widget_nivo_gallery {
-			background-color: lightgreen;
-		}
-	}
-	
-	/*
-	.nivo-directionNav {
-		position: relative;
-		background-color: lightgreen;
-		
-		
-		a {
-			.nivo-prevNav {
-				background-color: teal !important;
-			}
-			.nivo-nextNav {
-				background-color: blue;
-			}
-		}
-	}
-	*/
-	
-	// Widget container
+	//container de la galerie
 	#dm_widget_nivo_gallery {
-		background:url(../images/loading.gif) no-repeat 50% 50%;
-	}
-
-	#dm_widget_nivo_gallery img {
-		position:absolute;
-		top: 0;
-		left: 0;
-		display:none;
-	}
-
-	#dm_widget_nivo_gallery a {
-		border:0;
-		display:block;
+		//loader à définir ultérieurement
+		//background:url(../images/loading.gif) no-repeat 50% 50%;
+		
+		//placement des images par défaut
+		img {
+			position:absolute;
+			top: 0;
+			left: 0;
+			display:none;
+		}
+		
+		//suppression bordures pour les images insérées en lien
+		a { display:block; border:0; }
 	}
 	
-	
-	// Navigation controls
+	//placement sélecteurs de navigation
 	.nivo-controlNav {
 		position:absolute;
-		background-color: orange;
-		bottom: @gridBaseline * -2;
+		top: @gridBaseline;
+		z-index: 9;
 		
 		a {
 			display:block;
 			border:0;
 			text-indent:-9999em;
 			float:left;
-			background-color: lightgreen;
 			
 			//chargement sprite entière avec dimension et SVG
 			@sprite-internet-bullet-S();
@@ -88,37 +59,44 @@
 		}
 	}
 	
+	//placement flêches directionnelles
 	.nivo-directionNav {
+		position: absolute;
+		top: 50%;
+		z-index: 9;
+		width: 100%;
+		
 		a {
 			display:block;
+			position: absolute;
+			top: @spriteFormat_M / -2;
 			border:0;
 			text-indent:-9999em;
-			background-color: red;
 			
 			//gestion dimension sprite
 			@spriteDimension(@spriteFormat_M);
 			//chargement thème de sprite
 			@spriteBgi("Default"; @spriteFormat_M);
+			//décalage pour alignement grille
+			@decalH: @gridColWidth - @spriteFormat_M;
 			
-			
-			
-			&.nivo-nextNav {
-				@spriteBgiSvg("Default"; "internet"; "forward");
-				@spriteBgp-internet-forward-S();
-				right: @gridGutter;
-			}
 			&.nivo-prevNav {
 				@spriteBgiSvg("Default"; "internet"; "back");
 				@spriteBgp-internet-back-S();
-				left: @gridGutter;
+				left: @decalH;
+			}
+			&.nivo-nextNav {
+				@spriteBgiSvg("Default"; "internet"; "forward");
+				@spriteBgp-internet-forward-S();
+				right: @decalH;
 			}
 		}
 	}
 	
+	//placement des légendes (à améliorer dès implémentation de la balise title dans nivoSlider)
 	.nivo-caption {
-		a {
-			color: @colorCouleur3Clair;
-			text-decoration:underline;
-		}
+		background-color: @colorCouleur3Fonce;
+		color: @colorCouleur3Clair;
+		p { padding: @zonesOffsetBorder; }
 	}
 }
