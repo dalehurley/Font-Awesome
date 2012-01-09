@@ -32,8 +32,8 @@ generator:
       fields:
         is_active:
           label: Active
-        on_home:
-          label: "Publié sur la page d'accueil"
+#        on_home:
+#          label: "Publié sur la page d'accueil"
       list:
         batch_actions:
           delete:
@@ -46,7 +46,7 @@ generator:
           - '=title'
           - groupe_sites_utiles_id
           - image_id
-          - on_home
+#          - on_home
           - is_active
           - url
           - created_at
@@ -63,7 +63,7 @@ generator:
         display:
           - title
           - is_active
-          - on_home
+#          - on_home
           - groupe_sites_utiles_id
           - image_id
           - url
@@ -73,11 +73,11 @@ generator:
 #          - description
       form:
         display:
-          NONE: [title, is_active, groupe_sites_utiles_id, on_home]
+          NONE: [title, is_active, groupe_sites_utiles_id]
           Image: [image_id_form, image_id_view]
           Description: [description]
           Others: [url]
-          'Mots clés': [tags_list]
+#          'Mots clés': [tags_list]
         class: SidSitesUtilesAdminForm
         fields: {  }
       edit: ~

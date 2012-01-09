@@ -40,8 +40,8 @@ generator:
           label: Active
         title_file:
           label: 'Nom du fichier'
-        on_home:
-          label: "Publié sur la page d'accueil"
+#        on_home:
+#          label: "Publié sur la page d'accueil"
         file_form:
           label: 'Choisir un fichier'
         image_form:
@@ -59,7 +59,7 @@ generator:
 #          - rubrique_id
           - resume
 #          - tags_list
-          - on_home
+#          - on_home
           - is_active
           - created_at
           - updated_at
@@ -75,7 +75,7 @@ generator:
       filter:
         display:
           - title
-          - on_home
+#          - on_home
           - is_active
 #          - rubrique_id
           - image
@@ -88,7 +88,7 @@ generator:
         display:
 <?php     
 //if (sfContext::getInstance()->getUser()->isSuperAdmin()){ // si l'utilisateur a la permission admin_bandeau_lite et qu'il n'est pas superAdmin'?>
-         'Type des Articles': [sid_actu_type_list, on_home]
+         'Type des Articles': [sid_actu_type_list]
 <?php //} else if (!sfContext::getInstance()->getUser()->isSuperAdmin()) { ?>
 #         NONE: [on_home]
 <?php //} ?>
