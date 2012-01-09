@@ -580,7 +580,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
   public function renderLink()
   {
-    return $this->getLink()->text($this->__($this->getLabel()))->render();
+    return $this->getLink()->addClass($this->getName())->currentSpan(false)->text($this->__($this->getLabel()))->render();
   }
 
   public function renderLabel()
