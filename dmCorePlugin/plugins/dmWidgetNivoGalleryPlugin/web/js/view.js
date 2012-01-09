@@ -15,7 +15,7 @@
     var options = $gallery.metadata();
     
     $gallery.css({ "width": options.width, "height": options.height});
-    $gallerycontainer.css({ "width": options.width, "height": parseInt(options.height) + 40});
+    $gallerycontainer.css({ "width": options.width, "height": options.height});
 
     $gallery.nivoSlider({
         effect:     options.fx,                    
