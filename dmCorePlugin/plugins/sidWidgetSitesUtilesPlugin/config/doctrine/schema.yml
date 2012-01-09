@@ -38,7 +38,7 @@ SidGroupeSitesUtiles:
 
 SidSitesUtiles:
   actAs:
-    DmTaggable:
+#    DmTaggable:
     Timestampable:
     DmSortable:
     I18n:
@@ -66,10 +66,10 @@ SidSitesUtiles:
       type: clob
       extra: ckeditor
       notnull: true
-    on_home:
-      type: boolean
-      notnull: true
-      default: false
+#    on_home:
+#      type: boolean
+#      notnull: true
+#      default: false
   relations:
     GroupeSitesUtiles:
       class: SidGroupeSitesUtiles
