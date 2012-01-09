@@ -8,11 +8,18 @@
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
 .bandeau_smart_bandeau {
+	background-color: lightgreen;
+	float: left;
+	@gridWidth(@gridCol - @gridCol_SidebarLeft);
+	height: @gridBaseline;
+	overflow: hidden;
+	
 	.bandeau_show {
 		color: @colorCouleur3Fonce;
 		font-weight: bold;
 	}
 }
+/*
 #dm_page {
 	.dm_page_content, .dm_layout_left, .dm_layout_right {
 		.bandeau_smart_bandeau {
@@ -20,3 +27,18 @@
 		}
 	}
 }
+*/
+
+//TODO : revoir replacement élément en mode portrait car le JS impose la taille du bandeau au chargement !
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletPortrait(){
+	.bandeau_smart_bandeau {
+		display: none;
+		visibility: hidden;
+		//@gridWidth(@gridCol - @gridCol_SidebarLeft - @gridCol_SidebarRight);
+	}
+}
+
+//importation des requêtes média
+@import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";
