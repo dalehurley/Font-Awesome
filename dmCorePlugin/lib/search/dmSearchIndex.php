@@ -140,7 +140,7 @@ class dmSearchIndex extends dmSearchIndexCommon
     {
       foreach ($pager->getResultsWithoutCache() as $page)
       {
-        $logger->log($this->getName().' '.$nb.'/'.$nbMax.': /'.$page->get('slug'));
+        $logger->log($this->getName().' '.$nb.'/'.$nbMax.': /'.$page->get('slug').' ['.$page->get('id').']');
 
         $document = $this->serviceContainer
         ->setParameter('search_document.source', $page)

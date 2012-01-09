@@ -12,7 +12,12 @@ class articleComponents extends myFrontModuleComponents
   public function executeListBySection()
   {
     $query = $this->getListQuery();
-    
+    // récupération des données pour filtrage des dossiers
+    $section_id = $this->getPage()->getRecordId();
+    $articleDossier = dmDb::table('SidArticle')->findByIsDossierAndSectionId(true,$section_id);
+    if(count($articleDossier)>0){
+        $query->addWhere('is_dossier = true');
+    }
     $this->articlePager = $this->getPager($query);
     $this->route = $this->getPage()->getTitle();
     $ancestors = $this->context->getPage()->getNode()->getAncestors();
@@ -29,24 +34,6 @@ class articleComponents extends myFrontModuleComponents
 //        $this->section = $ancestors[count($ancestors)-1]->getTitle();
 //        $this->rubrique = $ancestors[count($ancestors)-2]->getTitle();
     }
-
-  public function executeListBySectionSlide()
-  {
-    $query = $this->getListQuery();
-    
-    $this->articlePager = $this->getPager($query);
-    
-    $this->articlePager->setOption('ajax', true);
-  }
-
-  public function executeListBySectionFeature()
-  {
-    $query = $this->getListQuery();
-    
-    $this->articlePager = $this->getPager($query);
-    
-    $this->articlePager->setOption('ajax', true);
-  }
 
   public function executeListArticlesAvecMemeTag()
   {
