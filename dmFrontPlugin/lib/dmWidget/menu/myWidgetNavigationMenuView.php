@@ -39,6 +39,9 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 	protected function filterViewVars(array $vars = array()) {
 		$vars = parent::filterViewVars($vars);
 		
+		//debug menuType qui visiblement ne prend pas la valeur par défaut
+		if(!isset($vars['menuType'])) $vars['menuType'] = "default";
+		
         //on ajoute la classe du type de menu provenant du paramètre du widget
         //$vars['menu']->ulClass(myUser::getLessParam('templateMenu'));
         $vars['menu']->ulClass($vars['menuType']);
