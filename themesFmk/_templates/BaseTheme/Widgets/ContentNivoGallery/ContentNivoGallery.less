@@ -52,7 +52,6 @@
 			margin-left: @decalH;
 			
 			&.active {
-				//background-position:0 -22px;
 				@spriteBgiSvg("Default"; "internet"; "bulletOver");
 				@spriteBgp-internet-bulletOver-S();
 			}
@@ -76,18 +75,18 @@
 			//gestion dimension sprite
 			@spriteDimension(@spriteFormat_M);
 			//chargement thème de sprite
-			@spriteBgi("Default"; @spriteFormat_M);
+			@spriteBgi("Default"; "M");
 			//décalage pour alignement grille
 			@decalH: @gridColWidth - @spriteFormat_M;
 			
 			&.nivo-prevNav {
 				@spriteBgiSvg("Default"; "internet"; "back");
-				@spriteBgp-internet-back-S();
+				@spriteBgp-internet-back-M();
 				left: @decalH;
 			}
 			&.nivo-nextNav {
 				@spriteBgiSvg("Default"; "internet"; "forward");
-				@spriteBgp-internet-forward-S();
+				@spriteBgp-internet-forward-M();
 				right: @decalH;
 			}
 		}

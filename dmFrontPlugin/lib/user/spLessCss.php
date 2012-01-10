@@ -23,7 +23,7 @@ class spLessCss extends dmFrontUser {
 		$spriteListing = self::spriteGetListing();
 		
 		//Si on est au début de l'action
-		if($spriteFormat == '') {
+		if($spriteFormat == null) {
 			//purge des miniatures
 			self::spriteReset();
 			//initialisation du fichier de sortie less
