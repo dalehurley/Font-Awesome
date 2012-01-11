@@ -224,7 +224,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `dm_user` WRITE;
 /*!40000 ALTER TABLE `dm_user` DISABLE KEYS */;
-INSERT INTO `dm_user` (`id`, `username`, `email`, `algorithm`, `salt`, `password`, `is_active`, `is_super_admin`, `last_login`, `forgot_password_code`, `created_at`, `updated_at`) VALUES (1,'admin','admin@sitediem.com','sha1','df35970750a0f1dc622a18e0410bd08e','f9a75d5f1acc8c6efd76400abd15ef1575dde098',1,1,'2012-01-11 11:27:26',NULL,'2011-11-16 14:23:09','2011-11-16 14:23:09'),(2,'client','client@client.fr','sha1','1ecbcc7d51d509c40c13c00a9a62ee14','9c4e226396030f4e6674335b7274dc210483d7e8',1,0,'2012-01-05 17:28:29',NULL,'2011-11-16 14:45:56','2011-11-16 14:45:56');
+INSERT INTO `dm_user` (`id`, `username`, `email`, `algorithm`, `salt`, `password`, `is_active`, `is_super_admin`, `last_login`, `forgot_password_code`, `created_at`, `updated_at`) VALUES (1,'admin','admin@sitediem.com','sha1','df35970750a0f1dc622a18e0410bd08e','f9a75d5f1acc8c6efd76400abd15ef1575dde098',1,1,'2012-01-11 16:34:22',NULL,'2011-11-16 14:23:09','2011-11-16 14:23:09'),(2,'client','client@client.fr','sha1','1ecbcc7d51d509c40c13c00a9a62ee14','9c4e226396030f4e6674335b7274dc210483d7e8',1,0,'2012-01-05 17:28:29',NULL,'2011-11-16 14:45:56','2011-11-16 14:45:56');
 /*!40000 ALTER TABLE `dm_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -725,4 +725,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-01-11 12:00:46
+-- Dump completed on 2012-01-11 16:56:19
