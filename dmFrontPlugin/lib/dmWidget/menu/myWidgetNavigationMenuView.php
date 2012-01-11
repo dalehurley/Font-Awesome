@@ -39,9 +39,9 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 	protected function filterViewVars(array $vars = array()) {
 		$vars = parent::filterViewVars($vars);
 		
-		if (!isset($vars['menuType']))
-            $vars['menuType'] = "default";
-
+		//debug menuType qui visiblement ne prend pas la valeur par défaut
+		if(!isset($vars['menuType'])) $vars['menuType'] = "default";
+		
         //on ajoute la classe du type de menu provenant du paramètre du widget
         //$vars['menu']->ulClass(myUser::getLessParam('templateMenu'));
         $vars['menu']->ulClass($vars['menuType']);
@@ -56,9 +56,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
     protected function menuAddDir($currentMenu) {
         foreach ($currentMenu as $key => $value) {
             //ajout de la classe css
-            if (count($value) > 0) {
-                $value->liClass("dm_dir");
-            }
+            if (count($value) > 0) $value->liClass("dm_dir");
             //récursivité de la fonction
             $this->menuAddDir($value);
         }

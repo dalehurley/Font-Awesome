@@ -54,3 +54,7 @@ all:
       ec_faq: questions/réponses
       ec_paie: paie
       ec_aides: aides
+
+  # nom des sessions pour le bloc articleBySectionContextuel
+  article-data-type-article : Article
+  article-data-type-dossier : Dossier

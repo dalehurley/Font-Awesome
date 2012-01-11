@@ -20,10 +20,14 @@ $dataType = xmlTools::getLabelXml($xml, "DataType");
 echo debugTools::infoDebug(array('id LEA' => $article->filename, 'DataType' => $dataType));
 
 // traitement des dossiers
-if ($dataType == 'DOSSIER')
+if ($dataType == 'DOSSIER'){
     include_partial('article/showDossier', array('article' => $article));
-elseif (($dataType == 'ARTICLE') || $dataType == 'AGENDA')
+    $pageSession = sfContext::getInstance()->getUser()->setAttribute('articleDataType', sfConfig::get('app_article-data-type-dossier'));
+}
+elseif (($dataType == 'ARTICLE') || $dataType == 'AGENDA'){
     include_partial('article/showArticle', array('article' => $article));
+    $pageSession = sfContext::getInstance()->getUser()->setAttribute('articleDataType', sfConfig::get('app_article-data-type-article'));
+}
 else {
     // ni DOSSIER ni ARTICLE 
 }

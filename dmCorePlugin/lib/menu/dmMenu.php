@@ -442,8 +442,10 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
       dmDb::table('DmPage')->createQuery('p')
       ->withI18n($this->user->getCulture(), null, 'p')
       ->select('p.*, pTranslation.*')
+// ajout stef pour trier par ordre d'integration les sous menus (utiles pour les sections des rubriques dans le menu de gauche)
+            ->orderBy('p.record_id')
+// fin ajout
     );
-
     if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
             foreach ($pageChildren as $childPage) {
                 // ajout lionel
@@ -578,7 +580,12 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
   public function renderLink()
   {
-    return $this->getLink()->text($this->__($this->getLabel()))->render();
+	  //on récupère le nom et on le coupe après le premier tiret (ciblage indépendant de la position)
+	  $recupName = $this->getName();
+	  $indexTiret = strpos($recupName, '-');
+	  if($indexTiret != false) $recupName = substr($recupName, $indexTiret + 1);
+	  
+	  return $this->getLink()->addClass('link_' . $recupName)->currentSpan(false)->text($this->__($this->getLabel()))->render();
   }
 
   public function renderLabel()

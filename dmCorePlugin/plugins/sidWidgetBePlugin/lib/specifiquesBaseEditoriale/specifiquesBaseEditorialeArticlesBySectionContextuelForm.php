@@ -34,8 +34,11 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelForm extends dmWidgetP
                     'required' => false
                 ));
 
-        $this->widgetSchema['isDossier'] = new sfWidgetFormInputCheckbox(array('default'=> false));
+        $this->widgetSchema['isDossier'] = new sfWidgetFormInputCheckbox(array('default'=> false, 'label' => 'Afficher uniquement des dossiers'));
         $this->validatorSchema['isDossier']  = new sfValidatorBoolean();
+        
+        $this->widgetSchema['visibleInDossier'] = new sfWidgetFormInputCheckbox(array('default'=> false, 'label' => 'Visible dans page dossier'));
+        $this->validatorSchema['visibleInDossier']  = new sfValidatorBoolean();
 //        
         $this->widgetSchema->setHelps(array(
 //            'm_rubriques_list' => 'Vous pouvez choisir les rubriques des article à afficher en page d\'accueil ou hors contexte',
@@ -43,7 +46,8 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelForm extends dmWidgetP
             'titreLien' => "Le libellé du lien vers la liste de tous les contenus de la section choisie dans la rubrique affichée(contextuel).",	    
             'nbArticle' => 'Le nombre maximum d\'articles affichés.',            
             'longueurTexte' => 'Longueur du texte avant de la tronquer',
-            'isDossier' => 'Pour afficher uniquement des dossiers dans le bloc contextuel'
+            'isDossier' => 'Pour afficher UNIQUEMENT des dossiers dans le bloc contextuel et ne le faire apparaitre que dans les pages article/show quand le DATATYPE de l\'article est ARTICLE UNIQUEMENT',
+            'visibleInDossier' => 'Pour afficher ce bloc dans la page article/show quand le DATATYPE de l\'article est DOSSIER UNIQUEMENT'
         ));
 
         parent::setup();

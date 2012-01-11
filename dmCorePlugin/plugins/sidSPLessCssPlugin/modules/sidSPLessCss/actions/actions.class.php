@@ -13,7 +13,8 @@ class sidSPLessCssActions extends myFrontModuleActions
 			$parameters = $request->getGetParameters();
 			
 			//lancement des sprites avec récupération des paramètres passés dans la requête
-			$spriteValues = spLessCss::spriteInit($parameters['spriteFormat']);
+			$recupSpriteFormat = (isset($parameters['spriteFormat'])) ? $parameters['spriteFormat'] : null;
+			$spriteValues = spLessCss::spriteInit($recupSpriteFormat);
 			
 			//assemblage des valeurs et encodage en JSON
 			$jsonOutput = json_encode(array_merge($parameters, $spriteValues));

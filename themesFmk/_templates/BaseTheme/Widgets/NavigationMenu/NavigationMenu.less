@@ -50,6 +50,58 @@
 			margin-left: auto;
 			margin-right: auto;
 		}
+		
+		//replacement normal du menu contenant les icônes (à améliorer en l'intégrant dans le choix du type de menu)
+		&.menuSprites {
+			float: left;
+			@gridWidth(@gridCol_SidebarLeft);
+			margin-left: 0;
+			margin-right: @gridGutter;
+			background-color: transparent;
+			
+			.dm_widget_inner {
+				margin-left: 0;
+				margin-right: 0;
+				width: 100%;
+			}
+			
+			ul.default {
+				li {
+					display: block;
+					float: left;
+					//décalage de marge
+					@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
+					@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+					padding: @decalV @decalH;
+					margin-right: @gridGutter;
+					&.last { margin-right: 0; }
+				}
+				
+				.link {
+					display: block;
+					border:0;
+					text-indent:-9999em;
+					width: @spriteFormat_M;
+					height: @spriteFormat_M;
+					
+					//chargement thème de sprite
+					@spriteBgi("Default"; "M");
+					
+					&.link_accueil {
+						@spriteBgiSvg("Default"; "internet"; "home");
+						@spriteBgp-internet-home-M();
+					}
+					&.link_contact {
+						@spriteBgiSvg("Default"; "internet"; "email");
+						@spriteBgp-internet-email-M();
+						&:hover {
+							@spriteBgiSvg("Default"; "internet"; "emailOpen");
+							@spriteBgp-internet-emailOpen-M();
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
