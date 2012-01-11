@@ -11,7 +11,11 @@
 @import "_framework/SPLessCss/Widgets/NavigationBreadCrumb/_NavigationBreadCrumb.less";
 
 .navigation_bread_crumb {
+	float: left;
+	//@gridWidth(@gridCol - @gridCol_SidebarLeft);
+	
 	.dm_widget_inner {
+		/*
 		//permet de sortir de la zone
 		padding: 0 (@zonesOffsetPad - @zonesOffsetBorder) (@zonesOffsetPad - @zonesOffsetBorder) (@zonesOffsetPad - @zonesOffsetBorder);
 		margin: 0 (@zonesOffsetPad * -1) (@zonesOffsetPad * -1) (@zonesOffsetPad * -1);
@@ -20,19 +24,46 @@
 		border-right: @zonesOffsetBorder solid @zonesBorderColor;
 		border-bottom: @zonesOffsetBorder solid @zonesBorderColor;
 		border-left: @zonesOffsetBorder solid @zonesBorderColor;
+		*/
 	}
 	
+	//apparrence des liens
+	.link {
+		color: @colorCouleur3;
+		text-decoration: none;
+		&:hover {
+			color: @colorCouleur3Sup;
+			text-decoration: underline;
+		}
+		&.dm_current {
+			color: @colorCouleur1Moyen;
+			&, &:hover { text-decoration: none; }
+		}
+	}
+	
+	//gestion affichage listing de liens
 	ol {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 		font-size: @fontSizeSmall;
+		line-height: @gridBaseline;
 		
 		li {
-			display: inline;
+			display: block;
+			float: left;
 			list-style: none;
 			margin: 0;
-			&.bread_crumb_separator { padding: 0 @offS; }
+			
+			&.bread_crumb_separator {
+				display: block;
+				//décalage de marge
+				@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+				@decalH: (@gridGutter - @spriteFormat_S) / 2;
+				padding: @decalV @decalH;
+				text-indent: -9999em;
+				@sprite-navigation-arrowDarkRight-S();
+			}
 		}
 	}
 }
