@@ -17,7 +17,7 @@ class spLessCss extends dmFrontUser {
 	}
 	
 	//fonction de génération de hash md5 du timeStamp unix pour changer les appels de sprite
-	public static function pageUpdateHashMd5() {
+	public static function spriteUpdateHashMd5() {
 		//ciblage du fichier de config
 		$urlConfigGeneral = sfConfig::get('sf_web_dir') . '/theme/less/_ConfigGeneral.less';
 		
@@ -35,20 +35,21 @@ class spLessCss extends dmFrontUser {
 		//retour du hash md5
 		return $md5TimeStamp;
 	}
-
-
+	
 	//génération de toutes les sprites dans toutes les dimensions
-	public static function spriteInit($spriteFormat = '') {
-		//récupération du listing des sprites
-		$spriteListing = self::spriteGetListing();
-		
+	public static function spriteInit($hashMd5 = null, $spriteFormat = null) {
 		//Si on est au début de l'action
 		if($spriteFormat == null) {
+			//génération d'un nouveau hashMd5
+			if($hashMd5 == null) $hashMd5 = self::spriteUpdateHashMd5();
 			//purge des miniatures
 			self::spriteReset();
 			//initialisation du fichier de sortie less
 			self::spriteLessGenerate(0);
 		}
+		
+		//récupération du listing des sprites
+		$spriteListing = self::spriteGetListing($hashMd5);
 		
 		//on définit le pourcentage d'avancement en fonction de la miniature effectuée
 		//on change également la valeur de spriteFormat pour la boucle suivante
@@ -79,20 +80,21 @@ class spLessCss extends dmFrontUser {
 		}
 		
 		//génération des sprites à la résolution sélectionnée
-		$lessDefinitions = self::spriteGenerate($spriteListing, $spriteFormat);
+		$lessDefinitions = self::spriteGenerate($hashMd5, $spriteListing, $spriteFormat);
 		
 		//Génération du fichier less de sortie
 		self::spriteLessGenerate($prct, $lessDefinitions);
 		
 		//Renvoi de valeurs pour l'affichage
 		return array(
+			'hashMd5'			=> $hashMd5,
 			'spriteFormat'		=> $spriteFormat,
 			'prct'				=> $prct
 		);
 	}
 	
 	//génération du listing des icônes
-	private static function spriteGetListing() {
+	private static function spriteGetListing($hashMd5 = null) {
 		//emplacement et récupération des thèmes de sprites
 		$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites';
 		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
@@ -121,7 +123,7 @@ class spLessCss extends dmFrontUser {
 				//on part du modèle suivant :
 				//categorie-icone.svg
 				$spriteListing[$theme]['categories'][$decomp[0]][$decomp[1]]['urlFramework'] = $urlSprites . '/' . $sprite;
-				$spriteListing[$theme]['categories'][$decomp[0]][$decomp[1]]['urlClient'] = $urlSpritesClient . '/' . $sprite;
+				$spriteListing[$theme]['categories'][$decomp[0]][$decomp[1]]['urlClient'] = $urlSpritesClient . '/' . $hashMd5 . '-' . $sprite;
 			}
 		}
 		
@@ -262,7 +264,7 @@ class spLessCss extends dmFrontUser {
 	}
 	
 	//copie de toutes les icônes et changement des couleurs
-	private static function spriteGenerate($spriteListing = array(), $spriteFormat = 'L'){
+	private static function spriteGenerate($hashMd5 = null, $spriteListing = array(), $spriteFormat = 'L'){
 		//dimension par défaut des sprites (imposé par le format SVG utilisé)
 		$dimDefault = intval(self::getLessParam('spriteFormat'));
 		//dimension des sprites dans les paramètres du framework (égale à S, M, L ou X)
@@ -284,7 +286,8 @@ class spLessCss extends dmFrontUser {
 			$categories = $info['categories'];
 			
 			//création du dossier du thème si non présent
-			$urlThemeClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme;
+			$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+			$urlThemeClient = $urlThemes . '/' . $theme;
 			if(!is_dir($urlThemeClient)){
 				$testMkdir = mkdir($urlThemeClient, 0775, true);
 				//affichage d'un message en cas d'erreur
@@ -366,7 +369,7 @@ class spLessCss extends dmFrontUser {
 			//Requête : assemblage final
 			if($execConvertDensityGeneral) $execConvertOptions.= $execDensity;
 			$execConvert.= $execConvertOptions . $execConvertAppend;
-			$execConvert.= " -append " . $urlThemeClient . "-" . $spriteFormat . ".png";
+			$execConvert.= " -append " . $urlThemes . '/' . $hashMd5 . "-" . $theme . "-" . $spriteFormat . ".png";
 			
 			//Requête : exécution
 			exec($execConvert);

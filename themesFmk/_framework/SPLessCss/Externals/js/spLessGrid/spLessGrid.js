@@ -89,13 +89,13 @@
 			progressBar.width('0%').find(".picker").text(0);
 		}
 		
-		$.fn.spLessGrid.debug('dataRecup.prct : ' + dataRecup.prct + ' dataRecup.spriteFormat : ' + dataRecup.spriteFormat);
+		$.fn.spLessGrid.debug('dataRecup.hashMd5 : ' + dataRecup.hashMd5 + ' dataRecup.prct : ' + dataRecup.prct + ' dataRecup.spriteFormat : ' + dataRecup.spriteFormat);
 		
 		$.getJSON(action, dataRecup, function(data) {
 			//on appel la fonction de façon récursive si on a pas atteint 100
 			if(data.prct < 100) $.fn.spLessGrid.spriteGenerate(action, data, progressBar);
 			
-			$.fn.spLessGrid.debug('data.prct : ' + data.prct + ' data.spriteFormat : ' + data.spriteFormat);
+			$.fn.spLessGrid.debug('data.hashMd5 : ' + data.hashMd5 + ' data.prct : ' + data.prct + ' data.spriteFormat : ' + data.spriteFormat);
 			
 			//actualisation de la barre de progression
 			progressBar.stop().animate({width: data.prct + '%'}, 1000, function() {
