@@ -15,10 +15,30 @@ class spLessCss extends dmFrontUser {
 		
 		return $pageOptions;
 	}
+	
+	//fonction de génération de hash md5 du timeStamp unix pour changer les appels de sprite
+	public static function pageUpdateHashMd5() {
+		//ciblage du fichier de config
+		$urlConfigGeneral = sfConfig::get('sf_web_dir') . '/theme/less/_ConfigGeneral.less';
 		
+		//génération du timeStamp md5 sur 7 chiffres
+		$md5TimeStamp = substr(md5(microtime(true)), 0, 7);
+		
+		//composition de la commmande de remplacement de valeur
+		$regexTimeStamp = '^\@mainHashMd5: "\w+";$';
+		$replaceTimeStamp = '\@mainHashMd5: "' . $md5TimeStamp . '";';
+		$execTimeStamp = "perl -pi -w -e 's/" . $regexTimeStamp . "/". $replaceTimeStamp ."/g;' " . $urlConfigGeneral;
+		
+		//exécution de la commande
+		exec($execTimeStamp);
+		
+		//retour du hash md5
+		return $md5TimeStamp;
+	}
+
+
 	//génération de toutes les sprites dans toutes les dimensions
 	public static function spriteInit($spriteFormat = '') {
-		
 		//récupération du listing des sprites
 		$spriteListing = self::spriteGetListing();
 		
@@ -448,29 +468,28 @@ class spLessCss extends dmFrontUser {
 
 	//fonction bugguée à terminer
 	private static function lessIsNumeric($variableValue) {
-		$patternHex = '/^#+(([a-fA-F0-9]){3}){1,2}$/';
-		$detectisHex = preg_match_all($patternHex, $variableValue, $matchesNumeric);
-
-		$patternDate = '/([0-9]){4}-([0-9]){2}-([0-9]){2}T([0-9]){2}:([0-9]){2}/';
-		$detectisDate = preg_match_all($patternDate, $variableValue, $matchesNumeric);
-
-		//valeur de retour initiale
-		$returnValue = 0;
-
-		if($detectisDate > 0) {
-			$returnValue = 0;
-		}elseif($detectisHex > 0) {
-			$returnValue = 0;
-		}else{
-			$patternNumeric = '/[0-9]+[\(\)\-\+\*\.]*/';
-			$detectisNumeric = preg_match_all($patternNumeric, $variableValue, $matchesNumeric);
-
-			if($detectisNumeric > 0){
-				$returnValue = 1;
-			}
-		}
+		//recherches de chaines de type alphanumérique aaF2313Fofhzeofjez121
+		$patternAlphaNum = '/\w+/';
+		$detectisAlphaNum = preg_match_all($patternAlphaNum, $variableValue, $matches);
 		
-		return $returnValue;
+		//recherches de chaines de type #ffaa00
+		$patternHex = '/^#+(([a-fA-F0-9]){3}){1,2}$/';
+		$detectisHex = preg_match_all($patternHex, $variableValue, $matches);
+		
+		//recherches de chaines de type 2012-01-01T10:25
+		$patternDate = '/([0-9]){4}-([0-9]){2}-([0-9]){2}T([0-9]){2}:([0-9]){2}/';
+		$detectisDate = preg_match_all($patternDate, $variableValue, $matches);
+		
+		//recherches de chaine de type numérique avec des parenthèses ou des signes mathématique +-*/
+		$patternNumeric = '/[^a-zA-Z][0-9]+[\(\)\-\+\*\.\/]*/';
+		$detectisNumeric = preg_match_all($patternNumeric, $variableValue, $matches);
+		
+		//test des différents regex et retour de valeur
+		if		($detectisAlphaNum > 0)	return false;
+		elseif	($detectisDate > 0)		return false;
+		elseif	($detectisHex > 0)		return false;
+		elseif	($detectisNumeric > 0)	return true;
+		else							return false;
 	}
 
 	//suppression des unités d'une valeur less
@@ -502,7 +521,7 @@ class spLessCss extends dmFrontUser {
 		$variableValue = str_replace('%', '', $variableValue);
 
 		$detectisNumeric = self::lessIsNumeric($variableValue);
-		if($detectisNumeric>0){
+		if($detectisNumeric){
 			$variableValue = self::lessCalculator($variableValue);
 		}else{
 			//À améliorer éventuellement : suppression des crochets dans les string contenant des variables
