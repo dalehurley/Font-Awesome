@@ -1,0 +1,679 @@
+-- MySQL dump 10.13  Distrib 5.5.16, for Linux (x86_64)
+--
+-- Host: localhost    Database: sitev3_sitediem
+-- ------------------------------------------------------
+-- Server version	5.5.16
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Dumping data for table `dm_area`
+--
+
+LOCK TABLES `dm_area` WRITE;
+/*!40000 ALTER TABLE `dm_area` DISABLE KEYS */;
+INSERT INTO `dm_area` (`id`, `dm_layout_id`, `dm_page_view_id`, `type`) VALUES (128,NULL,85,'1'),(129,NULL,86,'1');
+/*!40000 ALTER TABLE `dm_area` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_auto_seo`
+--
+
+LOCK TABLES `dm_auto_seo` WRITE;
+/*!40000 ALTER TABLE `dm_auto_seo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_auto_seo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_auto_seo_translation`
+--
+
+LOCK TABLES `dm_auto_seo_translation` WRITE;
+/*!40000 ALTER TABLE `dm_auto_seo_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_auto_seo_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_layout`
+--
+
+LOCK TABLES `dm_layout` WRITE;
+/*!40000 ALTER TABLE `dm_layout` DISABLE KEYS */;
+INSERT INTO `dm_layout` (`id`, `name`, `template`, `css_class`) VALUES (11,'Global','page',NULL);
+/*!40000 ALTER TABLE `dm_layout` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_lock`
+--
+
+LOCK TABLES `dm_lock` WRITE;
+/*!40000 ALTER TABLE `dm_lock` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_lock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_mail_template`
+--
+
+LOCK TABLES `dm_mail_template` WRITE;
+/*!40000 ALTER TABLE `dm_mail_template` DISABLE KEYS */;
+INSERT INTO `dm_mail_template` (`id`, `name`, `vars`, `created_at`, `updated_at`) VALUES (2,'dm_user_forgot_password','username, email, step2_url','2012-01-11 10:49:57','2012-01-11 10:49:57');
+/*!40000 ALTER TABLE `dm_mail_template` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_mail_template_translation`
+--
+
+LOCK TABLES `dm_mail_template_translation` WRITE;
+/*!40000 ALTER TABLE `dm_mail_template_translation` DISABLE KEYS */;
+INSERT INTO `dm_mail_template_translation` (`id`, `description`, `subject`, `body`, `from_email`, `to_email`, `cc_email`, `bcc_email`, `reply_to_email`, `sender_email`, `list_unsuscribe`, `is_html`, `is_active`, `lang`) VALUES (2,'Sent to a user that requests a new password','Sitediem: change your password','Hello %username%\nYou can choose a new password at %step2_url%','webmaster@domain.com','%email%',NULL,NULL,NULL,NULL,NULL,0,1,'fr');
+/*!40000 ALTER TABLE `dm_mail_template_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_media`
+--
+
+LOCK TABLES `dm_media` WRITE;
+/*!40000 ALTER TABLE `dm_media` DISABLE KEYS */;
+INSERT INTO `dm_media` (`id`, `dm_media_folder_id`, `file`, `mime`, `size`, `dimensions`, `created_at`, `updated_at`) VALUES (132,23,'photo.jpg','image/jpeg',53489,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(133,23,'124f2917e4f4b8b48364ad1dc15e617452c121d8.pdf','application/pdf',50850,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(134,23,'487e199c1749c9cceec4f69f813e2b0c30fed07d.jpg','image/jpeg',777835,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(135,23,'logo.png','image/png',2141,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(136,24,'gestion-250x250.swf','application/x-shockwave-flash',37810,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(137,24,'recrutement-250x250.swf','application/x-shockwave-flash',114663,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(138,25,'home_img-lit1.jpg','image/jpeg',9654,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(139,25,'generique-250x250.swf','application/x-shockwave-flash',221997,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(140,25,'gestion-250x250.swf','application/x-shockwave-flash',37810,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(141,25,'logo.png','image/png',441,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(142,25,'home_img-big.jpg','image/jpeg',30286,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(143,25,'trombinoscope2.jpg','image/jpeg',2206,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(144,25,'recrutement-250x250.swf','application/x-shockwave-flash',114663,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(145,25,'logo_light.png','image/png',2406,NULL,'2012-01-11 10:49:55','2012-01-11 10:49:55'),(146,26,'ministere-economie-1-.png','image/png',2747,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(147,26,'logo_jedeclarecom.gif','image/gif',3386,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(148,26,'banner-infogreffe-1-.jpg','image/jpeg',61459,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(149,26,'legifrance-1-.gif','image/gif',5592,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(150,26,'net-entreprises-logo-1.gif','image/gif',2552,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(151,26,'logo_gauche-1-.jpg','image/jpeg',9530,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(152,26,'google-chrome-20100107-2-.jpg','image/jpeg',22100,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(153,26,'GLE-1-.png','image/png',21521,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(154,26,'SEMAPHORE.png','image/png',28528,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(155,28,'trombinoscope3.jpg','image/jpeg',2781,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(156,28,'trombinoscope3_1.jpg','image/jpeg',2781,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(157,28,'trombinoscope6.jpg','image/jpeg',2291,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(158,28,'trombinoscope1.jpg','image/jpeg',2294,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(159,28,'trombinoscope2.jpg','image/jpeg',2206,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(160,29,'trombinoscope5.jpg','image/jpeg',2352,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(161,29,'collaborateur_tenor.jpg','image/jpeg',11107,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(162,29,'assemblee nat 11_85aa0d.jpg','image/jpeg',23272,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(163,29,'104-1-.jpg','image/jpeg',376983,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(164,29,'assemblee nat 11.jpg','image/jpeg',222887,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(165,29,'main serrer 04_d8146c.jpg','image/jpeg',15613,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(166,29,'main serrer 04.jpg','image/jpeg',113859,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(167,29,'nn1-1-.jpg','image/jpeg',157716,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(168,29,'Rz_112a.jpg','image/jpeg',73925,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(169,29,'collaborateur_tenor_1.jpg','image/jpeg',11107,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(170,29,'Desert.jpg','image/jpeg',845941,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(171,29,'Picto09_Z.png','image/png',3267,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(172,29,'4 bonnes questions pour optimiser le référencement-2003.doc','application/msword',37376,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(173,30,'PROCEDURE POUR INSTALLATION ESPACE COLL POUR SITE V2.doc','application/msword',30720,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(174,30,'Lighthouse_1.jpg','image/jpeg',561276,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(175,30,'Lighthouse.jpg','image/jpeg',561276,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(176,30,'PROCEDURE POUR INSTALLATION ESPACE COLL POUR SITE V2_1.doc','application/msword',30720,NULL,'2012-01-11 10:49:56','2012-01-11 10:49:56'),(177,30,'Injection adresses mails pour newsletters.docx','application/vnd.openxmlformats-officedocument.wordprocessingml.document',12310,NULL,'2012-01-11 10:49:57','2012-01-11 10:49:57'),(178,30,'lancement_site.odt','application/vnd.oasis.opendocument.text',18766,NULL,'2012-01-11 10:49:57','2012-01-11 10:49:57'),(179,30,'avatar415.jpg','image/jpeg',9415,NULL,'2012-01-11 10:49:57','2012-01-11 10:49:57'),(180,30,'MAJ des dessin de la semaine.odt','application/vnd.oasis.opendocument.text',13612,NULL,'2012-01-11 10:49:57','2012-01-11 10:49:57'),(181,30,'Cabinets.pdf','application/pdf',50850,NULL,'2012-01-11 10:49:57','2012-01-11 10:49:57');
+/*!40000 ALTER TABLE `dm_media` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_media_folder`
+--
+
+LOCK TABLES `dm_media_folder` WRITE;
+/*!40000 ALTER TABLE `dm_media_folder` DISABLE KEYS */;
+INSERT INTO `dm_media_folder` (`id`, `rel_path`, `lft`, `rgt`, `level`) VALUES (23,'',1,16,0),(24,'pubs',14,15,1),(25,'widget',12,13,1),(26,'sites_utiles',10,11,1),(27,'assets',8,9,1),(28,'equipe',6,7,1),(29,'sid_actu_article',4,5,1),(30,'sid_blog_article',2,3,1);
+/*!40000 ALTER TABLE `dm_media_folder` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_media_translation`
+--
+
+LOCK TABLES `dm_media_translation` WRITE;
+/*!40000 ALTER TABLE `dm_media_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_media_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_page`
+--
+
+LOCK TABLES `dm_page` WRITE;
+/*!40000 ALTER TABLE `dm_page` DISABLE KEYS */;
+INSERT INTO `dm_page` (`id`, `module`, `action`, `record_id`, `credentials`, `lft`, `rgt`, `level`) VALUES (8429,'main','root',0,NULL,1,6,0),(8430,'main','error404',0,NULL,4,5,1),(8431,'main','signin',0,NULL,2,3,1);
+/*!40000 ALTER TABLE `dm_page` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_page_translation`
+--
+
+LOCK TABLES `dm_page_translation` WRITE;
+/*!40000 ALTER TABLE `dm_page_translation` DISABLE KEYS */;
+INSERT INTO `dm_page_translation` (`id`, `slug`, `name`, `title`, `h1`, `gabarit`, `description`, `keywords`, `auto_mod`, `is_active`, `is_secure`, `is_indexable`, `is_visible_bread_crumb`, `lang`) VALUES (8429,'','Accueil','Accueil',NULL,'default',NULL,NULL,'snthdk',1,0,1,1,'fr'),(8430,'page_introuvable_404','Page introuvable','Page introuvable',NULL,'default',NULL,NULL,'snthdk',1,0,1,1,'fr'),(8431,'Connexion','Connexion','Connexion',NULL,'default',NULL,NULL,'snthdk',1,0,1,1,'fr');
+/*!40000 ALTER TABLE `dm_page_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_page_view`
+--
+
+LOCK TABLES `dm_page_view` WRITE;
+/*!40000 ALTER TABLE `dm_page_view` DISABLE KEYS */;
+INSERT INTO `dm_page_view` (`id`, `module`, `action`, `dm_layout_id`) VALUES (84,'main','root',11),(85,'main','error404',11),(86,'main','signin',11);
+/*!40000 ALTER TABLE `dm_page_view` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_record_permission`
+--
+
+LOCK TABLES `dm_record_permission` WRITE;
+/*!40000 ALTER TABLE `dm_record_permission` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_record_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_record_permission_association`
+--
+
+LOCK TABLES `dm_record_permission_association` WRITE;
+/*!40000 ALTER TABLE `dm_record_permission_association` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_record_permission_association` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_record_permission_association_group`
+--
+
+LOCK TABLES `dm_record_permission_association_group` WRITE;
+/*!40000 ALTER TABLE `dm_record_permission_association_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_record_permission_association_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_record_permission_association_user`
+--
+
+LOCK TABLES `dm_record_permission_association_user` WRITE;
+/*!40000 ALTER TABLE `dm_record_permission_association_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_record_permission_association_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_record_permission_group`
+--
+
+LOCK TABLES `dm_record_permission_group` WRITE;
+/*!40000 ALTER TABLE `dm_record_permission_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_record_permission_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_record_permission_user`
+--
+
+LOCK TABLES `dm_record_permission_user` WRITE;
+/*!40000 ALTER TABLE `dm_record_permission_user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_record_permission_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_redirect`
+--
+
+LOCK TABLES `dm_redirect` WRITE;
+/*!40000 ALTER TABLE `dm_redirect` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_redirect` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_tag`
+--
+
+LOCK TABLES `dm_tag` WRITE;
+/*!40000 ALTER TABLE `dm_tag` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_tag` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_user`
+--
+
+LOCK TABLES `dm_user` WRITE;
+/*!40000 ALTER TABLE `dm_user` DISABLE KEYS */;
+INSERT INTO `dm_user` (`id`, `username`, `email`, `algorithm`, `salt`, `password`, `is_active`, `is_super_admin`, `last_login`, `forgot_password_code`, `created_at`, `updated_at`) VALUES (3,'admin','admin@sitediem.com','sha1','cec2e9489b14eaed110cce9a07f457ef','30a3d2c51d7d33dfcb5d938c60e3661466b745b2',1,1,NULL,NULL,'2012-01-11 10:49:52','2012-01-11 10:49:52');
+/*!40000 ALTER TABLE `dm_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_user_group`
+--
+
+LOCK TABLES `dm_user_group` WRITE;
+/*!40000 ALTER TABLE `dm_user_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_user_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_user_permission`
+--
+
+LOCK TABLES `dm_user_permission` WRITE;
+/*!40000 ALTER TABLE `dm_user_permission` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dm_user_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_widget`
+--
+
+LOCK TABLES `dm_widget` WRITE;
+/*!40000 ALTER TABLE `dm_widget` DISABLE KEYS */;
+INSERT INTO `dm_widget` (`id`, `dm_zone_id`, `module`, `action`, `css_class`, `position`, `updated_at`) VALUES (551,140,'dmWidgetContent','title',NULL,-1,'2012-01-11 10:49:52'),(552,141,'dmUser','signin',NULL,-2,'2012-01-11 10:49:53');
+/*!40000 ALTER TABLE `dm_widget` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_widget_translation`
+--
+
+LOCK TABLES `dm_widget_translation` WRITE;
+/*!40000 ALTER TABLE `dm_widget_translation` DISABLE KEYS */;
+INSERT INTO `dm_widget_translation` (`id`, `value`, `lang`) VALUES (551,'{\"text\":\"Page introuvable\",\"tag\":\"h1\"}','fr'),(552,'[]','fr');
+/*!40000 ALTER TABLE `dm_widget_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `dm_zone`
+--
+
+LOCK TABLES `dm_zone` WRITE;
+/*!40000 ALTER TABLE `dm_zone` DISABLE KEYS */;
+INSERT INTO `dm_zone` (`id`, `dm_area_id`, `css_class`, `width`, `position`) VALUES (140,128,NULL,NULL,-1),(141,129,NULL,NULL,-2);
+/*!40000 ALTER TABLE `dm_zone` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_actu_article`
+--
+
+LOCK TABLES `sid_actu_article` WRITE;
+/*!40000 ALTER TABLE `sid_actu_article` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_actu_article` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_actu_article_sid_rubrique`
+--
+
+LOCK TABLES `sid_actu_article_sid_rubrique` WRITE;
+/*!40000 ALTER TABLE `sid_actu_article_sid_rubrique` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_actu_article_sid_rubrique` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_actu_article_translation`
+--
+
+LOCK TABLES `sid_actu_article_translation` WRITE;
+/*!40000 ALTER TABLE `sid_actu_article_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_actu_article_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_actu_article_translation_version`
+--
+
+LOCK TABLES `sid_actu_article_translation_version` WRITE;
+/*!40000 ALTER TABLE `sid_actu_article_translation_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_actu_article_translation_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_actu_type`
+--
+
+LOCK TABLES `sid_actu_type` WRITE;
+/*!40000 ALTER TABLE `sid_actu_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_actu_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_actu_type_article`
+--
+
+LOCK TABLES `sid_actu_type_article` WRITE;
+/*!40000 ALTER TABLE `sid_actu_type_article` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_actu_type_article` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_actu_type_translation`
+--
+
+LOCK TABLES `sid_actu_type_translation` WRITE;
+/*!40000 ALTER TABLE `sid_actu_type_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_actu_type_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_actu_type_translation_version`
+--
+
+LOCK TABLES `sid_actu_type_translation_version` WRITE;
+/*!40000 ALTER TABLE `sid_actu_type_translation_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_actu_type_translation_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_article`
+--
+
+LOCK TABLES `sid_article` WRITE;
+/*!40000 ALTER TABLE `sid_article` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_article` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_article_dm_tag`
+--
+
+LOCK TABLES `sid_article_dm_tag` WRITE;
+/*!40000 ALTER TABLE `sid_article_dm_tag` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_article_dm_tag` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_article_translation`
+--
+
+LOCK TABLES `sid_article_translation` WRITE;
+/*!40000 ALTER TABLE `sid_article_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_article_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_bandeau`
+--
+
+LOCK TABLES `sid_bandeau` WRITE;
+/*!40000 ALTER TABLE `sid_bandeau` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_bandeau` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_bandeau_translation`
+--
+
+LOCK TABLES `sid_bandeau_translation` WRITE;
+/*!40000 ALTER TABLE `sid_bandeau_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_bandeau_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_bandeau_translation_version`
+--
+
+LOCK TABLES `sid_bandeau_translation_version` WRITE;
+/*!40000 ALTER TABLE `sid_bandeau_translation_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_bandeau_translation_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_equipe`
+--
+
+LOCK TABLES `sid_cabinet_equipe` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_equipe` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_equipe` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_equipe_sid_rubrique`
+--
+
+LOCK TABLES `sid_cabinet_equipe_sid_rubrique` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_equipe_sid_rubrique` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_equipe_sid_rubrique` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_equipe_translation`
+--
+
+LOCK TABLES `sid_cabinet_equipe_translation` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_equipe_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_equipe_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_equipe_translation_version`
+--
+
+LOCK TABLES `sid_cabinet_equipe_translation_version` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_equipe_translation_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_equipe_translation_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_mission`
+--
+
+LOCK TABLES `sid_cabinet_mission` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_mission` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_mission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_mission_sid_rubrique`
+--
+
+LOCK TABLES `sid_cabinet_mission_sid_rubrique` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_mission_sid_rubrique` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_mission_sid_rubrique` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_mission_translation`
+--
+
+LOCK TABLES `sid_cabinet_mission_translation` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_mission_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_mission_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_mission_translation_version`
+--
+
+LOCK TABLES `sid_cabinet_mission_translation_version` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_mission_translation_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_mission_translation_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_page_cabinet`
+--
+
+LOCK TABLES `sid_cabinet_page_cabinet` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_page_cabinet` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_page_cabinet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_page_cabinet_translation`
+--
+
+LOCK TABLES `sid_cabinet_page_cabinet_translation` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_page_cabinet_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_page_cabinet_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_page_cabinet_translation_version`
+--
+
+LOCK TABLES `sid_cabinet_page_cabinet_translation_version` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_page_cabinet_translation_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_page_cabinet_translation_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_recrutement`
+--
+
+LOCK TABLES `sid_cabinet_recrutement` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_recrutement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_recrutement` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_recrutement_translation`
+--
+
+LOCK TABLES `sid_cabinet_recrutement_translation` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_recrutement_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_recrutement_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_cabinet_recrutement_translation_version`
+--
+
+LOCK TABLES `sid_cabinet_recrutement_translation_version` WRITE;
+/*!40000 ALTER TABLE `sid_cabinet_recrutement_translation_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_cabinet_recrutement_translation_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_constantes`
+--
+
+LOCK TABLES `sid_constantes` WRITE;
+/*!40000 ALTER TABLE `sid_constantes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_constantes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_constantes_version`
+--
+
+LOCK TABLES `sid_constantes_version` WRITE;
+/*!40000 ALTER TABLE `sid_constantes_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_constantes_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_coord_name`
+--
+
+LOCK TABLES `sid_coord_name` WRITE;
+/*!40000 ALTER TABLE `sid_coord_name` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_coord_name` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_coord_name_version`
+--
+
+LOCK TABLES `sid_coord_name_version` WRITE;
+/*!40000 ALTER TABLE `sid_coord_name_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_coord_name_version` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_groupe_bandeau`
+--
+
+LOCK TABLES `sid_groupe_bandeau` WRITE;
+/*!40000 ALTER TABLE `sid_groupe_bandeau` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_groupe_bandeau` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_groupe_sites_utiles`
+--
+
+LOCK TABLES `sid_groupe_sites_utiles` WRITE;
+/*!40000 ALTER TABLE `sid_groupe_sites_utiles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_groupe_sites_utiles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_groupe_sites_utiles_translation`
+--
+
+LOCK TABLES `sid_groupe_sites_utiles_translation` WRITE;
+/*!40000 ALTER TABLE `sid_groupe_sites_utiles_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_groupe_sites_utiles_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_index_sites_utiles`
+--
+
+LOCK TABLES `sid_index_sites_utiles` WRITE;
+/*!40000 ALTER TABLE `sid_index_sites_utiles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_index_sites_utiles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_index_sites_utiles_translation`
+--
+
+LOCK TABLES `sid_index_sites_utiles_translation` WRITE;
+/*!40000 ALTER TABLE `sid_index_sites_utiles_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_index_sites_utiles_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_rubrique`
+--
+
+LOCK TABLES `sid_rubrique` WRITE;
+/*!40000 ALTER TABLE `sid_rubrique` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_rubrique` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_rubrique_translation`
+--
+
+LOCK TABLES `sid_rubrique_translation` WRITE;
+/*!40000 ALTER TABLE `sid_rubrique_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_rubrique_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_section`
+--
+
+LOCK TABLES `sid_section` WRITE;
+/*!40000 ALTER TABLE `sid_section` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_section` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_section_translation`
+--
+
+LOCK TABLES `sid_section_translation` WRITE;
+/*!40000 ALTER TABLE `sid_section_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_section_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_sites_utiles`
+--
+
+LOCK TABLES `sid_sites_utiles` WRITE;
+/*!40000 ALTER TABLE `sid_sites_utiles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_sites_utiles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_sites_utiles_translation`
+--
+
+LOCK TABLES `sid_sites_utiles_translation` WRITE;
+/*!40000 ALTER TABLE `sid_sites_utiles_translation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_sites_utiles_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `sid_sites_utiles_translation_version`
+--
+
+LOCK TABLES `sid_sites_utiles_translation_version` WRITE;
+/*!40000 ALTER TABLE `sid_sites_utiles_translation_version` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sid_sites_utiles_translation_version` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-01-11 10:54:10
