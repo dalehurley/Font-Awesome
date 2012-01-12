@@ -489,11 +489,26 @@ class spLessCss extends dmFrontUser {
 		$detectisHex = preg_match_all($patternHex, $variableValue, $matches);
 		if($detectisHex > 0) return false;
 		
+		//recherches de chaines de type chemin URL
+		$patternUrl = '/^[^(floor)(round)](http:){0,1}\/+[a-zA-Z]+[\/\w\{\}@]*/';
+		$detectisUrl = preg_match_all($patternUrl, $variableValue, $matches);
+		if($detectisUrl > 0) return false;
+		
 		//recherches de chaines de type police de caractères "LucidaGrande,LucidaSansUnicode,LucidaSans,BitstreamVeraSans,sans-serif"
-		$patternFont = '/\w{2,64},*\w*/';
+		$patternFont = '/^[^(floor)(round)][a-zA-Z]{1}\w{2,127},*\w*/';
 		$detectisFont = preg_match_all($patternFont, $variableValue, $matches);
 		if($detectisFont > 0) return false;
 
+		//recherches de chaines de type layout "sidebar-left,sidebar-right,two-sidebars,no-sidebar"
+		$patternLayout = '/^[a-z]+\-[a-z]+$/';
+		$detectisLayout = preg_match_all($patternLayout, $variableValue, $matches);
+		if($detectisLayout > 0) return false;
+		
+		//recherches de chaines de type CSS ID
+		$patternCssId = '/^[a-zA-Z_]+$/';
+		$detectisCssId = preg_match_all($patternCssId, $variableValue, $matches);
+		if($detectisCssId > 0) return false;
+		
 		//Ensuite on teste si la valeur est numérique
 
 		//on supprime tout ce qui ne compose pas une opération mathématique (plus toutes les fonctions de Less parsable en php)
@@ -503,8 +518,6 @@ class spLessCss extends dmFrontUser {
 		if ($variableValueCalc == ""){
 			return false;
 		}else{
-			echo "verif : " . $variableValue;
-			echo PHP_EOL;
 			$testEval = eval("\$return=" . $variableValueCalc . ";" );
 			
 			if($testEval === false) {
@@ -554,8 +567,8 @@ class spLessCss extends dmFrontUser {
 			$variableValue = self::lessCalculator($variableValue);
 		}else{
 			//À améliorer éventuellement : suppression des crochets dans les string contenant des variables
-			$variableValue = str_replace('{', '', $variableValue);
-			$variableValue = str_replace('}', '', $variableValue);
+			//$variableValue = str_replace('{', '', $variableValue);
+			//$variableValue = str_replace('}', '', $variableValue);
 		}
 		
 		return $variableValue;
@@ -564,11 +577,14 @@ class spLessCss extends dmFrontUser {
 	//évaluation de la valeur d'une variable less
 	private static function parseLessVariable($variableValue, $parameterValue = array()) {
 		//on évalue l'expression à la recherche de variables existantes
-		$patternParam = '/@[A-Za-z0-9_]*/';
-
+		$patternParam = '/@[\w\{\}]*/';
 		$detectSubVariable = preg_match_all($patternParam, $variableValue, $matches, PREG_OFFSET_CAPTURE);
 		
 		if ($detectSubVariable > 0) {
+			
+			//echo "pre : ".$variableValue;
+			//echo "   |   ";
+			//echo " sub   |   ";
 
 			$matchesSorted = array();
 			$matchesLengths = array();
@@ -588,8 +604,13 @@ class spLessCss extends dmFrontUser {
 
 			//remplacement des valeurs
 			foreach ($matchesSorted as $value) {
-				$replace = $parameterValue['variable'][substr($value,1)];
-
+				//suppression des crochets dans les string contenant des variables
+				$valueTemp = str_replace('{', '', $value);
+				$valueTemp = str_replace('}', '', $valueTemp);
+				
+				//récupération de la valeur
+				$replace = $parameterValue['variable'][substr($valueTemp,1)];
+				
 				$variableValue = str_replace($value, $replace, $variableValue);
 				
 				//on vérifie si la valeur contient à nouveau des valeurs à remplacer
@@ -599,7 +620,7 @@ class spLessCss extends dmFrontUser {
 					//on relance la fonction de façon récursive
 					$variableValue = self::parseLessVariable($variableValue, $parameterValue);
 				}
-			}
+			}	
 		}
 		//on supprime toutes les unités
 		$variableValue = self::parseLessValue($variableValue);
