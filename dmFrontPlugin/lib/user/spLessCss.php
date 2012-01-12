@@ -471,42 +471,54 @@ class spLessCss extends dmFrontUser {
 
 	//fonction bugguée à terminer
 	private static function lessIsNumeric($variableValue) {
-		//on évalue l'expression passée en paramètre
-		echo "variableValue : " . $variableValue . PHP_EOL;
+		//on vérifie directement si ce n'est pas un nombre
+		if(is_numeric($variableValue)) return true;
 		
-		$testEval = eval("\$return='" . $variableValue . "';" );
+		//recherches de chaines de type md5, modifications : jusqu'à la lettre z, ajout majuscules (f normalement)
+		$patternMd5 = '/^[0-9a-zA-Z]{7,32}$/';
+		$detectisMd5 = preg_match_all($patternMd5, $variableValue, $matches);
+		if($detectisMd5 > 0) return false;
+
+		//recherches de chaines de type 2012-01-01T10:25
+		$patternDate = '/([0-9]){4}-([0-9]){2}-([0-9]){2}T([0-9]){2}:([0-9]){2}/';
+		$detectisDate = preg_match_all($patternDate, $variableValue, $matches);
+		if($detectisDate > 0) return false;
+
+		//recherches de chaines de type #ffaa00
+		$patternHex = '/^#+(([a-fA-F0-9]){3}){1,2}$/';
+		$detectisHex = preg_match_all($patternHex, $variableValue, $matches);
+		if($detectisHex > 0) return false;
 		
-		//si l'évaluation retourne une erreur
-		if($testEval === false) {
+		//recherches de chaines de type police de caractères "LucidaGrande,LucidaSansUnicode,LucidaSans,BitstreamVeraSans,sans-serif"
+		$patternFont = '/\w{2,64},*\w*/';
+		$detectisFont = preg_match_all($patternFont, $variableValue, $matches);
+		if($detectisFont > 0) return false;
+
+		//Ensuite on teste si la valeur est numérique
+
+		//on supprime tout ce qui ne compose pas une opération mathématique (plus toutes les fonctions de Less parsable en php)
+		$variableValueCalc = preg_replace("/[^0-9+\-.*\/()(floor)(round)]/", "", $variableValue); 
+
+		//si il ne reste rien c'est que la valeur ne peut pas être numérique
+		if ($variableValueCalc == ""){
 			return false;
 		}else{
-			if(is_int($return)) return true;
-			elseif(is_float($return)) return true;
-			else return false;
+			echo "verif : " . $variableValue;
+			echo PHP_EOL;
+			$testEval = eval("\$return=" . $variableValueCalc . ";" );
+			
+			if($testEval === false) {
+				return false;
+			}else{
+				if(is_int($return)) return true;
+				elseif(is_float($return)) return true;
+				else return false;
+			}
 		}
-		
-		//recherches de chaines de type alphanumérique aaF2313Fofhzeofjez121
-		//$patternAlphaNum = '/\w+/';
-		//$detectisAlphaNum = preg_match_all($patternAlphaNum, $variableValue, $matches);
-		
-		//recherches de chaines de type #ffaa00
-		//$patternHex = '/^#+(([a-fA-F0-9]){3}){1,2}$/';
-		///$detectisHex = preg_match_all($patternHex, $variableValue, $matches);
-		
-		//recherches de chaines de type 2012-01-01T10:25
-		//$patternDate = '/([0-9]){4}-([0-9]){2}-([0-9]){2}T([0-9]){2}:([0-9]){2}/';
-		//$detectisDate = preg_match_all($patternDate, $variableValue, $matches);
 		
 		//recherches de chaine de type numérique avec des parenthèses ou des signes mathématique +-*/
 		//$patternNumeric = '/[^a-zA-Z][0-9]+[\(\)\-\+\*\.\/]*/';
 		//$detectisNumeric = preg_match_all($patternNumeric, $variableValue, $matches);
-		
-		//test des différents regex et retour de valeur
-		//if		($detectisAlphaNum > 0)	return false;
-		//elseif	($detectisDate > 0)		return false;
-		//elseif	($detectisHex > 0)		return false;
-		//elseif	($detectisNumeric > 0)	return true;
-		//else							return false;
 	}
 
 	//suppression des unités d'une valeur less
