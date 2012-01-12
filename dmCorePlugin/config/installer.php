@@ -35,7 +35,7 @@ $serverCheck->setCommandApplication($this->commandApplication);
 
 //
 //if ($this->askConfirmation(array(
-//            dirname(__FILE__).' Arreter ? (y/n)'), 'QUESTION_LARGE', true)
+//            dirname(__FILE__).' Arreter ? (y/n)'), 'QUESTION_LARGE','')
 //) {
 //    exit;
 //}
@@ -236,7 +236,7 @@ $sendReports = 'n';
 
 if ($isDatabaseExist) {
     if (!$this->askConfirmation(array(
-                'La base de donnees ' . $settings['database']['name'] . ' existe deja, elle correspond a un autre site. L\'effacer? (y/n)',
+                'La base de donnees ' . $settings['database']['name'] . ' existe deja, elle correspond a un autre site. L\'effacer? (y/n) (par défaut y)',
                     ), 'QUESTION_LARGE', true)
     ) {
         //$this->logSection('Site V3', 'Installation annulee');
