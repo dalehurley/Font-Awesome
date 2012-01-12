@@ -8,7 +8,22 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
     parent::configure();
     
     unset($this['legend']);
+    // ** stef
+    // rajout pour afficher le bloc de pub avec des pubs en aléatoire à chaque chargement de page
+    $this->widgetSchema['checkPubs'] = new sfWidgetFormInputCheckbox(array('default'=>false,'label'=>'Activer le bloc de pub'));
+    $this->validatorSchema['checkPubs'] = new sfValidatorBoolean();
     
+    $this->widgetSchema['pubsId'] = new sfWidgetFormDoctrineChoice(array(
+                    'model'=>'DmMediaFolder',
+                    'method'=>'getName',
+                    'label'=> 'Répertoire des pubs'
+                    ));
+    $this->validatorSchema['pubsId'] = new sfValidatorDoctrineChoice(array(
+                    'model' => 'DmMediaFolder',
+                    'required'=>true,
+                    ));
+    // fin rajout 
+    // ** stef
     $this->widgetSchema['autoplay'] = new sfWidgetFormInputCheckbox();
     $this->validatorSchema['autoplay'] = new sfValidatorBoolean();
     
@@ -94,6 +109,7 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
   
   protected function configureSplashMediaFields()
   {
+  
     if($mediaId = $this->getValueOrDefault('splashMediaId'))
     {
       $media = dmDb::table('DmMedia')->findOneByIdWithFolder($mediaId);
@@ -102,7 +118,7 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
     {
       $media = null;
     }
-
+      
     $this->widgetSchema['splashMediaName'] = new sfWidgetFormInputText(array(), array(
       'readonly'  => true,
       'class'     => 'dm_splash_media_receiver'
@@ -143,8 +159,8 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
     $this->validatorSchema['removeSplash'] = new sfValidatorBoolean();
     
     $this->widgetSchema['removeSplash']->setLabel('Remove splash');
-  }
 
+  }
   public function getResizeMethods()
   {
     return array(
@@ -169,8 +185,8 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
   protected function getFirstDefaults()
   {
     return array_merge(parent::getFirstDefaults(), array(
-      'width'   => 300,
-      'height'  => 300,
+      'width'   => 250,
+      'height'  => 250,
       'method'  => 'scale',
       'control' => true
     ));
@@ -199,7 +215,7 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
       }
       else
       {
-        $values['width'] = 300;
+        $values['width'] = 250;
       }
       
       $values['height'] = dmArray::get($values, 'height', (int) ($values['width'] * 2/3), true);
@@ -219,6 +235,7 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
     public function checkMediaSource($validator, $values)
   {
     if (!$values['mediaId'] && !$values['file'] && !$values['externalUrl'])
+    
     {
       throw new sfValidatorError($validator, 'You must use a media, upload a file or write external file s Url');
     }
@@ -228,7 +245,8 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
   
   protected function createSplashMediaFromUploadedFile(array &$values)
   {
-    $file   = $values['splashFile'];
+   
+      $file   = $values['splashFile'];
     $folder = dmDb::table('DmMediaFolder')->findOneByRelPathOrCreate('widget');
 
     $media = dmDb::table('DmMedia')->findOneByFileAndDmMediaFolderId(
@@ -255,10 +273,13 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
     : null;
     
     if(!$media && !$this->getValueOrDefault('externalUrl'))
+//            /*ajout stef*/ || ($this->getValue('checkPubs') == true) )
     {
       $template = 'formEmpty';
     }
-    elseif ($this->getValueOrDefault('externalUrl')){
+    elseif ($this->getValueOrDefault('externalUrl'))
+//            /* ajout stef */&& ($this->getValue('checkPubs') == false))
+            {
         $template = 'formAudioVideo';
     }
     else
@@ -275,6 +296,7 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
 
     return $this->getHelper()->renderPartial('dmWidgetContentFlowPlayer', $template, array(
       'form' => $this,
+      'checkPubs' => $this->getValue('checkPubs'),
       'hasSplashMedia' => (boolean) $this->getValueOrDefault('splashMediaId'),
       'baseTabId' => 'dm_widget_flow_player_'.$this->dmWidget->get('id')
     ));
