@@ -117,7 +117,7 @@ class dmSearchIndex extends dmSearchIndexCommon
     $pager = $this->serviceContainer
     ->setParameter('doctrine_pager.model', 'DmPage')
     ->getService('doctrine_pager')
-    ->setMaxPerPage(100)
+    ->setMaxPerPage(10)
     ->setQuery($this->getPagesQuery())
     ->setPage(1)
     ->init();
@@ -136,11 +136,16 @@ class dmSearchIndex extends dmSearchIndexCommon
     $oldCulture = $user->getCulture();
     $user->setCulture($this->getCulture());
 
+    
+    $arrayPage= array();
+    
     while($pagerPage <= $pagerPageMax)
     {
+
       foreach ($pager->getResultsWithoutCache() as $page)
       {
-        $logger->log($this->getName().' '.$nb.'/'.$nbMax.': /'.$page->get('slug').' ['.$page->get('id').']');
+        $arrayPage[$page->get('id')]= $page->get('id');
+        $logger->log($this->getName().' '.$nb.'/'.$nbMax.': /'.$page->get('slug').' ['.$page->get('id').'] nbIndex:'.(count($arrayPage)).' -> numPagerPage:'.$pagerPage.' pagerPage:'.$pager->getPage().'/'.$pager->getLastPage());
 
         $document = $this->serviceContainer
         ->setParameter('search_document.source', $page)
@@ -159,7 +164,7 @@ class dmSearchIndex extends dmSearchIndexCommon
         ++$nb;
       }
 
-      ++$pagerPage;
+      $pagerPage++;
       $pager->setPage($pagerPage)->init();
     }
     
@@ -207,7 +212,7 @@ class dmSearchIndex extends dmSearchIndexCommon
     ->withI18n($this->getCulture())
     ->where('pTranslation.is_active = ?', true)
     ->andWhere('pTranslation.is_secure = ?', false)
-    ->andWhere('p.module != ? OR ( p.action != ? AND p.action != ? AND p.action != ?)', array('main', 'error404', 'search', 'signin'));
+    ->andWhere('p.module != ? OR ( p.action != ? AND p.action != ? AND p.action != ? AND p.action != ?)', array('main', 'error404', 'search', 'signin','root')); // lioshi : ajout de root
   }
 
   /**
