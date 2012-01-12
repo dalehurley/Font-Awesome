@@ -35,24 +35,6 @@ class articleComponents extends myFrontModuleComponents
 //        $this->rubrique = $ancestors[count($ancestors)-2]->getTitle();
     }
 
-  public function executeListBySectionSlide()
-  {
-    $query = $this->getListQuery();
-    
-    $this->articlePager = $this->getPager($query);
-    
-    $this->articlePager->setOption('ajax', true);
-  }
-
-  public function executeListBySectionFeature()
-  {
-    $query = $this->getListQuery();
-    
-    $this->articlePager = $this->getPager($query);
-    
-    $this->articlePager->setOption('ajax', true);
-  }
-
   public function executeListArticlesAvecMemeTag()
   {
     //    $query = $this->getListQuery();

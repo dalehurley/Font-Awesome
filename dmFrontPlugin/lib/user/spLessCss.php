@@ -23,7 +23,7 @@ class spLessCss extends dmFrontUser {
 		$spriteListing = self::spriteGetListing();
 		
 		//Si on est au début de l'action
-		if($spriteFormat == '') {
+		if($spriteFormat == null) {
 			//purge des miniatures
 			self::spriteReset();
 			//initialisation du fichier de sortie less
@@ -205,28 +205,37 @@ class spLessCss extends dmFrontUser {
 		//.sprite-navigation-test-S { @sprite-navigation-test-S(); }
 		
 		//composition du nom de la sprite
-		$nomSprite = 'sprite';
+		$nomSprite = '';
 		if($theme != "Default") $nomSprite.= '-' . $theme;
 		$nomSprite.= '-' . $category;
 		$nomSprite.= '-' . $name;
 		$nomSprite.= '-' . $spriteFormat;
 		
 		//ouverture fonction LESS
-		$appelFonction = '@spriteDefinition(';
+		$appelFoncDef = '@spriteDefinition(';
 		//ajout paramètres
-		$appelFonction.= '"' . $theme . '"';
-		$appelFonction.= '; "' . $category . '"';
-		$appelFonction.= '; "' . $name . '"';
-		$appelFonction.= '; "' . $spriteFormat . '"';
-		$appelFonction.= '; @spriteFormat_' . $spriteFormat;
-		$appelFonction.= '; ' . $offX;
-		$appelFonction.= '; ' . $offY;
+		$appelFoncDef.= '"' . $theme . '"';
+		$appelFoncDef.= '; "' . $category . '"';
+		$appelFoncDef.= '; "' . $name . '"';
+		$appelFoncDef.= '; "' . $spriteFormat . '"';
+		$appelFoncDef.= '; @spriteFormat_' . $spriteFormat;
+		$appelFoncDef.= '; ' . $offX;
+		$appelFoncDef.= '; ' . $offY;
 		//fermeture fonction LESS
-		$appelFonction.= ');';
+		$appelFoncDef.= ');';
+		
+		//ouverture fonction LESS
+		$appelFoncBgp = '@spriteBgp(';
+		//ajout paramètres
+		$appelFoncBgp.= '@spriteFormat_' . $spriteFormat;
+		$appelFoncBgp.= '; ' . $offX;
+		$appelFoncBgp.= '; ' . $offY;
+		//fermeture fonction LESS
+		$appelFoncBgp.= ');';
 		
 		//composition du tableau de sortie
-		$output['function'] = '@' . $nomSprite . '() { ' . $appelFonction . ' }';
-		$output['generate'] = '.' . $nomSprite . ' { ' . '@' . $nomSprite . '(); }';
+		$output['function'] = '@sprite' . $nomSprite . '() { ' . $appelFoncDef . ' }' . PHP_EOL . '@spriteBgp' . $nomSprite . '() { ' . $appelFoncBgp . ' }';
+		$output['generate'] = '.sprite' . $nomSprite . ' { ' . '@sprite' . $nomSprite . '(); }';
 		
 		//retour du tableau de valeurs
 		return $output;
