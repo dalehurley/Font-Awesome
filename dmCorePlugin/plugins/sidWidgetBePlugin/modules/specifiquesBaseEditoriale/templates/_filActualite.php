@@ -1,4 +1,7 @@
 <?php
+//chargement feuille de style spécifique
+use_stylesheet(sfConfig::get('sf_css_path_template'). '/Widgets/SpecifiquesBaseEditorialeFilActualite/SpecifiquesBaseEditorialeFilActualite.css');
+
 // vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
 if (count($articles)) { // si nous avons des actu articles
 
@@ -11,6 +14,4 @@ if (count($articles)) { // si nous avons des actu articles
     }
     echo _close('ul');
     
-  
 }
-
