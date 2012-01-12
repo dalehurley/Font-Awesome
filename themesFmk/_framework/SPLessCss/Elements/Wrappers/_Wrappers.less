@@ -36,7 +36,10 @@
 	margin: 0;
 	list-style: none;
 	
+	background-color: #888;
+	
 	.element {
+		background-color: #aaa;
 		.title {
 			display: block;
 			font-size: @fontSizeH5Px;
@@ -54,12 +57,12 @@
 			.title, .date, .teaser, .description { display: block; }
 			//pour faire descendre les textes sous l'image et le titre
 			.title {
-				//background-color: green;
+				background-color: lightblue;
 				//& ~ .teaser, & ~ .description { clear: both; }
 			}
 			
 			.teaser, .description {
-				//background-color: darkgreen;
+				background-color: lightcoral;
 				margin-bottom: @gridBaseline;
 			}
 		}
