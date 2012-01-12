@@ -122,6 +122,18 @@ class dmSearchIndex extends dmSearchIndexCommon
     ->setPage(1)
     ->init();
 
+// ajout lioshi DEBUG
+//foreach ($pager as $page){  
+//    $logger->log($pager->getPage().'>>>'.$page->get('id').' __ '.$pager->getNbResults());    
+//    break;
+//}
+//$pager->setPage(4);
+//foreach ($pager as $page){  
+//    $logger->log($pager->getPage().'>>>'.$page->get('id'));    
+//    break;
+//}
+
+
     $nb = 1;
     $nbMax = $pager->getNbResults();
     $pagerPage = 1;
