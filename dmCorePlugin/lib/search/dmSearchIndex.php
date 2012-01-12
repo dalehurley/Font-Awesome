@@ -155,7 +155,7 @@ class dmSearchIndex extends dmSearchIndexCommon {
         if (count($arrayPage) < $nbMax){
             $logger->log('************************************ERROR*******************************************');
         }
-        $logger->log('****************** Traited pages : '.count($arrayPage).'/'.$nbMax.'***************************');
+        $logger->log('************************* Traited pages : '.count($arrayPage).'/'.$nbMax.' **********************************');
         $logger->log('**************************************************************************************');
         
         $user->setCulture($oldCulture);
