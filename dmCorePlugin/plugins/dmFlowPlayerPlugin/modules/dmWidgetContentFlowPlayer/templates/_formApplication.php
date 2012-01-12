@@ -7,15 +7,28 @@ $form->renderGlobalErrors(),
 _open('div.dm_tabbed_form'),
 
 _tag('ul.tabs',
+// ** stef
+// rajout pour activer le bloc de pub
+  _tag('li', _link('#'.$baseTabId.'_blocPub')->text(__('Block adds'))).
+// fin rajout
   _tag('li', _link('#'.$baseTabId.'_media')->text(__('Media'))).
   _tag('li', _link('#'.$baseTabId.'_config')->text(__('Config'))).
   _tag('li', _link('#'.$baseTabId.'_vars')->text(__('Vars')))
 ),
-
+// ** stef
+// rajout pour activer le bloc de pub        
+_tag('div#'.$baseTabId.'_blocPub',
+  _tag('ul',
+    $form['checkPubs']->renderRow().
+    $form['pubsId']->renderRow()
+  )
+),
+// fin rajout
+// ** stef
 _tag('div#'.$baseTabId.'_media',
   
   _tag('div.toggle_group',
-
+    
     $form['mediaId']->render(array('class' => 'dm_media_id')).
 
     _tag('a.show_media_fields.toggler', __('Change file')).
@@ -34,7 +47,6 @@ _tag('div#'.$baseTabId.'_media',
 */
   _tag('ul',
     _tag('li.dm_form_element.multi_inputs.thumbnail.clearfix',
-      $form['width']->renderError().
       $form['height']->renderError().
       _tag('label', __('Dimensions')).
       $form['width']->render().
