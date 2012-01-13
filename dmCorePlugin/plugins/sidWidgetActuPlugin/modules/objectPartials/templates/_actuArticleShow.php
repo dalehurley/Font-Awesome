@@ -25,8 +25,8 @@ if ($titreBloc == true) {
 	
 	echo _tag('p.teaser', $articles->getResume());
         echo _tag('section.contentBody itemprop="articleBody"', $articles->getText());
-        echo _tag('p.meta', 'Mis à jour le '.format_date($articles->updated_at, "D"));
-
+        echo _tag('p.meta', get_partial('global/dateWrapperFull', array('node'	=>	$articles)));
+		
 //Fermeture de l'article
 echo _close('article');
 ?>
