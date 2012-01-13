@@ -8,7 +8,7 @@ class spLessCss extends dmFrontUser {
 		$pageOptions = self::pageTemplateGetOptions($optionsCustom);
 		
 		//action à effectuer uniquement en DEV
-		if ($pageOptions['idDev']) {
+		if ($pageOptions['isDev']) {
 			//affichage du widget de DEBUG du framework
 			echo dm_get_widget('sidSPLessCss', 'debug', array());
 		}
@@ -405,7 +405,7 @@ class spLessCss extends dmFrontUser {
 		
 		//composition des options de page par défault
 		$pageTemplateOptionsDefault = array(
-							'idDev'				=> ((sfConfig::get('sf_environment') == 'dev') ? true : false),
+							'isDev'				=> ((sfConfig::get('sf_environment') == 'dev') ? true : false),
 							'currentGabarit'	=> $currentGabarit,
 							'areas'				=> array(
 								'dm_page_content'		=>	array(
