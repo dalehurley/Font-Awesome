@@ -1,6 +1,23 @@
 <?php
 // vars : $articles, $titreBloc
+if(count($articles)){
+	
+	$pubOpts = array();
+	if(count($articles))	$pubOpts['node']		= $articles;
+	if($titreBloc != null)	$pubOpts['category']	= $titreBloc;
+							$pubOpts['title']		= $articles->getTitle();
+							$pubOpts['image']		= '/uploads/' . $articles->getImage();
+							$pubOpts['content']		= $articles->getText();
+	
+	include_partial('global/publicationShow', $pubOpts);
+}else{
+	include_partial('global/publicationShow', array(
+													'content' => '{{actualites_du_cabinet}}'
+												));
+}
 
+
+/*
 if (count($articles)) { // si nous avons des actu articles
 
         if ($titreBloc != true) {
@@ -18,3 +35,4 @@ if (count($articles)) { // si nous avons des actu articles
     
 } // sinon on affiche la constante de la page concernée
 else echo'{{actualites_du_cabinet}}';
+*/
