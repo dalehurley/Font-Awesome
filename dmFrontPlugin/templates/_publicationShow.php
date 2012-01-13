@@ -23,14 +23,14 @@ echo _open('article', array(
 						));
 
 	//header du contenu
-	include_partial('global/contentHeader', array(
-												'node'		=>	$node,
-												'category'	=>	$category,
-												'section'	=>	$section,
-												'title'		=>	$title,
-												'image'		=>	$image,
-												'teaser'	=>	$teaser
-											));
+	$headerOpts = array();
+	if(isset($node))		$headerOpts['node']		= $node;
+	if(isset($category))	$headerOpts['category']	= $category;
+	if(isset($section))		$headerOpts['section']	= $section;
+	if(isset($title))		$headerOpts['title']		= $title;
+	if(isset($image))		$headerOpts['image']		= $image;
+	if(isset($teaser))		$headerOpts['teaser']	= $teaser;
+	include_partial('global/contentHeader', $headerOpts);
 	
 	//affichage du contenu de la page
 	echo _tag('section.contentBody', array('itemprop' => 'articleBody'), $content);

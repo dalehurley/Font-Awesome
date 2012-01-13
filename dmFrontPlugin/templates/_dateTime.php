@@ -11,11 +11,14 @@
  * 
  * Pour info : http://blog.rajatpandit.com/2009/01/28/datehelper-date_format-in-symfony/
  */
+//chargement de l'helper pour la date
+use_helper('Date');
 
 //création des options à rajouter à l'élément time
 $timeOptions = array('datetime' => $date);
 
 //type de date
+$dateTypeClass =  null;
 switch ($type) {
 	case 'created':
 		$dateTypeClass = 'datePublished';
@@ -24,10 +27,8 @@ switch ($type) {
 	case 'updated':
 		$dateTypeClass = 'dateModified';
 		break;
-	default:
-		$dateTypeClass =  null;
-		break;
 }
+
 if($dateTypeClass) {
 	$timeOptions['class'] = $dateTypeClass;
 	$timeOptions['itemprop'] = $dateTypeClass;

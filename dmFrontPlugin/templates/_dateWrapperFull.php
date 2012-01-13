@@ -13,7 +13,7 @@
 $dateDisplay = "";
 
 //ajout date de publication
-if($node->created_at){
+if(isset($node->created_at)){
 	$dateDisplay.= "Publié le ";
 	$dateDisplay.= get_partial('global/dateTime', array(
 												'date'	=>	$node->created_at,
@@ -23,7 +23,7 @@ if($node->created_at){
 }
 
 //ajout date de mise à jour si présente et différent de la date de création
-if($node->created_at && $node->updated_at){
+if(isset($node->created_at) && isset($node->updated_at)){
 	
 	//comparaison des dates au jour prêt
 	$compCreated = intval(str_replace('-', '', format_date($node->created_at, 'i')));
