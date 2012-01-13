@@ -29,7 +29,7 @@ echo _open('article', array(
 												'section'	=>	$section,
 												'title'		=>	$title,
 												'image'		=>	$image,
-												'teaser'	=>	teaser
+												'teaser'	=>	$teaser
 											));
 	
 	//affichage du contenu de la page
