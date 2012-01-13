@@ -1,8 +1,6 @@
 <?php
 
 // vars  $equipes, $titreBloc, $nomRubrique
-include_partial("global/templateTest", array());
-
 if (count($equipes)) { // si nous avons des actu articles
     echo _tag('h4.title', $titreBloc);
     $ville = "";
