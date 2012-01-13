@@ -470,6 +470,8 @@ $this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settin
 //MACOSX : modifs syntaxe
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_framework', $out, $err);
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_templates', $out, $err);
+//liaison vers le dossier templates contenant les partials du coeur
+$this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../dmFrontPlugin/templates/ '.sfConfig::get('sf_root_dir').'/apps/front/templates', $out, $err);
 
 //// Cas particulier d'Opera 
 //if ($nomTemplateChoisi == 'OperaTheme') {
