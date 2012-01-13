@@ -5,7 +5,7 @@
  * Permet d'afficher une date complète.
  * 
  * Variables disponibles :
- *	$node		élément englobant tous les objet de la page
+ * $node		élément englobant tous les objet de la page
  * 
  * Pour info : http://blog.rajatpandit.com/2009/01/28/datehelper-date_format-in-symfony/
  */

@@ -5,9 +5,9 @@
  * Permet d'afficher une balise Time avec différentes options.
  * 
  * Variables disponibles :
- *	date		date ISO sous la forme 2012-01-05 11:38:14
- *	type		indique le type de date : created, updated
- *	format		indique le parttern d'affichage
+ * $date		date ISO sous la forme 2012-01-05 11:38:14
+ * $type		indique le type de date : created, updated
+ * $format		indique le parttern d'affichage
  * 
  * Pour info : http://blog.rajatpandit.com/2009/01/28/datehelper-date_format-in-symfony/
  */
