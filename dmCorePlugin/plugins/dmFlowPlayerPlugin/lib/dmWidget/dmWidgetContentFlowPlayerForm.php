@@ -8,22 +8,7 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
     parent::configure();
     
     unset($this['legend']);
-    // ** stef
-    // rajout pour afficher le bloc de pub avec des pubs en aléatoire à chaque chargement de page
-    $this->widgetSchema['checkPubs'] = new sfWidgetFormInputCheckbox(array('default'=>false,'label'=>'Activer le bloc de pub'));
-    $this->validatorSchema['checkPubs'] = new sfValidatorBoolean();
-    
-    $this->widgetSchema['pubsId'] = new sfWidgetFormDoctrineChoice(array(
-                    'model'=>'DmMediaFolder',
-                    'method'=>'getName',
-                    'label'=> 'Répertoire des pubs'
-                    ));
-    $this->validatorSchema['pubsId'] = new sfValidatorDoctrineChoice(array(
-                    'model' => 'DmMediaFolder',
-                    'required'=>true,
-                    ));
-    // fin rajout 
-    // ** stef
+   
     $this->widgetSchema['autoplay'] = new sfWidgetFormInputCheckbox();
     $this->validatorSchema['autoplay'] = new sfValidatorBoolean();
     
@@ -273,12 +258,10 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
     : null;
     
     if(!$media && !$this->getValueOrDefault('externalUrl'))
-//            /*ajout stef*/ || ($this->getValue('checkPubs') == true) )
     {
       $template = 'formEmpty';
     }
     elseif ($this->getValueOrDefault('externalUrl'))
-//            /* ajout stef */&& ($this->getValue('checkPubs') == false))
             {
         $template = 'formAudioVideo';
     }
@@ -296,7 +279,6 @@ class dmWidgetContentFlowPlayerForm extends dmWidgetContentBaseMediaForm
 
     return $this->getHelper()->renderPartial('dmWidgetContentFlowPlayer', $template, array(
       'form' => $this,
-      'checkPubs' => $this->getValue('checkPubs'),
       'hasSplashMedia' => (boolean) $this->getValueOrDefault('splashMediaId'),
       'baseTabId' => 'dm_widget_flow_player_'.$this->dmWidget->get('id')
     ));

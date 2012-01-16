@@ -467,6 +467,9 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                         $objetPageTableaux[$requestDmPageObject->position] = $childPage;
                     }
                 }
+                else {
+                    $objetPageTableaux[$childPage->get('lft')] = $childPage;
+                }
             }
 
             ksort($objetPageTableaux);
