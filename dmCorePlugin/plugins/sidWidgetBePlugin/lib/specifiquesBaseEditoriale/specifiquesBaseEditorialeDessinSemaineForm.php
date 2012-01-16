@@ -28,6 +28,7 @@ class specifiquesBaseEditorialeDessinSemaineForm extends dmWidgetPluginForm {
         $this->widgetSchema->setHelps(array(
             'title' => 'Personnaliser le titre du widget',
             'effect' => "L'effet de transition",
+            'filDActu' => "pour affichage sur la page central du module dessin"
         ));
         
         parent::configure();
