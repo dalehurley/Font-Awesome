@@ -21,12 +21,14 @@ echo '&nbsp;';
 echo _tag('span.value itemprop="telephone"', $equipe->getTel());
 echo _close('span');
 echo '<br/>';
+if(array_key_exists($equipe->id, $nomRubrique)){
 echo _open('span.rubrique');
 echo _tag('span.type', __('Responsable in'));
 echo '&nbsp;:&nbsp;';
 echo _tag('span.value', $nomRubrique[$equipe->id]);
 echo _close('span');
 echo '<br />';
+};
 echo _open('span.email');
 echo _tag('span.type', __('Email'));
 echo '&nbsp;:&nbsp;';

@@ -167,12 +167,15 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         $pageRubriques = dmDb::table('DmPage')->findByModuleAndActionAndRecordId('rubrique', 'show', $rubriques[0]->id);
                         $arrayNomRubrique[$rubriqueEquipe->id] = $pageRubriques[0]->name;
                     }
-                    if(count($rubriques) != 1) {
+                    if(count($rubriques) > 1) {
                         $nomRubrique = '';
                             // je prépare la variable pour l'affichage des rubriques
-                            foreach($rubriques as $rubrique){
+                            foreach($rubriques as $i=>$rubrique){
                                 $pageRubriques = dmDb::table('DmPage')->findByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
-                                $nomRubrique .= $pageRubriques[0]->name.' ';
+                                if($i > 0){
+                                    $nomRubrique .= ' - '.$pageRubriques[0]->name;
+                                }
+                                else $nomRubrique .= $pageRubriques[0]->name;
                             }
                             $arrayNomRubrique[$rubriqueEquipe->id] = $nomRubrique;
                     }
