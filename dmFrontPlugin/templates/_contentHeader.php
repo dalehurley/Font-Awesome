@@ -14,19 +14,19 @@
  * 
  */
 
-echo _open('header.contentHeader', array());
+$html = _open('header.contentHeader', array());
 	
 	//La rubrique l'article, à savoir Actualités, Chiffre, Dossier, etc
-	if(isset($category)) echo _tag('h2.category', array('itemprop' => 'articleSection'), $category);
+	if(isset($category)) $html.= _tag('h2.category', array('itemprop' => 'articleSection'), $category);
 	
 	//La section de l'article, à savoir Social, Juridique, Fiscal, etc
-	if(isset($section)) echo _tag('h3.section', array('itemprop' => 'articleSection'), $section);
+	if(isset($section)) $html.= _tag('h3.section', array('itemprop' => 'articleSection'), $section);
 	
 	//Le titre de l'article, devant toujours être l'unique H1 dans la page
-	if(isset($title)) echo _tag('h1.title', array('itemprop' => 'name'), $title);
+	if(isset($title)) $html.= _tag('h1.title', array('itemprop' => 'name'), $title);
 	
 	if(isset($image)){
-		include_partial('global/imageWrapperFull', array(
+		$html.= get_partial('global/imageWrapperFull', array(
 													'image'	=>	$image,
 													'alt'	=>	$title,
 													'width'	=>	spLessCss::gridGetContentWidth(),
@@ -34,10 +34,13 @@ echo _open('header.contentHeader', array());
 													));
 	}
 	
-	//Chapeau de l'article si présent (filtrer tout balisage html, texte brut, sauf sup et sub)
-	if(isset($teaser)) include_partial('global/teaserWrapper', array('teaser' => $teaser));
+	//Chapeau de l'article si présent
+	if(isset($teaser)) $html.= get_partial('global/teaserWrapper', array('teaser' => $teaser));
 	
 	//Gestion de la date avec plusieurs possibilités (dateCreated, dateModified, etc)
-	if(isset($node->created_at)) include_partial('global/dateWrapperFull', array('node' => $node));
+	if(isset($node->created_at)) $html.= get_partial('global/dateWrapperFull', array('node' => $node));
 	
-echo _close('header');
+$html.= _close('header');
+
+//affichage html en sortie
+echo $html;
