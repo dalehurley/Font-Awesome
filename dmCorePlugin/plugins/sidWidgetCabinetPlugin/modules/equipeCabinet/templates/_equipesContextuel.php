@@ -1,12 +1,11 @@
 <?php
 // vars : $equipes, $titreBloc, $titreLien, $pageEquipe, $lenght, $rubrique, $nomRubrique
-
 $html = '';
 
 if (count($equipes)) { // si nous avons des actu articles
 	
 	//affichage du titre du bloc
-    if ($titreBloc != '') $html.= _tag('h4.title', $titreBloc);
+    if($titreBloc != null) $html.= _tag('h4.title', $titreBloc);
 	
 	//ouverture du listing
     $html.= _open('ul.elements');
@@ -32,16 +31,15 @@ if (count($equipes)) { // si nous avons des actu articles
     }
 	
     $html.= _close('ul.elements');
-    
-	/*
-    echo _open('div.navigation.navigationBottom');
-	echo _open('ul.elements');
-	    echo _open('li.element');
-		echo _link('pageCabinet/equipe')->text($titreLien);
-	    echo _close('li');
-	echo _close('ul');
-    echo _close('div');
-	 */
+	
+	//création d'un tableau de liens à afficher
+	$elements = array();
+	$elements[] = array('title' => $titreLien, 'linkUrl' => 'pageCabinet/equipe');
+	
+	$html.= get_partial('global/navigationWrapper', array(
+													'placement' => 'bottom',
+													'elements' => $elements
+													));
 } // sinon on affiche rien
 
 //affichage html en sortie

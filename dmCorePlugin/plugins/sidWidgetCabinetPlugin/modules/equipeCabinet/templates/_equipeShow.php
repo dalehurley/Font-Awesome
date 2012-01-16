@@ -1,5 +1,7 @@
 <?php
-$html = _tag('h4.title', $titreBloc);
+$html = '';
+
+if($titreBloc != null) $html.= _tag('h4.title', $titreBloc);
 
 // vars  $equipes, $titreBloc, $nomRubrique
 if (count($equipes)) { // si nous avons des actu articles
