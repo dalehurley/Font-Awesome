@@ -1,38 +1,46 @@
 <?php
+$html = _tag('h4.title', $titreBloc);
 
 // vars  $equipes, $titreBloc, $nomRubrique
 if (count($equipes)) { // si nous avons des actu articles
-    echo _tag('h4.title', $titreBloc);
-    $ville = "";
-
-    foreach ($equipes as $equipe) {
-        // si $ville est nulle, on ouvre la div, on place le nom de la ville et on ouvre le ul.elements
-        if ($ville == "") {
-            echo _open('div.blocImplentation');
-            echo _tag('h5.title', __('Implantation') .' : '. $equipe->ImplentationId->ville);
-            echo _open('ul.elements');
-
-            $ville = $equipe->ImplentationId->ville;
-        }
-
-        // si $ville n'est pas nulle et identique à la ville d'implentation du membre, on execute uniquement le partial
-        if ($ville == $equipe->ImplentationId->ville && $ville != "") {
-            include_partial("objectPartials/equipeShow", array("equipe" => $equipe, "nomRubrique" => $nomRubrique));
-            $ville = $equipe->ImplentationId->ville;
-        }
-
-        // si $ville n'est pas nulle et différente de la ville d'implentation du membre, on ferme le ul, la div, 
-        // ensuite on ouvre la div, on place le nom de la ville et on ouvre le ul.elements pour ensuite executer le partial
-        if (($ville != $equipe->ImplentationId->ville) && $ville != "") {
-            echo _close('ul.elements');
-            echo _close('div.blocimplentation');
-            echo _open('div.blocImplentation');
-            echo _tag('h5.title', __('Implantation') . ' : ' . $equipe->ImplentationId->ville);
-            echo _open('ul.elements');
-            include_partial("objectPartials/equipeShow", array("equipe" => $equipe, "nomRubrique" => $nomRubrique));
-
-            $ville = $equipe->ImplentationId->ville;
-        }
-    }
-    echo _close('ul');
+	
+	//afin de séparer les affichages par implantations on créé un nouveau tableau
+	//dont chaque clé correspond à une implantation et contient un tableau des membres associé
+	$implantations = array();
+	foreach ($equipes as $equipe) {
+		$implantationId = dmString::slugify($equipe->ImplentationId);
+		//remplissage d'un nouveau tableau à chaque implantation
+		$implantations[$implantationId]['ville'] = $equipe->ImplentationId->ville;
+		$implantations[$implantationId]['equipes'][] = $equipe;
+	}
+	
+	//affichage des équipes
+	foreach ($implantations as $implantationId => $implantation) {
+		//ouverture du container
+		$html.= _open('div.supWrapper');
+		//affichage de la ville d'implantation
+		$html.= _tag('h5.title', __('Implantation') . '&#160;: '. $implantation['ville']);
+		//ouverture de la liste
+		$html.= _open('ul.elements');
+		
+		//affichage des membres de chaque implantation
+		foreach ($implantation['equipes'] as $equipe) {
+			$html.= get_partial('global/publicationListElement', array(
+													'node' => $equipe,
+													'itemType' => 'Person',
+													'title' => $equipe->getTitle(),
+													'image' => $equipe->getImage(),
+													'rubrique' => $nomRubrique[$equipe->id]
+													));
+		}
+		
+		//fermeture de la liste et du container
+		$html.= _close('ul.elements');
+		$html.= _close('div.supWrapper');
+	}
+}else{
+	$html.= "Aucun membre de l'équipe n'est présenté.";
 }
+
+//affichage html en sortie
+echo $html;
