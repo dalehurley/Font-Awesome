@@ -7,7 +7,6 @@
  * Variables disponibles :
  * $node		élément englobant tous les objet de la page
  * 
- * Pour info : http://blog.rajatpandit.com/2009/01/28/datehelper-date_format-in-symfony/
  */
 
 $dateDisplay = "";

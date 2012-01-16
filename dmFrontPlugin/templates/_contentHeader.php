@@ -12,7 +12,6 @@
  * $image
  * $teaser
  * 
- * Pour info : http://blog.rajatpandit.com/2009/01/28/datehelper-date_format-in-symfony/
  */
 
 echo _open('header.contentHeader', array());

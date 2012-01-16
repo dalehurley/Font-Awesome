@@ -10,7 +10,6 @@
  * $width		largeur de l'image
  * $height		hauteur de l'image
  * 
- * Pour info : http://blog.rajatpandit.com/2009/01/28/datehelper-date_format-in-symfony/
  */
 
 //on vérifie que l'image existe sur le serveur avec son chemin absolu

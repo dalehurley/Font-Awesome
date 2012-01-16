@@ -6,5 +6,6 @@
  * 
  * Variables disponibles :
  * $teaser
+ * 
  */
 echo _tag('span.teaser', array('itemprop' => 'description'), strip_tags($teaser, '<sup><sub>'));
