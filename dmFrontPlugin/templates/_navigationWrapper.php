@@ -30,7 +30,23 @@ $html = _open('div.navigation' . $ctnClass);
 	//liens de navigation multiples
 	if(isset($elements)){
 		$html.= _open('ul.elements');
-			$html.= $elements;
+		
+		//compteur
+		$count = 0;
+		$maxCount = count($elements);
+		
+		foreach ($elements as $element) {
+			//incrémentation compteur
+			$count++;
+			//affichage du li contenant le lien
+			$html.= get_partial('global/publicationListElementLight', array(
+													'title' => $element['title'],
+													'linkUrl' => $element['linkUrl'],
+													'count' => $count,
+													'maxCount' => $maxCount
+													));
+		}
+		
 		$html.= _close('ul.elements');
 	}
 	
@@ -41,5 +57,8 @@ $html = _open('div.navigation' . $ctnClass);
 		$html.= _close('ul.pager');
 	}
 
-//ouverture container de la navigation
+//fermeture container de la navigation
 $html.= _close('div.navigation' . $ctnClass);
+
+//affichage html en sortie
+echo $html;
