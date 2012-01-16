@@ -1,11 +1,12 @@
 <?php
 /*
  * _publicationShow.php
- * v0.1
+ * v0.2
  * Permet d'afficher une publication (article, actu de cabinet, etc)
  * 
  * Variables disponibles :
  * $node		élément englobant tous les objet de la page
+ * $itemType	indique le type de node
  * $category
  * $section
  * $title
@@ -13,22 +14,39 @@
  * $teaser
  * $content
  * 
- * Pour info : http://blog.rajatpandit.com/2009/01/28/datehelper-date_format-in-symfony/
  */
 
+//Définitions des valeurs par défaut
+if(!isset($itemType))	$itemType = 'Article';
+
+//Déclaration du container contenant l'article
+$ctn = ($itemType == 'Article') ? 'article' : 'div';
+$ctnOpts = array();
+switch ($itemType) {
+	case 'Article':
+		$ctnOpts['itemscope'] = 'itemscope';
+		$ctnOpts['itemtype'] = 'http://schema.org/Article';
+		break;
+	case 'Person' :
+		$ctnOpts['itemscope'] = 'itemscope';
+		$ctnOpts['itemtype'] = 'http://schema.org/Person';
+	default:
+		$ctnOpts = array();
+		break;
+}
+
+
+
 //ouverture container de publication
-echo _open('article', array(
-						'itemscope'	=>	'itemscope',
-						'itemtype'	=>	'http://schema.org/Article'
-						));
+echo _open($ctn, $ctnOpts);
 
 	//header du contenu
 	$headerOpts = array();
 	if(isset($node))		$headerOpts['node']		= $node;
 	if(isset($category))	$headerOpts['category']	= $category;
 	if(isset($section))		$headerOpts['section']	= $section;
-	if(isset($title))		$headerOpts['title']		= $title;
-	if(isset($image))		$headerOpts['image']		= $image;
+	if(isset($title))		$headerOpts['title']	= $title;
+	if(isset($image))		$headerOpts['image']	= $image;
 	if(isset($teaser))		$headerOpts['teaser']	= $teaser;
 	include_partial('global/contentHeader', $headerOpts);
 	
@@ -36,4 +54,4 @@ echo _open('article', array(
 	echo _tag('section.contentBody', array('itemprop' => 'articleBody'), $content);
 	
 //fermeture container de publication
-echo _close('article');
+echo _close($ctn);
