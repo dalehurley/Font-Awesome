@@ -36,6 +36,7 @@ switch ($itemType) {
 		$ctnOpts['id'] = 'equipe_' . $node->id;
 		$ctnOpts['itemscope'] = 'itemscope';
 		$ctnOpts['itemtype'] = 'http://schema.org/Person';
+		break;
 	default:
 		$ctnOpts['id'] = 'node_' . $node->id;
 		break;
