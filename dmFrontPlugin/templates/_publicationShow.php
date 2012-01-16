@@ -21,7 +21,6 @@ if(!isset($itemType))	$itemType = 'Article';
 
 //Déclaration du container contenant l'article
 $ctn = ($itemType == 'Article') ? 'article' : 'div';
-$ctnOpts = array();
 switch ($itemType) {
 	case 'Article':
 		$ctnOpts['itemscope'] = 'itemscope';
@@ -34,7 +33,6 @@ switch ($itemType) {
 		$ctnOpts = array();
 		break;
 }
-
 
 
 //ouverture container de publication
