@@ -1,7 +1,7 @@
 <?php
 /*
  * _publicationListElement.php
- * v0.3
+ * v0.4
  * Permet d'afficher une publication de façon simplifié à l'intérieur d'une liste ul li
  * 
  * Variables disponibles :
@@ -14,6 +14,7 @@
  * $rubrique	indique la rubrique (utilisé essentiellement par l'équipe
  * $count		indique le numéro de listing
  * $maxCount	indique le nombre maximal d'éléments affichages
+ * $isLight		permet d'indiquer une version allégée (notamment pour des affichages spéciaux dans les sidebars)
  * 
  */
 $html = '';
@@ -24,6 +25,9 @@ if(isset($image)) {
 	$imageUpload = (strpos($image, 'uploads') === false) ? '/uploads/' : '/';
 	$isImage = is_file(sfConfig::get('sf_web_dir') . $imageUpload . $image);
 }
+
+//permet de ne pas être obligé de définir cette variable lorsque égale à false
+if(!isset($isLight)) $isLight = false;
 
 //gestion de l'index de positionnement
 $posClass = '';
@@ -58,9 +62,14 @@ $html.= _open('li.element' . $posClass, $ctnOpts);
 	//création de l'image seulement si présente
 	if($isImage){
 		//calcul des dimensions de l'image
-		$imgColWidth = ($itemType == 'Person') ? spLessCss::getLessParam('thumbM_col') : spLessCss::getLessParam('thumbL_col');
-		$imgColHeight = ($itemType == 'Person') ? spLessCss::getLessParam('thumbM_bl') * 2 : spLessCss::getLessParam('thumbL_bl');
-
+		if($itemType == 'Person') {
+			$imgColWidth = ($isLight) ? spLessCss::getLessParam('thumbS_col') : spLessCss::getLessParam('thumbM_col');
+			$imgColHeight = ($isLight) ? spLessCss::getLessParam('thumbS_bl') : spLessCss::getLessParam('thumbM_bl') * 2;
+		}else{
+			$imgColWidth = ($isLight) ? spLessCss::getLessParam('thumbM_col') : spLessCss::getLessParam('thumbL_col');
+			$imgColHeight = ($isLight) ? spLessCss::getLessParam('thumbM_bl') * 2 : spLessCss::getLessParam('thumbL_bl');
+		}
+		
 		$htmlLi.= get_partial('global/imageWrapper', array(
 													'image'	=>	$image,
 													'alt'	=>	$title,
@@ -79,14 +88,14 @@ $html.= _open('li.element' . $posClass, $ctnOpts);
 				$htmlLi.= '&#160;-&#160;';
 				$htmlLi.= _tag('span.jobTitle itemprop="jobTitle"', $node->getStatut());
 			$htmlLi.= _close('div');
-
+			
 			$htmlLi.= _open('span.telephone');
 				$htmlLi.= _tag('span.type', __('phone'));
 				$htmlLi.= '&#160;';
 				$htmlLi.= _tag('span.value itemprop="telephone"', $node->getTel());
 			$htmlLi.= _close('span');
-
-			if(isset($rubrique)) {
+			
+			if(isset($rubrique) && !$isLight) {
 				if($rubrique != null) {
 					$htmlLi.= _open('span.rubrique');
 						$htmlLi.= _tag('span.type', __('Responsable in'));
@@ -106,8 +115,8 @@ $html.= _open('li.element' . $posClass, $ctnOpts);
 				}
 				
 			$htmlLi.=  _close('span');
-
-			$htmlLi.= get_partial('global/descriptionWrapper', array('teaser' => $node->getText()));
+			
+			if(!$isLight) $htmlLi.= get_partial('global/descriptionWrapper', array('teaser' => $node->getText()));
 		}else{
 			if(isset($title))										$htmlLi.= get_partial('global/titleWrapper', array('title' => $title));
 			if(isset($node->created_at) && $itemType == 'Article')	$htmlLi.= get_partial('global/dateWrapperShort', array('node' => $node));
