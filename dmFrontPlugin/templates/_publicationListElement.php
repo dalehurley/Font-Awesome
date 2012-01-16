@@ -51,7 +51,7 @@ $html.= _open('li.element', $ctnOpts);
 		if($isImage){
 			//calcul des dimensions de l'image
 			$imgColWidth = ($itemType == 'Person') ? spLessCss::getLessParam('thumbM_col') : spLessCss::getLessParam('thumbL_col');
-			$imgColHeight = ($itemType == 'Person') ? spLessCss::getLessParam('thumbX_bl') : spLessCss::getLessParam('thumbL_bl');
+			$imgColHeight = ($itemType == 'Person') ? spLessCss::getLessParam('thumbM_bl') * 2 : spLessCss::getLessParam('thumbL_bl');
 
 			$html.= get_partial('global/imageWrapper', array(
 														'image'	=>	$image,
@@ -77,8 +77,6 @@ $html.= _open('li.element', $ctnOpts);
 					$html.= '&#160;';
 					$html.= _tag('span.value itemprop="telephone"', $node->getTel());
 				$html.= _close('span');
-				
-				$html.= _tag('div', array(), 'test : ' . sfConfig::get('sf_web_dir') . $image);
 				
 				if(isset($rubrique)) {
 					if($rubrique != null) {
