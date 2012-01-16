@@ -1,7 +1,7 @@
 <?php
 /*
  * _publicationListElement.php
- * v0.1
+ * v0.2
  * Permet d'afficher une publication de façon simplifié à l'intérieur d'une liste ul li
  * 
  * Variables disponibles :
@@ -12,6 +12,8 @@
  * $image
  * $teaser
  * $rubrique	indique la rubrique (utilisé essentiellement par l'équipe
+ * $index		indique le numéro de listing
+ * $maxCount	indique le nombre maximal d'éléments affichages
  * 
  */
 $html = '';
@@ -23,7 +25,12 @@ if(isset($image)) {
 	$isImage = is_file(sfConfig::get('sf_web_dir') . $imageUpload . $image);
 }
 
-
+//gestion de l'index de positionnement
+$posClass = '';
+if(isset($index) && isset($maxCount)) {
+	if($index == 1)			$posClass = '.first';
+	elseif($index == $maxCount)	$posClass = '.last';
+}
 
 //Déclaration des options du container contenant l'article
 switch ($itemType) {
@@ -43,7 +50,7 @@ switch ($itemType) {
 }
 
 //ouverture container de publication
-$html.= _open('li.element', $ctnOpts);
+$html.= _open('li.element' . $posClass, $ctnOpts);
 
 	//ouverture du lien si nécessaire
 	if(isset($linkUrl)) $html.= _open('a.link.link_box', array('href' => $linkUrl, 'title' => $title));
