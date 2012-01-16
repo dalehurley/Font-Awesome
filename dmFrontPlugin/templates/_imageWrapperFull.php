@@ -16,7 +16,7 @@
 $html = '';
 
 //on vérifie que l'image existe sur le serveur avec son chemin absolu
-$imgExist = is_file(sfConfig::get('sf_web_dir') . $image);
+$imgExist = is_file(sfConfig::get('sf_web_dir') . '/' . $image);
 
 if ($imgExist) {
 	$html.= _open('div.imageFullWrapper');

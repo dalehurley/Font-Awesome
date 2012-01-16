@@ -15,8 +15,9 @@
 //Définitions des valeurs par défaut
 $html = '';
 
+/*
 //on vérifie que l'image existe sur le serveur avec son chemin absolu
-$imgExist = is_file(sfConfig::get('sf_web_dir') . $image);
+$imgExist = is_file(sfConfig::get('sf_web_dir') . '/' . $image);
 
 if ($imgExist) {
 	$html.= _open('div.imageWrapper');
@@ -28,6 +29,15 @@ if ($imgExist) {
 					->height($height);
 	$html.= _close('div.imageWrapper');
 }
+*/
+$html.= _open('div.imageWrapper');
+	$html.= _media($image)
+				->set('.image itemprop="image"')
+				->alt($alt)
+				//redimenssionnement propre lorsque l'image sera en bibliothèque
+				->width($width)
+				->height($height);
+$html.= _close('div.imageWrapper');
 
 //affichage html en sortie
 echo $html;
