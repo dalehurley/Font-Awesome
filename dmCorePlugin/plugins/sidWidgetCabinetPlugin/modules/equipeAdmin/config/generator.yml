@@ -9,15 +9,15 @@ generator:
     with_doctrine_route: false
     config:
       actions:
-        new:
-          credentials: [super_admin]
-        delete:
-          credentials: [super_admin]
-        save:
+        _new:
           credentials: [[super_admin, admin]]
-        history:
+        _delete:
+          credentials: [super_admin]
+        _save:
           credentials: [[super_admin, admin]]
-        list:
+        _history:
+          credentials: [[super_admin, admin]]
+        _list:
           credentials: [[super_admin, admin]]
         _view_page:
           credentials: [ super_admin ]

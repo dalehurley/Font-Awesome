@@ -10,15 +10,15 @@ generator:
     config:
 #      actions: ~
       actions:
-        new:              
+        _new:              
           credentials: [ super_admin ]
-        delete:
+        _delete:
           credentials: [ super_admin ]
-        save:
+        _save:
           credentials: [[ super_admin , admin ]]
-        history:
+        _history:
           credentials: [[ super_admin , admin ]]
-        list:
+        _list:
           credentials: [[ super_admin , admin ]]
         _save_and_list:
           credentials: [ super_admin ]

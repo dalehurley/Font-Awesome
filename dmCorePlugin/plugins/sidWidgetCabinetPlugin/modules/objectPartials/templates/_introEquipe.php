@@ -13,7 +13,9 @@ $html ="";
 			$html .= _close('div');
 			$html .= _open('div.wrapper');
 				$html .= _open('div.subWrapper');
+                                    if(array_key_exists($equipe->id, $nomRubrique)){
                                         $html .= _tag('span.responsableTitle itemprop="responsableTitle"', __('Responsable in').' '.$nomRubrique[$equipe->id]).'<br />';
+                                    };
 //					$html .= _tag('span.jobTitle itemprop="jobTitle"', $equipe->getStatut()).'<br />';
                                         $html .= _tag('span.name itemprop="name"', $equipe->getTitle());
                                         $html .= '<br />';

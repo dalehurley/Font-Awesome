@@ -44,7 +44,7 @@ all:
       ec_juridique: juridique   
       ec_social: social
       ec_fiscal: fiscal      
-      ec_creation_entreprise: "création d''entreprise"
+      ec_creation_entreprise: "création d'entreprise"
       ec_gestion: gestion     
       ec_patrimoine: patrimoine
       ec_chiffres: chiffres

@@ -21,11 +21,13 @@ generator:
           credentials: [[ super_admin , admin ]]
         _save_and_list:
           credentials: [ super_admin ]
-        _save_and_next:
+        save_and_next:
           credentials: [ super_admin ]
         _save_and_add:
           credentials: [ super_admin ]
         _view_page:
+          credentials: [ super_admin ]
+        _delete:
           credentials: [ super_admin ]
       fields:
 #        sid_actu_type_list:
@@ -48,7 +50,7 @@ generator:
           label: 'Choisir une image'
       list:
         batch_actions:
-          delete:
+          _delete:
             credentials: [ super_admin ]  # il faut les permissions super_admin ET admin
           activate:
             credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
@@ -63,8 +65,8 @@ generator:
           - is_active
           - created_at
           - updated_at
-          - created_by
-          - updated_by            
+#          - created_by
+#          - updated_by            
           - image
         sort:
           - position
