@@ -12,7 +12,7 @@
  * $image
  * $teaser
  * $rubrique	indique la rubrique (utilisé essentiellement par l'équipe
- * $index		indique le numéro de listing
+ * $count		indique le numéro de listing
  * $maxCount	indique le nombre maximal d'éléments affichages
  * 
  */
@@ -27,9 +27,9 @@ if(isset($image)) {
 
 //gestion de l'index de positionnement
 $posClass = '';
-if(isset($index) && isset($maxCount)) {
-	if($index == 1)			$posClass = '.first';
-	elseif($index == $maxCount)	$posClass = '.last';
+if(isset($count) && isset($maxCount)) {
+	if($count == 1)				$posClass = '.first';
+	elseif($count >= $maxCount)	$posClass = '.last';
 }
 
 //Déclaration des options du container contenant l'article

@@ -5,7 +5,7 @@ $html = _tag('h4.title', $titreBloc);
 if (count($equipes)) { // si nous avons des actu articles
 	
 	//afin de séparer les affichages par implantations on créé un nouveau tableau
-	//dont chaque clé correspond à une implantation et contient un tableau des membres associé
+	//dont chaque clé correspond à une implantation et contient un tableau des membres associés
 	$implantations = array();
 	foreach ($equipes as $equipe) {
 		$implantationId = dmString::slugify($equipe->ImplentationId);
@@ -23,14 +23,23 @@ if (count($equipes)) { // si nous avons des actu articles
 		//ouverture de la liste
 		$html.= _open('ul.elements');
 		
+		//compteur
+		$count = 0;
+		$maxCount = count($implantation['equipes']);
+		
 		//affichage des membres de chaque implantation
 		foreach ($implantation['equipes'] as $equipe) {
+			//incrémentation compteur
+			$count++;
+			
 			$html.= get_partial('global/publicationListElement', array(
 													'node' => $equipe,
 													'itemType' => 'Person',
 													'title' => $equipe->getTitle(),
 													'image' => $equipe->getImage(),
-													'rubrique' => $nomRubrique[$equipe->id]
+													'rubrique' => $nomRubrique[$equipe->id],
+													'count' => $count,
+													'maxCount' => $maxCount
 													));
 		}
 		
