@@ -8,12 +8,14 @@ if (count($articles)) { // si nous avons des actu articles
         else  echo _tag('h4.title', $titreBloc);
     }
     else echo _tag('h4.title', $titreBloc);
-    
+    // $nb mis à zero pour afficher les photos que sur les 3 premiers articles
+    $nb = 0;
     echo _open('ul.elements');
     foreach ($articles as $article) {
 
-	include_partial("objectPartials/actuArticlesList", array("article" => $article,"textLength" => $longueurTexte,"textEnd" => '(...)',"photo" => $vars['photo'],'titreBloc' => $titreBloc,"chapo" => $chapo));
-
+	include_partial("objectPartials/actuArticlesList", array("article" => $article,"textLength" => $longueurTexte,"textEnd" => '(...)',"photo" => $vars['photo'],'titreBloc' => $titreBloc,"chapo" => $chapo,"nb" => $nb));
+        // incrément de $nb pour afficher les photos que sur les 3 premiers articles
+        $nb++;
     }
     echo _close('ul');
 

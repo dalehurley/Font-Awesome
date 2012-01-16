@@ -39,15 +39,10 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelForm extends dmWidgetP
         
         $this->widgetSchema['visibleInDossier'] = new sfWidgetFormInputCheckbox(array('default'=> false, 'label' => 'Visible dans page dossier'));
         $this->validatorSchema['visibleInDossier']  = new sfValidatorBoolean();
-//      
-//        $this->widgetSchema['cssClass']     = new sfWidgetFormInputText(array('label' => 'CSS class'));
-//    $this->validatorSchema['cssClass']  = new dmValidatorCssClasses(array('required' => false));
-//    
-//    $this->setDefault('cssClass', $this->dmWidget->get('css_class'));
+
         
         
         $this->widgetSchema->setHelps(array(
-//            'm_rubriques_list' => 'Vous pouvez choisir les rubriques des article à afficher en page d\'accueil ou hors contexte',
             'titreBloc' => 'Le titre OBLIGATOIRE du bloc', 
             'titreLien' => "Le libellé du lien vers la liste de tous les contenus de la section choisie dans la rubrique affichée(contextuel).",	    
             'nbArticle' => 'Le nombre maximum d\'articles affichés.',            
