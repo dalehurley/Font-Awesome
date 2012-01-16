@@ -37,6 +37,7 @@ if(isset($count) && isset($maxCount)) {
 }
 
 //Déclaration des options du container contenant l'article
+if(!isset($itemType)) $itemType = '';
 switch ($itemType) {
 	case 'Article':
 		$ctnOpts['id'] = 'article_' . $node->id;
@@ -49,7 +50,7 @@ switch ($itemType) {
 		$ctnOpts['itemtype'] = 'http://schema.org/Person';
 		break;
 	default:
-		$ctnOpts['id'] = 'node_' . $node->id;
+		$ctnOpts = array();
 		break;
 }
 
