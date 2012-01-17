@@ -1,7 +1,7 @@
 <?php
 /*
  * _publicationListElement.php
- * v0.4
+ * v0.5
  * Permet d'afficher une publication de façon simplifié à l'intérieur d'une liste ul li
  * 
  * Variables disponibles :
@@ -11,6 +11,7 @@
  * $title
  * $image
  * $teaser
+ * $teaserLength
  * $rubrique	indique la rubrique (utilisé essentiellement par l'équipe
  * $count		indique le numéro de listing
  * $maxCount	indique le nombre maximal d'éléments affichages
@@ -19,15 +20,35 @@
  */
 $html = '';
 //Définitions des valeurs par défaut
+
+//permet de ne pas être obligé de définir cette variable lorsque égale à false
+if(!isset($isLight)) $isLight = false;
+
+//on affecte les valeurs par défaut en fonction de la node passée en paramètre
+if(isset($node)) {
+	//si les valeurs ne sont pas explicitement définies on récupère la valeur dans la node
+	if(!isset($title)) {
+		try { $title = $node->getTitle(); }
+		catch(Exception $e) { $title = null; }
+	}
+	if(!isset($image)) {
+		try { $image = $node->getImage(); }
+		catch(Exception $e) { $image = null; }
+	}
+	if(!isset($teaser)) {
+		try { $teaser = $node->getResume(); }
+		catch(Exception $e) { $teaser = null; }
+	}
+	
+	//stringTools::str_truncate($article->getResume(), $longueurTexte, '(...)', true)
+}
+
 $isImage = false;
 if(isset($image)) {
 	//on vérifie que l'image existe sur le serveur avec son chemin absolu
 	$imageUpload = (strpos($image, 'uploads') === false) ? '/uploads/' : '/';
 	$isImage = is_file(sfConfig::get('sf_web_dir') . $imageUpload . $image);
 }
-
-//permet de ne pas être obligé de définir cette variable lorsque égale à false
-if(!isset($isLight)) $isLight = false;
 
 //gestion de l'index de positionnement
 $posClass = '';
@@ -40,12 +61,12 @@ if(isset($count) && isset($maxCount)) {
 if(!isset($itemType)) $itemType = '';
 switch ($itemType) {
 	case 'Article':
-		$ctnOpts['id'] = 'article_' . $node->id;
+		//$ctnOpts['id'] = 'article_' . $node->id;
 		$ctnOpts['itemscope'] = 'itemscope';
 		$ctnOpts['itemtype'] = 'http://schema.org/Article';
 		break;
 	case 'Person' :
-		$ctnOpts['id'] = 'equipe_' . $node->id;
+		//$ctnOpts['id'] = 'equipe_' . $node->id;
 		$ctnOpts['itemscope'] = 'itemscope';
 		$ctnOpts['itemtype'] = 'http://schema.org/Person';
 		break;
@@ -121,7 +142,11 @@ $html.= _open('li.element' . $posClass, $ctnOpts);
 		}else{
 			if(isset($title))										$htmlLi.= get_partial('global/titleWrapper', array('title' => $title));
 			if(isset($node->created_at) && $itemType == 'Article')	$htmlLi.= get_partial('global/dateWrapperShort', array('node' => $node));
-			if(isset($teaser))										$htmlLi.= get_partial('global/teaserWrapper', array('teaser' => $teaser));
+			if(isset($teaser)) {
+				$teaserOpts = array('teaser' => $teaser);
+				if(isset($teaserLength)) $teaserOpts['length'] = $teaserLength;
+				$htmlLi.= get_partial('global/teaserWrapper', $teaserOpts);
+			}
 		}
 
 	if($isImage) $htmlLi.= _close('span.wrapper');
