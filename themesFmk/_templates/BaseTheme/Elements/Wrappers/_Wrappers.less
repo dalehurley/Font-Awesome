@@ -25,7 +25,7 @@
 					.csstransitions & {
 						@transitionCompress(background-color; .5s);
 					}
-					&:hover { background-color: @colorCouleur3MoyenSup; }
+					&:hover { background-color: @colorCouleur3Clair; }
 					
 					padding: @gridBaseline/2 (@zonesOffsetPad -1px) (@gridBaseline/2 -1px) (@zonesOffsetPad -1px);
 					border-bottom: 1px dashed @zonesBorderColor;
@@ -77,7 +77,6 @@
 
 
 //configuration de base des deux containers d'images
-/*
 .imageWrapper {
 	float: right;
 	.image, .link {
@@ -85,7 +84,14 @@
 		margin-left: @gridGutter;
 		&.last { margin-left: 0; }
 	}
+	
+	//on réinitialise pour le container des équipes
+	.supWrapper & {
+		float: left;
+		.image, .link {
+			margin-right: @gridGutter;
+			margin-left: 0;
+			&.last { margin-right: 0; }
+		}
+	}
 }
-
-
-*/
