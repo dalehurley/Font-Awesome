@@ -6,7 +6,7 @@ class affichageArticleForm extends dmWidgetPluginForm {
         /*
          * Record id
          */
-        $this->widgetSchema['recordId'] = new sfWidgetFormDoctrineChoice(array(
+$this->widgetSchema['recordId'] = new sfWidgetFormDoctrineChoice(array(
                     'model' => 'SidArticle',
                     'add_empty' => sprintf('(%s) %s', $this->__('contextual'), $this->getAutoRecord()->__toString())  // affichage du libellé de l'objet
                 ));
