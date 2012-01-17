@@ -1,7 +1,7 @@
 <?php
 
-class affichageArticleView extends dmWidgetPluginViewpublic {
-    function configure() {
+class affichageArticleView extends dmWidgetPluginView {
+    public function configure() {
         parent::configure();
     }
     protected function doRender() {
@@ -23,7 +23,7 @@ class affichageArticleView extends dmWidgetPluginViewpublic {
     }
     /**
      * retourne la chaîne prise en compte par lucene search pour son indexation
-     * Si cette fonction n'est pas définie alors l'index de lucene estffectué sur this->doRender(), avec prise en compte du partial... etc... ATTENTION? peut être très l traiter par Lucene
+     * Si cette fonction n'est pas définie alors l'index de lucene estffectué suris->doRender(), avec prise en compte du partial... etc... ATTENTION? peut être très l traiter par Lucene
      * @return [type]
      */
     protected function doRenderForIndex() {
@@ -44,6 +44,6 @@ class affichageArticleView extends dmWidgetPluginViewpublic {
             
         }
         
-        return $indexRender;
+        return $indRender;
     }
 }
