@@ -4,7 +4,75 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
+//ajout bordures
+#dm_page {
+	.dm_page_content, .dm_layout_left, .dm_layout_right {
+		.dm_widget {
+			
+			.navigation {
+				//suppression bordures
+				.elements {
+					margin: 0;
+					.element { padding: 0; border-bottom: 0; &.last{ padding-bottom: 0; } }
+				}
+			}
+			
+			.elements {
+				margin: 0 (@zonesOffsetPad * -1 +1px);
+				
+				.element {
+					//ajout transition navigateurs modernes
+					.csstransitions & {
+						@transitionCompress(background-color; .5s);
+					}
+					&:hover { background-color: @colorCouleur3MoyenSup; }
+					
+					padding: @gridBaseline/2 (@zonesOffsetPad -1px) (@gridBaseline/2 -1px) (@zonesOffsetPad -1px);
+					border-bottom: 1px dashed @zonesBorderColor;
+					
+					//suppression bordure et padding pour dernier élément
+					&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }
+					
+					.title {
+						font-weight: bold;
+						color: @colorBlack;
+					}
+				}
+			}
+			
+			
+			//Décalage containers
+			.supWrapper {
+				.elements{
+					.element{
+						padding-bottom: @gridBaseline - 1px;
+						border-bottom: 1px solid @zonesBorderColor;
+						&.last { border: 0; padding-bottom: 0; }
+					}
+				}
+				margin: 0 (@zonesOffsetPad * -1 +1px) @gridBaseline (@zonesOffsetPad * -1 +1px);
+				padding: 0 (@zonesOffsetPad -1px) (@gridBaseline - 1px) (@zonesOffsetPad -1px);
+				border-bottom: 1px solid @zonesBorderColor;
+			}
+		}
+	}
+}
+
+.navigation {
+	.link {
+		color: @colorCouleur1;
+		text-transform: uppercase;
+	}
+	
+	//suppression bordures
+	.elements .element { padding-bottom: 0; border-bottom: 0; }
+}
+
+
+
+
 //configuration de base des deux containers d'images
+/*
 .imageWrapper {
 	float: right;
 	.image, .link {
@@ -14,11 +82,5 @@
 	}
 }
 
-.elements {
-	.element {
-		.title {
-			font-weight: bold;
-			color: @colorCouleur3Fonce;
-		}
-	}
-}
+
+*/

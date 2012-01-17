@@ -7,7 +7,7 @@
 //configuration des styles de base des différents containers pouvant servir à la mise en page du site
 
 //affection d'un style block à tous les containers
-.supWrapper, .wrapper, .subWrapper, .imageWrapper, .imageGallery { display: block; }
+.contentWrapper, .supWrapper, .wrapper, .subWrapper, .imageWrapper, .imageGallery { display: block; }
 
 //configuration de base des deux containers d'images
 .imageWrapper, .imageGallery {
@@ -30,24 +30,59 @@
 	&:hover { text-decoration: underline; }
 }
 
+//container utilisé pour contenir tout le contenu d'une publication
+.contentWrapper {
+	//indicateur visuel indiquant que la zone a été stylée par Arnaud
+	.isDev &.isVerified {
+		&:after {
+			position: absolute;
+			top: 0;
+			right: 0;
+			content: "isVerified";
+			color: @colorRequired;
+		}
+	}
+}
+
+//container situés directement dans un widget en enblobant plusieurs sous-contenus
+.supWrapper {
+	& > .title { margin-bottom: @gridBaseline; }
+}
+
+//elements de navigation
+.navigation { display: block; clear: both; }
+.navigationTop { margin-bottom: @gridBaseline; }
+.navigationBottom { margin-top: @gridBaseline; }
+
 //Gestion des listings
 .elements {
 	//suppression de toute marge et puce (à tester avec un article (vérifier si balisage identique)
 	margin: 0;
+	padding: 0;
 	list-style: none;
 	
-	background-color: #888;
-	
 	.element {
-		background-color: #aaa;
-		.title {
-			display: block;
-			font-size: @fontSizeH5Px;
-			//margin-bottom: @gridBaseline;
+		//indicateur visuel indiquant que la zone a été stylée par Arnaud
+		.isDev &.first.isVerified {
+			&:after {
+				position: absolute;
+				top: 0;
+				right: 0;
+				content: "isVerified";
+				color: @colorRequired;
+			}
 		}
 		
+		.title {
+			display: block;
+			font-size: @fontSizeH6Px;
+		}
+		
+		//suppression marge de la navigation
+		.navigation { margin: 0; }
+		
 		.date {
-			margin-left: @gridGutter; 
+			margin-left: @gridGutter;
 			font-size: @fontSizeSmall;
 			line-height: @gridBaseline;
 		}
@@ -63,12 +98,7 @@
 			
 			.teaser, .description {
 				background-color: lightcoral;
-				margin-bottom: @gridBaseline;
 			}
 		}
 	}
 }
-
-.navigation { display: block; clear: both; }
-.navigationTop { margin-bottom: @gridBaseline; }
-.navigationBottom { margin-top: @gridBaseline; }
