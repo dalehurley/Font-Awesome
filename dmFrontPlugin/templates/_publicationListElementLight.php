@@ -12,17 +12,23 @@
  * 
  */
 $html = '';
+
+//récupérations des options de page
+$pageOptions = spLessCss::pageTemplateGetOptions();
+$isDev = $pageOptions['isDev'];
+$classVerified = $isDev ? '.isVerified' : '';
+
 //Définitions des valeurs par défaut
 
 //gestion de l'index de positionnement
 $posClass = '';
 if(isset($count) && isset($maxCount)) {
-	if($count == 1)				$posClass = '.first';
-	elseif($count >= $maxCount)	$posClass = '.last';
+	if($count == 1)			$posClass.= '.first';
+	if($count >= $maxCount)	$posClass.= '.last';
 }
 
 //ouverture container de publication
-$html.= _open('li.element' . $posClass, array());
+$html.= _open('li.element' . $posClass . $classVerified, array());
 	//inclusion dans le lien si nécessaire
 	if(isset($title) && isset($linkUrl)) $html.= _link($linkUrl)->text($title)->title($title);
 //fermeture container de publication

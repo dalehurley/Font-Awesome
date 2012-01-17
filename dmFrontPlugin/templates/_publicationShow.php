@@ -17,6 +17,11 @@
  */
 $html = '';
 
+//récupérations des options de page
+$pageOptions = spLessCss::pageTemplateGetOptions();
+$isDev = $pageOptions['isDev'];
+$classVerified = $isDev ? '.isVerified' : '';
+
 //Définitions des valeurs par défaut
 if(!isset($itemType))	$itemType = 'Article';
 
@@ -38,7 +43,7 @@ if(isset($node)) {
 }
 
 //Déclaration du container contenant l'article
-$ctn = ($itemType == 'Article') ? 'article' : 'div';
+$ctn = ($itemType == 'Article') ? 'article.contentWrapper' : 'div.contentWrapper';
 switch ($itemType) {
 	case 'Article':
 		$ctnOpts['itemscope'] = 'itemscope';
@@ -54,7 +59,7 @@ switch ($itemType) {
 
 
 //ouverture container de publication
-$html.= _open($ctn, $ctnOpts);
+$html.= _open($ctn . $classVerified, $ctnOpts);
 
 	//header du contenu
 	$headerOpts = array();

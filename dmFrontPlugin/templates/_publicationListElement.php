@@ -20,6 +20,12 @@
  * 
  */
 $html = '';
+
+//récupérations des options de page
+$pageOptions = spLessCss::pageTemplateGetOptions();
+$isDev = $pageOptions['isDev'];
+$classVerified = $isDev ? '.isVerified' : '';
+
 //Définitions des valeurs par défaut
 
 //permet de ne pas être obligé de définir cette variable lorsque égale à false
@@ -54,8 +60,8 @@ if(isset($image)) {
 //gestion de l'index de positionnement
 $posClass = '';
 if(isset($count) && isset($maxCount)) {
-	if($count == 1)				$posClass = '.first';
-	elseif($count >= $maxCount)	$posClass = '.last';
+	if($count == 1)			$posClass.= '.first';
+	if($count >= $maxCount)	$posClass.= '.last';
 }
 
 //Déclaration des options du container contenant l'article
@@ -76,8 +82,8 @@ switch ($itemType) {
 		break;
 }
 
-//ouverture container de publication
-$html.= _open('li.element' . $posClass, $ctnOpts);
+//ouverture container de publication (ajout classe de dev)
+$html.= _open('li.element' . $posClass . $classVerified, $ctnOpts);
 	
 	//variable de remplissage du li
 	$htmlLi = '';
@@ -154,7 +160,7 @@ $html.= _open('li.element' . $posClass, $ctnOpts);
 	
 	//inclusion dans le lien si nécessaire
 	if(isset($linkUrl)) {
-		$html.= _link($linkUrl)->text($htmlLi)->title($title)->set(isset($image) ? '.link_box' : '');
+		$html.= _link($linkUrl)->text($htmlLi)->title($title)->set('.link_box');
 	}else{
 		$html.= $htmlLi;
 	}
