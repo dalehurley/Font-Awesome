@@ -95,12 +95,22 @@ class contentTemplateTools {
         $dirOUTassets = $file . "." . self::$dumpExtension . ".assets";
         // le nom du dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
-        $output = exec("mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;");
+        if (is_dir($dirOUTassets)){
+            $command = "cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;";
+        } else {
+            $command = "mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;";
+        }
+        $output = exec($command);
         $return[]['dumpDB'] = 'copie des assets';
 
         // save du dossier apps/front/modules/main
         $dirOUTmodules = $file . "." . self::$dumpExtension . ".modules";
-        $output = exec("mkdir " . $dirOUTmodules .";cp -R apps/front/modules/main " . $dirOUTmodules . "/;");
+        if (is_dir($dirOUTmodules)) {
+            $command = "cp -R apps/front/modules/main " . $dirOUTmodules . "/;";
+        } else {
+            $command = "mkdir " . $dirOUTmodules .";cp -R apps/front/modules/main " . $dirOUTmodules . "/;";
+        }
+        $output = exec($command);
         $return[]['dumpDB'] = 'copie du module main du front';
 
         return $return;
