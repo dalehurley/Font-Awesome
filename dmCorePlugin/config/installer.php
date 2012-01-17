@@ -22,6 +22,7 @@ require_once(sfConfig::get('dm_core_dir') . '/lib/os/dmOs.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/project/dmProject.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/task/dmServerCheckTask.class.php');
 
+
 //$this->logBlock(DIEM_VERSION . '-SID installer', 'INFO_LARGE');
 //$this->logSection('Site V3', 'Bienvenue dans l\'installeur des sites V3.');
 //$this->logSection('Diem', 'We will now check if your server matches Symfony '.SYMFONY_VERSION.' and Diem '.DIEM_VERSION.' requirements.');
@@ -34,7 +35,7 @@ $serverCheck->setCommandApplication($this->commandApplication);
 
 //
 //if ($this->askConfirmation(array(
-//            dirname(__FILE__).' Arreter ? (y/n)'), 'QUESTION_LARGE', true)
+//            dirname(__FILE__).' Arreter ? (y/n)'), 'QUESTION_LARGE','')
 //) {
 //    exit;
 //}
@@ -235,7 +236,7 @@ $sendReports = 'n';
 
 if ($isDatabaseExist) {
     if (!$this->askConfirmation(array(
-                'La base de donnees ' . $settings['database']['name'] . ' existe deja, elle correspond a un autre site. L\'effacer? (y/n)',
+                'La base de donnees ' . $settings['database']['name'] . ' existe deja, elle correspond a un autre site. L\'effacer? (y/n) (par défaut y)',
                     ), 'QUESTION_LARGE', true)
     ) {
         //$this->logSection('Site V3', 'Installation annulee');

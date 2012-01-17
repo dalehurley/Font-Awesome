@@ -3,11 +3,13 @@
 // Vars: $article
     
         $html = '';
-        
-        if(($article->image) != NULL){
-        $html = _open('span.imageWrapper');    
-        $html .= _media($article->getImage())->height(120)->method('scale')->set('image');
-        $html .= _close('span');
+        // $nb pour afficher les photos que sur les 3 premiers articles
+        if($nb < 3){
+            if(($article->image) != NULL){
+            $html .= _open('span.imageWrapper');    
+            $html .= _media($article->getImage())->height(120)->method('scale')->set('image');
+            $html .= _close('span');
+            };
         };
         $html .= _open('span.wrapper');
         $html .= _tag('span.title',$article);

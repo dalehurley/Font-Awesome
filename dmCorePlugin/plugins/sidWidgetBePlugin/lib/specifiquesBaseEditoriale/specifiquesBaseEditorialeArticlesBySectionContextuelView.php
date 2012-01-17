@@ -10,7 +10,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
             'titreLien',
             'section',
             'longueurTexte',
-            'nbArticle'
+            'nbArticle',
+            'isDossier',
+            'visibleInDossier'
         ));
     }
 
@@ -29,28 +31,37 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-
         switch ($dmPage->module . '/' . $dmPage->action) {
-
             case 'rubrique/show':
 
                 $rubrique = dmDb::table('SidRubrique')->findOneById($dmPage->record_id);
-
+                // je scrute les sections choisies pour afficher le contenu dans le bloc
                 foreach ($vars['section'] as $section) {
+                    // je récupère l'objet Section via l'integer $section qui est l'id de la Section
                     $sectionPages = Doctrine_Query::create()->from('SidSection sa')
                             ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
                             ->orderBy('sa.updated_at DESC')
                             ->limit(1)
                             ->execute();
-
+                    // je vérifie que le champ de la section->rubrique_id est le même que le record_id de la page en cours
                     if ($sectionPages[0]->rubrique_id == $rubrique->id) {
-
-
+                        // traitement pour article, chiffre, faq, aides, paie
+                        if($vars['isDossier'] == false){
                         $articles = Doctrine_Query::create()->from('SidArticle sa')
-                                ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $sectionPages[0]->id))
+                                ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $sectionPages[0]->id ,false))
                                 ->orderBy('sa.updated_at DESC')
                                 ->limit($vars['nbArticle'])
                                 ->execute();
+                        
+                        }
+                        // traitement pour dossier
+                        elseif($vars['isDossier'] == true){
+                            $articles = Doctrine_Query::create()->from('SidArticle sa')
+                                ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $sectionPages[0]->id, true))
+                                ->orderBy('sa.updated_at DESC')
+                                ->limit($vars['nbArticle'])
+                                ->execute();
+                        }
                     }
                     else
                         $articles = array();
@@ -66,23 +77,35 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
 
                 $sectionId = dmDb::table('SidSection')->findOneById($dmPage->record_id);
                 $rubrique = dmDb::table('SidRubrique')->findOneById($sectionId->rubrique_id);
-
+                                                
+                // je scrute les sections choisies pour afficher le contenu dans le bloc
                 foreach ($vars['section'] as $section) {
-
+                    // je récupère l'objet Section via l'integer $section qui est l'id de la Section
                     $sectionPages = Doctrine_Query::create()->from('SidSection sa')
                             ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
                             ->orderBy('sa.updated_at DESC')
                             ->limit(1)
                             ->execute();
-
+                    // je vérifie que le champ de la section->rubrique_id est le même que le record_id de la page en cours
                     if ($sectionPages[0]->rubrique_id == $rubrique->id) {
+                        // traitement pour article, chiffre, faq, aides, paie
+                        if($vars['isDossier'] == false){
                         $articles = Doctrine_Query::create()->from('SidArticle sa')
-                                ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $section))
+                                ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,false))
                                 ->orderBy('sa.updated_at DESC')
                                 ->limit($vars['nbArticle'])
                                 ->execute();
+                    }
+                    // traitement pour dossier
+                        elseif($vars['isDossier'] == true){   
+                            $articles = Doctrine_Query::create()->from('SidArticle sa')
+                                ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,true))
+                                ->orderBy('sa.updated_at DESC')
+                                ->limit($vars['nbArticle'])
+                                ->execute();
+                        } 
 
-                        $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
+//                        $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
 //                        $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId($dmPage->module, $dmPage->action, $sectionPages[0]->id);
                     }
                     else
@@ -96,24 +119,53 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
 
                 $articleId = dmDb::table('SidArticle')->findOneById($dmPage->record_id);
                 $rubrique = dmDb::table('SidRubrique')->findOneById($articleId->Section->rubrique_id);
-                foreach ($vars['section'] as $section) {
-
-                    $sectionPages = Doctrine_Query::create()->from('SidSection sa')
-                            ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
-                            ->orderBy('sa.updated_at DESC')
-                            ->limit(1)
-                            ->execute();
-                    if ($sectionPages[0]->rubrique_id == $rubrique->id) {
-                        $articles = Doctrine_Query::create()->from('SidArticle sa')
-                                ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $section))
+                
+                // si on est sur la page dossier (via le nom du cookies session articleDataType) et que visibleInDossier n'est pas coché, on n'affiche pas le bloc
+                if(((sfContext::getInstance()->getUser()->getAttribute('articleDataType') == sfConfig::get('app_article-data-type-dossier')) && ($vars['visibleInDossier'] == false) && ($vars['isDossier'] == true))
+                ||
+                // si on est sur la page article (via le nom du cookies session articleDataType) et que visibleInDossier est coché, on n'affiche pas le bloc
+                ((sfContext::getInstance()->getUser()->getAttribute('articleDataType') == sfConfig::get('app_article-data-type-article')) && ($vars['visibleInDossier'] == true))){
+                    $articles = array();
+                    $rubriqueName = "";
+                    $sectionName = "";
+                }
+                // si on est sur la page dossier (via le nom du cookies session articleDataType) et que visibleInDossier est coché, on affiche le bloc
+                else if(((sfContext::getInstance()->getUser()->getAttribute('articleDataType') == sfConfig::get('app_article-data-type-dossier')) && ($vars['visibleInDossier'] == true))
+                ||
+                // si on est sur la page article (via le nom du cookies session articleDataType) et que isDossier est coché, on n'affiche le bloc
+                ((sfContext::getInstance()->getUser()->getAttribute('articleDataType') == sfConfig::get('app_article-data-type-article')) && ($vars['isDossier'] == true))){
+                
+                    // je scrute les sections choisies pour afficher le contenu dans le bloc
+                    foreach ($vars['section'] as $section) {
+                        // je récupère l'objet Section via l'integer $section qui est l'id de la Section
+                        $sectionPages = Doctrine_Query::create()->from('SidSection sa')
+                                ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
                                 ->orderBy('sa.updated_at DESC')
-                                ->limit($vars['nbArticle'])
+                                ->limit(1)
                                 ->execute();
-                       
+
+                        if ($sectionPages[0]->rubrique_id == $rubrique->id) {
+                            // je vérifie que le champ de la section->rubrique_id est le même que le record_id de la page en cours
+                            if($vars['isDossier'] == false){
+                            $articles = Doctrine_Query::create()->from('SidArticle sa')
+                                    ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,false))
+                                    ->orderBy('sa.updated_at DESC')
+                                    ->limit($vars['nbArticle'])
+                                    ->execute();
+                            }
+                            // traitement pour dossier
+                            elseif($vars['isDossier'] == true){ 
+                                $articles = Doctrine_Query::create()->from('SidArticle sa')
+                                    ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,true))
+                                    ->orderBy('sa.updated_at DESC')
+                                    ->limit($vars['nbArticle'])
+                                    ->execute();
+                            }
+                        }
+
+    //                    else
+    //                        $articles = array();
                     }
-                    
-//                    else
-//                        $articles = array();
                 }
                 $rubriqueName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('rubrique', 'show', $rubrique->id);
 //                $sectionName = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section', $dmPage->action, $articleId->section_id);
@@ -125,13 +177,13 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                 $sectionName = "";
                 break;
         }
+
         if(count($articles) >0){
         $sectionNamePage = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('section','show',$articles[0]->Section->id);
         }
 
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'articlesBySectionContextuel', array(
                     'articles' => $articles,
-//                    'lien' => $arrayLienIds,
                     'titreBloc' => $vars['titreBloc'],
                     'titreLien' => $vars['titreLien'],
                     'longueurTexte' => $vars['longueurTexte'],

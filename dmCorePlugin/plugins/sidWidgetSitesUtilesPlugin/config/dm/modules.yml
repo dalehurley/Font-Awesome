@@ -30,9 +30,9 @@
         listByGroupeSitesUtiles:
           filters: [ GroupeSitesUtiles ]
           cache: true
-        listParTags:
-            filters: [ dmTag ]
+#        listParTags:
+#            filters: [ dmTag ]
         show:
           cache: true
-        miseEnAvantSitesUtiles:
-          cache: true
+#        miseEnAvantSitesUtiles:
+#          cache: true

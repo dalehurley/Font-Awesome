@@ -86,21 +86,31 @@ class contentTemplateTools {
 
         //$return[]['dumpDB'] = $listTables;
         // dump de la base
-        $fileOUT = $file . "." . $dbname . "." . self::$dumpExtension;
+        $fileOUT = $file . "." . self::$dumpExtension;
         // option -c pour ajouter les champs dans la requete INSERT
         $output = exec("mysqldump -t -c --host=" . $dbhost . " --user=" . $user . " --password=" . $pwd . " " . $dbname . " " . $listTables . "> " . $fileOUT);
         $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUT . '(' . filesize($fileOUT) . ' o)';
 
         // save du dossier uploads
-        $dirOUTassets = $file . "." . $dbname . "." . self::$dumpExtension . ".assets";
+        $dirOUTassets = $file . "." . self::$dumpExtension . ".assets";
         // le nom du dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
-        $output = exec("mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;");
+        if (is_dir($dirOUTassets)){
+            $command = "cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;";
+        } else {
+            $command = "mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;";
+        }
+        $output = exec($command);
         $return[]['dumpDB'] = 'copie des assets';
 
         // save du dossier apps/front/modules/main
-        $dirOUTmodules = $file . "." . $dbname . "." . self::$dumpExtension . ".modules";
-        $output = exec("mkdir " . $dirOUTmodules .";cp -R apps/front/modules/main " . $dirOUTmodules . "/;");
+        $dirOUTmodules = $file . "." . self::$dumpExtension . ".modules";
+        if (is_dir($dirOUTmodules)) {
+            $command = "cp -R apps/front/modules/main " . $dirOUTmodules . "/;";
+        } else {
+            $command = "mkdir " . $dirOUTmodules .";cp -R apps/front/modules/main " . $dirOUTmodules . "/;";
+        }
+        $output = exec($command);
         $return[]['dumpDB'] = 'copie du module main du front';
 
         return $return;

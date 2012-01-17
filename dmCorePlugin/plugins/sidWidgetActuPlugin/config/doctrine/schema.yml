@@ -75,10 +75,10 @@ SidActuArticle:
       type: boolean
       notnull: true
       default: true
-    on_home:
-      type: boolean
-      notnull: true
-      default: true
+#    on_home:
+#      type: boolean
+#      notnull: true
+#      default: true
   attributes:
     export: all
     validate: true

@@ -21,11 +21,13 @@ generator:
           credentials: [[ super_admin , admin ]]
         _save_and_list:
           credentials: [ super_admin ]
-        _save_and_next:
+        save_and_next:
           credentials: [ super_admin ]
         _save_and_add:
           credentials: [ super_admin ]
         _view_page:
+          credentials: [ super_admin ]
+        _delete:
           credentials: [ super_admin ]
       fields:
 #        sid_actu_type_list:
@@ -40,15 +42,15 @@ generator:
           label: Active
         title_file:
           label: 'Nom du fichier'
-        on_home:
-          label: "Publié sur la page d'accueil"
+#        on_home:
+#          label: "Publié sur la page d'accueil"
         file_form:
           label: 'Choisir un fichier'
         image_form:
           label: 'Choisir une image'
       list:
         batch_actions:
-          delete:
+          _delete:
             credentials: [ super_admin ]  # il faut les permissions super_admin ET admin
           activate:
             credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
@@ -59,12 +61,12 @@ generator:
 #          - rubrique_id
           - resume
 #          - tags_list
-          - on_home
+#          - on_home
           - is_active
           - created_at
           - updated_at
-          - created_by
-          - updated_by            
+#          - created_by
+#          - updated_by            
           - image
         sort:
           - position
@@ -75,7 +77,7 @@ generator:
       filter:
         display:
           - title
-          - on_home
+#          - on_home
           - is_active
 #          - rubrique_id
           - image
@@ -88,7 +90,7 @@ generator:
         display:
 <?php     
 //if (sfContext::getInstance()->getUser()->isSuperAdmin()){ // si l'utilisateur a la permission admin_bandeau_lite et qu'il n'est pas superAdmin'?>
-         'Type des Articles': [sid_actu_type_list, on_home]
+         'Type des Articles': [sid_actu_type_list]
 <?php //} else if (!sfContext::getInstance()->getUser()->isSuperAdmin()) { ?>
 #         NONE: [on_home]
 <?php //} ?>

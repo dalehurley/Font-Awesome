@@ -34,16 +34,21 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelForm extends dmWidgetP
                     'required' => false
                 ));
 
-        $this->widgetSchema['isDossier'] = new sfWidgetFormInputCheckbox(array('default'=> false));
+        $this->widgetSchema['isDossier'] = new sfWidgetFormInputCheckbox(array('default'=> false, 'label' => 'Afficher uniquement des dossiers'));
         $this->validatorSchema['isDossier']  = new sfValidatorBoolean();
-//        
+        
+        $this->widgetSchema['visibleInDossier'] = new sfWidgetFormInputCheckbox(array('default'=> false, 'label' => 'Visible dans page dossier'));
+        $this->validatorSchema['visibleInDossier']  = new sfValidatorBoolean();
+
+        
+        
         $this->widgetSchema->setHelps(array(
-//            'm_rubriques_list' => 'Vous pouvez choisir les rubriques des article à afficher en page d\'accueil ou hors contexte',
             'titreBloc' => 'Le titre OBLIGATOIRE du bloc', 
             'titreLien' => "Le libellé du lien vers la liste de tous les contenus de la section choisie dans la rubrique affichée(contextuel).",	    
             'nbArticle' => 'Le nombre maximum d\'articles affichés.',            
             'longueurTexte' => 'Longueur du texte avant de la tronquer',
-            'isDossier' => 'Pour afficher uniquement des dossiers dans le bloc contextuel'
+            'isDossier' => 'Pour afficher UNIQUEMENT des dossiers dans le bloc contextuel et ne le faire apparaitre que dans les pages article/show quand le DATATYPE de l\'article est ARTICLE UNIQUEMENT',
+            'visibleInDossier' => 'Pour afficher ce bloc dans la page article/show quand le DATATYPE de l\'article est DOSSIER UNIQUEMENT'
         ));
 
         parent::setup();
@@ -75,5 +80,32 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelForm extends dmWidgetP
 
         return $values;
     }
+// rajout pour ajouter des classes suppémentaires aux widget pour stylage plus fin    
+    public function updateWidget()
+  {
+    $this->dmWidget->setValues($this->getWidgetValues());
+    
+    //je récupère le tableau des id des sections
+    $arraySections = $this->getValues('section');
+    
+    //pour chaque section, je recherche son title que je slugify pour le futur nom de la classe
+    // format du tableau section [][section][]
+    foreach($arraySections['section'] as $i=>$section){
+        
+        $nameSections = dmDb::table('SidSection')->findOneById($section);
+        // je récupère le nom du title et j'enlève les caractères jusqu'à _
+        $nameSection = substr($nameSections->getTitle(), strpos($nameSections->getTitle(), '_')+1);
+        // mise au format du title
+        $name = dmString::slugify($nameSection);
+        // je mets en tableau les différentes sections
+        $arrayCssNames[$name]= $name;
+    }
+    // je mets le tableau en string séparé par un espace
+    $cssClass = implode(" ", $arrayCssNames);
+    // ajout des classes css
+    $this->dmWidget->set('css_class', $cssClass);
+    
+    return $this->dmWidget;
+  }
 
 }

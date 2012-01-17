@@ -14,11 +14,14 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
         ? sfConfig::get('app_dmWidgetNivoGalleryPlugin_js')
         : 'dmWidgetNivoGalleryPlugin.nivo'));
     
+	//ciblage CSS personnalisée du framework
+	$cssLink = sfConfig::get('sf_css_path_template'). '/Widgets/ContentNivoGallery/ContentNivoGallery.css';
+	
     $this->addStylesheet(array('dmWidgetNivoGalleryPlugin.view',
-      sfConfig::get('app_dmWidgetNivoGalleryPlugin_css')
-        ? sfConfig::get('app_dmWidgetNivoGalleryPlugin_css')
-        : 'dmWidgetNivoGalleryPlugin.nivo'));
-    
+      //sfConfig::get('app_dmWidgetNivoGalleryPlugin_css')
+      //  ? sfConfig::get('app_dmWidgetNivoGalleryPlugin_css')
+      //  : 'dmWidgetNivoGalleryPlugin.nivo'));
+	  $cssLink));
   }
 
   protected function filterViewVars(array $vars = array())
@@ -102,8 +105,8 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
     $helper = $this->getHelper();
     $count = count($vars['medias']);
     
-    $html = $helper->open('div#dm_widget_nivo_gallery_container');
-    $html .= $helper->open('div#dm_widget_nivo_gallery', array('json' => array(
+    $html = $helper->open('div.dm_widget_nivo_gallery_container');
+    $html .= $helper->open('div.dm_widget_nivo_gallery', array('json' => array(
       'fx'             => dmArray::get($vars, 'fx', '0.5', 'fade'),
       'animspeed'      => dmArray::get($vars, 'animspeed', 0.5),
       'pausetime'      => dmArray::get($vars, 'pausetime', 3),
