@@ -1,17 +1,24 @@
 <?php
 /*
  * _navigationWrapper.php
- * v0.1
+ * v0.2
  * Permet d'afficher une navigation de page (à améliorer avec gestion intégrée des tableaux
  * 
  * Variables disponibles :
  * $placement	top ou bottom	
  * $elements	liens de navigation à afficher (html)
  * $pager		pager de type diem (html)
+ * $isLight		indique une version simplifiée
  * 
  */
 
 //Définitions des valeurs par défaut
+
+//permet de ne pas être obligé de définir cette variable lorsque égale à false
+if(!isset($isLight)) $isLight = false;
+
+$ctnTag = $isLight ? 'span.navigation' : 'div.navigation';
+
 switch ($placement) {
 	case 'top':
 		$ctnClass = '.navigationTop';
@@ -25,7 +32,7 @@ switch ($placement) {
 }
 
 //ouverture container de la navigation
-$html = _open('div.navigation' . $ctnClass);
+$html = _open($ctnTag . $ctnClass);
 
 	//liens de navigation multiples
 	if(isset($elements)){
@@ -58,7 +65,7 @@ $html = _open('div.navigation' . $ctnClass);
 	}
 
 //fermeture container de la navigation
-$html.= _close('div.navigation' . $ctnClass);
+$html.= _close($ctnTag . $ctnClass);
 
 //affichage html en sortie
 echo $html;

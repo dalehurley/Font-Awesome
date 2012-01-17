@@ -12,6 +12,7 @@
  * $image
  * $teaser
  * $teaserLength
+ * $navigationElements
  * $rubrique	indique la rubrique (utilisé essentiellement par l'équipe
  * $count		indique le numéro de listing
  * $maxCount	indique le nombre maximal d'éléments affichages
@@ -156,6 +157,15 @@ $html.= _open('li.element' . $posClass, $ctnOpts);
 		$html.= _link($linkUrl)->text($htmlLi)->title($title)->set(isset($image) ? '.link_box' : '');
 	}else{
 		$html.= $htmlLi;
+	}
+	
+	//ajout de liens de navigation si nécessaire
+	if(isset($navigationElements)) {
+		$html.= get_partial('global/navigationWrapper', array(
+														'placement' => 'bottom',
+														'elements' => $navigationElements,
+														'isLight' => true
+														));
 	}
 	
 //fermeture container de publication
