@@ -12,6 +12,9 @@
 
 .navigation_bread_crumb {
 	float: left;
+	
+	background-color: lightgreen;
+	
 	//@gridWidth(@gridCol - @gridCol_SidebarLeft);
 	
 	.dm_widget_inner {
@@ -54,15 +57,32 @@
 			float: left;
 			list-style: none;
 			margin: 0;
+			background-color: lightcoral;
+			
+			
 			
 			&.bread_crumb_separator {
+				background-color: orange;
 				display: block;
+				/*
+				width: @gridGutter;
+				height: @gridBaseline;
+				margin-left: @offM;
+				margin-right: (@offM -2px);
+				
+				border-right: 2px solid red;
+				
+				@borderRadius(0; @offM; @offM; 0; 0; @offS; @offS; 0);
+				
+				
+				*/
+				
 				//décalage de marge
 				@decalV: (@gridBaseline - @spriteFormat_S) / 2;
 				@decalH: (@gridGutter - @spriteFormat_S) / 2;
 				padding: @decalV @decalH;
 				text-indent: -9999em;
-				@sprite-navigation-arrowDarkRight-S();
+				@sprite-navigation-separatorRight-M();
 			}
 		}
 	}
