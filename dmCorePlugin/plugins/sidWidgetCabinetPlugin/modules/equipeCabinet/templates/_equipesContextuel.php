@@ -21,8 +21,6 @@ if (count($equipes)) { // si nous avons des actu articles
 		$html.= get_partial('global/publicationListElement', array(
 												'node' => $equipe,
 												'itemType' => 'Person',
-												'title' => $equipe->getTitle(),
-												'image' => $equipe->getImage(),
 												'rubrique' => $nomRubrique[$equipe->id],
 												'count' => $count,
 												'maxCount' => $maxCount,
@@ -30,6 +28,7 @@ if (count($equipes)) { // si nous avons des actu articles
 												));
     }
 	
+	//fermeture du listing
     $html.= _close('ul.elements');
 	
 	//création d'un tableau de liens à afficher

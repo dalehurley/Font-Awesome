@@ -21,7 +21,7 @@ if (count($equipes)) { // si nous avons des actu articles
 		//ouverture du container
 		$html.= _open('div.supWrapper');
 		//affichage de la ville d'implantation
-		$html.= _tag('h5.title', __('Implantation') . '&#160;: '. $implantation['ville']);
+		$html.= get_partial('global/titleSupWrapper', array('title' => (__('Implantation') . '&#160;:&#160;'. $implantation['ville'])));
 		//ouverture de la liste
 		$html.= _open('ul.elements');
 		
@@ -37,8 +37,6 @@ if (count($equipes)) { // si nous avons des actu articles
 			$html.= get_partial('global/publicationListElement', array(
 													'node' => $equipe,
 													'itemType' => 'Person',
-													'title' => $equipe->getTitle(),
-													'image' => $equipe->getImage(),
 													'rubrique' => $nomRubrique[$equipe->id],
 													'count' => $count,
 													'maxCount' => $maxCount
