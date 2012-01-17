@@ -7,9 +7,6 @@ if(count($articles)){
 	$pubOpts = array();
 							$pubOpts['node']		= $articles;
 	if($titreBloc != null)	$pubOpts['category']	= $titreBloc;
-							$pubOpts['title']		= $articles->getTitle();
-							$pubOpts['image']		= '/uploads/' . $articles->getImage();
-							$pubOpts['content']		= $articles->getText();
 	
 	$html.= get_partial('global/publicationShow', $pubOpts);
 }else{

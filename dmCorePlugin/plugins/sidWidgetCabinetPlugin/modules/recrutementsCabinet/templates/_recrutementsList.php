@@ -1,19 +1,35 @@
 <?php
 // vars $recrutements, $nbMissions, $titreBloc, $longueurTexte
-echo _tag('h4.title', $titreBloc);
+$html = get_partial('global/titleWidget', array('title' => $titreBloc));
 
 if (count($recrutements)) { // si nous avons des actu articles
     
-    
-    
-    echo _open('ul.elements');
+    //ouverture du listing
+    $html.= _open('ul.elements');
+	
+	//compteur
+	$count = 0;
+	$maxCount = count($recrutements);
+	
     foreach ($recrutements as $recrutement) {
-
-	include_partial("objectPartials/recrutementsList", array("recrutement" => $recrutement,"textLength" => $longueurTexte,"textEnd" => '...','titreBloc' => $titreBloc));
-
+		//incrémentation compteur
+		$count++;
+		
+		$html.= get_partial('global/publicationListElement', array(
+												'node' => $recrutement,
+												'count' => $count,
+												'maxCount' => $maxCount,
+												'teaser' => $recrutement->getText(),
+												'teaserLength' => $longueurTexte,
+												'linkUrl' => $recrutement
+												));
     }
-    echo _close('ul');
+	
+    //fermeture du listing
+    $html.= _close('ul.elements');
+}else{
+	$html.= get_partial('global/publicationShow', array('content' => '{{recrutement}}'));
+}
 
-    
-} 
-else echo _tag('p','{{recrutement}}');
+//affichage html en sortie
+echo $html;

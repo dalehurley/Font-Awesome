@@ -1,7 +1,17 @@
 <?php
 // vars : $recrutements, $titreBloc
-if (count($recrutements)) { // si nous avons des actu articles
-    echo _tag('h2.title', $titreBloc);
-        include_partial("objectPartials/recrutementShow", array("recrutement" => $recrutements));
+$html = '';
+
+if(count($recrutements)){
+	
+	$pubOpts = array();
+							$pubOpts['node']		= $recrutements;
+	if($titreBloc != null)	$pubOpts['category']	= $titreBloc;
+	
+	$html.= get_partial('global/publicationShow', $pubOpts);
+}else{
+	$html.= get_partial('global/publicationShow', array('content' => '{{recrutement}}'));
 }
-else echo _tag('p','{{recrutement}}');
+
+//affichage html en sortie
+echo $html;
