@@ -1,7 +1,7 @@
 <?php
 /*
  * _imageWrapperFull.php
- * v0.1
+ * v0.2
  * Permet d'afficher une image complète.
  * 
  * Variables disponibles :		
@@ -16,9 +16,14 @@
 $html = '';
 
 //on vérifie que l'image existe sur le serveur avec son chemin absolu
-$imgExist = is_file(sfConfig::get('sf_web_dir') . '/' . $image);
+$isImage = false;
+if(isset($image)) {
+	//on vérifie que l'image existe sur le serveur avec son chemin absolu
+	$imageUpload = (strpos($image, 'uploads') === false) ? '/uploads/' : '/';
+	$isImage = is_file(sfConfig::get('sf_web_dir') . $imageUpload . $image);
+}
 
-if ($imgExist) {
+if ($isImage) {
 	$html.= _open('div.imageFullWrapper');
 		$html.= _media($image)
 					->set('.image itemprop="image"')
