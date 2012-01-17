@@ -43,12 +43,19 @@
 			
 			//Décalage containers
 			.supWrapper {
-				.elements{
-					.element{
+				.elements {
+					.element {
+						//suppression transition
+						.csstransitions & {
+							@transitionNone();
+						}
+						
 						padding-bottom: @gridBaseline - 1px;
 						border-bottom: 1px solid @zonesBorderColor;
 						&.last { border: 0; padding-bottom: 0; }
 					}
+					
+					&:hover { background-color: transparent; }
 				}
 				margin: 0 (@zonesOffsetPad * -1 +1px) @gridBaseline (@zonesOffsetPad * -1 +1px);
 				padding: 0 (@zonesOffsetPad -1px) (@gridBaseline - 1px) (@zonesOffsetPad -1px);
@@ -67,8 +74,6 @@
 	//suppression bordures
 	.elements .element { padding-bottom: 0; border-bottom: 0; }
 }
-
-
 
 
 //configuration de base des deux containers d'images
