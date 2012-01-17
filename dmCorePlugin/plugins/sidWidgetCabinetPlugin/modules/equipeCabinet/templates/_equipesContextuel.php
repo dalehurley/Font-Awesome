@@ -5,7 +5,7 @@ $html = '';
 if (count($equipes)) { // si nous avons des actu articles
 	
 	//affichage du titre du bloc
-    if($titreBloc != null) $html.= _tag('h4.title', $titreBloc);
+    if($titreBloc != null) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
 	
 	//ouverture du listing
     $html.= _open('ul.elements');

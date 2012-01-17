@@ -1,7 +1,7 @@
 <?php
 $html = '';
 
-if($titreBloc != null) $html.= _tag('h4.title', $titreBloc);
+if($titreBloc != null) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
 
 // vars  $equipes, $titreBloc, $nomRubrique
 if (count($equipes)) { // si nous avons des actu articles
