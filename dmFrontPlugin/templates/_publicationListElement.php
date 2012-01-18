@@ -6,7 +6,7 @@
  * 
  * Variables disponibles :
  * $node		élément englobant tous les objet de la page
- * $itemType	indique le type de node 'Person', 'Article', etc
+ * $itemType	indique le type de node 'Person', 'Article', 'Organization' etc
  * $linkUrl		indique si il s'agit d'un lien ou non
  * $title
  * $image
@@ -118,22 +118,29 @@ $html.= _open('li.element' . $posClass . $classVerified, $ctnOpts);
 				$htmlLi.= _tag('span.jobTitle itemprop="jobTitle"', $node->getStatut());
 			$htmlLi.= _close('div');
 			
-			$htmlLi.= _open('span.telephone');
-				$htmlLi.= _tag('span.type', __('phone'));
-				$htmlLi.= '&#160;';
-				$htmlLi.= _tag('span.value itemprop="telephone"', $node->getTel());
-			$htmlLi.= _close('span');
+			$htmlLi.= get_partial('global/schemaTypeValue', array(
+																'itemType'	=> 'telephone',
+																'type'		=> __('Phone'),
+																'value'		=> $node->getTel()
+															));
 			
 			if(isset($rubrique) && !$isLight) {
 				if($rubrique != null) {
-					$htmlLi.= _open('span.rubrique');
-						$htmlLi.= _tag('span.type', __('Responsable in'));
-						$htmlLi.= '&nbsp;:&nbsp;';
-						$htmlLi.= _tag('span.value', $rubrique);
-					$htmlLi.= _close('span');
+					$htmlLi.= get_partial('global/schemaTypeValue', array(
+																'itemType'	=> 'rubrique',
+																'type'		=> __('Responsable in'),
+																'value'		=> $rubrique,
+																'noProp'	=> true
+																));
 				}
 			}
-
+			/*
+			$htmlLi.= get_partial('global/schemaTypeValue', array(
+																'itemType'	=> 'email',
+																'type'		=> __('Email'),
+																'value'		=> $node->getTel()
+															));
+			*/
 			$htmlLi.= _open('span.email');
 				$htmlLi.=  _tag('span.type', __('Email'));
 				$htmlLi.=  '&nbsp;:&nbsp;';		
