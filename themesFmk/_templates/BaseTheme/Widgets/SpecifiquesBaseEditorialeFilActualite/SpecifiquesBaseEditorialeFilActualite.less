@@ -7,16 +7,15 @@
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
-#dm_page {
-	#dm_sidebar_left, #dm_sidebar_right {
-		.specifiques_base_editoriale_fil_actualite {
-			.dm_widget_inner {
-				& > .title {
-				}
+#dm_sidebar_left, #dm_sidebar_right {
+	.specifiques_base_editoriale_fil_actualite {
+		.dm_widget_inner {
+			& > .title {
 			}
 		}
 	}
 }
+
 
 .specifiques_base_editoriale_fil_actualite {
 	.dm_widget_inner {
@@ -25,8 +24,7 @@
 			background-color: fadeout(#ff0000, 50%);
 			
 			//que si l'élément :after est géré (éviter un mélange avec .svg), on rajoute de l'espace à gauche pour caler la sprite
-			.generatedcontent #dm_page #dm_sidebar_left &,
-			.generatedcontent #dm_page #dm_sidebar_right & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px); }
+			.generatedcontent #dm_sidebar_left &, .generatedcontent #dm_sidebar_right & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px); }
 			
 			&:after {
 				position: absolute;
