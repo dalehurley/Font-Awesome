@@ -13,10 +13,13 @@
 	
 	.dm_widget_inner {
 		background-color: @colorCouleur3;
-		
 		& > .title {
-			background-color: @colorCouleur1Moyen;
-			color: @colorCouleur3ClairSup;
+			//override couleur du lien
+			#dm_content &, #dm_sidebar_left &, #dm_sidebar_right & {
+				background-color: @colorCouleur1Moyen;
+				color: @colorCouleur3ClairSup;
+				border-bottom-color: @colorCouleur1Moyen;
+			}
 			
 			//complément de l'appel de la sprite sur le titre
 			&:after { @spriteBgp-internet-contact-M(); }
@@ -25,8 +28,7 @@
 	
 	//texte contenu dans le widget
 	.wrapper {
-		background-color: lightcoral;
-		font-weight: bold;
+		font-weight: normal;
 		color: @colorCouleur3ClairSup;
 		word-spacing: -0.05em;
 		letter-spacing: -0.05em;
@@ -35,14 +37,21 @@
 	.navigation {
 		margin: 0;
 		.elements{
-			background-color: lightblue;
-			
 			.element {
-				background-color: lightgreen;
 				text-align: center;
-				
 				.link {
-					background-color: red;
+					//background-color: red;
+					@verticalGradient(@colorCouleur1; @colorCouleur1Moyen);
+					color: @colorCouleur3ClairSup;
+					padding: 0 @offS;
+					line-height: @gridBaseline;
+					text-decoration: none;
+					text-transform: none;
+					text-shadow: 0 1px 1px @colorBlack;
+					
+					&:hover {
+						@verticalGradient(@colorCouleur1Moyen; @colorCouleur1);
+					}
 				}
 			}
 		}
