@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.1
-// Last Updated : 2011-11-29 12:50
+// v1.2
+// Last Updated : 2012-01-18 11:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -18,7 +18,7 @@
 	margin: 0;
 	
 	//suppression bordure et padding
-	#dm_page #dm_content &, #dm_page #dm_sidebar_left &, #dm_page #dm_sidebar_right & {
+	#dm_content &, #dm_sidebar_left &, #dm_sidebar_right & {
 		.dm_widget_inner {
 			border: 0;
 			padding: 0 0 @zonesOffsetPad 0;
@@ -26,16 +26,16 @@
 		}
 	}
 	/*
-	#dm_page #dm_content &, #dm_page #dm_sidebar_right & {
+	##dm_content &, #dm_sidebar_right & {
 		.dm_widget_inner { padding: 0 0 @zonesOffsetPad 0; }
 	}
-	#dm_page #dm_sidebar_left & {
+	#dm_sidebar_left & {
 		.dm_widget_inner { padding: 0; }
 	}
 	*/
 	
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
-	#dm_page #dm_custom_top & {
+	#dm_custom_top & {
 		//permet d'étendre la zone en débordement de la page
 		margin-left: -100%;
 		margin-right: -100%;
@@ -225,7 +225,7 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletPortrait(){
-	#dm_page #dm_custom_top {
+	#dm_custom_top {
 		.navigation_menu {
 			.dm_widget_inner {
 				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);

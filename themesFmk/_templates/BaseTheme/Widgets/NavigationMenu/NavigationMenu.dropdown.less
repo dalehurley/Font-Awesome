@@ -1,6 +1,6 @@
 // NavigationMenu.dropdown.less
-// v1.0
-// Last Updated : 2011-11-29 12:50
+// v1.1
+// Last Updated : 2012-01-18 11:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -15,7 +15,7 @@
 
 ul.dropdown {
 	//rajout bordure à gauche sur les menus
-	#dm_page &, #dm_page & ul { border-left: 1px solid @zonesBorderColor; }
+	&, & ul { border-left: 1px solid @zonesBorderColor; }
 	
 	//modifications de dimensions pour ajouts de bordures sur les côtés, et compensation décalage
 	ul {
@@ -27,7 +27,7 @@ ul.dropdown {
 		}
 	}
 	
-	#dm_page #dm_sidebar_left & {
+	#dm_sidebar_left & {
 		//largeur en fonction de la zone
 		@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad * -2 + 1px));
 		//on décale de 2px car les menus de gauche ont une bordure de superposition dès le premier niveau
@@ -42,7 +42,7 @@ ul.dropdown {
 			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
 		}
 	}
-	#dm_page #dm_sidebar_right & {
+	#dm_sidebar_right & {
 		//largeur en fonction de la zone
 		@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad * -2 + 1px));
 		ul {
@@ -59,9 +59,9 @@ ul.dropdown {
 	}
 	
 	//rajout bordure en haut sur les menus et gestion décalage
-	#dm_page & ul,
-	#dm_page #dm_sidebar_left &,
-	#dm_page #dm_sidebar_right & {
+	& ul,
+	#dm_sidebar_left &,
+	#dm_sidebar_right & {
 		margin-top: -1px;
 		//pour toutes les premières cellules
 		li.first {
@@ -71,8 +71,8 @@ ul.dropdown {
 	}
 	
 	//pour les premières cellules contenues dans celle du premier niveau
-	#dm_page #dm_sidebar_left &,
-	#dm_page #dm_sidebar_right & {
+	#dm_sidebar_left &,
+	#dm_sidebar_right & {
 		margin-top: 0;
 		//suppression décalage sur les 8 premiers niveaux
 		& > li.first,
@@ -105,7 +105,7 @@ ul.dropdown {
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
 	#dm_custom_top .navigation_menu & {
 		//supression bordure à gauche sur le premier niveau
-		#dm_page & { border-left: 0; }
+		border-left: 0;
 		
 		//ajout ombre
 		ul {

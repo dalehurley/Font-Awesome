@@ -1,6 +1,6 @@
 // NavigationMenu.accordion.less
-// v1.0
-// Last Updated : 2011-11-29 12:50
+// v1.1
+// Last Updated : 2012-01-18 11:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -16,13 +16,11 @@
 
 ul.accordion {
 	//rajout bordure à gauche sur le menu principal
-	#dm_page & { border-left: 1px solid @zonesBorderColor; }
+	border-left: 1px solid @zonesBorderColor;
 	
 	//rajout bordure en haut sur le menu principal et gestion décalage
-	#dm_page & {
-		& > li.first > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @zonesBorderColor; }
-		margin-top: 0px;
-	}
+	& > li.first > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @zonesBorderColor; }
+	margin-top: 0px;
 	
 	li.dm_parent {
 		//couleur de fond des autres liens
