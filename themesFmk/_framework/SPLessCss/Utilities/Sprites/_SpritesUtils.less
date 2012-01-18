@@ -30,6 +30,10 @@
 
 
 //fonction spécifique d'ajout de sprite au titre de widget
+//utiliser avec un complément du type :
+//.dm_widget_inner {
+//	& > .title:after { @spriteBgp-internet-contact-M(); }
+//}
 @widgetTitleSprite(@theme: "Default"; @category; @name) {
 	//ciblage du titre du widget
 	& .dm_widget_inner > .title {
