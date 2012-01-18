@@ -32,8 +32,6 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 	</div>
 	<div class="sprite-test sprite-internet-email-X">
 	</div>
-	<div class="sprite-test sprite-internet-like-X">
-	</div>
 </div>
 */
 //echo spLessCss::printLessParams();
