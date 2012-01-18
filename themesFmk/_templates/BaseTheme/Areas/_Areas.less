@@ -91,16 +91,20 @@
 					margin: (@zonesOffsetPad * -1 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline - @zonesOffsetPad * 2) (@zonesOffsetPad * -1 +1px);
 					padding: (@zonesOffsetPad -1px);
 					border-bottom: 1px solid @zonesBorderColor;
+					//changement de la police spécifique à Ténor
+					font-family: @fontGlobalFamilySerif;
+					font-weight: bold;
+					word-spacing: 0.05em;
+					letter-spacing: 0.05em;
 				}
 			}
 		}
 	}
 	
-	.dm_page_content, .dm_layout_right {
+	#dm_sidebar_left, #dm_sidebar_right {
 		.dm_widget {
 			.dm_widget_inner {
-				
-				
+				& > .title { text-transform: uppercase; }
 			}
 		}
 	}
