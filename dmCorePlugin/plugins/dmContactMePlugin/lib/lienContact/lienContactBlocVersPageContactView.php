@@ -34,7 +34,7 @@ class lienContactBlocVersPageContactView extends dmWidgetPluginView {
     protected function doRender() {
         
          $vars = $this->getViewVars();
-        return $this->getHelper()->renderPartial('lienContact', 'blocVersPageContact', array(
+		 return $this->getHelper()->renderPartial('lienContact', 'blocVersPageContact', array(
                     'titreBloc' => $vars['titreBloc'],
                     'titreLien' => $vars['titreLien'],
                     'message' => $vars['message'],
