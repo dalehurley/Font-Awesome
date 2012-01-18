@@ -25,7 +25,7 @@
 	@pubHeight: @nbreBaseLinePub * @gridBaseline;
 	@calculMarginVertical: (@pubHeight - @pubHauteur) / 2;
 	
-	.dm_layout_left, .dm_layout_right {
+	#dm_sidebar_left, #dm_sidebar_right {
 		.content_flow_player {
 			.dm_widget_inner{
 				.dm_widget_content_flow_player {
@@ -36,7 +36,7 @@
 		}
 	}
 	
-	.dm_layout_left {
+	#dm_sidebar_left {
 		.content_flow_player {
 			.dm_widget_inner{
 				.dm_widget_content_flow_player {
@@ -48,7 +48,7 @@
 		}
 	}
 	
-	.dm_layout_right {
+	#dm_sidebar_right {
 		.content_flow_player {
 			.dm_widget_inner{
 				.dm_widget_content_flow_player {
@@ -69,7 +69,7 @@
 	}
 }
 
-.dm_layout_centerTop {
+#dm_custom_top {
 	//calcul décalage intérieur
 	@offsetBorder: 1px;
 	@offsetPad: (@gridGutter / 3);
@@ -94,13 +94,13 @@
 	}
 }
 
-.dm_layout_centerBottom {
+#dm_custom_bottom {
 	.dm_zones {
 		
 	}
 }
 
-.dm_page_content, .dm_layout_left, .dm_layout_right {
+#dm_content, #dm_sidebar_left, #dm_sidebar_right {
 	//calcul décalage intérieur
 	@offsetBorder: 1px;
 	@offsetPad: (@gridGutter / 3);
@@ -159,7 +159,7 @@
 }
 
 //style par défaut des widgets contenus dans les colonnes
-.dm_layout_left, .dm_layout_right {
+#dm_sidebar_left, #dm_sidebar_right {
 	.dm_widget {
 		
 		.dm_widget_inner {
@@ -168,13 +168,13 @@
 }
 
 //Définitions en dur des styles des widgets (en attendant séparation dans fichiers Less séparés)
-.dm_layout_left {
+#dm_sidebar_left {
 	.dm_widget {
 		//background-color: lightcoral;
 	}
 }
 
-.dm_layout_right {
+#dm_sidebar_right {
 	.dm_widget {
 		//background-color: pink;
 	}
@@ -229,7 +229,7 @@
 
 
 /*
-.dm_page_content, .dm_layout_left, .dm_layout_right {
+#dm_content, #dm_sidebar_left, #dm_sidebar_right {
 	.bandeau_smart_bandeau {
 		//on masque le widget_inner lorsque le bandeau est vide
 		.dm_widget_inner{

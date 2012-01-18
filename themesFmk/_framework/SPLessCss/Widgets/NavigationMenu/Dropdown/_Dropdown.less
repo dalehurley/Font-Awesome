@@ -33,13 +33,13 @@ ul.dropdown {
 	ul { border-right: 1px solid transparent; }
 	
 	//gestion placement vertical
-	.dm_layout_left & {
+	#dm_sidebar_left & {
 		float: left;
 		//rajout border-right invisible pour superposition
 		&, & ul { border-right: 1px solid transparent; }
 	}
 	
-	.dm_layout_right & {
+	#dm_sidebar_right & {
 		float: right;
 		//rajout border-left invisible pour superposition
 		&, & ul { border-left: 1px solid transparent; border-right: 0; }
@@ -52,10 +52,10 @@ ul.dropdown {
 		left: 0;
 		
 		//gestion placement vertical
-		.dm_layout_left &, .dm_layout_right & { top: 0; }
+		#dm_sidebar_left &, #dm_sidebar_right & { top: 0; }
 		//débuggage comportements opposés
-		.dm_layout_left & { right: auto !important; }
-		.dm_layout_right & { left: auto !important; }
+		#dm_sidebar_left & { right: auto !important; }
+		#dm_sidebar_right & { left: auto !important; }
 		
 		ul {
 			top: 0;
@@ -73,9 +73,9 @@ ul.dropdown {
 		li { float: none; }
 		
 		//gestion placement vertical
-		.dm_layout_left &, .dm_layout_right & { float: none; }
-		.dm_layout_left & { text-align: left; }
-		.dm_layout_right & { text-align: right; }
+		#dm_sidebar_left &, #dm_sidebar_right & { float: none; }
+		#dm_sidebar_left & { text-align: left; }
+		#dm_sidebar_right & { text-align: right; }
 	}
 	
 	//positionnement des liens
@@ -93,11 +93,11 @@ ul.dropdown {
 	li { width: auto; }
 	
 	//gestion placement vertical
-	.dm_layout_left & {
+	#dm_sidebar_left & {
 		//largeur en fonction de la zone
 		@gridWidth(@gridCol_SidebarLeft; 0);
 	}
-	.dm_layout_right & {
+	#dm_sidebar_right & {
 		//largeur en fonction de la zone
 		@gridWidth(@gridCol_SidebarRight; 0);
 	}
@@ -106,14 +106,14 @@ ul.dropdown {
 	ul {
 		@gridWidth(@menuDropdownCols; (@gridGutter*-1));
 		
-		.dm_layout_left & {
+		#dm_sidebar_left & {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteLeft(@gridCol_SidebarLeft; 0);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			ul { @gridAbsoluteLeft(@menuDropdownCols; (@gridGutter*-1)); }
 		}
 		
-		.dm_layout_right & {
+		#dm_sidebar_right & {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteRight(@gridCol_SidebarRight; 0);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
@@ -141,9 +141,9 @@ ul.dropdown {
 	}
 	
 	//gestion du debug
-	//.dm_layout_left & > li:nth-child(2) {
-	//.dm_layout_right & > li:nth-child(1) {
-	//.dm_layout_centerTop & > li:nth-child(1) {
+	//#dm_sidebar_left & > li:nth-child(2) {
+	//#dm_sidebar_right & > li:nth-child(1) {
+	//#dm_custom_top & > li:nth-child(1) {
 	//	& > ul,
 	//	& > ul > li:nth-child(1) > ul,
 	//	& > ul > li:nth-child(1) > ul > li:nth-child(2) > ul {

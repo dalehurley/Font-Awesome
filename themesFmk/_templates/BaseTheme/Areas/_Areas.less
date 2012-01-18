@@ -64,11 +64,11 @@
 
 //stylage des colonnes
 #dm_page {
-	//.dm_layout_left .dm_zones { background-color: lightcoral; }
-	//.dm_layout_right .dm_zones { background-color: lightgreen; }
-	//.dm_page_content .dm_zones { background-color: #aaa; }
+	//#dm_sidebar_left .dm_zones { background-color: lightcoral; }
+	//#dm_sidebar_right .dm_zones { background-color: lightgreen; }
+	//#dm_content .dm_zones { background-color: #aaa; }
 	
-	.dm_page_content, .dm_layout_left, .dm_layout_right {
+	#dm_content, #dm_sidebar_left, #dm_sidebar_right {
 		//meilleure gestion uniformisée des bordures
 		.dm_zones {
 			margin: @gridBaseline (@zonesOffsetPad * -1);
@@ -109,7 +109,7 @@
 		}
 	}
 	
-	.dm_layout_left {
+	#dm_sidebar_left {
 		.dm_widget {
 			.dm_widget_inner {
 				background-color: @colorCouleur3ClairSup;
@@ -127,7 +127,7 @@
 	}
 	
 	/*
-	.dm_layout_left {
+	#dm_sidebar_left {
 		.dm_zones {
 			background-color: lightcoral;
 			//permet de sortir de la zone
@@ -138,7 +138,7 @@
 		}
 		
 	}
-	.dm_page_content, .dm_layout_right {
+	#dm_content, #dm_sidebar_right {
 		.dm_zones {
 			background-color: lightgreen;
 			//permet de sortir de la zone

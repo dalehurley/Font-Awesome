@@ -27,7 +27,7 @@ ul.dropdown {
 		}
 	}
 	
-	#dm_page .dm_layout_left & {
+	#dm_page #dm_sidebar_left & {
 		//largeur en fonction de la zone
 		@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad * -2 + 1px));
 		//on décale de 2px car les menus de gauche ont une bordure de superposition dès le premier niveau
@@ -42,7 +42,7 @@ ul.dropdown {
 			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
 		}
 	}
-	#dm_page .dm_layout_right & {
+	#dm_page #dm_sidebar_right & {
 		//largeur en fonction de la zone
 		@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad * -2 + 1px));
 		ul {
@@ -60,8 +60,8 @@ ul.dropdown {
 	
 	//rajout bordure en haut sur les menus et gestion décalage
 	#dm_page & ul,
-	#dm_page .dm_layout_left &,
-	#dm_page .dm_layout_right & {
+	#dm_page #dm_sidebar_left &,
+	#dm_page #dm_sidebar_right & {
 		margin-top: -1px;
 		//pour toutes les premières cellules
 		li.first {
@@ -71,8 +71,8 @@ ul.dropdown {
 	}
 	
 	//pour les premières cellules contenues dans celle du premier niveau
-	#dm_page .dm_layout_left &,
-	#dm_page .dm_layout_right & {
+	#dm_page #dm_sidebar_left &,
+	#dm_page #dm_sidebar_right & {
 		margin-top: 0;
 		//suppression décalage sur les 8 premiers niveaux
 		& > li.first,
@@ -92,13 +92,13 @@ ul.dropdown {
 	li.dm_dir {
 		& > .link:after {
 			border-color: transparent transparent transparent @menuArrowColor;
-			.dm_layout_right & { border-color: transparent @menuArrowColor transparent transparent; }
+			#dm_sidebar_right & { border-color: transparent @menuArrowColor transparent transparent; }
 		}
 		& > .link:hover:after,
 		&:hover > .link:after {
 			border-color: @menuArrowColorSup transparent transparent transparent;
 			.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
-			.csstransitions.csstransforms .dm_layout_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
+			.csstransitions.csstransforms #dm_sidebar_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
 		}
 	}
 	

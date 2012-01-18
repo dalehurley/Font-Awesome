@@ -8,7 +8,7 @@
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
 #dm_page {
-	.dm_layout_left, .dm_layout_right {
+	#dm_sidebar_left, #dm_sidebar_right {
 		.specifiques_base_editoriale_fil_actualite {
 			.dm_widget_inner {
 				& > .title {
@@ -25,7 +25,8 @@
 			background-color: fadeout(#ff0000, 50%);
 			
 			//que si l'élément :after est géré (éviter un mélange avec .svg), on rajoute de l'espace à gauche pour caler la sprite
-			.generatedcontent #dm_page & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px); }
+			.generatedcontent #dm_page #dm_sidebar_left &,
+			.generatedcontent #dm_page #dm_sidebar_right & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px); }
 			
 			&:after {
 				position: absolute;
