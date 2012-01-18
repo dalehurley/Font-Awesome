@@ -12,7 +12,11 @@
 			//suppression bordures
 			.elements {
 				margin: 0;
-				.element { padding: 0; border-bottom: 0; &.last{ padding-bottom: 0; } }
+				.element {
+					padding: 0; border-bottom: 0;
+					&:hover { background-color: inherit; }
+					&.last{ padding-bottom: 0; }
+				}
 			}
 		}
 		
