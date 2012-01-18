@@ -4,7 +4,47 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
+//Config par défaut des widgets du template
+@import "_templates/BaseTheme/Widgets/_Widgets.less";
+
 .lien_contact_bloc_vers_page_contact {
+	//appel de la fonction de placement de la sprite
+	@widgetTitleSprite("Default"; "internet"; "contact");
 	
-	background-color: lightgreen;
+	.dm_widget_inner {
+		background-color: @colorCouleur3;
+		
+		& > .title {
+			background-color: @colorCouleur1Moyen;
+			color: @colorCouleur3ClairSup;
+			
+			//complément de l'appel de la sprite sur le titre
+			&:after { @spriteBgp-internet-contact-M(); }
+		}
+	}
+	
+	//texte contenu dans le widget
+	.wrapper {
+		background-color: lightcoral;
+		font-weight: bold;
+		color: @colorCouleur3ClairSup;
+		word-spacing: -0.05em;
+		letter-spacing: -0.05em;
+	}
+	
+	.navigation {
+		margin: 0;
+		.elements{
+			background-color: lightblue;
+			
+			.element {
+				background-color: lightgreen;
+				text-align: center;
+				
+				.link {
+					background-color: red;
+				}
+			}
+		}
+	}
 }
