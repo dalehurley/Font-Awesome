@@ -13,9 +13,6 @@
 	//calcul du line-height en px
 	@pxLineHeight: @gridBaseline * @ratioLineHeight;
 	
-	//calcul du décalage de la police par rapport à la baseline
-	@offsetBaseline: floor((@pxLineHeight - (@fontSize * @fontGlobalLetterRatio)) / 2) + 0px;
-	
 	//application des paramètres
 	font-size: @fontSize;
 	line-height: @pxLineHeight;
