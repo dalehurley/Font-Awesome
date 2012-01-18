@@ -1,7 +1,4 @@
 <?php
-//chargement feuille de style spécifique
-use_stylesheet(sfConfig::get('sf_css_path_template'). '/Widgets/SpecifiquesBaseEditorialeFilActualite/SpecifiquesBaseEditorialeFilActualite.css');
-
 $html = '';
 
 // vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
