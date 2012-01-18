@@ -1,6 +1,6 @@
 // _TypographyUtils.less
-// v1.0
-// Last Updated : 2011-06-10 12:30
+// v1.1
+// Last Updated : 2012-01-18 09:55
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -13,19 +13,12 @@
 	//calcul du line-height en px
 	@pxLineHeight: @gridBaseline * @ratioLineHeight;
 	
-	//ratio de margin-bottom par rapport à la baseline par défaut, 0 ou plus
-	//@ratioMarginBottom: floor(@fontSize / @gridBaseline);
-	//calcul du margin-bottom en px
-	//@pxMarginBottom: @gridBaseline * @ratioMarginBottom;
-	
 	//calcul du décalage de la police par rapport à la baseline
 	@offsetBaseline: floor((@pxLineHeight - (@fontSize * @fontGlobalLetterRatio)) / 2) + 0px;
 	
 	//application des paramètres
 	font-size: @fontSize;
 	line-height: @pxLineHeight;
-	//top: @offsetBaseline;
-	//margin-bottom: @pxMarginBottom;
 }
 
 //fonction de calcul des tailles de façon relative
