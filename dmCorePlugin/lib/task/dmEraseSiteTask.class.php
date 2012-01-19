@@ -47,6 +47,7 @@ EOF;
 				echo '>>>>'.$setting->getValue();		
 			}			
 		}
+		
 
 
 
