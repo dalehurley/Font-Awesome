@@ -2,7 +2,7 @@
 /*
  * _schemaTypeValue.php
  * v0.2
- * Permet d'afficher un numéro de téléphone
+ * Permet d'afficher un itemprop avec type value
  * 
  * Variables disponibles :
  * $itemType
