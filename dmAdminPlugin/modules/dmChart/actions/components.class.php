@@ -7,4 +7,6 @@ class dmChartComponents extends dmAdminBaseComponents
   {
     $this->chartKey = $this->name;
   }
+  
+  
 }

@@ -48,6 +48,7 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'ckWebservicePlugin',
             'sidSiteMapPlugin',
             'sidWidgetPubsFlashPlugin'
+            
         ));
     }
 

@@ -51,7 +51,7 @@ class dmAdminHomepageManager
 	 * @var array
 	 */
 	protected $windows;
-
+        
 	public function __construct(myUser $user, sfServiceContainer $serviceContainer, sfEventDispatcher $dispatcher, dmHelper $helper)
 	{
 		$this->user							= $user;
@@ -64,7 +64,7 @@ class dmAdminHomepageManager
 	{
 		// foreach column, declare the windows with needed properties
 		return array(
-		array(
+                array(
         'weekChart'     => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'week'), 'options_param' => 'week_chart.options'),
         'contentChart'  => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'content'), 'options_param' => 'content_chart.options'),
         'browserChart'  => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'browser'), 'options_param' => 'browser_chart.options'),
