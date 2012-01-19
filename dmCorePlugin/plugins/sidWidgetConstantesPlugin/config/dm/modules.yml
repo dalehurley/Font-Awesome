@@ -3,6 +3,6 @@
   "Configuration":
     Constantes:
       model: SidConstantes
-      credentials: system
+      credentials: constantes
       components:
         show:

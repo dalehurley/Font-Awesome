@@ -442,91 +442,136 @@ class dmDataLoad
   protected function loadPermissions()
   {
     $array = array(
-      "system" => "System administrator",
-      "admin" => "Log into administration",
-      "clear_cache" => "Clear the cache",
-      "log" => "Manage logs",
-      'code_editor' => 'Use admin and front code editors',
-      "security_user" => "Manage security users",
-      "security_permission" => "Manage security permissions",
-      "security_group" => "Manage security groups",
-      "content" => "CRUD dynamic content in admin",
-      "zone_add" => "Add zones",
-      "zone_edit" => "Edit zones",
-      "zone_delete" => "Delete zones",
-      "widget_add" => "Add widgets",
-      "widget_edit" => "Edit widgets",
-      "widget_delete" => "Delete widgets",
-      'widget_edit_fast' => 'Can fast edit widgets',
-      'widget_edit_fast_record' => 'Fast edit widget record',
-      'widget_edit_fast_content_title' => 'Fast edit widget content title',
-      'widget_edit_fast_content_link' => 'Fast edit widget content link',
-      'widget_edit_fast_content_image' => 'Fast edit widget content image',
-      'widget_edit_fast_content_text' => 'Fast edit widget content text',
-      'widget_edit_fast_navigation_menu' => 'Fast edit widget navigation menu',
-      "page_add" => "Add pages",
-      "page_edit" => "Edit pages",
-      "page_delete" => "Delete pages",
-      "page_bar_admin" => "See page bar in admin",
-      "media_bar_admin" => "See media bar in admin",
-      "media_library" => "Use media library in admin",
-      "media_ignore_whitelist" => "Upload media with any filetype",
-      "tool_bar_admin" => "See toolbar in admin",
-      "page_bar_front" => "See page bar in front",
-      "media_bar_front" => "See media bar in front",
-      "tool_bar_front" => "See toolbar in front",
-      "site_view" => "See non-public website and inactive pages",
-      "loremize" => "Create automatic random content",
-      "export_table" => "Export table contents",
-      "sitemap" => "Regenerate sitemap",
-      "automatic_metas" => "Configure automatic pages metas",
-      "manual_metas" => "Configure manually pages metas",
-      "manage_pages" => "Move and sort pages",
-      'url_redirection' => 'Configure url redirections',
-      "use_google_analytics" => "Use google analytics",
-      "google_analytics" => "Configure google analytics",
-      "use_google_webmaster_tools" => "Use google webmaster tools",
-      "google_webmaster_tools" => "Configure google webmaster tools",
-      "xiti" => "Configure Xiti",
-      "search_engine" => "Manage internal search engine",
-      "see_log" => "See the logs",
-      'see_chart' => 'See the charts',
-      'see_diagrams' => 'See the developer diagrams',
-      'see_server' => 'See the server infos',
-      'see_request' => 'See the requests window',
-    	'see_event' => 'See the events window',
-      "config_panel" => "Use the configuration panel",
-      "translation" => "Use the translation interface",
-      "layout" => "Use the layout interface",
-      'sent_mail' => 'See mails sent by server',
-      'mail_template' => 'Configure mail templates',
-      'error_log' => 'See error log',
-      'interface_settings' => 'Manage interface settings like default image resize method',
-      'rubrique' => 'Affiche les rubriques de la base éditoriale',
-      'section' => 'Affiche les sections de la base éditoriale',
-      'article' => 'Affiche les articles de la base éditoriale',
-      'bot' => 'Internal bot',  
-      'tags' => 'Gestion des tags',          
-      'type_contenu' => 'type contenu',
-      'rubriques_contenu' => 'rubrique contenu',
-      'article_contenu' => 'article contenu',
-      'bandeau' => 'bandeau',        
-      'groupe_bandeau' => 'groupes de bandeau', 
+      // Autorisations particulières sans rapport avec le menu de l'Admin
+      "system" => "Accès au Système d'Administration",
       'ck_editor_lite' => 'ckEditor Lite',
       'admin_bandeau_lite' => 'Administration du bandeau Lite',
-      'sites_utiles' => 'Administration des sites utiles',
-      'groupe_sites_utiles' => 'Administration des groupe de sites utiles',
-      'index_sites_utiles' => 'Administration index des sites utiles',
-      'super_admin' => 'Acces super Admin', // permission jamais utilisée (le super admin n'ayant pas besoin de permission, il passe outre...), permet seulement de filtrer les accès dans les generator.yml
-      'renseignements' => 'Renseignements géographique du client',
-      'accueil' => "Administration de la page d'accueil",
-      'page_cabinet' => 'Administration des pages du menu de Le Cabinet',
-      'equipe' => "Administration des membres de l'équipe du cabinet",
-      'recrutement' => "Administration des annonces de recrutement",
-      'mission' => 'Administration des missions',
-      'type_contenu' => 'Pour sélectionner où doit apparaitre les actus du cabinet (newsletter,sur le site,...)',
-      'rubriques_contenu' => "Administration de la section des actus du cabinet",
-      'article_contenu' => "Administration des actus du cabinet"
+      'super_admin' => 'Acces super Admin',
+      "admin" => "Coté Admin => Accès au compte de l'administrateur)",
+      "loremize" => "Coté Admin => Création de contenu aléatoire (pour Test)",
+      "page_bar_admin" => "Coté Admin => Affichage de la barre d'outil PAGE",
+      "media_bar_admin" => "Coté Admin => Affichage de la barre d'outil MEDIA ",
+      "tool_bar_admin" => "Coté Admin => Affiche la barre supérieure des menus déroulant",
+      // Menu Contenu
+      // 
+        // Sous-menu Retours visiteur
+      'contact_me' => "Contenu => Retour visiteur => Contacts (messages via le formulaire de contact)",  
+        // Sous-menu Base Editoriale
+      'rubrique' => "Contenu => Base Editoriale => Rubriques (Gestion des rubriques de la BE)",
+      'section' => "Contenu => Base Editoriale => Sections (Gestion des sections de la BE)",
+      'article' => "Contenu => Base Editoriale => Articles (Gestion des articles de la BE)",
+        // Sous-menu Tag
+      'tags' => "Contenu => Tag => Tags (Gestion des tags)",
+      // Menu Gestion du bandeau
+      // 
+        // Sous-menu Bandeau défilant
+      'groupe_bandeau' => "Gestion du bandeau => Bandeau défilant => Mes groupes de bandeau", 
+      'bandeau' => "Gestion du bandeau => Bandeau défilant => Mes Bandeaux",  
+      // Menu Le cabinet
+      // 
+        // Sous-menu Description du cabinet
+      'page_cabinet' => "Le cabinet => Description du cabinet => Les pages du cabinet",
+      'equipe' => "Le cabinet => Description du cabinet => Equipes",
+      'recrutement' => "Le cabinet => Description du cabinet => Recrutements",
+        // Sous-menu Actualité du cabinet
+      'type_actu' => "Le cabinet => Actualité du cabinet => Type de mes articles",
+      'actualite_contenu' => "Le cabinet => Actualité du cabinet => Actualités du cabinet",  
+        // Sous-menu Mes Coordonnées
+      'renseignements' => "Le cabinet => Mes Coordonnées => Renseignements",
+        // Sous-menu Mes sites utiles
+      'index_sites_utiles' => "Le cabinet => Mes sites utiles => Page d'accueil des sites utiles",
+      'groupe_sites_utiles' => 'Le cabinet => Mes sites utiles => Les groupes de sites utiles',
+      'sites_utiles' => "Le cabinet => Mes sites utiles => Les sites utiles",
+      // Menu Les Missions
+      // 
+        // Sous-menu Description des missions
+      'mission' => "Les Missions => Description des missions",
+      // Menu Référencement
+      // 
+        // Sous-menu Services
+      "use_google_analytics" => "Référencement => Services =>  Google Analytics",
+      "google_analytics" => "Référencement => Services =>  Google Analyticss",
+      "use_google_webmaster_tools" => "Référencement => Services =>  Google Webmaster Tools",
+      "google_webmaster_tools" => "Référencement => Services =>  Google Webmaster Tools",
+        // Sous-menu Sitemap
+      "sitemap" => "Référencement => Sitemap => Gérer le sitemap XML",
+        // Sous-menu Pages
+      "manual_metas" => "Référencement => Pages =>  Gérer les pages (Gérer les métas)",
+      "manage_pages" => "Référencement => Pages =>  Gérer les pages (Réordonner les pages)",
+      "automatic_metas" => "Référencement => Pages =>  Référencement automatique (Gérer les métas)",
+        // Sous-menu Redirections
+      'url_redirection' => "Référencement => Redirections =>  Redirections d'urls",
+      // Menu Système
+      // 
+        // Sous-menu Configuration
+      "configuration" => "Système => Configuration => Paramètres",
+        // Sous-menu Journal
+      'sent_mail' => "Système => Journal => Courriels envoyés",
+      'error_log' => "Système => Journal => Erreurs (voir les mails en erreur)",
+        // Sous-menu Dev
+      'see_diagrams' => "Système => Dev => Voir les schémas ( Graphique du modèle de données)",
+      'code_editor' => "Système => Dev => Editeur de code (Accès aux codes du site)",
+      'diem_console' => "Système => Dev => Console Diem (Accès console)",
+      'see_server' => "Système => Dev => Serveur (Config sur serveur)",
+        // Sous-menu Sécurité
+      "security_user" => "Système => Sécurité =>Utilisateurs (Gestion des droits des utilisateurs coté Admin)",
+      "security_permission" => "Système => Sécurité => Autorisations (Gestion des Autorisations coté Admin)",
+      "security_group" => "Système => Sécurité => Groupes (Gestion des Autorisations classées par Groupe)",
+      'security_record' => "Système => Sécurité => Permissions sur les Enregistrements",
+      'security_record_permission_association' => "Système => Sécurité => Associations sur les Permissions d'Enregistrements",
+      // Menu Outils
+      // 
+        // Sous-menu Configuration 
+      "config_panel" => "Outils => Configuration => Panneau de configuration",
+      'mail_template' => 'Outils => Configuration => Gabarits des courriels (Gestion des messages types)',
+      "layout" => "Outils => Configuration => Layouts (Gérer les Layouts du site)",
+      'constantes' => "Outils => Configuration => Gestion des constantes du site",
+        // Sous-menu Traduction 
+      "translation" => "Outils => Traduction => Phrases (Gestion des phrases à traduire)",
+      "catalogue_translation" => "Outils => Traduction => Catalogues (Gestion des catalogues des phrases de traductions)",
+        // Sous-menu Surveillance 
+      'see_chart' => "Outils => Surveillance => Graphique (Historique des visite)",
+      "see_log" => "Outils => Surveillance => Journal (Listing de Logs)",
+        // Sous-menu Média 
+      "media_library" => "Outils => Média => Média (Gérer les médias depuis l'Admin)",
+        // Sous-menu Moteur de Recherche 
+      "search_engine" => "Outils => Moteur de Recherche => Gérer l'index",
+      // Menu BOT
+      // 
+        // Sous-menu Internal Bot 
+      'bot' => "Outils => BOT => Internal Bot (Contrôle de la vitesse de chargement des pages)", 
+      //  
+      // Divers autorisations pour la gestion des widgets coté front
+      "zone_add" => "Coté Front => Add zones",
+      "zone_edit" => "Coté Front => Edit zones",
+      "zone_delete" => "Coté Front => Delete zones",
+      "widget_add" => "Coté Front => Add widgets",
+      "widget_edit" => "Coté Front => Edit widgets",
+      "widget_delete" => "Coté Front => Delete widgets",
+      'widget_edit_fast' => 'Coté Front => Can fast edit widgets',
+      'widget_edit_fast_record' => 'Coté Front => Fast edit widget record',
+      'widget_edit_fast_content_title' => 'Coté Front => Fast edit widget content title',
+      'widget_edit_fast_content_link' => 'Coté Front => Fast edit widget content link',
+      'widget_edit_fast_content_image' => 'Coté Front => Fast edit widget content image',
+      'widget_edit_fast_content_text' => 'Coté Front => Fast edit widget content text',
+      'widget_edit_fast_navigation_menu' => 'Coté Front => Fast edit widget navigation menu',
+      "page_add" => "Coté Front => Add pages",
+      "page_edit" => "Coté Front => Edit pages",
+      "page_delete" => "Coté Front => Delete pages",
+      "page_bar_front" => "Coté Front => See page bar in front",
+      "media_bar_front" => "Coté Front => See media bar in front",
+      "tool_bar_front" => "Coté Front => See toolbar in front",
+      // Divers - A voir
+      "clear_cache" => "Clear the cache",
+      "log" => "Manage logs",
+      "content" => "CRUD dynamic content in admin",
+      "site_view" => "See non-public website and inactive pages",
+      "media_ignore_whitelist" => "Upload media with any filetype",
+      "export_table" => "Export table contents",
+      "xiti" => "Configure Xiti",
+      'see_request' => 'See the requests window',
+      'see_event' => 'See the events window',
+      'interface_settings' => 'Manage interface settings like default image resize method', 
         );
 
     $existingPermissions = dmDb::query('DmPermission p INDEXBY p.name')
@@ -662,8 +707,8 @@ class dmDataLoad
                 'description' => "Accès pour le client Web",
                 'permissions' => array(
                     'bandeau',
-//                    'see_log',
-//                    'see_chart',
+                    'see_log',
+                    'see_chart',
                     'tool_bar_admin',
                     'admin',
                     'ck_editor_lite',
@@ -675,7 +720,7 @@ class dmDataLoad
                     'equipe',
                     'recrutement',
                     'mission',
-                    'article_contenu'
+                    'actualite_contenu'
                 )
             ),
         );
