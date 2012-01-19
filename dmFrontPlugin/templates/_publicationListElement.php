@@ -65,22 +65,22 @@ if(isset($count) && isset($maxCount)) {
 }
 
 //Déclaration des options du container contenant l'article
-if(!isset($itemType)) $itemType = '';
-switch ($itemType) {
-	case 'Article':
-		//$ctnOpts['id'] = 'article_' . $node->id;
+$ctnOpts = array();
+if(isset($itemType)) {
+	//vérification de différent cas de valeur pour itemType
+	switch ($itemType) {
+		case 'Article':		$isSchema = true;	break;
+		case 'Person':		$isSchema = true;	break;
+		case 'Organization':$isSchema = true;	break;
+		default:			$isSchema = false;	break;
+	}
+	
+	if($isSchema) {
 		$ctnOpts['itemscope'] = 'itemscope';
-		$ctnOpts['itemtype'] = 'http://schema.org/Article';
-		break;
-	case 'Person' :
-		//$ctnOpts['id'] = 'equipe_' . $node->id;
-		$ctnOpts['itemscope'] = 'itemscope';
-		$ctnOpts['itemtype'] = 'http://schema.org/Person';
-		break;
-	default:
-		$ctnOpts = array();
-		break;
+		$ctnOpts['itemtype'] = 'http://schema.org/' . $itemType;
+	}
 }
+else $itemType = null;
 
 //ouverture container de publication (ajout classe de dev)
 $html.= _open('li.element' . $posClass . $classVerified, $ctnOpts);
