@@ -111,7 +111,11 @@ $html.= _open('li.element' . $posClass . $classVerified, $ctnOpts);
 	if($isImage) $htmlLi.= _open('span.wrapper');
 
 		//créer des partials pour les différents sous-éléments
-		if($itemType == 'Person'){
+		if($itemType == 'Organization') {
+			
+			
+		}
+		elseif($itemType == 'Person'){
 			$htmlLi.= _open('div.subWrapper');
 				$htmlLi.= _tag('span.name itemprop="name"', $node->getTitle());
 				$htmlLi.= '&#160;-&#160;';
@@ -124,35 +128,27 @@ $html.= _open('li.element' . $posClass . $classVerified, $ctnOpts);
 																'value'		=> $node->getTel()
 															));
 			
-			if(isset($rubrique) && !$isLight) {
-				if($rubrique != null) {
-					$htmlLi.= get_partial('global/schemaTypeValue', array(
+			//affichage de la rubrique si définit et option isLight désactivée
+			if(isset($rubrique) && !$isLight) $htmlLi.= get_partial('global/schemaTypeValue', array(
 																'itemType'	=> 'rubrique',
 																'type'		=> __('Responsable in'),
 																'value'		=> $rubrique,
 																'noProp'	=> true
 																));
-				}
-			}
-			/*
-			$htmlLi.= get_partial('global/schemaTypeValue', array(
-																'itemType'	=> 'email',
-																'type'		=> __('Email'),
-																'value'		=> $node->getTel()
-															));
-			*/
-			$htmlLi.= _open('span.email');
-				$htmlLi.=  _tag('span.type', __('Email'));
-				$htmlLi.=  '&nbsp;:&nbsp;';		
-				if(isset($linkUrl)){
-					$htmlLi.= _tag('span.value itemprop="email"', $node->getEmail());
-				}else{
-					$htmlLi.= _tag('span.value', _link('mailto:' . $node->getEmail())->text($node->getEmail())->set('.link itemprop="email"'));
-				}
-				
-			$htmlLi.=  _close('span');
 			
+			//options d'affichage de l'email
+			$emailOpt = array(
+							'itemType'	=> 'email',
+							'type'		=> __('Email'),
+							'value'		=> $node->getEmail()
+						);
+			//si l'URL n'est pas définit pour le listing alors on peut rajouter l'email dans l'affichage
+			if(!isset($linkUrl)) $emailOpt['linkUrl'] = 'mailto:' . $node->getEmail();
+			$htmlLi.= get_partial('global/schemaTypeValue', $emailOpt);
+			
+			//affichage de la description
 			if(!$isLight) $htmlLi.= get_partial('global/descriptionWrapper', array('teaser' => $node->getText()));
+			
 		}else{
 			if(isset($title))										$htmlLi.= get_partial('global/titleWrapper', array('title' => $title));
 			if(isset($node->created_at) && $itemType == 'Article')	$htmlLi.= get_partial('global/dateWrapperShort', array('node' => $node));

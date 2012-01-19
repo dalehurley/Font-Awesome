@@ -1,7 +1,7 @@
 <?php
 /*
  * _schemaTypeValue.php
- * v0.1
+ * v0.2
  * Permet d'afficher un numéro de téléphone
  * 
  * Variables disponibles :
@@ -23,8 +23,16 @@ if(!isset($noProp)) $noProp = false;
 $ctn = $isDiv ? 'div.' : 'span.';
 $ctn.= $itemType;
 
+//définition du container contenant la valeur
 $valueCtn = 'span.value';
-if(!$noProp) $valueCtn.= ' itemprop="' . $itemType . '"';
+//on affiche la propriété sur le span.value que si il n'y a pas de lien
+if(!$noProp && !isset($linkUrl)) $valueCtn.= ' itemprop="' . $itemType . '"';
+
+//on entoure la valeur insérée avec un lien si présent
+if(isset($linkUrl)) {
+	$value = _link($linkUrl)->text($value);
+	if(!$noProp) $value->set('.link itemprop="email"');
+}
 
 $html = _open($ctn);
 	$html.= _tag('span.type', $type);
