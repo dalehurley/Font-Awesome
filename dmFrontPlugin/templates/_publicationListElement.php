@@ -1,7 +1,7 @@
 <?php
 /*
  * _publicationListElement.php
- * v0.5
+ * v0.6
  * Permet d'afficher une publication de façon simplifié à l'intérieur d'une liste ul li
  * 
  * Variables disponibles :
@@ -19,12 +19,44 @@
  * $isLight		permet d'indiquer une version allégée (notamment pour des affichages spéciaux dans les sidebars)
  * 
  */
-$html = '';
 
-//récupérations des options de page
+//Déclaration des classes du container contenant l'article
+$ctnOpts = array();
+$ctnClass = array('element');
+
+//Définition du type de contenu de la publication
+if(isset($itemType)) {
+	//vérification de différent cas de valeur pour itemType
+	switch ($itemType) {
+		case 'Article':		$isSchema = true;	break;
+		case 'Person':		$isSchema = true;	break;
+		case 'Organization':$isSchema = true;	break;
+		default:			$isSchema = false;	break;
+	}
+	
+	if($isSchema) {
+		$ctnOpts['itemscope'] = 'itemscope';
+		$ctnOpts['itemtype'] = 'http://schema.org/' . $itemType;
+	}
+	
+	//ajout de itemType aux classes
+	$ctnClass[] = strtolower($itemType);
+}
+else $itemType = null;
+
+//gestion de l'index de positionnement
+if(isset($count) && isset($maxCount)) {
+	if($count == 1)			$ctnClass[] = 'first';
+	if($count >= $maxCount)	$ctnClass[] = 'last';
+}
+
+//récupérations des options de page et application classe de debug
 $pageOptions = spLessCss::pageTemplateGetOptions();
 $isDev = $pageOptions['isDev'];
-$classVerified = $isDev ? '.isVerified' : '';
+if($isDev) $ctnClass[] = 'isVerified';
+
+//Ajout des classes dans les options du container
+$ctnOpts = array('class' => $ctnClass);
 
 //Définitions des valeurs par défaut
 
@@ -46,10 +78,9 @@ if(isset($node)) {
 		try { $teaser = $node->getResume(); }
 		catch(Exception $e) { $teaser = null; }
 	}
-	
-	//stringTools::str_truncate($article->getResume(), $longueurTexte, '(...)', true)
 }
 
+//définition de l'image
 $isImage = false;
 if(isset($image)) {
 	//on vérifie que l'image existe sur le serveur avec son chemin absolu
@@ -57,33 +88,9 @@ if(isset($image)) {
 	$isImage = is_file(sfConfig::get('sf_web_dir') . $imageUpload . $image);
 }
 
-//gestion de l'index de positionnement
-$posClass = '';
-if(isset($count) && isset($maxCount)) {
-	if($count == 1)			$posClass.= '.first';
-	if($count >= $maxCount)	$posClass.= '.last';
-}
-
-//Déclaration des options du container contenant l'article
-$ctnOpts = array();
-if(isset($itemType)) {
-	//vérification de différent cas de valeur pour itemType
-	switch ($itemType) {
-		case 'Article':		$isSchema = true;	break;
-		case 'Person':		$isSchema = true;	break;
-		case 'Organization':$isSchema = true;	break;
-		default:			$isSchema = false;	break;
-	}
-	
-	if($isSchema) {
-		$ctnOpts['itemscope'] = 'itemscope';
-		$ctnOpts['itemtype'] = 'http://schema.org/' . $itemType;
-	}
-}
-else $itemType = null;
 
 //ouverture container de publication (ajout classe de dev)
-$html.= _open('li.element' . $posClass . $classVerified, $ctnOpts);
+$html = _open('li', $ctnOpts);
 	
 	//variable de remplissage du li
 	$htmlLi = '';
@@ -178,7 +185,7 @@ $html.= _open('li.element' . $posClass . $classVerified, $ctnOpts);
 	}
 	
 //fermeture container de publication
-$html.= _close('li.element');
+$html.= _close('li');
 
 //affichage html en sortie
 echo $html;
