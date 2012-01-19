@@ -1,7 +1,7 @@
 <?php
 
 /**
- * class stringTools
+ * class bdTools
  *
  */
 class bdTools {
