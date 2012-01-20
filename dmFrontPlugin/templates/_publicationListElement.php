@@ -119,16 +119,23 @@ $html = _open('li', $ctnOpts);
 
 		//créer des partials pour les différents sous-éléments
 		if($itemType == 'Organization') {
+			
+			$htmlLi.= "Test d'adresse";
+				
+			$html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint', array('node' => $node, 'container' => 'div.test'));
+			$html.= '<br/>';
+			$html.= '<br/>';
+			
+			/*
 			$htmlLi.= _tag('span.name itemprop="name"', $node->getTitle());
 			
 			//affichage de l'adresse (passer en partial)
 			$htmlLi.= _open('div.subWrapper.PostalAddress itemprop="address" itemscope itemtype="http://schema.org/PostalAddress');
 				
-				$htmlLi.= "Test d'adresse";
-				
-				
 				
 			$htmlLi.= _close('div');
+			 * 
+			 */
 		}
 		elseif($itemType == 'Person'){
 			$htmlLi.= _open('div.subWrapper');
