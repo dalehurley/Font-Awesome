@@ -2,6 +2,9 @@
 // vars : $adresses, $titreBloc
 $html = '';
 
+$html.= get_partial('global/schema/DataType/Text', array(/*'type' => 'Address', */'value' => 'testValeur', 'itemprop' => 'address', 'url' => 'http://www.google.fr'/*, 'container' => 'div', 'customClass' => 'rubrique'*/));
+
+
 if (count($adresses)) {
 	
 	//titre du contenu
