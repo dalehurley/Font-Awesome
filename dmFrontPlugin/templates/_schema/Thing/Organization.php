@@ -58,12 +58,23 @@ $html.= get_partial('global/schema/Thing', $thingOpt);
 if(isset($address)) extract($address, EXTR_OVERWRITE);
 
 $addressOpt = array('container' => 'div.address itemprop="address"');
-if(isset($node))			$addressOpt['node']				= $node;
-							$addressOpt['name']				= false;
+//désactivation d'éléments
+$addressOpt['name']				= false;
+$addressOpt['email']			= false;
+$addressOpt['faxNumber']		= false;
+$addressOpt['telephone']		= false;
+
+//ajout des propriétés
+if(isset($node))			$addressOpt['node']				= $node;			
 if(isset($addressLocality)) $addressOpt['addressLocality']	= $addressLocality;
 if(isset($postalCode))		$addressOpt['imapostalCodee']	= $postalCode;
 if(isset($streetAddress))	$addressOpt['streetAddress']	= $streetAddress;
 $html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress', $addressOpt);
+
+//ajout d'élément exteralisés
+if(isset($email))		if($email)		$html.= get_partial('global/schema/DataType/Text', array('type' => __('Email'),			'value' => $email,			'itemprop' => 'email', 'url' => 'mailto:' . $email));
+if(isset($telephone))	if($telephone)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Phone'),			'value' => $telephone,		'itemprop' => 'telephone'));
+if(isset($faxNumber))	if($faxNumber)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Fax'),			'value' => $faxNumber,		'itemprop' => 'faxNumber'));
 
 //fermeture du container
 if(isset($container)) $html.= _close($container);
