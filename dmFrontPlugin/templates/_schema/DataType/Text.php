@@ -32,11 +32,12 @@ $html = '';
 $ctnOpts = array();
 
 if(isset($itemprop)) $ctnOpts['class'][] = $itemprop;
-if(isset($itemprop) && !isset($type) && !isset($url)) $ctnOpts['itemprop'] = $itemprop;
+if((isset($itemprop) && !isset($type) && !isset($url)) || $itemprop == 'url') $ctnOpts['itemprop'] = $itemprop;
 if(isset($customClass)) $ctnOpts['class'][] = $customClass;
 
+
 //concaténation du lien si présent
-if(isset($url)) {
+if(isset($url) && $itemprop != 'url') {
 	$linkOpt = array();
 	if(isset($itemprop)) $linkOpt['itemprop'] = $itemprop;
 	$value = _link($url)->text($value)->set($linkOpt);
@@ -55,7 +56,8 @@ if(isset($type)){
 	$html.= _close($container);
 	
 }else{
-	$html.= _tag($container, $ctnOpts, $value);
+	if($itemprop == 'url')	$html.= _link($url)->text($value)->set($ctnOpts);
+	else					$html.= _tag($container, $ctnOpts, $value);
 }
 
 //affichage du html
