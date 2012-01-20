@@ -1,5 +1,7 @@
 <?php
-
+// lioshi: suppression de la possibilité de générer l'index de lucene via le navigateur, pour éviter d'avoir des fichiers créés par apache
+// Uniquement dm:search-update en ligne de commande est utilisable
+/*
 echo _open('div.dm_box.big.search_engine');
 
 echo _tag('h1.title', __('Internal search engine'));
@@ -36,6 +38,8 @@ if ($query)
 echo _close('div');
 
 echo _close('div');
+
+*/
 
 if (isset($phpCli))
 {
