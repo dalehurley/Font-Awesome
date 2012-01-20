@@ -56,8 +56,12 @@ if(isset($type)){
 	$html.= _close($container);
 	
 }else{
-	if($itemprop == 'url')	$html.= _link($url)->text($value)->set($ctnOpts);
-	else					$html.= _tag($container, $ctnOpts, $value);
+	if($itemprop == 'url') {
+		//réattribution de la class link enlevée par le set
+		$ctnOpts['class'][] = 'link';
+		$html.= _link($url)->text($value)->set($ctnOpts);
+	}
+	else $html.= _tag($container, $ctnOpts, $value);
 }
 
 //affichage du html
