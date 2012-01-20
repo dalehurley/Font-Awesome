@@ -11,7 +11,7 @@ if (count($adresses)) {
 	if($titreBloc) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
 	
 	//ouverture du listing
-    //$html.= _open('ul.elements');
+    $html.= _open('ul.elements');
 	
 	//compteur
 	$count = 0;
@@ -22,9 +22,9 @@ if (count($adresses)) {
 		$count++;
 		
 		
-		$html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress', array('node' => $adresse, 'container' => 'div.test itemprop="address"'));
-		$html.= '<br/>';
-		$html.= '<br/>';
+		$html.= get_partial('global/schema/Thing/Organization', array('node' => $adresse, 'container' => 'li.element'));
+		//$html.= '<br/>';
+		//$html.= '<br/>';
 		/*
 		
 		$html.= get_partial('global/publicationListElement', array(
@@ -39,7 +39,7 @@ if (count($adresses)) {
     }
 	
     //fermeture du listing
-    //$html.= _close('ul.elements');
+    $html.= _close('ul.elements');
 	
 	
 	

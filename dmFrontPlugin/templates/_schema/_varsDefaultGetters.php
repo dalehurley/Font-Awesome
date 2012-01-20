@@ -18,6 +18,9 @@ if(isset($container)) {
 	$ctnOpts['itemtype'] = 'http://schema.org/' . $itemType;
 }
 
+//séparateur par défaut
+if(!isset($separator)) $separator = '&#160;:&#160;';
+
 //Affectation des valeurs par défaut passées dans la node
 if(isset($node)) {
 	//Properties from Thing
@@ -58,10 +61,14 @@ if(isset($node)) {
 		try { $addressLocality = $node->getVille(); }
 		catch(Exception $e) { $addressLocality = null; }
 	}
+	if(!isset($postalCode)) {
+		try { $postalCode = $node->getCodePostal(); }
+		catch(Exception $e) { $postalCode = null; }
+	}
 	if(!isset($streetAddress)) {
 		try {
 			$streetAddress = $node->getAdresse();
-			if ($node->getAdresse2() != NULL) $streetAddress.= '&#160;-&#160;' . $node->getAdresse2();
+			if ($node->getAdresse2() != NULL) $streetAddress.= $separator . $node->getAdresse2();
 		}
 		catch(Exception $e) { $streetAddress = null; }
 	}

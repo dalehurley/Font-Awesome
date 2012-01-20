@@ -122,7 +122,7 @@ $html = _open('li', $ctnOpts);
 			
 			$htmlLi.= "Test d'adresse";
 				
-			$html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint', array('node' => $node, 'container' => 'div.test'));
+			$html.= get_partial('global/schema/Thing/Organization', array('node' => $node));
 			$html.= '<br/>';
 			$html.= '<br/>';
 			
