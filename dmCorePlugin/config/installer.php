@@ -309,7 +309,7 @@ try {
 //}
 
 // sitemap.xml
-chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml', 0666);
+//chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml', 0666);
 
 /*
  * GÃ©nÃ©ration du fichier de conf
