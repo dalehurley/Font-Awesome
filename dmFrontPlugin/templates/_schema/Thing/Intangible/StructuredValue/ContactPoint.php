@@ -31,9 +31,6 @@ include $includeDefault;
 //Composition du html de sortie
 $html = '';
 
-//ouverture du container
-if(isset($container)) $html.= _open($container, $ctnOpts);
-
 //Properties from Thing :
 $thingOpt = array();
 if(isset($node))		$thingOpt['node']			= $node;
@@ -61,8 +58,8 @@ if(isset($email)) if($email) {
 if(isset($telephone))	if($telephone)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Phone'),			'value' => $telephone,		'itemprop' => 'telephone'));
 if(isset($faxNumber))	if($faxNumber)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Fax'),			'value' => $faxNumber,		'itemprop' => 'faxNumber'));
 
-//fermeture du container
-if(isset($container)) $html.= _close($container);
+//englobage dans un container
+if(isset($container)) $html = _tag($container, $ctnOpts, $html);
 
 //Affichage html de sortie
 echo $html;

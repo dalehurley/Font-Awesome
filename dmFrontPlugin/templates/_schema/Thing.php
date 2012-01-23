@@ -28,9 +28,6 @@ include $includeDefault;
 //Composition du html de sortie
 $html = '';
 
-//ouverture du container
-if(isset($container)) $html.= _open($container, $ctnOpts);
-
 //intégration de l'image
 if(isset($image)) if($image) {
 	//dimensions par défaut de l'image
@@ -51,8 +48,8 @@ if(isset($description)) if($description) $html.= get_partial('global/schema/Data
 
 //voir pour intégration image et url dans les datatypes
 
-//fermeture du container
-if(isset($container)) $html.= _close($container);
+//englobage dans un container
+if(isset($container)) $html = _tag($container, $ctnOpts, $html);
 
 //Affichage html de sortie
 echo $html;
