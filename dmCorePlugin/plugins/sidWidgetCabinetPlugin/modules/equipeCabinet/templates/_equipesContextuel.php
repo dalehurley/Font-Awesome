@@ -18,14 +18,14 @@ if (count($equipes)) { // si nous avons des actu articles
 		//incrémentation compteur
 		$count++;
 		
-		$html.= get_partial('global/publicationListElement', array(
-												'node' => $equipe,
-												'itemType' => 'Person',
-												'rubrique' => $nomRubrique[$equipe->id],
-												'count' => $count,
-												'maxCount' => $maxCount,
-												'isLight' => true
-												));
+		$html.= get_partial('global/schema/Thing/Person', array(
+														'node' => $equipe,
+														'contactType' => $nomRubrique[$equipe->id],
+														'container' => 'li.element',
+														'count' => $count,
+														'maxCount' => $maxCount,
+														'isLight' => true
+														));
     }
 	
 	//fermeture du listing
