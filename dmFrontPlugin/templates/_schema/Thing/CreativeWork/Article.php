@@ -83,21 +83,21 @@ if($isLight) {
 		if(isset($section)) $html.= _tag('h3.section', array('itemprop' => 'articleSection'), $section);
 		
 		//on affiche l'image que si elle est effectivement présente
-		if(isset($isImage)){
-			$html.= get_partial('global/imageWrapperFull', array(
-														'image'	=>	$image,
-														'alt'	=>	$name,
-														'width'	=>	spLessCss::gridGetContentWidth(),
-														'height'=>	spLessCss::gridGetHeight(14,0)
-														));
+		if($isImage && isset($image)){
+			$imageWrapperFullOpts = array(
+									'image'	=>	$image,
+									'width'	=>	spLessCss::gridGetContentWidth(),
+									'height'=>	spLessCss::gridGetHeight(14,0)
+									);
+			if(isset($name)) $imageWrapperFullOpts['alt'] = $name;
+			
+			$html.= get_partial('global/imageWrapperFull', $imageWrapperFullOpts);
 		}
 
 		//Le titre de l'article, devant toujours être l'unique H1 dans la page
-		//if(isset($name)) $html.= _tag('h1.title', array('itemprop' => 'name'), $name);
 		if(isset($name)) if($name) $html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
 		
 		//Chapeau de l'article si présent
-		//if(isset($description)) $html.= get_partial('global/teaserWrapper', array('teaser' => $description));
 		if(isset($description)) if($description) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
 
 		//Gestion de la date avec plusieurs possibilités (dateCreated, dateModified, etc)
