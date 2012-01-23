@@ -14,6 +14,10 @@
  * 
  */
 
+//récupérations des options de page
+$pageOptions = spLessCss::pageTemplateGetOptions();
+$isDev = $pageOptions['isDev'];
+
 //déclaration des propriétés par défaut du container
 $ctnOpts = array();
 if(isset($container)) {
@@ -26,6 +30,9 @@ if(isset($container)) {
 		if($count == 1)			$ctnOpts['class'][] = 'first';
 		if($count >= $maxCount)	$ctnOpts['class'][] = 'last';
 	}
+	
+	//application classe de debug
+	if($isDev) $ctnOpts['class'][] = 'isVerified';
 }
 
 //séparateur par défaut
