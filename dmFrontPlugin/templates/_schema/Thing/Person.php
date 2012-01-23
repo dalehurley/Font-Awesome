@@ -77,7 +77,6 @@ if(isset($image))		$thingOpt['image']			= $image;
 $html.= get_partial('global/schema/Thing', $thingOpt);
 
 
-
 //on englobe le contenu dans un wrapper si une image est présente
 if($isImage) $html.= _open('span.wrapper');
 	
@@ -91,34 +90,16 @@ if($isImage) $html.= _open('span.wrapper');
 	
 	//Properties from ContactPoint :
 	$contactPointOpt = array('container' => 'div.contactPoints itemprop="contactPoints"');
-	if(isset($contactType))	$contactPointOpt['contactType']	= $contactType;
-	if(isset($email))		$contactPointOpt['email']		= $email;
-	if(isset($faxNumber))	$contactPointOpt['faxNumber']	= $faxNumber;
-	if(isset($telephone))	$contactPointOpt['telephone']	= $telephone;
+	if(isset($contactType) && !$isLight)$contactPointOpt['contactType']	= $contactType;
+	if(isset($email))					$contactPointOpt['email']		= $email;
+	if(isset($faxNumber))				$contactPointOpt['faxNumber']	= $faxNumber;
+	if(isset($telephone))				$contactPointOpt['telephone']	= $telephone;
 	$html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint', $contactPointOpt);
 	
-	/*
-	//Numéro de téléphone
-	if(isset($telephone))	if($telephone)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Phone'), 'value' => $telephone, 'itemprop' => 'telephone'));
+	//__('Responsable in')
 	
-	//Ajout de la rubrique
-	if(isset($rubrique) && !$isLight) $html.= get_partial('global/schema/DataType/Text', array('type' => __('Responsable in'), 'value' => $rubrique, 'container' => 'span.rubrique'));
-	
-	//options d'affichage de l'email
-	if(isset($email)) if($email) {
-		$emailOpt = array(
-					'type'		=> __('Email'),
-					'value'		=> $email,
-					'itemprop' => 'email'
-				);
-		//si l'URL n'est pas définit pour la personne alors on peut rajouter l'email dans l'affichage
-		if(!isset($url)) $emailOpt['url'] = 'mailto:' . $email;
-		$html.= get_partial('global/schema/DataType/Text', $emailOpt);
-	}
-	 */
 	//affichage de la description
 	if(isset($description) && !$isLight) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
-	 
 	
 //fermeture du container de contenu
 if($isImage) $html.= _close('span.wrapper');
