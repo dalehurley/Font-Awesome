@@ -8,7 +8,9 @@
  * $node
  * $container
  * $separator
- * $isLight
+ * $isLight				permet d'indiquer une version allégée (notamment pour des affichages spéciaux dans les sidebars)
+ * $count				indique le numéro de listing
+ * $maxCount			indique le nombre maximal d'éléments affichages
  * 
  */
 
@@ -18,6 +20,12 @@ if(isset($container)) {
 	$ctnOpts['class'][] = $itemType;
 	$ctnOpts['itemscope'] = 'itemscope';
 	$ctnOpts['itemtype'] = 'http://schema.org/' . $itemType;
+	
+	//gestion de l'index de positionnement
+	if(isset($count) && isset($maxCount)) {
+		if($count == 1)			$ctnOpts['class'][] = 'first';
+		if($count >= $maxCount)	$ctnOpts['class'][] = 'last';
+	}
 }
 
 //séparateur par défaut
@@ -30,8 +38,12 @@ if(!isset($isLight)) $isLight = false;
 if(isset($node)) {
 	//Properties from Thing
 	if(!isset($description)) {
-		try { $description = $node->getResume(); }
-		catch(Exception $e) { $description = null; }
+		try { $description = strip_tags($node->getResume(), '<sup><sub>'); }
+		catch(Exception $e) {
+			//sinon on récupère le texte de la node (utile pour les Person)
+			try { $description = strip_tags($node->getText(), '<sup><sub>'); }
+			catch(Exception $e) { $description = null; }
+		}
 	}
 	if(!isset($image)) {
 		try { $image = $node->getImage(); }
