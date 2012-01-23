@@ -37,8 +37,13 @@ EOF;
                 'Vraiment sur ? (y/n)'
             ) , 'QUESTION_LARGE', true)) {
                 $this->logSection('Erase', '...');
+                
                 // récupération du nom de domaine du site via la table dmSetting
-                $settings = dmDb::query('DmSetting s')->withI18n($options['lang'])->where('s.name = ?', 'base_urls')->limit(1)->fetchRecords();
+                $settings = dmDb::query('DmSetting s')
+                ->withI18n($options['lang'])
+                ->where('s.name = ?', 'base_urls')
+                ->limit(1)
+                ->fetchRecords();
                 
                 foreach ($settings as $setting) {
                     // une liste json des url (les controleurs) utilisées dans le site, pour chaque app et environnement accédés via un navigateur
