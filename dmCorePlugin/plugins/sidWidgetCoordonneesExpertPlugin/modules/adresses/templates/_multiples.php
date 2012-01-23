@@ -2,10 +2,6 @@
 // vars : $adresses, $titreBloc
 $html = '';
 
-//$html.= get_partial('global/schema/DataType/Text', array(/*'type' => 'Address', */'value' => 'testValeur', 'itemprop' => 'url', 'url' => 'http://www.google.fr'/*, 'container' => 'div', 'customClass' => 'rubrique'*/));
-
-
-
 if (count($adresses)) {
 	//titre du contenu
 	if($titreBloc) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
@@ -21,30 +17,17 @@ if (count($adresses)) {
 		//incrémentation compteur
 		$count++;
 		
-		
-		$html.= get_partial('global/schema/Thing/Organization', array('node' => $adresse, 'container' => 'li.element'));
-		//$html.= '<br/>';
-		//$html.= '<br/>';
-		/*
-		
-		$html.= get_partial('global/publicationListElement', array(
-												'node' => $adresse,
-												'itemType' => 'Organization',
-												'count' => $count,
-												'maxCount' => $maxCount
-												));
-		 * 
-		 */
-        //$html.= get_partial("objectPartials/adresseCabinet", array("renseignements" => $adresse));
+		$html.= get_partial('global/schema/Thing/Organization', array(
+														'node' => $adresse,
+														'container' => 'li.element',
+														'count' => $count,
+														'maxCount' => $maxCount
+														));
     }
 	
     //fermeture du listing
     $html.= _close('ul.elements');
-	
-	
-	
 } // sinon on affiche rien
-
 
 //affichage html de sortie
 echo $html;
