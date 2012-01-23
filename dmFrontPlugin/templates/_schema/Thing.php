@@ -7,8 +7,8 @@
  * Variables disponibles :
  * $node
  * $container
- * $imageGridWidth
- * $imageGridHeight
+ * $imageGridWidth		nombre de colonnes en largeur de l'image
+ * $imageGridHeight		nombre de lignes en hauteur de l'image
  * $imageContainer
  * 
  * Properties from Thing :
@@ -40,7 +40,7 @@ if(isset($image)) if($image) {
 	//en attendant meilleure intégration avec datatype image
 	$html.= get_partial('global/imageWrapper', array(
 													'image'	=>	$image,
-													'alt'	=>	$title,
+													'alt'	=>	$name,
 													'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
 													'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
 													));

@@ -7,7 +7,6 @@
  * Variables disponibles :
  * $node
  * $container
- * $rubrique
  * $isLight
  * 
  * Properties from Thing :
@@ -64,8 +63,12 @@ $html = '';
 //ouverture du container
 if(isset($container)) $html.= _open($container, $ctnOpts);
 
+//dimensions de l'image
+$imageGridWidth = ($isLight) ? spLessCss::getLessParam('thumbS_col') : spLessCss::getLessParam('thumbM_col');
+$imageGridHeight = ($isLight) ? spLessCss::getLessParam('thumbS_bl') : spLessCss::getLessParam('thumbM_bl') * 2;
+
 //Properties from Thing :
-$thingOpt = array();
+$thingOpt = array('imageGridWidth' => $imageGridWidth, 'imageGridHeight' => $imageGridHeight);
 if(isset($node))		$thingOpt['node']			= $node;
 						$thingOpt['description']	= false;
 if(isset($image))		$thingOpt['image']			= $image;
@@ -82,12 +85,24 @@ if($isImage) $html.= _open('span.wrapper');
 	if(isset($name) || isset($jobTitle)) {
 		$html.= _open('div.subWrapper');
 			if(isset($name)) if($name) $html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
-			if(isset($jobTitle)) if($jobTitle) $html.= _tag('span.separator', $separator) . get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'name'));	
+			if(isset($jobTitle)) if($jobTitle) $html.= _tag('span.separator', '&#160;-&#160;') . get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));	
 		$html.= _close('div');
 	}
 	
+	//Properties from ContactPoint :
+	$contactPointOpt = array('container' => 'div.contactPoints itemprop="contactPoints"');
+	if(isset($contactType))	$contactPointOpt['contactType']	= $contactType;
+	if(isset($email))		$contactPointOpt['email']		= $email;
+	if(isset($faxNumber))	$contactPointOpt['faxNumber']	= $faxNumber;
+	if(isset($telephone))	$contactPointOpt['telephone']	= $telephone;
+	$html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint', $contactPointOpt);
+	
+	/*
+	//Numéro de téléphone
+	if(isset($telephone))	if($telephone)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Phone'), 'value' => $telephone, 'itemprop' => 'telephone'));
+	
 	//Ajout de la rubrique
-	if(isset($rubrique) && !$isLight) $html.= get_partial('global/schema/DataType/Text', array('type' => __('Responsable in'), 'value' => $rubrique));
+	if(isset($rubrique) && !$isLight) $html.= get_partial('global/schema/DataType/Text', array('type' => __('Responsable in'), 'value' => $rubrique, 'container' => 'span.rubrique'));
 	
 	//options d'affichage de l'email
 	if(isset($email)) if($email) {
@@ -100,9 +115,10 @@ if($isImage) $html.= _open('span.wrapper');
 		if(!isset($url)) $emailOpt['url'] = 'mailto:' . $email;
 		$html.= get_partial('global/schema/DataType/Text', $emailOpt);
 	}
-	
+	 */
 	//affichage de la description
 	if(isset($description) && !$isLight) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
+	 
 	
 //fermeture du container de contenu
 if($isImage) $html.= _close('span.wrapper');
