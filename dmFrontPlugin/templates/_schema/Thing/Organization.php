@@ -41,9 +41,6 @@ include $includeDefault;
 //Composition du html de sortie
 $html = '';
 
-//ouverture du container
-if(isset($container)) $html.= _open($container, $ctnOpts);
-
 //Properties from Thing :
 $thingOpt = array();
 if(isset($node))		$thingOpt['node']			= $node;
@@ -57,7 +54,7 @@ $html.= get_partial('global/schema/Thing', $thingOpt);
 //on extrait les variables contenus dans adresse et on remplace celle éventuellement définies
 if(isset($address)) extract($address, EXTR_OVERWRITE);
 
-$addressOpt = array('container' => 'div.address itemprop="address"');
+$addressOpt = array('container' => 'div.address itemprop="address"', 'url' => false);
 //désactivation d'éléments
 $addressOpt['name']				= false;
 $addressOpt['email']			= false;
@@ -76,8 +73,8 @@ if(isset($email))		if($email)		$html.= get_partial('global/schema/DataType/Text'
 if(isset($telephone))	if($telephone)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Phone'),			'value' => $telephone,		'itemprop' => 'telephone'));
 if(isset($faxNumber))	if($faxNumber)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Fax'),			'value' => $faxNumber,		'itemprop' => 'faxNumber'));
 
-//fermeture du container
-if(isset($container)) $html.= _close($container);
+//englobage dans un container
+if(isset($container)) $html = _tag($container, $ctnOpts, $html);
 
 //Affichage html de sortie
 echo $html;

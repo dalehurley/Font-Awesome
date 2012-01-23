@@ -60,9 +60,6 @@ include $includeDefault;
 //Composition du html de sortie
 $html = '';
 
-//ouverture du container
-if(isset($container)) $html.= _open($container, $ctnOpts);
-
 //dimensions de l'image
 $imageGridWidth = ($isLight) ? spLessCss::getLessParam('thumbS_col') : spLessCss::getLessParam('thumbM_col');
 $imageGridHeight = ($isLight) ? spLessCss::getLessParam('thumbS_bl') : spLessCss::getLessParam('thumbM_bl') * 2;
@@ -89,7 +86,7 @@ if($isImage) $html.= _open('span.wrapper');
 	}
 	
 	//Properties from ContactPoint :
-	$contactPointOpt = array('container' => 'div.contactPoints itemprop="contactPoints"');
+	$contactPointOpt = array('container' => 'div.contactPoints itemprop="contactPoints"', 'url' => false);
 	if(isset($contactType) && !$isLight)$contactPointOpt['contactType']	= $contactType;
 	if(isset($email))					$contactPointOpt['email']		= $email;
 	if(isset($faxNumber))				$contactPointOpt['faxNumber']	= $faxNumber;
@@ -104,8 +101,12 @@ if($isImage) $html.= _open('span.wrapper');
 //fermeture du container de contenu
 if($isImage) $html.= _close('span.wrapper');
 
-//fermeture du container
-if(isset($container)) $html.= _close($container);
+
+//inclusion dans le lien si nécessaire
+if(isset($url)) $html = _link($url)->text($html)->title($name)->set('.link_box');
+
+//englobage dans un container
+if(isset($container)) $html = _tag($container, $ctnOpts, $html);
 
 //Affichage html de sortie
 echo $html;
