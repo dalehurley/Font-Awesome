@@ -13,7 +13,7 @@
  * $teaser
  * $teaserLength
  * $navigationElements
- * $rubrique	indique la rubrique (utilisé essentiellement par l'équipe
+ * $rubrique	indique la rubrique (utilisé essentiellement par l'équipe)
  * $count		indique le numéro de listing
  * $maxCount	indique le nombre maximal d'éléments affichages
  * $isLight		permet d'indiquer une version allégée (notamment pour des affichages spéciaux dans les sidebars)
@@ -136,41 +136,6 @@ $html = _open('li', $ctnOpts);
 			$htmlLi.= _close('div');
 			 * 
 			 */
-		}
-		elseif($itemType == 'Person'){
-			$htmlLi.= _open('div.subWrapper');
-				$htmlLi.= _tag('span.name itemprop="name"', $node->getTitle());
-				$htmlLi.= '&#160;-&#160;';
-				$htmlLi.= _tag('span.jobTitle itemprop="jobTitle"', $node->getStatut());
-			$htmlLi.= _close('div');
-			
-			$htmlLi.= get_partial('global/schemaTypeValue', array(
-																'itemType'	=> 'telephone',
-																'type'		=> __('Phone'),
-																'value'		=> $node->getTel()
-															));
-			
-			//affichage de la rubrique si définit et option isLight désactivée
-			if(isset($rubrique) && !$isLight) $htmlLi.= get_partial('global/schemaTypeValue', array(
-																'itemType'	=> 'rubrique',
-																'type'		=> __('Responsable in'),
-																'value'		=> $rubrique,
-																'noProp'	=> true
-																));
-			
-			//options d'affichage de l'email
-			$emailOpt = array(
-							'itemType'	=> 'email',
-							'type'		=> __('Email'),
-							'value'		=> $node->getEmail()
-						);
-			//si l'URL n'est pas définit pour le listing alors on peut rajouter l'email dans l'affichage
-			if(!isset($linkUrl)) $emailOpt['linkUrl'] = 'mailto:' . $node->getEmail();
-			$htmlLi.= get_partial('global/schemaTypeValue', $emailOpt);
-			
-			//affichage de la description
-			if(!$isLight) $htmlLi.= get_partial('global/descriptionWrapper', array('teaser' => $node->getText()));
-			
 		}else{
 			if(isset($title))										$htmlLi.= get_partial('global/titleWrapper', array('title' => $title));
 			if(isset($node->created_at) && $itemType == 'Article')	$htmlLi.= get_partial('global/dateWrapperShort', array('node' => $node));
