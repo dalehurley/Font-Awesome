@@ -1,7 +1,7 @@
 <?php
 /*
  * Thing.php
- * v1.0
+ * v1.1
  * Permet d'afficher un élément de base
  * 
  * Variables disponibles :
@@ -29,11 +29,11 @@ $html = '';
 
 //définition des options du container
 $ctnOpts = array();
-
-if(isset($itemprop)) $ctnOpts['class'][] = $itemprop;
-if((isset($itemprop) && !isset($type) && !isset($url)) || $itemprop == 'url') $ctnOpts['itemprop'] = $itemprop;
+if(isset($itemprop)) {
+	$ctnOpts['class'][] = $itemprop;
+	if((!isset($type) && !isset($url)) || $itemprop == 'url') $ctnOpts['itemprop'] = $itemprop;
+}
 if(isset($customClass)) $ctnOpts['class'][] = $customClass;
-
 
 //concaténation du lien si présent
 if(isset($url) && $itemprop != 'url') {
