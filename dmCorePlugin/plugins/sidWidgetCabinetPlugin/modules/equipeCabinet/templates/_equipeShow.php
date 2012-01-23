@@ -23,7 +23,7 @@ if (count($equipes)) { // si nous avons des actu articles
 		//affichage de la ville d'implantation
 		$html.= get_partial('global/titleSupWrapper', array('title' => (__('Implantation') . '&#160;:&#160;'. $implantation['ville'])));
 		//ouverture de la liste
-		$html.= _open('ul.elements');
+		$html.= _open('ul.elements.clearfix');
 		
 		//compteur
 		$count = 0;
