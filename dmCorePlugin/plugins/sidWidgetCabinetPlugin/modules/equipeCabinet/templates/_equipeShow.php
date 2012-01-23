@@ -34,13 +34,17 @@ if (count($equipes)) { // si nous avons des actu articles
 			//incrémentation compteur
 			$count++;
 			
-			$html.= get_partial('global/schema/Thing/Person', array(
-														'node' => $equipe,
-														'contactType' => $nomRubrique[$equipe->id],
-														'container' => 'li.element',
-														'count' => $count,
-														'maxCount' => $maxCount
-														));
+			//options des personnes
+			$personOpt = array(
+							'node' => $equipe,
+							'container' => 'li.element',
+							'count' => $count,
+							'maxCount' => $maxCount
+							);
+			//rajout de la responsabilité seulement si présent
+			if(array_key_exists($equipe->id, $nomRubrique)) $personOpt['contactType'] = $nomRubrique[$equipe->id];
+			
+			$html.= get_partial('global/schema/Thing/Person', $personOpt);
 		}
 		
 		//fermeture de la liste et du container
