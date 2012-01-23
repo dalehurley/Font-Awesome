@@ -1,8 +1,9 @@
 <?php
 // vars : $missions, $titreBloc
 
+$html = '';
 //titre du contenu
-$html = get_partial('global/titleWidget', array('title' => $titreBloc, 'isContainer' => true));
+if($titreBloc != null) $html = get_partial('global/titleWidget', array('title' => $titreBloc, 'isContainer' => true));
 
 // si nous avons des actu articles
 if(count($missions)) {
@@ -13,7 +14,7 @@ if(count($missions)) {
 	
 }else{
 	// sinon on affiche rien
-	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('articleBody' => '{{mission}}'));
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{mission}}'));
 }
 
 //affichage html de sortie

@@ -1,8 +1,9 @@
 <?php
 // vars : $recrutements, $titreBloc
 
+$html = '';
 //titre du contenu
-$html = get_partial('global/titleWidget', array('title' => $titreBloc, 'isContainer' => true));
+if($titreBloc != null) $html = get_partial('global/titleWidget', array('title' => $titreBloc, 'isContainer' => true));
 
 if(count($recrutements)){
 	//affichage du contenu
@@ -11,7 +12,7 @@ if(count($recrutements)){
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $recrutementOpts);
 	
 }else{
-	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('articleBody' => '{{recrutement}}'));
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{recrutement}}'));
 }
 
 //affichage html en sortie
