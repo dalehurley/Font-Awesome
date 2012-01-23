@@ -9,6 +9,7 @@
  * $container
  * $separator
  * $isLight				permet d'indiquer une version allégée (notamment pour des affichages spéciaux dans les sidebars)
+ * $descriptionLength
  * $count				indique le numéro de listing
  * $maxCount			indique le nombre maximal d'éléments affichages
  * 
@@ -47,9 +48,17 @@ if(isset($node)) {
 	if(!isset($description)) {
 		try { $description = strip_tags($node->getResume(), '<sup><sub>'); }
 		catch(Exception $e) {
+			//getTitleEntetePage
 			//sinon on récupère le texte de la node (utile pour les Person)
-			try { $description = strip_tags($node->getText(), '<sup><sub>'); }
-			catch(Exception $e) { $description = null; }
+			try { $description = strip_tags($node->getChapeau(), '<sup><sub>'); }
+			catch(Exception $e) {
+				try { $description = strip_tags($node->getText(), '<sup><sub>'); }
+				catch(Exception $e) { $description = null; }
+			}
+		}
+		//on raccourci la description si une longueur de description est définie
+		if($description != null && isset($descriptionLength)) {
+			$description = stringTools::str_truncate($description, $descriptionLength, '&#160;(...)', true, true);
 		}
 	}
 	if(!isset($image)) {
@@ -101,6 +110,30 @@ if(isset($node)) {
 	if(!isset($jobTitle)) {
 		try { $jobTitle = $node->getStatut(); }
 		catch(Exception $e) { $jobTitle = null; }
+	}
+	
+	//Properties from CreativeWork (rajouter autres variables quand implémentées) :
+	if(!isset($dateCreated)) {
+		try { $dateCreated = $node->created_at; }
+		catch(Exception $e) { $dateCreated = null; }
+	}
+	if(!isset($dateModified)) {
+		try { $dateModified = $node->updated_at; }
+		catch(Exception $e) { $dateModified = null; }
+	}
+	
+	//Properties from Article
+	if(!isset($articleBody)) {
+		try { $articleBody = $node->getText(); }
+		catch(Exception $e) { $articleBody = null; }
+	}
+	if(!isset($articleSection)) {
+		try {
+			$section = $node->getSectionPageTitle();
+			$rubrique = $node->getRubriquePagetitle();
+			$articleSection = $rubrique . '&#160;-&#160;' . $section;
+		}
+		catch(Exception $e) { $articleSection = null; }
 	}
 }
 
