@@ -1,0 +1,9 @@
+#actusDuCabinet:
+dmWidgetContent:
+
+  blocDePubEnFlash:
+    cache:              true
+    public_name:        (pubsFlash) Bloc de pub en flash
+
+    
+        

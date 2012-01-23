@@ -1,6 +1,6 @@
 <?php
 /**
- *  Valeurs par défaut 
+ *  Valeurs par defaut 
  */
 $apacheDirLog = '/data/logs/sitesv3';
 $webDirDefault = 'htdocs';
@@ -22,6 +22,7 @@ require_once(sfConfig::get('dm_core_dir') . '/lib/os/dmOs.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/project/dmProject.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/task/dmServerCheckTask.class.php');
 
+
 //$this->logBlock(DIEM_VERSION . '-SID installer', 'INFO_LARGE');
 //$this->logSection('Site V3', 'Bienvenue dans l\'installeur des sites V3.');
 //$this->logSection('Diem', 'We will now check if your server matches Symfony '.SYMFONY_VERSION.' and Diem '.DIEM_VERSION.' requirements.');
@@ -34,7 +35,7 @@ $serverCheck->setCommandApplication($this->commandApplication);
 
 //
 //if ($this->askConfirmation(array(
-//            dirname(__FILE__).' Arreter ? (y/n)'), 'QUESTION_LARGE', true)
+//            dirname(__FILE__).' Arreter ? (y/n)'), 'QUESTION_LARGE','')
 //) {
 //    exit;
 //}
@@ -97,11 +98,11 @@ $settings['culture'] = 'fr';
 $webDirName = $this->askAndValidate(array('', 'Le nom du dossier web public? (par defaut : '.$webDirDefault.' )', ''), new sfValidatorAnd(array(
                     new sfValidatorRegex(
                             array('pattern' => '/^[\w\d-]+$/', 'required' => false),
-                            array('invalid' => 'Seulement des caractères alphanumériques.')
+                            array('invalid' => 'Seulement des caracteres alphanumeriques.')
                     ),
                     new sfValidatorRegex(
                             array('pattern' => '/^(apps|lib|config|data|cache|log|plugins|test)$/', 'must_match' => false, 'required' => false),
-                            array('invalid' => 'Déjà utilisé par symfony')
+                            array('invalid' => 'Deja utilise par symfony')
                     )
                         ), array('required' => false)), array('required' => false));
 $settings['web_dir_name'] = empty($webDirName) ? $webDirDefault : $webDirName;
@@ -111,14 +112,14 @@ $settings['web_dir_name'] = empty($webDirName) ? $webDirDefault : $webDirName;
 $apache_dir_log = $this->ask(array('', 'Dossier des logs Apache? (par defaut : '.$apacheDirLog.')', ''));
 $settings['apache_dir_log'] = empty($apache_dir_log) ? $apacheDirLog : $apache_dir_log;
 
-// on attend que le dossier de logs apache soit créé
+// on attend que le dossier de logs apache soit cree
 do {
     if (!is_dir($settings['apache_dir_log'])) {
         $this->logBlock('Il faut creer le dossier "' . $settings['apache_dir_log'] . '". Merci.', 'ERROR_LARGE');
         $this->ask(array('', 'Si le dossier "' . $settings['apache_dir_log'] . '" est cree tapez ENTER.', ''));
     }
 } while (!is_dir($settings['apache_dir_log']));
-// on attend que le dossier de logs apache du site puisse être créé
+// on attend que le dossier de logs apache du site puisse être cree
 //mkdir($settings['apache_dir_log'] . '/' . $projectKey); 
 do {
     if (!is_dir($settings['apache_dir_log'] . '/' . $projectKey)) {
@@ -235,7 +236,7 @@ $sendReports = 'n';
 
 if ($isDatabaseExist) {
     if (!$this->askConfirmation(array(
-                'La base de donnees ' . $settings['database']['name'] . ' existe deja, elle correspond a un autre site. L\'effacer? (y/n)',
+                'La base de donnees ' . $settings['database']['name'] . ' existe deja, elle correspond a un autre site. L\'effacer? (y/n) (par defaut y)',
                     ), 'QUESTION_LARGE', true)
     ) {
         //$this->logSection('Site V3', 'Installation annulee');
@@ -308,7 +309,7 @@ try {
 //}
 
 // sitemap.xml
-chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml', 0666);
+//chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml', 0666);
 
 /*
  * GÃ©nÃ©ration du fichier de conf
@@ -323,12 +324,12 @@ chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml',
 
 
 $confFileContent = '<VirtualHost '.$settings['ndd'].' >
-	ServerName  	' . $settings['ndd'] . '
-	DocumentRoot	'.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'
-	ErrorLog        '.$settings['apache_dir_log'].'/'.$projectKey.'/error.log
-   	CustomLog       '.$settings['apache_dir_log'].'/'.$projectKey.'/access.log CompletSimple
-	AddType         application/x-httpd-php .php
-	DirectoryIndex  index.php
+  ServerName    ' . $settings['ndd'] . '
+  DocumentRoot  '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'
+  ErrorLog        '.$settings['apache_dir_log'].'/'.$projectKey.'/error.log
+    CustomLog       '.$settings['apache_dir_log'].'/'.$projectKey.'/access.log CompletSimple
+  AddType         application/x-httpd-php .php
+  DirectoryIndex  index.php
 
 <Directory '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'>
 Options +FollowSymLinks +ExecCGI
@@ -386,7 +387,7 @@ Options +FollowSymLinks +ExecCGI
 ';
 
 // Conf de Apache (Vhost et rewrite) 
-// nous insérons le contenu du .htaccess dans le fichier de conf.
+// nous inserons le contenu du .htaccess dans le fichier de conf.
 // si le fichier de conf est inclu dans le httpd.conf d'apache alors plus besoin du .htaccess, doc sur le sujet (http://httpd.apache.org/docs/2.2/fr/sections.html)
 $fileConf = sfConfig::get('sf_root_dir').'/conf/httpd.conf';
 if (file_exists($fileConf)) {
@@ -432,7 +433,7 @@ $arrayTemplates = scandir($diemLibConfigDir . '/../../themesFmk/_templates');
 $i = 0;
 $dispoTemplates = array();
 foreach ($arrayTemplates as $template) {
-    // on affiche les themes non précédés par un "_" qui correspondent aux themes de test ou obsolètes
+    // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
     if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_') {
         $i++;
         $dispoTemplates[$i] = $template;
@@ -453,7 +454,7 @@ $settings['numTemplate'] = $numTemplate;
 $nomTemplateChoisi = $dispoTemplates[$settings['numTemplate']];
 $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'INFO_LARGE');
 
-// on intègre tout le framework
+// on integre tout le framework
 // 
 
 // on est dans le dossier htdocs:
@@ -466,7 +467,7 @@ $this->getFilesystem()->execute('cp -r ' . $diemLibConfigDir . '/../../themesFmk
 // on remplace dans le dossier    sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme  les ##THEME## par le $nomTemplateChoisi
 //MACOSX : modifs syntaxe
 $this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/'.$nomTemplateChoisi.'/g\'');
-// on crée les liens symboliques
+// on cree les liens symboliques
 //MACOSX : modifs syntaxe
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_framework', $out, $err);
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_templates', $out, $err);
@@ -497,11 +498,11 @@ $commands = array(
 foreach ($commands as $libCommand => $command) {
     $out = $err = null;
     try {
-	//$this->logBlock($libCommand, 'INFO_LARGE');  // pour le serveur de dev
-	$out = $err = null;
-	$this->getFilesystem()->execute($command, $out, $err);
+  //$this->logBlock($libCommand, 'INFO_LARGE');  // pour le serveur de dev
+  $out = $err = null;
+  $this->getFilesystem()->execute($command, $out, $err);
     } catch (exception $e) {
-	$this->logBlock('Error for :'.$libCommand, 'ERROR_LARGE');
+  $this->logBlock('Error for :'.$libCommand, 'ERROR_LARGE');
     }
 }
 */
@@ -517,15 +518,15 @@ $i = 1;
 $dispoDumps = array();
 $libelleEmptyDump = '(empty Dump)';
 $dispoDumps[$i] = $libelleEmptyDump; // dump vide
-$extensionDump = 'dump'; // ATTENTION : utilisé dans contentTemplateTools.class.php
+$extensionDump = 'dump'; // ATTENTION : utilise dans contentTemplateTools.class.php
 
 foreach ($arrayDumps as $dump) {
-    // on affiche les themes non précédés par un "_" qui correspondent aux themes de test ou obsolètes
+    // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
     if ($dump != '.' && $dump != '..' && substr($dump, 0, 1) != '_') {
-	if (substr($dump, strlen($dump) - strlen($extensionDump)) == $extensionDump){ // on cherche les fichiers d'extension dump
-	    $i++;
-	    $dispoDumps[$i] = str_replace('.'.$extensionDump, '', $dump); // on retire l'extension	    
-	} 
+  if (substr($dump, strlen($dump) - strlen($extensionDump)) == $extensionDump){ // on cherche les fichiers d'extension dump
+      $i++;
+      $dispoDumps[$i] = str_replace('.'.$extensionDump, '', $dump); // on retire l'extension      
+  } 
     }
 }
 // on affiche les choix
@@ -546,8 +547,8 @@ $this->logBlock('Vous avez choisi le dump : ' . $nomDumpChoisi, 'INFO_LARGE');
 if ($nomDumpChoisi != $libelleEmptyDump) { // on fait un loadDB si on a choisi un dump autre que le dump vide
     $out = $err = null;
     $this->getFilesystem()->execute(sprintf(
-		    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'db:loadDB ' . $dirDumpContentTheme . '/' . $nomDumpChoisi . '.' . $extensionDump
-	    ), $out, $err);
+        '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'db:loadDB ' . $dirDumpContentTheme . '/' . $nomDumpChoisi . '.' . $extensionDump
+      ), $out, $err);
 }
 
 //-------------------------------------------------------------------------------------
@@ -555,7 +556,7 @@ if ($nomDumpChoisi != $libelleEmptyDump) { // on fait un loadDB si on a choisi u
 //-------------------------------------------------------------------------------------
 $this->logBlock('Chmod -R 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme" pour laisser php ecrire via lessPlugin et sprite_init', 'INFO_LARGE');
 $out = $err = null;
-$this->getFilesystem()->execute('sudo chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme', $out, $err);
+$this->getFilesystem()->execute('chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme', $out, $err);
 
 
 $this->logBlock('Les permissions (dm:permissions)', 'INFO_LARGE');
@@ -566,35 +567,36 @@ $this->getFilesystem()->execute(sprintf(
 
 $this->logBlock('Chmod 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads" pour laisser php ecrire via dmMedia', 'INFO_LARGE');
 $out = $err = null;
-$this->getFilesystem()->execute('sudo chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads', $out, $err);
+$this->getFilesystem()->execute('chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads', $out, $err);
 
 //-------------------------------------------------------------------------------------
 //    Redemarrage Apache
 //-------------------------------------------------------------------------------------
 $commands = array(
-     'Restart apache par apachectl graceful (sudo)' => 'sudo apachectl graceful'
+     'Restart apache (sudo service apache restart)' => 'sudo service apache restart graceful',
+     'Restart apache (sudo service httpd restart)' => 'sudo service httpd restart graceful',
     );
 
 foreach ($commands as $libCommand => $command) {
     $out = $err = null;
     try {
-	//$this->logBlock($libCommand, 'INFO_LARGE');  
-	$out = $err = null;
-	$this->getFilesystem()->execute($command, $out, $err);
+        //$this->logBlock($libCommand, 'INFO_LARGE');  
+  $out = $err = null;
+  $this->getFilesystem()->execute($command, $out, $err);
     } catch (exception $e) {
-	$this->logBlock('Error for :'.$libCommand, 'ERROR_LARGE');
+  $this->logBlock('Error: '.$libCommand, 'ERROR_LARGE');
     }
 }
 
 //-------------------------------------------------------------------------------------
-//    Lecture de la page $settings['ndd'] . '/dev.php afin de créer les fichier .css à partir des .less
+//    Lecture de la page $settings['ndd'] . '/dev.php afin de creer les fichier .css a partir des .less
 //    On execute un : php symfony less:compile --application="front" --debug --clean 
 //-------------------------------------------------------------------------------------
-$this->logBlock('Generation des fichiers CSS à partir des less.', 'INFO_LARGE');
+$this->logBlock('Generation des fichiers CSS a partir des less.', 'INFO_LARGE');
 $out = $err = null;
 $this->getFilesystem()->execute(sprintf(
-		'%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:compile --application="front" --debug --clean'
-	), $out, $err);
+    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:compile --application="front" --debug --clean'
+  ), $out, $err);
 
 //-------------------------------------------------------------------------------------
 //    The END.

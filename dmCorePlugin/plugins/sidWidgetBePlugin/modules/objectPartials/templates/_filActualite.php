@@ -1,7 +1,6 @@
 <?php
 
 echo _open('li.element');
-
 if($photo == 1){
 //lien vers l'image
 $imgLink = '/_images/lea' . $article->filename . '-p.jpg';
