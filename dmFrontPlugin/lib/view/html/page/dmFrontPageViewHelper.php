@@ -80,7 +80,7 @@ class dmFrontPageViewHelper extends dmFrontPageBaseHelper
                 } else {
                     // on affiche un message que pour l'environnement de dev
                     if (sfConfig::get('sf_environment') == 'dev') {
-                        $html .= debugTools::infoDebug('Constante' => $match . ' n\'existe pas. Merci de l\'ajouter dans l\'administration du site > Outils > Constantes.', 'warning');
+                        $html .= debugTools::infoDebug(array('Constante' => $match . ' n\'existe pas. Merci de l\'ajouter dans l\'administration du site > Outils > Constantes.', 'warning'));
                     }
                 }
             }

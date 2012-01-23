@@ -2,6 +2,7 @@
 /**
  * Class debug tools
  */
+
 class debugTools {
     /**
      * Affichage d'une fenetre d'info de deboggage simple
