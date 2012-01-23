@@ -2,7 +2,7 @@ default:
 
   i18n:                                 # internationalization
     cultures:             [ en ]        # Available cultures
-  
+
   cache:                                # Cache management
     apc:                  true          # (RECOMMENDED) Use Apc if available on current server
 
@@ -16,10 +16,8 @@ default:
                                         # declare them here. This degrades performances but is required
                                         # by some symfony plugins that embed jQuery code.
                                         # example: [ lib.jquery ]
-    
   css:
     compress:             true          # (RECOMMENDED) Performance : Minifies stylesheets and put them into a single compressed file
-    
   seo:                                  # Search engine optimization configuration
     use_keywords:         true          # Keywords are useless for seo, but you can use them if you want
     truncate:                           # Max length for meta fields. Can not exceed 255 characters
@@ -34,14 +32,14 @@ default:
                                         # More configuration : please use ProjectConfiguration::configureDoctrine method
     identifier_fields:    [ name, title, slug, subject, id ] # Fields used to represent a record with a string
     cache_enabled:        true          # (RECOMMENDED) Use doctrine query cache. No side effect, automatic cache invalidation )
-    
+
   backup:                               # keep a copy of files modified by Dm code editors
     enabled:              true          # (RECOMMENDED) enable backup
-  
+
   web_debug:                            # web debug panel configuration
     only_html_response:   true          # will skip web debug panel display on non html response
     config_fast_dump:     true          # use print_r instead of sfYaml::dump to show config in web debug panel. ( ~40x faster )
-    
+
   toolBar:
     flavour:              black         # the toolbar flavour. Diem default values: grey, blue, green, brown, black
                                         # You can also set a custom flavour and style #dm_tool_bar.flavour_name in your themeAdmin css path
@@ -70,9 +68,9 @@ default:
     page_cache:                         # Will cache entire pages and serve them very fast.
       enabled:            false         # Enable the page cache for all pages
       life_time:          86400         # Server-side lifetime of the cache in seconds (86400 seconds equals one day)
- 
+
 ###### dm internal config ######
-  
+
   core:
     asset:                dmCorePlugin
   admin:
@@ -89,7 +87,14 @@ dev:
   css:
     compress: false
 
-    
+less: 
+  cache:
+    apc: false
+  js:
+    compress: false
+  css:
+    compress: false
+
 prod:
   performance:
     page_cache:                         # Will cache entire pages and serve them very fast.

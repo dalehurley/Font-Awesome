@@ -15,13 +15,3 @@ all:
       auto_detect: false
       library: gd_mime_type #  gd_mime_type (GD), Fileinfo (PECL), MIME_Type (PEAR)
 
-dev:
-  sf_less_plugin:
-    compile:  false
-    check_dates: false
-    check_dependencies: true
-
-prod:
-  sf_less_plugin:
-    compile:  false
-    check_dates: true

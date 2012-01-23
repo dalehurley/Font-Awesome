@@ -382,7 +382,7 @@ class spLessCss extends dmFrontUser {
 		
 		//composition des options de page par défault
 		$pageTemplateOptionsDefault = array(
-							'idDev'				=> ((sfConfig::get('sf_environment') == 'dev') ? true : false),
+							'idDev'				=> ((sfConfig::get('sf_environment') == 'dev' || sfConfig::get('sf_environment') == 'less') ? true : false),
 							'currentGabarit'	=> $currentGabarit,
 							'areas'				=> array(
 								'dm_page_content'		=>	array(

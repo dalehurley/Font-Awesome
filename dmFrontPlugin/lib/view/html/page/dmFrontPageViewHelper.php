@@ -80,25 +80,11 @@ class dmFrontPageViewHelper extends dmFrontPageBaseHelper
                 } else {
                     // on affiche un message que pour l'environnement de dev
                     if (sfConfig::get('sf_environment') == 'dev') {
-                        $html .= _tag(
-                                'div.warning', 
-                                array(
-                                    'onClick' => '$(this).hide();',
-                                    ), 
-                                    '<b>WARNING:</b><br>La constante <b>' . $match . '</b> n\'existe pas. Merci de l\'ajouter dans l\'administration du site > Outils > Constantes.'
-                        );
+                        $html .= debugTools::infoDebug('Constante' => $match . ' n\'existe pas. Merci de l\'ajouter dans l\'administration du site > Outils > Constantes.', 'warning');
                     }
                 }
             }
-                    // on affiche un message que pour l'environnement de dev
-                    if (sfConfig::get('sf_environment') == 'dev') {
-                        /* $html .= _tag(
-                                'div.debug', 
-                                array(
-                                    'onClick' => '$(this).hide();'), 
-                                    $infosDev
-                        );*/
-                    }
+
             
         } else {
             // pas de constantes ##constantes## dans ce widget
