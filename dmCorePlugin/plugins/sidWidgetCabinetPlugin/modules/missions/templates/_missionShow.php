@@ -1,28 +1,20 @@
 <?php
-$html = '';
+// vars : $missions, $titreBloc
+
+//titre du contenu
+$html = get_partial('global/titleWidget', array('title' => $titreBloc, 'isContainer' => true));
 
 // si nous avons des actu articles
-if (count($missions)) {
+if(count($missions)) {
+	//affichage du contenu
+	$missionOpts = array('container' => 'article');
+	$missionOpts['node'] = $missions;
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $missionOpts);
 	
-	//titre du contenu
-	$html.= get_partial('global/titleWidget', array('title' => $titreBloc, 'isContainer' => true));
-	
-	/*
-	foreach ($missions as $mission) {
-		//ouverture du container
-		$html.= _open('div.supWrapper');
-		
-		//fermeture du container
-		$html.= _close('div.supWrapper');
-	}*/
-	
-	//affichage des missions
-	$pubOpts = array();
-	$pubOpts['node']		= $missions;
-
-	$html.= get_partial('global/publicationShow', $pubOpts);
-	
-} // sinon on affiche rien
+}else{
+	// sinon on affiche rien
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('articleBody' => '{{mission}}'));
+}
 
 //affichage html de sortie
 echo $html;
