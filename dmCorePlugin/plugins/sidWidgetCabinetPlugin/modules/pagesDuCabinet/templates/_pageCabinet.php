@@ -4,12 +4,12 @@ $html = '';
 if (count($pageCabinet)) { // si nous avons des actu articles
 	
 	//affichage du contenu
-	$pubOpts = array();
-	$pubOpts['node'] = $pageCabinet;
-	$pubOpts['title'] = $titlePage;
-	$pubOpts['teaser'] = $pageCabinet->getTitleEntetePage();
-
-	$html.= get_partial('global/publicationShow', $pubOpts);
+	$articleOpts = array('container' => 'article');
+	$articleOpts['node'] = $pageCabinet;
+	$articleOpts['name'] = $titlePage;
+	$articleOpts['description'] = $pageCabinet->getTitleEntetePage();
+	
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
 	
 	//création d'un tableau de liens à afficher
 	$elements = array();
