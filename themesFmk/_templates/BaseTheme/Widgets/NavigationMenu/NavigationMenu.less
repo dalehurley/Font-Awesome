@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.1
-// Last Updated : 2011-11-29 12:50
+// v1.2
+// Last Updated : 2012-01-18 11:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -18,24 +18,16 @@
 	margin: 0;
 	
 	//suppression bordure et padding
-	#dm_page #dm_content &, #dm_page #dm_sidebar_left &, #dm_page #dm_sidebar_right & {
+	#dm_content &, #dm_sidebar_left &, #dm_sidebar_right & {
 		.dm_widget_inner {
 			border: 0;
 			padding: 0 0 @zonesOffsetPad 0;
 			background-color: transparent;
 		}
 	}
-	/*
-	#dm_page #dm_content &, #dm_page #dm_sidebar_right & {
-		.dm_widget_inner { padding: 0 0 @zonesOffsetPad 0; }
-	}
-	#dm_page #dm_sidebar_left & {
-		.dm_widget_inner { padding: 0; }
-	}
-	*/
 	
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
-	#dm_page #dm_custom_top & {
+	#dm_custom_top & {
 		//permet d'étendre la zone en débordement de la page
 		margin-left: -100%;
 		margin-right: -100%;
@@ -122,7 +114,7 @@ ul.dropdown, ul.accordion {
 	.link {
 		background-color: @colorCouleur3ClairSup;
 		//padding: @menuDropdownPadV @menuDropdownPadH @menuDropdownPadV @gridGutter;
-		padding: @gridBaseline/2 @menuDropdownPadH @menuDropdownPadV @gridGutter;
+		padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
 		border-style: solid;
 		//border-width: 1px 1px 1px 0;
 		//border-color: @colorCouleur3ClairSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup;
@@ -225,7 +217,7 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletPortrait(){
-	#dm_page #dm_custom_top {
+	#dm_custom_top {
 		.navigation_menu {
 			.dm_widget_inner {
 				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
@@ -236,201 +228,3 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 
 //importation des requêtes média
 @import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";
-
-/*
-//Mise en page et themage personnalisé du menu de navigation dans les sidebars
-#dm_sidebar_left, #dm_sidebar_right {
-	.navigation_menu {
-		//suppression dégradé de fond
-		//background: transparent;
-		margin-bottom: @gridBaseline;
-		
-		.dm_widget_inner {
-			padding-top: 0;
-			padding-bottom: 0;
-			border-top: 0;
-			border-bottom: 0;
-		}
-	}
-}
-*/
-/*
-//Mise en page et themage personnalisé du menu de navigation dans la zone du header
-#dm_custom_top {
-	.navigation_menu {
-		
-		
-		
-		
-		
-		
-		//on affecte les dimensions en fonction du conteneur
-		ul.dropdown {
-			//ajout ombre
-			ul {
-				@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2Moyen);
-				//largeur du niveau modifiée
-				@gridWidth(3; (@gridGutter*-1));
-			}
-			
-			//liens de tous les niveaux
-			li {
-				//gestion de la flèche
-				&.dm_dir {
-					&:after { border-color: transparent transparent transparent @colorCouleur3Clair; }
-					&.hover, &:hover, &.touch {
-						&:after { border-color: @colorCouleur3ClairSup transparent transparent transparent; }
-					}
-				}
-				
-				//gestion du lien
-				.link { color: @colorCouleur3Clair; }
-				.dm_current { color: @colorCouleur1Moyen; }
-				.dm_inactive { color: @colorCouleur3Moyen; }
-				&.hover, &:hover, &.touch { color: @colorCouleur3ClairSup; }
-			}
-			
-			//couleurs des liens
-			a, a:link, a:visited { color: @colorCouleur3Clair; text-decoration: none; }
-			a:hover, a:focus { color: @colorCouleur3ClairSup; }
-			a:active { color: @colorCouleur1Moyen; }
-			
-			//liens de niveau inférieur
-			ul li {
-				//gestion couleur de fond
-				background-color: @colorCouleur2Clair;
-				
-				//gestion couleur de fond en rollOver
-				&.hover, &:hover, &.touch { background-color: @colorCouleur2MoyenSup; }
-				
-				//gestion du lien
-				.link {
-					border-color: @colorCouleur3 @colorCouleur3Fonce @colorCouleur3Fonce @colorCouleur3Fonce;
-					color: @colorCouleur3Clair;
-				}
-				
-				//désactivation bordure haute premier lien
-				&.first .link { border-top-color: transparent; }
-			}
-			
-			//liens de premier niveau
-			& > li {
-				//gestion couleur de fond
-				background-color: transparent;
-				
-				//gestion du lien
-				& > .link {
-					padding: (@gridBaseline/2) @menuDropdownPadH;
-					border-style: solid;
-					border-width: 0 1px;
-					border-right-color: transparent;
-					border-left-color: transparent;
-				}
-				
-				//gestion du lien en rollOver
-				&.hover, &:hover, &.touch {
-					background-color: @colorCouleur2Clair;
-					& > .link {
-						border-right-color: @colorCouleur3;
-						border-left-color: @colorCouleur3Fonce;
-					}
-				}
-				
-				//gestion de la flèche
-				&.dm_dir {
-					&:after {
-						//replacement
-						left: 50%;
-						top: 100%;
-						//gestion couleur flèche
-						border-color: @colorCouleur3Clair transparent transparent transparent;
-						border-width: 0 @menuArrowDim*2;
-					}
-					&.hover, &:hover, &.touch {
-						&:after { border-width: @menuArrowDim @menuArrowDim*2; }
-					}
-				}
-			}
-		}
-	}
-}
-
-//ajout styles navigateur récents
-.rgba {
-	#dm_custom_top {
-		.navigation_menu {
-			ul.dropdown {
-				//ajout couleur de fond pour correspondance transparence
-				ul {
-					background-color: @colorCouleur2;
-					//ajout ombre
-					@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 fadeout(@colorCouleur2Fonce,50%));
-				}
-				
-				//liens de niveau inférieur
-				ul li {
-					background-color: fadeout(@colorCouleur2ClairSup, 75%);
-					&.first .link { border-top-color: transparent; }
-					&.hover, &:hover, &.touch { background-color: fadeout(@colorCouleur2Moyen, 50%); }
-					.link { border-color: fadeout(@colorCouleur3Sup, 25%) fadeout(@colorCouleur3FonceSup, 25%) fadeout(@colorCouleur3FonceSup, 25%) fadeout(@colorCouleur3FonceSup, 25%); }
-				}
-				
-				//liens de premier niveau
-				& > li {
-					&.hover, &:hover, &.touch {
-						background-color: fadeout(@colorCouleur2ClairSup, 75%);
-						& > .link {
-							border-right-color: fadeout(@colorCouleur3Sup, 25%);
-							border-left-color: fadeout(@colorCouleur3FonceSup, 25%);
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-.csstransitions.csstransforms.opacity {
-	#dm_custom_top {
-		.navigation_menu {
-			ul.dropdown {
-				//liens de tous les niveaux
-				li {
-					&.dm_dir {
-						&.hover, &:hover, &.touch {
-							&:after { border-color: transparent transparent transparent @colorCouleur3ClairSup; }
-						}
-					}
-				}
-				
-				//liens de premier niveau
-				& > li {
-					& > .link {
-						@transitionCompress(color, border-color; .2s; ease-in-out;0);
-					}
-					
-					&.dm_dir {
-						&:after {
-							//ajout délai apparition flèche
-							@transitionCompress(all; 0.15s; ease-in; .15s);
-							opacity: 0;
-							//suppression animation rotation
-							@origin(50%; 50%);
-							@transformNone();
-							//replacement correct
-							@translateX(-50%);
-						}
-						&.hover, &:hover, &.touch {
-							&:after {
-								opacity: 1;
-								//gestion couleur flèche
-								border-color: @colorCouleur3ClairSup transparent transparent transparent;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-*/

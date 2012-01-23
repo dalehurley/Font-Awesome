@@ -1,6 +1,6 @@
 // _GridInit.less
-// v1.2
-// Last Updated : 2011-12-12 10:40
+// v1.3
+// Last Updated : 2012-01-18 10:55
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -40,13 +40,11 @@
 
 //GESTION DE L'ORDRE DE PRIORITÉ DES PROFONDEURS D'AFFICHAGE DANS CE SYSTÈME DE GRILLE (du plus haut au plus bas)
 //On intercale 100 entre chaque profondeur de façon à pouvoir rajouter des profondeurs intermédiaires personnalisées dans le template
-#dm_page {
-	#dm_header { z-index: 500; }
-	#dm_sidebar_right { z-index: 400; }
-	#dm_sidebar_left { z-index: 300; }
-	#dm_content { z-index: 200; }
-	#dm_footer { z-index: 100; }
-}
+#dm_header { z-index: 500; }
+#dm_sidebar_right { z-index: 400; }
+#dm_sidebar_left { z-index: 300; }
+#dm_content { z-index: 200; }
+#dm_footer { z-index: 100; }
 
 //CONFIGURATION D'UNE AREA PAR DÉFAULT (correspond à tous les dm_layout_*)
 .dm_area { position: relative; }
@@ -56,9 +54,6 @@
 //couleurs de débug
 #dm_header { @gridDebugBgc(#999); }
 #dm_footer { @gridDebugBgc(#888); }
-
-//PLACEMENT LAYOUT SITUÉS AU CENTRE
-//.dm_layout_centerTop, .dm_layout_centerBottom { clear: both; }
 
 //CONFIGURATION ZONE DE CONTENU EN FONCTION DE LA PRÉSENCE DES SIDEBARS
 #dm_content,

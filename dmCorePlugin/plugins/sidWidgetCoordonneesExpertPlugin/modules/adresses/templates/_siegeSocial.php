@@ -1,9 +1,13 @@
 <?php
 // vars : $adresse, $titreBloc
+$html = '';
+
 if (count($adresse)) {
-    if($titreBloc){// si nous avons des actu articles
-    echo _tag('h4.title', $titreBloc);
-    }
-    
-        include_partial("objectPartials/adresseCabinet", array("renseignements" => $adresse));
+	
+	if($titreBloc != null) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
+	
+	$html.= get_partial('global/schema/Thing/Organization', array('node' => $adresse, 'container' => 'div.supWrapper'));
 } // sinon on affiche rien
+
+//affichage html de sortie
+echo $html;
