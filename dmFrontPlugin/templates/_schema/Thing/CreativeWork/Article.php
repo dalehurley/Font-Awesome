@@ -1,7 +1,7 @@
 <?php
 /*
  * Article.php
- * v1.0
+ * v1.1
  * http://schema.org/Article
  * 
  * Variables disponibles :
@@ -73,15 +73,14 @@ $html = '';
 if($isLight) {
 	//voir plus tard, inutilisé
 }else{
-	
-	//contenu de l'article
-	$html = _open('header.contentHeader', array());
+	//contenu du header de l'article
+	$htmlHeader = '';
 	
 		//La rubrique l'article, à savoir Actualités, Chiffre, Dossier, etc
-		if(isset($rubrique)) $html.= _tag('h2.category', array('itemprop' => 'articleSection'), $rubrique);
+		if(isset($rubrique)) $htmlHeader.= _tag('h2.category', array('itemprop' => 'articleSection'), $rubrique);
 		//La section de l'article, à savoir Social, Juridique, Fiscal, etc
-		if(isset($section)) $html.= _tag('h3.section', array('itemprop' => 'articleSection'), $section);
-		
+		if(isset($section)) $htmlHeader.= _tag('h3.section', array('itemprop' => 'articleSection'), $section);
+
 		//on affiche l'image que si elle est effectivement présente
 		if($isImage && isset($image)){
 			$imageWrapperFullOpts = array(
@@ -90,20 +89,21 @@ if($isLight) {
 									'height'=>	spLessCss::gridGetHeight(14,0)
 									);
 			if(isset($name)) $imageWrapperFullOpts['alt'] = $name;
-			
-			$html.= get_partial('global/imageWrapperFull', $imageWrapperFullOpts);
+
+			$htmlHeader.= get_partial('global/imageWrapperFull', $imageWrapperFullOpts);
 		}
 
 		//Le titre de l'article, devant toujours être l'unique H1 dans la page
-		if(isset($name)) if($name) $html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
-		
+		if(isset($name)) if($name) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
+
 		//Chapeau de l'article si présent
-		if(isset($description)) if($description) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
+		if(isset($description)) if($description) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
 
 		//Gestion de la date avec plusieurs possibilités (dateCreated, dateModified, etc)
-		if(isset($dateCreated)) $html.= get_partial('global/dateWrapperFull', array('node' => $node));
-
-	$html.= _close('header');
+		if(isset($dateCreated)) $htmlHeader.= get_partial('global/dateWrapperFull', array('node' => $node));
+		
+	//afficahge du header de l'article si non vide
+	if($htmlHeader != null) $html.= _tag('header.contentHeader', $htmlHeader);
 	
 	//affichage du contenu de la page
 	if(isset($articleBody))	$html.= _tag('section.contentBody', array('itemprop' => 'articleBody'), $articleBody);
