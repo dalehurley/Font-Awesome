@@ -1,6 +1,6 @@
 // _GridCalcul.less
-// v1.0
-// Last Updated : 2011-09-26 16:45
+// v1.1
+// Last Updated : 2012-01-18 09:55
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -23,9 +23,6 @@
 @fontGlobalLineHeight: round((@gridBaseline / @fontGlobalSize) * 1000) / 1000;
 //les polices monospace ont un line-height légèrement inférieur (rapport de 1.33/1.5)
 @fontGlobalLineHeightMonospace: round(@fontGlobalLineHeight * (1.333 / 1.5) * 1000) / 1000;
-//calcul offset baseline par défaut
-@fontOffsetBaseline: floor((@gridBaseline - (@fontGlobalSizePx * @fontGlobalLetterRatio)) / 2) + 0px;
-
 
 //CONFIGURATION DES OFFSET SYSTÈMES GÉNÉRAUX
 //on se base sur la gouttière de la grille sélectionnée
