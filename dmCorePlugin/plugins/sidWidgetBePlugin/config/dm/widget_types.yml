@@ -21,4 +21,10 @@ specifiquesBaseEditoriale:
   dessinSemaine:
     cache:              true
     public_name:        Dessins de la semaine
-        
+  
+affichage:
+  article:
+#    view_class:         articleAfficheView   
+#    form_class:         articleAfficheform
+    cache:              true
+    public_name:        Affichage article

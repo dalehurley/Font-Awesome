@@ -65,7 +65,7 @@ var_dump($vars);
 var_dump($vars);
 */
 
-    
+
     $vars['mediaTag']->addClass('dm_widget_content_flow_player');
     
     if ($vars['mediaTag'] instanceof dmMediaTagFlowPlayerPlayable)
@@ -104,7 +104,7 @@ var_dump($vars);
         }
       }
     }
-    
+  
     unset($vars['autoplay'], $vars['method'], $vars['legend'], $vars['splashMediaId'], $vars['splashAlt'], $vars['flashConfig'], $vars['flashVars']);
     
     return $vars;

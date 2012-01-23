@@ -3,3 +3,7 @@ dmWidgetContent:
   flowPlayer:
     name:               "Flow Player"
     cache:              true
+#
+#  flowPlayerPub:
+#    name: "Flow Player Pub"
+#    cache: true

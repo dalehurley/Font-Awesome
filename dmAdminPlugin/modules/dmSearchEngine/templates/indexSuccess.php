@@ -17,7 +17,11 @@ echo _tag('div.search_actions.clearfix',
   _tag('div.dm_third',
     _tag('h2.mb10', __('Index state')).
     get_partial('state', array('engine' => $engine))
-  ).
+  )
+/*
+lioshi: suppression de la possibilité de générer l'index de lucene via le navigateur, pour éviter d'avoir des fichiers créés par apache
+Uniquement dm:search-update en ligne de commande est utilisable
+  .
   _tag('div.dm_third',
     _tag('h2.mb10', __('Index maintenance')).
     _link('dmSearchEngine/reload')
@@ -25,6 +29,7 @@ echo _tag('div.search_actions.clearfix',
      ->set('.dm_medium_button')
      ->set('onclick', '$("div.search_actions").block();')
   )
+*/
 );
 
 if ($query)
@@ -36,6 +41,7 @@ if ($query)
 echo _close('div');
 
 echo _close('div');
+
 
 if (isset($phpCli))
 {
