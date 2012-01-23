@@ -46,7 +46,8 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'sidSPLessCssPlugin',
             'sidWebservicesPlugin',
             'ckWebservicePlugin',
-            'sidSiteMapPlugin'
+            'sidSiteMapPlugin',
+            'sidWidgetPubsFlashPlugin'
         ));
     }
 
@@ -94,7 +95,8 @@ class dmProjectConfiguration extends sfProjectConfiguration {
     'sidSPLessCssPlugin',
     'sidWebservicesPlugin',            
             'ckWebservicePlugin',
-            'sidSiteMapPlugin'
+            'sidSiteMapPlugin',
+            'sidWidgetPubsFlashPlugin'
         ) as $embeddedPlugin) {
             $this->setPluginPath($embeddedPlugin, $baseDir . '/dmCorePlugin/plugins/' . $embeddedPlugin);
         }

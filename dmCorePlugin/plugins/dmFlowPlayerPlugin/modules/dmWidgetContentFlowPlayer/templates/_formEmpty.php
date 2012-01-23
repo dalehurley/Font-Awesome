@@ -9,7 +9,7 @@ _open('div.dm_tabbed_form'),
 _tag('ul.tabs',
   _tag('li', _link('#'.$baseTabId.'_media')->text(__('Media')))
 ),
-
+     
 _tag('div#'.$baseTabId.'_media',
   
   _tag('div.toggle_group',

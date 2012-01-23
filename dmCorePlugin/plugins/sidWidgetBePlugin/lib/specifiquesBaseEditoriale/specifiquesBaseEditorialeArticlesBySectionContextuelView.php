@@ -31,7 +31,6 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-        
         switch ($dmPage->module . '/' . $dmPage->action) {
             case 'rubrique/show':
 
