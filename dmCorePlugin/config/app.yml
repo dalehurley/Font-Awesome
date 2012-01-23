@@ -1,5 +1,5 @@
 # Plugins default values
-# To change your Diem project defaults valu  es, see dm/config.yml
+# To change your Diem project defaults values, see dm/config.yml
 
 all:
   sfImageTransformPlugin:
@@ -14,3 +14,14 @@ all:
     mime_type:
       auto_detect: false
       library: gd_mime_type #  gd_mime_type (GD), Fileinfo (PECL), MIME_Type (PEAR)
+
+dev:
+  sf_less_plugin:
+    compile:  false
+    check_dates: false
+    check_dependencies: true
+
+prod:
+  sf_less_plugin:
+    compile:  false
+    check_dates: true
