@@ -45,7 +45,19 @@ $html.= get_partial('global/schema/Thing', $thingOpt);
 
 //Properties from ContactPoint :
 if(isset($contactType))	if($contactType)$html.= get_partial('global/schema/DataType/Text', array('type' => __('Contact type'),	'value' => $contactType,	'itemprop' => 'contactType'));
-if(isset($email))		if($email)		$html.= get_partial('global/schema/DataType/Text', array('type' => __('Email'),			'value' => $email,			'itemprop' => 'email', 'url' => 'mailto:' . $email));
+
+//options d'affichage de l'email
+if(isset($email)) if($email) {
+	$emailOpt = array(
+				'type'		=> __('Email'),
+				'value'		=> $email,
+				'itemprop' => 'email'
+			);
+	//si l'URL n'est pas définit pour la personne alors on peut rajouter l'email dans l'affichage
+	if(!isset($url)) $emailOpt['url'] = 'mailto:' . $email;
+	$html.= get_partial('global/schema/DataType/Text', $emailOpt);
+}
+
 if(isset($telephone))	if($telephone)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Phone'),			'value' => $telephone,		'itemprop' => 'telephone'));
 if(isset($faxNumber))	if($faxNumber)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Fax'),			'value' => $faxNumber,		'itemprop' => 'faxNumber'));
 
