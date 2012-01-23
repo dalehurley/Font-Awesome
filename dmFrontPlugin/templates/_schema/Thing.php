@@ -1,12 +1,15 @@
 <?php
 /*
  * Thing.php
- * v1.0
+ * v1.1
  * http://schema.org/Thing
  * 
  * Variables disponibles :
  * $node
  * $container
+ * $imageGridWidth
+ * $imageGridHeight
+ * $imageContainer
  * 
  * Properties from Thing :
  * $description
@@ -27,6 +30,21 @@ $html = '';
 
 //ouverture du container
 if(isset($container)) $html.= _open($container, $ctnOpts);
+
+//intégration de l'image
+if(isset($image)) if($image) {
+	//dimensions par défaut de l'image
+	$imageGridWidth = (isset($imageGridWidth)) ? $imageGridWidth : spLessCss::getLessParam('thumbS_col');
+	$imageGridHeight = (isset($imageGridHeight)) ? $imageGridHeight : spLessCss::getLessParam('thumbS_bl');
+	
+	//en attendant meilleure intégration avec datatype image
+	$html.= get_partial('global/imageWrapper', array(
+													'image'	=>	$image,
+													'alt'	=>	$title,
+													'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
+													'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+													));
+}
 
 if(isset($name)) if($name) $html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
 if(isset($description)) if($description) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));

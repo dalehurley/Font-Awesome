@@ -7,6 +7,8 @@
  * Variables disponibles :
  * $node
  * $container
+ * $separator
+ * $isLight
  * 
  */
 
@@ -20,6 +22,9 @@ if(isset($container)) {
 
 //séparateur par défaut
 if(!isset($separator)) $separator = '&#160;:&#160;';
+
+//permet d'indiquer une version light de l'affichage (pour les listings simples)
+if(!isset($isLight)) $isLight = false;
 
 //Affectation des valeurs par défaut passées dans la node
 if(isset($node)) {
@@ -56,7 +61,7 @@ if(isset($node)) {
 		catch(Exception $e) { $telephone = null; }
 	}
 	
-	//Properties from PostalAddress (rajouter autres variables quand implémentées :
+	//Properties from PostalAddress (rajouter autres variables quand implémentées) :
 	if(!isset($addressLocality)) {
 		try { $addressLocality = $node->getVille(); }
 		catch(Exception $e) { $addressLocality = null; }
@@ -72,4 +77,18 @@ if(isset($node)) {
 		}
 		catch(Exception $e) { $streetAddress = null; }
 	}
+	
+	//Properties from Person (rajouter autres variables quand implémentées) :
+	if(!isset($jobTitle)) {
+		try { $jobTitle = $node->getStatut(); }
+		catch(Exception $e) { $jobTitle = null; }
+	}
+}
+
+//définition de l'image
+$isImage = false;
+if(isset($image)) {
+	//on vérifie que l'image existe sur le serveur avec son chemin absolu
+	$imageUpload = (strpos($image, 'uploads') === false) ? '/uploads/' : '/';
+	$isImage = is_file(sfConfig::get('sf_web_dir') . $imageUpload . $image);
 }

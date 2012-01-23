@@ -3,7 +3,6 @@
  * Thing.php
  * v1.0
  * Permet d'afficher un élément de base
- * http://schema.org/Thing
  * 
  * Variables disponibles :
  * $type
