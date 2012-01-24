@@ -78,15 +78,18 @@ if($isListing) {
 	if($isImage && isset($image)){
 		//dimensions de l'image
 		$imageGridWidth = ($isLight) ? spLessCss::getLessParam('thumbM_col') : spLessCss::getLessParam('thumbL_col');
-		$imageGridHeight = ($isLight) ? spLessCss::getLessParam('thumbM_bl') : spLessCss::getLessParam('thumbL_bl') * 2;
+		$imageGridHeight = ($isLight) ? spLessCss::getLessParam('thumbM_bl') : spLessCss::getLessParam('thumbL_bl');
+		//options de l'image
+		$imageWrapperOpts = array(
+									'image'	=>	$image,
+									'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
+									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+									);
+		//ajout du nom de l'article dans la balise Alt de l'image
+		if(isset($name)) $imageWrapperOpts['alt'] = $name;
 		
 		//Appel du partial d'image
-		$htmlImage.= get_partial('global/imageWrapper', array(
-													'image'	=>	$image,
-													'alt'	=>	$title,
-													'width'	=>	spLessCss::gridGetWidth($imgColWidth,0),
-													'height'=>	spLessCss::gridGetHeight($imgColHeight,0)
-													));
+		$htmlImage.= get_partial('global/imageWrapper', $imageWrapperOpts);
 	}
 	
 	
