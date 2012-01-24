@@ -28,16 +28,16 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	public function renderBodyTag($options = array()) {
         $options = dmString::toArray($options);
 		
-        if ($this->page->get('gabarit') == '' || $this->page->get('gabarit') == 'default') {
-			$bodyClass = spLessCss::getLessParam('templateGabarit');
-		} else {
-            $bodyClass = $this->page->get('gabarit');
-        }
-        $options['class'][] = $bodyClass;
-
+		//récupération des options de la page
+		$pageOptions = spLessCss::pageTemplateGetOptions();
+		
+        //ajout des classes personnalisée sur le body
+        $options['class'][] = $pageOptions['currentGabarit'];
+		if($pageOptions['isDev']) $options['class'][] = 'isDev';
+		
         return parent::renderBodyTag($options);
     }
-
+	
 	//Remplacement de html5shiv par Modernizr pour l'intégration html5
 	/*
 	 * Ancien lien : //ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js

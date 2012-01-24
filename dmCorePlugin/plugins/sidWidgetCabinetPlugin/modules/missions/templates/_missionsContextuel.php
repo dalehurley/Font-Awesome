@@ -1,35 +1,60 @@
 <?php
+$html = '';
 
 if (count($missions)) { // si nous avons des actu articles
+	
+	//gestion affichage du titre
     if ($titreBloc != '') {
-        echo _tag('h4.title', $titreBloc);
+		$html.= get_partial('global/titleWidget', array('title' => $titreBloc));
     } else {
         if ($nb > 1) {
-            echo _tag('h4.title', __('Our missions'));
+			$html.= get_partial('global/titleWidget', array('title' => __('Our missions')));
         } else {
-            if ($nb == 1) {
-                echo _tag('h4.title', current($missions)->getTitle());
-            }
-            else
-                echo _tag('h4.title', __('Our missions'));
+            if ($nb == 1) $html.= get_partial('global/titleWidget', array('title' => current($missions)->getTitle()));
+            else $html.= get_partial('global/titleWidget', array('title' => __('Our missions')));
         }
     }
-
-    echo _open('ul.elements');
+	
+	//ouverture du listing
+    $html.= _open('ul.elements');
+	
+	//compteur
+	$count = 0;
+	$maxCount = count($missions);
+	
     foreach ($missions as $mission) {
-        echo _open('li.element');
-
-        include_partial("objectPartials/mission", array("mission" => $mission, "length" => $length, "chapo" => $chapo, "nb" => $nb, 'titreBloc' => $titreBloc));
-
-        echo _close('li');
+		//incrémentation compteur
+		$count++;
+		
+		//récupération du title et du teaser
+		$title = ($titreBloc == null) ? "" : $mission->getTitle();
+		$teaser = ($chapo == 0) ? $mission->getResume() : $mission->getText();
+		
+		$html.= get_partial('global/publicationListElement', array(
+												'node' => $mission,
+												'title' => $title,
+												'teaser' => $teaser,
+												'teaserLength' => $length,
+												'count' => $count,
+												'maxCount' => $maxCount,
+												'isLight' => true
+												));
     }
-    echo _close('ul');
-
-    echo _open('div.navigation.navigationBottom');
-    echo _open('ul.elements');
-    echo _open('li.element');
-    echo _link('mission/list')->text($titreLien);
-    echo _close('li');
-    echo _close('ul');
-    echo _close('div');
+	
+	//fermeture du listing
+    $html.= _close('ul.elements');
+	
+	//création d'un tableau de liens à afficher
+	$elements = array();
+	$elements[] = array('title' => $titreLien, 'linkUrl' => 'mission/list');
+	
+	$html.= get_partial('global/navigationWrapper', array(
+													'placement' => 'bottom',
+													'elements' => $elements
+													));
 } // sinon on affiche rien
+
+//echo __('This bias needs to be a news item');
+
+//affichage html de sortie
+echo $html;

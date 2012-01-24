@@ -1,5 +1,21 @@
 <?php
-if (count($missions)) { // si nous avons des actu articles
-    echo _tag('h2.title', $titreBloc);
-        include_partial("objectPartials/missionShow", array("mission" => $missions));
-} // sinon on affiche rien
+// vars : $missions, $titreBloc
+
+$html = '';
+//titre du contenu
+if($titreBloc != null) $html = get_partial('global/titleWidget', array('title' => $titreBloc, 'isContainer' => true));
+
+// si nous avons des actu articles
+if(count($missions)) {
+	//affichage du contenu
+	$missionOpts = array('container' => 'article');
+	$missionOpts['node'] = $missions;
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $missionOpts);
+	
+}else{
+	// sinon on affiche rien
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{mission}}'));
+}
+
+//affichage html de sortie
+echo $html;

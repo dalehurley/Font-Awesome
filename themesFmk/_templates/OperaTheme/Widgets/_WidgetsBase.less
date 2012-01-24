@@ -33,7 +33,7 @@
 .dm_layout_top {
 	@gridHeight(16);
 	background-color: @colorCouleur3Clair;
-	background-image: url({@urlImagesTemplate}/Page/header.jpg);
+	background-image: url(@{urlImagesTemplate}/Page/header.jpg);
 	background-repeat: no-repeat;
 	background-position: 50% bottom;
 	
@@ -46,7 +46,7 @@
 	}
 }
 
-.dm_layout_centerTop {
+#dm_custom_top {
 	background-color: @colorCouleur2Moyen;
 	padding-top: @gridBaseline/2;		//marge après header
 	padding-bottom: @gridBaseline/2;	//équilibrage
@@ -55,7 +55,7 @@
 		padding: 0;
 	}
 	
-	.dm_layout_centerTopTop {
+	#dm_custom_topTop {
 		position: relative;
 		//permet d'étendre la zone en débordement de la page
 		margin-left: -100%;
@@ -93,14 +93,14 @@
 		}
 	}
 	
-	.dm_layout_centerTopBottom {
+	#dm_custom_topBottom {
 		margin-top: @gridBaseline/2;
 		.dm_zones {
 		}
 	}
 }
 
-.dm_page_content, .dm_layout_left, .dm_layout_right {
+#dm_content, #dm_sidebar_left, #dm_sidebar_right {
 	//rajout padding pour décalage ligne de séparation
 	padding-top: @gridBaseline;
 	padding-bottom: @gridBaseline;
@@ -111,21 +111,21 @@
 	}
 }
 
-.dm_layout_left {
+#dm_sidebar_left {
 	.dm_zones {
 		padding-right: (@gridBaseline/2 -1px);
 		border-right: 1px dotted @colorCouleur2ClairSup;
 	}
 }
 
-.dm_layout_right {
+#dm_sidebar_right {
 	.dm_zones {
 		padding-left: (@gridBaseline/2 -1px);
 		border-left: 1px dotted @colorCouleur2ClairSup;
 	}
 }
 
-.dm_layout_left, .dm_layout_right {
+#dm_sidebar_left, #dm_sidebar_right {
 	//rajout bordure en bas du widget
 	.dm_widget {
 		.dm_widget_inner {
@@ -135,7 +135,7 @@
 	}
 }
 
-.dm_page_content {
+#dm_content {
 	//rajout marge horizontale pour widgets
 	.dm_widget {
 		.dm_widget_inner {
@@ -162,7 +162,7 @@
 		text-transform: uppercase;
 	}
 }
-.dm_layout_centerTop {
+#dm_custom_top {
 	.bandeau_smart_bandeau {
 		.bandeau_show { color: @colorCouleur3ClairSup; }
 	}

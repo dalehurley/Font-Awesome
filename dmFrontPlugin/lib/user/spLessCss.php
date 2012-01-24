@@ -8,27 +8,48 @@ class spLessCss extends dmFrontUser {
 		$pageOptions = self::pageTemplateGetOptions($optionsCustom);
 		
 		//action à effectuer uniquement en DEV
-		if ($pageOptions['idDev']) {
+		if ($pageOptions['isDev']) {
 			//affichage du widget de DEBUG du framework
 			echo dm_get_widget('sidSPLessCss', 'debug', array());
 		}
 		
 		return $pageOptions;
 	}
+	
+	//fonction de génération de hash md5 du timeStamp unix pour changer les appels de sprite
+	public static function spriteUpdateHashMd5() {
+		//ciblage du fichier de config
+		$urlConfigGeneral = sfConfig::get('sf_web_dir') . '/theme/less/_ConfigGeneral.less';
 		
+		//génération du timeStamp md5 sur 7 chiffres
+		$md5TimeStamp = substr(md5(microtime(true)), 0, 7);
+		
+		//composition de la commmande de remplacement de valeur
+		$regexTimeStamp = '^\@mainHashMd5: "\w+";$';
+		$replaceTimeStamp = '\@mainHashMd5: "' . $md5TimeStamp . '";';
+		$execTimeStamp = "perl -pi -w -e 's/" . $regexTimeStamp . "/". $replaceTimeStamp ."/g;' " . $urlConfigGeneral;
+		
+		//exécution de la commande
+		exec($execTimeStamp);
+		
+		//retour du hash md5
+		return $md5TimeStamp;
+	}
+	
 	//génération de toutes les sprites dans toutes les dimensions
-	public static function spriteInit($spriteFormat = '') {
-		
-		//récupération du listing des sprites
-		$spriteListing = self::spriteGetListing();
-		
+	public static function spriteInit($hashMd5 = null, $spriteFormat = null) {
 		//Si on est au début de l'action
 		if($spriteFormat == null) {
+			//génération d'un nouveau hashMd5
+			if($hashMd5 == null) $hashMd5 = self::spriteUpdateHashMd5();
 			//purge des miniatures
 			self::spriteReset();
 			//initialisation du fichier de sortie less
 			self::spriteLessGenerate(0);
 		}
+		
+		//récupération du listing des sprites
+		$spriteListing = self::spriteGetListing($hashMd5);
 		
 		//on définit le pourcentage d'avancement en fonction de la miniature effectuée
 		//on change également la valeur de spriteFormat pour la boucle suivante
@@ -59,20 +80,21 @@ class spLessCss extends dmFrontUser {
 		}
 		
 		//génération des sprites à la résolution sélectionnée
-		$lessDefinitions = self::spriteGenerate($spriteListing, $spriteFormat);
+		$lessDefinitions = self::spriteGenerate($hashMd5, $spriteListing, $spriteFormat);
 		
 		//Génération du fichier less de sortie
 		self::spriteLessGenerate($prct, $lessDefinitions);
 		
 		//Renvoi de valeurs pour l'affichage
 		return array(
+			'hashMd5'			=> $hashMd5,
 			'spriteFormat'		=> $spriteFormat,
 			'prct'				=> $prct
 		);
 	}
 	
 	//génération du listing des icônes
-	private static function spriteGetListing() {
+	private static function spriteGetListing($hashMd5 = null) {
 		//emplacement et récupération des thèmes de sprites
 		$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites';
 		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
@@ -101,7 +123,7 @@ class spLessCss extends dmFrontUser {
 				//on part du modèle suivant :
 				//categorie-icone.svg
 				$spriteListing[$theme]['categories'][$decomp[0]][$decomp[1]]['urlFramework'] = $urlSprites . '/' . $sprite;
-				$spriteListing[$theme]['categories'][$decomp[0]][$decomp[1]]['urlClient'] = $urlSpritesClient . '/' . $sprite;
+				$spriteListing[$theme]['categories'][$decomp[0]][$decomp[1]]['urlClient'] = $urlSpritesClient . '/' . $hashMd5 . '-' . $sprite;
 			}
 		}
 		
@@ -242,7 +264,7 @@ class spLessCss extends dmFrontUser {
 	}
 	
 	//copie de toutes les icônes et changement des couleurs
-	private static function spriteGenerate($spriteListing = array(), $spriteFormat = 'L'){
+	private static function spriteGenerate($hashMd5 = null, $spriteListing = array(), $spriteFormat = 'L'){
 		//dimension par défaut des sprites (imposé par le format SVG utilisé)
 		$dimDefault = intval(self::getLessParam('spriteFormat'));
 		//dimension des sprites dans les paramètres du framework (égale à S, M, L ou X)
@@ -264,7 +286,8 @@ class spLessCss extends dmFrontUser {
 			$categories = $info['categories'];
 			
 			//création du dossier du thème si non présent
-			$urlThemeClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $theme;
+			$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+			$urlThemeClient = $urlThemes . '/' . $theme;
 			if(!is_dir($urlThemeClient)){
 				$testMkdir = mkdir($urlThemeClient, 0775, true);
 				//affichage d'un message en cas d'erreur
@@ -346,7 +369,7 @@ class spLessCss extends dmFrontUser {
 			//Requête : assemblage final
 			if($execConvertDensityGeneral) $execConvertOptions.= $execDensity;
 			$execConvert.= $execConvertOptions . $execConvertAppend;
-			$execConvert.= " -append " . $urlThemeClient . "-" . $spriteFormat . ".png";
+			$execConvert.= " -append " . $urlThemes . '/' . $hashMd5 . "-" . $theme . "-" . $spriteFormat . ".png";
 			
 			//Requête : exécution
 			exec($execConvert);
@@ -382,7 +405,7 @@ class spLessCss extends dmFrontUser {
 		
 		//composition des options de page par défault
 		$pageTemplateOptionsDefault = array(
-							'idDev'				=> ((sfConfig::get('sf_environment') == 'dev') ? true : false),
+							'isDev'				=> ((sfConfig::get('sf_environment') == 'dev' || sfConfig::get('sf_environment') == 'less') ? true : false),
 							'currentGabarit'	=> $currentGabarit,
 							'areas'				=> array(
 								'dm_page_content'		=>	array(
@@ -448,29 +471,67 @@ class spLessCss extends dmFrontUser {
 
 	//fonction bugguée à terminer
 	private static function lessIsNumeric($variableValue) {
-		$patternHex = '/^#+(([a-fA-F0-9]){3}){1,2}$/';
-		$detectisHex = preg_match_all($patternHex, $variableValue, $matchesNumeric);
+		//on vérifie directement si ce n'est pas un nombre
+		if(is_numeric($variableValue)) return true;
+		
+		//recherches de chaines de type md5, modifications : jusqu'à la lettre z, ajout majuscules (f normalement)
+		$patternMd5 = '/^[0-9a-zA-Z]{7,32}$/';
+		$detectisMd5 = preg_match_all($patternMd5, $variableValue, $matches);
+		if($detectisMd5 > 0) return false;
 
+		//recherches de chaines de type 2012-01-01T10:25
 		$patternDate = '/([0-9]){4}-([0-9]){2}-([0-9]){2}T([0-9]){2}:([0-9]){2}/';
-		$detectisDate = preg_match_all($patternDate, $variableValue, $matchesNumeric);
+		$detectisDate = preg_match_all($patternDate, $variableValue, $matches);
+		if($detectisDate > 0) return false;
 
-		//valeur de retour initiale
-		$returnValue = 0;
+		//recherches de chaines de type #ffaa00
+		$patternHex = '/^#+(([a-fA-F0-9]){3}){1,2}$/';
+		$detectisHex = preg_match_all($patternHex, $variableValue, $matches);
+		if($detectisHex > 0) return false;
+		
+		//recherches de chaines de type chemin URL
+		$patternUrl = '/^[^(floor)(round)](http:){0,1}\/+[a-zA-Z]+[\/\w\{\}@]*/';
+		$detectisUrl = preg_match_all($patternUrl, $variableValue, $matches);
+		if($detectisUrl > 0) return false;
+		
+		//recherches de chaines de type police de caractères "LucidaGrande,LucidaSansUnicode,LucidaSans,BitstreamVeraSans,sans-serif"
+		$patternFont = '/^[^(floor)(round)][a-zA-Z]{1}\w{2,127},*\w*/';
+		$detectisFont = preg_match_all($patternFont, $variableValue, $matches);
+		if($detectisFont > 0) return false;
 
-		if($detectisDate > 0) {
-			$returnValue = 0;
-		}elseif($detectisHex > 0) {
-			$returnValue = 0;
+		//recherches de chaines de type layout "sidebar-left,sidebar-right,two-sidebars,no-sidebar"
+		$patternLayout = '/^[a-z]+\-[a-z]+$/';
+		$detectisLayout = preg_match_all($patternLayout, $variableValue, $matches);
+		if($detectisLayout > 0) return false;
+		
+		//recherches de chaines de type CSS ID
+		$patternCssId = '/^[a-zA-Z_]+$/';
+		$detectisCssId = preg_match_all($patternCssId, $variableValue, $matches);
+		if($detectisCssId > 0) return false;
+		
+		//Ensuite on teste si la valeur est numérique
+
+		//on supprime tout ce qui ne compose pas une opération mathématique (plus toutes les fonctions de Less parsable en php)
+		$variableValueCalc = preg_replace("/[^0-9+\-.*\/()(floor)(round)]/", "", $variableValue); 
+
+		//si il ne reste rien c'est que la valeur ne peut pas être numérique
+		if ($variableValueCalc == ""){
+			return false;
 		}else{
-			$patternNumeric = '/[0-9]+[\(\)\-\+\*\.]*/';
-			$detectisNumeric = preg_match_all($patternNumeric, $variableValue, $matchesNumeric);
-
-			if($detectisNumeric > 0){
-				$returnValue = 1;
+			$testEval = eval("\$return=" . $variableValueCalc . ";" );
+			
+			if($testEval === false) {
+				return false;
+			}else{
+				if(is_int($return)) return true;
+				elseif(is_float($return)) return true;
+				else return false;
 			}
 		}
 		
-		return $returnValue;
+		//recherches de chaine de type numérique avec des parenthèses ou des signes mathématique +-*/
+		//$patternNumeric = '/[^a-zA-Z][0-9]+[\(\)\-\+\*\.\/]*/';
+		//$detectisNumeric = preg_match_all($patternNumeric, $variableValue, $matches);
 	}
 
 	//suppression des unités d'une valeur less
@@ -500,14 +561,14 @@ class spLessCss extends dmFrontUser {
 
 		//on dégage les pourcentages de façon manuelle
 		$variableValue = str_replace('%', '', $variableValue);
-
+		
 		$detectisNumeric = self::lessIsNumeric($variableValue);
-		if($detectisNumeric>0){
+		if($detectisNumeric){
 			$variableValue = self::lessCalculator($variableValue);
 		}else{
 			//À améliorer éventuellement : suppression des crochets dans les string contenant des variables
-			$variableValue = str_replace('{', '', $variableValue);
-			$variableValue = str_replace('}', '', $variableValue);
+			//$variableValue = str_replace('{', '', $variableValue);
+			//$variableValue = str_replace('}', '', $variableValue);
 		}
 		
 		return $variableValue;
@@ -516,11 +577,14 @@ class spLessCss extends dmFrontUser {
 	//évaluation de la valeur d'une variable less
 	private static function parseLessVariable($variableValue, $parameterValue = array()) {
 		//on évalue l'expression à la recherche de variables existantes
-		$patternParam = '/@[A-Za-z0-9_]*/';
-
+		$patternParam = '/@[\w\{\}]*/';
 		$detectSubVariable = preg_match_all($patternParam, $variableValue, $matches, PREG_OFFSET_CAPTURE);
 		
 		if ($detectSubVariable > 0) {
+			
+			//echo "pre : ".$variableValue;
+			//echo "   |   ";
+			//echo " sub   |   ";
 
 			$matchesSorted = array();
 			$matchesLengths = array();
@@ -540,8 +604,13 @@ class spLessCss extends dmFrontUser {
 
 			//remplacement des valeurs
 			foreach ($matchesSorted as $value) {
-				$replace = $parameterValue['variable'][substr($value,1)];
-
+				//suppression des crochets dans les string contenant des variables
+				$valueTemp = str_replace('{', '', $value);
+				$valueTemp = str_replace('}', '', $valueTemp);
+				
+				//récupération de la valeur
+				$replace = $parameterValue['variable'][substr($valueTemp,1)];
+				
 				$variableValue = str_replace($value, $replace, $variableValue);
 				
 				//on vérifie si la valeur contient à nouveau des valeurs à remplacer
@@ -551,7 +620,7 @@ class spLessCss extends dmFrontUser {
 					//on relance la fonction de façon récursive
 					$variableValue = self::parseLessVariable($variableValue, $parameterValue);
 				}
-			}
+			}	
 		}
 		//on supprime toutes les unités
 		$variableValue = self::parseLessValue($variableValue);

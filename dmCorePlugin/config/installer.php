@@ -309,7 +309,7 @@ try {
 //}
 
 // sitemap.xml
-chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml', 0666);
+//chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml', 0666);
 
 /*
  * GÃ©nÃ©ration du fichier de conf
@@ -471,6 +471,8 @@ $this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settin
 //MACOSX : modifs syntaxe
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_framework', $out, $err);
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_templates', $out, $err);
+//liaison vers le dossier templates contenant les partials du coeur
+$this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../dmFrontPlugin/templates/ '.sfConfig::get('sf_root_dir').'/apps/front/templates', $out, $err);
 
 //// Cas particulier d'Opera 
 //if ($nomTemplateChoisi == 'OperaTheme') {
@@ -575,6 +577,7 @@ $this->getFilesystem()->execute('chmod -R 777 ' . sfConfig::get('sf_root_dir') .
 $commands = array(
      'Restart apache (sudo service apache restart)' => 'sudo service apache restart graceful',
      'Restart apache (sudo service httpd restart)' => 'sudo service httpd restart graceful',
+     'Restart apache (sudo apachectl gracefull)' => 'sudo apachectl graceful',
     );
 
 foreach ($commands as $libCommand => $command) {
