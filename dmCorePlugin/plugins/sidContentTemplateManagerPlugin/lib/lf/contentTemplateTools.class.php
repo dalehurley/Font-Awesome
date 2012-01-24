@@ -100,6 +100,13 @@ class contentTemplateTools {
         } else {
             $command = "mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;";
         }
+        // ajout du dossier theme/images/
+        if (is_dir($dirOUTassets."/theme")){
+            $command .= "cp -R ". $webDirName . "/theme/images " . $dirOUTassets ."/theme/images;";
+        } else {
+            $command .= "mkdir " . $dirOUTassets."/theme".";cp -R ". $webDirName . "/theme/images " . $dirOUTassets ."/theme/images;";
+        }
+
         $output = exec($command);
         $return[]['dumpDB'] = 'copie des assets';
 
