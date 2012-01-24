@@ -1,7 +1,7 @@
 <?php
 /*
  * _navigationWrapper.php
- * v0.9
+ * v1.0
  * Permet d'afficher une navigation de page (à améliorer avec gestion intégrée des tableaux
  * 
  * Variables disponibles :
@@ -13,6 +13,10 @@
  */
 
 //Configuration par défaut
+
+//récupérations des options de page
+$pageOptions = spLessCss::pageTemplateGetOptions();
+$isDev = $pageOptions['isDev'];
 
 //container par défaut
 if(!isset($container)) $container = 'div';
@@ -44,13 +48,18 @@ if(isset($elements)){
 	foreach ($elements as $element) {
 		//incrémentation compteur
 		$count++;
-		//affichage du li contenant le lien
-		$html.= get_partial('global/publicationListElementLight', array(
-												'title' => $element['title'],
-												'linkUrl' => $element['linkUrl'],
-												'count' => $count,
-												'maxCount' => $maxCount
-												));
+		
+		//options de l'élément
+		$elementOpt = array();
+		
+		//gestion de l'index de positionnement
+		if($count == 1)			$elementOpt['class'][] = 'first';
+		if($count >= $maxCount)	$elementOpt['class'][] = 'last';
+		//application classe de debug
+		if($isDev) $elementOpt['class'][] = 'isVerified';
+		
+		//insertion du lien dans un li
+		$html.= _tag('li.element', $elementOpt, _link($element['linkUrl'])->text($element['title'])->title($element['title']));
 	}
 
 	$html.= _close('ul.elements');
