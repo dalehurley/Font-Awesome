@@ -29,7 +29,7 @@ include $includeDefault;
 $html = '';
 
 //intégration de l'image
-if(isset($image)) if($image) {
+if($isImage) {
 	//dimensions par défaut de l'image
 	$imageGridWidth = (isset($imageGridWidth)) ? $imageGridWidth : spLessCss::getLessParam('thumbS_col');
 	$imageGridHeight = (isset($imageGridHeight)) ? $imageGridHeight : spLessCss::getLessParam('thumbS_bl');
