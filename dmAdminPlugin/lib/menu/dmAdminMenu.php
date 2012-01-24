@@ -30,7 +30,7 @@ class dmAdminMenu extends dmMenu {
             }
 
             foreach ($type->getSpaces() as $spaceName => $space) {
-                $spaceMenu = $typeMenu->addChild($space->getPublicName())
+                $spaceMenu = $typeMenu->addChild($space->getPublicName(),$this->serviceContainer->getService('routing')->getModuleSpaceUrl($space))
                         ->ulClass('level2');
 
                 foreach ($space->getModules() as $moduleKey => $module) {
