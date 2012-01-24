@@ -1,20 +1,18 @@
 <?php
 // vars : $articles, $titreBloc
 
-if (count($articles)) { // si nous avons des actu articles
+$html = '';
+//titre du contenu
+if($titreBloc != null) $html = get_partial('global/titleWidget', array('title' => $titreBloc, 'isContainer' => true));
 
-        if ($titreBloc != true) {
-            echo _tag('h4.title', $articles->getTitle());
-        }
-        else {
-            echo _tag('h4.title', $titreBloc);
-        }
-    
-//    foreach ($articles as $article) {
+if(count($articles)){
+	//affichage du contenu
+	$articleOpts = array('container' => 'article');
+	$articleOpts['node'] = $articles;
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
+}else{
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{actualites_du_cabinet}}'));
+}
 
-	include_partial("objectPartials/actuArticleShow", array("articles" => $articles,'titreBloc' => $titreBloc));
-
-//    }
-    
-} // sinon on affiche la constante de la page concernée
-else echo'{{actualites_du_cabinet}}';
+//affichage html en sortie
+echo $html;

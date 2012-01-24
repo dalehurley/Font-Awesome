@@ -5,7 +5,7 @@
 // Author : Arnaud GAUDIN
 
 //Structure généraled de la base éditoriale
-.dm_page_content {
+#dm_content {
 	
 	
 	
@@ -13,8 +13,8 @@
 }
 
 //conteneur des images de pleine largeur
-.dm_page_content,
-.no-sidebar .dm_page_content {
+#dm_content,
+.no-sidebar #dm_content {
 	.imageFullWrapper {
 		position: relative;
 		overflow: hidden;
@@ -38,19 +38,19 @@
 }
 
 //on applique la largeur en fonction du nombre de colonnes affichées
-.sidebar-left .dm_page_content {
+.sidebar-left #dm_content {
 	.imageFullWrapper {
 		@nbreColContent: @gridCol - @gridCol_SidebarLeft;
 		@gridMaxWidth(@nbreColContent; 0);
 	}
 }
-.sidebar-right .dm_page_content {
+.sidebar-right #dm_content {
 	.imageFullWrapper {
 		@nbreColContent: @gridCol - @gridCol_SidebarRight;
 		@gridMaxWidth(@nbreColContent; 0);
 	}
 }
-.two-sidebars .dm_page_content {
+.two-sidebars #dm_content {
 	.imageFullWrapper {
 		@nbreColContent: @gridCol - @gridCol_SidebarLeft - @gridCol_SidebarRight;
 		@gridMaxWidth(@nbreColContent; 0);

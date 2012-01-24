@@ -5,7 +5,6 @@
 // Author : Arnaud GAUDIN
 
 //Structure généraled de la base éditoriale
-
 /*
 .contentTop {
 	//background-color: LightCoral;
@@ -16,30 +15,21 @@
 		visibility: hidden;
 	}
 }
+*/
 
 .contentHeader {
-	//background-color: LightSalmon;
-	margin: @gridBaseline 0;
-	
-	.teaser {
-		font-weight: bold;
-		margin-bottom: 0;
-	}
+	margin-bottom: @gridBaseline;
+	.date, .teaser { display: block; }
 }
 
-.contentBody {
-	//background-color: LightSlateGray;
-	margin: @gridBaseline 0;
-}
+.contentBody { margin-top: @gridBaseline; }
 
-.contentFooter {
-	//background-color: LightGoldenrodYellow;
-	margin: @gridBaseline 0;
-}
+.contentFooter { margin-top: @gridBaseline; }
 
+/*
 //conteneur des images de pleine largeur
-.dm_page_content,
-.no-sidebar .dm_page_content {
+#dm_content,
+.no-sidebar #dm_content {
 	.imageFullWrapper {
 		position: relative;
 		overflow: hidden;
@@ -63,19 +53,19 @@
 }
 
 //on applique la largeur en fonction du nombre de colonnes affichées
-.sidebar-left .dm_page_content {
+.sidebar-left #dm_content {
 	.imageFullWrapper {
 		@nbreColContent: @gridCol - @gridCol_SidebarLeft;
 		@gridMaxWidth(@nbreColContent; 0);
 	}
 }
-.sidebar-right .dm_page_content {
+.sidebar-right #dm_content {
 	.imageFullWrapper {
 		@nbreColContent: @gridCol - @gridCol_SidebarRight;
 		@gridMaxWidth(@nbreColContent; 0);
 	}
 }
-.two-sidebars .dm_page_content {
+.two-sidebars #dm_content {
 	.imageFullWrapper {
 		@nbreColContent: @gridCol - @gridCol_SidebarLeft - @gridCol_SidebarRight;
 		@gridMaxWidth(@nbreColContent; 0);

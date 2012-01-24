@@ -65,11 +65,11 @@ EOF;
                 $fileDelete = getcwd() . "/htdocs/delete.php";
                 $f = fopen($fileDelete, "w");
                 $fileDeleteContent = <<<EOF
-		<?php
-		ini_set('display_errors', 0);
-		ini_set('log_errors', 0);
-		exec('chmod -R 777 /data/www/sitediem/');
-		?>
+<?php
+	ini_set('display_errors', 0);
+	ini_set('log_errors', 0);
+    exec('chmod -R 777 '.getcwd().'/../');
+?>
 EOF;
                 fputs($f, $fileDeleteContent . "\n");
                 fclose($f);
