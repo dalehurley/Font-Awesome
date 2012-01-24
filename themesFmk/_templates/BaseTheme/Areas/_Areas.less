@@ -63,21 +63,22 @@
 }
 
 //stylage des colonnes
-//#dm_sidebar_left .dm_zones { background-color: lightcoral; }
-//#dm_sidebar_right .dm_zones { background-color: lightgreen; }
-//#dm_content .dm_zones { background-color: #aaa; }
+.isDev {
+	#dm_sidebar_left .dm_zones { background-color: #ccccb8; }
+	#dm_sidebar_right .dm_zones { background-color: #b8ccb8; }
+	#dm_content .dm_zones { background-color: #b8cccc; }
+}
 
 #dm_content, #dm_sidebar_left, #dm_sidebar_right {
 	//meilleure gestion uniformisée des bordures
-	.dm_zones {
-		margin: @gridBaseline (@zonesOffsetPad * -1);
-	}
+	.dm_zones { margin: 0 (@zonesOffsetPad * -1) @gridBaseline (@zonesOffsetPad * -1); }
 	
 	.dm_widget {
-		margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
+		//margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
+		margin-bottom: @gridBaseline/2;
 		
 		.dm_widget_inner {
-			padding: (@zonesOffsetPad - 1px);
+			padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
 			//ajout d'une bordure dont l'épaisseur a été déduite
 			border: @zonesOffsetBorder solid @zonesBorderColor;
 			//suppression bordures sous niveaux
@@ -87,15 +88,20 @@
 			& > .title {
 				background-color: @colorCouleur3Clair;
 				color: @colorCouleur1Moyen;
-				margin: (@zonesOffsetPad * -1 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline - @zonesOffsetPad * 2) (@zonesOffsetPad * -1 +1px);
-				padding: (@zonesOffsetPad -1px);
+				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
+				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
 				border-bottom: 1px solid @zonesBorderColor;
 				//changement de la police spécifique à Ténor
 				font-family: @fontGlobalFamilySerif;
 				font-weight: bold;
 				word-spacing: 0.05em;
 				letter-spacing: 0.05em;
+				
+				//on supprime le décalage situé entre le titre et une liste d'éléments quand ils sont suivi l'un par l'autre
+				& ~ .elements { margin-top: @gridBaseline/-2; }
 			}
+			
+			
 		}
 	}
 }
