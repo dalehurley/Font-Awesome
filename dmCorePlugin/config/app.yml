@@ -15,3 +15,10 @@ all:
       auto_detect: false
       library: gd_mime_type #  gd_mime_type (GD), Fileinfo (PECL), MIME_Type (PEAR)
 
+  controllers-access:    # param for controller's (dev.php, less.php) access
+    ips-allowed:
+      - 127.0.0.1
+      - 217.108.240.193
+      - 217.108.240.209
+      - 217.108.240.217
+      - 217.108.240.225      

@@ -1,16 +1,21 @@
 <?php
 
-echo $_SERVER["REMOTE_ADDR"];
-
-//if (!in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', '::1', '192.168.81.130')))
-if (substr($_SERVER['REMOTE_ADDR'], 0, 10) != '192.168.81') { // adresse locale dev
-    if (!in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1','217.108.240.193', '217.108.240.209', '217.108.240.217', '217.108.240.225'))) {  // adresse externe
-        die(utf8_encode('Vous [' . $_SERVER["REMOTE_ADDR"] . '] n\'etes pas autorise a acceder a ce fichier.<br/>Vérifiez le fichier ' . basename(__FILE__) . ' pour plus d\'information.'));
-    }
-}
-
 require_once(dirname(__FILE__).'/../config/ProjectConfiguration.class.php');
 
 $configuration = ProjectConfiguration::getApplicationConfiguration('front', 'less', true);
 
-dm::createContext($configuration)->dispatch();
+$accesGranted = false;
+$ips = sfConfig::get('app_controllers-access_ips-allowed');
+
+foreach ($ips as $key => $ip) {
+    if (substr($_SERVER['REMOTE_ADDR'], 0, strlen($ip)) == $ip) {
+        $accesGranted = true;
+        break;
+    }
+}
+if ($accesGranted) {
+    dm::createContext($configuration)->dispatch();
+} else {
+	exit('Access denied. Thanks to contact the administrator with your ip adress'.' <b>'.$_SERVER['REMOTE_ADDR'].'</b>');
+}
+
