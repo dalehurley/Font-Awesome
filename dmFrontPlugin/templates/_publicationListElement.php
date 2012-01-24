@@ -160,7 +160,7 @@ $html = _open('li', $ctnOpts);
 		$html.= get_partial('global/navigationWrapper', array(
 														'placement' => 'bottom',
 														'elements' => $navigationElements,
-														'isLight' => true
+														'container' => 'span'
 														));
 	}
 	
