@@ -1,7 +1,7 @@
 <?php
 /*
  * Article.php
- * v1.1
+ * v1.2
  * http://schema.org/Article
  * 
  * Variables disponibles :
@@ -70,8 +70,73 @@ include $includeDefault;
 $html = '';
 
 //On organise le contenu différemment selon le type de version d'affichage
-if($isLight) {
-	//voir plus tard, inutilisé
+if($isListing) {
+	//html image
+	$htmlImage = '';
+	
+	//on affiche l'image que si elle est effectivement présente
+	if($isImage && isset($image)){
+		//dimensions de l'image
+		$imageGridWidth = ($isLight) ? spLessCss::getLessParam('thumbM_col') : spLessCss::getLessParam('thumbL_col');
+		$imageGridHeight = ($isLight) ? spLessCss::getLessParam('thumbM_bl') : spLessCss::getLessParam('thumbL_bl') * 2;
+		
+		//Appel du partial d'image
+		$htmlImage.= get_partial('global/imageWrapper', array(
+													'image'	=>	$image,
+													'alt'	=>	$title,
+													'width'	=>	spLessCss::gridGetWidth($imgColWidth,0),
+													'height'=>	spLessCss::gridGetHeight($imgColHeight,0)
+													));
+	}
+	
+	
+	
+	
+	//html hors image
+	$htmlText = '';
+	
+	//Titre affiché en span car utilisé dans un container
+	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
+
+	//Gestion de la date de création
+	if(isset($dateCreated)) $htmlText.= get_partial('global/dateWrapperShort', array('node' => $node));
+
+	//Chapeau de l'article si présent
+	if(isset($description)) if($description) {
+		//ajout de la longueur de la description
+		$descriptionOpt = array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser');
+		if(isset($descriptionLength)) $descriptionOpt['valueLength'] = $descriptionLength;
+		//insertion description
+		$htmlText.= get_partial('global/schema/DataType/Text', $descriptionOpt);
+	}
+	
+	//insertion dans un wrapper si une image est présente
+	if($isImage) $htmlText = _tag('span.wrapper', $htmlText);
+	
+	
+	
+	
+	//inclusion dans le lien si nécessaire
+	if(isset($url)) {
+		$htmlLink = _link($url)->text($htmlImage . $htmlText)->set('.link_box');
+		if(isset($name)) $htmlLink->title($name);
+		$html.= $htmlLink;
+	}else{
+		$html.= $htmlImage . $htmlText;
+	}
+	
+	
+	
+	
+	//ajout de liens de navigation si nécessaire
+	if(isset($navigationElements)) {
+		$html.= get_partial('global/navigationWrapper', array(
+														'placement' => 'bottom',
+														'elements' => $navigationElements,
+														'container' => 'span'
+														));
+	}
+	
 }else{
 	//contenu du header de l'article
 	$htmlHeader = '';
@@ -88,6 +153,7 @@ if($isLight) {
 									'width'	=>	spLessCss::gridGetContentWidth(),
 									'height'=>	spLessCss::gridGetHeight(14,0)
 									);
+			//ajout du nom de l'article dans la balise Alt de l'image
 			if(isset($name)) $imageWrapperFullOpts['alt'] = $name;
 
 			$htmlHeader.= get_partial('global/imageWrapperFull', $imageWrapperFullOpts);
@@ -102,15 +168,32 @@ if($isLight) {
 		//Gestion de la date avec plusieurs possibilités (dateCreated, dateModified, etc)
 		if(isset($dateCreated)) $htmlHeader.= get_partial('global/dateWrapperFull', array('node' => $node));
 		
-	//afficahge du header de l'article si non vide
+	//affichage du header de l'article si non vide
 	if($htmlHeader != null) $html.= _tag('header.contentHeader', $htmlHeader);
+	
+	
+	
 	
 	//affichage du contenu de la page
 	if(isset($articleBody))	$html.= _tag('section.contentBody', array('itemprop' => 'articleBody'), $articleBody);
+	
+	
+	
+	
+	//contenu du footer de l'article
+	$htmlFooter = '';
+	
+	//ajout de liens de navigation si nécessaire
+	if(isset($navigationElements)) {
+		$htmlFooter.= get_partial('global/navigationWrapper', array(
+														'placement' => 'bottom',
+														'elements' => $navigationElements
+														));
+	}
+	
+	//affichage du footer de l'article si non vide
+	if($htmlFooter != null) $html.= _tag('footer.contentFooter', $htmlFooter);
 }
-
-//inclusion dans le lien si nécessaire
-if(isset($url)) $html = _link($url)->text($html)->title($name)->set('.link_box');
 
 //englobage dans un container
 if(isset($container)) $html = _tag($container, $ctnOpts, $html);
