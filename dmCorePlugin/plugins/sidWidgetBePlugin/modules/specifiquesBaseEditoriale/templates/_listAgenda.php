@@ -18,13 +18,15 @@ if(count($agendas)){
 		//incrémentation compteur
 		$count++;
 		
-		$html.= get_partial('global/publicationListElement', array(
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
 												'node' => $agenda,
 												'count' => $count,
 												'maxCount' => $maxCount,
-												'teaser' => $agenda->getChapeau(),
-												'teaserLength' => $length,
-												'linkUrl' => $agenda
+												'container' => 'li.element',
+												'isListing' => true,
+												'dateCreated' => false,
+												'descriptionLength' => $length,
+												'url' => $agenda
 												));
     }
 	
