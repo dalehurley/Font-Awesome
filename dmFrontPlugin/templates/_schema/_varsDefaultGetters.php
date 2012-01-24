@@ -143,8 +143,11 @@ if(isset($node)) {
 
 //définition de l'image
 $isImage = false;
-if(isset($image)) {
+if(isset($image)) if($image) {
 	//on vérifie que l'image existe sur le serveur avec son chemin absolu
 	$imageUpload = (strpos($image, 'uploads') === false) ? '/uploads/' : '/';
 	$isImage = is_file(sfConfig::get('sf_web_dir') . $imageUpload . $image);
+	
+	//ajout classe de clearfix (voir pour implémentation directe en CSS dans li.element)
+	if($isImage) $ctnOpts['class'][] = 'clearfix';
 }
