@@ -23,9 +23,13 @@
 	.link .image { float:none; margin: 0; }
 }
 
-//Liens englobants
+//liens englobants en boite
 .link_box {
+	.isDev & { background-color: MediumPurple; }
+	//force l'agrandissement en cas de présence de contenu flottant
+	@getClearfix();
 	display: block;
+	outline: 0;
 	text-decoration: none;
 	&:hover { text-decoration: underline; }
 }
@@ -61,12 +65,22 @@
 
 //Gestion des listings
 .elements {
+	//couleur de débug
+	.isDev & { background-color: #777; }
+	
 	//suppression de toute marge et puce (à tester avec un article (vérifier si balisage identique)
 	margin: 0;
 	padding: 0;
 	list-style: none;
 	
+	
+	
 	.element {
+		//force l'agrandissement en cas de présence de contenu flottant
+		@getClearfix();
+		
+		//couleurs de débug
+		.isDev & { background-color: #999; }
 		//indicateur visuel indiquant que la zone a été stylée par Arnaud
 		.isDev &.first.isVerified {
 			&:after {
@@ -78,21 +92,44 @@
 			}
 		}
 		
-		.title {
-			display: block;
+		//suppression soulignement des liens englobants en boite
+		.link_box { &, &:hover { text-decoration: none; } }
+		
+		//configuration des différents élément en block
+		.title, .name, .date, .teaser, .description, .telephone, .rubrique, .email { display: block; }
+		
+		//équivalent itemprop de title
+		.name {
+			.isDev & { background-color: lightcoral; }
+			float: left;
 			font-size: @fontSizeH6Px;
+		}
+		
+		.date {
+			.isDev & { background-color: lightgreen; }
+			float: left;
+			margin-left: @offM;
+		}
+		
+		//permet de replacer la description sous le titre et la date
+		.description {
+			.isDev & { background-color: lightblue; }
+			clear: both;
 		}
 		
 		//suppression marge de la navigation
 		.navigation { margin: 0; }
 		
-		.date {
-			margin-left: @gridGutter;
+		//container de l'image
+		.imageWrapper {
+			.isDev & { background-color: darkblue; }
 		}
 		
 		//container de texte, on ne met les éléments en block que lorsqu'il sont contenu dedans
 		.wrapper {
-			.title, .date, .teaser, .telephone, .rubrique, .email, .description { display: block; }
+			.isDev & { background-color: #bbb; }
+			//positionnement général du bloc de contenu (indépendamment du placement de l'image)
+			float: left;
 			
 			//pour faire descendre les textes sous l'image et le titre
 			.title {
