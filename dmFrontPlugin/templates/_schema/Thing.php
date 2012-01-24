@@ -34,13 +34,17 @@ if($isImage) {
 	$imageGridWidth = (isset($imageGridWidth)) ? $imageGridWidth : spLessCss::getLessParam('thumbS_col');
 	$imageGridHeight = (isset($imageGridHeight)) ? $imageGridHeight : spLessCss::getLessParam('thumbS_bl');
 	
-	//en attendant meilleure intégration avec datatype image
-	$html.= get_partial('global/imageWrapper', array(
-													'image'	=>	$image,
-													'alt'	=>	$name,
-													'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
-													'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
-													));
+	//options de l'image
+	$imageWrapperOpts = array(
+								'image'	=>	$image,
+								'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
+								'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+								);
+	//ajout du nom de l'article dans la balise Alt de l'image
+	if(isset($name)) $imageWrapperOpts['alt'] = $name;
+	
+	//Appel du partial d'image
+	$html.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 }
 
 if(isset($name)) if($name) $html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
