@@ -18,7 +18,7 @@
 if(!isset($container)) $container = 'div';
 
 //déclaration des propriétés par défaut du container
-$ctnOpts = array('class' => 'navigation');
+$ctnOpts = array('class' => array('navigation'));
 switch ($placement) {
 	case 'top':
 		$ctnOpts['class'][] = 'navigationTop';
