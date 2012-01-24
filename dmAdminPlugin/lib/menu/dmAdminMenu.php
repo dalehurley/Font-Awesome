@@ -18,7 +18,6 @@ class dmAdminMenu extends dmMenu {
         // Tri des modules par ordre alphabétique pour affichage dans admin
         $typeModule = $this->serviceContainer->getService('module_manager')->getTypes();
         ksort($typeModule);
-
 //      foreach($this->serviceContainer->getService('module_manager')->getTypes() as $typeName => $type)
         foreach ($typeModule as $typeName => $type) {
             $typeMenu = $this->addChild($type->getPublicName())

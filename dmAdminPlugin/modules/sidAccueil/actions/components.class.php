@@ -74,7 +74,7 @@ class sidAccueilComponents extends dmAdminBaseComponents
 
                
             }
-
+            
             
         }
 
@@ -84,7 +84,8 @@ class sidAccueilComponents extends dmAdminBaseComponents
   public function executeTest()
   {
     $this->accueilMessage = $this->name;
-//    $menuAccueil = new dmAdminMenu($serviceContainer);
+    $this->getService('dispatcher')->notify(new sfEvent($this, 'dm.admin.menu', array()));
+    $menuAccueil = new dmAdminMenu();
     $typeModule = $menuAccueil->serviceContainer->getService('module_manager')->getTypes();
         ksort($typeModule);
 
