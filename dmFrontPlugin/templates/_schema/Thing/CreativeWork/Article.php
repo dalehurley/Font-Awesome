@@ -102,7 +102,7 @@ if($isListing) {
 	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
 
 	//Gestion de la date de création
-	if(isset($dateCreated)) $htmlText.= get_partial('global/dateWrapperShort', array('node' => $node));
+	if(isset($dateCreated)) if($dateCreated) $htmlText.= get_partial('global/dateWrapperShort', array('node' => $node));
 
 	//Chapeau de l'article si présent
 	if(isset($description)) if($description) {
@@ -169,7 +169,7 @@ if($isListing) {
 		if(isset($description)) if($description) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
 
 		//Gestion de la date avec plusieurs possibilités (dateCreated, dateModified, etc)
-		if(isset($dateCreated)) $htmlHeader.= get_partial('global/dateWrapperFull', array('node' => $node));
+		if(isset($dateCreated)) if($dateCreated) $htmlHeader.= get_partial('global/dateWrapperFull', array('node' => $node));
 		
 	//affichage du header de l'article si non vide
 	if($htmlHeader != null) $html.= _tag('header.contentHeader', $htmlHeader);
