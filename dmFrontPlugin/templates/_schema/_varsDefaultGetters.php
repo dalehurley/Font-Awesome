@@ -10,6 +10,7 @@
  * $separator
  * $isLight				permet d'indiquer une version allégée (notamment pour des affichages spéciaux dans les sidebars)
  * $descriptionLength
+ * $navigationElements	indique les éléments de navigations
  * $count				indique le numéro de listing
  * $maxCount			indique le nombre maximal d'éléments affichages
  * 
@@ -39,6 +40,9 @@ if(isset($container)) {
 //séparateur par défaut
 if(!isset($separator)) $separator = '&#160;:&#160;';
 
+//permet de forcer la version listing de l'affichage
+if(!isset($isListing)) $isListing = false;
+
 //permet d'indiquer une version light de l'affichage (pour les listings simples)
 if(!isset($isLight)) $isLight = false;
 
@@ -57,9 +61,9 @@ if(isset($node)) {
 			}
 		}
 		//on raccourci la description si une longueur de description est définie
-		if($description != null && isset($descriptionLength)) {
+		/*if($description != null && isset($descriptionLength)) {
 			$description = stringTools::str_truncate($description, $descriptionLength, '&#160;(...)', true, true);
-		}
+		}*/
 	}
 	if(!isset($image)) {
 		try { $image = $node->getImage(); }

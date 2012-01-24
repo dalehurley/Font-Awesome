@@ -1,12 +1,13 @@
 <?php
 /*
  * Thing.php
- * v1.1
+ * v1.2
  * Permet d'afficher un élément de base
  * 
  * Variables disponibles :
  * $type
  * $value
+ * $valueLength
  * $itemprop
  * $customClass
  * $url
@@ -21,11 +22,14 @@
 if(!isset($container)) $container = 'span';
 //séparateur par défaut
 if(!isset($separator)) $separator = '&#160;:&#160;';
+//ellipsis par défaut
+if(!isset($ellipsis)) $ellipsis = '&#160;(...)';
 
 //Composition de la sortie html
 $html = '';
 
-//si le type est définit on engloble le tout dans un container
+//raccourcissement de la valeur si une longueur est définie
+if($value != null && isset($valueLength)) $value = stringTools::str_truncate($value, $valueLength, $ellipsis, true, true);
 
 //définition des options du container
 $ctnOpts = array();
@@ -42,6 +46,7 @@ if(isset($url) && $itemprop != 'url') {
 	$value = _link($url)->text($value)->set($linkOpt);
 }
 
+//si le type est définit on engloble le tout dans un container
 if(isset($type)){
 	$valueOpt = array();
 	if(isset($itemprop) && !isset($url)) $valueOpt['itemprop'] = $itemprop;
