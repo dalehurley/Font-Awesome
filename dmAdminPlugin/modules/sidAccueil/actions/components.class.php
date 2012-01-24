@@ -84,7 +84,7 @@ class sidAccueilComponents extends dmAdminBaseComponents
   public function executeTest()
   {
     $this->accueilMessage = $this->name;
-    $menuAccueil = new dmAdminMenu('module_manager');
+    $menuAccueil = new dmAdminMenu('serviceContainer');
     $typeModule = $this->serviceContainer->getService('module_manager')->getTypes();
         ksort($typeModule);
 
