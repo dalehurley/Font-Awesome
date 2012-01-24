@@ -89,7 +89,7 @@ if($isListing) {
 		if(isset($name)) $imageWrapperOpts['alt'] = $name;
 		
 		//Appel du partial d'image
-		$htmlImage.= get_partial('global/imageWrapper', $imageWrapperOpts);
+		$htmlImage.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 	}
 	
 	
@@ -151,15 +151,21 @@ if($isListing) {
 
 		//on affiche l'image que si elle est effectivement présente
 		if($isImage && isset($image)){
-			$imageWrapperFullOpts = array(
+			//dimensions de l'image
+			$imageGridWidth = spLessCss::getLessParam('thumbContent_col');
+			$imageGridHeight = spLessCss::getLessParam('thumbContent_bl');
+			//options de l'image
+			$imageWrapperOpts = array(
 									'image'	=>	$image,
-									'width'	=>	spLessCss::gridGetContentWidth(),
-									'height'=>	spLessCss::gridGetHeight(14,0)
+									'container' => 'div.imageFullWrapper',
+									'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
+									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
 									);
 			//ajout du nom de l'article dans la balise Alt de l'image
-			if(isset($name)) $imageWrapperFullOpts['alt'] = $name;
-
-			$htmlHeader.= get_partial('global/imageWrapperFull', $imageWrapperFullOpts);
+			if(isset($name)) $imageWrapperOpts['alt'] = $name;
+		
+			//Appel du partial d'image
+			$htmlHeader.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 		}
 
 		//Le titre de l'article, devant toujours être l'unique H1 dans la page
