@@ -7,22 +7,21 @@
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
-//contentBlocDePubEnFlash
+//contentFlowPlayer
 @pubLargeur: 250px;
 @pubHauteur: 250px;
-@nbreBaseLinePub: floor(@pubHauteur / @gridBaseline) + 5;
+@nbreBaseLinePub: floor(@pubHauteur / @gridBaseline) + 1;
 @pubHeight: @nbreBaseLinePub * @gridBaseline;
 @calculMarginVertical: (@pubHeight - @pubHauteur) / 2;
 
 .content_bloc_de_pub_en_flash {
-	background-color: darkblue;
+	//.dm_flow_player { padding: 0; border: 0; margin: 0; }
 }
 
 //suppression bordure et compensation padding
 #dm_content, #dm_sidebar_left, #dm_sidebar_right {
 	.content_bloc_de_pub_en_flash {
 		.dm_widget_inner {
-			background-color: lightgreen;
 			padding: 0 @zonesOffsetPad;
 			border: 0;
 		}
@@ -32,8 +31,10 @@
 #dm_sidebar_left, #dm_sidebar_right {
 	.content_bloc_de_pub_en_flash {
 		.dm_widget_inner {
-			padding-top: @calculMarginVertical;
-			padding-bottom: @calculMarginVertical;
+			.dm_flow_player {
+				margin-top: @calculMarginVertical;
+				margin-bottom: @calculMarginVertical;
+			}
 		}
 	}
 }
@@ -41,19 +42,23 @@
 #dm_sidebar_left {
 	.content_bloc_de_pub_en_flash {
 		.dm_widget_inner{
-			@calculMarginHorizontal: (@gridWidth_SidebarLeft - @pubLargeur) / 2;
-			margin-right: @calculMarginHorizontal;
-			margin-left: @calculMarginHorizontal;
+			.dm_flow_player {
+				@calculMarginHorizontal: (@gridWidth_SidebarLeft - @pubLargeur - @zonesOffsetPad * 2) / 2;
+				margin-right: @calculMarginHorizontal;
+				margin-left: @calculMarginHorizontal;
+			}
 		}
 	}
 }
 
 #dm_sidebar_right {
-	.content_flow_player {
+	.content_bloc_de_pub_en_flash {
 		.dm_widget_inner{
-			@calculMarginHorizontal: (@gridWidth_SidebarRight - @pubLargeur) / 2;
-			margin-right: @calculMarginHorizontal;
-			margin-left: @calculMarginHorizontal;
+			.dm_flow_player {
+				@calculMarginHorizontal: (@gridWidth_SidebarRight - @pubLargeur - @zonesOffsetPad * 2) / 2;
+				margin-right: @calculMarginHorizontal;
+				margin-left: @calculMarginHorizontal;
+			}
 		}
 	}
 }

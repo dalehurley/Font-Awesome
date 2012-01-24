@@ -92,11 +92,15 @@
 			}
 		}
 		
+		//séparateur de type &#160;:&#160;
+		.separator { }
+		
 		//suppression soulignement des liens englobants en boite
 		.link_box { &, &:hover { text-decoration: none; } }
 		
 		//configuration des différents élément en block
-		.title, .name, .date, .teaser, .description, .telephone, .rubrique, .email { display: block; }
+		.title, .name, .date, .teaser, .description, .rubrique, .email, .telephone, .faxNumber,
+		.address, .streetAddress, .postalCode, .addressLocality { display: block; }
 		
 		//équivalent itemprop de title
 		.name {
