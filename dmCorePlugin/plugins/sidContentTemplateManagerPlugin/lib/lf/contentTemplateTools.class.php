@@ -6,8 +6,8 @@
  */
 class contentTemplateTools {
 
-    public static $dumpExtension = 'dump';  // ATTENTION: utilisé dans l'installer.php
-    public static $undesiredTables = array(// les tables non désirées dans le dump pour le template de contenu
+    public static $dumpExtension = 'dump';  // ATTENTION: utilise dans l'installer.php
+    public static $undesiredTables = array(// les tables non desirees dans le dump pour le template de contenu
         'dm_catalogue',
         'dm_contact_me', 
         'dm_error',
@@ -24,7 +24,7 @@ class contentTemplateTools {
 
     /**
      * 
-     *   Retourne la config de la base de données dans un tableau avec les entrées:
+     *   Retourne la config de la base de donnees dans un tableau avec les entrees:
      *  - user
      *  - pwd
      *  - dbname
@@ -35,18 +35,18 @@ class contentTemplateTools {
         $pwd = $databaseConf ['all']['doctrine']['param']['password'];
         $dsn = $databaseConf ['all']['doctrine']['param']['dsn'];
 
-        if (preg_match('/dbname=.*;/', $dsn, $matches)) {   // on récupère le nom de la base de données à dumper, la base locale au site
+        if (preg_match('/dbname=.*;/', $dsn, $matches)) {   // on recupere le nom de la base de donnees à dumper, la base locale au site
             $dbname = str_replace('dbname=', '', $matches[0]);
             $dbname = str_replace(';', '', $dbname);
         } else {
-            $return[$i]['ERROR'] = 'Impossible de récupérer le nom de la base dans config/database.yml';
+            $return[$i]['ERROR'] = 'Impossible de recuperer le nom de la base dans config/database.yml';
         }
 
-        if (preg_match('/host=.*;dbname/', $dsn, $matchesHost)) {   // on récupère le host de la base de données à dumper, la base locale au site
+        if (preg_match('/host=.*;dbname/', $dsn, $matchesHost)) {   // on recupere le host de la base de donnees à dumper, la base locale au site
             $hostDb = str_replace('host=', '', $matchesHost[0]);
             $hostDb = str_replace(';dbname', '', $hostDb);
         } else {
-            $return[$i]['ERROR'] = 'Impossible de récupérer le host de la base dans config/database.yml';
+            $return[$i]['ERROR'] = 'Impossible de recuperer le host de la base dans config/database.yml';
         }
 
         $config['user'] = $user;
@@ -59,7 +59,7 @@ class contentTemplateTools {
 
     /**
      * 
-     * Effectue une sauvegarde des données de contenu d'un site, au format sql
+     * Effectue une sauvegarde des donnees de contenu d'un site, au format sql
      */
     public static function dumpDB($file) {
 
@@ -74,12 +74,12 @@ class contentTemplateTools {
         // liste des tables de la base
         $dbTables = dmDb::pdo('SHOW TABLES')->fetchAll();  // toutes les tables
         
-        // on enlève les tables undesired
+        // on enleve les tables undesired
         $i = 1;
         foreach ($dbTables as $dbTable) {
             if (!in_array($dbTable[0], self::$undesiredTables)) {
                 $listTables .= $dbTable[0] . ' ';
-                //echo $dbTable[0] . " ajoutée au dump \n";
+                //echo $dbTable[0] . " ajoutee au dump \n";
                 $i++;
             }
         }
@@ -95,12 +95,22 @@ class contentTemplateTools {
         $dirOUTassets = $file . "." . self::$dumpExtension . ".assets";
         // le nom du dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
-        $output = exec("mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;");
+        if (is_dir($dirOUTassets)){
+            $command = "cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;";
+        } else {
+            $command = "mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;";
+        }
+        $output = exec($command);
         $return[]['dumpDB'] = 'copie des assets';
 
         // save du dossier apps/front/modules/main
         $dirOUTmodules = $file . "." . self::$dumpExtension . ".modules";
-        $output = exec("mkdir " . $dirOUTmodules .";cp -R apps/front/modules/main " . $dirOUTmodules . "/;");
+        if (is_dir($dirOUTmodules)) {
+            $command = "cp -R apps/front/modules/main " . $dirOUTmodules . "/;";
+        } else {
+            $command = "mkdir " . $dirOUTmodules .";cp -R apps/front/modules/main " . $dirOUTmodules . "/;";
+        }
+        $output = exec($command);
         $return[]['dumpDB'] = 'copie du module main du front';
 
         return $return;
@@ -108,7 +118,7 @@ class contentTemplateTools {
 
     /**
      * 
-     *  Charge les données d'une sauvegarde effectuée par self::dumpDB
+     *  Charge les donnees d'une sauvegarde effectuee par self::dumpDB
      */
     public static function loadDB($file) {
 
@@ -125,10 +135,10 @@ class contentTemplateTools {
         $dbname = $config['dbname'];
         $dbhost = $config['dbhost'];
 
-        // truncate des futures tables à intégrer
+        // truncate des futures tables à integrer
         $i = 1;
 
-        // mise en berne des clefs étrangères pour faire des truncate tranquilum...
+        // mise en berne des clefs etrangeres pour faire des truncate tranquilum...
         dmDb::pdo('SET FOREIGN_KEY_CHECKS = 0');
 
         // liste des tables de la base
@@ -139,12 +149,12 @@ class contentTemplateTools {
         foreach ($dbTables as $dbTable) {
             if (!in_array($dbTable[0], self::$undesiredTables)) {
                 dmDb::pdo('TRUNCATE TABLE ' . $dbTable[0]);
-                //$return[$i]['dumpDB'] = $dbTable[0] . ' vidée ';                
+                //$return[$i]['dumpDB'] = $dbTable[0] . ' videe ';                
                 $i++;
             }
         }        
 
-        // mise en berne des clefs étrangères pour faire des truncate tranquilum...
+        // mise en berne des clefs etrangeres pour faire des truncate tranquilum...
         dmDb::pdo('SET FOREIGN_KEY_CHECKS = 1');
 
         // dump de la base
@@ -173,7 +183,7 @@ class contentTemplateTools {
                 // 
             } else {
                 $return[]['ERROR'] = $outLine;
-                $return[]['ERROR'] = 'Le fichier ' . $file . ' n\'est pas en cohérence avec la base ' . $dbname;
+                $return[]['ERROR'] = 'Le fichier ' . $file . ' n\'est pas en coherence avec la base ' . $dbname;
                 $return[]['ERROR'] = 'Verifiez le modele de donnees du fichier ' . $file . ' avec le modele de donnees de la base ' . $dbname . '.';
             }
         }
@@ -191,7 +201,7 @@ class contentTemplateTools {
         return $return;
     }
 
-    // doctrine:data-dump et data-load abandonnés au profit de mysqldump
+    // doctrine:data-dump et data-load abandonnes au profit de mysqldump
 //        /**
 //     * 
 //     *
@@ -200,11 +210,11 @@ class contentTemplateTools {
 //        $fileIn = '/data/templatesContenu/demo2.yml';
 //        $fileOut = '/data/templatesContenu/demo2_traite.yml';
 //
-//        // chargement du fichier d'entrée
+//        // chargement du fichier d'entree
 //        $loader = sfYaml::load($fileIn);
 //
 //        // traitement du tableau $loader
-//        $nonDesiredTables = array(    // les tables non désirées dans le chargement du template
+//        $nonDesiredTables = array(    // les tables non desirees dans le chargement du template
 ////            'dm_contact_me',
 ////            'dm_error',
 ////            'dm_group',
@@ -267,7 +277,7 @@ class contentTemplateTools {
 //    public static function loadFixtures() {
 //        
 //        // ne pas charger les version
-//        // créer les dossiers (mkdir) de dmMediaFolder sous upload
+//        // creer les dossiers (mkdir) de dmMediaFolder sous upload
 //        // ajouter http://www.doctrine-project.org/documentation/manual/1_2/data-fixtures/data-fixtures#fixtures-for-nested-sets
 //        // 
 // 

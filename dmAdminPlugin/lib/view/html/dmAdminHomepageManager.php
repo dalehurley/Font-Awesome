@@ -51,13 +51,33 @@ class dmAdminHomepageManager
 	 * @var array
 	 */
 	protected $windows;
-        
+
+
+  public function listenToFilterWindowsEvent(sfEvent $event, array $windows)
+  {
+    // add a myWindow in second column
+    $windows[1]['myWindow'] = array($this,'renderMyWindow'); // @TODO : ajouter un appel à un nouveau module sidWelcome / little
+ 
+    // change the existing weekChart renderer
+    //$windows[2]['weekChart'] = array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'week'), 'options_param' => 'week_chart.options');
+ 
+    return $windows;
+  }
+ 
+  public function renderMyWindow(dmHelper $helper)
+  {
+    // render the window with the $helper
+    return 'rrrrrrrrrrrrrrrrrr'; 
+    
+  }
+
+
 	public function __construct(myUser $user, sfServiceContainer $serviceContainer, sfEventDispatcher $dispatcher, dmHelper $helper)
 	{
-		$this->user							= $user;
+		$this->user             = $user;
 		$this->serviceContainer = $serviceContainer;
-		$this->dispatcher 			= $dispatcher;
-		$this->helper     			= $helper;
+		$this->dispatcher       = $dispatcher;
+		$this->helper           = $helper;
 	}
 
 	protected function getDefaultWindows()
@@ -85,6 +105,9 @@ class dmAdminHomepageManager
 
 	protected function getWindows()
 	{
+		// déclarer dans le dispatcher le nouveau filtre à écouter
+		$this->dispatcher->connect('dm.admin_homepage.filter_windows', array($this, 'listenToFilterWindowsEvent'));
+		
 		return $this->dispatcher->filter(
 		new sfEvent($this, 'dm.admin_homepage.filter_windows'),
 		$this->getDefaultWindows()

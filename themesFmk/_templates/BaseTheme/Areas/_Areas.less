@@ -1,6 +1,6 @@
 // _Areas.less
-// v1.0
-// Last Updated : 2011-10-10 18:00
+// v1.1
+// Last Updated : 2012-01-18 11:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -18,7 +18,7 @@
 		margin-right: auto;
 		padding-bottom: (@gridBaseline -1px);
 		/*background-color: transparent;
-		background-image: url({@urlImagesTemplate}/Page/header.png);
+		background-image: url(@{urlImagesTemplate}/Page/header.png);
 		background-repeat: no-repeat;
 		background-position: 50% bottom;
 		@gridMinHeight(11);*/
@@ -59,104 +59,106 @@
 //stylage de la zone sous le header
 #dm_custom_top {
 	min-height: @gridBaseline;
-	background-color: @colorCouleur3Clair;
+	//background-color: @colorCouleur3Clair;
 }
 
 //stylage des colonnes
-#dm_page {
-	//.dm_layout_left .dm_zones { background-color: lightcoral; }
-	//.dm_layout_right .dm_zones { background-color: lightgreen; }
-	//.dm_page_content .dm_zones { background-color: #aaa; }
+//#dm_sidebar_left .dm_zones { background-color: lightcoral; }
+//#dm_sidebar_right .dm_zones { background-color: lightgreen; }
+//#dm_content .dm_zones { background-color: #aaa; }
+
+#dm_content, #dm_sidebar_left, #dm_sidebar_right {
+	//meilleure gestion uniformisée des bordures
+	.dm_zones {
+		margin: @gridBaseline (@zonesOffsetPad * -1);
+	}
 	
-	.dm_page_content, .dm_layout_left, .dm_layout_right {
-		//meilleure gestion uniformisée des bordures
-		.dm_zones {
-			margin: @gridBaseline (@zonesOffsetPad * -1);
-		}
+	.dm_widget {
+		margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
 		
-		.dm_widget {
-			margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
-			
-			.dm_widget_inner {
-				padding: (@zonesOffsetPad - @zonesOffsetBorder);
-				//ajout d'une bordure dont l'épaisseur a été déduite
-				border: @zonesOffsetBorder solid @zonesBorderColor;
-				//suppression bordures sous niveaux
-				.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
-				
-				//& > .title, article > .title {
-				& > .title {
-					background-color: @colorCouleur3Clair;
-					color: @colorCouleur1Moyen;
-					margin: (@zonesOffsetPad * -1 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1 +1px);
-					padding: (@zonesOffsetPad -1px);
-					border-bottom: 1px solid @zonesBorderColor;
-				}
-			}
-		}
-	}
-	
-	.dm_page_content, .dm_layout_right {
-		.dm_widget {
-			.dm_widget_inner {
-				
-				
-			}
-		}
-	}
-	
-	.dm_layout_left {
-		.dm_widget {
-			.dm_widget_inner {
-				background-color: @colorCouleur3ClairSup;
-				//.organisation { background-color: purple; }
-				/*
-				& > .title {
-					margin-top: (@zonesOffsetPad * -1);
-					//border-top: 1px solid red;
-					border: 0;
-					padding-top: @gridBaseline/2;
-					padding-bottom: @gridBaseline/2;
-				}*/
-			}
-		}
-	}
-	
-	/*
-	.dm_layout_left {
-		.dm_zones {
-			background-color: lightcoral;
-			//permet de sortir de la zone
-			//padding: (@zonesOffsetPad - @zonesOffsetBorder);
-			//margin: (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1);
+		.dm_widget_inner {
+			padding: (@zonesOffsetPad - 1px);
 			//ajout d'une bordure dont l'épaisseur a été déduite
-			//border: @zonesOffsetBorder solid @colorCouleur1Clair;
-		}
-		
-	}
-	.dm_page_content, .dm_layout_right {
-		.dm_zones {
-			background-color: lightgreen;
-			//permet de sortir de la zone
-			//margin: (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1) @zonesOffsetPad (@zonesOffsetPad * -1);
-			//margin: @gridBaseline (@zonesOffsetPad * -1) @zonesOffsetPad (@zonesOffsetPad * -1);
-		}
-		
-		.dm_widget {
-			margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
-			.dm_widget_inner {
-				padding: (@zonesOffsetPad - @zonesOffsetBorder);
-				//ajout d'une bordure dont l'épaisseur a été déduite
-				border: @zonesOffsetBorder solid @colorCouleur1Clair;
-				//suppression bordures sous niveaux
-				.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
-				
-				& > .title {
-					margin-top: (@zonesOffsetPad * -1 +1px);
-					border-bottom: 1px solid @colorCouleur1Clair;
-				}
+			border: @zonesOffsetBorder solid @zonesBorderColor;
+			//suppression bordures sous niveaux
+			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
+			
+			//& > .title, article > .title {
+			& > .title {
+				background-color: @colorCouleur3Clair;
+				color: @colorCouleur1Moyen;
+				margin: (@zonesOffsetPad * -1 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline - @zonesOffsetPad * 2) (@zonesOffsetPad * -1 +1px);
+				padding: (@zonesOffsetPad -1px);
+				border-bottom: 1px solid @zonesBorderColor;
+				//changement de la police spécifique à Ténor
+				font-family: @fontGlobalFamilySerif;
+				font-weight: bold;
+				word-spacing: 0.05em;
+				letter-spacing: 0.05em;
 			}
 		}
 	}
-	*/
 }
+
+#dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget {
+		.dm_widget_inner {
+			& > .title { text-transform: uppercase; }
+		}
+	}
+}
+
+#dm_sidebar_left {
+	.dm_widget {
+		.dm_widget_inner {
+			background-color: @colorCouleur3ClairSup;
+			//.organisation { background-color: purple; }
+			/*
+			& > .title {
+				margin-top: (@zonesOffsetPad * -1);
+				//border-top: 1px solid red;
+				border: 0;
+				padding-top: @gridBaseline/2;
+				padding-bottom: @gridBaseline/2;
+			}*/
+		}
+	}
+}
+
+/*
+#dm_sidebar_left {
+	.dm_zones {
+		background-color: lightcoral;
+		//permet de sortir de la zone
+		//padding: (@zonesOffsetPad - @zonesOffsetBorder);
+		//margin: (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1);
+		//ajout d'une bordure dont l'épaisseur a été déduite
+		//border: @zonesOffsetBorder solid @colorCouleur1Clair;
+	}
+	
+}
+#dm_content, #dm_sidebar_right {
+	.dm_zones {
+		background-color: lightgreen;
+		//permet de sortir de la zone
+		//margin: (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1) @zonesOffsetPad (@zonesOffsetPad * -1);
+		//margin: @gridBaseline (@zonesOffsetPad * -1) @zonesOffsetPad (@zonesOffsetPad * -1);
+	}
+	
+	.dm_widget {
+		margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
+		.dm_widget_inner {
+			padding: (@zonesOffsetPad - @zonesOffsetBorder);
+			//ajout d'une bordure dont l'épaisseur a été déduite
+			border: @zonesOffsetBorder solid @colorCouleur1Clair;
+			//suppression bordures sous niveaux
+			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
+			
+			& > .title {
+				margin-top: (@zonesOffsetPad * -1 +1px);
+				border-bottom: 1px solid @colorCouleur1Clair;
+			}
+		}
+	}
+}
+*/

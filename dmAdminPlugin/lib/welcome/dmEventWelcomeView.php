@@ -1,6 +1,6 @@
 <?php
 
-class dmEventWelcomeView extends dmLogView
+class dmEventWelcomeView extends dmWelcomeView
 {
   protected
   $rows = array(

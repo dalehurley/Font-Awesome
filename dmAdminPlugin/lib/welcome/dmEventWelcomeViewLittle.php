@@ -2,7 +2,7 @@
 
 require_once(realpath(dirname(__FILE__).'/dmEventLogView.php'));
 
-class dmEventLogViewLittle extends dmEventLogView
+class dmEventWelcomeViewLittle extends dmEventWelcomeView
 {
   protected
   $rows = array(

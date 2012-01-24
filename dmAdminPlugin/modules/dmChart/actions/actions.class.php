@@ -2,7 +2,6 @@
 
 class dmChartActions extends dmAdminBaseActions
 {
-  
   public function executeImage(dmWebRequest $request)
   {
     $chartKey = $request->getParameter('name');
