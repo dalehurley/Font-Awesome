@@ -16,7 +16,7 @@ all:
       library: gd_mime_type #  gd_mime_type (GD), Fileinfo (PECL), MIME_Type (PEAR)
 
   controllers-access:    # param for controller's (dev.php, less.php) access
-    ips-allowed:
+    ips-allowed:   # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
       - 127.0.0.1
       - 217.108.240.193
       - 217.108.240.209
