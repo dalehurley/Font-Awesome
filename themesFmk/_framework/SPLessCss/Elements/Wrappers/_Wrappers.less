@@ -107,8 +107,8 @@
 		
 		.date {
 			.isDev & { background-color: lightgreen; }
-			float: left;
-			margin-left: @offM;
+			//uniquement dans le contenu où on a la place horizontale
+			#dm_content & { float: left; margin-left: @offM; }
 		}
 		
 		//permet de replacer la description sous le titre et la date
