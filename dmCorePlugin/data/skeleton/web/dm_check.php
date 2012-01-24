@@ -2,6 +2,8 @@
 
 require_once(dirname(__FILE__).'/../config/ProjectConfiguration.class.php');
 
+$configuration = ProjectConfiguration::getApplicationConfiguration('front', 'dev', true);
+
 $accesGranted = false;
 $ips = sfConfig::get('app_controllers-access_ips-allowed');
 
