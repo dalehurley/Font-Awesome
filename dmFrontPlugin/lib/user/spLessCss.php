@@ -85,6 +85,9 @@ class spLessCss extends dmFrontUser {
 		//Génération du fichier less de sortie
 		self::spriteLessGenerate($prct, $lessDefinitions);
 		
+		// chmod 777 sur toute l'arborescence juste créée par le mkdir recursif
+		exec('chmod 777 -R '.sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client'));
+
 		//Renvoi de valeurs pour l'affichage
 		return array(
 			'hashMd5'			=> $hashMd5,
@@ -292,8 +295,6 @@ class spLessCss extends dmFrontUser {
 				$testMkdir = mkdir($urlThemeClient, 0775, true);
 				//affichage d'un message en cas d'erreur
 				if(!$testMkdir) die("spLessCss | spriteGenerate : erreur de création de l'arborescence de dossiers");
-				// chmod 777 sur toute l'arborescence juste créée par le mkdir recursif
-				exec('chmod 777 -R '.sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client'));
 			}
 			
 			//Requête : préparations des composantes assemblées par la suite
