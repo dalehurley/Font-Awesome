@@ -6,11 +6,11 @@ use_stylesheet('admin.dataTable');
 use_stylesheet('admin.accueil');
 
 
-echo _tag('div.dm_box',
+echo _tag('div#accueil.dm_box',
   _tag('div.title',
     _tag('h2', $accueilMessage)
   ).
-  _tag('div.dm_box_inner.dm_data.m5',
-          _tag('div.dm_box_inner.dm_data.m5',$link)
+  _tag('div.dm_box_inner.dm_data.m5', $html
+//          _tag('div.dm_box_inner.dm_data.m5',$link)
           )
 );

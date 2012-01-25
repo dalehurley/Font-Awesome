@@ -447,11 +447,12 @@ class dmDataLoad
       'ck_editor_lite' => 'ckEditor Lite',
       'admin_bandeau_lite' => 'Administration du bandeau Lite',
       'super_admin' => 'Acces super Admin',
-      "admin" => "Coté Admin => Accès au compte de l'administrateur)",
-      "loremize" => "Coté Admin => Création de contenu aléatoire (pour Test)",
-      "page_bar_admin" => "Coté Admin => Affichage de la barre d'outil PAGE",
-      "media_bar_admin" => "Coté Admin => Affichage de la barre d'outil MEDIA ",
-      "tool_bar_admin" => "Coté Admin => Affiche la barre supérieure des menus déroulant",
+      "admin" => "Admin => Accès au compte de l'administrateur)",
+      "loremize" => "Admin => Création de contenu aléatoire (pour Test)",
+      "page_bar_admin" => "Admin => Affichage de la barre d'outil PAGE",
+      "media_bar_admin" => "Admin => Affichage de la barre d'outil MEDIA ",
+      "tool_bar_admin" => "Admin => Affiche la barre supérieure des menus déroulant",
+      "see_accueil" => "Menu général remis en forme",
       // Menu Contenu
       // 
         // Sous-menu Retours visiteur
@@ -707,7 +708,8 @@ class dmDataLoad
                 'description' => "Accès pour le client Web",
                 'permissions' => array(
                     'bandeau',
-                    'see_log',
+                    'see_accueil',
+//                    'see_log',
                     'see_chart',
                     'tool_bar_admin',
                     'admin',

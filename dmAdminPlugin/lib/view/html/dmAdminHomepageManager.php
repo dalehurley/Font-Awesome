@@ -67,7 +67,6 @@ class dmAdminHomepageManager
 //  public function renderMyWindow(dmHelper $helper)
 //  {
 //    // render the window with the $helper
-//    return 'rrrrrrrrrrrrrrrrrr'; 
 //    
 //  }
 
@@ -85,20 +84,18 @@ class dmAdminHomepageManager
 		// foreach column, declare the windows with needed properties
 		return array(
                 array(
-        'accueilWelcome'=> array('module' => 'sidAccueil', 'component' => 'little', 'params' => array('name' => 'bandeau'),'options_param' => 'accueil_welcome.options'),
-        'actuWelcome'=> array('module' => 'sidAccueil', 'component' => 'test', 'params' => array('name' => 'sidActuArticle'),'options_param' => 'accueil_welcome.options'),
         'accueilCabinet'=> array('module' => 'sidAccueil', 'component' => 'large', 'params' => array('name' => 'Gérer votre site internet'),'options_param' => 'accueil_welcome.options'),
-        'weekChart'     => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'week'), 'options_param' => 'week_chart.options'),
-        'contentChart'  => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'content'), 'options_param' => 'content_chart.options'),
-//        'browserChart'  => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'browser'), 'options_param' => 'browser_chart.options'),
+
 		),
 		array(
         'visitChart'    => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'visit'), 'options_param' => 'visit_chart.options'),
         'logChart'      => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'log'), 'options_param' => 'log_chart.options'),
+        'eventLog'      => array('module' => 'dmLog', 'component' => 'little', 'params' => array('name' => 'event'), 'options_param' => 'event_log.options'),            
 		),
 		array(
+         'weekChart'     => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'week'), 'options_param' => 'week_chart.options'),
+        'contentChart'  => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'content'), 'options_param' => 'content_chart.options'),
         'requestLog'    => array('module' => 'dmLog', 'component' => 'little', 'params' => array('name' => 'request'), 'options_param' => 'request_log.options'),
-        'eventLog'      => array('module' => 'dmLog', 'component' => 'little', 'params' => array('name' => 'event'), 'options_param' => 'event_log.options'),
 		)
 		);
 	}
