@@ -27,9 +27,11 @@
 
 //stylage du footer
 #dm_footer {
-	background-color: @colorCouleur3MoyenSup;
-	padding: (@gridBaseline -1px) 0 @gridBaseline 0;
-	border-top: 1px solid @colorCouleur3;
+	background-color: @colorCouleur2Moyen;
+	&, .link { color: @colorCouleur3ClairSup; }
+	//padding: (@gridBaseline/2 -1px) 0 @gridBaseline/2 0;
+	//border-top: 1px solid @colorCouleur3;
+	padding: 0;
 	
 	.dm_zones {
 		@gridSiteWidth();
@@ -40,18 +42,15 @@
 	//widgets situés dans le footer
 	.content_text {
 		font-size: @fontSizeSmall;
-		//background-color: lightcoral; 
+		line-height: @gridBaseline;
 		float: left;
-		.text_content p {
-			font-size: @fontSizeSmall;
-			margin-bottom: 0;
-		}
+		.text_content p { margin: 0; }
 	}
 	.content_link {
-		//background-color: lightgreen;
+		font-size: @fontSizeSmall;
+		line-height: @gridBaseline;
 		float: right;
 		margin-left: @offM;
-		.link { font-size: @fontSizeSmall; }  
 	}
 }
 
@@ -98,12 +97,6 @@
 				letter-spacing: 0.05em;
 				//on supprime le décalage situé entre le titre et une liste d'éléments quand ils sont suivi l'un par l'autre
 				& ~ .elements { margin-top: @gridBaseline/-2; }
-			}
-			
-			//définition d'une police particulière pour les titres et les noms
-			.title, .name {
-				//changement de la police spécifique à Ténor
-				font-family: @fontGlobalFamilySerif;
 			}
 		}
 	}
