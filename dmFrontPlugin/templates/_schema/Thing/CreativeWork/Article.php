@@ -100,9 +100,11 @@ if($isListing) {
 	
 	//Titre affiché en span car utilisé dans un container
 	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
-
 	//Gestion de la date de création
 	if(isset($dateCreated)) if($dateCreated) $htmlText.= get_partial('global/dateWrapperShort', array('node' => $node));
+	
+	//englobage dans un container si non vide
+	if($htmlText != null) $htmlText = _tag('span.subWrapper', $htmlText);
 
 	//Chapeau de l'article si présent
 	if(isset($description)) if($description) {
