@@ -22,6 +22,7 @@
 			@gridSiteWidth();
 			margin-left: auto;
 			margin-right: auto;
+			padding: @gridBaseline/2 0;
 		}
 	}
 	
@@ -43,7 +44,7 @@
 			&.first, &.last { @gridWidth(4; @gridGutter/2); }
 			float: left;
 			//adaptation padding
-			padding: @gridBaseline/2 (@gridGutter/2 -1px) @gridBaseline/2 @gridGutter/2;
+			padding: 0 (@gridGutter/2 -1px) 0 @gridGutter/2;
 			//suppression bordure et ajout à droite
 			border: 0;
 			border-right: 1px dashed @zonesBorderColor;
