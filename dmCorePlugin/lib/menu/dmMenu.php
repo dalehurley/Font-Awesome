@@ -593,7 +593,9 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 	  $recupName = $this->getName();
 	  $indexTiret = strpos($recupName, '-');
 	  if($indexTiret != false) $recupName = substr($recupName, $indexTiret + 1);
-	  
+          // rajout stef pour slugifier les classes générées automatiquement
+	  $recupName = dmString::slugify($recupName);
+          // fin rajour stef
 	  return $this->getLink()->addClass('link_' . $recupName)->currentSpan(false)->text($this->__($this->getLabel()))->render();
   }
 

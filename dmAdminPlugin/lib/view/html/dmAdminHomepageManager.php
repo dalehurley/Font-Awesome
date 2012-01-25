@@ -53,23 +53,22 @@ class dmAdminHomepageManager
 	protected $windows;
 
 
-  public function listenToFilterWindowsEvent(sfEvent $event, array $windows)
-  {
-    // add a myWindow in second column
-    $windows[1]['myWindow'] = array($this,'renderMyWindow'); // @TODO : ajouter un appel à un nouveau module sidWelcome / little
- 
-    // change the existing weekChart renderer
-    //$windows[2]['weekChart'] = array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'week'), 'options_param' => 'week_chart.options');
- 
-    return $windows;
-  }
- 
-  public function renderMyWindow(dmHelper $helper)
-  {
-    // render the window with the $helper
-    return 'rrrrrrrrrrrrrrrrrr'; 
-    
-  }
+//  public function listenToFilterWindowsEvent(sfEvent $event, array $windows)
+//  {
+//    // add a myWindow in second column
+//    $windows[1]['myWindow'] = array($this,'renderMyWindow'); // @TODO : ajouter un appel à un nouveau module sidWelcome / little
+// 
+//    // change the existing weekChart renderer
+//    //$windows[2]['weekChart'] = array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'week'), 'options_param' => 'week_chart.options');
+// 
+//    return $windows;
+//  }
+// 
+//  public function renderMyWindow(dmHelper $helper)
+//  {
+//    // render the window with the $helper
+//    
+//  }
 
 
 	public function __construct(myUser $user, sfServiceContainer $serviceContainer, sfEventDispatcher $dispatcher, dmHelper $helper)
@@ -85,17 +84,18 @@ class dmAdminHomepageManager
 		// foreach column, declare the windows with needed properties
 		return array(
                 array(
-        'weekChart'     => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'week'), 'options_param' => 'week_chart.options'),
-        'contentChart'  => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'content'), 'options_param' => 'content_chart.options'),
-        'browserChart'  => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'browser'), 'options_param' => 'browser_chart.options'),
+        'accueilCabinet'=> array('module' => 'sidAccueil', 'component' => 'large', 'params' => array('name' => 'Gérer votre site internet'),'options_param' => 'accueil_welcome.options'),
+
 		),
 		array(
         'visitChart'    => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'visit'), 'options_param' => 'visit_chart.options'),
         'logChart'      => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'log'), 'options_param' => 'log_chart.options'),
+        'eventLog'      => array('module' => 'dmLog', 'component' => 'little', 'params' => array('name' => 'event'), 'options_param' => 'event_log.options'),            
 		),
 		array(
+         'weekChart'     => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'week'), 'options_param' => 'week_chart.options'),
+        'contentChart'  => array('module' => 'dmChart', 'component' => 'little', 'params' => array('name' => 'content'), 'options_param' => 'content_chart.options'),
         'requestLog'    => array('module' => 'dmLog', 'component' => 'little', 'params' => array('name' => 'request'), 'options_param' => 'request_log.options'),
-        'eventLog'      => array('module' => 'dmLog', 'component' => 'little', 'params' => array('name' => 'event'), 'options_param' => 'event_log.options'),
 		)
 		);
 	}
@@ -103,7 +103,7 @@ class dmAdminHomepageManager
 	protected function getWindows()
 	{
 		// déclarer dans le dispatcher le nouveau filtre à écouter
-		$this->dispatcher->connect('dm.admin_homepage.filter_windows', array($this, 'listenToFilterWindowsEvent'));
+//		$this->dispatcher->connect('dm.admin_homepage.filter_windows', array($this, 'listenToFilterWindowsEvent'));
 		
 		return $this->dispatcher->filter(
 		new sfEvent($this, 'dm.admin_homepage.filter_windows'),
