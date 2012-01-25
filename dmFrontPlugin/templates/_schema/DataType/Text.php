@@ -1,7 +1,7 @@
 <?php
 /*
  * Thing.php
- * v1.2
+ * v1.3
  * Permet d'afficher un élément de base
  * 
  * Variables disponibles :
@@ -20,10 +20,14 @@
 
 //container par défaut
 if(!isset($container)) $container = 'span';
+
 //séparateur par défaut
 if(!isset($separator)) $separator = '&#160;:&#160;';
+$separator = _tag('span.separator', $separator);
+
 //ellipsis par défaut
 if(!isset($ellipsis)) $ellipsis = '&#160;(...)';
+$ellipsis = _tag('span.ellipsis', $ellipsis);
 
 //Composition de la sortie html
 $html = '';
@@ -54,7 +58,7 @@ if(isset($type)){
 	$html.= _open($container, $ctnOpts);
 	
 		$html.= _tag('span.type', $type);
-		$html.= _tag('span.separator', $separator);
+		$html.= $separator;
 		$html.= _tag('span.value', $valueOpt, $value);
 	
 	$html.= _close($container);
