@@ -33,10 +33,12 @@ EOF;
         if ($this->askConfirmation(array(
             'Générer le cache entier du site ? (y/n)'
         ) , 'QUESTION_LARGE', true)) {
+
             $pageCacheConfig = sfConfig::get('dm_performance_page_cache');
             if (!$pageCacheConfig || !$pageCacheConfig['enabled']) {
-                $this->logSection('No cache activated', '...');
+                $this->logSection('No total cache activated', '...');
             }
+
             $this->logSection('Create all cache page', '...');
             // récupération du nom de domaine du site via la table dmSetting
             $settings = dmDb::query('DmSetting s')->withI18n($options['lang'])->where('s.name = ?', 'base_urls')->limit(1)->fetchRecords();
