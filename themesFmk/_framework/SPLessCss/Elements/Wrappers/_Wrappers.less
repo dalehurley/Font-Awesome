@@ -92,15 +92,27 @@
 			}
 		}
 		
+		//configuration des différents élément en block
+		.name, .description,															//Thing
+		.jobTitle, .contactPoints,														//Person
+		.contactType, .email, .faxNumber, .telephone,									//ContactPoint
+		.streetAddress, .postalCode, .addressLocality, .addressRegion, .addressCountry,	//PostalAddress
+		.address,																		//Organization
+		.title, .teaser, .date															//CreativeWork
+		{ display: block; }
+		
+		//on modifie le comportement des éléments dans un subWrapper
+		.subWrapper {
+			#dm_content & span { display: inline; }
+		}
+		
 		//séparateur de type &#160;:&#160;
 		.separator { }
 		
 		//suppression soulignement des liens englobants en boite
 		.link_box { &, &:hover { text-decoration: none; } }
 		
-		//configuration des différents élément en block
-		.title, .name, .date, .teaser, .description, .rubrique, .email, .telephone, .faxNumber,
-		.address, .streetAddress, .postalCode, .addressLocality { display: block; }
+		
 		
 		//équivalent itemprop de title
 		.name {
@@ -112,13 +124,13 @@
 		.date {
 			.isDev & { background-color: lightgreen; }
 			//uniquement dans le contenu où on a la place horizontale
-			#dm_content & { float: left; margin-left: @offM; }
+			#dm_content & { margin-left: @offM; }
 		}
 		
 		//permet de replacer la description sous le titre et la date
 		.description {
 			.isDev & { background-color: lightblue; }
-			clear: both;
+			//clear: both;
 		}
 		
 		//suppression marge de la navigation
@@ -133,7 +145,7 @@
 		.wrapper {
 			.isDev & { background-color: #bbb; }
 			//positionnement général du bloc de contenu (indépendamment du placement de l'image)
-			float: left;
+			//float: left;
 			
 			//pour faire descendre les textes sous l'image et le titre
 			.title {
