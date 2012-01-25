@@ -92,7 +92,7 @@ $htmlText = '';
 
 if(isset($name) || isset($jobTitle)) {
 	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
-	if(isset($jobTitle)) if($jobTitle) $htmlText.= _tag('span.separator', '&#160;-&#160;') . get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));
+	if(isset($jobTitle)) if($jobTitle) $htmlText.= _tag('span.dash', '&#160;-&#160;') . get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));
 	//englobage dans un container
 	$htmlText = _tag('span.subWrapper', $htmlText);
 }
