@@ -67,6 +67,8 @@
 	#dm_sidebar_left .dm_zones { background-color: #ccccb8; }
 	#dm_sidebar_right .dm_zones { background-color: #b8ccb8; }
 	#dm_content .dm_zones { background-color: #b8cccc; }
+	#dm_custom_top .dm_zones { background-color: #ccccb8; }
+	#dm_custom_bottom .dm_zones { background-color: #ccb8cc; }
 }
 
 #dm_content, #dm_sidebar_left, #dm_sidebar_right {
@@ -91,17 +93,18 @@
 				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
 				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
 				border-bottom: 1px solid @zonesBorderColor;
-				//changement de la police spécifique à Ténor
-				font-family: @fontGlobalFamilySerif;
 				font-weight: bold;
 				word-spacing: 0.05em;
 				letter-spacing: 0.05em;
-				
 				//on supprime le décalage situé entre le titre et une liste d'éléments quand ils sont suivi l'un par l'autre
 				& ~ .elements { margin-top: @gridBaseline/-2; }
 			}
 			
-			
+			//définition d'une police particulière pour les titres et les noms
+			.title, .name {
+				//changement de la police spécifique à Ténor
+				font-family: @fontGlobalFamilySerif;
+			}
 		}
 	}
 }
