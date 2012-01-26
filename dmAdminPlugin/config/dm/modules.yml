@@ -15,7 +15,7 @@ Tools:
       credentials:  translation
     dmCatalogue:
       name:         Catalogue
-      credentials:  system
+      credentials:  catalogue_translation
   Monitoring:
     dmChart:
       name:         Chart
@@ -60,7 +60,7 @@ System:
   Configuration:
     dmSetting:
       name:         Setting
-      credentials:  system
+      credentials:  configuration
   Log:
     dmSentMail:
       name:         Sent mail
@@ -77,7 +77,7 @@ System:
       credentials:  code_editor
     dmConsole:
       name:         Diem Console
-      credentials:  system
+      credentials:  diem_console
     dmServer:
       name:         Server
       credentials:  see_server

@@ -6,7 +6,8 @@ abstract class PluginDmPermission extends BaseDmPermission
 	
   public function __toString()
   {
-    return $this->get('name').' : '.$this->get('description');
+    return $this->get('description').' - ['.$this->get('name').']';
   }
+  
 
 }

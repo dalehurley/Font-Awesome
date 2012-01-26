@@ -87,10 +87,11 @@
   font-weight: bold;
   color: #0085CF;
   color: #046BCA;
-  cursor: default;
+  /*cursor: default;*/
 }
 #dm_tool_bar ul.level1 > li > a:hover {
-  text-decoration: none;
+  /*text-decoration: none;*/
+  text-decoration: underline;
 }
 
 #dm_tool_bar ul.level2 > li {
