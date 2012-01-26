@@ -7,10 +7,6 @@
  * Variables disponibles :
  * $node
  * $container
- * $noMicrodata			désactive tout ajout de microdata (désactivé par défaut)
- * $separator
- * $isListing			indique qu'il s'agit d'un listing
- * $isLight				permet d'indiquer une version allégée (notamment pour des affichages spéciaux dans les sidebars)
  * $descriptionLength
  * $navigationElements	indique les éléments de navigations
  * $count				indique le numéro de listing
@@ -22,16 +18,9 @@
 $pageOptions = spLessCss::pageTemplateGetOptions();
 $isDev = $pageOptions['isDev'];
 
-//séparateur par défaut
-if(!isset($separator)) $separator = '&#160;:&#160;';
-//tiret par défaut
-if(!isset($dash)) $dash = '&#160;-&#160;';
-//permet de forcer la version listing de l'affichage
-if(!isset($isListing)) $isListing = false;
-//permet d'indiquer une version light de l'affichage (pour les listings simples)
-if(!isset($isLight)) $isLight = false;
-//désactive tout ajout de microdata
-if(!isset($noMicrodata)) $noMicrodata = false;
+//récupération des valeurs par défaut
+$includeDefaultValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultValues.php';
+include $includeDefaultValues;
 
 //déclaration des propriétés par défaut du container
 $ctnOpts = array();
