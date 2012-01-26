@@ -18,7 +18,6 @@ class dmAdminMenu extends dmMenu {
         // Tri des modules par ordre alphabétique pour affichage dans admin
         $typeModule = $this->serviceContainer->getService('module_manager')->getTypes();
         ksort($typeModule);
-
 //      foreach($this->serviceContainer->getService('module_manager')->getTypes() as $typeName => $type)
         foreach ($typeModule as $typeName => $type) {
             $typeMenu = $this->addChild($type->getPublicName())
@@ -30,7 +29,7 @@ class dmAdminMenu extends dmMenu {
             }
 
             foreach ($type->getSpaces() as $spaceName => $space) {
-                $spaceMenu = $typeMenu->addChild($space->getPublicName())
+                $spaceMenu = $typeMenu->addChild($space->getPublicName(),$this->serviceContainer->getService('routing')->getModuleSpaceUrl($space))
                         ->ulClass('level2');
 
                 foreach ($space->getModules() as $moduleKey => $module) {

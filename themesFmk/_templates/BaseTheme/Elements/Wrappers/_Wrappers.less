@@ -4,68 +4,72 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
+//définition d'une police particulière pour les titres et les noms
+.title, .name {
+	//changement de la police spécifique à Ténor
+	font-family: @fontGlobalFamilySerif;
+}
+
 //ajout bordures
-#dm_content, #dm_sidebar_left, #dm_sidebar_right {
-	.dm_widget {
-		
-		.navigation {
-			//suppression bordures
-			.elements {
-				margin: 0;
-				.element {
-					padding: 0; border-bottom: 0;
-					&:hover { background-color: inherit; }
-					&.last{ padding-bottom: 0; }
-				}
-			}
-		}
-		
-		.elements {
-			margin: 0 (@zonesOffsetPad * -1 +1px);
-			
-			.element {
-				//ajout transition navigateurs modernes
-				.csstransitions & {
-					@transitionCompress(background-color; .5s);
-				}
-				&:hover { background-color: @colorCouleur3Clair; }
-				
-				padding: @gridBaseline/2 (@zonesOffsetPad -1px) (@gridBaseline/2 -1px) (@zonesOffsetPad -1px);
-				border-bottom: 1px dashed @zonesBorderColor;
-				
-				//suppression bordure et padding pour dernier élément
-				&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }
-				
-				.title {
-					font-weight: bold;
-					color: @colorBlack;
-				}
-			}
-		}
-		
-		
-		//Décalage containers
-		.supWrapper {
-			.elements {
-				.element {
-					//suppression transition
-					.csstransitions & {
-						@transitionNone();
-					}
-					
-					padding-bottom: @gridBaseline - 1px;
-					border-bottom: 1px solid @zonesBorderColor;
-					&.last { border: 0; padding-bottom: 0; }
-				}
-				
-				&:hover { background-color: transparent; }
-			}
-			margin: 0 (@zonesOffsetPad * -1 +1px) @gridBaseline (@zonesOffsetPad * -1 +1px);
-			padding: 0 (@zonesOffsetPad -1px) (@gridBaseline - 1px) (@zonesOffsetPad -1px);
-			border-bottom: 1px solid @zonesBorderColor;
+.navigation {
+	//suppression bordures
+	.elements {
+		margin: 0;
+		.element {
+			padding: 0; border-bottom: 0;
+			&:hover { background-color: inherit; }
+			&.last{ padding-bottom: 0; }
 		}
 	}
 }
+
+.elements {
+	margin: 0 (@zonesOffsetPad * -1 +1px);
+	
+	.element {
+		//ajout transition navigateurs modernes
+		.csstransitions & {
+			@transitionCompress(background-color; .5s);
+		}
+		&:hover { background-color: @colorCouleur3Clair; }
+		
+		padding: @gridBaseline/2 (@zonesOffsetPad -1px) (@gridBaseline/2 -1px) (@zonesOffsetPad -1px);
+		border-bottom: 1px dashed @zonesBorderColor;
+		
+		//suppression bordure et padding pour dernier élément
+		&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }
+		
+		//stylage du titre
+		.name { font-weight: bold; color: @colorBlack; }
+		
+		//positionnement élément en ligne dans zone spécifique
+		.subWrapper {
+			#dm_custom_bottom & span { display: inline; vertical-align: top; }
+		}
+	}
+}
+
+
+//Décalage containers
+.supWrapper {
+	.elements {
+		.element {
+			//suppression transition
+			.csstransitions & {
+				@transitionNone();
+			}
+			&:hover { background-color: transparent; }
+			
+			padding-bottom: @gridBaseline - 1px;
+			border-bottom: 1px solid @zonesBorderColor;
+			&.last { border: 0; padding-bottom: 0; }
+		}
+	}
+	margin: 0 (@zonesOffsetPad * -1 +1px) @gridBaseline (@zonesOffsetPad * -1 +1px);
+	padding: 0 (@zonesOffsetPad -1px) (@gridBaseline - 1px) (@zonesOffsetPad -1px);
+	border-bottom: 1px solid @zonesBorderColor;
+}
+
 
 //configuration des liens de navigations
 .navigation {
@@ -77,7 +81,6 @@
 	//suppression bordures
 	.elements .element { padding-bottom: 0; border-bottom: 0; }
 }
-
 
 //configuration de base des deux containers d'images
 .imageWrapper {

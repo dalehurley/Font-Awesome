@@ -3,7 +3,7 @@
 $html = get_partial('global/titleWidget', array('title' => $titreBloc));
 
 //texte de présentation
-$html.= get_partial('global/contentWrapper', array('content' => $message));
+$html.= _tag('div.wrapper', $message);
 
 //création d'un tableau de liens à afficher
 $elements = array();

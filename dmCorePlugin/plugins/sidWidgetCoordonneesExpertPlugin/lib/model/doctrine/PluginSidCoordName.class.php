@@ -22,4 +22,15 @@ public function show_list_ville() {
         return $ville;
         
     }
+
+public function cabinet_ville() {
+
+        // on récupère le nom du cabinet - la ville (siège social) si tel est le cas
+        
+        $cabinet = $this->getTitle();
+        $ville = $this->getVille();
+        ($this->siege_social == true) ? $siege = ' (siège social)' : $siege = '';
+        return $cabinet.' à '.$ville.$siege;
+        
+    }
 }
