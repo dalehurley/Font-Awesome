@@ -6,7 +6,7 @@
  */
 class contentTemplateTools {
 
-    public static $dumpExtension = 'dump';  // ATTENTION: utilise dans l'installer.php
+    const dumpExtension = 'dump';  // ATTENTION: utilise dans l'installer.php
     public static $undesiredTables = array(// les tables non desirees dans le dump pour le template de contenu
         'dm_catalogue',
         'dm_contact_me', 
@@ -86,13 +86,13 @@ class contentTemplateTools {
 
         //$return[]['dumpDB'] = $listTables;
         // dump de la base
-        $fileOUT = $file . "." . self::$dumpExtension;
+        $fileOUT = $file . "." . self::dumpExtension;
         // option -c pour ajouter les champs dans la requete INSERT
         $output = exec("mysqldump -t -c --host=" . $dbhost . " --user=" . $user . " --password=" . $pwd . " " . $dbname . " " . $listTables . "> " . $fileOUT);
         $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUT . '(' . filesize($fileOUT) . ' o)';
 
         // save du dossier uploads
-        $dirOUTassets = $file . "." . self::$dumpExtension . ".assets";
+        $dirOUTassets = $file . "." . self::dumpExtension . ".assets";
         // le nom du dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
         if (is_dir($dirOUTassets)){
@@ -105,7 +105,7 @@ class contentTemplateTools {
         $return[]['dumpDB'] = 'copie des assets';
 
         // save du dossier apps/front/modules/main
-        $dirOUTmodules = $file . "." . self::$dumpExtension . ".modules";
+        $dirOUTmodules = $file . "." . self::dumpExtension . ".modules";
         if (is_dir($dirOUTmodules)) {
             $command = "cp -R apps/front/modules/main " . $dirOUTmodules . "/;";
         } else {
@@ -123,9 +123,9 @@ class contentTemplateTools {
      */
     public static function loadDB($file) {
 
-        $ext = substr($file, strlen($file) - strlen(self::$dumpExtension), strlen(self::$dumpExtension));
-        if ($ext != self::$dumpExtension) {
-            $return[]['ERROR'] = 'Le fichier : ' . $file . ' n\'a pas la bonne extension ' . self::$dumpExtension;
+        $ext = substr($file, strlen($file) - strlen(self::dumpExtension), strlen(self::dumpExtension));
+        if ($ext != self::dumpExtension) {
+            $return[]['ERROR'] = 'Le fichier : ' . $file . ' n\'a pas la bonne extension ' . self::dumpExtension;
             return $return;
         }
 
