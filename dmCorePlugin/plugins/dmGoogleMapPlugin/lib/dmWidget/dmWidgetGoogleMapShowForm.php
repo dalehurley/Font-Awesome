@@ -5,23 +5,11 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
 
   public function configure()
   {
-    //$adresseCabinet est l'adresse principal du cabinet récupéré en base
-
-      $adresseRequest = Doctrine_Query::create()->from('SidCoordName a')
-          ->where('a.siege_social = ?', true )
-          ->fetchOne();
-    $adresseCabinet = $adresseRequest->getAdresse();
-    if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
-    $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
-//    $this->widgetSchema['address'] = new sfWidgetFormInputText();
-//    $this->validatorSchema['address'] = new sfValidatorString();
-//    $this->widgetSchema['address']->setLabel('Search a place');
-//    $this->widgetSchema['address']->setDefault($adresseCabinet);
+    //création d'une liste déroulante comportant les adresses du cabinet
 
     $this->widgetSchema['address'] = new sfWidgetFormDoctrineChoice(array('multiple'=> false, 'model'=>'SidCoordName', 'method'=>'cabinet_ville'));
     $this->validatorSchema['address'] = new sfValidatorDoctrineChoice(array('required'=> true, 'model'=>'SidCoordName'));
     $this->widgetSchema['address']->setLabel('Search a place');
-//    $this->widgetSchema['address']->setDefault($adresseCabinet);
     
 
     $this->widgetSchema['mapTypeId'] = new sfWidgetFormSelect(array(

@@ -25,7 +25,7 @@ public function show_list_ville() {
 
 public function cabinet_ville() {
 
-        // on récupère le nom du cabinet et la ville
+        // on récupère le nom du cabinet - la ville (siège social) si tel est le cas
         
         $cabinet = $this->getTitle();
         $ville = $this->getVille();
