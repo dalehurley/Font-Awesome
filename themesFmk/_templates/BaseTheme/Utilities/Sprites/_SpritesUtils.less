@@ -1,0 +1,33 @@
+//_SpritesUtils.less
+// v1.0
+// Last Updated : 2012-01-26 14:10
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+
+//fonction spécifique d'ajout de sprite au titre de widget (utilisé avec BaseTheme, à déplacer dans ce dernier ou à rendre universel)
+//utiliser avec un complément du type :
+//.dm_widget_inner {
+//	& > .title:after { @spriteBgp-cabinet-contact-M(); }
+//}
+@widgetTitleSprite(@theme: "Default"; @category; @name) {
+	//ciblage du titre du widget
+	& .dm_widget_inner > .title {
+		//que si l'élément :after est géré (éviter un mélange avec .svg), on rajoute de l'espace à gauche pour caler la sprite
+		.generatedcontent #dm_sidebar_left &, .generatedcontent #dm_sidebar_right & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px + @offS); }
+		
+		&:after {
+			position: absolute;
+			display: block;
+			//décalage de marge
+			@decalV: (@gridBaseline + (@gridBaseline/2 - 1px) * 2 - @spriteFormat_M) / 2;
+			top: @decalV;
+			left: @offS;
+			content: "";
+			//appel différenciées des fonctions de sprite (appeler @spriteBgp-XXXX-XXXX-M dans le widget)
+			@spriteDimension(@spriteFormat_M);
+			@spriteBgi(@theme; "M");
+			@spriteBgiSvg(@theme; @category; @name);
+		}
+	}
+}
