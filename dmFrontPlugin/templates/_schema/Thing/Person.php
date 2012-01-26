@@ -1,7 +1,7 @@
 <?php
 /*
  * Person.php
- * v1.0
+ * v1.1
  * http://schema.org/Person
  * 
  * Variables disponibles :
@@ -94,12 +94,12 @@ $htmlText = '';
 	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
 	if(isset($jobTitle)) if($jobTitle) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));
 	//englobage dans un container
-	//_tag('span.dash', $dash) . 
+	//$dash . 
 	//$htmlText = _tag('span.subWrapper', $htmlText);
 //}
 
 //Properties from ContactPoint :
-$contactPointOpt = array('container' => 'span.contactPoints itemprop="contactPoints"', 'url' => false);
+$contactPointOpt = array('container' => 'span.contactPoints itemprop="contactPoints"', 'url' => false, 'isLight' => $isLight);
 if(isset($contactType) && !$isLight)$contactPointOpt['contactType']	= $contactType;
 if(isset($email))					$contactPointOpt['email']		= $email;
 if(isset($faxNumber))				$contactPointOpt['faxNumber']	= $faxNumber;

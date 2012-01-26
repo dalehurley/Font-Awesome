@@ -1,7 +1,7 @@
 <?php
 /*
- * Thing.php
- * v1.3
+ * Text.php
+ * v1.4
  * Permet d'afficher un élément de base
  * 
  * Variables disponibles :
@@ -16,18 +16,14 @@
  * 
  */
 
+//récupération des valeurs par défaut
+$includeDefaultValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultValues.php';
+include $includeDefaultValues;
+
 //Configuration par défaut
 
 //container par défaut
 if(!isset($container)) $container = 'span';
-
-//séparateur par défaut
-if(!isset($separator)) $separator = '&#160;:&#160;';
-$separator = _tag('span.separator', $separator);
-
-//ellipsis par défaut
-if(!isset($ellipsis)) $ellipsis = '&#160;(...)';
-$ellipsis = _tag('span.ellipsis', $ellipsis);
 
 //Composition de la sortie html
 $html = '';
@@ -48,7 +44,14 @@ if(isset($customClass)) $ctnOpts['class'][] = $customClass;
 if(isset($url) && $itemprop != 'url') {
 	$linkOpt = array();
 	if(isset($itemprop)) $linkOpt['itemprop'] = $itemprop;
-	$value = _link($url)->text($value)->set($linkOpt);
+	
+	//composition du lien html (permet d'afficher le type comme intitulé du lien si définit et version light)
+	$htmlLink = _link($url)->set($linkOpt);
+	if($isLight && isset($type))	$htmlLink->text($type);
+	else							$htmlLink->text($value);
+	
+	//remplacement de la valeur par le lien
+	$value = $htmlLink;
 }
 
 //si le type est définit on engloble le tout dans un container
