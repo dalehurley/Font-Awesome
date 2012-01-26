@@ -104,6 +104,8 @@ EOF;
                 }
             }
             $file = $dirDbDump . '/' . $dumpName;
+        } else {
+            $file = $arguments['file'];
         }
         
         $results = contentTemplateTools::dumpDB($file);
