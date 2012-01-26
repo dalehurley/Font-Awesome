@@ -49,25 +49,26 @@ EOF;
             foreach ($dispoTemplates as $k => $dispoTemplate) {
                 $this->log($k . ' - ' . $dispoTemplate);
             }
-
-           // choix de la maquette du coeur
-           $numTemplate = $this->askAndValidate(array('','Le numero du template choisi?','') , new sfValidatorChoice(array(
-               'choices' => array_keys($dispoTemplates) ,
-               'required' => true
-               ) , array(
+            // choix de la maquette du coeur
+            $numTemplate = $this->askAndValidate(array(
+                '',
+                'Le numero du template choisi?',
+                ''
+            ) , new sfValidatorChoice(array(
+                'choices' => array_keys($dispoTemplates) ,
+                'required' => true
+            ) , array(
                 'invalid' => 'Le template n\'existe pas'
             )));
-
             // Affichages des dump existants pour ce template
             // scan du dossier _templates/themechoisi/Externals/db
             $dirDbDump = dm::getDir() . '/themesFmk/_templates/' . $dispoTemplates[$numTemplate] . '/Externals/db';
-            
-            if (is_dir($dirDbDump)){
+            if (is_dir($dirDbDump)) {
                 $arrayTemplateDumps = scandir($dirDbDump);
             } else {
-                $this->logBlock('Dossier '.$dirDbDump.' inexistant. Annulation.','ERROR');
+                $this->logBlock('Dossier ' . $dirDbDump . ' inexistant. Annulation.', 'ERROR');
                 exit;
-            }    
+            }
             $i = 0;
             $dispoTemplateDumps = array();
             
@@ -91,19 +92,21 @@ EOF;
                 'Nom du dump a effectuer? (par defaut: ' . $dumpNameAuto . ')',
                 ''
             ));
-            $dumpName = empty($dumpName) ? $dumpNameAuto : $dumpName; 
-
-            if (in_array($dumpName.'.'.contentTemplateTools::dumpExtension, $dispoTemplateDumps)) {
-                if (!$this->askConfirmation(array('','Le fichier '.$dirDbDump . '/' .$dumpName.'.'.contentTemplateTools::dumpExtension.' existe. Continuer en le remplaçant? (y/n)',''))) {
-                    $this->logBlock('Annulation. Fichier existant.','ERROR');
+            $dumpName = empty($dumpName) ? $dumpNameAuto : $dumpName;
+            if (in_array($dumpName . '.' . contentTemplateTools::dumpExtension, $dispoTemplateDumps)) {
+                if (!$this->askConfirmation(array(
+                    '',
+                    'Le fichier ' . $dirDbDump . '/' . $dumpName . '.' . contentTemplateTools::dumpExtension . ' existe. Continuer en le remplaçant? (y/n)',
+                    ''
+                ))) {
+                    $this->logBlock('Annulation. Fichier existant.', 'ERROR');
                     exit;
                 }
             }
             $file = $dirDbDump . '/' . $dumpName;
         }
-
+        
         $results = contentTemplateTools::dumpDB($file);
-
         $this->logSection('### dumpDB', 'Dump de la base locale');
         
         foreach ($results as $result) {
