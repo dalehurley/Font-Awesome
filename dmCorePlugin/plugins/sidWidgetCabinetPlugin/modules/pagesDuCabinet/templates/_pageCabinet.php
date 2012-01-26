@@ -20,7 +20,7 @@ if (count($pageCabinet)) { // si nous avons des actu articles
 													'elements' => $elements
 													));
 } else {
-	$html.= get_partial('global/publicationShow', array('content' => '{{page_cabinet}}'));
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{page_cabinet}}'));
 }
 
 //affichage html de sortie

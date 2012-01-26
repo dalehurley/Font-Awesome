@@ -8,14 +8,15 @@ if (count($pageCabinet)) { // si nous avons des actu articles
 	//ouverture du listing
     $html.= _open('ul.elements');
 	
-	$html.= get_partial('global/publicationListElement', array(
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
 												'node' => $pageCabinet,
-												'teaserLength' => $lenght,
 												'count' => 1,
-												'maxCount' => 1
+												'maxCount' => 1,
+												'container' => 'li.element',
+												'isListing' => true,
+												'descriptionLength' => $lenght,
+												'url' => $pageCabinet
 												));
-	
-	
 	//fermeture du listing
     $html.= _close('ul.elements');
 	

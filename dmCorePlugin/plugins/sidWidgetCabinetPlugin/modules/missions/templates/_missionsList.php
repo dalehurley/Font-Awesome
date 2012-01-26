@@ -25,12 +25,14 @@ if (count($missions)) { // si nous avons des actu articles
 		//incrémentation compteur
 		$count++;
 		
-		$html.= get_partial('global/publicationListElement', array(
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
 												'node' => $mission,
 												'count' => $count,
 												'maxCount' => $maxCount,
-												'teaserLength' => $longueurTexte,
-												'linkUrl' => $mission
+												'container' => 'li.element',
+												'isListing' => true,
+												'descriptionLength' => $longueurTexte,
+												'url' => $mission
 												));
     }
 	

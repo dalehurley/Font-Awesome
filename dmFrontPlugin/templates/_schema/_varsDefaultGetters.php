@@ -7,9 +7,12 @@
  * Variables disponibles :
  * $node
  * $container
+ * $noMicrodata			désactive tout ajout de microdata (désactivé par défaut)
  * $separator
+ * $isListing			indique qu'il s'agit d'un listing
  * $isLight				permet d'indiquer une version allégée (notamment pour des affichages spéciaux dans les sidebars)
  * $descriptionLength
+ * $navigationElements	indique les éléments de navigations
  * $count				indique le numéro de listing
  * $maxCount			indique le nombre maximal d'éléments affichages
  * 
@@ -19,12 +22,24 @@
 $pageOptions = spLessCss::pageTemplateGetOptions();
 $isDev = $pageOptions['isDev'];
 
+//séparateur par défaut
+if(!isset($separator)) $separator = '&#160;:&#160;';
+//permet de forcer la version listing de l'affichage
+if(!isset($isListing)) $isListing = false;
+//permet d'indiquer une version light de l'affichage (pour les listings simples)
+if(!isset($isLight)) $isLight = false;
+//désactive tout ajout de microdata
+if(!isset($noMicrodata)) $noMicrodata = false;
+
 //déclaration des propriétés par défaut du container
 $ctnOpts = array();
 if(isset($container)) {
-	$ctnOpts['class'][] = $itemType;
-	$ctnOpts['itemscope'] = 'itemscope';
-	$ctnOpts['itemtype'] = 'http://schema.org/' . $itemType;
+	//on ne rajoute ces éléments de microdata que si nécessaire
+	if(!$noMicrodata) {
+		$ctnOpts['class'][] = $itemType;
+		$ctnOpts['itemscope'] = 'itemscope';
+		$ctnOpts['itemtype'] = 'http://schema.org/' . $itemType;
+	}
 	
 	//gestion de l'index de positionnement
 	if(isset($count) && isset($maxCount)) {
@@ -35,12 +50,6 @@ if(isset($container)) {
 	//application classe de debug
 	if($isDev) $ctnOpts['class'][] = 'isVerified';
 }
-
-//séparateur par défaut
-if(!isset($separator)) $separator = '&#160;:&#160;';
-
-//permet d'indiquer une version light de l'affichage (pour les listings simples)
-if(!isset($isLight)) $isLight = false;
 
 //Affectation des valeurs par défaut passées dans la node
 if(isset($node)) {
@@ -57,9 +66,9 @@ if(isset($node)) {
 			}
 		}
 		//on raccourci la description si une longueur de description est définie
-		if($description != null && isset($descriptionLength)) {
+		/*if($description != null && isset($descriptionLength)) {
 			$description = stringTools::str_truncate($description, $descriptionLength, '&#160;(...)', true, true);
-		}
+		}*/
 	}
 	if(!isset($image)) {
 		try { $image = $node->getImage(); }
@@ -139,7 +148,7 @@ if(isset($node)) {
 
 //définition de l'image
 $isImage = false;
-if(isset($image)) {
+if(isset($image)) if($image) {
 	//on vérifie que l'image existe sur le serveur avec son chemin absolu
 	$imageUpload = (strpos($image, 'uploads') === false) ? '/uploads/' : '/';
 	$isImage = is_file(sfConfig::get('sf_web_dir') . $imageUpload . $image);

@@ -26,19 +26,20 @@ if (count($missions)) { // si nous avons des actu articles
 		//incrémentation compteur
 		$count++;
 		
-		//récupération du title et du teaser
-		$title = ($titreBloc == null) ? "" : $mission->getTitle();
-		$teaser = ($chapo == 0) ? $mission->getResume() : $mission->getText();
+		//option de la mission
+		$missionOpt = array(
+							'node' => $mission,
+							'count' => $count,
+							'maxCount' => $maxCount,
+							'container' => 'li.element',
+							'isListing' => true,
+							'descriptionLength' => $length,
+							'url' => $mission
+							);
+		//désactivation du titre si définit dans le titre du bloc
+		if($titreBloc == null) $missionOpt['name'] = false;
 		
-		$html.= get_partial('global/publicationListElement', array(
-												'node' => $mission,
-												'title' => $title,
-												'teaser' => $teaser,
-												'teaserLength' => $length,
-												'count' => $count,
-												'maxCount' => $maxCount,
-												'isLight' => true
-												));
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $missionOpt);
     }
 	
 	//fermeture du listing

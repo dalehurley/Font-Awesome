@@ -19,11 +19,11 @@ if (count($equipes)) { // si nous avons des actu articles
 	//affichage des équipes
 	foreach ($implantations as $implantationId => $implantation) {
 		//ouverture du container
-		$html.= _open('div.supWrapper');
+		$html.= _open('div.supWrapper.clearfix');
 		//affichage de la ville d'implantation
 		$html.= get_partial('global/titleSupWrapper', array('title' => (__('Implantation') . '&#160;:&#160;'. $implantation['ville'])));
 		//ouverture de la liste
-		$html.= _open('ul.elements.clearfix');
+		$html.= _open('ul.elements');
 		
 		//compteur
 		$count = 0;
