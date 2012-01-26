@@ -15,20 +15,21 @@ if (count($recrutements)) { // si nous avons des actu articles
 		//incrémentation compteur
 		$count++;
 		
-		$html.= get_partial('global/publicationListElement', array(
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
 												'node' => $recrutement,
 												'count' => $count,
 												'maxCount' => $maxCount,
-												'teaser' => $recrutement->getText(),
-												'teaserLength' => $longueurTexte,
-												'linkUrl' => $recrutement
+												'container' => 'li.element',
+												'isListing' => true,
+												'descriptionLength' => $longueurTexte,
+												'url' => $recrutement
 												));
     }
 	
     //fermeture du listing
     $html.= _close('ul.elements');
 }else{
-	$html.= get_partial('global/publicationShow', array('content' => '{{recrutement}}'));
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{recrutement}}'));
 }
 
 //affichage html en sortie

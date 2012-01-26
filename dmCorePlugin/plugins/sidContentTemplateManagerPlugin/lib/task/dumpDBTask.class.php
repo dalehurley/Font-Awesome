@@ -4,7 +4,7 @@ class dumpDBTask extends sfBaseTask {
     protected function configure() {
         // // add your own arguments here
         $this->addArguments(array(
-            new sfCommandArgument('file', sfCommandArgument::REQUIRED, 'Output file') ,
+            new sfCommandArgument('file', sfCommandArgument::OPTIONAL, 'Output file') ,
         ));
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name') ,
@@ -20,7 +20,7 @@ class dumpDBTask extends sfBaseTask {
 The [dumpDB|INFO] dump local diem Database into file.
 Call it with:
 
-  [php symfony dumpDB /data/save.sql|INFO] 
+  [php symfony dumpDB [file]|INFO] 
 EOF;
         
     }
@@ -29,7 +29,81 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         // add your code here
-        $results = contentTemplateTools::dumpDB($arguments['file']);
+        if (!isset($arguments['file'])) {
+            // recuperation des differentes maquettes du coeur
+            // scan du dossier _templates
+            $arrayTemplates = scandir(dm::getDir() . '/themesFmk/_templates');
+            $i = 0;
+            $dispoTemplates = array();
+            
+            foreach ($arrayTemplates as $template) {
+                // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
+                if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_') {
+                    $i++;
+                    $dispoTemplates[$i] = $template;
+                }
+            }
+            // on affiche les choix
+            $this->logBlock('Themes disponibles :', 'INFO_LARGE');
+            
+            foreach ($dispoTemplates as $k => $dispoTemplate) {
+                $this->log($k . ' - ' . $dispoTemplate);
+            }
+
+           // choix de la maquette du coeur
+           $numTemplate = $this->askAndValidate(array('','Le numero du template choisi?','') , new sfValidatorChoice(array(
+               'choices' => array_keys($dispoTemplates) ,
+               'required' => true
+               ) , array(
+                'invalid' => 'Le template n\'existe pas'
+            )));
+
+            // Affichages des dump existants pour ce template
+            // scan du dossier _templates/themechoisi/Externals/db
+            $dirDbDump = dm::getDir() . '/themesFmk/_templates/' . $dispoTemplates[$numTemplate] . '/Externals/db';
+            
+            if (is_dir($dirDbDump)){
+                $arrayTemplateDumps = scandir($dirDbDump);
+            } else {
+                $this->logBlock('Dossier '.$dirDbDump.' inexistant. Annulation.','ERROR');
+                exit;
+            }    
+            $i = 0;
+            $dispoTemplateDumps = array();
+            
+            foreach ($arrayTemplateDumps as $dump) {
+                // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
+                if ($dump != '.' && $dump != '..' && substr($dump, (strlen($dump)) - 5) == '.dump') {
+                    $i++;
+                    $dispoTemplateDumps[$i] = $dump;
+                }
+            }
+            // on affiche les dumps existants
+            $this->logBlock('Dump existants du theme ' . $dispoTemplates[$numTemplate] . ' :', 'INFO_LARGE');
+            
+            foreach ($dispoTemplateDumps as $k => $dispoTemplateDump) {
+                $this->log($k . ' - ' . $dispoTemplateDump);
+            }
+            // on demande le nom du fichier choisi
+            $dumpNameAuto = date("Y-m-d-H:i:s") . '-' . str_replace('Theme', '', $dispoTemplates[$numTemplate]); // nom automatique dans le suffixe Theme
+            $dumpName = $this->ask(array(
+                '',
+                'Nom du dump a effectuer? (par defaut: ' . $dumpNameAuto . ')',
+                ''
+            ));
+            $dumpName = empty($dumpName) ? $dumpNameAuto : $dumpName; 
+
+            if (in_array($dumpName.'.'.contentTemplateTools::dumpExtension, $dispoTemplateDumps)) {
+                if (!$this->askConfirmation(array('','Le fichier '.$dirDbDump . '/' .$dumpName.'.'.contentTemplateTools::dumpExtension.' existe. Continuer en le remplaçant? (y/n)',''))) {
+                    $this->logBlock('Annulation. Fichier existant.','ERROR');
+                    exit;
+                }
+            }
+            $file = $dirDbDump . '/' . $dumpName;
+        }
+
+        $results = contentTemplateTools::dumpDB($file);
+
         $this->logSection('### dumpDB', 'Dump de la base locale');
         
         foreach ($results as $result) {

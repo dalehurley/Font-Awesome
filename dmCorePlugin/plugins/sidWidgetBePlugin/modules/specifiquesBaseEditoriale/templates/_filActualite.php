@@ -21,15 +21,16 @@ if (count($articles)) { // si nous avons des actu articles
 		$elements = array();
 		$elements[] = array('title' => $titreLien . '&#160;' . $arrayRubrique[$article->filename], 'linkUrl' => $article->Section);
 		
-		$html.= get_partial('global/publicationListElement', array(
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
 												'node' => $article,
 												'image' => '/_images/lea' . $article->filename . '-p.jpg',
 												'count' => $count,
 												'maxCount' => $maxCount,
-												'teaser' => $article->getChapeau(),
-												'teaserLength' => $longueurTexte,
+												'container' => 'li.element',
+												'isListing' => true,
+												'descriptionLength' => $longueurTexte,
 												'navigationElements' => $elements,
-												'linkUrl' => $article
+												'url' => $article
 												));
     }
 	

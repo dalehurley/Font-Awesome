@@ -29,7 +29,7 @@
 @spriteBgp(@dim: @spriteFormat_L; @offX: 0; @offY: 0) { background-position: (@offX * @dim * -1px) (@offY * @dim * -1px); }
 
 
-//fonction spécifique d'ajout de sprite au titre de widget
+//fonction spécifique d'ajout de sprite au titre de widget (utilisé avec BaseTheme, à déplacer dans ce dernier ou à rendre universel)
 //utiliser avec un complément du type :
 //.dm_widget_inner {
 //	& > .title:after { @spriteBgp-internet-contact-M(); }
@@ -44,7 +44,7 @@
 			position: absolute;
 			display: block;
 			//décalage de marge
-			@decalV: (@gridBaseline + (@zonesOffsetPad -1px) * 2 - @spriteFormat_M) / 2;
+			@decalV: (@gridBaseline + (@gridBaseline/2 - 1px) * 2 - @spriteFormat_M) / 2;
 			top: @decalV;
 			left: 0;
 			content: "";

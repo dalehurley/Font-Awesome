@@ -64,7 +64,7 @@ $addressOpt['telephone']		= false;
 //ajout des propriétés
 if(isset($node))			$addressOpt['node']				= $node;			
 if(isset($addressLocality)) $addressOpt['addressLocality']	= $addressLocality;
-if(isset($postalCode))		$addressOpt['imapostalCodee']	= $postalCode;
+if(isset($postalCode))		$addressOpt['postalCode']		= $postalCode;
 if(isset($streetAddress))	$addressOpt['streetAddress']	= $streetAddress;
 $html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress', $addressOpt);
 
