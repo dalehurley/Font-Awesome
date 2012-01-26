@@ -62,9 +62,10 @@ EOF;
             ))->fetchRecords();
             $nb = 1;
             $timeBegin = microtime(true);
+            $execTimeGlobal = 0;
             
             foreach ($dmPages as $dmPage) {
-                //if ($nb > 5) break;
+                if ($nb > 5) break;
                 $timeBeginPage = microtime(true);
                 try {
                     // affichage de la page
@@ -72,14 +73,21 @@ EOF;
                     // chargement de la page
                     $pageSite = file_get_contents($dmPageUrl);
 
-                    $this->logSection($nb . ' (' . substr((microtime(true) - $timeBeginPage),0,5) . 's)', $dmPageUrl);
+                    $execTime = substr((microtime(true) - $timeBeginPage),0,5);
+                    $execTimeGlobal = $execTimeGlobal + $execTime;
+                    $this->logSection($nb . ' (' . substr($execTime,0,5) . 's)', $dmPageUrl);
                     $nb++;
                 }
                 catch(Exception $e) {
                     $this->logSection('Soucis sur la page', $dmPageUrl);
                 }
             }
-            $this->logSection('Execution time', (microtime(true) - $timeBegin) . 's');
+
+            // compte rendu global
+            $this->logSection('Nb pages', $nb);            
+            $this->logSection('Execution time total', substr((microtime(true) - $timeBegin),0,5) . 's');
+            $this->logSection('Execution avg time by page', substr($execTimeGlobal/$nb,0,5). 's/page');
+
         } else {
             $this->logSection('Annulation', '...');
         }
