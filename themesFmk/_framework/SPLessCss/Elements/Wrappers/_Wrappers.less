@@ -114,14 +114,20 @@
 			}
 		}
 		
-		//configuration des différents élément en block
-		.name, .description,															//Thing
-		.jobTitle, .contactPoints,														//Person
-		.contactType, .email, .faxNumber, .telephone,									//ContactPoint
-		.streetAddress, .postalCode, .addressLocality, .addressRegion, .addressCountry,	//PostalAddress
-		.address,																		//Organization
-		.title, .teaser, .date															//CreativeWork
+		//débuggage alignements des différents éléments constitutifs des itemprops
+		.type, .separator, .value, .dash, .ellipsis { line-height: @gridBaseline; vertical-align: top; }
+		
+		.itemscope, .itemprop,	//éléments de stype schema.org
+		.title, .teaser, .date	//élements non standardisés
 		{ display: block; }
+		
+		//configuration des différents élément en block
+		//.name, .description,															//Thing
+		//.jobTitle, .contactPoints,														//Person
+		//.contactType, .email, .faxNumber, .telephone,									//ContactPoint
+		//.streetAddress, .postalCode, .addressLocality, .addressRegion, .addressCountry,	//PostalAddress
+		//.address,																		//Organization
+		//.title, .teaser, .date															//CreativeWork
 		
 		//suppression soulignement des liens englobants en boite
 		.link_box { &, &:hover { text-decoration: none; } }
@@ -135,10 +141,6 @@
 		//permet de replacer la description sous le titre et la date
 		.description {
 			.isDev & { background-color: lightblue; }
-		}
-		
-		.jobtitle {
-			
 		}
 		
 		.date {
