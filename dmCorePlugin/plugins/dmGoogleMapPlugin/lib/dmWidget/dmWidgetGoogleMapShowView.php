@@ -22,8 +22,18 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
   protected function doRender()
   {
     $vars = $this->getViewVars();
+
+    $adresseRequest = Doctrine_Query::create()->from('SidCoordName a')
+          ->where('a.id = ?', $vars['address'] )
+          ->fetchOne();
+    $adresseCabinet = $adresseRequest->getAdresse();
+    if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
+    $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
+
+    
     $map = $this->getService('google_map_helper')->map()
-    ->address($vars['address'])
+    ->address($adresseCabinet)
+    ->idCabinet($vars['address'])
     ->mapTypeId($vars['mapTypeId'])
     ->zoom($vars['zoom'])
     ->style(sprintf(
@@ -46,7 +56,12 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
   protected function doRenderForIndex()
   {
     $vars = $this->getViewVars();
-    
+//    $adresseRequest = Doctrine_Query::create()->from('SidCoordName a')
+//          ->where('a.id = ?', $vars['address'] )
+//          ->fetchOne();
+//    $adresseCabinet = $adresseRequest->getAdresse();
+//    if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
+//    $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
     return $vars['address'];
   }
 

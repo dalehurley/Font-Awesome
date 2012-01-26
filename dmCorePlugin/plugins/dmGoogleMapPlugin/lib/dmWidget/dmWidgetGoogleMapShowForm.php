@@ -13,11 +13,15 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
     $adresseCabinet = $adresseRequest->getAdresse();
     if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
     $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
+//    $this->widgetSchema['address'] = new sfWidgetFormInputText();
+//    $this->validatorSchema['address'] = new sfValidatorString();
+//    $this->widgetSchema['address']->setLabel('Search a place');
+//    $this->widgetSchema['address']->setDefault($adresseCabinet);
 
-    $this->widgetSchema['address'] = new sfWidgetFormInputText();
-    $this->validatorSchema['address'] = new sfValidatorString();
+    $this->widgetSchema['address'] = new sfWidgetFormDoctrineChoice(array('multiple'=> false, 'model'=>'SidCoordName', 'method'=>'cabinet_ville'));
+    $this->validatorSchema['address'] = new sfValidatorDoctrineChoice(array('required'=> true, 'model'=>'SidCoordName'));
     $this->widgetSchema['address']->setLabel('Search a place');
-    $this->widgetSchema['address']->setDefault('{{adressecabinet}}');
+//    $this->widgetSchema['address']->setDefault($adresseCabinet);
     
 
     $this->widgetSchema['mapTypeId'] = new sfWidgetFormSelect(array(
