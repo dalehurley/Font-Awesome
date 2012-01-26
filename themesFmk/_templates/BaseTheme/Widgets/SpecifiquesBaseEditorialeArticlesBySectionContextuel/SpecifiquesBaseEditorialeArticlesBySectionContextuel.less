@@ -16,6 +16,20 @@
 		.dm_widget_inner > .title:after { @spriteBgp-section-actualites-M(); }
 	}
 	
+	&.agenda {
+		//appel de la fonction de placement de la sprite
+		@widgetTitleSprite("Default"; "section"; "agenda");
+		//complément de l'appel de la sprite sur le titre
+		.dm_widget_inner > .title:after { @spriteBgp-section-agenda-M(); }
+	}
+	
+	&.chiffres {
+		//appel de la fonction de placement de la sprite
+		@widgetTitleSprite("Default"; "section"; "chiffres");
+		//complément de l'appel de la sprite sur le titre
+		.dm_widget_inner > .title:after { @spriteBgp-section-chiffres-M(); }
+	}
+	
 	&.dossiers {
 		//appel de la fonction de placement de la sprite
 		@widgetTitleSprite("Default"; "section"; "dossiers");
