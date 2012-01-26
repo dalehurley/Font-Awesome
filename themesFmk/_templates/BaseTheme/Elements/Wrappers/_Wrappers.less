@@ -44,29 +44,38 @@
 		
 		//ajout sprites pour certains éléments
 		.email, .faxNumber, .telephone {
-			.isDev & .type { background-color: red; }
-			.isDev & .separator { background-color: orange; }
-			.isDev & .value { background-color: teal; }
-			
 			//masquage separateur
 			.separator { display: none; visibility: hidden; }
 			
 			//dimension de l'icone
 			.type {
+				position: relative;
 				display: inline-block;
 				text-indent:-9999em;
 				@spriteDimension(@spriteFormat_S);
-				
 				//appel différenciées des fonctions de sprite
 				@spriteBgi("Default"; "S");
-				
 				//décalage de marge
 				@decalV: (@gridBaseline - @spriteFormat_S) / 2;
 				@decalH: (@gridGutter - @spriteFormat_S) / 2;
 				padding-top: @decalV;
 				padding-bottom: @decalV;
-				margin-right: @decalH;
+				margin-right: @decalH + @offS;
 				margin-left: @decalH;
+				/*
+				//test ajout toolTip à partir de la balise Title
+				&:after {
+					background-color: teal;
+					position: absolute;
+					white-space: nowrap;
+					content: attr(title);
+					color: #fff;
+					//white-space: nowrap;
+					//opacity: 0;
+				}
+				&:hover:after {
+					//opacity: 1;
+				}*/
 			}
 		}
 		.email {
@@ -87,7 +96,6 @@
 				@spriteBgiSvg("Default"; "communication"; "telephone");
 			}
 		}
-		
 		
 		//positionnement élément en ligne dans zone spécifique
 		.subWrapper {
