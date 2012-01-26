@@ -111,6 +111,8 @@ EOF;
             )));
 
             $file = $dirDbDump . '/' . $dispoTemplateDumps[$dumpName];
+        } else {
+            $file = $arguments['file'];
         }
 
         $results = contentTemplateTools::loadDB($file);

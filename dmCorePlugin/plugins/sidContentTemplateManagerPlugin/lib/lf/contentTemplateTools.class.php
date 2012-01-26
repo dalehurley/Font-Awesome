@@ -136,6 +136,15 @@ class contentTemplateTools {
         $dbname = $config['dbname'];
         $dbhost = $config['dbhost'];
 
+        // sauvegarde des donnees du dmUser admin superAdmin
+        $adminUser = dmDb::table('dmUser')->findOneByIsSuperAdmin(true);
+        $adminUserSaveAlgorithm = $adminUser->algorithm;
+        $adminUserSaveSalt = $adminUser->salt;
+        $adminUserSavePassword = $adminUser->password;
+        $adminUserSaveEmail = $adminUser->email;  
+        $return[]['admin 1'] = $adminUser->password;        
+                     
+
         // truncate des futures tables à integrer
         $i = 1;
 
@@ -188,6 +197,14 @@ class contentTemplateTools {
                 $return[]['ERROR'] = 'Verifiez le modele de donnees du fichier ' . $file . ' avec le modele de donnees de la base ' . $dbname . '.';
             }
         }
+
+        // récupération des données sauvegardées du dmUser admin
+        $adminUser = dmDb::table('dmUser')->findOneByIsSuperAdmin(true);
+        $req = printf("UPDATE `dm_user` set password = '%s' where id = %s;",$adminUserSavePassword,$adminUser->id);
+        //$return[]['req'] = $req;        
+        //dmDb::pdo($req);
+        $return[]['admin 2'] = $adminUser->password;
+
 
         // load du dossier uploads
         // le dossier web
