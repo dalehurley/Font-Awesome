@@ -24,6 +24,8 @@ $isDev = $pageOptions['isDev'];
 
 //séparateur par défaut
 if(!isset($separator)) $separator = '&#160;:&#160;';
+//tiret par défaut
+if(!isset($dash)) $dash = '&#160;-&#160;';
 //permet de forcer la version listing de l'affichage
 if(!isset($isListing)) $isListing = false;
 //permet d'indiquer une version light de l'affichage (pour les listings simples)
