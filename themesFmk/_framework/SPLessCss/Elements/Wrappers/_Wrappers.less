@@ -23,9 +23,13 @@
 	.link .image { float:none; margin: 0; }
 }
 
-//Liens englobants
+//liens englobants en boite
 .link_box {
+	.isDev & { background-color: MediumPurple; }
+	//force l'agrandissement en cas de présence de contenu flottant
+	@getClearfix();
 	display: block;
+	outline: 0;
 	text-decoration: none;
 	&:hover { text-decoration: underline; }
 }
@@ -49,10 +53,34 @@
 	& > .title { margin-bottom: @gridBaseline; }
 }
 
+//styalge minimal de l'email
+.email {
+	//on réduit la taille et la largeur lorsque que le type est inclut avec value
+	.value {
+		display: inline;
+		vertical-align: top;
+		font-size: @fontSizeSmall;
+		line-height: @gridBaseline;
+		word-spacing: -0.05em;
+		letter-spacing: -0.05em;
+	}
+}
+
+//stylage minimal de la date
 .date {
 	font-size: @fontSizeSmall;
 	line-height: @gridBaseline;
+	vertical-align: top;
 }
+
+//séparateur de type &#160;:&#160;
+.separator { }
+
+//tiret de type &#160;-&#160;
+.dash { }
+
+//ellipsis de type &#160;(...)
+.ellipsis {}
 
 //elements de navigation
 .navigation { display: block; clear: both; }
@@ -61,12 +89,20 @@
 
 //Gestion des listings
 .elements {
+	//couleur de débug
+	.isDev & { background-color: #777; }
+	
 	//suppression de toute marge et puce (à tester avec un article (vérifier si balisage identique)
 	margin: 0;
 	padding: 0;
 	list-style: none;
 	
 	.element {
+		//force l'agrandissement en cas de présence de contenu flottant
+		@getClearfix();
+		
+		//couleurs de débug
+		.isDev & { background-color: #999; }
 		//indicateur visuel indiquant que la zone a été stylée par Arnaud
 		.isDev &.first.isVerified {
 			&:after {
@@ -78,31 +114,60 @@
 			}
 		}
 		
-		.title {
-			display: block;
+		//configuration des différents élément en block
+		.name, .description,															//Thing
+		.jobTitle, .contactPoints,														//Person
+		.contactType, .email, .faxNumber, .telephone,									//ContactPoint
+		.streetAddress, .postalCode, .addressLocality, .addressRegion, .addressCountry,	//PostalAddress
+		.address,																		//Organization
+		.title, .teaser, .date															//CreativeWork
+		{ display: block; }
+		
+		//suppression soulignement des liens englobants en boite
+		.link_box { &, &:hover { text-decoration: none; } }
+		
+		//équivalent itemprop de title
+		.name {
+			.isDev & { background-color: lightcoral; }
 			font-size: @fontSizeH6Px;
 		}
+		
+		//permet de replacer la description sous le titre et la date
+		.description {
+			.isDev & { background-color: lightblue; }
+		}
+		
+		.jobtitle {
+			
+		}
+		
+		.date {
+			.isDev & { background-color: lightgreen; }
+			//uniquement dans le contenu où on a la place horizontale
+			#dm_content & { margin-left: @offM; }
+		}
+		
+		
 		
 		//suppression marge de la navigation
 		.navigation { margin: 0; }
 		
-		.date {
-			margin-left: @gridGutter;
+		//on modifie le comportement des éléments dans un subWrapper
+		.subWrapper {
+			.isDev & { background-color: Violet; }
+			line-height: @gridBaseline;
+			//cf http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ pour hack vertical-align
+			#dm_content & span { display: inline; vertical-align: top; }
+		}
+		
+		//container de l'image
+		.imageWrapper {
+			.isDev & { background-color: darkblue; }
 		}
 		
 		//container de texte, on ne met les éléments en block que lorsqu'il sont contenu dedans
 		.wrapper {
-			.title, .date, .teaser, .telephone, .rubrique, .email, .description { display: block; }
-			
-			//pour faire descendre les textes sous l'image et le titre
-			.title {
-				//background-color: lightblue;
-				//& ~ .teaser, & ~ .description { clear: both; }
-			}
-			
-			.teaser, .description {
-				//background-color: lightcoral;
-			}
+			.isDev & { background-color: #bbb; }
 		}
 	}
 }
