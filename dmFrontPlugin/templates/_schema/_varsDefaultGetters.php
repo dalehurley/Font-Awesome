@@ -36,6 +36,7 @@ $ctnOpts = array();
 if(isset($container)) {
 	//on ne rajoute ces éléments de microdata que si nécessaire
 	if(!$noMicrodata) {
+		$ctnOpts['class'][] = 'itemscope';
 		$ctnOpts['class'][] = $itemType;
 		$ctnOpts['itemscope'] = 'itemscope';
 		$ctnOpts['itemtype'] = 'http://schema.org/' . $itemType;

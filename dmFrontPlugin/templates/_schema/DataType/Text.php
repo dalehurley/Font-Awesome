@@ -38,6 +38,7 @@ if($value != null && isset($valueLength)) $value = stringTools::str_truncate($va
 //définition des options du container
 $ctnOpts = array();
 if(isset($itemprop)) {
+	$ctnOpts['class'][] = 'itemprop';
 	$ctnOpts['class'][] = $itemprop;
 	if((!isset($type) && !isset($url)) || $itemprop == 'url') $ctnOpts['itemprop'] = $itemprop;
 }
@@ -57,7 +58,7 @@ if(isset($type)){
 	
 	$html.= _open($container, $ctnOpts);
 	
-		$html.= _tag('span.type', $type);
+		$html.= _tag('span.type', array('title' => $type), $type);
 		$html.= $separator;
 		$html.= _tag('span.value', $valueOpt, $value);
 	
