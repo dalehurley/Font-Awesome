@@ -17,6 +17,7 @@
 //récupérations des options de page
 $pageOptions = spLessCss::pageTemplateGetOptions();
 $isDev = $pageOptions['isDev'];
+$isLess = $pageOptions['isLess'];
 
 //récupération des valeurs par défaut
 $includeDefaultValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultValues.php';
@@ -40,7 +41,7 @@ if(isset($container)) {
 	}
 	
 	//application classe de debug
-	if($isDev) $ctnOpts['class'][] = 'isVerified';
+	if($isLess) $ctnOpts['class'][] = 'isVerified';
 }
 
 //Affectation des valeurs par défaut passées dans la node

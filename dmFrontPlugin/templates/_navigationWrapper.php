@@ -17,6 +17,7 @@
 //récupérations des options de page
 $pageOptions = spLessCss::pageTemplateGetOptions();
 $isDev = $pageOptions['isDev'];
+$isLess = $pageOptions['isLess'];
 
 //container par défaut
 if(!isset($container)) $container = 'div';
@@ -56,7 +57,7 @@ if(isset($elements)){
 		if($count == 1)			$elementOpt['class'][] = 'first';
 		if($count >= $maxCount)	$elementOpt['class'][] = 'last';
 		//application classe de debug
-		if($isDev) $elementOpt['class'][] = 'isVerified';
+		if($isLess) $elementOpt['class'][] = 'isVerified';
 		
 		//insertion du lien dans un li
 		$html.= _tag('li.element', $elementOpt, _link($element['linkUrl'])->text($element['title'])->title($element['title']));

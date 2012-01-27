@@ -14,3 +14,55 @@ all:
     img_path_framework:     /theme/less/_framework/SPLessCss/Images
     img_path_template:      /theme/less/_templates/<?php echo spLessCss::getLessParam('mainTemplate') ?>/Images
     img_path_client:        /theme/images
+    
+    # Form security secret (CSRF protection)
+    csrf_secret:            c72e74e674ceeec2ed027933f11b9f984e9be22d
+
+    # Output escaping settings
+    escaping_strategy:      false
+    escaping_method:        ESC_SPECIALCHARS
+
+    # Enable the database manager
+    use_database:           true
+    
+  .actions:
+  
+    secure_module:          dmUser
+    secure_action:          secure
+    
+    login_module:           dmUser
+    login_action:           signin
+
+    error_404_module:       dmFront   # To be called when a 404 error is raised
+    error_404_action:       error404  # Or when the requested URL doesn't match any route
+    
+prod:
+  .settings:
+    no_script_name:         true
+    cache:                  true
+    logging_enabled:        false
+
+dev:
+  .settings:
+    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
+    web_debug:              true
+    cache:                  false
+    no_script_name:         false
+    etag:                   false
+    
+less:
+  .settings:
+    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
+    web_debug:              false
+    cache:                  false
+    no_script_name:         false
+    etag:                   false
+
+test:
+  .settings:
+    error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
+    cache:                  true
+    web_debug:              false
+    no_script_name:         true
+    etag:                   false
+    logging_enabled:        false
