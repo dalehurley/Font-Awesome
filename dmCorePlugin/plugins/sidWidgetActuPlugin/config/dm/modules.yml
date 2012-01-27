@@ -3,7 +3,7 @@
   "Actualité du Cabinet":
       SidActuTypeContenu:
         model: SidActuType
-        name: "Type de mon Article|Type de mes Articles"
+        name: "Le type de mon Article|Les types de mes Articles"
         credentials: type_actu
 #        page: true
 
@@ -18,7 +18,7 @@
 
       SidActuArticle:
         model: SidActuArticle
-        name: "Actualité du Cabinet|Actualités du Cabinet"
+        name: "L'Actualité du Cabinet|Les Actualités du Cabinet"
         credentials: actualite_contenu
         page: true
 #        parent: SidActuRubrique
