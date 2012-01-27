@@ -1,11 +1,17 @@
 <?php
 // vars : $titreBloc, $titreLien, $message
+$html = get_partial('global/titleWidget', array('title' => $titreBloc));
 
-       
-            echo _tag('h4.title', $titreBloc);
-            echo _open('ul.elements');
-                echo _open('li.element');
-                    echo _tag('p',$message);
-                    echo _link('main/contact')->text($titreLien);
-                echo _close('li');
-            echo _close('ul');
+//texte de présentation
+$html.= _tag('div.wrapper', $message);
+
+//création d'un tableau de liens à afficher
+$elements = array();
+$elements[] = array('title' => $titreLien, 'linkUrl' => 'main/contact');
+$html.= get_partial('global/navigationWrapper', array(
+												'placement' => 'bottom',
+												'elements' => $elements
+												));
+
+//affichage html en sortie
+echo $html;

@@ -6,7 +6,7 @@
  */
 class contentTemplateTools {
 
-    public static $dumpExtension = 'dump';  // ATTENTION: utilise dans l'installer.php
+    const dumpExtension = 'dump';  // ATTENTION: utilise dans l'installer.php
     public static $undesiredTables = array(// les tables non desirees dans le dump pour le template de contenu
         'dm_catalogue',
         'dm_contact_me', 
@@ -86,13 +86,13 @@ class contentTemplateTools {
 
         //$return[]['dumpDB'] = $listTables;
         // dump de la base
-        $fileOUT = $file . "." . self::$dumpExtension;
+        $fileOUT = $file . "." . self::dumpExtension;
         // option -c pour ajouter les champs dans la requete INSERT
         $output = exec("mysqldump -t -c --host=" . $dbhost . " --user=" . $user . " --password=" . $pwd . " " . $dbname . " " . $listTables . "> " . $fileOUT);
         $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUT . '(' . filesize($fileOUT) . ' o)';
 
         // save du dossier uploads
-        $dirOUTassets = $file . "." . self::$dumpExtension . ".assets";
+        $dirOUTassets = $file . "." . self::dumpExtension . ".assets";
         // le nom du dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
         if (is_dir($dirOUTassets)){
@@ -100,11 +100,12 @@ class contentTemplateTools {
         } else {
             $command = "mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;";
         }
+
         $output = exec($command);
         $return[]['dumpDB'] = 'copie des assets';
 
         // save du dossier apps/front/modules/main
-        $dirOUTmodules = $file . "." . self::$dumpExtension . ".modules";
+        $dirOUTmodules = $file . "." . self::dumpExtension . ".modules";
         if (is_dir($dirOUTmodules)) {
             $command = "cp -R apps/front/modules/main " . $dirOUTmodules . "/;";
         } else {
@@ -122,9 +123,9 @@ class contentTemplateTools {
      */
     public static function loadDB($file) {
 
-        $ext = substr($file, strlen($file) - strlen(self::$dumpExtension), strlen(self::$dumpExtension));
-        if ($ext != self::$dumpExtension) {
-            $return[]['ERROR'] = 'Le fichier : ' . $file . ' n\'a pas la bonne extension ' . self::$dumpExtension;
+        $ext = substr($file, strlen($file) - strlen(self::dumpExtension), strlen(self::dumpExtension));
+        if ($ext != self::dumpExtension) {
+            $return[]['ERROR'] = 'Le fichier : ' . $file . ' n\'a pas la bonne extension ' . self::dumpExtension;
             return $return;
         }
 
@@ -134,6 +135,15 @@ class contentTemplateTools {
         $pwd = $config['pwd'];
         $dbname = $config['dbname'];
         $dbhost = $config['dbhost'];
+
+        // sauvegarde des donnees du dmUser admin superAdmin
+        $adminUser = dmDb::table('dmUser')->findOneByIsSuperAdmin(true);
+        $adminUserSaveAlgorithm = $adminUser->algorithm;
+        $adminUserSaveSalt = $adminUser->salt;
+        $adminUserSavePassword = $adminUser->password;
+        $adminUserSaveEmail = $adminUser->email;  
+        $return[]['User admin sauvegarde'] = '...';        
+                     
 
         // truncate des futures tables à integrer
         $i = 1;
@@ -187,6 +197,11 @@ class contentTemplateTools {
                 $return[]['ERROR'] = 'Verifiez le modele de donnees du fichier ' . $file . ' avec le modele de donnees de la base ' . $dbname . '.';
             }
         }
+
+        // récupération des données sauvegardées du dmUser admin
+        $return[]['User admin recuperation'] = '...';
+        $adminUser = dmDb::table('dmUser')->findOneByIsSuperAdmin(true);
+        dmDb::pdo('UPDATE dm_user u SET algorithm = \''.$adminUserSaveAlgorithm.'\', password = \''.$adminUserSavePassword.'\', salt= \''.$adminUserSaveSalt.'\' , email = \''.$adminUserSaveEmail.'\' WHERE id = \''.$adminUser->id.'\' ;');
 
         // load du dossier uploads
         // le dossier web

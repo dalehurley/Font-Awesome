@@ -71,10 +71,10 @@ generator:
             credentials: [ super_admin ]   # seule la permission super_admin a droit
 
         display:
-          - groupe_bandeau_id
 #          - _titre
           - =title
           - is_active
+          - groupe_bandeau_id
           - debut_date
           - fin_date
 #          - created_at

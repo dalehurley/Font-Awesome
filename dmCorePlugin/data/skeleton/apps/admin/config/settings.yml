@@ -12,6 +12,14 @@ dev:
     no_script_name:         false
     etag:                   false
 
+dev:
+  .settings:
+    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
+    web_debug:              false
+    cache:                  false
+    no_script_name:         false
+    etag:                   false
+
 test:
   .settings:
     error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
@@ -34,6 +42,6 @@ all:
   .actions:
     secure_module:          dmUserAdmin
     secure_action:          secure
-    
+
     login_module:           dmUserAdmin
     login_action:           signin

@@ -2,6 +2,7 @@
 /**
  * Class debug tools
  */
+
 class debugTools {
     /**
      * Affichage d'une fenetre d'info de deboggage simple
@@ -12,7 +13,7 @@ class debugTools {
      */
     public static function infoDebug($infos, $type = 'debug') {
         $return = '';
-        if (sfConfig::get('sf_environment') == 'dev') {
+        if (sfConfig::get('sf_environment') == 'dev' || sfConfig::get('sf_environment') == 'less') {
             $listInfos = "";
             
             foreach ($infos as $label => $info) {

@@ -2,7 +2,6 @@
 
 class dmChartActions extends dmAdminBaseActions
 {
-  
   public function executeImage(dmWebRequest $request)
   {
     $chartKey = $request->getParameter('name');
@@ -31,18 +30,23 @@ class dmChartActions extends dmAdminBaseActions
   {
     $this->charts = array();
 
-    foreach($this->getServiceContainer()->getServiceIds() as $serviceId)
-    {
-      if (substr($serviceId, -6) === '_chart')
-      {
-        $reflection = new ReflectionClass($this->getServiceContainer()->getParameter($serviceId.'.class'));
-        
-        if ($reflection->isSubClassOf('dmChart'))
-        {
-          $this->charts[substr($serviceId, 0, strlen($serviceId)-6)] = $this->getServiceContainer()->getParameter($serviceId.'.options');
+    foreach ($this->getServiceContainer()->getServiceIds() as $serviceId) {
+            if (substr($serviceId, -6) === '_chart') {
+                // rajout stef pour afficher uniquement les stats dont le client à les droits
+                $test = $this->getServiceContainer()->getParameter($serviceId . '.options');
+                $user = $this->getUser()->hasCredential($test['credentials']);
+                if ($user == true) {
+                    // fin rajout  
+                    $reflection = new ReflectionClass($this->getServiceContainer()->getParameter($serviceId . '.class'));
+
+                    if ($reflection->isSubClassOf('dmChart')) {
+                        $this->charts[substr($serviceId, 0, strlen($serviceId) - 6)] = $this->getServiceContainer()->getParameter($serviceId . '.options');
+                    }
+                    //rajout
+                }
+                // fin rajout  
+            }
         }
-      }
-    }
     
     $this->selectedIndex = array_search($request->getParameter('name'), array_keys($this->charts));
   }

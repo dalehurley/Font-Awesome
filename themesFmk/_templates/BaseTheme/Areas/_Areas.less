@@ -1,6 +1,6 @@
 // _Areas.less
-// v1.0
-// Last Updated : 2011-10-10 18:00
+// v1.1
+// Last Updated : 2012-01-18 11:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -27,9 +27,11 @@
 
 //stylage du footer
 #dm_footer {
-	background-color: @colorCouleur3MoyenSup;
-	padding: (@gridBaseline -1px) 0 @gridBaseline 0;
-	border-top: 1px solid @colorCouleur3;
+	background-color: @colorCouleur2Moyen;
+	&, .link { color: @colorCouleur3ClairSup; }
+	//padding: (@gridBaseline/2 -1px) 0 @gridBaseline/2 0;
+	//border-top: 1px solid @colorCouleur3;
+	padding: 0;
 	
 	.dm_zones {
 		@gridSiteWidth();
@@ -40,18 +42,15 @@
 	//widgets situés dans le footer
 	.content_text {
 		font-size: @fontSizeSmall;
-		//background-color: lightcoral; 
+		line-height: @gridBaseline;
 		float: left;
-		.text_content p {
-			font-size: @fontSizeSmall;
-			margin-bottom: 0;
-		}
+		.text_content p { margin: 0; }
 	}
 	.content_link {
-		//background-color: lightgreen;
+		font-size: @fontSizeSmall;
+		line-height: @gridBaseline;
 		float: right;
 		margin-left: @offM;
-		.link { font-size: @fontSizeSmall; }  
 	}
 }
 
@@ -63,100 +62,105 @@
 }
 
 //stylage des colonnes
-#dm_page {
-	//.dm_layout_left .dm_zones { background-color: lightcoral; }
-	//.dm_layout_right .dm_zones { background-color: lightgreen; }
-	//.dm_page_content .dm_zones { background-color: #aaa; }
-	
-	.dm_page_content, .dm_layout_left, .dm_layout_right {
-		//meilleure gestion uniformisée des bordures
-		.dm_zones {
-			margin: @gridBaseline (@zonesOffsetPad * -1);
-		}
-		
-		.dm_widget {
-			margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
-			
-			.dm_widget_inner {
-				padding: (@zonesOffsetPad - @zonesOffsetBorder);
-				//ajout d'une bordure dont l'épaisseur a été déduite
-				border: @zonesOffsetBorder solid @zonesBorderColor;
-				//suppression bordures sous niveaux
-				.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
-				
-				//& > .title, article > .title {
-				& > .title {
-					background-color: @colorCouleur3Clair;
-					color: @colorCouleur1Moyen;
-					margin: (@zonesOffsetPad * -1 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1 +1px);
-					padding: (@zonesOffsetPad -1px);
-					border-bottom: 1px solid @zonesBorderColor;
-				}
-			}
-		}
-	}
-	
-	.dm_page_content, .dm_layout_right {
-		.dm_widget {
-			.dm_widget_inner {
-				
-				
-			}
-		}
-	}
-	
-	.dm_layout_left {
-		.dm_widget {
-			.dm_widget_inner {
-				background-color: @colorCouleur3ClairSup;
-				//.organisation { background-color: purple; }
-				/*
-				& > .title {
-					margin-top: (@zonesOffsetPad * -1);
-					//border-top: 1px solid red;
-					border: 0;
-					padding-top: @gridBaseline/2;
-					padding-bottom: @gridBaseline/2;
-				}*/
-			}
-		}
-	}
-	
-	/*
-	.dm_layout_left {
-		.dm_zones {
-			background-color: lightcoral;
-			//permet de sortir de la zone
-			//padding: (@zonesOffsetPad - @zonesOffsetBorder);
-			//margin: (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1);
-			//ajout d'une bordure dont l'épaisseur a été déduite
-			//border: @zonesOffsetBorder solid @colorCouleur1Clair;
-		}
-		
-	}
-	.dm_page_content, .dm_layout_right {
-		.dm_zones {
-			background-color: lightgreen;
-			//permet de sortir de la zone
-			//margin: (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1) @zonesOffsetPad (@zonesOffsetPad * -1);
-			//margin: @gridBaseline (@zonesOffsetPad * -1) @zonesOffsetPad (@zonesOffsetPad * -1);
-		}
-		
-		.dm_widget {
-			margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
-			.dm_widget_inner {
-				padding: (@zonesOffsetPad - @zonesOffsetBorder);
-				//ajout d'une bordure dont l'épaisseur a été déduite
-				border: @zonesOffsetBorder solid @colorCouleur1Clair;
-				//suppression bordures sous niveaux
-				.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
-				
-				& > .title {
-					margin-top: (@zonesOffsetPad * -1 +1px);
-					border-bottom: 1px solid @colorCouleur1Clair;
-				}
-			}
-		}
-	}
-	*/
+.isDev {
+	#dm_sidebar_left .dm_zones { background-color: #ccccb8; }
+	#dm_sidebar_right .dm_zones { background-color: #b8ccb8; }
+	#dm_content .dm_zones { background-color: #b8cccc; }
+	#dm_custom_top .dm_zones { background-color: #ccccb8; }
+	#dm_custom_bottom .dm_zones { background-color: #ccb8cc; }
 }
+
+#dm_content, #dm_sidebar_left, #dm_sidebar_right {
+	//meilleure gestion uniformisée des bordures
+	.dm_zones { margin: 0 (@zonesOffsetPad * -1) @gridBaseline (@zonesOffsetPad * -1); }
+	
+	.dm_widget {
+		//margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
+		margin-bottom: @gridBaseline/2;
+		
+		.dm_widget_inner {
+			padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
+			//ajout d'une bordure dont l'épaisseur a été déduite
+			border: @zonesOffsetBorder solid @zonesBorderColor;
+			//suppression bordures sous niveaux
+			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
+			
+			//& > .title, article > .title {
+			& > .title {
+				background-color: @colorCouleur3Clair;
+				color: @colorCouleur1Moyen;
+				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
+				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
+				border-bottom: 1px solid @zonesBorderColor;
+				font-weight: bold;
+				word-spacing: 0.05em;
+				letter-spacing: 0.05em;
+				//on supprime le décalage situé entre le titre et une liste d'éléments quand ils sont suivi l'un par l'autre
+				& ~ .elements { margin-top: @gridBaseline/-2; }
+			}
+		}
+	}
+}
+
+#dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget {
+		.dm_widget_inner {
+			& > .title { text-transform: uppercase; }
+		}
+	}
+}
+
+#dm_sidebar_left {
+	.dm_widget {
+		.dm_widget_inner {
+			background-color: @colorCouleur3ClairSup;
+			//.organisation { background-color: purple; }
+			/*
+			& > .title {
+				margin-top: (@zonesOffsetPad * -1);
+				//border-top: 1px solid red;
+				border: 0;
+				padding-top: @gridBaseline/2;
+				padding-bottom: @gridBaseline/2;
+			}*/
+		}
+	}
+}
+
+/*
+#dm_sidebar_left {
+	.dm_zones {
+		background-color: lightcoral;
+		//permet de sortir de la zone
+		//padding: (@zonesOffsetPad - @zonesOffsetBorder);
+		//margin: (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1);
+		//ajout d'une bordure dont l'épaisseur a été déduite
+		//border: @zonesOffsetBorder solid @colorCouleur1Clair;
+	}
+	
+}
+#dm_content, #dm_sidebar_right {
+	.dm_zones {
+		background-color: lightgreen;
+		//permet de sortir de la zone
+		//margin: (@gridBaseline - @zonesOffsetPad) (@zonesOffsetPad * -1) @zonesOffsetPad (@zonesOffsetPad * -1);
+		//margin: @gridBaseline (@zonesOffsetPad * -1) @zonesOffsetPad (@zonesOffsetPad * -1);
+	}
+	
+	.dm_widget {
+		margin-bottom: (@gridBaseline - @zonesOffsetPad * 2);
+		.dm_widget_inner {
+			padding: (@zonesOffsetPad - @zonesOffsetBorder);
+			//ajout d'une bordure dont l'épaisseur a été déduite
+			border: @zonesOffsetBorder solid @colorCouleur1Clair;
+			//suppression bordures sous niveaux
+			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
+			
+			& > .title {
+				margin-top: (@zonesOffsetPad * -1 +1px);
+				border-bottom: 1px solid @colorCouleur1Clair;
+			}
+		}
+	}
+}
+*/

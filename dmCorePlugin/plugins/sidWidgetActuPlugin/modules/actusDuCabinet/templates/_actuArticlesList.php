@@ -1,24 +1,54 @@
 <?php
+$html = '';
 
 if (count($articles)) { // si nous avons des actu articles
+	
+	//gestion affichage du titre
     if($nbArticles == 1){
-        if ($titreBloc != true) {
-            echo _tag('h4.title', current($articles));
-        }
-        else  echo _tag('h4.title', $titreBloc);
+        if ($titreBloc != true) $html.= get_partial('global/titleWidget', array('title' => current($articles)));
+        else $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
     }
-    else echo _tag('h4.title', $titreBloc);
-    // $nb mis à zero pour afficher les photos que sur les 3 premiers articles
-    $nb = 0;
-    echo _open('ul.elements');
-    foreach ($articles as $article) {
-
-	include_partial("objectPartials/actuArticlesList", array("article" => $article,"textLength" => $longueurTexte,"textEnd" => '(...)',"photo" => $vars['photo'],'titreBloc' => $titreBloc,"chapo" => $chapo,"nb" => $nb));
-        // incrément de $nb pour afficher les photos que sur les 3 premiers articles
-        $nb++;
+    else {
+        if ($titreBloc != true) $html.= get_partial('global/titleWidget', array('title' => __('The other news of the office')));
+        else $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
     }
-    echo _close('ul');
-
+	
+	//ouverture du listing
+    $html.= _open('ul.elements');
+	
+	//compteur
+	$count = 0;
+	$maxCount = count($articles);
+	
+	foreach ($articles as $article) {
+		//incrémentation compteur
+		$count++;
+		
+		//options de l'article
+		$articleOpt = array(
+						'node' => $article,
+						'count' => $count,
+						'maxCount' => $maxCount,
+						'container' => 'li.element',
+						'isListing' => true,
+						'descriptionLength' => $longueurTexte,
+						'url' => $article
+					);
+		
+		//on supprime les photos après les 3 premiers articles
+		if($count > 3) $articleOpt['image'] = false;
+		
+		//ajout de l'article
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
+    }
+	
+	//fermeture du listing
+    $html.= _close('ul.elements');
     
-} // sinon on affiche la constante de la page concernée
-else echo'{{actualites_du_cabinet}}';
+} else {
+	// sinon on affiche la constante de la page concernée
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{actualites_du_cabinet}}'));
+}
+
+//affichage html en sortie
+echo $html;

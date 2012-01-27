@@ -1,21 +1,49 @@
 <?php
 // vars : $equipes, $titreBloc, $titreLien, $pageEquipe, $lenght, $rubrique, $nomRubrique
-if (count($equipes)) { // si nous avons des actu articles
-    if ($titreBloc != '') {
-	echo _tag('h4.title', $titreBloc);
-    }
+$html = '';
 
-    echo _open('ul.elements');
+if (count($equipes)) { // si nous avons des actu articles
+	
+	//affichage du titre du bloc
+    if($titreBloc != null) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
+	
+	//ouverture du listing
+    $html.= _open('ul.elements');
+	
+	//compteur
+	$count = 0;
+	$maxCount = count($equipes);
+	
     foreach ($equipes as $equipe) {
-	include_partial("objectPartials/introEquipe", array("equipe" => $equipe,"rubrique" => $rubrique, "nomRubrique" => $nomRubrique));
+		//incrémentation compteur
+		$count++;
+		
+		//options des personnes
+		$personOpt = array(
+						'node' => $equipe,
+						'container' => 'li.element',
+						'count' => $count,
+						'maxCount' => $maxCount,
+						'isLight' => true
+						);
+		//rajout de la responsabilité seulement si présent
+		if(array_key_exists($equipe->id, $nomRubrique)) $personOpt['contactType'] = $nomRubrique[$equipe->id];
+		
+		$html.= get_partial('global/schema/Thing/Person', $personOpt);
     }
-    echo _close('ul');
-    
-    echo _open('div.navigation.navigationBottom');
-	echo _open('ul.elements');
-	    echo _open('li.element');
-		echo _link('pageCabinet/equipe')->text($titreLien);
-	    echo _close('li');
-	echo _close('ul');
-    echo _close('div');    
+	
+	//fermeture du listing
+    $html.= _close('ul.elements');
+	
+	//création d'un tableau de liens à afficher
+	$elements = array();
+	$elements[] = array('title' => $titreLien, 'linkUrl' => 'pageCabinet/equipe');
+	
+	$html.= get_partial('global/navigationWrapper', array(
+													'placement' => 'bottom',
+													'elements' => $elements
+													));
 } // sinon on affiche rien
+
+//affichage html en sortie
+echo $html;
