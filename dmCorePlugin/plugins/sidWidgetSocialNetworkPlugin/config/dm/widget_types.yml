@@ -1,0 +1,7 @@
+socialNetwork:
+    
+  logos:
+    cache:              true
+    public_name:        Logos réseaux sociaux
+#    view_class:         articleAfficheView   
+#    form_class:         articleAfficheform
