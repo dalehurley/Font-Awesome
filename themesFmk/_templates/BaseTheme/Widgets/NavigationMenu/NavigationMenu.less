@@ -50,6 +50,7 @@
 			margin-left: 0;
 			margin-right: @gridGutter;
 			background-color: transparent;
+			.isLess & { background-color: lightblue; }
 			
 			.dm_widget_inner {
 				margin-left: 0;
@@ -60,36 +61,56 @@
 			ul.default {
 				li {
 					display: block;
-					float: left;
-					//décalage de marge
-					@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
-					@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+					float: right;
+					//décalage de padding
+					@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+					@decalH: (@gridGutter - @spriteFormat_S) / 2;
 					padding: @decalV @decalH;
-					margin-right: @gridGutter;
-					&.last { margin-right: 0; }
+					//décalage de marge (pour avoir un décalage d'une demi-colonne)
+					@decalHCol: (@gridColWidth/2 - @gridGutter);
+					margin-left: @decalHCol;
+					//on supprime le décalage à gauche pour le dernier et une icone sur 5 (à adapter si changement taille sidebar-left)
+					&.last, &:nth-child(5) { margin-left: 0; }
 				}
 				
 				.link {
 					display: block;
 					border:0;
 					text-indent:-9999em;
-					width: @spriteFormat_M;
-					height: @spriteFormat_M;
 					
 					//chargement thème de sprite
-					@spriteBgi("Default"; "M");
+					@spriteDimension(@spriteFormat_S);
+					@spriteBgi("Default"; "S");
 					
 					&.link_accueil {
 						@spriteBgiSvg("Default"; "internet"; "home");
-						@spriteBgp-internet-home-M();
+						@spriteBgp-internet-home-S();
 					}
+					
 					&.link_contact {
 						@spriteBgiSvg("Default"; "internet"; "email");
-						@spriteBgp-internet-email-M();
+						@spriteBgp-internet-email-S();
 						&:hover {
 							@spriteBgiSvg("Default"; "internet"; "emailOpen");
-							@spriteBgp-internet-emailOpen-M();
+							@spriteBgp-internet-emailOpen-S();
 						}
+					}
+					
+					&.link_facebook {
+						//@spriteBgiSvg("Default"; "socialnetwork"; "facebook");
+						@spriteBgp-socialnetwork-facebook-S();
+					}
+					&.link_google-plus {
+						//@spriteBgiSvg("Default"; "socialnetwork"; "googleplus");
+						@spriteBgp-socialnetwork-googleplus-S();
+					}
+					&.link_linkedin {
+						//@spriteBgiSvg("Default"; "socialnetwork"; "linkedin");
+						@spriteBgp-socialnetwork-linkedin-S();
+					}
+					&.link_twitter {
+						//@spriteBgiSvg("Default"; "socialnetwork"; "twitter");
+						@spriteBgp-socialnetwork-twitter-S();
 					}
 				}
 			}
