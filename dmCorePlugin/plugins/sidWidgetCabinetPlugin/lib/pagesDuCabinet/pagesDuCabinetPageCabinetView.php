@@ -28,7 +28,7 @@ class pagesDuCabinetPageCabinetView extends dmWidgetPluginView {
         $vars['title_page'] = $pageCabinet->getTitle();
         }
         if($vars['lien'] == NULL || $vars['lien'] == " "){
-        $vars['lien'] = __('Contact');
+        $vars['lien'] = sfContext::getInstance()->getI18N()->__('Contact');
         }
         return $this->getHelper()->renderPartial('pagesDuCabinet', 'pageCabinet', array(
                     
