@@ -47,6 +47,7 @@
 		&.menuSprites {
 			float: left;
 			@gridWidth(@gridCol_SidebarLeft);
+			min-height: @gridBaseline * 2;
 			margin-left: 0;
 			margin-right: @gridGutter;
 			background-color: transparent;
@@ -77,6 +78,7 @@
 					display: block;
 					border:0;
 					text-indent:-9999em;
+					outline: 0;
 					
 					//chargement thème de sprite
 					@spriteDimension(@spriteFormat_S);
