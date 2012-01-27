@@ -580,8 +580,10 @@ if ($nomDumpChoisi != $libelleEmptyDump) { // on fait un loadDB si on a choisi u
     $this->getFilesystem()->execute(sprintf(
         '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'db:loadDB ' . $dirDumpContentTheme . '/' . $nomDumpChoisi . '.' . $extensionDump
       ), $out, $err);
+    
 }
-
+$this->logBlock(sprintf('%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'db:loadDB ' . $dirDumpContentTheme . '/' . $nomDumpChoisi . '.' . $extensionDump
+      ), 'INFO_LARGE');
 //-------------------------------------------------------------------------------------
 //    Les permissions
 //-------------------------------------------------------------------------------------
