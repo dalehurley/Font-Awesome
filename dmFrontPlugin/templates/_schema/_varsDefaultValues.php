@@ -11,7 +11,6 @@
  * $isListing			indique qu'il s'agit d'un listing
  * $isLight				permet d'indiquer une version allégée (notamment pour des affichages spéciaux dans les sidebars)
  * $noMicrodata			désactive tout ajout de microdata (désactivé par défaut)
- * $isDev
  * 
  */
 
