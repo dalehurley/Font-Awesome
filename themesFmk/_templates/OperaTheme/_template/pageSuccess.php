@@ -12,7 +12,7 @@
 <?php
 //AJOUT DE VARIABLES DISPONIBLES DANS LA PAGE
 //Environnement de dev
-$isDev = (sfConfig::get('sf_environment') == 'dev') ? true : false;
+$isDev = (sfConfig::get('sf_environment') == 'dev' || sfConfig::get('sf_environment') == 'less') ? true : false;
 
 //Gabarit de la page visible en environnement de dev
 $currentGabarit = $sf_context->getPage()->get('gabarit');

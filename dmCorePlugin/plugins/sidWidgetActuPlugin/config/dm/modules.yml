@@ -4,7 +4,7 @@
       SidActuTypeContenu:
         model: SidActuType
         name: "Type de mon Article|Type de mes Articles"
-        credentials: type_contenu
+        credentials: type_actu
 #        page: true
 
 #      SidActuRubrique:
@@ -19,7 +19,7 @@
       SidActuArticle:
         model: SidActuArticle
         name: "Actualité du Cabinet|Actualités du Cabinet"
-        credentials: article_contenu
+        credentials: actualite_contenu
         page: true
 #        parent: SidActuRubrique
         components:

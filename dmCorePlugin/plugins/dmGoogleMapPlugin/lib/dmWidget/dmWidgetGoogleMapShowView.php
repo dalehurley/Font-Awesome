@@ -22,8 +22,19 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
   protected function doRender()
   {
     $vars = $this->getViewVars();
+    // requète pour construire l'adresse du cabinet
+    $adresseRequest = Doctrine_Query::create()->from('SidCoordName a')
+          ->where('a.id = ?', $vars['address'] )
+          ->fetchOne();
+    $adresseCabinet = $adresseRequest->getAdresse();
+    if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
+    $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
+
+    
     $map = $this->getService('google_map_helper')->map()
-    ->address($vars['address'])
+    ->address($adresseCabinet)
+    // passage d'une valeur supplémentaire au fichier dmGoogleMapTag.php
+    ->idCabinet($vars['address'])
     ->mapTypeId($vars['mapTypeId'])
     ->zoom($vars['zoom'])
     ->style(sprintf(
@@ -46,7 +57,6 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
   protected function doRenderForIndex()
   {
     $vars = $this->getViewVars();
-    
     return $vars['address'];
   }
 

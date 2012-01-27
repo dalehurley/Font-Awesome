@@ -1,3 +1,4 @@
+
 <?php
 
 class dmGoogleMapTag extends dmHtmlTag
@@ -25,7 +26,8 @@ class dmGoogleMapTag extends dmHtmlTag
   {
     return array_merge(parent::getDefaultOptions(), array(
       'address' => null,
-      'center'  => null
+      'center'  => null,
+      'idCabinet'=> null
     ));
   }
 
@@ -61,6 +63,12 @@ class dmGoogleMapTag extends dmHtmlTag
   {
     return $this->setOption('zoom', (int) $zoom);
   }
+  // rajout par stef
+  public function idCabinet($idCabinet)
+  {
+    return $this->setOption('idCabinet', (int) $idCabinet);
+  }
+  // fin rajout 
 
   public function navigationControl($bool)
   {
@@ -83,17 +91,26 @@ class dmGoogleMapTag extends dmHtmlTag
 
     $splash = $preparedAttributes['splash'];
     unset($preparedAttributes['splash']);
-    
-    //$adresseCabinet est l'adresse principal du cabinet récupéré en base
+    // initialisation des variables
+    $adresseCabinet = '';
+    $titreBloc ='';
+    //$adresseCabinet est l'adresse du cabinet récupéré en base
 
-      $adresseRequest = Doctrine_Query::create()->from('SidCoordName a')
-          ->where('a.siege_social = ?', true )
-          ->fetchOne();
+    $adresseRequest = DmDb::table('SidCoordName')->findOneByIdAndIsActive($preparedAttributes['idCabinet'],true);
     $adresseCabinet = $adresseRequest->getAdresse();
-    if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
-    $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
+    //vérification de adresse2
+    ($adresseRequest->getAdresse2() != NULL) ? $adresseCabinet .='-'.$adresseRequest->getAdresse2() : $adresseCabinet .='';
 
-    $tag = '<h2 class="title">'.__('Map').'</h2><div style="text-align: center"><p><b>'.$adresseRequest->getTitle().'</b><br />'.$adresseCabinet.'</p><p>Tél : '.$adresseRequest->getTel().' - Fax : '.$adresseRequest->getFax().'</p></div><div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
+    $adresseCabinet .= ' - '.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
+    // vérif si tél existe
+    ($adresseRequest->getTel() != NULL) ? $tel = '<p>Tél : '.$adresseRequest->getTel() : $tel = '';
+    // vérif si fax existe
+    ($adresseRequest->getFax() !=NULL) ? $fax = ' - Fax : '.$adresseRequest->getFax().'</p>' : $fax = '</p>';
+    // si l'adresse à afficher est le siège social, alors on affiche le titreBloc, 
+    //sinon on n'affiche rien dans le titreBloc car normalement la première adresse est tjrs celle du siège social
+    ($adresseRequest->siege_social == true ) ? $titreBloc = '<h2 class="title">'.__('Map').'</h2>' : $titreBloc ='' ;
+    // construction de la chaîne html
+    $tag = $titreBloc.'<div style="text-align: center"><p><b>'.$adresseRequest->getTitle().'</b><br />'.$adresseCabinet.'</p>'.$tel.$fax.'</div><div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
 
     return $tag;
   }

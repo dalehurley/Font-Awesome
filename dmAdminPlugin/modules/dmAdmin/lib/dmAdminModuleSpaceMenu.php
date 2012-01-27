@@ -8,7 +8,6 @@ class dmAdminModuleSpaceMenu extends dmMenu
     $this
     ->ulClass('dm_modules')
     ->children(array());
-
     foreach($space->getModules() as $key => $module)
     {
       if ($this->user->canAccessToModule($module))

@@ -5,7 +5,7 @@ class loadDBTask extends sfBaseTask {
     protected function configure() {
         // // add your own arguments here
          $this->addArguments(array(
-           new sfCommandArgument('file', sfCommandArgument::REQUIRED, 'Input file with dump extension'),
+           new sfCommandArgument('file', sfCommandArgument::OPTIONAL, 'Input file with dump extension'),
          ));
 
         $this->addOptions(array(
@@ -22,7 +22,7 @@ class loadDBTask extends sfBaseTask {
 The [loadDB|INFO] load a dump file into local diem Database.
 Call it with:
 
-  [php symfony loadDB /data/save.sql |INFO]
+  [php symfony loadDB [file] |INFO]
 EOF;
     }
 
@@ -40,7 +40,82 @@ EOF;
 //            exit;
 //        }
 
-        $results = contentTemplateTools::loadDB($arguments['file']);
+        if (!isset($arguments['file'])) {
+            // recuperation des differentes maquettes du coeur
+            // scan du dossier _templates
+            $arrayTemplates = scandir(dm::getDir() . '/themesFmk/_templates');
+            $i = 0;
+            $dispoTemplates = array();
+            
+            foreach ($arrayTemplates as $template) {
+                // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
+                if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_') {
+                    $i++;
+                    $dispoTemplates[$i] = $template;
+                }
+            }
+            // on affiche les choix
+            $this->logBlock('Themes disponibles :', 'INFO_LARGE');
+            
+            foreach ($dispoTemplates as $k => $dispoTemplate) {
+                $this->log($k . ' - ' . $dispoTemplate);
+            }
+            // choix de la maquette du coeur
+            $numTemplate = $this->askAndValidate(array(
+                '',
+                'Le numero du template choisi?',
+                ''
+            ) , new sfValidatorChoice(array(
+                'choices' => array_keys($dispoTemplates) ,
+                'required' => true
+            ) , array(
+                'invalid' => 'Le template n\'existe pas'
+            )));
+
+            // Affichages des dump existants pour ce template
+            // scan du dossier _templates/themechoisi/Externals/db
+            $dirDbDump = dm::getDir() . '/themesFmk/_templates/' . $dispoTemplates[$numTemplate] . '/Externals/db';
+            if (is_dir($dirDbDump)) {
+                $arrayTemplateDumps = scandir($dirDbDump);
+            } else {
+                $this->logBlock('Dossier ' . $dirDbDump . ' inexistant. Annulation.', 'ERROR');
+                exit;
+            }
+            $i = 0;
+            $dispoTemplateDumps = array();
+            
+            foreach ($arrayTemplateDumps as $dump) {
+                // on recupere les dumps
+                if ($dump != '.' && $dump != '..' && substr($dump, (strlen($dump)) - 5) == '.dump') {
+                    $i++;
+                    $dispoTemplateDumps[$i] = $dump;
+                }
+            }
+            // on affiche les dumps existants
+            $this->logBlock('Dump existants du theme ' . $dispoTemplates[$numTemplate] . ' :', 'INFO_LARGE');
+            
+            foreach ($dispoTemplateDumps as $k => $dispoTemplateDump) {
+                $this->log($k . ' - ' . $dispoTemplateDump);
+            }
+
+            // choix du dump
+            $dumpName = $this->askAndValidate(array(
+                '',
+                'Le numero du dump choisi?',
+                ''
+            ) , new sfValidatorChoice(array(
+                'choices' => array_keys($dispoTemplateDumps) ,
+                'required' => true
+            ) , array(
+                'invalid' => 'Le dump n\'existe pas'
+            )));
+
+            $file = $dirDbDump . '/' . $dispoTemplateDumps[$dumpName];
+        } else {
+            $file = $arguments['file'];
+        }
+
+        $results = contentTemplateTools::loadDB($file);
 
         $this->logSection('### loadDB', 'Load de la base locale');
         foreach ($results as $result) {

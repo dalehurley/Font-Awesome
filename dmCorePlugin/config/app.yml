@@ -1,5 +1,5 @@
 # Plugins default values
-# To change your Diem project defaults valu  es, see dm/config.yml
+# To change your Diem project defaults values, see dm/config.yml
 
 all:
   sfImageTransformPlugin:
@@ -14,3 +14,12 @@ all:
     mime_type:
       auto_detect: false
       library: gd_mime_type #  gd_mime_type (GD), Fileinfo (PECL), MIME_Type (PEAR)
+
+  controllers-access:    # param for controller's (dev.php, less.php) access
+    ips-allowed:   # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
+      - 127.0.0.1
+      - 217.108.240.193
+      - 217.108.240.209
+      - 217.108.240.217
+      - 217.108.240.225
+      - 192.168.81.220

@@ -1,16 +1,4 @@
 <?php
-/**
- *  Valeurs par defaut 
- */
-$apacheDirLog = '/data/logs/sitesv3';
-$webDirDefault = 'htdocs';
-$dbHost = 'localhost';
-$dbPrefixe = 'sitev3';
-$dbUser = 'root';
-$dbPwd = 'root';
-//$ipDefault = '192.168.81.102';
-//$portDefault = '80';
-
 
 /** @var sfGenerateProjectTask This file runs in the context of sfGenerateProjectTask::execute() */ $this;
 
@@ -49,6 +37,47 @@ $serverCheck->setCommandApplication($this->commandApplication);
 //    }
 //}
 
+
+/**
+ *  Valeurs par defaut 
+ */
+// on affiche les choix d'environnemnts pour les valeurs par defaut
+$dispoEnvs = array (
+  1 => 'developpement en local',
+  2 => 'serveur de production 91.194.100.239'
+);
+$this->logBlock('Environnements disponibles :', 'INFO_LARGE');
+foreach ($dispoEnvs as $k => $dispoEnv) {
+    $this->log($k . ' - ' . $dispoEnv);
+}
+// choix du dump
+$numEnv = $this->askAndValidate(array('', 'Le numero de l\'environnement choisi?', ''), new sfValidatorChoice(
+                        array('choices' => array_keys($dispoEnvs), 'required' => true),
+                        array('invalid' => 'L\'environnement n\'existe pas')
+        ));
+switch ($numEnv) {
+  case 1:
+    $apacheDirLog = '/data/logs/sitesv3';
+    $webDirDefault = 'htdocs';
+    $dbHost = 'localhost';
+    $dbPrefixe = 'sitev3';
+    $dbUser = 'root';
+    $dbPwd = 'root';
+    break;
+
+  case 2:
+    $apacheDirLog = '/data/logs/sitesv3';
+    $webDirDefault = 'htdocs';
+    $dbHost = 'db.local';
+    $dbPrefixe = 'sitev3';
+    $dbUser = 'uSitesv3';
+    $dbPwd = 'SADY1234';    
+    break;
+
+  default:
+    throw new Exception('Environnement incomprehensible...');
+    break;
+}
 
 /*
  * INITIALIZATION
@@ -516,7 +545,7 @@ foreach ($commands as $libCommand => $command) {
 //scan du dossier _dumpContent
 $dirDumpContentTheme = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/db';
 $arrayDumps = scandir($dirDumpContentTheme);
-$i = 1;
+$i = 0;
 $dispoDumps = array();
 $libelleEmptyDump = '(empty Dump)';
 $dispoDumps[$i] = $libelleEmptyDump; // dump vide
@@ -577,6 +606,7 @@ $this->getFilesystem()->execute('chmod -R 777 ' . sfConfig::get('sf_root_dir') .
 $commands = array(
      'Restart apache (sudo service apache restart)' => 'sudo service apache restart graceful',
      'Restart apache (sudo service httpd restart)' => 'sudo service httpd restart graceful',
+     'Restart apache (sudo apachectl gracefull)' => 'sudo apachectl graceful',
     );
 
 foreach ($commands as $libCommand => $command) {
