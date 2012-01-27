@@ -545,7 +545,7 @@ foreach ($commands as $libCommand => $command) {
 //scan du dossier _dumpContent
 $dirDumpContentTheme = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/db';
 $arrayDumps = scandir($dirDumpContentTheme);
-$i = 1;
+$i = 0;
 $dispoDumps = array();
 $libelleEmptyDump = '(empty Dump)';
 $dispoDumps[$i] = $libelleEmptyDump; // dump vide

@@ -42,6 +42,61 @@
 		//stylage du titre
 		.name { font-weight: bold; color: @colorBlack; }
 		
+		//ajout sprites pour certains éléments
+		.email, .faxNumber, .telephone {
+			//masquage separateur
+			.separator { display: none; visibility: hidden; }
+			
+			//dimension de l'icone
+			.type {
+				position: relative;
+				display: inline-block;
+				text-indent:-9999em;
+				@spriteDimension(@spriteFormat_S);
+				//appel différenciées des fonctions de sprite
+				@spriteBgi("Default"; "S");
+				//décalage de marge
+				@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+				@decalH: (@gridGutter - @spriteFormat_S) / 2;
+				padding-top: @decalV;
+				padding-bottom: @decalV;
+				margin-right: @decalH + @offS;
+				margin-left: @decalH;
+				/*
+				//test ajout toolTip à partir de la balise Title
+				&:after {
+					background-color: teal;
+					position: absolute;
+					white-space: nowrap;
+					content: attr(title);
+					color: #fff;
+					//white-space: nowrap;
+					//opacity: 0;
+				}
+				&:hover:after {
+					//opacity: 1;
+				}*/
+			}
+		}
+		.email {
+			.type {
+				@spriteBgp-communication-email-S();
+				@spriteBgiSvg("Default"; "communication"; "email");
+			}
+		}
+		.faxNumber {
+			.type {
+				@spriteBgp-communication-faxNumber-S();
+				@spriteBgiSvg("Default"; "communication"; "faxNumber");
+			}
+		}
+		.telephone {
+			.type {
+				@spriteBgp-communication-telephone-S();
+				@spriteBgiSvg("Default"; "communication"; "telephone");
+			}
+		}
+		
 		//positionnement élément en ligne dans zone spécifique
 		.subWrapper {
 			#dm_custom_bottom & span { display: inline; vertical-align: top; }
