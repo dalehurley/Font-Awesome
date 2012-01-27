@@ -108,7 +108,7 @@ class dmGoogleMapTag extends dmHtmlTag
     ($adresseRequest->getFax() !=NULL) ? $fax = ' - Fax : '.$adresseRequest->getFax().'</p>' : $fax = '</p>';
     // si l'adresse à afficher est le siège social, alors on affiche le titreBloc, 
     //sinon on n'affiche rien dans le titreBloc car normalement la première adresse est tjrs celle du siège social
-    ($adresseRequest->siege_social == true ) ? $titreBloc = '<h2 class="title">'.__('Map').'</h2>' : $titreBloc ='' ;
+    ($adresseRequest->siege_social == true ) ? $titreBloc = '<h2 class="title">'.  sfContext::getInstance()->getI18N()->__('Map').'</h2>' : $titreBloc ='' ;
     // construction de la chaîne html
     $tag = $titreBloc.'<div style="text-align: center"><p><b>'.$adresseRequest->getTitle().'</b><br />'.$adresseCabinet.'</p>'.$tel.$fax.'</div><div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
 
