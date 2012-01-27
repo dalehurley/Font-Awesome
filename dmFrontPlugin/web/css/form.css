@@ -15,6 +15,8 @@
 .dm_form .radio_list,
 .dm_form .checkbox_list {
   margin-top: 3px;
+  clear: both;
+  margin-left: 60px
 }
 
 .dm_form .radio_list li {
