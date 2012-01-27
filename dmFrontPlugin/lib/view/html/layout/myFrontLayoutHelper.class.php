@@ -34,6 +34,7 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
         //ajout des classes personnalisée sur le body
         $options['class'][] = $pageOptions['currentGabarit'];
 		if($pageOptions['isDev']) $options['class'][] = 'isDev';
+		if($pageOptions['isLess']) $options['class'][] = 'isLess';
 		
         return parent::renderBodyTag($options);
     }
