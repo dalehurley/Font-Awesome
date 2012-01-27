@@ -27,31 +27,3 @@
 
 //Placement de l'arrière plan
 @spriteBgp(@dim: @spriteFormat_L; @offX: 0; @offY: 0) { background-position: (@offX * @dim * -1px) (@offY * @dim * -1px); }
-
-
-//fonction spécifique d'ajout de sprite au titre de widget
-//utiliser avec un complément du type :
-//.dm_widget_inner {
-//	& > .title:after { @spriteBgp-internet-contact-M(); }
-//}
-@widgetTitleSprite(@theme: "Default"; @category; @name) {
-	//ciblage du titre du widget
-	& .dm_widget_inner > .title {
-		//que si l'élément :after est géré (éviter un mélange avec .svg), on rajoute de l'espace à gauche pour caler la sprite
-		.generatedcontent #dm_sidebar_left &, .generatedcontent #dm_sidebar_right & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px); }
-		
-		&:after {
-			position: absolute;
-			display: block;
-			//décalage de marge
-			@decalV: (@gridBaseline + (@zonesOffsetPad -1px) * 2 - @spriteFormat_M) / 2;
-			top: @decalV;
-			left: 0;
-			content: "";
-			//appel différenciées des fonctions de sprite (appeler @spriteBgp-XXXX-XXXX-M dans le widget)
-			@spriteDimension(@spriteFormat_M);
-			@spriteBgi(@theme; "M");
-			@spriteBgiSvg(@theme; @category; @name);
-		}
-	}
-}

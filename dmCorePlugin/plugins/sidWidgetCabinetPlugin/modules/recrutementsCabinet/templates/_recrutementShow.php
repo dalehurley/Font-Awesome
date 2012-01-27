@@ -1,16 +1,18 @@
 <?php
 // vars : $recrutements, $titreBloc
+
 $html = '';
+//titre du contenu
+if($titreBloc != null) $html = get_partial('global/titleWidget', array('title' => $titreBloc, 'isContainer' => true));
 
 if(count($recrutements)){
+	//affichage du contenu
+	$recrutementOpts = array('container' => 'article');
+	$recrutementOpts['node'] = $recrutements;
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $recrutementOpts);
 	
-	$pubOpts = array();
-							$pubOpts['node']		= $recrutements;
-	if($titreBloc != null)	$pubOpts['category']	= $titreBloc;
-	
-	$html.= get_partial('global/publicationShow', $pubOpts);
 }else{
-	$html.= get_partial('global/publicationShow', array('content' => '{{recrutement}}'));
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{recrutement}}'));
 }
 
 //affichage html en sortie

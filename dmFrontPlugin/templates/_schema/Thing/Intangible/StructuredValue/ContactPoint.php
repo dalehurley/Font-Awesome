@@ -1,12 +1,13 @@
 <?php
 /*
  * ContactPoint.php
- * v1.0
+ * v1.1
  * http://schema.org/ContactPoint
  * 
  * Variables disponibles :
  * $node
  * $container
+ * $isLight
  * 
  * Properties from Thing :
  * $description
@@ -48,10 +49,13 @@ if(isset($email)) if($email) {
 	$emailOpt = array(
 				'type'		=> __('Email'),
 				'value'		=> $email,
-				'itemprop' => 'email'
+				'itemprop'	=> 'email',
+				'isLight'	=> $isLight
 			);
-	//si l'URL n'est pas définit pour la personne alors on peut rajouter l'email dans l'affichage
+	//si l'URL n'est pas définit pour la personne ou désactivé alors on peut rajouter l'email dans l'affichage
 	if(!isset($url)) $emailOpt['url'] = 'mailto:' . $email;
+	if(isset($url)) if($url == null || !$url) $emailOpt['url'] = 'mailto:' . $email;
+		
 	$html.= get_partial('global/schema/DataType/Text', $emailOpt);
 }
 

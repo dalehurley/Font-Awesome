@@ -1,7 +1,7 @@
 <?php
 /*
  * Person.php
- * v1.0
+ * v1.1
  * http://schema.org/Person
  * 
  * Variables disponibles :
@@ -60,50 +60,72 @@ include $includeDefault;
 //Composition du html de sortie
 $html = '';
 
-//dimensions de l'image
-$imageGridWidth = ($isLight) ? spLessCss::getLessParam('thumbS_col') : spLessCss::getLessParam('thumbM_col');
-$imageGridHeight = ($isLight) ? spLessCss::getLessParam('thumbS_bl') : spLessCss::getLessParam('thumbM_bl') * 2;
-
-//Properties from Thing :
-$thingOpt = array('imageGridWidth' => $imageGridWidth, 'imageGridHeight' => $imageGridHeight);
-if(isset($node))		$thingOpt['node']			= $node;
-						$thingOpt['description']	= false;
-if(isset($image))		$thingOpt['image']			= $image;
-						$thingOpt['name']			= false;
-						$thingOpt['url']			= false;
-$html.= get_partial('global/schema/Thing', $thingOpt);
 
 
-//on englobe le contenu dans un wrapper si une image est présente
-if($isImage) $html.= _open('span.wrapper');
-	
-	//on englobe le nom et la fonction dans un subWrapper
-	if(isset($name) || isset($jobTitle)) {
-		$html.= _open('div.subWrapper');
-			if(isset($name)) if($name) $html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
-			if(isset($jobTitle)) if($jobTitle) $html.= _tag('span.separator', '&#160;-&#160;') . get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));	
-		$html.= _close('div');
-	}
-	
-	//Properties from ContactPoint :
-	$contactPointOpt = array('container' => 'div.contactPoints itemprop="contactPoints"', 'url' => false);
-	if(isset($contactType) && !$isLight)$contactPointOpt['contactType']	= $contactType;
-	if(isset($email))					$contactPointOpt['email']		= $email;
-	if(isset($faxNumber))				$contactPointOpt['faxNumber']	= $faxNumber;
-	if(isset($telephone))				$contactPointOpt['telephone']	= $telephone;
-	$html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint', $contactPointOpt);
-	
-	//__('Responsable in')
-	
-	//affichage de la description
-	if(isset($description) && !$isLight) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
-	
-//fermeture du container de contenu
-if($isImage) $html.= _close('span.wrapper');
+
+//html image
+$htmlImage = '';
+
+//on affiche l'image que si elle est effectivement présente
+if($isImage && isset($image)){
+	//dimensions de l'image
+	$imageGridWidth = ($isLight) ? spLessCss::getLessParam('thumbS_col') : spLessCss::getLessParam('thumbM_col');
+	$imageGridHeight = ($isLight) ? spLessCss::getLessParam('thumbS_bl') : spLessCss::getLessParam('thumbM_bl') * 2;
+	//options de l'image
+	$imageWrapperOpts = array(
+								'image'	=>	$image,
+								'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
+								'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+								);
+	//ajout du nom de l'article dans la balise Alt de l'image
+	if(isset($name)) $imageWrapperOpts['alt'] = $name;
+
+	//Appel du partial d'image
+	$htmlImage.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
+}
+
+
+
+
+//html hors image
+$htmlText = '';
+
+//if(isset($name) || isset($jobTitle)) {
+	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
+	if(isset($jobTitle)) if($jobTitle) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));
+	//englobage dans un container
+	//$dash . 
+	//$htmlText = _tag('span.subWrapper', $htmlText);
+//}
+
+//Properties from ContactPoint :
+$contactPointOpt = array('container' => 'span.contactPoints itemprop="contactPoints"', 'url' => false, 'isLight' => $isLight);
+if(isset($contactType) && !$isLight)$contactPointOpt['contactType']	= $contactType;
+if(isset($email))					$contactPointOpt['email']		= $email;
+if(isset($faxNumber))				$contactPointOpt['faxNumber']	= $faxNumber;
+if(isset($telephone))				$contactPointOpt['telephone']	= $telephone;
+$htmlText.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint', $contactPointOpt);
+
+//__('Responsable in')
+
+//affichage de la description
+if(isset($description) && !$isLight) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
+
+//insertion dans un wrapper si une image est présente
+if($isImage) $htmlText = _tag('span.wrapper', $htmlText);
+
+
 
 
 //inclusion dans le lien si nécessaire
-if(isset($url)) $html = _link($url)->text($html)->title($name)->set('.link_box');
+if(isset($url)) {
+	$htmlLink = _link($url)->text($htmlImage . $htmlText)->set('.link_box');
+	if(isset($name)) $htmlLink->title($name);
+	$html.= $htmlLink;
+}else{
+	$html.= $htmlImage . $htmlText;
+}
+
 
 //englobage dans un container
 if(isset($container)) $html = _tag($container, $ctnOpts, $html);

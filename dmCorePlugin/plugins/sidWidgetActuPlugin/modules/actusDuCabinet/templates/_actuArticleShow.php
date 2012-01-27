@@ -1,16 +1,17 @@
 <?php
 // vars : $articles, $titreBloc
+
 $html = '';
+//titre du contenu
+if($titreBloc != null) $html = get_partial('global/titleWidget', array('title' => $titreBloc, 'isContainer' => true));
 
 if(count($articles)){
-	
-	$pubOpts = array();
-							$pubOpts['node']		= $articles;
-	if($titreBloc != null)	$pubOpts['category']	= $titreBloc;
-	
-	$html.= get_partial('global/publicationShow', $pubOpts);
+	//affichage du contenu
+	$articleOpts = array('container' => 'article');
+	$articleOpts['node'] = $articles;
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
 }else{
-	$html.= get_partial('global/publicationShow', array('content' => '{{actualites_du_cabinet}}'));
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{actualites_du_cabinet}}'));
 }
 
 //affichage html en sortie

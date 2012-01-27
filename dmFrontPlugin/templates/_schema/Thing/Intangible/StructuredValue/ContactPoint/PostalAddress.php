@@ -58,8 +58,17 @@ $html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint
 
 //Properties from PostalAddress :
 if(isset($streetAddress))	if($streetAddress)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Street'),		'value' => $streetAddress,	'itemprop' => 'streetAddress'));
-if(isset($postalCode))		if($postalCode)		$html.= get_partial('global/schema/DataType/Text', array('type' => __('Postal Code'),	'value' => $postalCode,		'itemprop' => 'postalCode'));
-if(isset($addressLocality))	if($addressLocality)$html.= get_partial('global/schema/DataType/Text', array('type' => __('Locality'),		'value' => $addressLocality,'itemprop' => 'addressLocality'));
+
+//html ville et code postal
+$htmlLPC = '';
+if(isset($postalCode))		if($postalCode)		$htmlLPC.= get_partial('global/schema/DataType/Text', array('type' => __('Postal Code'),	'value' => $postalCode,		'itemprop' => 'postalCode'));
+if(isset($addressLocality))	if($addressLocality)$htmlLPC.= ' ' . get_partial('global/schema/DataType/Text', array('type' => __('Locality'),		'value' => $addressLocality,'itemprop' => 'addressLocality'));
+//englobage dans un container
+if($htmlLPC != null) {
+	$htmlLPC = _tag('span.subWrapper', $htmlLPC);
+	$html.= $htmlLPC;
+}
+
 if(isset($addressRegion))	if($addressRegion)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Region'),		'value' => $addressRegion,	'itemprop' => 'addressRegion'));
 if(isset($addressCountry))	if($addressCountry)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Country'),		'value' => $addressCountry,	'itemprop' => 'addressCountry'));
 
