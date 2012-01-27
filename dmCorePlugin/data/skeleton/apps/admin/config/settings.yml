@@ -12,7 +12,7 @@ dev:
     no_script_name:         false
     etag:                   false
 
-dev:
+less:
   .settings:
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
     web_debug:              false
