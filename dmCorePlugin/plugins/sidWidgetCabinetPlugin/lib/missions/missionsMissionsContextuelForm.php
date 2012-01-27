@@ -45,15 +45,15 @@ class missionsMissionsContextuelForm extends dmWidgetPluginForm {
 
     public function getStylesheets() {
         return array(
-            'lib.ui-tabs'
+//            'lib.ui-tabs'
         );
     }
 
     public function getJavascripts() {
         return array(
-            'lib.ui-tabs',
-            'core.tabForm',
-            'sidWidgetBePlugin.widgetShowForm'
+//            'lib.ui-tabs',
+//            'core.tabForm',
+//            'sidWidgetBePlugin.widgetShowForm'
         );
     }
 

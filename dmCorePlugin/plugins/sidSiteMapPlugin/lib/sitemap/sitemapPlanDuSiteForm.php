@@ -18,15 +18,15 @@ class sitemapPlanDuSiteForm extends dmWidgetPluginForm {
 
     public function getStylesheets() {
         return array(
-            'lib.ui-tabs'
+//            'lib.ui-tabs'
         );
     }
 
     public function getJavascripts() {
         return array(
-            'lib.ui-tabs',
-            'core.tabForm',
-            'sidWSiteMapPlugin.widgetShowForm'
+//            'lib.ui-tabs',
+//            'core.tabForm',
+//            'sidWSiteMapPlugin.widgetShowForm'
         );
     }
 

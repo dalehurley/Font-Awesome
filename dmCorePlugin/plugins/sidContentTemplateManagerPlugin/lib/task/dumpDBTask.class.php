@@ -83,13 +83,13 @@ EOF;
             $this->logBlock('Dump existants du theme ' . $dispoTemplates[$numTemplate] . ' :', 'INFO_LARGE');
             
             foreach ($dispoTemplateDumps as $k => $dispoTemplateDump) {
-                $this->log($k . ' - ' . $dispoTemplateDump);
+                $this->log($dispoTemplateDump);
             }
             // on demande le nom du fichier choisi
             $dumpNameAuto = date("Y-m-d-H:i:s") . '-' . str_replace('Theme', '', $dispoTemplates[$numTemplate]); // nom automatique dans le suffixe Theme
             $dumpName = $this->ask(array(
                 '',
-                'Nom du dump a effectuer? (par defaut: ' . $dumpNameAuto . ')',
+                'Nom du dump a effectuer, sans extension .'.contentTemplateTools::dumpExtension.'? (par defaut: ' . $dumpNameAuto . ')',
                 ''
             ));
             $dumpName = empty($dumpName) ? $dumpNameAuto : $dumpName;
