@@ -545,21 +545,24 @@ foreach ($commands as $libCommand => $command) {
 //scan du dossier _dumpContent
 $dirDumpContentTheme = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/db';
 $arrayDumps = scandir($dirDumpContentTheme);
-$i = 0;
+$i = 1;
 $dispoDumps = array();
 $libelleEmptyDump = '(empty Dump)';
-$dispoDumps[$i] = $libelleEmptyDump; // dump vide
 $extensionDump = 'dump'; // ATTENTION : utilise dans contentTemplateTools.class.php
 
 foreach ($arrayDumps as $dump) {
     // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
     if ($dump != '.' && $dump != '..' && substr($dump, 0, 1) != '_') {
-  if (substr($dump, strlen($dump) - strlen($extensionDump)) == $extensionDump){ // on cherche les fichiers d'extension dump
-      $i++;
-      $dispoDumps[$i] = str_replace('.'.$extensionDump, '', $dump); // on retire l'extension      
-  } 
+      if (substr($dump, strlen($dump) - strlen($extensionDump)) == $extensionDump){ // on cherche les fichiers d'extension dump
+        $i++;
+        $dispoDumps[$i] = str_replace('.'.$extensionDump, '', $dump); // on retire l'extension      
+      } 
     }
 }
+// on ajoute le dump vide
+$i++;
+$dispoDumps[$i] = $libelleEmptyDump; // dump vide
+
 // on affiche les choix
 $this->logBlock('Dump disponibles :', 'INFO_LARGE');
 foreach ($dispoDumps as $k => $dispoDump) {
