@@ -8,7 +8,7 @@ class spLessCss extends dmFrontUser {
 		$pageOptions = self::pageTemplateGetOptions($optionsCustom);
 		
 		//action à effectuer uniquement en DEV
-		if ($pageOptions['isDev']) {
+		if ($pageOptions['isDev'] || $pageOptions['isLess']) {
 			//affichage du widget de DEBUG du framework
 			echo dm_get_widget('sidSPLessCss', 'debug', array());
 		}
@@ -87,12 +87,10 @@ class spLessCss extends dmFrontUser {
 		
 		//Génération du fichier less de sortie
 		self::spriteLessGenerate($prct, $lessDefinitions);
-
-		if ($spriteFormat == 'X'){
-			// A la fin du traitement on donne accès à tous les fichiers propriété d'apache: chmod 777 sur toute l'arborescence juste créée par le mkdir recursif
-			exec('chmod 777 -R '.sfConfig::get('sf_web_dir'));				
-		}
-
+		
+		// A la fin du traitement on donne accès à tous les fichiers propriété d'apache: chmod 777 sur toute l'arborescence juste créée par le mkdir recursif
+		if ($prct >= 100) exec('chmod 777 -R '.sfConfig::get('sf_web_dir'));
+		
 		//Renvoi de valeurs pour l'affichage
 		return array(
 			'hashMd5'			=> $hashMd5,
@@ -413,7 +411,8 @@ class spLessCss extends dmFrontUser {
 		
 		//composition des options de page par défault
 		$pageTemplateOptionsDefault = array(
-							'isDev'				=> ((sfConfig::get('sf_environment') == 'dev' || sfConfig::get('sf_environment') == 'less') ? true : false),
+							'isDev'				=> ((sfConfig::get('sf_environment') == 'dev') ? true : false),
+							'isLess'			=> ((sfConfig::get('sf_environment') == 'less') ? true : false),
 							'currentGabarit'	=> $currentGabarit,
 							'areas'				=> array(
 								'dm_page_content'		=>	array(

@@ -25,7 +25,7 @@
 
 //liens englobants en boite
 .link_box {
-	.isDev & { background-color: MediumPurple; }
+	.isLess & { background-color: MediumPurple; }
 	//force l'agrandissement en cas de présence de contenu flottant
 	@getClearfix();
 	display: block;
@@ -37,7 +37,7 @@
 //container utilisé pour contenir tout le contenu d'une publication
 .contentWrapper {
 	//indicateur visuel indiquant que la zone a été stylée par Arnaud
-	.isDev &.isVerified {
+	.isLess &.isVerified {
 		&:after {
 			position: absolute;
 			top: 0;
@@ -90,7 +90,7 @@
 //Gestion des listings
 .elements {
 	//couleur de débug
-	.isDev & { background-color: #777; }
+	.isLess & { background-color: #777; }
 	
 	//suppression de toute marge et puce (à tester avec un article (vérifier si balisage identique)
 	margin: 0;
@@ -102,9 +102,9 @@
 		@getClearfix();
 		
 		//couleurs de débug
-		.isDev & { background-color: #999; }
+		.isLess & { background-color: #999; }
 		//indicateur visuel indiquant que la zone a été stylée par Arnaud
-		.isDev &.first.isVerified {
+		.isLess &.first.isVerified {
 			&:after {
 				position: absolute;
 				top: 0;
@@ -134,21 +134,21 @@
 		
 		//équivalent itemprop de title
 		.name {
-			.isDev & { background-color: lightcoral; }
+			.isLess & { background-color: lightcoral; }
 			font-size: @fontSizeH6Px;
 		}
 		
 		.jobTitle {
-			.isDev & { background-color: lightgreen; }
+			.isLess & { background-color: lightgreen; }
 		}
 		
 		//permet de replacer la description sous le titre et la date
 		.description {
-			.isDev & { background-color: lightblue; }
+			.isLess & { background-color: lightblue; }
 		}
 		
 		.date {
-			.isDev & { background-color: lightgreen; }
+			.isLess & { background-color: lightgreen; }
 			//uniquement dans le contenu où on a la place horizontale
 			#dm_content & { margin-left: @offM; }
 		}
@@ -158,7 +158,7 @@
 		
 		//on modifie le comportement des éléments dans un subWrapper
 		.subWrapper {
-			.isDev & { background-color: Violet; }
+			.isLess & { background-color: Violet; }
 			line-height: @gridBaseline;
 			//cf http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ pour hack vertical-align
 			#dm_content & span { display: inline; vertical-align: top; }
@@ -166,12 +166,12 @@
 		
 		//container de l'image
 		.imageWrapper {
-			.isDev & { background-color: darkblue; }
+			.isLess & { background-color: darkblue; }
 		}
 		
 		//container de texte, on ne met les éléments en block que lorsqu'il sont contenu dedans
 		.wrapper {
-			.isDev & { background-color: #bbb; }
+			.isLess & { background-color: #bbb; }
 		}
 	}
 }
