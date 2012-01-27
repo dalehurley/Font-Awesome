@@ -8,7 +8,13 @@ parameters:
   log_chart.options:
     name:                     Server            # public name for this chart
     lifetime:                 1800              # time in seconds to keep a cached version of the chart
-    credentials:              see_chart
+    credentials:              see_log           # avant c'était -> see_chart
+    
+  accueil_welcome.class:      sidAccueilWelcome        # Responsible for rendering the log chart
+  accueil_welcome.options:
+    name:                     Accueil            # public name for this chart
+    lifetime:                 1800              # time in seconds to keep a cached version of the chart
+    credentials:              see_accueil
 
   week_chart.class:           dmWeekChart       # Responsible for rendering the week chart
   week_chart.options:
@@ -26,7 +32,7 @@ parameters:
   content_chart.options:
     name:                     Activity          # public name for this chart
     lifetime:                 43200             # time in seconds to keep a cached version of the chart
-    credentials:              see_chart
+    credentials:              see_log         # avant c'était -> see_chart
 
   browser_chart.class:        dmBrowserChart    # Responsible for rendering the browser chart
   browser_chart.options:
@@ -116,6 +122,11 @@ services:
     class:                    %log_chart.class%
     shared:                   false
     arguments:                [ @service_container, %log_chart.options% ]
+    
+  accueil_welcome:
+    class:                    %accueil_welcome.class%
+    shared:                   false
+    arguments:                [ @service_container, %accueil_welcome.options% ]
 
   week_chart:
     class:                    %week_chart.class%

@@ -37,8 +37,13 @@ EOF;
                 'Vraiment sur ? (y/n)'
             ) , 'QUESTION_LARGE', true)) {
                 $this->logSection('Erase', '...');
+                
                 // récupération du nom de domaine du site via la table dmSetting
-                $settings = dmDb::query('DmSetting s')->withI18n($options['lang'])->where('s.name = ?', 'base_urls')->limit(1)->fetchRecords();
+                $settings = dmDb::query('DmSetting s')
+                ->withI18n($options['lang'])
+                ->where('s.name = ?', 'base_urls')
+                ->limit(1)
+                ->fetchRecords();
                 
                 foreach ($settings as $setting) {
                     // une liste json des url (les controleurs) utilisées dans le site, pour chaque app et environnement accédés via un navigateur
@@ -60,11 +65,11 @@ EOF;
                 $fileDelete = getcwd() . "/htdocs/delete.php";
                 $f = fopen($fileDelete, "w");
                 $fileDeleteContent = <<<EOF
-		<?php
-		ini_set('display_errors', 0);
-		ini_set('log_errors', 0);
-		exec('chmod -R 777 /data/www/sitediem/');
-		?>
+<?php
+	ini_set('display_errors', 0);
+	ini_set('log_errors', 0);
+    exec('chmod -R 777 '.getcwd().'/../');
+?>
 EOF;
                 fputs($f, $fileDeleteContent . "\n");
                 fclose($f);

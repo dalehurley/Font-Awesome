@@ -199,4 +199,35 @@ div.dm_version_check_upgrade {
   border-color: #CAD3A6;
 }
 
+/* ajout stef */
+div.dm_admin_homepage_column #accueil .level0 li.ui-state-default {
+  margin-bottom: 20px
+}
+
+div.dm_admin_homepage_column #accueil .level0 li.ui-state-default > a {
+  font-size:1.25em;
+  font-weight: bold;
+}
+
+div.dm_admin_homepage_column #accueil .level0 li.ui-state-default ul.level1 li.first {
+  padding-top: 5px
+}
+
+div.dm_admin_homepage_column #accueil .level0 li.ui-state-default ul.level1 li.last {
+  margin-bottom: 0;
+  padding-bottom:5px
+      
+}
+
+div.dm_admin_homepage_column #accueil .level0 li.ui-state-default ul.level1 > li > a.link {
+  font-weight:bold
+}
+
+div.dm_admin_homepage_column #accueil .level0 li.ui-state-default ul.level1 > li{
+    margin-bottom: 10px
+}
+
+div.dm_admin_homepage_column #accueil .level0 li.ui-state-default a.link:hover{
+    text-decoration: underline;
+}
 

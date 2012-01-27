@@ -1,6 +1,6 @@
 $.fn.extend({
   
-  dmWidgetArticleAccueilShowForm: function(widget)
+  dmWidgetGoogleMapShowForm: function(widget)
   {
     var self = this,
 		$form = self.find('form:first'),

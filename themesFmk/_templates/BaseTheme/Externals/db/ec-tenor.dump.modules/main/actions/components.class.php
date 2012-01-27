@@ -25,7 +25,7 @@ class mainComponents extends myFrontModuleComponents
 		use_stylesheet('/theme/css/widgetMainLessDebug.css');
 
 		//on vérifie si on est en DEV
-		$isDev = (sfConfig::get('sf_environment') == 'dev') ? true : false;
+		$isDev = (sfConfig::get('sf_environment') == 'dev' || sfConfig::get('sf_environment') == 'less') ? true : false;
 
 		//Gabarit de la page visible en environnement de dev
 		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
