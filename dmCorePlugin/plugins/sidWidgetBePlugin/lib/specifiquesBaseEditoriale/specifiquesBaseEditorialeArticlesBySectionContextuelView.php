@@ -15,6 +15,18 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
             'visibleInDossier'
         ));
     }
+	
+	public function getStylesheets() {
+		//on créé un nouveau tableau car c'est un nouveau widget (si c'est une extension utiliser $stylesheets = parent::getStylesheets();)
+		$stylesheets = array();
+		
+		//lien vers le js associé au menu
+		$cssLink = sfConfig::get('sf_css_path_template'). '/Widgets/SpecifiquesBaseEditorialeArticlesBySectionContextuel/SpecifiquesBaseEditorialeArticlesBySectionContextuel.css';
+		//chargement de la CSS si existante
+		if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
+		
+		return $stylesheets;
+	}
 
     /**
      * On affiche NB articles Actu selon 3 types:
