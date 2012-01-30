@@ -1,7 +1,7 @@
 <?php
 /*
  * _varsDefaultValues.php
- * v1.0
+ * v1.1
  * Permet de définir de façon centralisée des valeurs par défaut pour différentes variables
  * 
  * Variables disponibles :
@@ -34,3 +34,6 @@ if(!isset($isLight)) $isLight = false;
 
 //désactive tout ajout de microdata
 if(!isset($noMicrodata)) $noMicrodata = false;
+
+//longueur de texte de description par défaut
+$defaultValueLength = 200;
