@@ -6,9 +6,10 @@ class dmCreatePagesCacheTask extends dmContextTask {
         $this->addArguments(array());
         $this->addOptions(array(
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name') ,
-            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev') ,
+            new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod') ,
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine') ,
             new sfCommandOption('lang', null, sfCommandOption::PARAMETER_REQUIRED, 'The language of site', 'fr') ,
+            new sfCommandOption('nb', null, sfCommandOption::PARAMETER_REQUIRED, 'Number of pages to make in cache (in datatbase order)', 0) ,            
             // add your own options here
             
         ));
@@ -30,16 +31,27 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
+
+        // message de gnération
+        switch ($options['nb']) {
+            case 0:
+                $message = 'Générer le cache entier du site';
+                break;
+            
+            default:
+                $message = 'Générer le cache des '.$options['nb'].' premières pages du site';
+                break;
+        }
+
         if ($this->askConfirmation(array(
-            'Générer le cache entier du site ? (y/n)'
+            $message.' ? (y/n)'
         ) , 'QUESTION_LARGE', true)) {
 
             $pageCacheConfig = sfConfig::get('dm_performance_page_cache');
-            if (!$pageCacheConfig || !$pageCacheConfig['enabled']) {
-                $this->logSection('No total cache activated', '...');
+            if ($pageCacheConfig && $pageCacheConfig['enabled']) {
+                $this->logSection('Total cache activated', '...');
             }
 
-            $this->logSection('Create all cache page', '...');
             // récupération du nom de domaine du site via la table dmSetting
             $settings = dmDb::query('DmSetting s')->withI18n($options['lang'])->where('s.name = ?', 'base_urls')->limit(1)->fetchRecords();
             
@@ -60,12 +72,16 @@ EOF;
             $dmPages = dmDb::query('DmPage p')->withI18n($options['lang'])->where('pTranslation.is_active = true')->andWhere('p.action != ?', array(
                 'error404'
             ))->fetchRecords();
-            $nb = 1;
+            $nb = 0;
             $timeBegin = microtime(true);
             $execTimeGlobal = 0;
             
             foreach ($dmPages as $dmPage) {
-                if ($nb > 5) break;
+
+                    // nb de pages à traiter
+                    if ($nb >= $options['nb'] && $options['nb'] !=0) break;
+                    $nb++;
+
                 $timeBeginPage = microtime(true);
                 try {
                     // affichage de la page
@@ -76,7 +92,6 @@ EOF;
                     $execTime = substr((microtime(true) - $timeBeginPage),0,5);
                     $execTimeGlobal = $execTimeGlobal + $execTime;
                     $this->logSection($nb . ' (' . substr($execTime,0,5) . 's)', $dmPageUrl);
-                    $nb++;
                 }
                 catch(Exception $e) {
                     $this->logSection('Soucis sur la page', $dmPageUrl);
