@@ -1,7 +1,7 @@
 <?php
 /*
  * _navigationWrapper.php
- * v1.0
+ * v1.1
  * Permet d'afficher une navigation de page (à améliorer avec gestion intégrée des tableaux
  * 
  * Variables disponibles :
@@ -68,9 +68,21 @@ if(isset($elements)){
 
 //Pager par défaut de Diem de type 1,2,3,4,5
 if(isset($pager)){
-	$html.= _open('ul.pager');
-		$html.= $pager;
-	$html.= _close('ul.pager');
+	//on génère le html du pager
+	switch ($placement) {
+		case 'top':
+			$htmlPager = $pager->renderNavigationTop();
+			break;
+		case 'bottom':
+			$htmlPager = $pager->renderNavigationBottom();
+			break;
+		default:
+			$htmlPager = null;
+			break;
+	}
+	
+	//on insère le pager que si le html résultant n'est pas vide
+	if($htmlPager != null) $html.= _tag('div.pager', $htmlPager);
 }
 
 //englobage dans un container
