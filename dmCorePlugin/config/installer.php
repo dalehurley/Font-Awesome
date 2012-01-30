@@ -626,6 +626,17 @@ foreach ($commands as $libCommand => $command) {
 }
 
 //-------------------------------------------------------------------------------------
+//    Lancement d'un premier search update d'initialisation afin de créer le dossier 
+//    data/dm/index et qu'il soit propriété de l'installer, et non d'apache lorsqu'on 
+//    fera le premier appel
+//-------------------------------------------------------------------------------------
+$this->logBlock('Generation arborescence lucene /data/dm/index/', 'INFO_LARGE');
+$out = $err = null;
+$this->getFilesystem()->execute(sprintf(
+    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'dm:search-update --init=true'
+  ), $out, $err);
+
+//-------------------------------------------------------------------------------------
 //    Lecture de la page $settings['ndd'] . '/dev.php afin de creer les fichier .css a partir des .less
 //    On execute un : php symfony less:compile --application="front" --debug --clean 
 //-------------------------------------------------------------------------------------
