@@ -136,7 +136,7 @@ class sidSPLessCss {
 	}
 	
 	//chemin vers les images du template
-	public static function getImgPathFramework() {
+	public static function getImgPathTemplate() {
 		return '/theme/less/_templates/' . self::getLessParam('mainTemplate') . '/Images';
 	}
 	
