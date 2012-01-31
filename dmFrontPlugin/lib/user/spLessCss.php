@@ -103,7 +103,7 @@ class spLessCss extends dmFrontUser {
 	private static function spriteGetListing($hashMd5 = null) {
 		//emplacement et récupération des thèmes de sprites
 		$urlThemes = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathFramework() . '/Sprites';
-		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+		$urlThemesClient = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites';
 		$getThemes = sfFinder::type('directory')->follow_link()->relative()->in($urlThemes);
 		
 		//création du tableau de stockage des sprites
@@ -139,7 +139,7 @@ class spLessCss extends dmFrontUser {
 	//purge des miniatures
 	private static function spriteReset(){
 		//emplacement et récupération des thèmes de sprites
-		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+		$urlThemesClient = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites';
 		$getThemesClient = sfFinder::type('directory')->follow_link()->relative()->in($urlThemesClient);
 		
 		//récupération des miniatures assemblées déjà générées
@@ -171,7 +171,7 @@ class spLessCss extends dmFrontUser {
 			}
 			
 			//suppression du dossier du thème
-			$urlThemeClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $themeClient;
+			$urlThemeClient = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites/' . $themeClient;
 			if(is_dir($urlThemeClient)){
 				$testRmdir = rmdir($urlThemeClient);
 				//affichage d'un message en cas d'erreur
@@ -292,7 +292,7 @@ class spLessCss extends dmFrontUser {
 			$categories = $info['categories'];
 			
 			//création du dossier du thème si non présent
-			$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+			$urlThemes = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites';
 			$urlThemeClient = $urlThemes . '/' . $theme;
 			if(!is_dir($urlThemeClient)){
 				$testMkdir = mkdir($urlThemeClient, 0775, true);

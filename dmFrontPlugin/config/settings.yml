@@ -4,8 +4,6 @@ all:
     js_cdn_google:          //ajax.googleapis.com/ajax/libs
     js_cdn_microsoft:       //ajax.aspnetcdn.com/ajax
     js_cdn_cdnjs:           //cdnjs.cloudflare.com/ajax/libs
-    #Ressources graphiques
-    img_path_client:        /theme/images
     
     # Form security secret (CSRF protection)
     csrf_secret:            c72e74e674ceeec2ed027933f11b9f984e9be22d
