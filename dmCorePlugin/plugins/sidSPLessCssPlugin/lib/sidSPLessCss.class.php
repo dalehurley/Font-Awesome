@@ -32,20 +32,13 @@ class sidSPLessCss {
         if ($lessParserOpen === false) {
             return false;
         } else {
-			//initialisation du compteur de ligne
-            $lessCounter = 0;
-			
 			//lecture ligne par ligne du contenu du fichier
             while (!feof($lessParserOpen)) {
-				//incrémentation du compteur de ligne
-                $lessCounter++;
-				
 				//contenu ligne courante
                 $lessCurrentLine = fgets($lessParserOpen, 4096);
 				
 				//on vérifie que la ligne contient bien un point virgule (évite la confusion avec les acolades)
 				if(strpos($lessCurrentLine, ';')) {
-					
 					//position des deux-points
 					$indexSep = strpos($lessCurrentLine, ':');
 					$indexEnd = strrpos($lessCurrentLine, ';');
@@ -58,6 +51,13 @@ class sidSPLessCss {
 					$varName = str_replace(' ', '', $varName);
 					$varValue = str_replace('"', '', $varValue);
 					
+					//suppresion unité en pixel
+					$getUnit = substr($varValue, -2);
+					if($getUnit == "px") $varValue = substr($varValue, 0, -2);
+					
+					//conversion en valeur float
+					if(is_numeric($varValue)) $varValue = floatval($varValue);
+					
 					//remplissage du tableau
 					$parameterValue[$varName] = $varValue;
 				}
@@ -67,9 +67,10 @@ class sidSPLessCss {
 		//création du sytème de fichier
 		$fs = new sfFilesystem();
 		
-		//création du fichier
+		//ciblage du JSON
 		$fileJson = self::getVariableFileJson();
 		
+		//création du fichier a
 		$fs->touch($fileJson);
 		$fs->chmod(array($fileJson), 0777);
 		
@@ -83,12 +84,28 @@ class sidSPLessCss {
 		return true;
 	}
 	
-	//fonction permettant de sortir la valeur d'un paramÃ¨tre less
+	//fonction permettant de sortir la valeur d'un paramètre less
     public static function getLessParam($variable = null) {
+		//ciblage du JSON
+		$fileJson = self::getVariableFileJson();
 		
-		
-		
-		
-		
+		//on vérifie que le fichier existe
+		if(is_file($fileJson)) {
+			
+			//contenu du fichier
+			$jsonContent = file_get_contents($fileJson);
+			
+			//décodage du fichier
+			$jsonDecode = json_decode($jsonContent, true);
+			
+			//on vérifie que la variable demandée existe bien et on retourne la valeur
+			if(array_key_exists($variable, $jsonDecode)){
+				return $jsonDecode[$variable];
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
 	}
 }
