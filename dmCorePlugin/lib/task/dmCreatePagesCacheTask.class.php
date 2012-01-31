@@ -54,10 +54,15 @@ EOF;
 
             // récupération du nom de domaine du site via la table dmSetting
             $settings = dmDb::query('DmSetting s')->withI18n($options['lang'])->where('s.name = ?', 'base_urls')->limit(1)->fetchRecords();
-            
+
             foreach ($settings as $setting) {
                 // une liste json des url (les controleurs) utilisées dans le site, pour chaque app et environnement accédés via un navigateur
                 $siteEnvsUrl = json_decode($setting->Translation[$options['lang']]->value);
+            }
+
+            if (!is_object($siteEnvsUrl)) {
+                $this->logBlock('Impossible de trouver le nom de domaine du site. Merci de naviguer sur le site.', 'ERROR');
+                exit;
             }
             $envsIndex = get_object_vars($siteEnvsUrl);
             // on récupère le premier controleur disponible
@@ -68,6 +73,7 @@ EOF;
             }
             // http root
             $rootUrl = substr($firstController, 0, strrpos($firstController, '/'));
+
             // récupération des pages du sites
             $dmPages = dmDb::query('DmPage p')->withI18n($options['lang'])->where('pTranslation.is_active = true')->andWhere('p.action != ?', array(
                 'error404'
