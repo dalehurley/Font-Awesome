@@ -391,7 +391,7 @@ class spLessCss extends dmFrontUser {
 	//récupération du layout par défaut du template sélectionné
 	public static function pageSuccessTemplateInclude() {
 		//Ciblage du layout de page par défaut du template sélectionné
-		$pageSuccessTemplateInclude = sfConfig::get('dm_core_dir') . '/../themesFmk/_templates/' . sidSPLessCss::getLessParam('mainTemplate') . '/Externals/php/layouts/pageSuccessTemplate.php';
+		$pageSuccessTemplateInclude = dm::getDir() . '/themesFmk/_templates/' . sidSPLessCss::getLessParam('mainTemplate') . '/Externals/php/layouts/pageSuccessTemplate.php';
 		
 		//on retourne un tableau contenant 3 clefs
 		$includeInfo = array(
