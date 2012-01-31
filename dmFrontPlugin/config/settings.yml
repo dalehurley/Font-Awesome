@@ -5,7 +5,6 @@ all:
     js_cdn_microsoft:       //ajax.aspnetcdn.com/ajax
     js_cdn_cdnjs:           //cdnjs.cloudflare.com/ajax/libs
     #Ressources graphiques
-    img_path_framework:     /theme/less/_framework/SPLessCss/Images
     img_path_template:      /theme/less/_templates/<?php echo sidSPLessCss::getLessParam('mainTemplate') ?>/Images
     img_path_client:        /theme/images
     

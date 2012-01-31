@@ -102,7 +102,7 @@ class spLessCss extends dmFrontUser {
 	//génération du listing des icônes
 	private static function spriteGetListing($hashMd5 = null) {
 		//emplacement et récupération des thèmes de sprites
-		$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites';
+		$urlThemes = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathFramework() . '/Sprites';
 		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
 		$getThemes = sfFinder::type('directory')->follow_link()->relative()->in($urlThemes);
 		
