@@ -109,6 +109,27 @@ class sidSPLessCss {
 		}
 	}
 	
+	//fonction permettant d'importer la liste des imports des config du framework
+    public static function printLessParams() {
+		//ciblage du JSON
+		$fileJson = self::getVariableFileJson();
+		
+		//on vérifie que le fichier existe
+		if(is_file($fileJson)) {
+			//contenu du fichier
+			$jsonContent = file_get_contents($fileJson);
+			
+			//décodage du fichier
+			$jsonDecode = json_decode($jsonContent, true);
+		}
+        
+		$counter = 0;
+		foreach ($jsonDecode as $key => $value) {
+			echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $counter . " " . $key . " => " . $value . "<br/>";
+			$counter++;
+		}
+    }
+	
 	
 	//chemin vers les js du framework
 	public static function getJsPathFramework() {
