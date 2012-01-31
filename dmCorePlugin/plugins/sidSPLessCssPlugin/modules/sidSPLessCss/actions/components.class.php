@@ -8,7 +8,7 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 	
 	public function executeDebug() {
 		//insertion de la CSS du widget du theme courant
-		$this->getResponse()->addStylesheet(sfConfig::get('sf_css_path_template').'/Widgets/SidSPLessCssDebug/SidSPLessCssDebug.css');
+		$this->getResponse()->addStylesheet(sidSPLessCss::getCssPathTemplate().'/Widgets/SidSPLessCssDebug/SidSPLessCssDebug.css');
 		
 		//récupération des valeurs de configuration par défaut de la page
 		$pageTemplateOptionsDefault = spLessCss::pageTemplateGetOptions();

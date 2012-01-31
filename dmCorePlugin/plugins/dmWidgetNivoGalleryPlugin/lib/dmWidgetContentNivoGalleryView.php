@@ -15,7 +15,7 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
         : 'dmWidgetNivoGalleryPlugin.nivo'));
     
 	//ciblage CSS personnalisée du framework
-	$cssLink = sfConfig::get('sf_css_path_template'). '/Widgets/ContentNivoGallery/ContentNivoGallery.css';
+	$cssLink = sidSPLessCss::getCssPathTemplate(). '/Widgets/ContentNivoGallery/ContentNivoGallery.css';
 	
     $this->addStylesheet(array('dmWidgetNivoGalleryPlugin.view',
       //sfConfig::get('app_dmWidgetNivoGalleryPlugin_css')

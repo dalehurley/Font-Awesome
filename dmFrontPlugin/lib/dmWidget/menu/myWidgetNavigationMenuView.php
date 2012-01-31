@@ -12,8 +12,8 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		//récupération des variables de la vue
 		$vars = $this->getViewVars();
 		//lien vers les css associées au menu
-        $cssLink1 = sfConfig::get('sf_css_path_template'). '/Widgets/NavigationMenu/NavigationMenu.css';
-		$cssLink2 = sfConfig::get('sf_css_path_template'). '/Widgets/NavigationMenu/NavigationMenu.' . $vars['menuType'] . '.css';
+        $cssLink1 = sidSPLessCss::getCssPathTemplate(). '/Widgets/NavigationMenu/NavigationMenu.css';
+		$cssLink2 = sidSPLessCss::getCssPathTemplate(). '/Widgets/NavigationMenu/NavigationMenu.' . $vars['menuType'] . '.css';
 		
 		//chargement des CSS si existantes
         if (is_file(sfConfig::get('sf_web_dir') . $cssLink1)) $stylesheets[] = $cssLink1;
