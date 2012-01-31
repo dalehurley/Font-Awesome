@@ -10,11 +10,13 @@
 
     Equipe:
       model: SidCabinetEquipe
+      name: "L'équipe|Les équipes"
       page: false
       credentials: equipe
 
     Recrutement:
       model: SidCabinetRecrutement
+      name: "Le Recrutement|Les Recrutements"
       page: true
       credentials: recrutement
 
@@ -23,7 +25,7 @@
     Mission:
       model: SidCabinetMission
       page: true
-      name: "Mission/Services|Missions/Services"
+      name: "Mission/Services|Les Missions/Services"
       credentials: mission
 
 

@@ -41,6 +41,9 @@ class spLessCss extends dmFrontUser {
 	
 	//génération de toutes les sprites dans toutes les dimensions
 	public static function spriteInit($hashMd5 = null, $spriteFormat = null) {
+		// temps d'execution infini (pour le serveur de prod, Lionel)
+		set_time_limit(0);
+
 		//Si on est au début de l'action
 		if($spriteFormat == null) {
 			//génération d'un nouveau hashMd5

@@ -548,18 +548,21 @@ $arrayDumps = scandir($dirDumpContentTheme);
 $i = 0;
 $dispoDumps = array();
 $libelleEmptyDump = '(empty Dump)';
-$dispoDumps[$i] = $libelleEmptyDump; // dump vide
 $extensionDump = 'dump'; // ATTENTION : utilise dans contentTemplateTools.class.php
 
 foreach ($arrayDumps as $dump) {
     // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
     if ($dump != '.' && $dump != '..' && substr($dump, 0, 1) != '_') {
-  if (substr($dump, strlen($dump) - strlen($extensionDump)) == $extensionDump){ // on cherche les fichiers d'extension dump
-      $i++;
-      $dispoDumps[$i] = str_replace('.'.$extensionDump, '', $dump); // on retire l'extension      
-  } 
+      if (substr($dump, strlen($dump) - strlen($extensionDump)) == $extensionDump){ // on cherche les fichiers d'extension dump
+        $i++;
+        $dispoDumps[$i] = str_replace('.'.$extensionDump, '', $dump); // on retire l'extension      
+      } 
     }
 }
+// on ajoute le dump vide
+$i++;
+$dispoDumps[$i] = $libelleEmptyDump; // dump vide
+
 // on affiche les choix
 $this->logBlock('Dump disponibles :', 'INFO_LARGE');
 foreach ($dispoDumps as $k => $dispoDump) {
@@ -623,7 +626,18 @@ foreach ($commands as $libCommand => $command) {
 }
 
 //-------------------------------------------------------------------------------------
-//    Lecture de la page $settings['ndd'] . '/dev.php afin de creer les fichier .css a partir des .less
+//    Lancement d'un premier search update d'initialisation afin de créer le dossier 
+//    data/dm/index et qu'il soit propriété de l'installer, et non d'apache lorsqu'on 
+//    fera le premier appel
+//-------------------------------------------------------------------------------------
+$this->logBlock('Generation arborescence lucene /data/dm/index/', 'INFO_LARGE');
+$out = $err = null;
+$this->getFilesystem()->execute(sprintf(
+    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'dm:search-update --init=true'
+  ), $out, $err);
+
+//-------------------------------------------------------------------------------------
+//    Creation des fichier .css a partir des .less
 //    On execute un : php symfony less:compile --application="front" --debug --clean 
 //-------------------------------------------------------------------------------------
 $this->logBlock('Generation des fichiers CSS a partir des less.', 'INFO_LARGE');
@@ -631,6 +645,17 @@ $out = $err = null;
 $this->getFilesystem()->execute(sprintf(
     '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:compile --application="front" --debug --clean'
   ), $out, $err);
+
+//-------------------------------------------------------------------------------------
+//    Lecture de la page $settings['ndd'] afin de creer l'entrée base_url dans la table dmSettings
+//-------------------------------------------------------------------------------------
+$siteUrl='http://'.$settings['ndd'];
+$site = file_get_contents($siteUrl);
+if ($site==''){
+  $this->logBlock('Page d\'accueil '.$siteUrl .' introuvable. Vérifiez les paramètres d\'apache et du nom de domaine.', 'ERROR');
+} else {
+  $this->logBlock('Test de la page d\'accueil '.$siteUrl.' Ok', 'INFO_LARGE');
+}
 
 //-------------------------------------------------------------------------------------
 //    The END.

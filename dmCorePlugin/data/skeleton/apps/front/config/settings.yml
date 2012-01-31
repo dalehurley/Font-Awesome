@@ -1,4 +1,4 @@
-all:
-  .settings:
+#all:
+#  .settings:
     # Form security secret (CSRF protection)
     #csrf_secret:            c72e74e674ceeec2ed027933f11b9f984e9be22d

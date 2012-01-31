@@ -2,7 +2,7 @@
   "Mes sites utiles":
     IndexSitesUtiles:
       credentials: index_sites_utiles
-      name: "Page d'accueil des sites utiles"
+      name: "La page d'accueil des sites utiles"
       model: SidIndexSitesUtiles
       page: true
       components: 
