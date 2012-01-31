@@ -38,6 +38,9 @@ class spLessCss extends dmFrontUser {
 	
 	//génération de toutes les sprites dans toutes les dimensions
 	public static function spriteInit($hashMd5 = null, $spriteFormat = null) {
+		// temps d'execution infini
+		set_time_limit(0);
+
 		//Si on est au début de l'action
 		if($spriteFormat == null) {
 			//génération d'un nouveau hashMd5
@@ -84,14 +87,10 @@ class spLessCss extends dmFrontUser {
 		
 		//Génération du fichier less de sortie
 		self::spriteLessGenerate($prct, $lessDefinitions);
-
-		if ($spriteFormat == 'X'){
-			// puis génération des css
-			exec(sprintf( '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:compile --application="front" --debug --clean' ));
-			// A la fin du traitement on donne accès à tous les fichiers propriété d'apache: chmod 777 sur toute l'arborescence juste créée par le mkdir recursif
-			exec('chmod 777 -R '.sfConfig::get('sf_web_dir'));				
-		}
-
+		
+		// A la fin du traitement on donne accès à tous les fichiers propriété d'apache: chmod 777 sur toute l'arborescence juste créée par le mkdir recursif
+		if ($prct >= 100) exec('chmod 777 -R '.sfConfig::get('sf_web_dir'));
+		
 		//Renvoi de valeurs pour l'affichage
 		return array(
 			'hashMd5'			=> $hashMd5,
@@ -732,6 +731,7 @@ class spLessCss extends dmFrontUser {
 
     //fonction permettant de sortir la valeur d'un paramÃ¨tre less
     public static function getLessParam($variable = '') {
+
         $lessInitURL = sfConfig::get('sf_web_dir') . "/theme/less/_framework/SPLessCss/Config/_ConfigInit.less";
         $lessVariableImport = self::loadLessParameters(array(
                     'lessFile' => $lessInitURL

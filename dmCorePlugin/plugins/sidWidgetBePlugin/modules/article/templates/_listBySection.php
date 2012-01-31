@@ -1,24 +1,56 @@
 <?php // Vars: $articlePager, $parent, $route
-use_helper('Date');
+//récupération des valeurs par défaut
+$includeDefaultValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultValues.php';
+include $includeDefaultValues;
 
-echo _tag('h2.title', $parent.' - '.$route);
+$html = '';
 
-echo _tag('div.navigation.navigationTop', $articlePager->renderNavigationTop());
+$html.= get_partial('global/titleWidget', array('title' => $parent . $dash . $route));
 
-$i = 0;
-// Cas particulier pour les dossiers
-//if($this->context->getPage()->getName() == 'Dossiers'){
-//    $i=2;
-//}
+//affichage du pager top
+$html.= get_partial('global/navigationWrapper', array(
+												'placement' => 'top',
+												'pager' => $articlePager
+												));
 
-echo _open('ul.elements');
-	foreach ($articlePager as $article)
-	{
-            
-            include_partial("objectPartials/listBySection", array("article" => $article, "i" => $i));
-            $i++;
-            
-	}
-echo _close('ul');
+//ouverture du listing
+$html.= _open('ul.elements');
 
-echo _tag('div.navigation.navigationBottom', $articlePager->renderNavigationBottom());
+//compteur
+$count = 0;
+$maxCount = count($articlePager);
+
+foreach ($articlePager as $article) {
+	//incrémentation compteur
+	$count++;
+
+	//options de l'article
+	$articleOpt = array(
+					'node' => $article,
+					'count' => $count,
+					'maxCount' => $maxCount,
+					'container' => 'li.element',
+					'isListing' => true,
+					'descriptionLength' => $defaultValueLength,
+					'image' => '/_images/lea' . $article->filename . '-p.jpg',
+					'url' => $article
+				);
+	
+	//on supprime les photos après les 3 premiers articles
+	if($count > 3) $articleOpt['image'] = false;
+
+	//ajout de l'article
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
+}
+
+//fermeture du listing
+$html.= _close('ul.elements');
+
+//affichage du pager bottom
+$html.= get_partial('global/navigationWrapper', array(
+												'placement' => 'bottom',
+												'pager' => $articlePager
+												));
+
+//affichage html en sortie
+echo $html;
