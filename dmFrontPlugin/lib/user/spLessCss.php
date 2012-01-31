@@ -272,9 +272,9 @@ class spLessCss extends dmFrontUser {
 	//copie de toutes les icônes et changement des couleurs
 	private static function spriteGenerate($hashMd5 = null, $spriteListing = array(), $spriteFormat = 'L'){
 		//dimension par défaut des sprites (imposé par le format SVG utilisé)
-		$dimDefault = intval(self::getLessParam('spriteFormat'));
+		$dimDefault = intval(sidSPLessCss::getLessParam('spriteFormat'));
 		//dimension des sprites dans les paramètres du framework (égale à S, M, L ou X)
-		$dimFramework = intval(self::getLessParam('spriteFormat_' . $spriteFormat));
+		$dimFramework = intval(sidSPLessCss::getLessParam('spriteFormat_' . $spriteFormat));
 		
 		//calcul du ratio de redimenssionnement
 		$resizeRatio = $dimFramework / $dimDefault;
@@ -332,7 +332,7 @@ class spLessCss extends dmFrontUser {
 						//on enlève les délimiteurs ## de la couleur
 						$colorKey = substr($colorToken, 2, -2);
 						//on récupère la valeur de la couleur correspondante
-						$colorValue = self::getLessParam($colorKey);
+						$colorValue = sidSPLessCss::getLessParam($colorKey);
 						
 						//composition de la commmande de changement de couleurs
 						$execColor = "perl -pi -w -e 's/" . $colorToken . "/". $colorValue ."/g;' " . $value['urlClient'];
@@ -388,7 +388,7 @@ class spLessCss extends dmFrontUser {
 	//récupération du layout par défaut du template sélectionné
 	public static function pageSuccessTemplateInclude() {
 		//Ciblage du layout de page par défaut du template sélectionné
-		$pageSuccessTemplateInclude = sfConfig::get('dm_core_dir') . '/../themesFmk/_templates/' . self::getLessParam('mainTemplate') . '/Externals/php/layouts/pageSuccessTemplate.php';
+		$pageSuccessTemplateInclude = sfConfig::get('dm_core_dir') . '/../themesFmk/_templates/' . sidSPLessCss::getLessParam('mainTemplate') . '/Externals/php/layouts/pageSuccessTemplate.php';
 		
 		//on retourne un tableau contenant 3 clefs
 		$includeInfo = array(
@@ -406,7 +406,7 @@ class spLessCss extends dmFrontUser {
 		//récupération du gabarit de la page
 		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
 		if ($currentGabarit == 'default' || $currentGabarit == '') {
-			$currentGabarit = self::getLessParam('templateGabarit');
+			$currentGabarit = sidSPLessCss::getLessParam('templateGabarit');
 		}
 		
 		//composition des options de page par défault
@@ -773,8 +773,8 @@ class spLessCss extends dmFrontUser {
 		//récupération des valeurs de dimension de la grille
 		$nbreCols = intval($nbreCols);
 		$padSub = intval($padSub);
-		$gridColWidth = intval(self::getLessParam('gridColWidth'));
-		$gridGutter = intval(self::getLessParam('gridGutter'));
+		$gridColWidth = intval(sidSPLessCss::getLessParam('gridColWidth'));
+		$gridGutter = intval(sidSPLessCss::getLessParam('gridGutter'));
 		//calcul des paramètres
 		$elementWidth = $gridColWidth * $nbreCols + $gridGutter * ($nbreCols -1) - $padSub;
 
@@ -786,7 +786,7 @@ class spLessCss extends dmFrontUser {
 		//récupération des valeurs de dimension de la grille
 		$nbreLine = intval($nbreLine);
 		$padSub = intval($padSub);
-		$gridBaseline = intval(self::getLessParam('gridBaseline'));
+		$gridBaseline = intval(sidSPLessCss::getLessParam('gridBaseline'));
 		//calcul des paramètres
 		$elementHeight = ($gridBaseline * $nbreLine) - $padSub;
 
@@ -798,13 +798,13 @@ class spLessCss extends dmFrontUser {
 		//récupération du gabarit courant
 		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
 		if ($currentGabarit == 'default' || $currentGabarit == '') {
-			$currentGabarit = self::getLessParam('templateGabarit');
+			$currentGabarit = sidSPLessCss::getLessParam('templateGabarit');
 		}
 
 		//récupération des valeurs de colonnes
-		$gridCol = self::lessCalculator(self::getLessParam('gridCol'));
-		$gridCol_SidebarLeft = self::lessCalculator(self::getLessParam('gridCol_SidebarLeft'));
-		$gridCol_SidebarRight = self::lessCalculator(self::getLessParam('gridCol_SidebarRight'));
+		$gridCol = self::lessCalculator(sidSPLessCss::getLessParam('gridCol'));
+		$gridCol_SidebarLeft = self::lessCalculator(sidSPLessCss::getLessParam('gridCol_SidebarLeft'));
+		$gridCol_SidebarRight = self::lessCalculator(sidSPLessCss::getLessParam('gridCol_SidebarRight'));
 		
 		if($currentGabarit === 'sidebar-left'){
 			$gridCol_Content = $gridCol - $gridCol_SidebarLeft;
