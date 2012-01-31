@@ -24,31 +24,31 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 		$paramSpLessCss = array(
 							array(
 								'info'	=>	'mainTemplate',
-								'value' =>	spLessCss::getLessParam('mainTemplate')
+								'value' =>	sidSPLessCss::getLessParam('mainTemplate')
 							),
 							array(
 								'info'	=>	'templateVersion',
-								'value' =>	spLessCss::getLessParam('templateVersion')
+								'value' =>	sidSPLessCss::getLessParam('templateVersion')
 							),
 							array(
 								'info'	=>	'templateDate',
-								'value' =>	spLessCss::getLessParam('templateDate')
+								'value' =>	sidSPLessCss::getLessParam('templateDate')
 							),
 							array(
 								'info'	=>	'templateGabarit',
-								'value' =>	spLessCss::getLessParam('templateGabarit')
+								'value' =>	sidSPLessCss::getLessParam('templateGabarit')
 							),
 							array(
 								'info'	=>	'templateGrid',
-								'value' =>	spLessCss::getLessParam('templateGrid')
+								'value' =>	sidSPLessCss::getLessParam('templateGrid')
 							),
 							array(
 								'info'	=>	'templateCopyright',
-								'value' =>	spLessCss::getLessParam('templateCopyright')
+								'value' =>	sidSPLessCss::getLessParam('templateCopyright')
 							),
 							array(
 								'info'	=>	'templateAuthor',
-								'value' =>	spLessCss::getLessParam('templateAuthor')
+								'value' =>	sidSPLessCss::getLessParam('templateAuthor')
 							),
 							array(
 								'info'	=>	'currentGabarit',
@@ -56,15 +56,15 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 							),
 							array(
 								'info'	=>	'gridContainer',
-								'value' =>	spLessCss::getLessParam('gridContainer')
+								'value' =>	sidSPLessCss::getLessParam('gridContainer')
 							),
 							array(
 								'info'	=>	'gridColWidth',
-								'value' =>	spLessCss::getLessParam('gridColWidth')
+								'value' =>	sidSPLessCss::getLessParam('gridColWidth')
 							),
 							array(
 								'info'	=>	'gridGutter',
-								'value' =>	spLessCss::getLessParam('gridGutter')
+								'value' =>	sidSPLessCss::getLessParam('gridGutter')
 							),
 							array(
 								'info'	=>	'screenType'
