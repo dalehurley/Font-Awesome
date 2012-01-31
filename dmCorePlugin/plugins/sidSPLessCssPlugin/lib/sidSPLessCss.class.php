@@ -6,6 +6,31 @@
  */
 class sidSPLessCss {
 	
+	//chemin vers les css du framework
+	public static function getCssPathFramework() {
+		return '/theme/css/_framework/SPLessCss';
+	}
+	
+	//chemin vers les css du template
+	public static function getCssPathTemplate() {
+		return '/theme/css/_templates/' . self::getLessParam('mainTemplate');
+	}
+	
+	//chemin vers les images du framework
+	public static function getImgPathFramework() {
+		return '/theme/less/_framework/SPLessCss/Images';
+	}
+	
+	//chemin vers les images du template
+	public static function getImgPathFramework() {
+		return '/theme/less/_templates/' . self::getLessParam('mainTemplate') . '/Images';
+	}
+	
+	//chemin vers les images du client
+	public static function getImgPathClient() {
+		return '/theme/images';
+	}
+
 	//récupère le fichier de variables CSS
 	private static function getVariableFileCss() {
 		//récupération du chemin vers les CSS
