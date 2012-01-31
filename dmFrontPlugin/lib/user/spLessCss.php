@@ -13,6 +13,9 @@ class spLessCss extends dmFrontUser {
 			echo dm_get_widget('sidSPLessCss', 'debug', array());
 		}
 		
+		//actualisation des paramètres du framework
+		if ($pageOptions['isLess']) sidSPLessCss::loadLessParameters();
+		
 		return $pageOptions;
 	}
 	
