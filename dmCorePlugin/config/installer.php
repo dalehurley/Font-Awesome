@@ -637,7 +637,7 @@ $this->getFilesystem()->execute(sprintf(
   ), $out, $err);
 
 //-------------------------------------------------------------------------------------
-//    Lecture de la page $settings['ndd'] . '/dev.php afin de creer les fichier .css a partir des .less
+//    Creation des fichier .css a partir des .less
 //    On execute un : php symfony less:compile --application="front" --debug --clean 
 //-------------------------------------------------------------------------------------
 $this->logBlock('Generation des fichiers CSS a partir des less.', 'INFO_LARGE');
@@ -645,6 +645,17 @@ $out = $err = null;
 $this->getFilesystem()->execute(sprintf(
     '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:compile --application="front" --debug --clean'
   ), $out, $err);
+
+//-------------------------------------------------------------------------------------
+//    Lecture de la page $settings['ndd'] afin de creer l'entrée base_url dans la table dmSettings
+//-------------------------------------------------------------------------------------
+$siteUrl='http://'.$settings['ndd'];
+$site = file_get_contents($siteUrl);
+if ($site==''){
+  $this->logBlock('Page d\'accueil '.$siteUrl .' introuvable. Vérifiez les paramètres d\'apache et du nom de domaine.', 'ERROR');
+} else {
+  $this->logBlock('Test de la page d\'accueil '.$siteUrl.' Ok', 'INFO_LARGE');
+}
 
 //-------------------------------------------------------------------------------------
 //    The END.
