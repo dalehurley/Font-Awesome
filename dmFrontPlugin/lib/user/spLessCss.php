@@ -731,6 +731,16 @@ class spLessCss extends dmFrontUser {
 
     //fonction permettant de sortir la valeur d'un paramÃ¨tre less
     public static function getLessParam($variable = '') {
+
+    	// lioshi : utilisation d'un fichier varsLess pour stocker les vars
+    	// @TODO : remplir ce fichier lors de la compilation LESS
+    	$tabVars = file_get_contents('/data/www/_lib/diem/varsLess');
+    	$lessVariableImport = json_decode($tabVars);
+    	return $lessVariableImport->{$variable};
+
+
+
+
         $lessInitURL = sfConfig::get('sf_web_dir') . "/theme/less/_framework/SPLessCss/Config/_ConfigInit.less";
         $lessVariableImport = self::loadLessParameters(array(
                     'lessFile' => $lessInitURL
