@@ -187,13 +187,13 @@ class spLessCss extends dmFrontUser {
 	private static function spriteLessGenerate($prct = 0, $lessDefinitions = array()) {
 		//chemin vers le fichier de config des sprites
 		$urlSpriteVariables = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteVariables.less';
-		$urlSpriteFunctions = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteFunctions.less';
+		//$urlSpriteFunctions = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteFunctions.less';
 		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteGenerate.less';
 		
 		//création du system de fichier
 		$fs = new sfFilesystem();
 		//Assemblage des fichiers dans un tableau
-		$fsFiles = array($urlSpriteVariables, $urlSpriteFunctions, $urlSpriteGenerate);
+		$fsFiles = array($urlSpriteVariables, $urlSpriteGenerate);
 		
 		//création des fichiers et chmod
 		$fs->touch($fsFiles);
@@ -215,7 +215,7 @@ class spLessCss extends dmFrontUser {
 			
 			//écriture du fichier (création si inexistant, remplacement dans le cas contraire)
 			$testPutContentVariables = file_put_contents($urlSpriteVariables, $headerInfoVariables);
-			$testPutContentFunctions = file_put_contents($urlSpriteFunctions, $headerInfoFunctions);
+			//$testPutContentFunctions = file_put_contents($urlSpriteFunctions, $headerInfoFunctions);
 			$testPutContentGenerate = file_put_contents($urlSpriteGenerate, $headerInfoGenerate);
 		} else {
 			//assemblage en string des déclarations à ajouter dans le fichier pour grouper les écritures
@@ -226,7 +226,7 @@ class spLessCss extends dmFrontUser {
 			//sinon on rajoute à la fin du fichier les définitions passées en paramètre
 			foreach ($lessDefinitions as $lessDefinition) {
 				$lessDefinitionVariables.= $lessDefinition['variable'] . PHP_EOL;
-				$lessDefinitionFunctions.= $lessDefinition['function'] . PHP_EOL;
+				//$lessDefinitionFunctions.= $lessDefinition['function'] . PHP_EOL;
 				$lessDefinitionGenerate.= $lessDefinition['generate'] . PHP_EOL;
 			}
 			
@@ -243,12 +243,12 @@ class spLessCss extends dmFrontUser {
 			$lessDefinitionGenerate.= PHP_EOL;
 			
 			//écriture dans les fichiers
-			$testPutContentFunctions = file_put_contents($urlSpriteFunctions, $lessDefinitionFunctions, FILE_APPEND);
+			//$testPutContentFunctions = file_put_contents($urlSpriteFunctions, $lessDefinitionFunctions, FILE_APPEND);
 			$testPutContentGenerate = file_put_contents($urlSpriteGenerate, $lessDefinitionGenerate, FILE_APPEND);
 		}
 		
 		//gestion de l'erreur d'écriture dans le fichier
-		if(!$testPutContentFunctions) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteFunctions);
+		//if(!$testPutContentFunctions) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteFunctions);
 		if(!$testPutContentGenerate) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteGenerate);
 	}
 	
@@ -276,7 +276,7 @@ class spLessCss extends dmFrontUser {
 		$appelFoncDef.= '; ' . $offY;
 		//fermeture fonction LESS
 		$appelFoncDef.= ');';
-		
+		/*
 		//ouverture fonction LESS
 		$appelFoncBgp = '@spriteBgp(';
 		//ajout paramètres
@@ -285,10 +285,10 @@ class spLessCss extends dmFrontUser {
 		$appelFoncBgp.= '; ' . $offY;
 		//fermeture fonction LESS
 		$appelFoncBgp.= ');';
-		
+		*/
 		//composition du tableau de sortie
 		$output['variable'] = '@spriteOffX' . $nomSpriteSimple . ':' . $offX . ';' . PHP_EOL . '@spriteOffY' . $nomSpriteSimple . ':' . $offY . ';';
-		$output['function'] = '@sprite' . $nomSprite . '() { ' . $appelFoncDef . ' }' . PHP_EOL . '@spriteBgp' . $nomSprite . '() { ' . $appelFoncBgp . ' }';
+		//$output['function'] = '@sprite' . $nomSprite . '() { ' . $appelFoncDef . ' }' . PHP_EOL . '@spriteBgp' . $nomSprite . '() { ' . $appelFoncBgp . ' }';
 		$output['generate'] = '.sprite' . $nomSprite . ' { ' . $appelFoncDef . ' }';
 		
 		//retour du tableau de valeurs
