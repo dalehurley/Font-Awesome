@@ -53,7 +53,7 @@
 			
 			&.active {
 				@spriteBgiSvg("Default"; "internet"; "bulletOver");
-				@spriteBgp-internet-bulletOver-S();
+				@spriteBgp(@spriteFormat_S; @spriteOffX-internet-bulletOver; @spriteOffY-internet-bulletOver);
 			}
 		}
 	}
@@ -81,12 +81,12 @@
 			
 			&.nivo-prevNav {
 				@spriteBgiSvg("Default"; "internet"; "back");
-				@spriteBgp-internet-back-M();
+				@spriteBgp(@spriteFormat_M; @spriteOffX-internet-back; @spriteOffY-internet-back);
 				left: @decalH;
 			}
 			&.nivo-nextNav {
 				@spriteBgiSvg("Default"; "internet"; "forward");
-				@spriteBgp-internet-forward-M();
+				@spriteBgp(@spriteFormat_M; @spriteOffX-internet-forward; @spriteOffY-internet-forward);
 				right: @decalH;
 			}
 		}

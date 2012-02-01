@@ -86,33 +86,33 @@
 					
 					&.link_accueil {
 						@spriteBgiSvg("Default"; "internet"; "home");
-						@spriteBgp-internet-home-S();
+						@spriteBgp(@spriteFormat_S; @spriteOffX-internet-home; @spriteOffY-internet-home);
 					}
 					
 					&.link_contact {
 						@spriteBgiSvg("Default"; "internet"; "email");
-						@spriteBgp-internet-email-S();
+						@spriteBgp(@spriteFormat_S; @spriteOffX-internet-email; @spriteOffY-internet-email);
 						&:hover {
 							@spriteBgiSvg("Default"; "internet"; "emailOpen");
-							@spriteBgp-internet-emailOpen-S();
+							@spriteBgp(@spriteFormat_S; @spriteOffX-internet-emailOpen; @spriteOffY-internet-emailOpen);
 						}
 					}
 					
 					&.link_facebook {
-						//@spriteBgiSvg("Default"; "socialnetwork"; "facebook");
-						@spriteBgp-socialnetwork-facebook-S();
+						@spriteBgiSvg("Default"; "socialnetwork"; "facebook");
+						@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-facebook; @spriteOffY-socialnetwork-facebook);
 					}
 					&.link_google-plus {
-						//@spriteBgiSvg("Default"; "socialnetwork"; "googleplus");
-						@spriteBgp-socialnetwork-googleplus-S();
+						@spriteBgiSvg("Default"; "socialnetwork"; "googleplus");
+						@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-googleplus; @spriteOffY-socialnetwork-googleplus);
 					}
 					&.link_linkedin {
-						//@spriteBgiSvg("Default"; "socialnetwork"; "linkedin");
-						@spriteBgp-socialnetwork-linkedin-S();
+						@spriteBgiSvg("Default"; "socialnetwork"; "linkedin");
+						@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-linkedin; @spriteOffY-socialnetwork-linkedin);
 					}
 					&.link_twitter {
-						//@spriteBgiSvg("Default"; "socialnetwork"; "twitter");
-						@spriteBgp-socialnetwork-twitter-S();
+						@spriteBgiSvg("Default"; "socialnetwork"; "twitter");
+						@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-twitter; @spriteOffY-socialnetwork-twitter);
 					}
 				}
 			}
