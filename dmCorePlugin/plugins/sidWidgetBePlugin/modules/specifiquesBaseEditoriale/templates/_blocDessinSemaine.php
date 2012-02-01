@@ -16,7 +16,7 @@ if (count($dessins)) { // si nous avons des actu articles
         $html.= _media($dessins['imgLinkSmall'])
                 ->set('.image itemprop="image"')
                 ->alt($dessins['titre'])
-                ->width(spLessCss::gridGetWidth(spLessCss::getLessParam('thumbL_col')));
+                ->width(spLessCss::gridGetWidth(sidSPLessCss::getLessParam('thumbL_col')));
         $html.= _close('span.imageWrapper');
 
         $html.= _open('span.wrapper');

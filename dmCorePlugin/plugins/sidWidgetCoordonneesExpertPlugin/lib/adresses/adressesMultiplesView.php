@@ -15,7 +15,7 @@ class adressesMultiplesView extends dmWidgetPluginView {
 		$stylesheets = array();
 		
 		//lien vers le js associé au menu
-		$cssLink = sfConfig::get('sf_css_path_template'). '/Widgets/AdressesMultiples/AdressesMultiples.css';
+		$cssLink = sidSPLessCss::getCssPathTemplate(). '/Widgets/AdressesMultiples/AdressesMultiples.css';
 		//chargement de la CSS si existante
 		if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
 		
