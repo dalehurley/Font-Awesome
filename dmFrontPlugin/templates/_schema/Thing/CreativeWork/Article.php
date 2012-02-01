@@ -77,8 +77,8 @@ if($isListing) {
 	//on affiche l'image que si elle est effectivement présente
 	if($isImage && isset($image)){
 		//dimensions de l'image
-		$imageGridWidth = ($isLight) ? spLessCss::getLessParam('thumbM_col') : spLessCss::getLessParam('thumbL_col');
-		$imageGridHeight = ($isLight) ? spLessCss::getLessParam('thumbM_bl') : spLessCss::getLessParam('thumbL_bl');
+		$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
+		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
 		//options de l'image
 		$imageWrapperOpts = array(
 									'image'	=>	$image,
@@ -154,8 +154,8 @@ if($isListing) {
 		//on affiche l'image que si elle est effectivement présente
 		if($isImage && isset($image)){
 			//dimensions de l'image
-			$imageGridWidth = spLessCss::getLessParam('thumbContent_col');
-			$imageGridHeight = spLessCss::getLessParam('thumbContent_bl');
+			$imageGridWidth = sidSPLessCss::getLessParam('thumbContent_col');
+			$imageGridHeight = sidSPLessCss::getLessParam('thumbContent_bl');
 			//options de l'image
 			$imageWrapperOpts = array(
 									'image'	=>	$image,

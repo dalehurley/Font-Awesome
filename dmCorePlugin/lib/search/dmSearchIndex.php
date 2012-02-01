@@ -1,8 +1,11 @@
 <?php
 
 require_once('Zend/Search/Lucene.php');
+ini_set("memory_limit",'1024M'); 
 
 class dmSearchIndex extends dmSearchIndexCommon {
+
+
 
     protected
     $luceneIndex;

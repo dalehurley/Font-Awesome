@@ -1,7 +1,7 @@
 <?php
 /*
  * _varsDefaultValues.php
- * v1.0
+ * v1.1
  * Permet de définir de façon centralisée des valeurs par défaut pour différentes variables
  * 
  * Variables disponibles :
@@ -11,7 +11,6 @@
  * $isListing			indique qu'il s'agit d'un listing
  * $isLight				permet d'indiquer une version allégée (notamment pour des affichages spéciaux dans les sidebars)
  * $noMicrodata			désactive tout ajout de microdata (désactivé par défaut)
- * $isDev
  * 
  */
 
@@ -35,3 +34,6 @@ if(!isset($isLight)) $isLight = false;
 
 //désactive tout ajout de microdata
 if(!isset($noMicrodata)) $noMicrodata = false;
+
+//longueur de texte de description par défaut
+$defaultValueLength = 200;

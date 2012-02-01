@@ -18,3 +18,7 @@ if ($accesGranted) {
 } else {
 	exit('Access denied. Thanks to contact the administrator with your ip adress'.' <b>'.$_SERVER['REMOTE_ADDR'].'</b>');
 }
+
+
+
+

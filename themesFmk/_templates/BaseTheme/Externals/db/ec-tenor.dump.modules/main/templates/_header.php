@@ -3,7 +3,7 @@
 $html = '';
 
 //lien vers l'image
-$imgLink = spLessCss::getLessParam('urlImagesTemplate') . '/Page/logo_light.png';
+$imgLink = sidSPLessCss::getLessParam('urlImagesTemplate') . '/Page/logo_light.png';
 //on vérifie que l'image existe
 $imgExist = is_file(sfConfig::get('sf_web_dir') . $imgLink);
 

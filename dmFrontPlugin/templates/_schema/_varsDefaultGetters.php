@@ -1,7 +1,7 @@
 <?php
 /*
  * _varsDefaultGetters.php
- * v1.0
+ * v1.1
  * Permet d'extraire de façon standardisée des variables de node
  * 
  * Variables disponibles :
@@ -17,6 +17,7 @@
 //récupérations des options de page
 $pageOptions = spLessCss::pageTemplateGetOptions();
 $isDev = $pageOptions['isDev'];
+$isLess = $pageOptions['isLess'];
 
 //récupération des valeurs par défaut
 $includeDefaultValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultValues.php';
@@ -40,7 +41,7 @@ if(isset($container)) {
 	}
 	
 	//application classe de debug
-	if($isDev) $ctnOpts['class'][] = 'isVerified';
+	if($isLess) $ctnOpts['class'][] = 'isVerified';
 }
 
 //Affectation des valeurs par défaut passées dans la node
@@ -154,7 +155,15 @@ if(isset($node)) {
 //définition de l'image
 $isImage = false;
 if(isset($image)) if($image) {
-	//on vérifie que l'image existe sur le serveur avec son chemin absolu
-	$imageUpload = (strpos($image, 'uploads') === false) ? '/uploads/' : '/';
-	$isImage = is_file(sfConfig::get('sf_web_dir') . $imageUpload . $image);
+	//on vérifie si l'image est en base (de type objet dans ce cas)
+	$isDbImage = (gettype($image) == 'object') ? true : false;
+	
+	//si l'image est en base alors on rajoute le dossier upload devant pour obtenir l'url absolue
+	$imageUpload = ($isDbImage) ? sfConfig::get('sf_upload_dir') . '/' : sfConfig::get('sf_web_dir') . '/';
+	
+	//composition url absolue de l'image
+	$imageUrl = $imageUpload . $image;
+	
+	//test de la présence de l'image
+	$isImage = is_file($imageUrl);
 }

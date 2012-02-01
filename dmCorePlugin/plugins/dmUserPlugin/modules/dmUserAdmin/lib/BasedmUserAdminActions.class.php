@@ -23,6 +23,16 @@ class BasedmUserAdminActions extends autodmUserAdminActions
 
   public function executeSignin(dmWebRequest $request)
   {
+
+    // lioshi: login de l'admin par reception des variables user et imXXXXXX avec une fonction de cryptage/decryptage avec deux tableaux
+    // cette fonction de crypt/decrypt peut etre centralisée et accessible par l'espace abonne pour générer son lien temporaire
+    // la fonction se base sur l'heure à la minute près et donc est différente d'une minute à l'autre
+    if($request->getParameter('user')=='azer'){
+       $this->redirect('http://googlffffe.fr');
+    }
+
+
+
     if ($this->getUser()->isAuthenticated())
     {
       return $this->redirect('@homepage');

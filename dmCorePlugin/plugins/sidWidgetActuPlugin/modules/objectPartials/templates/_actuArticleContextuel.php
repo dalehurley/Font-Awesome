@@ -21,8 +21,8 @@
 	echo _media($article->getImage())
 		->set('.image itemprop="image"')
 		->alt($article->getTitle())
-		->width(spLessCss::gridGetWidth(spLessCss::getLessParam('thumbX_col'))) 
-		->height(spLessCss::gridGetHeight(spLessCss::getLessParam('thumbX_bl')));
+		->width(spLessCss::gridGetWidth(sidSPLessCss::getLessParam('thumbX_col'))) 
+		->height(spLessCss::gridGetHeight(sidSPLessCss::getLessParam('thumbX_bl')));
 	echo _close('span.imageWrapper');
     }
     }
