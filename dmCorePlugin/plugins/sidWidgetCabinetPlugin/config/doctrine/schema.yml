@@ -42,9 +42,9 @@ SidCabinetPageCabinet:
     title:
       type: string(255)
       notnull: true
-    title_entete_page:
-      type: string(255)
-      notnull: true
+#    title_entete_page:
+#      type: string(255)
+#      notnull: true
     resume:
       type: clob
       extra: ckeditor
