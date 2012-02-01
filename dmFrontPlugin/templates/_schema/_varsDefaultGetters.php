@@ -144,7 +144,8 @@ if(isset($node)) {
 		catch(Exception $e) { $uploadFile = null; }
 	}
         if(!isset($uploadFileTitle)) {
-		try { $uploadFileTitle = $node->getTitleFile(); }
+		try { 
+                    $uploadFileTitle = ($node->getTitleFile() != '') ? $node->getTitleFile() : $node->getFiles()->file; }
 		catch(Exception $e) { $uploadFileTitle = null; }
 	}
         // fin rajout
