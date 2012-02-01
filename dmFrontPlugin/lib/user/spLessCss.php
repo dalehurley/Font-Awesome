@@ -190,6 +190,15 @@ class spLessCss extends dmFrontUser {
 		$urlSpriteFunctions = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteFunctions.less';
 		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteGenerate.less';
 		
+		//création du system de fichier
+		$fs = new sfFilesystem();
+		//Assemblage des fichiers dans un tableau
+		$fsFiles = array($urlSpriteVariables, $urlSpriteFunctions, $urlSpriteGenerate);
+		
+		//création des fichiers et chmod
+		$fs->touch($fsFiles);
+		$fs->chmod($fsFiles, 0777);
+		
 		//Initialisation des fichier
 		if($prct == 0) {
 			//ajout des données de copyright dans le fichier
@@ -275,7 +284,7 @@ class spLessCss extends dmFrontUser {
 		//composition du tableau de sortie
 		$output['variable'] = '@spriteOffX' . $nomSprite . ':' . $offX . ';' . PHP_EOL . '@spriteOffY' . $nomSprite . ':' . $offY . ';';
 		$output['function'] = '@sprite' . $nomSprite . '() { ' . $appelFoncDef . ' }' . PHP_EOL . '@spriteBgp' . $nomSprite . '() { ' . $appelFoncBgp . ' }';
-		$output['generate'] = '.sprite' . $nomSprite . ' { ' . '@sprite' . $nomSprite . '(); }';
+		$output['generate'] = '.sprite' . $nomSprite . ' { ' . $appelFoncDef . ' }';
 		
 		//retour du tableau de valeurs
 		return $output;
