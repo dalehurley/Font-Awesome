@@ -189,11 +189,18 @@ if($isListing) {
 	if(isset($articleBody))	$html.= _tag('section.contentBody', array('itemprop' => 'articleBody'), $articleBody);
 	
 	
-	
-	
+	// rajout stef
+	if($uploadFile != ''){
 	//contenu du footer de l'article
+        $htmlFooter ="";   
+	$htmlFooter = _tag('h5.title',__('Download file, click the link below'));
+        $htmlFooter.= _link($uploadFile)->text($uploadFileTitle);
+        }
+        else{
+        //contenu du footer de l'article
 	$htmlFooter = '';
-	
+        }
+	// fin rajout stef
 	//ajout de liens de navigation si nécessaire
 	if(isset($navigationElements)) {
 		$htmlFooter.= get_partial('global/navigationWrapper', array(
