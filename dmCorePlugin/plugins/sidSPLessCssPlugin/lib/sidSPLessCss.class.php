@@ -71,9 +71,10 @@ class sidSPLessCss {
 		$fileJson = self::getVariableFileJson();
 		
 		//création du fichier a
-		$fs->touch($fileJson);
-		$fs->chmod(array($fileJson), 0777);
-		
+		if(!is_file($fileJson)){
+			$fs->touch($fileJson);
+			$fs->chmod(array($fileJson), 0777);
+		}
 		//écriture dans un fichier des données
 		$testPutContentJson = file_put_contents($fileJson, json_encode($parameterValue));
 		
