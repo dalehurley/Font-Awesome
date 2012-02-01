@@ -10,7 +10,6 @@ require_once(sfConfig::get('dm_core_dir') . '/lib/os/dmOs.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/project/dmProject.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/task/dmServerCheckTask.class.php');
 
-
 //$this->logBlock(DIEM_VERSION . '-SID installer', 'INFO_LARGE');
 //$this->logSection('Site V3', 'Bienvenue dans l\'installeur des sites V3.');
 //$this->logSection('Diem', 'We will now check if your server matches Symfony '.SYMFONY_VERSION.' and Diem '.DIEM_VERSION.' requirements.');
@@ -647,7 +646,17 @@ $this->getFilesystem()->execute(sprintf(
   ), $out, $err);
 
 //-------------------------------------------------------------------------------------
+//    Creation du fichier .json des parametres less
+//-------------------------------------------------------------------------------------
+$this->logBlock('Generation du fichier .json des parametres less.', 'INFO_LARGE');
+$out = $err = null;
+$this->getFilesystem()->execute(sprintf(
+    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:variables'
+  ), $out, $err);
+
+//-------------------------------------------------------------------------------------
 //    Lecture de la page $settings['ndd'] afin de creer l'entrée base_url dans la table dmSettings
+//    Utile pour la task create-pages-cache
 //-------------------------------------------------------------------------------------
 $siteUrl='http://'.$settings['ndd'];
 $site = file_get_contents($siteUrl);

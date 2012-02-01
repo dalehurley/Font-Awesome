@@ -80,6 +80,9 @@ class dmWebDebug extends sfWebDebug
         <div id="sfWebDebugBar">
           <ul id="sfWebDebugDetails" class="sfWebDebugMenu">
             '.implode("\n", $titles).'
+            <li class="last">
+              <a href="#" onclick="document.getElementById(\'sfWebDebug\').style.display=\'none\'; return false;"><img src="'.$this->options['image_root_path'].'/close.png" alt="Close" /></a>
+            </li>
           </ul>
         </div>
 
