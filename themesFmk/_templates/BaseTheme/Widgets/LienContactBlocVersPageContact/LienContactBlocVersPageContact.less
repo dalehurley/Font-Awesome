@@ -7,6 +7,11 @@
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
+@import "_templates/BaseTheme/Utilities/Sprites/_SpritesUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
+
 .lien_contact_bloc_vers_page_contact {
 	//appel de la fonction de placement de la sprite
 	@widgetTitleSprite("DefaultLight"; "cabinet"; "contact");
