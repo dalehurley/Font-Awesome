@@ -51,12 +51,12 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
     //$this->widgetSchema['width'] = new sfWidgetFormInputText(array(), array('size' => 5));
     $this->widgetSchema['width'] = new sfWidgetFormSelect(array(
 	  'choices' => array(
-		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol'))				=> 'gridCol',
-		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_Content'))		=> 'gridCol_Content',
-		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_SidebarLeft'))	=> 'gridCol_SidebarLeft',
-		  spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_SidebarRight'))	=> 'gridCol_SidebarRight'
+		  spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol'))				=> 'gridCol',
+		  spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol_Content'))		=> 'gridCol_Content',
+		  spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol_SidebarLeft'))	=> 'gridCol_SidebarLeft',
+		  spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol_SidebarRight'))	=> 'gridCol_SidebarRight'
 	  ),
-	  'default' => spLessCss::gridGetWidth(spLessCss::getLessParam('gridCol_Content'))
+	  'default' => spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol_Content'))
 	));
 	$this->validatorSchema['width'] = new dmValidatorCssSize(array(
       'required' => true

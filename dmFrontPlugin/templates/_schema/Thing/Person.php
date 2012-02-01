@@ -69,8 +69,8 @@ $htmlImage = '';
 //on affiche l'image que si elle est effectivement présente
 if($isImage && isset($image)){
 	//dimensions de l'image
-	$imageGridWidth = ($isLight) ? spLessCss::getLessParam('thumbS_col') : spLessCss::getLessParam('thumbM_col');
-	$imageGridHeight = ($isLight) ? spLessCss::getLessParam('thumbS_bl') : spLessCss::getLessParam('thumbM_bl') * 2;
+	$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbS_col') : sidSPLessCss::getLessParam('thumbM_col');
+	$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbS_bl') : sidSPLessCss::getLessParam('thumbM_bl') * 2;
 	//options de l'image
 	$imageWrapperOpts = array(
 								'image'	=>	$image,
