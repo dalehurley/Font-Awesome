@@ -26,7 +26,11 @@ EOF;
      * @see sfTask
      */
     protected function execute($arguments = array() , $options = array()) {
-        $this->logSection('Variables json' . sfConfig::get('app_sf_less_plugin_css_path', '/css/') , 'Generation');
-        sidSPLessCss::loadLessParameters();
+        $this->logSection('Variables json', 'Generation...');
+        if (sidSPLessCss::loadLessParameters()){
+          $this->logSection('Variables json' , 'Ok');
+        } else {
+          $this->logBlock('Probleme execution variables json' , 'ERROR');
+        }
     }
 }
