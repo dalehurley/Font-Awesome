@@ -1,19 +1,11 @@
-# Plugins default values
-# To change your Diem project defaults values, see dm/config.yml
-
+# default values
 all:
-  sfImageTransformPlugin:
-    default_adapter: GD # GD or ImageMagick
-    default_image:
-      mime_type: image/png
-      filename: Untitled.png
-      width: 100
-      height: 100
-      color: '#FFFFFF'
-    font_dir: /usr/share/fonts/truetype/msttcorefonts
-    mime_type:
-      auto_detect: false
-      library: gd_mime_type #  gd_mime_type (GD), Fileinfo (PECL), MIME_Type (PEAR)
+  link-login:    
+    active:  true   # activation du lien de login
+    user: client
+    hashkey: 154774875454
+    ips-allowed:    # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
+      - 127.0.0.1
 
   controllers-access:    # param for controller's (dev.php, less.php) access
     ips-allowed:   # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
