@@ -1,6 +1,6 @@
 <?php
 
-class variablesJsonTask extends sfBaseTask {
+class spriteInitTask extends sfBaseTask {
     /**
      * @see sfTask
      */
@@ -12,13 +12,13 @@ class variablesJsonTask extends sfBaseTask {
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod') ,
         ));
         $this->namespace = 'less';
-        $this->name = 'variables';
-        $this->briefDescription = 'Create a json file with less variables';
+        $this->name = 'sprite-init';
+        $this->briefDescription = 'Create sprites';
         $this->detailedDescription = <<<EOF
-The [less:variables|INFO] task creates a json file with less variables.
+The [less:sprite-init|INFO] task creates sprites.
 Call it with:
 
-  [php symfony less:variables|INFO]
+  [php symfony less:sprite-init|INFO]
 EOF;
         
     }
@@ -26,11 +26,17 @@ EOF;
      * @see sfTask
      */
     protected function execute($arguments = array() , $options = array()) {
-        $this->logSection('Variables json', 'Generation...');
-        if (sidSPLessCss::loadLessParameters()){
-          $this->logSection('Variables json' , 'Ok');
-        } else {
-          $this->logBlock('Probleme execution variables json' , 'ERROR');
+        $timerTotal = new sfTimer;
+        $return['hashMd5'] = null;
+        $return['spriteFormat'] = null;
+
+        $return = spLessCss::spriteInit();
+        
+        while ($return) {
+            $timer = new sfTimer;
+            $return = spLessCss::spriteInit($return['hashMd5'], $return['spriteFormat']);
+            $this->logSection('Sprite init ('.round($timer->getElapsedTime(),3).' s)', $return['hashMd5'] . ' ' . $return['spriteFormat'] . ' ' . $return['prct']);
         }
+        $this->logSection('Sprite init total time', round($timerTotal->getElapsedTime(),3).' s');
     }
 }
