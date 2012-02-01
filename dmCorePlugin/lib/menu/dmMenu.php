@@ -590,13 +590,13 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
   public function renderLink()
   {
 	  //on récupère le nom et on le coupe après le premier tiret (ciblage indépendant de la position)
-	  $recupName = ($this->getLink()->getPage()->module.'_'.$this->getLink()->getPage()->action == 'main_root') ? '_root' : '';
-//	  $indexTiret = strpos($recupName, '-');
-//	  if($indexTiret != false) $recupName = substr($recupName, $indexTiret + 1);
+	  $recupName = $this->getName();
+	  $indexTiret = strpos($recupName, '-');
+	  if($indexTiret != false) $recupName = substr($recupName, $indexTiret + 1);
           // rajout stef pour slugifier les classes générées automatiquement
-//	  $recupName = dmString::slugify($recupName);
+	  $recupName = dmString::slugify($recupName);
           // fin rajour stef
-	  return $this->getLink()->addClass('link' . $recupName)->currentSpan(false)->text($this->__($this->getLabel()))->render();
+	  return $this->getLink()->addClass('link_' . $recupName)->currentSpan(false)->text($this->__($this->getLabel()))->render();
   }
 
   public function renderLabel()
