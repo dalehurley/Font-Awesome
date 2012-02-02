@@ -10,6 +10,7 @@
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Config du widget courant
 @import "_templates/BaseTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
@@ -133,6 +134,23 @@ ul.dropdown {
 			&:active { color: @colorCouleur1Moyen; }
 		}
 		
+		//lien vers la page d'accueil
+		.link_root {
+			background-color: red;
+			//suppression du texte
+			text-indent:-9999em;
+			//insertion de la sprite
+			@spriteDefinition("Default"; "internet"; "home"; "S"; @spriteFormat_M; @spriteOffX-internet-home; @spriteOffY-internet-home);
+			
+			//décalage de marge
+			@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
+			@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+			padding-top: @decalV;
+			padding-bottom: @decalV;
+			padding-right: @decalH + @menuDropdownPadHCustomTop;
+			padding-left: @decalH;
+		}
+		
 		//modification de la couleur de la flèche
 		li.dm_dir {
 			& > .link:after {
@@ -178,9 +196,10 @@ ul.dropdown {
 				border-bottom: 1px solid @zonesBorderColor;
 			}
 			
-			//rajout bordure à gauche sur la première cellule
+			//rajout bordure à gauche sur la première cellule sauf pour le link_root (qui contient une icône)
 			&.first {
 				& > .link { border-left: 1px solid @zonesBorderColor; }
+				& > .link_root { border-left: 0; }
 				//suppression décalage lors du rollOver
 				&:hover > .link,
 				& > .link:hover,
