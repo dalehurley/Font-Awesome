@@ -435,6 +435,11 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         } elseif ($link && $link->isParent()) {
             $classes[] = $link->getOption('parent_class');
         }
+
+        // lioshi : ajout classe dm_root au li
+        if ($this->getLink() instanceof dmFrontLinkTagPage) {
+            $classes[] = ($this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action == 'main_root') ? 'dm_root' : '';
+        } 
         
         return '<li' . ($id ? ' id="' . $id . '"' : '') . (!empty($classes) ? ' class="' . implode(' ', $classes) . '"' : '') . '>';
     }
