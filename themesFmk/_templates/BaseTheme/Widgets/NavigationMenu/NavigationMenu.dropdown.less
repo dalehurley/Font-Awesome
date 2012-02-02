@@ -1,6 +1,6 @@
 // NavigationMenu.dropdown.less
-// v1.1
-// Last Updated : 2012-01-18 11:15
+// v1.2
+// Last Updated : 2012-02-02 16:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -134,23 +134,6 @@ ul.dropdown {
 			&:active { color: @colorCouleur1Moyen; }
 		}
 		
-		//lien vers la page d'accueil
-		.link_root {
-			background-color: red;
-			//suppression du texte
-			text-indent:-9999em;
-			//insertion de la sprite
-			@spriteDefinition("Default"; "internet"; "home"; "S"; @spriteFormat_M; @spriteOffX-internet-home; @spriteOffY-internet-home);
-			
-			//décalage de marge
-			@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
-			@decalH: (@gridColWidth - @spriteFormat_M) / 2;
-			padding-top: @decalV;
-			padding-bottom: @decalV;
-			padding-right: @decalH + @menuDropdownPadHCustomTop;
-			padding-left: @decalH;
-		}
-		
 		//modification de la couleur de la flèche
 		li.dm_dir {
 			& > .link:after {
@@ -199,7 +182,6 @@ ul.dropdown {
 			//rajout bordure à gauche sur la première cellule sauf pour le link_root (qui contient une icône)
 			&.first {
 				& > .link { border-left: 1px solid @zonesBorderColor; }
-				& > .link_root { border-left: 0; }
 				//suppression décalage lors du rollOver
 				&:hover > .link,
 				& > .link:hover,
@@ -222,6 +204,43 @@ ul.dropdown {
 					@transitionNone();
 				}
 			}
+			
+			//lien vers la page d'accueil
+			&.dm_root {
+				//décalage de marge
+				@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
+				@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+				
+				//ajout de la sprite sur la home
+				& > .link_root {
+					//suppression du texte
+					text-indent:-9999em;
+					//insertion de la sprite
+					@spriteDefinition("Default"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-internet-home; @spriteOffY-internet-home);
+				}
+				
+				//uniformisation des marges du bouton
+				& > .link_root,
+				&:hover > .link_root,
+				& > .link_root:hover,
+				& > .link_root:focus,
+				&.first:hover > .link_root,
+				&.first > .link_root:hover,
+				&.first > .link_root:focus {
+					border: 0;
+					padding: 0;
+					margin: @decalV @decalH;
+				}
+			}
+		}
+		
+		//correction de la cellule suivante
+		& > li.dm_root + li {
+			& > .link { margin-left: 0; border-left: 1px solid @zonesBorderColor; }
+			
+			&:hover > .link,
+			& > .link:hover,
+			& > .link:focus { margin-left: 0; }
 		}
 	}
 }
