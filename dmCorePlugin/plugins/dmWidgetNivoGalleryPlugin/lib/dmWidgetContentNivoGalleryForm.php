@@ -72,7 +72,7 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
 	  'default' => spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol_Content'))
 	));
 	$this->validatorSchema['width'] = new dmValidatorCssSize(array(
-      'required' => true
+      'required' => false
     ));
 
     //$this->widgetSchema['height'] = new sfWidgetFormInputText(array(), array('size' => 5));
@@ -88,7 +88,7 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
 	  'default' => spLessCss::gridGetHeight(20)
 	));
 	$this->validatorSchema['height'] = new dmValidatorCssSize(array(
-      'required' => true
+      'required' => false
     ));
 
     $methods = $this->getService('i18n')->translateArray(self::$methods);
