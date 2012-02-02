@@ -179,8 +179,10 @@ ul.dropdown {
 				border-bottom: 1px solid @zonesBorderColor;
 			}
 			
-			//rajout bordure à gauche sur la première cellule sauf pour le link_root (qui contient une icône)
-			&.first {
+			//rajout bordure à gauche sur la première cellule
+			//et correction de la cellule suivant dm_root (qui contient une icône link_root)
+			&.first,
+			&.dm_root + li {
 				& > .link { border-left: 1px solid @zonesBorderColor; }
 				//suppression décalage lors du rollOver
 				&:hover > .link,
@@ -234,15 +236,6 @@ ul.dropdown {
 					margin: @decalV @decalH;
 				}
 			}
-		}
-		
-		//correction de la cellule suivante
-		& > li.dm_root + li {
-			& > .link { margin-left: 0; border-left: 1px solid @zonesBorderColor; }
-			
-			&:hover > .link,
-			& > .link:hover,
-			& > .link:focus { margin-left: 0; }
 		}
 	}
 }
