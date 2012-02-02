@@ -48,11 +48,16 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
     {
       $mediaTag = $this->getHelper()->media($mediaRecord);
   
-      if (!empty($vars['width']) || !empty($vars['height']))
+      /*if (!empty($vars['width']) || !empty($vars['height']))
       {
         $mediaTag->size(dmArray::get($vars, 'width'), dmArray::get($vars, 'height'));
-      }
-  
+      }*/
+	  if (!empty($vars['media_area'])) {
+		  $getWidth = spLessCss::gridGetWidth(sidSPLessCss::getLessParam($vars['media_area'] . '_col'));
+		  $getHeight = spLessCss::gridGetHeight(sidSPLessCss::getLessParam($vars['media_area'] . '_bl'));
+		  $mediaTag->size($getWidth, $getHeight);
+	  }
+	  
       $mediaTag->method($vars['method']);
   
       if ($vars['method'] === 'fit')
@@ -104,14 +109,20 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
     $vars = $this->getViewVars();
     $helper = $this->getHelper();
     $count = count($vars['medias']);
+	
+	//récupération des dimensions du widget
+	$getWidth = spLessCss::gridGetWidth(sidSPLessCss::getLessParam(dmArray::get($vars, 'media_area') . '_col'));
+	$getHeight = spLessCss::gridGetHeight(sidSPLessCss::getLessParam(dmArray::get($vars, 'media_area') . '_bl'));
     
     $html = $helper->open('div.dm_widget_nivo_gallery_container');
     $html .= $helper->open('div.dm_widget_nivo_gallery', array('json' => array(
       'fx'             => dmArray::get($vars, 'fx', '0.5', 'fade'),
       'animspeed'      => dmArray::get($vars, 'animspeed', 0.5),
       'pausetime'      => dmArray::get($vars, 'pausetime', 3),
-      'width'          => dmArray::get($vars, 'width'),
-      'height'         => dmArray::get($vars, 'height'),
+      //'width'          => dmArray::get($vars, 'width'),
+      //'height'         => dmArray::get($vars, 'height'),
+	  'width'          => $getWidth,
+      'height'         => $getHeight,
       'count'          => $count
     )));
     
