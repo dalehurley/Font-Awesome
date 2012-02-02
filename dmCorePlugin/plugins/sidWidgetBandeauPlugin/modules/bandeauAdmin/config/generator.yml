@@ -53,7 +53,7 @@ generator:
         height:
           label: Hauteur visible
         groupe_bandeau_id:
-          label: Sélection de la page reliée au bandeau
+          label: Catégorie des pages reliées au bandeau
 
         title:
           label: Libellé
@@ -102,15 +102,15 @@ generator:
  
 <?php
 if (sfContext::getInstance()->getUser()->hasCredential('admin_bandeau_lite') && !sfContext::getInstance()->getUser()->isSuperAdmin()){ // si l'utilisateur a la permission admin_bandeau_lite et qu'il n'est pas superAdmin'?>
-          Page apparentée au bandeau : [groupe_bandeau_id]
+          Catégorie des pages du bandeau : [groupe_bandeau_id]
           Visible sur le site ? : [is_active]
           Définition de l'animation : [behavior, direction, scrollamount, boucle]
-          Date du message : [debut_date, fin_date]
+          Date du message (Cliquez sur le champ de la date pour faire apparaître le calendrier): [debut_date, fin_date]
 <?php } else { ?>
-          Page apparentée au bandeau : [groupe_bandeau_id]
+          Catégorie des pages du bandeau : [groupe_bandeau_id]
           Visible sur le site ? : [is_active]
           Définition de l'animation : [behavior, boucle, direction, scrollamount, height, width]
-          Date du message: [debut_date, fin_date]
+          Date du message (Cliquez sur le champ de la date pour faire apparaître le calendrier): [debut_date, fin_date]
 <?php } ?>
         class: SidBandeauAdminForm
         fields: {  }

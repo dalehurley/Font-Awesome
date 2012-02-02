@@ -16,7 +16,7 @@ class SidBandeauAdminForm extends BaseSidBandeauForm
     parent::configure();
   }
   
-      public function setup() {
+  public function setup() {
         parent::setup();
         $this->widgetSchema['behavior'] = new sfWidgetFormChoice(array('choices' => array('scroll' => 'défilement', 'alternate' => 'va et vient')));
 //        $this->widgetSchema['direction'] = new sfWidgetFormChoice(array('choices' => array('left' => 'de droite à gauche', 'right' => 'de gauche à droite', 'down' => 'de haut en bas', 'up' => 'de bas en haut')));
@@ -25,7 +25,8 @@ class SidBandeauAdminForm extends BaseSidBandeauForm
         
         $this->widgetSchema->setHelps(array(
             'boucle' => '<b>(0 pour infini)</b>', 
-            'behavior' => '<b>va et vient : votre message "rebondit" sur les bords du cadre, <br />défilement : votre message défile sur la page dans le sens de votre choix</b>') );
+            'behavior' => '<b>va et vient : votre message "rebondit" sur les bords du cadre, <br />défilement : votre message défile sur la page dans le sens de votre choix</b>',
+            'title' => 'Inscrivez le message que vous souhaitez voir sur les pages de la catégorie sélectionnée ci-dessous') );
         
     
 //        if (sfContext::getInstance()->getUser()->hasCredential('admin_bandeau_lite') && !sfContext::getInstance()->getUser()->isSuperAdmin()){

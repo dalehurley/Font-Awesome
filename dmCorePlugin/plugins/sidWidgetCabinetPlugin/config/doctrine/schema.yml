@@ -35,16 +35,16 @@ SidCabinetPageCabinet:
     Timestampable:
     DmSortable:
     I18n:
-      fields: [ title, title_entete_page, text ]
+      fields: [ title, text ]
       actAs:
         DmVersionable:
   columns:
     title:
       type: string(255)
       notnull: true
-    title_entete_page:
-      type: string(255)
-      notnull: true
+#    title_entete_page:
+#      type: string(255)
+#      notnull: true
     resume:
       type: clob
       extra: ckeditor
