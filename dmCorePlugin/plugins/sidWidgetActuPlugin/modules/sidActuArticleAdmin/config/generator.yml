@@ -99,7 +99,7 @@ generator:
          'Chapeau de votre article': [resume]
          Text: [text]
          Image: [image_form, image_view]
-         Fichier: [ file_form, file_view, title_file]
+         Fichier : [ file_form, file_view, title_file]
          # 'Mots clés': [tags] Syntaxe pour autocomplétion pour tagger les articles (ajout et sélection)
 #         'Mots clés': [tags_list] 
          # m_sections du nom de la relation declaree dans le schema.yml, + _list

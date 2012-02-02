@@ -92,7 +92,7 @@ class spLessCss extends dmFrontUser {
 		self::spriteLessGenerate($prct, $lessDefinitions);
 		
 		// A la fin du traitement on donne accès à tous les fichiers propriété d'apache: chmod 777 sur toute l'arborescence juste créée par le mkdir recursif
-		if ($prct >= 100) exec('chmod 777 -R '.sfConfig::get('sf_web_dir'));
+		if ($prct >= 100) exec('chmod 777 -R '.sfConfig::get('sf_web_dir').'/theme/images');
 		
 		//Renvoi de valeurs pour l'affichage
 		return array(
