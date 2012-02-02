@@ -216,7 +216,9 @@ ul.dropdown {
 					//suppression du texte
 					text-indent:-9999em;
 					//insertion de la sprite
-					@spriteDefinition("Default"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-internet-home; @spriteOffY-internet-home);
+					@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-internet-home; @spriteOffY-internet-home);
+					//suppression rollOver
+					&:hover, &:focus { background-color: transparent; }
 				}
 				
 				//uniformisation des marges du bouton
