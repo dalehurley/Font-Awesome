@@ -188,19 +188,16 @@ if($isListing) {
 	//affichage du contenu de la page
 	if(isset($articleBody))	$html.= _tag('section.contentBody', array('itemprop' => 'articleBody'), $articleBody);
 	
-	
-	// rajout stef
-	if($uploadFile != ''){
 	//contenu du footer de l'article
-        $htmlFooter ="";   
-	$htmlFooter = _tag('h5.title',__('Download file, click the link below'));
-        $htmlFooter.= _link($uploadFile)->text($uploadFileTitle);
-        }
-        else{
-        //contenu du footer de l'article
 	$htmlFooter = '';
-        }
+	
+	// rajout stef (attention à modifier une fois l'upload de fichier multiples implémenté)
+	if($uploadFile != ''){
+		$htmlFooter.= _tag('h5.title',__('Download file, click the link below'));
+        $htmlFooter.= _link($uploadFile)->text($uploadFileTitle);
+	}
 	// fin rajout stef
+	
 	//ajout de liens de navigation si nécessaire
 	if(isset($navigationElements)) {
 		$htmlFooter.= get_partial('global/navigationWrapper', array(
