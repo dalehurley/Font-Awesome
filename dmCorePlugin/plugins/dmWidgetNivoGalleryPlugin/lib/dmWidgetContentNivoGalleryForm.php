@@ -47,7 +47,20 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
     $this->validatorSchema['media_alt'] = new sfValidatorPass();
     
     $this->validatorSchema['media_position'] = new sfValidatorPass();
-
+	
+	$this->widgetSchema['media_area'] = new sfWidgetFormSelect(array(
+		'choices' => array(
+			'thumbFull'				=>	'Preset thumbFull (largeur du site)',
+			'thumbContent'			=>	'Preset thumbContent (largeur du contenu)',
+			'thumbSidebarLeft'		=>	'Preset thumbSidebarLeft (largeur sidebarLeft)',
+			'thumbSidebarRight'		=>	'Preset thumbSidebarRight (largeur sidebarRight)',
+		),
+		'default' => 'thumbContent'
+	));
+	$this->validatorSchema['media_area'] = new sfValidatorString(array(
+      'required' => true
+    ));
+	
     //$this->widgetSchema['width'] = new sfWidgetFormInputText(array(), array('size' => 5));
     $this->widgetSchema['width'] = new sfWidgetFormSelect(array(
 	  'choices' => array(
