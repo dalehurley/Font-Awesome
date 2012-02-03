@@ -92,7 +92,7 @@ EOF;
               ),
             11 => array(
               'command' => 'dm:erase-site',
-              'libelle' => 'ATTENTION suppression du site',
+              'libelle' => 'ATTENTION: suppression du site',
               'arguments' => array(),
               'options' => array()                
               )  
