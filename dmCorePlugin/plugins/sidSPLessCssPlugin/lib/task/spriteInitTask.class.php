@@ -39,7 +39,7 @@ EOF;
         // génération des fichiers less et du fichier des variables less
         $arguments = array();
         $options = array ();
-//        $this->runTask('less:compile-all', $arguments, $options);
+        $this->runTask('less:compile-all', $arguments, $options);
 
         // sprite init
         ($verbose)?  $this->logBlock('Generation des sprites', 'COMMENT'): '';
