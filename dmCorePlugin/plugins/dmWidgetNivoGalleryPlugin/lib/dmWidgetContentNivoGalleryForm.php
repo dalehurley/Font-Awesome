@@ -123,6 +123,8 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
     $this->validatorSchema['background'] = new sfValidatorString(array(
       'required' => false
     ));
+	
+	$this->validatorSchema['widget_width'] = new sfValidatorInteger(array('required' => false));
     
     parent::configure();
   }
