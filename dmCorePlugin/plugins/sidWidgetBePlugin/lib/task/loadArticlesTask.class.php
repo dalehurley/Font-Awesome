@@ -57,16 +57,71 @@ EOF;
 //    Chargement des rubriques et sections dans la base de donnees locale (en fonction des fichiers json)
 //------------------------------------------------------------------------------------------------------------
         if (in_array("rubriques", $arguments)) {
-            $results = baseEditorialeTools::loadRubriqueJson();
-
+            // question pour rubriques à importer
+            // On scanne les noms des rubriques pour les afficher en tableau 
+            $answers = baseEditorialeTools::answerRubriqueJson();
+            $verif = array();
+            $arrayValids = array();
             if (in_array("verbose", $arguments)) {
-                $this->logSection('### loadArticles', 'Chargement des rubriques de la base editoriale.');
-                foreach ($results as $result) {
-                    foreach ($result as $log => $desc) {
-                        $this->logSection($log, $desc,null,$log);
-                    }
+                $this->logBlock('Rubriques disponibles :', 'INFO_LARGE');
+                foreach ($answers as $i=>$answer) {
+                    // mise en tableau des valeurs pour vérification avant validation des rubriques
+                    $verif[$i] = $answer['RUBRIQUE'];
+                    // affichage des rubriques de la base
+                    $this->log($i.' - '.$answer['RUBRIQUE']);
                 }
+                // On pose la question pour choisir les rubriques
+                $text = <<<EOF
+Choisissez les rubriques à importer dans le site
+en séparant chaque N° de rubrique par un espace
+EOF;
+                $response = $this->ask($text, 'QUESTION_LARGE');
+                // tableau pour remplacer plusieurs espace par un seul
+                $arraySpace = array('    ','   ','  ',' ');
+                // on remplace 1 espace par le symbole | dans la chaîne de caractère
+                $response = str_replace($arraySpace, '|', $response);
+                // mis en tableau de la chaîne
+                $arrayResponses = explode('|', $response);
+                // initialisation de la variable de vérification
+                $valid = false;
+                // je vérifie que la saisie est bonne en comparant la valeur du tableau de sélection avec les clés du tableau global des rubriques
+                foreach($arrayResponses as $k=>$value){
+                    if(array_key_exists($value, $verif)) {
+                        $valid = true;
+                        $arrayValids[$value] = $verif[$value];
+                    }
+                    else {$valid == false; break;};
+                }
+                // si un numéro ne correspond pas à une rubrique
+                if($valid == false){$this->logBlock('Erreur de saisie','ERROR_LARGE');}
+                // si tout vrai
+                else if($valid == true){
+                    $this->logBlock('Vous avez choisi les rubriques suivantes :','INFO_LARGE');
+                    foreach ($arrayValids as $key => $arrayValid) {
+                        $this->log($key.' - '.$arrayValid,'INFO');
+                    }
+                    if(!$this->askConfirmation(array(
+                    'Vous confirmez la sélection des rubriques ? (y/n) (par defaut y)',
+                    ), 'QUESTION_LARGE', true))
+                    {
+                    $this->logBlock('Insertion sql annulée', 'ERROR_LARGE');
+                    exit;
+                    }
+                    // importer rubriques sélectionnées
+                    $results = baseEditorialeTools::loadRubriqueJson($arrayValids);
+
+                    if (in_array("verbose", $arguments)) {
+                        $this->logSection('### loadArticles', 'Chargement des rubriques de la base editoriale.');
+                       foreach ($results as $result) {
+                            foreach ($result as $log => $desc) {
+                               $this->logSection($log, $desc,null,$log);
+                           }
+                       }
+                    }   
+                }
+
             }
+
         }elseif  (in_array("sections", $arguments)) {
             $results = baseEditorialeTools::loadSectionJson();
 
