@@ -133,15 +133,19 @@
 
 //configuration des liens de navigations
 .navigation {
-	.link {
-		font-size: @fontSizeMicro;
-		line-height: @gridBaseline;
-		color: @colorCouleur1;
-		text-transform: uppercase;
-	}
+	//changement taille et apparence liens
+	.link { color: @colorCouleur1; text-transform: uppercase; }
 	
-	//suppression bordures
-	.elements .element { padding-bottom: 0; border-bottom: 0; }
+	.elements {
+		.element {
+			font-size: @fontSizeMicro;
+			line-height: @gridBaseline;
+			vertical-align: top;
+			//suppression bordures
+			padding-bottom: 0;
+			border-bottom: 0;
+		}
+	}
 }
 
 //configuration de base des deux containers d'images
