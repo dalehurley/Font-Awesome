@@ -28,47 +28,104 @@ EOF;
     protected function execute($arguments = array() , $options = array()) {
 
         // on affiche les choix d'environnemnts pour les valeurs par defaut
-        $dispoEnvs = array(
-            1 => 'less:compile-all', 
-            2 => 'ddserveur de production 91.194.100.239'
+        $dispoTasks = array(
+            1 => array(
+              'command' => 'cc',
+              'libelle' => 'Vidage du cache',
+              'arguments' => array(),
+              'options' => array(),
+              'credentials' => 'dev'                
+              ),
+            2 => array(
+              'command' => 'less:compile-all', 
+              'libelle' => 'Compilation des fichiers .less en .css',
+              'arguments' => array(),
+              'options' => array()                
+              ),
+            3 => array(
+              'command' => 'less:sprite',
+              'libelle' => 'Génération des icônes (sprites)',
+              'arguments' => array('verbose'),
+              'options' => array()  
+              ),
+            4 => array(
+              'command' => 'dm:setup',
+              'libelle' => 'Setup du site',
+              'arguments' => array(),
+              'options' => array()                
+              ),
+            5 => array(
+              'command' => 'be:loadArticles',
+              'libelle' => 'BE: Chargement des rubriques',
+              'arguments' => array('rubriques', 'verbose'),
+              'options' => array()                
+              ),
+            6 => array(
+              'command' => 'be:loadArticles',
+              'libelle' => 'BE: Chargement des sections',
+              'arguments' => array('sections', 'verbose'),
+              'options' => array()                
+              ),
+            7 => array(
+              'command' => 'be:loadArticles',
+              'libelle' => 'BE: Chargement des articles',
+              'arguments' => array('articles', 'verbose'),
+              'options' => array()                
+              ),
+            8 => array(
+              'command' => 'be:report',
+              'libelle' => 'BE: Rapport sur les articles',
+              'arguments' => array(),
+              'options' => array()                
+              ),
+            9 => array(
+              'command' => 'db:dump',
+              'libelle' => 'DB: Sauvegarde du contenu',
+              'arguments' => array(),
+              'options' => array()                
+              ),
+            10 => array(
+              'command' => 'db:load',
+              'libelle' => 'DB: Chargement du contenu',
+              'arguments' => array(),
+              'options' => array()                
+              ),
+            11 => array(
+              'command' => 'dm:erase-site',
+              'libelle' => 'ATTENTION suppression du site',
+              'arguments' => array(),
+              'options' => array()                
+              )  
         );
-        $this->logBlock('Environnements disponibles :', 'INFO_LARGE');
+        $this->logBlock('Tâches disponibles :', 'COMMENT');
         
-        foreach ($dispoEnvs as $k => $dispoEnv) {
-            $this->log($k . ' - ' . $dispoEnv);
+        foreach ($dispoTasks as $k => $dispoTask) {
+            $nbSpaces = str_repeat(' ',strlen(count($dispoTasks))-strlen($k));
+            $this->logBlock('['. $k . ']  '. $nbSpaces . $dispoTask['libelle'], 'INFO');
         }
-        // choix du dump
-        $numEnv = $this->askAndValidate(array(
-            '',
-            'Le numero de l\'environnement choisi?',
-            ''
+        
+        $messageAccueil = 'Vous pouvez choisir une tâche. Faîtes Ctrl+c pour sortir.';
+        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'COMMENT'); // une ligne de pointillé
+        $this->logBlock($messageAccueil, 'COMMENT');
+        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'COMMENT');
+
+        // choix de la tâche
+        $numTask = $this->askAndValidate(array(
+            'Le numéro de la tâche à lancer?'
         ) , new sfValidatorChoice(array(
-            'choices' => array_keys($dispoEnvs) ,
+            'choices' => array_keys($dispoTasks) ,
             'required' => true
         ) , array(
-            'invalid' => 'L\'environnement n\'existe pas'
-        )));
-
-
-
-        $this->runTask('less:compile-all');
-        $this->runTask('less:sprite');
-        $timerTask = new sfTimer;
-        // Generation des fichiers CSS a partir des less
-        $this->logBlock('Compilation des .less -> .css', 'COMMENT_LARGE');
-        $arguments = array();
-        $options = array(
-            'application' => 'front',
-            'debug',
-            'clean'
+            'invalid' => 'Numéro de tâche invalide'
+        )),
+            array('style' => 'QUESTION_LARGE')
         );
-        $this->runTask('less:compile', $arguments, $options);
-        // génération du fichier des variables less, indispensable au spriteInit
-        $variablesFile = sidSPLessCss::getVariableFileJson();
-        $this->logBlock('Generation du fichier des variables : ' . $variablesFile, 'COMMENT_LARGE');
-        $arguments = array();
-        $options = array();
-        $this->runTask('less:variables', $arguments, $options);
-        $this->logBlock('Task ' . $this->namespace . ':' . $this->name . ' time : ' . round($timerTask->getElapsedTime() , 3) . ' s', 'COMMENT_LARGE');
+
+        // traitement de la commande
+        $this->logBlock(str_repeat('-',strlen($dispoTasks[$numTask]['libelle'])), 'COMMENT'); 
+        $this->logBlock($dispoTasks[$numTask]['libelle'], 'COMMENT');
+        $this->logBlock(str_repeat('-',strlen($dispoTasks[$numTask]['libelle'])), 'COMMENT');
+                
+        $this->runTask($dispoTasks[$numTask]['command'], $dispoTasks[$numTask]['arguments'], $dispoTasks[$numTask]['options']);
     }
 }
