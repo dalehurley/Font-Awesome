@@ -7,6 +7,10 @@
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
+@import "_templates/BaseTheme/Utilities/Sprites/_SpritesUtils.less";
+
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/ContentNivoGallery/_ContentNivoGallery.less";
 
@@ -42,7 +46,7 @@
 			float:left;
 			
 			//chargement sprite entière avec dimension et SVG
-			@sprite-internet-bullet-S();
+			@spriteDefinition("Default"; "internet"; "bullet"; "S"; @spriteFormat_S; @spriteOffX-internet-bullet-S; @spriteOffY-internet-bullet-S);
 			//décalage de marge
 			@decalV: (@gridBaseline - @spriteFormat_S) / 2;
 			@decalH: (@gridGutter - @spriteFormat_S) / 2;
@@ -53,7 +57,7 @@
 			
 			&.active {
 				@spriteBgiSvg("Default"; "internet"; "bulletOver");
-				@spriteBgp-internet-bulletOver-S();
+				@spriteBgp(@spriteFormat_S; @spriteOffX-internet-bulletOver; @spriteOffY-internet-bulletOver);
 			}
 		}
 	}
@@ -81,12 +85,12 @@
 			
 			&.nivo-prevNav {
 				@spriteBgiSvg("Default"; "internet"; "back");
-				@spriteBgp-internet-back-M();
+				@spriteBgp(@spriteFormat_M; @spriteOffX-internet-back; @spriteOffY-internet-back);
 				left: @decalH;
 			}
 			&.nivo-nextNav {
 				@spriteBgiSvg("Default"; "internet"; "forward");
-				@spriteBgp-internet-forward-M();
+				@spriteBgp(@spriteFormat_M; @spriteOffX-internet-forward; @spriteOffY-internet-forward);
 				right: @decalH;
 			}
 		}
