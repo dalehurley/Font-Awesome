@@ -14,7 +14,7 @@ class sidSPLessCss {
 	}
 	
 	//récupère le fichier de variables JSON
-	private static function getVariableFileJson() {
+	public static function getVariableFileJson() {
 		//récupération du chemin vers les LESS
 		$lessPath = sfLESS::getConfig()->getLessPaths();
 		return $lessPath . 'GetVariables.json';
@@ -73,7 +73,7 @@ class sidSPLessCss {
 		//création du fichier a
 		if(!is_file($fileJson)){
 			$fs->touch($fileJson);
-			$fs->chmod(array($fileJson), 0777);
+			//$fs->chmod(array($fileJson), 0777);
 		}
 		//écriture dans un fichier des données
 		$testPutContentJson = file_put_contents($fileJson, json_encode($parameterValue));
