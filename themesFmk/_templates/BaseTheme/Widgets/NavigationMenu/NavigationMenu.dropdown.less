@@ -1,11 +1,16 @@
 // NavigationMenu.dropdown.less
-// v1.1
-// Last Updated : 2012-01-18 11:15
+// v1.2
+// Last Updated : 2012-02-02 16:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Config du widget courant
 @import "_templates/BaseTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
@@ -175,7 +180,9 @@ ul.dropdown {
 			}
 			
 			//rajout bordure à gauche sur la première cellule
-			&.first {
+			//et correction de la cellule suivant dm_root (qui contient une icône link_root)
+			&.first,
+			&.dm_root + li {
 				& > .link { border-left: 1px solid @zonesBorderColor; }
 				//suppression décalage lors du rollOver
 				&:hover > .link,
@@ -197,6 +204,36 @@ ul.dropdown {
 					//suppression animation rotation
 					@transformNone();
 					@transitionNone();
+				}
+			}
+			
+			//lien vers la page d'accueil
+			&.dm_root {
+				//décalage de marge
+				@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
+				@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+				
+				//ajout de la sprite sur la home
+				& > .link_root {
+					//suppression du texte
+					text-indent:-9999em;
+					//insertion de la sprite
+					@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-internet-home; @spriteOffY-internet-home);
+					//suppression rollOver
+					&:hover, &:focus { background-color: transparent; }
+				}
+				
+				//uniformisation des marges du bouton
+				& > .link_root,
+				&:hover > .link_root,
+				& > .link_root:hover,
+				& > .link_root:focus,
+				&.first:hover > .link_root,
+				&.first > .link_root:hover,
+				&.first > .link_root:focus {
+					border: 0;
+					padding: 0;
+					margin: @decalV @decalH;
 				}
 			}
 		}

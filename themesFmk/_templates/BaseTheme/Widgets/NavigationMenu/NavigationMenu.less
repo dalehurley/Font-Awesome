@@ -7,6 +7,12 @@
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+
 //Config du widget courant
 @import "_templates/BaseTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
 
@@ -86,33 +92,33 @@
 					
 					&.link_accueil {
 						@spriteBgiSvg("Default"; "internet"; "home");
-						@spriteBgp-internet-home-S();
+						@spriteBgp(@spriteFormat_S; @spriteOffX-internet-home; @spriteOffY-internet-home);
 					}
 					
 					&.link_contact {
 						@spriteBgiSvg("Default"; "internet"; "email");
-						@spriteBgp-internet-email-S();
+						@spriteBgp(@spriteFormat_S; @spriteOffX-internet-email; @spriteOffY-internet-email);
 						&:hover {
 							@spriteBgiSvg("Default"; "internet"; "emailOpen");
-							@spriteBgp-internet-emailOpen-S();
+							@spriteBgp(@spriteFormat_S; @spriteOffX-internet-emailOpen; @spriteOffY-internet-emailOpen);
 						}
 					}
 					
 					&.link_facebook {
-						//@spriteBgiSvg("Default"; "socialnetwork"; "facebook");
-						@spriteBgp-socialnetwork-facebook-S();
+						@spriteBgiSvg("Default"; "socialnetwork"; "facebook");
+						@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-facebook; @spriteOffY-socialnetwork-facebook);
 					}
 					&.link_google-plus {
-						//@spriteBgiSvg("Default"; "socialnetwork"; "googleplus");
-						@spriteBgp-socialnetwork-googleplus-S();
+						@spriteBgiSvg("Default"; "socialnetwork"; "googleplus");
+						@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-googleplus; @spriteOffY-socialnetwork-googleplus);
 					}
 					&.link_linkedin {
-						//@spriteBgiSvg("Default"; "socialnetwork"; "linkedin");
-						@spriteBgp-socialnetwork-linkedin-S();
+						@spriteBgiSvg("Default"; "socialnetwork"; "linkedin");
+						@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-linkedin; @spriteOffY-socialnetwork-linkedin);
 					}
 					&.link_twitter {
-						//@spriteBgiSvg("Default"; "socialnetwork"; "twitter");
-						@spriteBgp-socialnetwork-twitter-S();
+						@spriteBgiSvg("Default"; "socialnetwork"; "twitter");
+						@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-twitter; @spriteOffY-socialnetwork-twitter);
 					}
 				}
 			}
