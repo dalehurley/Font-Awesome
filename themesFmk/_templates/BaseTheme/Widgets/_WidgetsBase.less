@@ -26,11 +26,15 @@
 		& > .title {
 			#dm_content & {
 				text-transform: none;
-				@getPxFontConfig(@fontSizeH3Px);
+				font-size: @fontSizeH3Px;
+				line-height: @gridBaseline;
+				//@getPxFontConfig(@fontSizeH3Px);
 			}
 			#dm_sidebar_left &, #dm_sidebar_right & {
 				text-transform: uppercase;
-				@getPxFontConfig(@fontSizeH4Px);
+				font-size: @fontSizeH4Px;
+				line-height: @gridBaseline;
+				//@getPxFontConfig(@fontSizeH4Px);
 			}
 		}
 	}
