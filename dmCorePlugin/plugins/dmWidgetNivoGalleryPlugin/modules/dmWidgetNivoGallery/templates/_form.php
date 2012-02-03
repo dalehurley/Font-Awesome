@@ -27,13 +27,7 @@ _tag('div#'.$baseTabId.'_thumbnails',
 	  $form['media_area']->render()
     ).
     _tag('li.dm_form_element.multi_inputs.thumbnail.clearfix',
-      $form['width']->renderError().
-      $form['height']->renderError().
-      _tag('label', __('Dimensions')).
-      $form['width']->render().
-      'x'.
-      $form['height']->render().
-      $form['method']->label(null, array('class' => 'ml10 mr10 fnone'))->field('.dm_media_method')->error()
+      $form['method']->label(__('Method'), array('class' => 'ml10 mr10 fnone'))->field('.dm_media_method')->error()
     ).
     _tag('li.dm_form_element.multi_inputs.background.clearfix',
       $form['width']->renderError().

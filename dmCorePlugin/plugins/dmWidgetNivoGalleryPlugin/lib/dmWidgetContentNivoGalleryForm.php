@@ -61,19 +61,6 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
       'required' => true
     ));
 	
-    //$this->widgetSchema['width'] = new sfWidgetFormInputText(array(), array('size' => 5));
-    $this->widgetSchema['width'] = new sfWidgetFormSelect(array(
-	  'choices' => array(
-		  spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol'))				=> 'gridCol',
-		  spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol_Content'))		=> 'gridCol_Content',
-		  spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol_SidebarLeft'))	=> 'gridCol_SidebarLeft',
-		  spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol_SidebarRight'))	=> 'gridCol_SidebarRight'
-	  ),
-	  'default' => spLessCss::gridGetWidth(sidSPLessCss::getLessParam('gridCol_Content'))
-	));
-	$this->validatorSchema['width'] = new dmValidatorCssSize(array(
-      'required' => false
-    ));
 
     //$this->widgetSchema['height'] = new sfWidgetFormInputText(array(), array('size' => 5));
 	//création des choix de hauteur
@@ -154,8 +141,6 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
       'required' => false
     ));
     
-    $this->validatorSchema['widget_width'] = new sfValidatorInteger(array('required' => false));
-
     parent::configure();
   }
 
@@ -261,24 +246,6 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
         'link' => $values['media_link'][$index],
         'alt'  => $values['media_alt'][$index]
       );
-    }
-    
-    if (empty($values['width']))
-    {
-      if ($values['widget_width'])
-      {
-        $values['width'] = $values['widget_width'];
-      }
-      else
-      {
-        $values['width'] = 300;
-      }
-      
-      $values['height'] = dmArray::get($values, 'height', (int) ($values['width'] * 2/3));
-    }
-    elseif (empty($values['height']))
-    {
-      $values['height'] = (int) ($values['width'] * 2/3);
     }
     
     unset($values['widget_width'], $values['media_position'], $values['media_id'], $values['media_link']);

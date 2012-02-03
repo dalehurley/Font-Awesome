@@ -44,14 +44,12 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
     
     // build media tags
     $medias = array();
+	
+	
     foreach($mediaRecords as $index => $mediaRecord)
     {
       $mediaTag = $this->getHelper()->media($mediaRecord);
-  
-      /*if (!empty($vars['width']) || !empty($vars['height']))
-      {
-        $mediaTag->size(dmArray::get($vars, 'width'), dmArray::get($vars, 'height'));
-      }*/
+	  
 	  if (!empty($vars['media_area'])) {
 		  $getWidth = spLessCss::gridGetWidth(sidSPLessCss::getLessParam($vars['media_area'] . '_col'));
 		  $getHeight = spLessCss::gridGetHeight(sidSPLessCss::getLessParam($vars['media_area'] . '_bl'));
@@ -119,8 +117,6 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
       'fx'             => dmArray::get($vars, 'fx', '0.5', 'fade'),
       'animspeed'      => dmArray::get($vars, 'animspeed', 0.5),
       'pausetime'      => dmArray::get($vars, 'pausetime', 3),
-      //'width'          => dmArray::get($vars, 'width'),
-      //'height'         => dmArray::get($vars, 'height'),
 	  'width'          => $getWidth,
       'height'         => $getHeight,
       'count'          => $count
