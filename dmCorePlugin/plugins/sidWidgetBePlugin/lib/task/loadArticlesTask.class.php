@@ -6,7 +6,8 @@ class loadArticlesTask extends sfBaseTask {
         // add your own arguments here
         $this->addArguments(array(
             new sfCommandArgument('verbose', sfCommandArgument::OPTIONAL, 'Verbose task'),
-            new sfCommandArgument('rubriques', sfCommandArgument::OPTIONAL, 'Loading rubriques & sections (for first time launch)'),            
+            new sfCommandArgument('rubriques', sfCommandArgument::OPTIONAL, 'Loading rubriques(for first time launch)'),
+            new sfCommandArgument('sections', sfCommandArgument::OPTIONAL, 'Loading sections & articles (for update news)'),            
             new sfCommandArgument('articles', sfCommandArgument::OPTIONAL, 'Loading articles (incremental mode)'),
             new sfCommandArgument('total', sfCommandArgument::OPTIONAL, 'with argument "articles" : Total mode'),
             new sfCommandArgument('deactivation', sfCommandArgument::OPTIONAL, 'with argument "deactivation" : deactivation rubrique and section empty'),            
@@ -56,10 +57,21 @@ EOF;
 //    Chargement des rubriques et sections dans la base de donnees locale (en fonction des fichiers json)
 //------------------------------------------------------------------------------------------------------------
         if (in_array("rubriques", $arguments)) {
-            $results = baseEditorialeTools::loadRubriqueSectionJson();
+            $results = baseEditorialeTools::loadRubriqueJson();
 
             if (in_array("verbose", $arguments)) {
-                $this->logSection('### loadArticles', 'Chargement des rubriques/sections de la base editoriale.');
+                $this->logSection('### loadArticles', 'Chargement des rubriques de la base editoriale.');
+                foreach ($results as $result) {
+                    foreach ($result as $log => $desc) {
+                        $this->logSection($log, $desc,null,$log);
+                    }
+                }
+            }
+        }elseif  (in_array("sections", $arguments)) {
+            $results = baseEditorialeTools::loadSectionJson();
+
+            if (in_array("verbose", $arguments)) {
+                $this->logSection('### loadArticles', 'Chargement des sections des rubriques du site.');
                 foreach ($results as $result) {
                     foreach ($result as $log => $desc) {
                         $this->logSection($log, $desc,null,$log);

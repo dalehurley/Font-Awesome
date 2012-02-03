@@ -126,7 +126,7 @@ class baseEditorialeTools {
      * récupération des rubriques
      */
 
-    public static function loadRubriqueSectionJson() {
+    public static function loadRubriqueJson() {
         $tabRubrique = array(); // stockage du nom des rubriques
         $return = array(); // array de logs
         // les languages
@@ -155,6 +155,67 @@ class baseEditorialeTools {
                 $i++;
 
                 // POUR INTERROGER le rep local de la base editoriale : sections de la rubrique en cours
+//                $localSectionsJson = transfertTools::scandirServeur(sfConfig::get('app_rep-local-json') . '/' . $localRubrique);
+
+//                foreach ($localSectionsJson as $k => $localSection) {
+
+                    // Formatage de la section
+//                    if (substr($localSection, -5) == '.json') {
+//                        $localSection = substr($localSection, 0, -5);
+//
+//                        // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
+//                        $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($localSection, $bdRubrique->id);
+//
+//                        if ($bdSection->isNew()) { // création de la section en base
+//                            $bdSection->Translation[$arrayLangs[0]]->title = $localSection;  // On insère dans la langue par défaut
+//                            $bdSection->rubrique_id = $bdRubrique->id;
+//                            $bdSection->save();
+//                            $return[$i]['SECTION+'] = $localRubrique . '/' . $localSection;
+//                        } else {
+//                            $return[$i]['Section existe dejà en base'] = $localRubrique . '/' . $localSection;
+//                        }
+//                        $i++;
+//                    }
+                }
+            }
+        }
+
+        return $return;
+    }
+
+    /*
+     * récupération des sections
+     */
+
+    public static function loadSectionJson() {
+        $tabRubrique = array(); // stockage du nom des rubriques
+        $return = array(); // array de logs
+        // les languages
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+
+        if (sfConfig::get('app_rep-local-json') == '') {
+            $return[0]['ERROR'] = 'Merci de spécifier la variable app_rep-local-json dans le app.yml.';
+        } else {
+
+            // POUR INTERROGER le rep local de la base editoriale : rubriques
+            $localRubriquesJson = transfertTools::scandirServeur(sfConfig::get('app_rep-local-json'));
+
+            $i = 1;
+            foreach ($localRubriquesJson as $j => $localRubrique) {
+
+                // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
+                //$bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitle($localRubrique);
+
+                //if ($bdRubrique->isNew()) { // création de la rubrique en base
+                //    $bdRubrique->Translation[$arrayLangs[0]]->title = $localRubrique;  // On insère dans la langue par défaut
+                //    $bdRubrique->save();
+                //    $return[$i]['Rubrique+'] = $localRubrique;
+                //} else {
+                //    $return[$i]['Rubrique existe dejà en base'] = $localRubrique;
+                //}
+                //$i++;
+
+                // POUR INTERROGER le rep local de la base editoriale : sections de la rubrique en cours
                 $localSectionsJson = transfertTools::scandirServeur(sfConfig::get('app_rep-local-json') . '/' . $localRubrique);
 
                 foreach ($localSectionsJson as $k => $localSection) {
@@ -178,6 +239,7 @@ class baseEditorialeTools {
                     }
                 }
             }
+            
         }
 
         return $return;
