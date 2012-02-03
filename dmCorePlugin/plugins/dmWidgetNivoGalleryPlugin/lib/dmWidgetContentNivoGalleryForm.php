@@ -61,23 +61,6 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
       'required' => true
     ));
 	
-
-    //$this->widgetSchema['height'] = new sfWidgetFormInputText(array(), array('size' => 5));
-	//création des choix de hauteur
-	$choicesHeight = array();
-	for ($i = 1; $i <= 40; $i++) {
-		$value = spLessCss::gridGetHeight($i);
-		$choicesHeight[$value] = $value;
-	}
-	
-	$this->widgetSchema['height'] = new sfWidgetFormSelect(array(
-	  'choices' => $choicesHeight,
-	  'default' => spLessCss::gridGetHeight(20)
-	));
-	$this->validatorSchema['height'] = new dmValidatorCssSize(array(
-      'required' => false
-    ));
-
     $methods = $this->getService('i18n')->translateArray(self::$methods);
     $this->widgetSchema['method'] = new sfWidgetFormSelect(array(
       'choices' => $methods
