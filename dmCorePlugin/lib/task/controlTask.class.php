@@ -29,8 +29,8 @@ EOF;
 
         // on affiche les choix d'environnemnts pour les valeurs par defaut
         $dispoEnvs = array(
-            1 => 'less:compile-all',
-            2 => 'serveur de production 91.194.100.239'
+            1 => 'less:compile-all', 
+            2 => 'ddserveur de production 91.194.100.239'
         );
         $this->logBlock('Environnements disponibles :', 'INFO_LARGE');
         
@@ -50,7 +50,7 @@ EOF;
         )));
 
 
-        
+
         $this->runTask('less:compile-all');
         $this->runTask('less:sprite');
         $timerTask = new sfTimer;
