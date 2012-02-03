@@ -93,7 +93,7 @@ $projectKey = dmProject::getKey();
 $ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com)', ''), new sfValidatorRegex(
                         array('pattern' => '/^([a-z0-9-]+\.)+[a-z]{2,6}$/'),
                         array('required' => true),
-                        array('invalid' => 'Le nom de domaine n\'est pas valide')
+                        array('invalid' => 'Le nom de domaine est pas invalide')
         ));
 $settings['ndd'] = $ndd;
 
@@ -639,11 +639,13 @@ $this->getFilesystem()->execute(sprintf(
 //    Creation des fichier .css a partir des .less
 //    On execute un : php symfony less:compile --application="front" --debug --clean 
 //-------------------------------------------------------------------------------------
+/*
 $this->logBlock('Generation des fichiers CSS a partir des less.', 'INFO_LARGE');
 $out = $err = null;
 $this->getFilesystem()->execute(sprintf(
     '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:compile --application="front" --debug --clean'
   ), $out, $err);
+*/
 
 //-------------------------------------------------------------------------------------
 //    Creation du fichier .json des parametres less
@@ -653,6 +655,17 @@ $out = $err = null;
 $this->getFilesystem()->execute(sprintf(
     '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:variables'
   ), $out, $err);
+
+//-------------------------------------------------------------------------------------
+//    Génération 
+//    Creation des sprites + compilation LESS (plus besoin au dessus)
+//-------------------------------------------------------------------------------------
+$this->logBlock('Generation des sprites + compilation LESS.', 'INFO_LARGE');
+$out = $err = null;
+$this->getFilesystem()->execute(sprintf(
+    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:sprite-init'
+  ), $out, $err);
+//$this->logBlock('Generation des sprites + compilation LESS. -> ' .$out, 'INFO_LARGE');
 
 //-------------------------------------------------------------------------------------
 //    Lecture de la page $settings['ndd'] afin de creer l'entrée base_url dans la table dmSettings

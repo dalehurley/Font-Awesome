@@ -1,6 +1,6 @@
 <?php
 
-class spriteInitTask extends sfBaseTask {
+class lessTask extends sfBaseTask {
     /**
      * @see sfTask
      */
@@ -12,13 +12,13 @@ class spriteInitTask extends sfBaseTask {
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod') ,
         ));
         $this->namespace = 'less';
-        $this->name = 'sprite';
+        $this->name = 'compile-all';
         $this->briefDescription = 'Create sprites';
         $this->detailedDescription = <<<EOF
-The [less:sprite|INFO] task creates sprites.
+The [less:compile-all|INFO] task creates less and variable less file.
 Call it with:
 
-  [php symfony less:sprite|INFO]
+  [php symfony less:compile-all|INFO]
 EOF;
         
     }
@@ -29,24 +29,24 @@ EOF;
 
         $timerTask = new sfTimer;
 
-        // génération des fichiers less et du fichier des variables less
+        // Generation des fichiers CSS a partir des less
+        $this->logBlock('Compilation des .less -> .css','COMMENT_LARGE');
+        $arguments = array();
+        $options = array (
+          'application' => 'front',
+          'debug' ,
+          'clean' 
+          );
+        $this->runTask('less:compile', $arguments, $options);
+
+        // génération du fichier des variables less, indispensable au spriteInit
+        $variablesFile = sidSPLessCss::getVariableFileJson();
+        $this->logBlock('Generation du fichier des variables : '.$variablesFile, 'COMMENT_LARGE'); 
         $arguments = array();
         $options = array ();
-        $this->runTask('less:compile-all', $arguments, $options);
-
-        // sprite init
-        $this->logBlock('Generation des sprites', 'COMMENT_LARGE');
-        $timerTotal = new sfTimer;
-        $return['hashMd5'] = null;
-        $return['spriteFormat'] = null;
-        
-        while ($return) {
-            $timer = new sfTimer;
-            $return = spLessCss::spriteInit($return['hashMd5'], $return['spriteFormat']);
-            $this->logSection('Sprite init (' . round($timer->getElapsedTime() , 3) . ' s)', $return['hashMd5'] . ' ' . $return['spriteFormat'] . ' ' . $return['prct']);
-        }
-        $this->logSection('Sprite init total time', round($timerTotal->getElapsedTime() , 3) . ' s');
+        $this->runTask('less:variables', $arguments, $options);
 
         $this->logBlock('Task '. $this->namespace . ':' . $this->name .' time : '. round($timerTask->getElapsedTime() , 3) . ' s', 'COMMENT_LARGE');
+
     }
 }
