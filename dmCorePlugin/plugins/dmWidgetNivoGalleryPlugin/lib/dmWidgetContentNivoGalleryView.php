@@ -27,7 +27,18 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
   protected function filterViewVars(array $vars = array())
   {
     $vars = parent::filterViewVars($vars);
-    
+	
+	//Ajout Arnaud
+	//composition du paramètres de miniature sélectionné et par défaut
+	$thumbTypeWidth = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_col';
+	$thumbTypeHeight = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_bl';
+	//récupération des paramètres depuis le framework
+	$thumbTypeWidth = sidSPLessCss::getLessParam($thumbTypeWidth);
+	$thumbTypeHeight = sidSPLessCss::getLessParam($thumbTypeHeight);
+	//ajout des variables au widget
+	$vars['width'] = spLessCss::gridGetWidth($thumbTypeWidth);
+	$vars['height'] = spLessCss::gridGetHeight($thumbTypeHeight);
+	
     // extract media ids
     $mediaIds = array();
     foreach($vars['medias'] as $index => $mediaConfig)
@@ -50,11 +61,10 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
     {
       $mediaTag = $this->getHelper()->media($mediaRecord);
 	  
-	  if (!empty($vars['media_area'])) {
-		  $getWidth = spLessCss::gridGetWidth(sidSPLessCss::getLessParam($vars['media_area'] . '_col'));
-		  $getHeight = spLessCss::gridGetHeight(sidSPLessCss::getLessParam($vars['media_area'] . '_bl'));
-		  $mediaTag->size($getWidth, $getHeight);
-	  }
+	  if (!empty($vars['width']) || !empty($vars['height']))
+      {
+        $mediaTag->size(dmArray::get($vars, 'width'), dmArray::get($vars, 'height'));
+      }
 	  
       $mediaTag->method($vars['method']);
   
@@ -107,18 +117,14 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
     $vars = $this->getViewVars();
     $helper = $this->getHelper();
     $count = count($vars['medias']);
-	
-	//récupération des dimensions du widget
-	$getWidth = spLessCss::gridGetWidth(sidSPLessCss::getLessParam(dmArray::get($vars, 'media_area') . '_col'));
-	$getHeight = spLessCss::gridGetHeight(sidSPLessCss::getLessParam(dmArray::get($vars, 'media_area') . '_bl'));
     
     $html = $helper->open('div.dm_widget_nivo_gallery_container');
     $html .= $helper->open('div.dm_widget_nivo_gallery', array('json' => array(
       'fx'             => dmArray::get($vars, 'fx', '0.5', 'fade'),
       'animspeed'      => dmArray::get($vars, 'animspeed', 0.5),
       'pausetime'      => dmArray::get($vars, 'pausetime', 3),
-	  'width'          => $getWidth,
-      'height'         => $getHeight,
+	  'width'          => dmArray::get($vars, 'width'),
+      'height'         => dmArray::get($vars, 'height'),
       'count'          => $count
     )));
     
