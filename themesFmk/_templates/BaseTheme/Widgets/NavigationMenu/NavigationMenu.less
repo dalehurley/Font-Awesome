@@ -155,6 +155,10 @@ ul.dropdown, ul.accordion {
 		outline: 0;
 		cursor: pointer;
 		
+		//changement taille selon zone
+		#dm_custom_top & { font-size: @fontGlobalSizePx; }
+		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
+		
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
 		&.dm_inactive { color: @colorCouleur3; }
 		//LoVe's Hurts Fade Away
