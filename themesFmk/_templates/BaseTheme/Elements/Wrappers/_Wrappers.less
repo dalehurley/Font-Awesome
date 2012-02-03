@@ -40,7 +40,12 @@
 		&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }
 		
 		//stylage du titre
-		.name { font-weight: bold; color: @colorBlack; }
+		.name { font-weight: bold; color: @colorText; }
+		
+		//désactivation date dans certaines zones
+		.date {
+			#dm_sidebar_left &, #dm_sidebar_right & { display: none; visibility: hidden; }
+		}
 		
 		//ajout sprites pour certains éléments
 		.email, .faxNumber, .telephone {
@@ -129,6 +134,8 @@
 //configuration des liens de navigations
 .navigation {
 	.link {
+		font-size: @fontSizeMicro;
+		line-height: @gridBaseline;
 		color: @colorCouleur1;
 		text-transform: uppercase;
 	}
