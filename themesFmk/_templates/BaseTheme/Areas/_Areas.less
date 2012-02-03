@@ -88,7 +88,7 @@
 			//& > .title, article > .title {
 			& > .title {
 				background-color: @colorCouleur3Clair;
-				color: @colorCouleur1Moyen;
+				color: @colorCouleur1;
 				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
 				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
 				border-bottom: 1px solid @zonesBorderColor;
@@ -102,10 +102,19 @@
 	}
 }
 
-#dm_sidebar_left, #dm_sidebar_right {
-	.dm_widget {
-		.dm_widget_inner {
-			& > .title { text-transform: uppercase; }
+//personnalisation des titres de widgets en fonction des zones
+.dm_widget {
+	.dm_widget_inner {
+		//spécifique au titre en h4
+		& > .title {
+			#dm_content & {
+				text-transform: none;
+				@getPxFontConfig(@fontSizeH3Px);
+			}
+			#dm_sidebar_left &, #dm_sidebar_right & {
+				text-transform: uppercase;
+				@getPxFontConfig(@fontSizeH4Px);
+			}
 		}
 	}
 }
