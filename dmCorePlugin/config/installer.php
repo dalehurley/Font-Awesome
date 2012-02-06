@@ -51,8 +51,12 @@ foreach ($dispoEnvs as $k => $dispoEnv) {
 }
 // choix du dump
 $numEnv = $this->askAndValidate(array('', 'Le numero de l\'environnement choisi?', ''), new sfValidatorChoice(
-                        array('choices' => array_keys($dispoEnvs), 'required' => true),
-                        array('invalid' => 'L\'environnement n\'existe pas')
+                        array(
+                          'choices' => array_keys($dispoEnvs), 
+                          'required' => true),
+                        array(
+                          'invalid' => 'L\'environnement n\'existe pas'
+                          )
         ));
 switch ($numEnv) {
   case 1:
@@ -663,7 +667,7 @@ $this->getFilesystem()->execute(sprintf(
 $this->logBlock('Generation des sprites + compilation LESS.', 'INFO_LARGE');
 $out = $err = null;
 $this->getFilesystem()->execute(sprintf(
-    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:sprite-init'
+    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:sprite'
   ), $out, $err);
 //$this->logBlock('Generation des sprites + compilation LESS. -> ' .$out, 'INFO_LARGE');
 
