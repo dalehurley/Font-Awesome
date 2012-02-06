@@ -131,6 +131,6 @@ EOF;
         $timerTask = new sfTimer();        
         $this->runTask($dispoTasks[$numTask]['command'], $dispoTasks[$numTask]['arguments'], $dispoTasks[$numTask]['options']);
         
-        $this->logBlock('Execution time : '. round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
+        $this->logBlock('Execution time  '. round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
     }
 }
