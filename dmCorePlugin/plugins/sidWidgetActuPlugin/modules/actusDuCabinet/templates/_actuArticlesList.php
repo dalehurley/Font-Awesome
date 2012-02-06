@@ -26,7 +26,10 @@ if (count($articles)) { // si nous avons des actu articles
 		
 		//options de l'article
 		$articleOpt = array(
-						'node' => $article,
+						'name' => $article->getTitle(),
+						'description' => $article->getResume(),
+						'image' => $article->getImage(),
+						'dateCreated' => $article->created_at,
 						'count' => $count,
 						'maxCount' => $maxCount,
 						'container' => 'li.element',
