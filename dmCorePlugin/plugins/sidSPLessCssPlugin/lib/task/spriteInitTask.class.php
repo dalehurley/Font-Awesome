@@ -5,7 +5,9 @@ class spriteInitTask extends sfBaseTask {
      * @see sfTask
      */
     protected function configure() {
-        $this->addArguments(array());
+        $this->addArguments(array(
+            new sfCommandArgument('verbose', sfCommandArgument::OPTIONAL, 'Verbose task'),
+            ));
         $this->addOptions(array(
             // application positionnée sur front afin d'avoir accès aux app.yml du front
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'front') ,
@@ -26,6 +28,11 @@ EOF;
      * @see sfTask
      */
     protected function execute($arguments = array() , $options = array()) {
+        if (in_array("verbose", $arguments)) {
+                $verbose = true;
+            } else {
+                $verbose = false;
+            }
 
         $timerTask = new sfTimer;
 
@@ -35,7 +42,7 @@ EOF;
         $this->runTask('less:compile-all', $arguments, $options);
 
         // sprite init
-        $this->logBlock('Generation des sprites', 'COMMENT_LARGE');
+        ($verbose)?  $this->logBlock('Generation des sprites', 'COMMENT'): '';
         $timerTotal = new sfTimer;
         $return['hashMd5'] = null;
         $return['spriteFormat'] = null;
@@ -43,10 +50,11 @@ EOF;
         while ($return) {
             $timer = new sfTimer;
             $return = spLessCss::spriteInit($return['hashMd5'], $return['spriteFormat']);
-            $this->logSection('Sprite init (' . round($timer->getElapsedTime() , 3) . ' s)', $return['hashMd5'] . ' ' . $return['spriteFormat'] . ' ' . $return['prct']);
+            if ($return){
+                ($verbose)? $this->logSection('Sprite init ', $return['hashMd5'] . ' ' . $return['spriteFormat'] . ' ' . $return['prct'].'% (' . round($timer->getElapsedTime() , 3) . ' s)'): '';
+            }
         }
-        $this->logSection('Sprite init total time', round($timerTotal->getElapsedTime() , 3) . ' s');
 
-        $this->logBlock('Task '. $this->namespace . ':' . $this->name .' time : '. round($timerTask->getElapsedTime() , 3) . ' s', 'COMMENT_LARGE');
+        ($verbose)? $this->logBlock('Task '. $this->namespace . ':' . $this->name .' time : '. round($timerTask->getElapsedTime() , 3) . ' s', 'COMMENT_LARGE'): '';
     }
 }

@@ -34,38 +34,29 @@ EOF;
 //    Stats sur les tataux
 //-------------------------------------------------------------------------------------	
 
-        if ($this->askConfirmation(array('Stats sur les totaux ? (y/n)'), 'QUESTION_LARGE', true)) {
             $beginTime = microtime(true);
             $results = baseEditorialeTools::rapportTotal();
-            $this->logSection('### Report', "Rapport sur les totaux" . " ->" . (microtime(true) - $beginTime) . " s");
+            $this->logBlock("Rapport sur les totaux" . " (" . (microtime(true) - $beginTime) . " s)", 'COMMENT');
 
             foreach ($results as $result) {
                 foreach ($result as $log => $desc) {
                     $this->logSection($log, $desc, null, $log);
                 }
             }
-            
-        } else {
-            $this->logSection('>>', 'Pas de stats sur les totaux.');
-        }
-        
+                    
 //-------------------------------------------------------------------------------------
 //    Stats sur les dossiers
 //-------------------------------------------------------------------------------------	
 
-        if ($this->askConfirmation(array('Stats sur les dossiers ? (y/n)'), 'QUESTION_LARGE', true)) {
             $beginTime = microtime(true);
             $results = baseEditorialeTools::rapportDossier();
-            $this->logSection('### Report', "Rapport sur les dossiers" . " ->" . (microtime(true) - $beginTime) . " s");
+            $this->logBlock("Rapport sur les dossiers" . " (" . (microtime(true) - $beginTime) . " s)", 'COMMENT');
 
             foreach ($results as $result) {
                 foreach ($result as $log => $desc) {
                     $this->logSection($log, $desc, null, $log);
                 }
             }
-            
-        } else {
-            $this->logSection('>>', 'Pas de stats sur les dossiers.');
-        }        
+    
     }
 }

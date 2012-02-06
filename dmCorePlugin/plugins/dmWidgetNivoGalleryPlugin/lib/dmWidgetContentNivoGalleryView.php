@@ -27,7 +27,17 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
   protected function filterViewVars(array $vars = array())
   {
     $vars = parent::filterViewVars($vars);
-    
+	//Ajout Arnaud
+	//composition du paramètres de miniature sélectionné et par défaut
+	$thumbTypeWidth = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_col';
+	$thumbTypeHeight = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_bl';
+	//récupération des paramètres depuis le framework
+	$thumbTypeWidth = sidSPLessCss::getLessParam($thumbTypeWidth);
+	$thumbTypeHeight = sidSPLessCss::getLessParam($thumbTypeHeight);
+	//ajout des variables au widget
+	$vars['width'] = spLessCss::gridGetWidth($thumbTypeWidth);
+	$vars['height'] = spLessCss::gridGetHeight($thumbTypeHeight);
+	
     // extract media ids
     $mediaIds = array();
     foreach($vars['medias'] as $index => $mediaConfig)
@@ -44,15 +54,17 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
     
     // build media tags
     $medias = array();
+	
+	
     foreach($mediaRecords as $index => $mediaRecord)
     {
       $mediaTag = $this->getHelper()->media($mediaRecord);
-  
-      if (!empty($vars['width']) || !empty($vars['height']))
+	  
+	  if (!empty($vars['width']) || !empty($vars['height']))
       {
         $mediaTag->size(dmArray::get($vars, 'width'), dmArray::get($vars, 'height'));
       }
-  
+	  
       $mediaTag->method($vars['method']);
   
       if ($vars['method'] === 'fit')
@@ -110,7 +122,7 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
       'fx'             => dmArray::get($vars, 'fx', '0.5', 'fade'),
       'animspeed'      => dmArray::get($vars, 'animspeed', 0.5),
       'pausetime'      => dmArray::get($vars, 'pausetime', 3),
-      'width'          => dmArray::get($vars, 'width'),
+	  'width'          => dmArray::get($vars, 'width'),
       'height'         => dmArray::get($vars, 'height'),
       'count'          => $count
     )));
