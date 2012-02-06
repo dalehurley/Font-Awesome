@@ -28,7 +28,9 @@ if (count($missions)) { // si nous avons des actu articles
 		
 		//option de la mission
 		$missionOpt = array(
-							'node' => $mission,
+							'name' => $mission->getTitle(),
+							'description' => $mission->getResume(),
+							'dateCreated' => false,
 							'count' => $count,
 							'maxCount' => $maxCount,
 							'container' => 'li.element',

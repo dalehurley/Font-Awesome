@@ -26,7 +26,9 @@ if (count($missions)) { // si nous avons des actu articles
 		$count++;
 		
 		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
-												'node' => $mission,
+												'name' => $mission->getTitle(),
+												'description' => $mission->getResume(),
+												'dateCreated' => false,
 												'count' => $count,
 												'maxCount' => $maxCount,
 												'container' => 'li.element',
