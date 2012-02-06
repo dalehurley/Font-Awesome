@@ -36,7 +36,13 @@ if (count($equipes)) { // si nous avons des actu articles
 			
 			//options des personnes
 			$personOpt = array(
-							'node' => $equipe,
+							'name' => $equipe->getTitle(),
+							'description' => $equipe->getText(),
+							'image' => $equipe->getImage(),
+							'email' => $equipe->getEmail(),
+							'faxNumber' => $equipe->getFax(),
+							'telephone' => $equipe->getTel(),
+							'jobTitle' => $equipe->getStatut(),
 							'container' => 'li.element',
 							'count' => $count,
 							'maxCount' => $maxCount
