@@ -7,6 +7,12 @@
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/SearchForm/_SearchForm.less";
 
@@ -83,7 +89,7 @@
 			//bordure sur le côté droit
 			@borderRadiusCompress(0 @gridBaseline @gridBaseline 0);
 			//ajout sprite de recherche
-			@sprite-internet-search-S();
+			@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search-S; @spriteOffY-internet-search-S);
 			//ajout différence d'épaisseur
 			padding-top: (@gridBaseline - @spriteFormat_S) / 2 + 10px;
 			padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 8px;

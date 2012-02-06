@@ -1064,12 +1064,12 @@ echo $command;
                 //  affichage brut des articles
                 $returnArticle = '';
                 foreach ($linkedArticles as $linkedArticle) {
-                    $returnArticle .= $linkedArticle. ' / ';
+                    $returnArticle .= $linkedArticle. '  ';
                 }
 
-                $return[]['Dossier ' . $dossier->getSection()->getRubrique() . ' / '. $dossier->getSection() . ' / '. $dossier->filename . ''] = $returnArticle;
+                $return[]['Dossier ' . $dossier->getSection()->getRubrique() . '/'. $dossier->getSection() . '/'. $dossier->filename . ''] = '>> articles fils: '.$returnArticle;
             } else {
-                $return = 'ERREUR : XML invalide :' . $xml;
+                $return[]['ERREUR : XML invalide  ' . $xml] = '';
             }
         }
         

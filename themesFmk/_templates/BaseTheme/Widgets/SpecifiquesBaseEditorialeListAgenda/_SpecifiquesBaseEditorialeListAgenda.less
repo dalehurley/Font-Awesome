@@ -1,20 +1,20 @@
-// ActusDuCabinetActuArticlesContextuel.less
+// SpecifiquesBaseEditorialeListAgenda.less
 // v1.0
-// Last Updated : 2012-01-26 14:25
+// Last Updated : 2012-01-25 16:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
-.actus_du_cabinet_actu_articles_contextuel {
+.specifiques_base_editoriale_list_agenda {
 	//appel de la fonction de placement de la sprite
-	@widgetTitleSprite("Default"; "cabinet"; "actualites");
+	@widgetTitleSprite("Default"; "section"; "agenda");
 	
 	.dm_widget_inner {
 		& > .title {
 			//complément de l'appel de la sprite sur le titre
-			&:after { @spriteBgp-cabinet-actualites-M(); }
+			&:after { @spriteBgp(@spriteFormat_M; @spriteOffX-section-agenda; @spriteOffY-section-agenda); }
 		}
 	}
 }

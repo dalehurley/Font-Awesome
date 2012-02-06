@@ -149,8 +149,6 @@ if(isset($node)) {
 		catch(Exception $e) { $uploadFileTitle = null; }
 	}
         // fin rajout
-        
-        
 }
 
 //définition de l'image

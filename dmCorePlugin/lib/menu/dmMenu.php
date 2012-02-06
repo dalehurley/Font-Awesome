@@ -435,6 +435,13 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         } elseif ($link && $link->isParent()) {
             $classes[] = $link->getOption('parent_class');
         }
+
+        // lioshi : ajout classe dm_root au li
+        if ($this->getLink() instanceof dmFrontLinkTagPage) {
+            if ($this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action == 'main_root') {
+                $classes[] = 'dm_root';
+            }
+        } 
         
         return '<li' . ($id ? ' id="' . $id . '"' : '') . (!empty($classes) ? ' class="' . implode(' ', $classes) . '"' : '') . '>';
     }
@@ -445,10 +452,12 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
     public function renderLink() {
         if ($this->getLink() instanceof dmFrontLinkTagPage) {
             $recupName = ($this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action == 'main_root') ? '_root' : '';
+            $title = ' '.$this->getLink()->getPage()->getTitle().' '; // lioshi : BUG, sans les espaces qui encadrent ça ne fonctionne pas...
         } else {
             $recupName = '';
+            $title = '';
         }
-        return $this->getLink()->addClass('link' . $recupName)->currentSpan(false)->text($this->__($this->getLabel()))->render();
+        return $this->getLink()->addClass('link' . $recupName)->title($title)->currentSpan(false)->text($this->__($this->getLabel()))->render();
     }
     public function renderLabel() {
         
