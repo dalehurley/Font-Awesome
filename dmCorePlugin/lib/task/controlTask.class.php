@@ -1,6 +1,6 @@
 <?php
 
-class controlTask extends sfBaseTask {
+class controlTask extends lioshiBaseTask {
     /**
      * @see sfTask
      */
@@ -31,7 +31,7 @@ EOF;
         $dispoTasks = array(
             1 => array(
               'command' => 'cc',
-              'libelle' => 'Vidage du cache',
+              'libelle' => 'Purge du cache',
               'arguments' => array(),
               'options' => array(),
               'credentials' => 'dev'                
@@ -44,7 +44,7 @@ EOF;
               ),
             3 => array(
               'command' => 'less:sprite',
-              'libelle' => 'Génération des icônes (sprites)',
+              'libelle' => 'Génération des sprites',
               'arguments' => array('verbose'),
               'options' => array()  
               ),
@@ -97,17 +97,18 @@ EOF;
               'options' => array()                
               )  
         );
-        $this->logBlock('Tâches disponibles :', 'COMMENT');
+
+        $this->logBlock('Tâches disponibles :', 'INFO_LARGE');
         
         foreach ($dispoTasks as $k => $dispoTask) {
             $nbSpaces = str_repeat(' ',strlen(count($dispoTasks))-strlen($k));
-            $this->logBlock('['. $k . ']  '. $nbSpaces . $dispoTask['libelle'], 'INFO');
+            $this->logBlock('['. $k . ']  '. $nbSpaces . $dispoTask['libelle'], 'COMMENT');
         }
         
-        $messageAccueil = 'Vous pouvez choisir une tâche. Faîtes Ctrl+c pour sortir.';
-        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'COMMENT'); // une ligne de pointillé
+        $messageAccueil = '  Vous pouvez choisir une tâche. Faîtes Ctrl+c pour sortir.';
+        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'LINE'); // une ligne de pointillé
         $this->logBlock($messageAccueil, 'COMMENT');
-        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'COMMENT');
+        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'LINE');
 
         // choix de la tâche
         $numTask = $this->askAndValidate(array(
@@ -122,10 +123,14 @@ EOF;
         );
 
         // traitement de la commande
-        $this->logBlock(str_repeat('-',strlen($dispoTasks[$numTask]['libelle'])), 'COMMENT'); 
-        $this->logBlock($dispoTasks[$numTask]['libelle'], 'COMMENT');
-        $this->logBlock(str_repeat('-',strlen($dispoTasks[$numTask]['libelle'])), 'COMMENT');
-                
+        $messageCommande = '  '.$dispoTasks[$numTask]['libelle'].'  ['.$dispoTasks[$numTask]['command'].']  ';
+        $this->logBlock(str_repeat('-',strlen($messageCommande)), 'LINE'); 
+        $this->logBlock($messageCommande, 'COMMENT');
+        $this->logBlock(str_repeat('-',strlen($messageCommande)), 'LINE');
+           
+        $timerTask = new sfTimer();        
         $this->runTask($dispoTasks[$numTask]['command'], $dispoTasks[$numTask]['arguments'], $dispoTasks[$numTask]['options']);
+        
+        $this->logBlock('Task '. $this->namespace . ':' . $this->name .' -> '. round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
     }
 }

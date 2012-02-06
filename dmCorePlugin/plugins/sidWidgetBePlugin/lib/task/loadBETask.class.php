@@ -1,6 +1,6 @@
 <?php
 
-class loadBETask extends sfBaseTask {
+class loadBETask extends lioshiBaseTask {
 
     protected function configure() {
         // // add your own arguments here

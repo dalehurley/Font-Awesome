@@ -1,6 +1,6 @@
 <?php
 
-class spriteInitTask extends sfBaseTask {
+class spriteInitTask extends lioshiBaseTask {
     /**
      * @see sfTask
      */
@@ -42,7 +42,7 @@ EOF;
         $this->runTask('less:compile-all', $arguments, $options);
 
         // sprite init
-        ($verbose)?  $this->logBlock('Generation des sprites', 'COMMENT'): '';
+        ($verbose)?  $this->logBlock('Generation des sprites', 'COMMENT_LARGE'): '';
         $timerTotal = new sfTimer;
         $return['hashMd5'] = null;
         $return['spriteFormat'] = null;
@@ -51,7 +51,7 @@ EOF;
             $timer = new sfTimer;
             $return = spLessCss::spriteInit($return['hashMd5'], $return['spriteFormat']);
             if ($return){
-                ($verbose)? $this->logSection('Sprite init ', $return['hashMd5'] . ' ' . $return['spriteFormat'] . ' ' . $return['prct'].'% (' . round($timer->getElapsedTime() , 3) . ' s)'): '';
+                ($verbose)? $this->logSection(' Sprite init ', $return['hashMd5'] . ' ' . $return['spriteFormat'] . ' ' . $return['prct'].'% (' . round($timer->getElapsedTime() , 3) . ' s)'): '';
             }
         }
 
@@ -60,6 +60,6 @@ EOF;
         $options = array ();
         $this->runTask('less:compile-all', $arguments, $options);
 
-        ($verbose)? $this->logBlock('Task '. $this->namespace . ':' . $this->name .' time : '. round($timerTask->getElapsedTime() , 3) . ' s', 'COMMENT_LARGE'): '';
+        
     }
 }

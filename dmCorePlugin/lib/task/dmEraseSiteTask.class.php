@@ -1,6 +1,6 @@
 <?php
 
-class dmEraseSiteTask extends dmContextTask {
+class dmEraseSiteTask extends lioshiBaseTask {
     protected function configure() {
         // // add your own arguments here
         $this->addArguments(array());
@@ -36,7 +36,6 @@ EOF;
             if ($this->askConfirmation(array(
                 'Vraiment sur ? (y/n)'
             ) , 'QUESTION_LARGE', true)) {
-                $this->logSection('Erase', '...');
                 
                 // récupération du nom de domaine du site via la table dmSetting
                 $settings = dmDb::query('DmSetting s')
@@ -75,19 +74,19 @@ EOF;
                 fclose($f);
                 // appel de la page delete.php via wget pour simuler une utilisation d'un navigateur
                 $command = "wget '" . $fileDeleteUrl . "'";
-                $this->logSection('Chmod 777 from apache user', '...');
+                $this->logBlock('Chmod 777 from apache user', 'ERROR');
                 exec($command, $output);
                 /****************************************************************************************************
                  ********* suppression des fichiers créé par l'utilisateur lors de l'installation du site ************
                  *****************************************************************************************************/
                 $command = "rm -Rf *";
-                $this->logSection('Suppression totale', '...');
+                $this->logBlock('Suppression totale', 'INFO');
                 exec($command, $output);
             } else {
-                $this->logSection('Annulation', '...');
+                $this->logBlock('Annulation', 'ERROR');
             }
         } else {
-            $this->logSection('Annulation', '...');
+            $this->logBlock('Annulation', 'ERROR');
         }
     }
 }
