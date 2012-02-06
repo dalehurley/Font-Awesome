@@ -55,6 +55,11 @@ EOF;
             }
         }
 
+        // génération des fichiers less et du fichier des variables less
+        $arguments = array();
+        $options = array ();
+        $this->runTask('less:compile-all', $arguments, $options);
+
         ($verbose)? $this->logBlock('Task '. $this->namespace . ':' . $this->name .' time : '. round($timerTask->getElapsedTime() , 3) . ' s', 'COMMENT_LARGE'): '';
     }
 }
