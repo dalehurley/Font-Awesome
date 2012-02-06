@@ -1,7 +1,7 @@
 <?php
 /*
  * Organization.php
- * v1.0
+ * v1.1
  * http://schema.org/Organization
  * 
  * Variables disponibles :
@@ -41,14 +41,28 @@ include $includeDefault;
 //Composition du html de sortie
 $html = '';
 
-//Properties from Thing :
-$thingOpt = array();
-if(isset($node))		$thingOpt['node']			= $node;
-if(isset($description)) $thingOpt['description']	= $description;
-if(isset($image))		$thingOpt['image']			= $image;
-if(isset($name))		$thingOpt['name']			= $name;
-if(isset($url))			$thingOpt['url']			= $url;
-$html.= get_partial('global/schema/Thing', $thingOpt);
+//intégration de l'image
+if($isImage) {
+	//dimensions par défaut de l'image
+	$imageGridWidth = (isset($imageGridWidth)) ? $imageGridWidth : sidSPLessCss::getLessParam('thumbS_col');
+	$imageGridHeight = (isset($imageGridHeight)) ? $imageGridHeight : sidSPLessCss::getLessParam('thumbS_bl');
+	
+	//options de l'image
+	$imageWrapperOpts = array(
+								'image'	=>	$image,
+								'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
+								'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+								);
+	//ajout du nom de l'article dans la balise Alt de l'image
+	if(isset($name)) $imageWrapperOpts['alt'] = $name;
+	
+	//Appel du partial d'image
+	$html.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
+}
+
+//ajout du nom et de la description
+if(isset($name)) if($name) $html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
+if(isset($description)) if($description) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
 
 //on implémente pas tout pour le moment, juste ce dont on a besoin
 //on extrait les variables contenus dans adresse et on remplace celle éventuellement définies
