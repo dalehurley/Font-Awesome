@@ -35,7 +35,7 @@ SidCabinetPageCabinet:
     Timestampable:
     DmSortable:
     I18n:
-      fields: [ title, text ]
+      fields: [ title, text, resume ]
       actAs:
         DmVersionable:
   columns:
