@@ -1,7 +1,7 @@
 <?php
 /*
  * _navigationWrapper.php
- * v1.1
+ * v1.2
  * Permet d'afficher une navigation de page (à améliorer avec gestion intégrée des tableaux
  * 
  * Variables disponibles :
@@ -13,11 +13,6 @@
  */
 
 //Configuration par défaut
-
-//récupérations des options de page
-$pageOptions = spLessCss::pageTemplateGetOptions();
-$isDev = $pageOptions['isDev'];
-$isLess = $pageOptions['isLess'];
 
 //container par défaut
 if(!isset($container)) $container = 'div';
@@ -56,8 +51,6 @@ if(isset($elements)){
 		//gestion de l'index de positionnement
 		if($count == 1)			$elementOpt['class'][] = 'first';
 		if($count >= $maxCount)	$elementOpt['class'][] = 'last';
-		//application classe de debug
-		if($isLess) $elementOpt['class'][] = 'isVerified';
 		
 		//insertion du lien dans un li
 		$html.= _tag('li.element', $elementOpt, _link($element['linkUrl'])->text($element['title'])->title($element['title']));
