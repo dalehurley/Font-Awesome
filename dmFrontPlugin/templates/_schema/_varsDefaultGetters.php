@@ -1,7 +1,7 @@
 <?php
 /*
  * _varsDefaultGetters.php
- * v1.1
+ * v1.2
  * Permet d'extraire de façon standardisée des variables de node
  * 
  * Variables disponibles :
@@ -165,3 +165,6 @@ if(isset($image)) if($image) {
 	//test de la présence de l'image
 	$isImage = is_file($imageUrl);
 }
+
+//nettoyage de certaines variables
+if(isset($description)) if($description) $description = strip_tags($description, '<sup><sub>');
