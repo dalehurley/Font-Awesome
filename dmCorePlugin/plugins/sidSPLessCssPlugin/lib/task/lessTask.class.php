@@ -30,7 +30,7 @@ EOF;
         $timerTask = new sfTimer;
 
         // Generation des fichiers CSS a partir des less
-        $this->logBlock('Compilation des .less -> .css','COMMENT_LARGE');
+        $this->logBlock('Compilation des .less -> .css','COMMENT');
         $arguments = array();
         $options = array (
           'application' => 'front',
@@ -41,7 +41,7 @@ EOF;
 
         // génération du fichier des variables less, indispensable au spriteInit
         $variablesFile = sidSPLessCss::getVariableFileJson();
-        $this->logBlock('Generation du fichier des variables : '.$variablesFile, 'COMMENT_LARGE'); 
+        $this->logBlock('Generation du fichier des variables : '.$variablesFile, 'COMMENT'); 
         $arguments = array();
         $options = array ();
         $this->runTask('less:variables', $arguments, $options);
