@@ -1,4 +1,8 @@
 <?php
+//récupération des valeurs par défaut
+$includeDefaultValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultValues.php';
+include $includeDefaultValues;
+
 // vars : $adresses, $titreBloc
 $html = '';
 
@@ -17,12 +21,22 @@ if (count($adresses)) {
 		//incrémentation compteur
 		$count++;
 		
-		$html.= get_partial('global/schema/Thing/Organization', array(
-														'node' => $adresse,
-														'container' => 'li.element',
-														'count' => $count,
-														'maxCount' => $maxCount
-														));
+		//affichage du contenu
+		$addressOpts = array(
+							'name' => $adresse->getTitle(),
+							'addressLocality' => $adresse->getVille(),
+							'postalCode' => $adresse->getCodePostal(),
+							'email' => $adresse->getEmail(),
+							'faxNumber' => $adresse->getFax(),
+							'telephone' => $adresse->getTel(),
+							'container' => 'li.element',
+							'count' => $count,
+							'maxCount' => $maxCount
+						);
+		$addressOpts['streetAddress'] = $adresse->getAdresse();
+		if ($adresse->getAdresse2() != NULL) $addressOpts['streetAddress'].= $dash . $adresse->getAdresse2();
+		
+		$html.= get_partial('global/schema/Thing/Organization', $addressOpts);
     }
 	
     //fermeture du listing
