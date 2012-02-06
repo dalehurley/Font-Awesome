@@ -12,7 +12,6 @@ if(count($missions)) {
 					'container' => 'article',
 					'name' => $missions->getTitle(),
 					'description' => $missions->getResume(),
-					'dateCreated' => false,
 					'articleBody' => $missions->getText()
 					);
 	//$missionOpts['node'] = $missions;

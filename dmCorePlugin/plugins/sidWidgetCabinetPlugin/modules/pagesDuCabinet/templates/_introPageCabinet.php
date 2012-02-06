@@ -12,7 +12,6 @@ if (count($pageCabinet)) { // si nous avons des actu articles
 												'name' => $pageCabinet->getTitle(),
 												'description' => $pageCabinet->getResume(),
 												'image' => $pageCabinet->getImage(),
-												'dateCreated' => false,
 												'count' => 1,
 												'maxCount' => 1,
 												'container' => 'li.element',

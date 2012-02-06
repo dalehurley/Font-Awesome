@@ -7,8 +7,11 @@ if($titreBloc != null) $html = get_partial('global/titleWidget', array('title' =
 
 if(count($recrutements)){
 	//affichage du contenu
-	$recrutementOpts = array('container' => 'article');
-	$recrutementOpts['node'] = $recrutements;
+	$recrutementOpts = array(
+						'container' => 'article',
+						'name' => $recrutements->getTitle(),
+						'articleBody' => $recrutements->getText()
+						);
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $recrutementOpts);
 	
 }else{
