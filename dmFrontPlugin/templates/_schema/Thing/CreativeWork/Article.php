@@ -177,7 +177,7 @@ if($isListing) {
 		if(isset($description)) if($description) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
 
 		//Gestion de la date avec plusieurs possibilités (dateCreated, dateModified, etc)
-		if(isset($dateCreated)) if($dateCreated) $htmlHeader.= get_partial('global/dateWrapperFull', array('node' => $node));
+		if(isset($dateCreated)) if($dateCreated) $htmlHeader.= get_partial('global/dateWrapperFull', array('dateCreated' => $dateCreated, 'dateModified' => $dateModified));
 		
 	//affichage du header de l'article si non vide
 	if($htmlHeader != null) $html.= _tag('header.contentHeader', $htmlHeader);
@@ -192,9 +192,11 @@ if($isListing) {
 	$htmlFooter = '';
 	
 	// rajout stef (attention à modifier une fois l'upload de fichier multiples implémenté)
-	if($uploadFile != ''){
+	if(isset($uploadFile)) if($uploadFile){
+		$htmlFooter.= _open('div.fileWrapper');
 		$htmlFooter.= _tag('h5.title',__('Download file, click the link below'));
         $htmlFooter.= _link($uploadFile)->text($uploadFileTitle);
+		$htmlFooter.= _close('div.fileWrapper');
 	}
 	// fin rajout stef
 	
