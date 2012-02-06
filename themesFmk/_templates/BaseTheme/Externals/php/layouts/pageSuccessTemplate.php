@@ -34,7 +34,8 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 	</div>
 </div>
 */
-//echo spLessCss::printLessParams();
+//echo sidSPLessCss::printLessParams();
+//echo sidSPLessCss::getLessParam('mainTemplate') . '<br/>';
 ?>
 <div id="dm_page" data-role="page">
 	<div id="dm_page_inner">

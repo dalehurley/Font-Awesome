@@ -30,8 +30,6 @@ generator:
       fields:
         is_active:
           label: Active
-        title_entete_page:
-          label: 'Intitulé' 
         title:
           label: 'Libellé'
       list:
@@ -44,7 +42,6 @@ generator:
             credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
         display:
           - '=title'
-          - title_entete_page
           - is_active
           - created_at
           - updated_at
@@ -59,7 +56,6 @@ generator:
       filter:
         display:
           - title
-          - title_entete_page
           - is_active
           - image
           - created_at
@@ -67,7 +63,7 @@ generator:
 #          - text
       form:
         display:
-          "Définition de votre page": [title, is_active, title_entete_page ]
+          "Définition de votre page": [title, is_active]
           "Résumé de la page": [resume]
           Text: [text]
           Image: [image_form, image_view]

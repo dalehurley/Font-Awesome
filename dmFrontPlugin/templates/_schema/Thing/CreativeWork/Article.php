@@ -77,8 +77,8 @@ if($isListing) {
 	//on affiche l'image que si elle est effectivement présente
 	if($isImage && isset($image)){
 		//dimensions de l'image
-		$imageGridWidth = ($isLight) ? spLessCss::getLessParam('thumbM_col') : spLessCss::getLessParam('thumbL_col');
-		$imageGridHeight = ($isLight) ? spLessCss::getLessParam('thumbM_bl') : spLessCss::getLessParam('thumbL_bl');
+		$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
+		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
 		//options de l'image
 		$imageWrapperOpts = array(
 									'image'	=>	$image,
@@ -101,7 +101,7 @@ if($isListing) {
 	//Titre affiché en span car utilisé dans un container
 	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
 	//Gestion de la date de création
-	if(isset($dateCreated)) if($dateCreated) $htmlText.= get_partial('global/dateWrapperShort', array('node' => $node));
+	if(isset($dateCreated)) if($dateCreated) $htmlText.= get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
 	
 	//englobage dans un container si non vide
 	if($htmlText != null) $htmlText = _tag('span.subWrapper', $htmlText);
@@ -154,8 +154,8 @@ if($isListing) {
 		//on affiche l'image que si elle est effectivement présente
 		if($isImage && isset($image)){
 			//dimensions de l'image
-			$imageGridWidth = spLessCss::getLessParam('thumbContent_col');
-			$imageGridHeight = spLessCss::getLessParam('thumbContent_bl');
+			$imageGridWidth = sidSPLessCss::getLessParam('thumbContent_col');
+			$imageGridHeight = sidSPLessCss::getLessParam('thumbContent_bl');
 			//options de l'image
 			$imageWrapperOpts = array(
 									'image'	=>	$image,
@@ -188,11 +188,15 @@ if($isListing) {
 	//affichage du contenu de la page
 	if(isset($articleBody))	$html.= _tag('section.contentBody', array('itemprop' => 'articleBody'), $articleBody);
 	
-	
-	
-	
 	//contenu du footer de l'article
 	$htmlFooter = '';
+	
+	// rajout stef (attention à modifier une fois l'upload de fichier multiples implémenté)
+	if($uploadFile != ''){
+		$htmlFooter.= _tag('h5.title',__('Download file, click the link below'));
+        $htmlFooter.= _link($uploadFile)->text($uploadFileTitle);
+	}
+	// fin rajout stef
 	
 	//ajout de liens de navigation si nécessaire
 	if(isset($navigationElements)) {

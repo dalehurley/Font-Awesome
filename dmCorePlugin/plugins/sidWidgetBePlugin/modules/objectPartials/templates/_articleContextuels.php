@@ -15,8 +15,8 @@ echo _open('li.element itemscope itemtype="http://schema.org/Article"');
                     $html.= _media($imgLink)
                                     ->set('.image itemprop="image"')
                                     ->alt($article->getTitle())
-                                    ->width(spLessCss::gridGetWidth(spLessCss::getLessParam('thumbL_col')))
-        ->height(spLessCss::gridGetHeight(spLessCss::getLessParam('thumbL_bl')));
+                                    ->width(spLessCss::gridGetWidth(sidSPLessCss::getLessParam('thumbL_col')))
+        ->height(spLessCss::gridGetHeight(sidSPLessCss::getLessParam('thumbL_bl')));
             $html.= _close('span.imageWrapper');
     }
 

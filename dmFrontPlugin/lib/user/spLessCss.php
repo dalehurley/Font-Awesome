@@ -13,6 +13,9 @@ class spLessCss extends dmFrontUser {
 			echo dm_get_widget('sidSPLessCss', 'debug', array());
 		}
 		
+		//actualisation des paramètres du framework
+		if ($pageOptions['isLess']) sidSPLessCss::loadLessParameters();
+		
 		return $pageOptions;
 	}
 	
@@ -38,6 +41,9 @@ class spLessCss extends dmFrontUser {
 	
 	//génération de toutes les sprites dans toutes les dimensions
 	public static function spriteInit($hashMd5 = null, $spriteFormat = null) {
+		// temps d'execution infini (pour le serveur de prod, Lionel)
+		set_time_limit(0);
+
 		//Si on est au début de l'action
 		if($spriteFormat == null) {
 			//génération d'un nouveau hashMd5
@@ -86,7 +92,7 @@ class spLessCss extends dmFrontUser {
 		self::spriteLessGenerate($prct, $lessDefinitions);
 		
 		// A la fin du traitement on donne accès à tous les fichiers propriété d'apache: chmod 777 sur toute l'arborescence juste créée par le mkdir recursif
-		if ($prct >= 100) exec('chmod 777 -R '.sfConfig::get('sf_web_dir'));
+		if ($prct >= 100) exec('chmod 777 -R '.sfConfig::get('sf_web_dir').'/theme/images');
 		
 		//Renvoi de valeurs pour l'affichage
 		return array(
@@ -99,8 +105,8 @@ class spLessCss extends dmFrontUser {
 	//génération du listing des icônes
 	private static function spriteGetListing($hashMd5 = null) {
 		//emplacement et récupération des thèmes de sprites
-		$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_framework') . '/Sprites';
-		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+		$urlThemes = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathFramework() . '/Sprites';
+		$urlThemesClient = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites';
 		$getThemes = sfFinder::type('directory')->follow_link()->relative()->in($urlThemes);
 		
 		//création du tableau de stockage des sprites
@@ -136,7 +142,7 @@ class spLessCss extends dmFrontUser {
 	//purge des miniatures
 	private static function spriteReset(){
 		//emplacement et récupération des thèmes de sprites
-		$urlThemesClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+		$urlThemesClient = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites';
 		$getThemesClient = sfFinder::type('directory')->follow_link()->relative()->in($urlThemesClient);
 		
 		//récupération des miniatures assemblées déjà générées
@@ -168,7 +174,7 @@ class spLessCss extends dmFrontUser {
 			}
 			
 			//suppression du dossier du thème
-			$urlThemeClient = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites/' . $themeClient;
+			$urlThemeClient = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites/' . $themeClient;
 			if(is_dir($urlThemeClient)){
 				$testRmdir = rmdir($urlThemeClient);
 				//affichage d'un message en cas d'erreur
@@ -180,8 +186,18 @@ class spLessCss extends dmFrontUser {
 	//génération des appels de la fonctions less de génération des sprites
 	private static function spriteLessGenerate($prct = 0, $lessDefinitions = array()) {
 		//chemin vers le fichier de config des sprites
-		$urlSpriteFunctions = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteFunctions.less';
+		$urlSpriteVariables = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteVariables.less';
+		//$urlSpriteFunctions = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteFunctions.less';
 		$urlSpriteGenerate = sfConfig::get('sf_web_dir') . '/theme/less/_SpriteGenerate.less';
+		
+		//création du system de fichier
+		$fs = new sfFilesystem();
+		//Assemblage des fichiers dans un tableau
+		$fsFiles = array($urlSpriteVariables, $urlSpriteGenerate);
+		
+		//création des fichiers et chmod
+		$fs->touch($fsFiles);
+		$fs->chmod($fsFiles, 0777);
 		
 		//Initialisation des fichier
 		if($prct == 0) {
@@ -193,34 +209,46 @@ class spLessCss extends dmFrontUser {
 			$headerInfo.= "// Author : Arnaud GAUDIN" . PHP_EOL . PHP_EOL;
 			
 			//compositions des headers pour les deux type de fichiers
+			$headerInfoVariables = "// _SpriteVariables.less" . PHP_EOL . $headerInfo;
 			$headerInfoFunctions = "// _SpriteFunctions.less" . PHP_EOL . $headerInfo;
 			$headerInfoGenerate = "// _SpriteGenerate.less" . PHP_EOL . $headerInfo;
 			
 			//écriture du fichier (création si inexistant, remplacement dans le cas contraire)
-			$testPutContentFunctions = file_put_contents($urlSpriteFunctions, $headerInfoFunctions);
+			$testPutContentVariables = file_put_contents($urlSpriteVariables, $headerInfoVariables);
+			//$testPutContentFunctions = file_put_contents($urlSpriteFunctions, $headerInfoFunctions);
 			$testPutContentGenerate = file_put_contents($urlSpriteGenerate, $headerInfoGenerate);
 		} else {
 			//assemblage en string des déclarations à ajouter dans le fichier pour grouper les écritures
+			$lessDefinitionVariables = "";
 			$lessDefinitionFunctions = "";
 			$lessDefinitionGenerate = "";
 
 			//sinon on rajoute à la fin du fichier les définitions passées en paramètre
 			foreach ($lessDefinitions as $lessDefinition) {
-				$lessDefinitionFunctions.= $lessDefinition['function'] . PHP_EOL;
+				$lessDefinitionVariables.= $lessDefinition['variable'] . PHP_EOL;
+				//$lessDefinitionFunctions.= $lessDefinition['function'] . PHP_EOL;
 				$lessDefinitionGenerate.= $lessDefinition['generate'] . PHP_EOL;
 			}
 			
+			//on ne rajoute les variables de positionnement qu'une seule fois, à la fin de la génération
+			if($prct >= 100) {
+				$testPutContentVariables = file_put_contents($urlSpriteVariables, $lessDefinitionVariables, FILE_APPEND);
+				//écriture dans le fichier
+				if(!$testPutContentVariables) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteVariables);
+			}
+			
 			//ajout de retours ligne à la fin de la boucle
+			$lessDefinitionVariables.= PHP_EOL;
 			$lessDefinitionFunctions.= PHP_EOL;
 			$lessDefinitionGenerate.= PHP_EOL;
 			
 			//écriture dans les fichiers
-			$testPutContentFunctions = file_put_contents($urlSpriteFunctions, $lessDefinitionFunctions, FILE_APPEND);
+			//$testPutContentFunctions = file_put_contents($urlSpriteFunctions, $lessDefinitionFunctions, FILE_APPEND);
 			$testPutContentGenerate = file_put_contents($urlSpriteGenerate, $lessDefinitionGenerate, FILE_APPEND);
 		}
 		
 		//gestion de l'erreur d'écriture dans le fichier
-		if(!$testPutContentFunctions) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteFunctions);
+		//if(!$testPutContentFunctions) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteFunctions);
 		if(!$testPutContentGenerate) die("spLessCss | spriteLessGenerate : erreur d'écriture du fichier : " . $urlSpriteGenerate);
 	}
 	
@@ -230,11 +258,11 @@ class spLessCss extends dmFrontUser {
 		//.sprite-navigation-test-S { @sprite-navigation-test-S(); }
 		
 		//composition du nom de la sprite
-		$nomSprite = '';
-		if($theme != "Default") $nomSprite.= '-' . $theme;
-		$nomSprite.= '-' . $category;
-		$nomSprite.= '-' . $name;
-		$nomSprite.= '-' . $spriteFormat;
+		$nomSpriteSimple = '';
+		if($theme != "Default") $nomSpriteSimple.= '-' . $theme;
+		$nomSpriteSimple.= '-' . $category;
+		$nomSpriteSimple.= '-' . $name;
+		$nomSprite = $nomSpriteSimple . '-' . $spriteFormat;
 		
 		//ouverture fonction LESS
 		$appelFoncDef = '@spriteDefinition(';
@@ -248,7 +276,7 @@ class spLessCss extends dmFrontUser {
 		$appelFoncDef.= '; ' . $offY;
 		//fermeture fonction LESS
 		$appelFoncDef.= ');';
-		
+		/*
 		//ouverture fonction LESS
 		$appelFoncBgp = '@spriteBgp(';
 		//ajout paramètres
@@ -257,10 +285,11 @@ class spLessCss extends dmFrontUser {
 		$appelFoncBgp.= '; ' . $offY;
 		//fermeture fonction LESS
 		$appelFoncBgp.= ');';
-		
+		*/
 		//composition du tableau de sortie
-		$output['function'] = '@sprite' . $nomSprite . '() { ' . $appelFoncDef . ' }' . PHP_EOL . '@spriteBgp' . $nomSprite . '() { ' . $appelFoncBgp . ' }';
-		$output['generate'] = '.sprite' . $nomSprite . ' { ' . '@sprite' . $nomSprite . '(); }';
+		$output['variable'] = '@spriteOffX' . $nomSpriteSimple . ':' . $offX . ';' . PHP_EOL . '@spriteOffY' . $nomSpriteSimple . ':' . $offY . ';';
+		//$output['function'] = '@sprite' . $nomSprite . '() { ' . $appelFoncDef . ' }' . PHP_EOL . '@spriteBgp' . $nomSprite . '() { ' . $appelFoncBgp . ' }';
+		$output['generate'] = '.sprite' . $nomSprite . ' { ' . $appelFoncDef . ' }';
 		
 		//retour du tableau de valeurs
 		return $output;
@@ -269,9 +298,9 @@ class spLessCss extends dmFrontUser {
 	//copie de toutes les icônes et changement des couleurs
 	private static function spriteGenerate($hashMd5 = null, $spriteListing = array(), $spriteFormat = 'L'){
 		//dimension par défaut des sprites (imposé par le format SVG utilisé)
-		$dimDefault = intval(self::getLessParam('spriteFormat'));
+		$dimDefault = intval(sidSPLessCss::getLessParam('spriteFormat'));
 		//dimension des sprites dans les paramètres du framework (égale à S, M, L ou X)
-		$dimFramework = intval(self::getLessParam('spriteFormat_' . $spriteFormat));
+		$dimFramework = intval(sidSPLessCss::getLessParam('spriteFormat_' . $spriteFormat));
 		
 		//calcul du ratio de redimenssionnement
 		$resizeRatio = $dimFramework / $dimDefault;
@@ -289,7 +318,7 @@ class spLessCss extends dmFrontUser {
 			$categories = $info['categories'];
 			
 			//création du dossier du thème si non présent
-			$urlThemes = sfConfig::get('sf_web_dir') . sfConfig::get('sf_img_path_client') . '/Sprites';
+			$urlThemes = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites';
 			$urlThemeClient = $urlThemes . '/' . $theme;
 			if(!is_dir($urlThemeClient)){
 				$testMkdir = mkdir($urlThemeClient, 0775, true);
@@ -329,7 +358,7 @@ class spLessCss extends dmFrontUser {
 						//on enlève les délimiteurs ## de la couleur
 						$colorKey = substr($colorToken, 2, -2);
 						//on récupère la valeur de la couleur correspondante
-						$colorValue = self::getLessParam($colorKey);
+						$colorValue = sidSPLessCss::getLessParam($colorKey);
 						
 						//composition de la commmande de changement de couleurs
 						$execColor = "perl -pi -w -e 's/" . $colorToken . "/". $colorValue ."/g;' " . $value['urlClient'];
@@ -385,7 +414,7 @@ class spLessCss extends dmFrontUser {
 	//récupération du layout par défaut du template sélectionné
 	public static function pageSuccessTemplateInclude() {
 		//Ciblage du layout de page par défaut du template sélectionné
-		$pageSuccessTemplateInclude = sfConfig::get('dm_core_dir') . '/../themesFmk/_templates/' . self::getLessParam('mainTemplate') . '/Externals/php/layouts/pageSuccessTemplate.php';
+		$pageSuccessTemplateInclude = dm::getDir() . '/themesFmk/_templates/' . sidSPLessCss::getLessParam('mainTemplate') . '/Externals/php/layouts/pageSuccessTemplate.php';
 		
 		//on retourne un tableau contenant 3 clefs
 		$includeInfo = array(
@@ -403,7 +432,7 @@ class spLessCss extends dmFrontUser {
 		//récupération du gabarit de la page
 		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
 		if ($currentGabarit == 'default' || $currentGabarit == '') {
-			$currentGabarit = self::getLessParam('templateGabarit');
+			$currentGabarit = sidSPLessCss::getLessParam('templateGabarit');
 		}
 		
 		//composition des options de page par défault
@@ -466,301 +495,14 @@ class spLessCss extends dmFrontUser {
 		
 		return $options;
 	}
-
-	//calcul de la valeur finale
-	public static function lessCalculator($str) {
-		$fn = create_function("", "return ({$str});" );
-		return $fn();
-	}
-
-	//fonction bugguée à terminer
-	private static function lessIsNumeric($variableValue) {
-		//on vérifie directement si ce n'est pas un nombre
-		if(is_numeric($variableValue)) return true;
-		
-		//recherches de chaines de type md5, modifications : jusqu'à la lettre z, ajout majuscules (f normalement)
-		$patternMd5 = '/^[0-9a-zA-Z]{7,32}$/';
-		$detectisMd5 = preg_match_all($patternMd5, $variableValue, $matches);
-		if($detectisMd5 > 0) return false;
-
-		//recherches de chaines de type 2012-01-01T10:25
-		$patternDate = '/([0-9]){4}-([0-9]){2}-([0-9]){2}T([0-9]){2}:([0-9]){2}/';
-		$detectisDate = preg_match_all($patternDate, $variableValue, $matches);
-		if($detectisDate > 0) return false;
-
-		//recherches de chaines de type #ffaa00
-		$patternHex = '/^#+(([a-fA-F0-9]){3}){1,2}$/';
-		$detectisHex = preg_match_all($patternHex, $variableValue, $matches);
-		if($detectisHex > 0) return false;
-		
-		//recherches de chaines de type chemin URL
-		$patternUrl = '/^[^(floor)(round)](http:){0,1}\/+[a-zA-Z]+[\/\w\{\}@]*/';
-		$detectisUrl = preg_match_all($patternUrl, $variableValue, $matches);
-		if($detectisUrl > 0) return false;
-		
-		//recherches de chaines de type police de caractères "LucidaGrande,LucidaSansUnicode,LucidaSans,BitstreamVeraSans,sans-serif"
-		$patternFont = '/^[^(floor)(round)][a-zA-Z]{1}\w{2,127},*\w*/';
-		$detectisFont = preg_match_all($patternFont, $variableValue, $matches);
-		if($detectisFont > 0) return false;
-
-		//recherches de chaines de type layout "sidebar-left,sidebar-right,two-sidebars,no-sidebar"
-		$patternLayout = '/^[a-z]+\-[a-z]+$/';
-		$detectisLayout = preg_match_all($patternLayout, $variableValue, $matches);
-		if($detectisLayout > 0) return false;
-		
-		//recherches de chaines de type CSS ID
-		$patternCssId = '/^[a-zA-Z_]+$/';
-		$detectisCssId = preg_match_all($patternCssId, $variableValue, $matches);
-		if($detectisCssId > 0) return false;
-		
-		//Ensuite on teste si la valeur est numérique
-
-		//on supprime tout ce qui ne compose pas une opération mathématique (plus toutes les fonctions de Less parsable en php)
-		$variableValueCalc = preg_replace("/[^0-9+\-.*\/()(floor)(round)]/", "", $variableValue); 
-
-		//si il ne reste rien c'est que la valeur ne peut pas être numérique
-		if ($variableValueCalc == ""){
-			return false;
-		}else{
-			$testEval = eval("\$return=" . $variableValueCalc . ";" );
-			
-			if($testEval === false) {
-				return false;
-			}else{
-				if(is_int($return)) return true;
-				elseif(is_float($return)) return true;
-				else return false;
-			}
-		}
-		
-		//recherches de chaine de type numérique avec des parenthèses ou des signes mathématique +-*/
-		//$patternNumeric = '/[^a-zA-Z][0-9]+[\(\)\-\+\*\.\/]*/';
-		//$detectisNumeric = preg_match_all($patternNumeric, $variableValue, $matches);
-	}
-
-	//suppression des unités d'une valeur less
-	private static function parseLessValue($variableValue) {
-		$units=array(
-			'em', 'ex', 'px', 'gd', 'rem', 'vw', 'vh', 'vm', 'ch', // Relative length units
-			'in', 'cm', 'mm', 'pt', 'pc', // Absolute length units
-			'%', // Percentages
-			'deg', 'grad', 'rad', 'turn', // Angles
-			'ms', 's', // Times
-			'Hz', 'kHz', //Frequencies
-		);
-		
-		foreach ($units as $unit) {
-			//on évalue l'expression à la recherche de variables existantes
-			$pattern = '/[0-9]+'.$unit.'$/';
-
-			$detectUnits = preg_match_all($pattern, $variableValue, $matches, PREG_OFFSET_CAPTURE);
-
-			foreach ($matches[0] as $unitValue) {
-				$value = $unitValue[0];
-				$lengthValue = strlen($unit) * -1;
-				$finalValue = substr($value, 0, $lengthValue);
-				$variableValue = str_replace($unitValue[0], $finalValue, $variableValue);
-			}
-		}
-
-		//on dégage les pourcentages de façon manuelle
-		$variableValue = str_replace('%', '', $variableValue);
-		
-		$detectisNumeric = self::lessIsNumeric($variableValue);
-		if($detectisNumeric){
-			$variableValue = self::lessCalculator($variableValue);
-		}else{
-			//À améliorer éventuellement : suppression des crochets dans les string contenant des variables
-			//$variableValue = str_replace('{', '', $variableValue);
-			//$variableValue = str_replace('}', '', $variableValue);
-		}
-		
-		return $variableValue;
-	}
-
-	//évaluation de la valeur d'une variable less
-	private static function parseLessVariable($variableValue, $parameterValue = array()) {
-		//on évalue l'expression à la recherche de variables existantes
-		$patternParam = '/@[\w\{\}]*/';
-		$detectSubVariable = preg_match_all($patternParam, $variableValue, $matches, PREG_OFFSET_CAPTURE);
-		
-		if ($detectSubVariable > 0) {
-			
-			//echo "pre : ".$variableValue;
-			//echo "   |   ";
-			//echo " sub   |   ";
-
-			$matchesSorted = array();
-			$matchesLengths = array();
-			$replace = array();
-
-			//remplissage du tableau de valeurs de match
-			foreach ($matches[0] as $value) {
-				$matchesSorted[] = $value[0];
-			}
-			
-			//triage du tableau de match en fonction de leurs longueurs
-			foreach($matchesSorted as $key => $value){
-				$matchesLengths[$key]  = strlen($value);
-			}
-			array_multisort($matchesLengths, SORT_DESC, SORT_NUMERIC, $matchesSorted);
-			//print_r($matchesSorted);
-
-			//remplacement des valeurs
-			foreach ($matchesSorted as $value) {
-				//suppression des crochets dans les string contenant des variables
-				$valueTemp = str_replace('{', '', $value);
-				$valueTemp = str_replace('}', '', $valueTemp);
-				
-				//récupération de la valeur
-				$replace = $parameterValue['variable'][substr($valueTemp,1)];
-				
-				$variableValue = str_replace($value, $replace, $variableValue);
-				
-				//on vérifie si la valeur contient à nouveau des valeurs à remplacer
-				$detectSubVariableRecursive = preg_match_all($patternParam, $variableValue, $matchesRecursive, PREG_OFFSET_CAPTURE);
-				
-				if($detectSubVariableRecursive > 0){
-					//on relance la fonction de façon récursive
-					$variableValue = self::parseLessVariable($variableValue, $parameterValue);
-				}
-			}	
-		}
-		//on supprime toutes les unités
-		$variableValue = self::parseLessValue($variableValue);
-
-		return $variableValue;
-	}
-
-    //AJOUT DE FONCTION PERSONNALISEES ICI DANS LE DOUTE (oÃ¹ les mettre dans le modÃ¨le MVC ?)
-    public static function loadLessParameters($options = array(), $parameterValue = array()) {
-        //on détecte que le paramÃ¨tre lessFile est présent sinon on quitte la fonction
-        if ($options['lessFile'] == '') {
-            //$options['type'] == '' || 
-            return false;
-        }
-
-        //Parser de la config du theme choisi
-        //ouverture du fichier less à lire
-        $lessParserOpen = fopen($options['lessFile'], "r");
-
-        //détection erreur d'ouverture
-        if ($lessParserOpen === false) {
-            return false;
-        } else {
-            //initialisation du compteur de ligne
-            $lessCounter = 0;
-
-            //lecture ligne par ligne du contenu du fichier
-            while (!feof($lessParserOpen)) {
-                //incrémentation du compteur de ligne
-                $lessCounter++;
-
-                //contenu ligne courante
-                $lessCurrentLine = fgets($lessParserOpen, 4096);
-
-                //déclaration des variables
-                $lessParserParamName = '';
-                $lessParserParamValue = '';
-
-                //on détecte de quel type d'import il s'agit (variable ou import)
-                $patternDetectVariable = '/^@[A-Za-z0-9_ ]*:/';
-                $patternDetectImport = '/^@import /';
-
-                //on vérifie s'il s'agit d'une ligne de variable ou d'import
-                $detectVariable = preg_match($patternDetectVariable, $lessCurrentLine, $lessParserMatchParamName, PREG_OFFSET_CAPTURE);
-                $detectImport = preg_match($patternDetectImport, $lessCurrentLine);
-
-                //affection nom de la variable
-                if ($detectVariable > 0) {
-                    $lessParserParamName = $lessParserMatchParamName[0][0];
-                } elseif ($detectImport > 0) {
-                    $lessParserParamName = '@import';
-                }
-
-                //récupération de la valeur
-                //position du début de la valeur
-                $offsetVarStart = strlen($lessParserParamName);
-                //position du point virgule dans la ligne courante
-                $offsetVarEnd = strpos($lessCurrentLine, ';');
-
-                //on vérifie que le point virgule est bien présent
-                if (!($offsetVarEnd === false)) {
-                    $lessParserParamValue = substr($lessCurrentLine, $offsetVarStart, $offsetVarEnd - $offsetVarStart);
-                }
-
-                //on supprime les caractÃ¨res encadrant du nom de la variable et de sa valeur
-                $lessParserParamName = preg_replace('/@* *:*/', '', $lessParserParamName);
-                $lessParserParamValue = preg_replace('/"*\'* */', '', $lessParserParamValue);
-
-                //affection de l'option
-                if ($detectVariable > 0) {
-                    $options['type'] = 'variable';
-					
-					$lessParserParamValue = self::parseLessVariable($lessParserParamValue, $parameterValue);
-					
-                    //remplissage du tableau de valeurs
-                    $parameterValue['variable'][$lessParserParamName] = $lessParserParamValue;
-                } elseif ($detectImport > 0) {
-                    $options['type'] = 'import';
-
-                    //on supprime les espace en cas d'import
-                    $lessParserParamValue = preg_replace('/ */', '', $lessParserParamValue);
-
-                    //composition de l'URL totale
-                    $compoImportURL = sfConfig::get('sf_web_dir') . '/theme/less/' . $lessParserParamValue;
-
-                    //appel récursif de la fonction
-                    $parameterValue = self::loadLessParameters(array(
-                                //'type'		=> 'import',
-                                'lessFile' => $compoImportURL
-                                    ), $parameterValue
-                    );
-                }
-            }
-            //fermeture du fichier
-            fclose($lessParserOpen);
-
-            //retour du tableau de valeurs
-            return $parameterValue;
-        }
-    }
-
-    //fonction permettant de sortir la valeur d'un paramÃ¨tre less
-    public static function getLessParam($variable = '') {
-        $lessInitURL = sfConfig::get('sf_web_dir') . "/theme/less/_framework/SPLessCss/Config/_ConfigInit.less";
-        $lessVariableImport = self::loadLessParameters(array(
-                    'lessFile' => $lessInitURL
-                ));
-
-        return $lessVariableImport['variable'][$variable];
-    }
-
-    //fonction permettant d'importer la liste des imports des config du framework
-    public static function printLessParams() {
-
-        $lessInitURL = sfConfig::get('sf_web_dir') . "/theme/less/_framework/SPLessCss/Config/_ConfigInit.less";
-
-        $lessVariableImport = self::loadLessParameters(array(
-                    'lessFile' => $lessInitURL
-                ));
-
-        if (!($lessVariableImport === false)) {
-            $counter = 0;
-            foreach ($lessVariableImport['variable'] as $key => $value) {
-                echo "&nbsp;&nbsp;&nbsp;&nbsp;" . $counter . " " . $key . " => " . $value . "<br/>";
-                $counter++;
-            }
-        }
-    }
-
+	
 	//calcul de la largeur d'un élément en fonction du nombre de colonnes passées en paramètre
 	public static function gridGetWidth($nbreCols = 1, $padSub = 0){
 		//récupération des valeurs de dimension de la grille
 		$nbreCols = intval($nbreCols);
 		$padSub = intval($padSub);
-		$gridColWidth = intval(self::getLessParam('gridColWidth'));
-		$gridGutter = intval(self::getLessParam('gridGutter'));
+		$gridColWidth = intval(sidSPLessCss::getLessParam('gridColWidth'));
+		$gridGutter = intval(sidSPLessCss::getLessParam('gridGutter'));
 		//calcul des paramètres
 		$elementWidth = $gridColWidth * $nbreCols + $gridGutter * ($nbreCols -1) - $padSub;
 
@@ -772,7 +514,7 @@ class spLessCss extends dmFrontUser {
 		//récupération des valeurs de dimension de la grille
 		$nbreLine = intval($nbreLine);
 		$padSub = intval($padSub);
-		$gridBaseline = intval(self::getLessParam('gridBaseline'));
+		$gridBaseline = intval(sidSPLessCss::getLessParam('gridBaseline'));
 		//calcul des paramètres
 		$elementHeight = ($gridBaseline * $nbreLine) - $padSub;
 
@@ -784,13 +526,13 @@ class spLessCss extends dmFrontUser {
 		//récupération du gabarit courant
 		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
 		if ($currentGabarit == 'default' || $currentGabarit == '') {
-			$currentGabarit = self::getLessParam('templateGabarit');
+			$currentGabarit = sidSPLessCss::getLessParam('templateGabarit');
 		}
 
 		//récupération des valeurs de colonnes
-		$gridCol = self::lessCalculator(self::getLessParam('gridCol'));
-		$gridCol_SidebarLeft = self::lessCalculator(self::getLessParam('gridCol_SidebarLeft'));
-		$gridCol_SidebarRight = self::lessCalculator(self::getLessParam('gridCol_SidebarRight'));
+		$gridCol = sidSPLessCss::getLessParam('gridCol');
+		$gridCol_SidebarLeft = sidSPLessCss::getLessParam('gridCol_SidebarLeft');
+		$gridCol_SidebarRight = sidSPLessCss::getLessParam('gridCol_SidebarRight');
 		
 		if($currentGabarit === 'sidebar-left'){
 			$gridCol_Content = $gridCol - $gridCol_SidebarLeft;
