@@ -4,43 +4,43 @@ $html = '';
 // vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
 if (count($articles)) { // si nous avons des actu articles
 	
-//	$html.= get_partial('global/titleWidget', array('title' => $titreBloc));
-//	
-//	//ouverture du listing
-//    $html.= _open('ul.elements');
-//	
-//	//compteur
-//	$count = 0;
-//	$maxCount = count($articles);
-//	
-//    foreach ($articles as $article) {
-//		//incrémentation compteur
-//		$count++;
-//		
-//		//création d'un tableau de liens à afficher
-//		$elements = array();
-//		$elements[] = array('title' => $titreLien . '&#160;' . $arrayRubrique[$article->filename], 'linkUrl' => $article->Section);
-//		
-//		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
-////												'node' => $article,
+	$html.= get_partial('global/titleWidget', array('title' => $titreBloc));
+	
+	//ouverture du listing
+    $html.= _open('ul.elements');
+	
+	//compteur
+	$count = 0;
+	$maxCount = count($articles);
+	
+    foreach ($articles as $article) {
+		//incrémentation compteur
+		$count++;
+		
+		//création d'un tableau de liens à afficher
+		$elements = array();
+		$elements[] = array('title' => $titreLien . '&#160;' . $arrayRubrique[$article->filename], 'linkUrl' => $article->Section);
+		
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
+												'node' => $article,
 //                    'description' => $article->getChapeau(),'dateCreated' => $article->created_at,'dateModified' => $article->updated_at,'section' => $article->getSectionPageTitle(),
 //			'rubrique' => $article->getRubriquePagetitle(),'articleSection' => $article->getRubriquePagetitle() . '&#160;-&#160;' . $article->getSectionPageTitle(),
-//												'image' => '/_images/lea' . $article->filename . '-p.jpg',
-//												'count' => $count,
-//												'maxCount' => $maxCount,
-//												'container' => 'li.element',
-//												'isListing' => true,
-//												'descriptionLength' => $longueurTexte,
-//												'navigationElements' => $elements,
-//												'url' => $article
-//												));
-//    }
-//	
-//    //fermeture du listing
-//    $html.= _close('ul.elements');
-//  
-//    //affichage html en sortie
-//echo $html;
+												'image' => '/_images/lea' . $article->filename . '-p.jpg',
+												'count' => $count,
+												'maxCount' => $maxCount,
+												'container' => 'li.element',
+												'isListing' => true,
+												'descriptionLength' => $longueurTexte,
+												'navigationElements' => $elements,
+												'url' => $article
+												));
+    }
+	
+    //fermeture du listing
+    $html.= _close('ul.elements');
+  
+    //affichage html en sortie
+echo $html;
     // modif pour html UNIQUEMENTT
 ?>
 
@@ -161,30 +161,31 @@ if (count($articles)) { // si nous avons des actu articles
 //        
  // FOREACH SUR ARTICLE
  
- echo _tag('h4.title',$titreBloc);
-        echo _open('ul.elements');
-        foreach ($articles as $article) {
-            if(!is_file('/data/www/_lib/diem/install')){ echo 'toto<br />';};
-            echo _open('li.element.itemscope.Article.first');
-                echo _link($article)
-                    ->set('.link.link_box')
-//                        ->title('Le dispositif du contrôle sur demande des successions et donations est pérennisé !')
-                        ->text(
-                            _tag('span.subWrapper',
-                                _tag('span.title.itemprop.name',$article).
-                                _tag('span.date',$article->created_at)
-                            ).
-                            _tag('span.teaser.itemprop.description',$article->getChapeau())
-                        );
-                echo _open('span.navigation.navigationBottom');
-                    echo _open('ul.elements');
-                        echo _open('li.element.first.last');
-                            echo _link($article->getSection()->getRubrique())->set('.link')->text($titreLien.'&#160;'.$arrayRubrique[$article->filename]);
-                        echo _close('li');
-                    echo _close('ul');
-                echo _close('span');
-            echo _close('li');
-        };
-        echo _close('ul.elements');
+// echo _tag('h4.title',$titreBloc);
+//        echo _open('ul.elements');
+//        foreach ($articles as $article) {
+//            if(!is_file('/data/www/_lib/diem/install')){ echo 'toto<br />';};
+//            echo _open('li.element.itemscope.Article.first');
+//                echo _link($article)
+//                    ->set('.link.link_box')
+////                        ->title('Le dispositif du contrôle sur demande des successions et donations est pérennisé !')
+//                        ->text(
+//                            _tag('span.subWrapper',
+//                                _tag('span.title.itemprop.name',$article).
+//                                _tag('span.date',$article->created_at)
+//                            ).
+//                            _tag('span.teaser.itemprop.description',$article->getChapeau())
+//                        );
+//                echo _open('span.navigation.navigationBottom');
+//                    echo _open('ul.elements');
+//                        echo _open('li.element.first.last');
+//                            echo _link($article->getSection()->getRubrique())->set('.link')->text($titreLien.'&#160;'.$arrayRubrique[$article->filename]);
+//                        echo _close('li');
+//                    echo _close('ul');
+//                echo _close('span');
+//            echo _close('li');
+//        };
+//        echo _close('ul.elements');
 }
-//
+
+ ?>
