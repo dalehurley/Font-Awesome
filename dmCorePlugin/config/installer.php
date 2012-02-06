@@ -44,26 +44,7 @@ $serverCheck->setCommandApplication($this->commandApplication);
 //}
 
 // édité par : http://patorjk.com/software/taag/
-$this->logBlock(
-"
-                                                                            .--,-``-.       
-    .--.--.              ___                                               /   /     '.     
-   /  /    '.   ,--,   ,--.'|_                                       ,---./ ../        ;    
-  |  :  /`. / ,--.'|   |  | :,'                                     /__./|\ ``\  .`-    '   
-  ;  |  |--`  |  |,    :  : ' :             .--.--.            ,---.;  ; | \___\/   \   :   
-  |  :  ;_    `--'_  .;__,'  /     ,---.   /  /    '          /___/ \  | |      \   :   |   
-   \  \    `. ,' ,'| |  |   |     /     \ |  :  /`./          \   ;  \ ' |      /  /   /    
-    `----.   \'  | | :__,'| :    /    /  ||  :  ;_             \   \  \: |      \  \   \    
-    __ \  \  ||  | :   '  : |__ .    ' / | \  \    `.           ;   \  ' .  ___ /   :   |   
-   /  /`--'  /'  : |__ |  | '.'|'   ;   /   `----.   \           \   \   ' /   /\   /   :   
-  '--'.     / |  | '.'|;  :    ;'   |  //| /  /`--'  /            \   `  ;/ ,,/  ',-    .   
-    `--'---'  ;  :    ;|  ,   / |   :  / |'--'.     /              :   \ |\ ''\        ;    
-              |  ,   /  ---`-'   \   \  /   `--'---'                '---'  \   \     .'     
-               ---`-'             `----'                                    `--`-,,-'       
-                                                                                            
-                                                                            installation    
-",'HEADER');
-
+$this->logBlock('Installation','HEADER_LARGE');
 
 /**
  *  Valeurs par defaut 
@@ -618,13 +599,14 @@ $site = file_get_contents($siteUrl);
 if ($site==''){
   $this->logBlock('Page d\'accueil '.$siteUrl .' introuvable. Vérifiez les paramètres d\'apache et du nom de domaine.', 'ERROR');
 } else {
-  $this->logBlock('Test de la page d\'accueil '.$siteUrl.' reussi', 'INFO_LARGE');
+  $this->logBlock('Test de la page d\'accueil '.$siteUrl.' reussi', 'INFO');
 }
 
 //-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
-$this->logBlock('Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php.','INFO');
-$this->logBlock('Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'"');
-$this->logBlock('Merci.');
+$this->logBlock('Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php.','HEADER');
+$this->logBlock('Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'"','HEADER');
+$this->logBlock('Merci de lancer la commande "php symfony control"','HEADER_LARGE');
 exit;
+
