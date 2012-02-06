@@ -30,63 +30,63 @@ EOF;
         // on affiche les choix d'environnemnts pour les valeurs par defaut
         $dispoTasks = array(
             1 => array(
+              'command' => 'db:load',
+              'libelle' => 'DB: Chargement du contenu',
+              'arguments' => array(),
+              'options' => array()                
+              ),
+            2 => array(
+              'command' => 'db:dump',
+              'libelle' => 'DB: Sauvegarde du contenu',
+              'arguments' => array(),
+              'options' => array()                
+              ),
+            3 => array(
               'command' => 'cc',
               'libelle' => 'Purge du cache',
               'arguments' => array(),
               'options' => array(),
               'credentials' => 'dev'                
               ),
-            2 => array(
+            4 => array(
               'command' => 'less:compile-all', 
               'libelle' => 'Compilation des fichiers .less en .css',
               'arguments' => array(),
               'options' => array()                
               ),
-            3 => array(
+            5 => array(
               'command' => 'less:sprite',
               'libelle' => 'Génération des sprites',
               'arguments' => array('verbose'),
               'options' => array()  
               ),
-            4 => array(
+            6 => array(
               'command' => 'dm:setup',
               'libelle' => 'Setup du site',
               'arguments' => array(),
               'options' => array()                
               ),
-            5 => array(
+            7 => array(
               'command' => 'be:loadArticles',
               'libelle' => 'BE: Chargement des rubriques',
               'arguments' => array('rubriques', 'verbose'),
               'options' => array()                
               ),
-            6 => array(
+            8 => array(
               'command' => 'be:loadArticles',
               'libelle' => 'BE: Chargement des sections',
               'arguments' => array('sections', 'verbose'),
               'options' => array()                
               ),
-            7 => array(
+            9 => array(
               'command' => 'be:loadArticles',
               'libelle' => 'BE: Chargement des articles',
               'arguments' => array('articles', 'verbose'),
               'options' => array()                
               ),
-            8 => array(
+            10 => array(
               'command' => 'be:report',
               'libelle' => 'BE: Rapport sur les articles',
-              'arguments' => array(),
-              'options' => array()                
-              ),
-            9 => array(
-              'command' => 'db:dump',
-              'libelle' => 'DB: Sauvegarde du contenu',
-              'arguments' => array(),
-              'options' => array()                
-              ),
-            10 => array(
-              'command' => 'db:load',
-              'libelle' => 'DB: Chargement du contenu',
               'arguments' => array(),
               'options' => array()                
               ),
@@ -131,6 +131,6 @@ EOF;
         $timerTask = new sfTimer();        
         $this->runTask($dispoTasks[$numTask]['command'], $dispoTasks[$numTask]['arguments'], $dispoTasks[$numTask]['options']);
         
-        $this->logBlock('Task '. $this->namespace . ':' . $this->name .' -> '. round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
+        $this->logBlock('Execution time : '. round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
     }
 }

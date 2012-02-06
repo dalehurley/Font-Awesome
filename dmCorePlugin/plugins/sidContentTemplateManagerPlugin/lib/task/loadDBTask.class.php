@@ -117,10 +117,10 @@ EOF;
 
         $results = contentTemplateTools::loadDB($file);
 
-        $this->logSection('### loadDB', 'Load de la base locale');
+        $this->logBlock('Chargement de la base locale','INFO');
         foreach ($results as $result) {
             foreach ($result as $log => $desc) {
-                $this->logSection(utf8_decode($log), utf8_decode($desc), null, utf8_decode($log));
+                $this->logBlock(utf8_decode($desc), utf8_decode($log));
             }
         }
     }

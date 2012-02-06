@@ -27,7 +27,7 @@ class lioshiBaseTask extends sfBaseTask {
             'bold' => true
         ));
         $f->setStyle('COMMENT', array(
-            'fg' => 'blue',
+            'fg' => 'black',
             'bold' => true
         ));
         $f->setStyle('QUESTION', array(
@@ -35,13 +35,13 @@ class lioshiBaseTask extends sfBaseTask {
             'fg' => 'white',
             'bold' => true
         ));
-        $f->setStyle('HEADER', array(
+        $f->setStyle('CHOICE', array(
             'bg' => 'magenta',
             'fg' => 'white',
-            'bold' => false
+            'bold' => true
         ));    
         $f->setStyle('LINE', array(
-            'fg' => 'black',
+            'fg' => 'blue',
             'bold' => true
         ));
         $this->formatter = $f;

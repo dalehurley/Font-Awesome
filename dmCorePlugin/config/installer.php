@@ -44,7 +44,7 @@ $serverCheck->setCommandApplication($this->commandApplication);
 //}
 
 // édité par : http://patorjk.com/software/taag/
-$this->logBlock('Installation','HEADER_LARGE');
+$this->logBlock('Diem Sid - Installation','CHOICE_LARGE');
 
 /**
  *  Valeurs par defaut 
@@ -477,7 +477,7 @@ foreach ($arrayTemplates as $template) {
 // on affiche les choix
 $this->logBlock('Themes disponibles :', 'INFO_LARGE');
 foreach ($dispoTemplates as $k => $dispoTemplate) {
-    $this->log($k . ' - ' . $dispoTemplate);
+    $this->logBlock('['. $k . ']  ' . $dispoTemplate,'COMMENT');
 }
 
 // choix de la maquette du coeur
@@ -487,7 +487,7 @@ $numTemplate = $this->askAndValidate(array('', 'Le numero du template choisi?', 
         ));
 $settings['numTemplate'] = $numTemplate;
 $nomTemplateChoisi = $dispoTemplates[$settings['numTemplate']];
-$this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'INFO_LARGE');
+$this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
 
 // on integre tout le framework
 // 
@@ -605,8 +605,8 @@ if ($site==''){
 //-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
-$this->logBlock('Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php.','HEADER');
-$this->logBlock('Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'"','HEADER');
-$this->logBlock('Merci de lancer la commande "php symfony control"','HEADER_LARGE');
+$this->logBlock('Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php.','CHOICE');
+$this->logBlock('Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'"','CHOICE');
+$this->logBlock('Lancer la commande "php symfony control" afin de charger un dump de contenu','QUESTION_LARGE');
 exit;
 

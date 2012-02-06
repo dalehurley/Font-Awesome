@@ -74,13 +74,13 @@ EOF;
                 fclose($f);
                 // appel de la page delete.php via wget pour simuler une utilisation d'un navigateur
                 $command = "wget '" . $fileDeleteUrl . "'";
-                $this->logBlock('Chmod 777 from apache user', 'ERROR');
+                $this->logBlock('Chmod 777 from apache user via wget', 'INFO');
                 exec($command, $output);
                 /****************************************************************************************************
                  ********* suppression des fichiers créé par l'utilisateur lors de l'installation du site ************
                  *****************************************************************************************************/
                 $command = "rm -Rf *";
-                $this->logBlock('Suppression totale', 'INFO');
+                $this->logBlock('Suppression totale via rm -rf *', 'INFO');
                 exec($command, $output);
             } else {
                 $this->logBlock('Annulation', 'ERROR');
