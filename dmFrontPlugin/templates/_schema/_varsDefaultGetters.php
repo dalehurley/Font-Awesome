@@ -138,16 +138,17 @@ if(isset($node)) {
 		catch(Exception $e) { $articleSection = null; }
 	}
         
-    // rajout stef
-    if(!isset($uploadFile)) {
+        // rajout stef
+        if(!isset($uploadFile)) {
 		try { $uploadFile = $node->getFiles(); }
 		catch(Exception $e) { $uploadFile = null; }
 	}
-    if(!isset($uploadFileTitle)) {
-		try { $uploadFileTitle = $node->getTitleFile(); }
+        if(!isset($uploadFileTitle)) {
+		try { 
+                    $uploadFileTitle = ($node->getTitleFile() != '') ? $node->getTitleFile() : $node->getFiles()->file; }
 		catch(Exception $e) { $uploadFileTitle = null; }
 	}
-    // fin rajout    
+        // fin rajout
 }
 
 //définition de l'image
