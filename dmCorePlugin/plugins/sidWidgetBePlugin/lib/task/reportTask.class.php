@@ -1,6 +1,6 @@
 <?php
 
-class reportTask extends sfBaseTask {
+class reportTask extends lioshiBaseTask {
 
     protected function configure() {
         // // add your own arguments here

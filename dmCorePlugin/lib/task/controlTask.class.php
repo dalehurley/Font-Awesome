@@ -1,6 +1,6 @@
 <?php
 
-class controlTask extends sfBaseTask {
+class controlTask extends lioshiBaseTask {
     /**
      * @see sfTask
      */
@@ -30,63 +30,63 @@ EOF;
         // on affiche les choix d'environnemnts pour les valeurs par defaut
         $dispoTasks = array(
             1 => array(
-              'command' => 'cc',
-              'libelle' => 'Vidage du cache',
+              'command' => 'db:load',
+              'libelle' => 'DB: Chargement du contenu',
               'arguments' => array(),
-              'options' => array(),
-              'credentials' => 'dev'                
+              'options' => array()                
               ),
             2 => array(
-              'command' => 'less:compile-all', 
-              'libelle' => 'Compilation des fichiers .less en .css',
-              'arguments' => array(),
-              'options' => array()                
-              ),
-            3 => array(
-              'command' => 'less:sprite',
-              'libelle' => 'Génération des icônes (sprites)',
-              'arguments' => array('verbose'),
-              'options' => array()  
-              ),
-            4 => array(
-              'command' => 'dm:setup',
-              'libelle' => 'Setup du site',
-              'arguments' => array(),
-              'options' => array()                
-              ),
-            5 => array(
-              'command' => 'be:loadArticles',
-              'libelle' => 'BE: Chargement des rubriques',
-              'arguments' => array('rubriques', 'verbose'),
-              'options' => array()                
-              ),
-            6 => array(
-              'command' => 'be:loadArticles',
-              'libelle' => 'BE: Chargement des sections',
-              'arguments' => array('sections', 'verbose'),
-              'options' => array()                
-              ),
-            7 => array(
-              'command' => 'be:loadArticles',
-              'libelle' => 'BE: Chargement des articles',
-              'arguments' => array('articles', 'verbose'),
-              'options' => array()                
-              ),
-            8 => array(
-              'command' => 'be:report',
-              'libelle' => 'BE: Rapport sur les articles',
-              'arguments' => array(),
-              'options' => array()                
-              ),
-            9 => array(
               'command' => 'db:dump',
               'libelle' => 'DB: Sauvegarde du contenu',
               'arguments' => array(),
               'options' => array()                
               ),
+            3 => array(
+              'command' => 'cc',
+              'libelle' => 'Purge du cache',
+              'arguments' => array(),
+              'options' => array(),
+              'credentials' => 'dev'                
+              ),
+            4 => array(
+              'command' => 'less:compile-all', 
+              'libelle' => 'Compilation des fichiers .less en .css',
+              'arguments' => array(),
+              'options' => array()                
+              ),
+            5 => array(
+              'command' => 'less:sprite',
+              'libelle' => 'Génération des sprites',
+              'arguments' => array('verbose'),
+              'options' => array()  
+              ),
+            6 => array(
+              'command' => 'dm:setup',
+              'libelle' => 'Setup du site',
+              'arguments' => array(),
+              'options' => array()                
+              ),
+            7 => array(
+              'command' => 'be:loadArticles',
+              'libelle' => 'BE: Chargement des rubriques',
+              'arguments' => array('rubriques', 'verbose'),
+              'options' => array()                
+              ),
+            8 => array(
+              'command' => 'be:loadArticles',
+              'libelle' => 'BE: Chargement des sections',
+              'arguments' => array('sections', 'verbose'),
+              'options' => array()                
+              ),
+            9 => array(
+              'command' => 'be:loadArticles',
+              'libelle' => 'BE: Chargement des articles',
+              'arguments' => array('articles', 'verbose'),
+              'options' => array()                
+              ),
             10 => array(
-              'command' => 'db:load',
-              'libelle' => 'DB: Chargement du contenu',
+              'command' => 'be:report',
+              'libelle' => 'BE: Rapport sur les articles',
               'arguments' => array(),
               'options' => array()                
               ),
@@ -97,17 +97,18 @@ EOF;
               'options' => array()                
               )  
         );
-        $this->logBlock('Tâches disponibles :', 'COMMENT');
+
+        $this->logBlock('Tâches disponibles :', 'INFO_LARGE');
         
         foreach ($dispoTasks as $k => $dispoTask) {
             $nbSpaces = str_repeat(' ',strlen(count($dispoTasks))-strlen($k));
-            $this->logBlock('['. $k . ']  '. $nbSpaces . $dispoTask['libelle'], 'INFO');
+            $this->logBlock('['. $k . ']  '. $nbSpaces . $dispoTask['libelle'], 'COMMENT');
         }
         
-        $messageAccueil = 'Vous pouvez choisir une tâche. Faîtes Ctrl+c pour sortir.';
-        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'COMMENT'); // une ligne de pointillé
+        $messageAccueil = '  Vous pouvez choisir une tâche. Faîtes Ctrl+c pour sortir.';
+        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'LINE'); // une ligne de pointillé
         $this->logBlock($messageAccueil, 'COMMENT');
-        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'COMMENT');
+        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'LINE');
 
         // choix de la tâche
         $numTask = $this->askAndValidate(array(
@@ -122,10 +123,14 @@ EOF;
         );
 
         // traitement de la commande
-        $this->logBlock(str_repeat('-',strlen($dispoTasks[$numTask]['libelle'])), 'COMMENT'); 
-        $this->logBlock($dispoTasks[$numTask]['libelle'], 'COMMENT');
-        $this->logBlock(str_repeat('-',strlen($dispoTasks[$numTask]['libelle'])), 'COMMENT');
-                
+        $messageCommande = '  '.$dispoTasks[$numTask]['libelle'].'  ['.$dispoTasks[$numTask]['command'].']  ';
+        $this->logBlock(str_repeat('-',strlen($messageCommande)), 'LINE'); 
+        $this->logBlock($messageCommande, 'COMMENT');
+        $this->logBlock(str_repeat('-',strlen($messageCommande)), 'LINE');
+           
+        $timerTask = new sfTimer();        
         $this->runTask($dispoTasks[$numTask]['command'], $dispoTasks[$numTask]['arguments'], $dispoTasks[$numTask]['options']);
+        
+        $this->logBlock('Execution time  '. round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
     }
 }
