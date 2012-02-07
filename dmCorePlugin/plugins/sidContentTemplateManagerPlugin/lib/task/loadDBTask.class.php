@@ -58,7 +58,7 @@ EOF;
             $this->logBlock('Themes disponibles :', 'INFO_LARGE');
             
             foreach ($dispoTemplates as $k => $dispoTemplate) {
-                $this->log($k . ' - ' . $dispoTemplate);
+                $this->logSection($k , $dispoTemplate);
             }
             // choix de la maquette du coeur
             $numTemplate = $this->askAndValidate(array(

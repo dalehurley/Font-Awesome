@@ -5,7 +5,7 @@
  *
  *
  */
- require_once dirname(__FILE__).'/../lioshiAnsiColorFormatter.class.php';
+require_once dirname(__FILE__) . '/../lioshiAnsiColorFormatter.class.php';
 
 class lioshiBaseTask extends sfBaseTask {
     /**
@@ -40,11 +40,20 @@ class lioshiBaseTask extends sfBaseTask {
             'bg' => 'magenta',
             'fg' => 'white',
             'bold' => true
-        ));    
+        ));
+        $f->setStyle('HELP', array(
+            'bg' => 'white',
+            'fg' => 'black',
+            'bold' => false
+        ));
         $f->setStyle('LINE', array(
             'fg' => 'blue',
             'bold' => true
         ));
+        $f->setStyle('COMMAND', array(
+            'fg' => 'blue',
+            'bold' => true
+        ));        
         $this->formatter = $f;
     }
     /**
@@ -52,5 +61,14 @@ class lioshiBaseTask extends sfBaseTask {
      */
     protected function execute($arguments = array() , $options = array()) {
         //
+        
+    }
+    /**
+     * @see sfTask
+     */
+    public function logSection($section, $message, $size = null, $style = 'COMMAND') {
+        $this->dispatcher->notify(new sfEvent($this, 'command.log', array(
+            $this->formatter->formatSection($section, $message, $size, $style)
+        )));
     }
 }
