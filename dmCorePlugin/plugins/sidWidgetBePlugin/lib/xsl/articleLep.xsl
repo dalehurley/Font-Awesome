@@ -6,11 +6,6 @@
     <!-- Ce XSL est largement inspiré de la standardisation sémantique utilisée par Google  -->
     <!-- http://schema.org/docs/full.html -->
     
-    <!-- Permet de convertir la casse des caractères  -->
-    <!-- Utiliser : <xsl:value-of select="translate($variable, $uppercase, $lowercase)" /> -->
-    <xsl:variable name="lowercase" select="'aàâäbcdeéèêëfghiîïjklmnoôöpqrstuùûüvwxyÿz'" />
-    <xsl:variable name="uppercase" select="'AÀÂÄBCDEÉÈÊËFGHIÎÏJKLMNOÔÖPQRSTUÙÛÜVWXYŸZ'" />
-    
     <!-- Racine du document XML -->
     <xsl:template match="/">
         <xsl:for-each select = "Publishing/Document">
@@ -19,79 +14,16 @@
     </xsl:template>
     
     <xsl:template match="Document">
-        <!-- Récupération des valeurs composants la date -->
-        <xsl:variable name="dateISO"><xsl:value-of select="translate(Metadata/ManagementMetadata/PublicationDate/ISO,' ','T')"/></xsl:variable>
-        <xsl:variable name="dateDayOfWeek"><xsl:value-of select="Metadata/ManagementMetadata/PublicationDate/Date/DayOfWeek"/></xsl:variable>
-        <xsl:variable name="dateShortDate"><xsl:value-of select="Metadata/ManagementMetadata/PublicationDate/Date/ShortDate"/></xsl:variable>
-        <xsl:variable name="dateLongDate"><xsl:value-of select="Metadata/ManagementMetadata/PublicationDate/Date/LongDate"/></xsl:variable>
-        <xsl:variable name="dateShortTime"><xsl:value-of select="translate(Metadata/ManagementMetadata/PublicationDate/Time/ShortTime, $uppercase, $lowercase)"/></xsl:variable>
-        <!-- Assemblage de la date -->
-        <xsl:variable name="dateFullDate"><xsl:value-of select="concat($dateDayOfWeek,' ',$dateLongDate,' à ',$dateShortTime)"/></xsl:variable>
-        
-        
-        <!-- Header de l'article -->
-        <!--<xsl:element name="header">
-            <xsl:attribute name="class">contentHeader</xsl:attribute>-->
-            
-            <!-- <xsl:element name="h3"><xsl:attribute name="class">section</xsl:attribute><xsl:attribute name="itemprop">articleSection</xsl:attribute><xsl:value-of select="Metadata/ManagementMetadata/Segment"/></xsl:element> -->
-            <!--<xsl:element name="h2"><xsl:attribute name="class">title</xsl:attribute><xsl:attribute name="itemprop">name</xsl:attribute><xsl:value-of select="Data/Introduction/Headline"/></xsl:element>-->
-            
-            <xsl:element name="p">
-                <xsl:attribute name="class">teaser</xsl:attribute>
-                <xsl:attribute name="itemprop">description</xsl:attribute>
-                <xsl:value-of select="Data/Introduction/Heading/Head"/>
-            </xsl:element>
-
-            <xsl:for-each select = "Data/Sections/Section/MultimediaInserts/MultimediaInsert">
-                <xsl:apply-templates select="*[not(self::PixelWidth) and not(self::FileName) and not(self::PixelHeight) and not(self::FileType)]"/>
-                <xsl:variable name="image" select="FileName"/>
-                <xsl:variable name="width" select="PixelWidth"/>
-                <xsl:variable name="height" select="PixelHeight"/>
-                <!-- parametre passé par php, initialisé dans cette xsl à vide -->
-                <xsl:if test="$imageAffiche">
-                        <img src="/_images/images{$image}" width="{$width}" height="{$height}"/>
-                </xsl:if>
-            </xsl:for-each>
-            
-            <xsl:element name="p">
-                <xsl:attribute name="class">meta</xsl:attribute>
-                <span class="datePublished">Publié le <xsl:element name="time"><xsl:attribute name="itemprop">datePublished</xsl:attribute><xsl:attribute name="datetime"><xsl:value-of select="$dateISO"/></xsl:attribute><xsl:attribute name="pubdate">pubdate</xsl:attribute><xsl:value-of select="$dateFullDate"/></xsl:element></span>
-            </xsl:element>
-            
-        <!--</xsl:element>-->
-        
+    	
         <!-- Contenu de l'article -->
-        <xsl:element name="section">
-            <xsl:attribute name="class">contentBody</xsl:attribute>
-            <xsl:attribute name="itemprop">articleBody</xsl:attribute>
-
-            <xsl:for-each select = "Data/Sections/Section">
-                <xsl:apply-templates select="*[not(self::MultimediaInserts) and not(self::LinkMetadata) and not(self::Files) and not(self::Signature) and not(self::titretable) and not(self::renvoistable) and not(self::Reference)]"/>
-            </xsl:for-each>
-          
-            <xsl:if test = "Data/Sections/Section/Reference">
-                <xsl:apply-templates select="Data/Sections/Section/Reference"/>
-            </xsl:if>
-        </xsl:element>
+    	<xsl:for-each select = "Data/Sections/Section">
+    		<xsl:apply-templates select="*[not(self::MultimediaInserts) and not(self::LinkMetadata) and not(self::Files) and not(self::Signature) and not(self::titretable) and not(self::renvoistable) and not(self::Reference)]"/>
+    	</xsl:for-each>
+    	
+    	<xsl:if test = "Data/Sections/Section/Reference">
+    		<xsl:apply-templates select="Data/Sections/Section/Reference"/>
+    	</xsl:if>
         
-
-
-        
-        
-        <!-- Footer de l'article -->
-        <!--<xsl:element name="footer">
-            <xsl:attribute name="class">contentFooter</xsl:attribute>-->
-            
-            <xsl:element name="p">
-                <xsl:attribute name="class">meta</xsl:attribute>
-                <span class="datePublished">Article du <xsl:element name="time"><xsl:attribute name="datetime"><xsl:value-of select="$dateISO"/></xsl:attribute><xsl:value-of select="$dateShortDate"/></xsl:element></span>
-                <xsl:text>&#160;-&#160;</xsl:text>
-                <span class="copyright">&#169;&#160;<xsl:element name="span"><xsl:attribute name="itemprop">publisher</xsl:attribute><xsl:value-of select="Metadata/ManagementMetadata/Source"/></xsl:element></span>
-                <xsl:text>&#160;-&#160;</xsl:text>
-                <span class="copyrightDate"><xsl:element name="time"><xsl:attribute name="datetime"><xsl:value-of select="Metadata/RightsMetadata/Copyright/CopyrightDate"/></xsl:attribute><xsl:value-of select="Metadata/RightsMetadata/Copyright/CopyrightDate"/></xsl:element></span>
-            </xsl:element>
-            
-        <!--</xsl:element>-->
     </xsl:template>
     
     <!-- TEMPLATES DU CONTENU -->
