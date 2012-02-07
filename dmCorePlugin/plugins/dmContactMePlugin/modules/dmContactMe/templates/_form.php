@@ -86,9 +86,11 @@ if ($sf_user->hasFlash('contact_form_valid')) {
 
     // render hidden fields like the CSRF protection  
     echo $form->renderHiddenFields();
-
-// change the submit button text  
-    echo $form->submit(__('Send our message'));
+// change the submit button text 
+// 
+// @TODO affichage correct, voir le code de dmContact
+   // echo _tag('input.submit', array('type' => 'submit','value' => __('Send our message'))); 
+   echo $form->submit();
 
 // close the form tag  
     echo $form->close();
