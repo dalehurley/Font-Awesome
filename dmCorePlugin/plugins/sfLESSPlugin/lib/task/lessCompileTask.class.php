@@ -81,7 +81,7 @@ EOF;
           unlink($cssFile);
           $this->logSection(
             'removed',
-            str_replace(sfLESS::getConfig()->getCssPaths(), '', $cssFile)
+            str_replace(sfLESS::getConfig()->getCssPaths(), '', $cssFile), null, 'COMMAND'
           );
         }
       }
@@ -92,7 +92,7 @@ EOF;
     {
       foreach (sfLESS::getConfig()->getDebugInfo() as $key => $value)
       {
-        $this->logSection('debug', sprintf("%s:\t%s", $key, $value), null, 'INFO');
+        $this->logSection('debug', sprintf("%s:\t%s", $key, $value), null, 'COMMAND');
       }
     }
 
