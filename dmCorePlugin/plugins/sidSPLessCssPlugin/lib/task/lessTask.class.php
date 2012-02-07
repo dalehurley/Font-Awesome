@@ -1,6 +1,6 @@
 <?php
 
-class lessTask extends sfBaseTask {
+class lessTask extends lioshiBaseTask {
     /**
      * @see sfTask
      */
@@ -30,7 +30,7 @@ EOF;
         $timerTask = new sfTimer;
 
         // Generation des fichiers CSS a partir des less
-        $this->logBlock('Compilation des .less -> .css','COMMENT');
+        $this->logBlock('Compilation des .less -> .css','COMMENT_LARGE');
         $arguments = array();
         $options = array (
           'application' => 'front',
@@ -41,12 +41,12 @@ EOF;
 
         // génération du fichier des variables less, indispensable au spriteInit
         $variablesFile = sidSPLessCss::getVariableFileJson();
-        $this->logBlock('Generation du fichier des variables : '.$variablesFile, 'COMMENT'); 
+        $this->logBlock('Generation du fichier des variables : '.$variablesFile, 'COMMENT_LARGE'); 
         $arguments = array();
         $options = array ();
         $this->runTask('less:variables', $arguments, $options);
 
-        $this->logBlock('Task '. $this->namespace . ':' . $this->name .' time : '. round($timerTask->getElapsedTime() , 3) . ' s', 'COMMENT_LARGE');
+        //$this->logBlock('Task '. $this->namespace . ':' . $this->name .' time : '. round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
 
     }
 }

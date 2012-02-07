@@ -142,7 +142,7 @@ class contentTemplateTools {
         $adminUserSaveSalt = $adminUser->salt;
         $adminUserSavePassword = $adminUser->password;
         $adminUserSaveEmail = $adminUser->email;  
-        $return[]['User admin sauvegarde'] = '...';        
+        $return[]['COMMENT'] = 'User admin sauvegarde';        
                      
 
         // truncate des futures tables à integrer
@@ -186,7 +186,7 @@ class contentTemplateTools {
 //        print_r($out);
 
         if (count($out) == 0)
-            $return[]['loadDB'] = $file . ' ---> BD ' . $dbname;
+            $return[]['COMMENT'] = $file . ' ---> BD ' . $dbname;
 
         foreach ($out as $outLine) {
             if (strpos($outLine, 'ERROR') === false) {
@@ -199,7 +199,7 @@ class contentTemplateTools {
         }
 
         // récupération des données sauvegardées du dmUser admin
-        $return[]['User admin recuperation'] = '...';
+        $return[]['COMMENT'] = 'User admin recuperation';
         $adminUser = dmDb::table('dmUser')->findOneByIsSuperAdmin(true);
         dmDb::pdo('UPDATE dm_user u SET algorithm = \''.$adminUserSaveAlgorithm.'\', password = \''.$adminUserSavePassword.'\', salt= \''.$adminUserSaveSalt.'\' , email = \''.$adminUserSaveEmail.'\' WHERE id = \''.$adminUser->id.'\' ;');
 
@@ -207,11 +207,11 @@ class contentTemplateTools {
         // le dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
         $output = exec("cp -R " . $dirINassets ."/* ". $webDirName . "/;");
-        $return[]['loadDB'] = 'copie des assets';
+        $return[]['COMMENT'] = 'copie des assets';
         
         // load du dossier apps/front/modules/main
         $output = exec("cp -R " . $dirINmodule ."/* apps/front/modules/;");
-        $return[]['loadDB'] = 'copie du module main du front';        
+        $return[]['COMMENT'] = 'copie du module main du front';        
 
         return $return;
     }

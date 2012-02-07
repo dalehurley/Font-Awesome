@@ -1,6 +1,6 @@
 <?php
 
-class variablesJsonTask extends sfBaseTask {
+class variablesJsonTask extends lioshiBaseTask {
     /**
      * @see sfTask
      */
@@ -26,9 +26,9 @@ EOF;
      * @see sfTask
      */
     protected function execute($arguments = array() , $options = array()) {
-        $this->logSection('Variables json', 'Generation...');
+        $this->logSection('Variables json', 'Generation...',null,'COMMAND');
         if (sidSPLessCss::loadLessParameters()){
-          $this->logSection('Variables json' , 'Ok');
+          $this->logSection('Variables json' , 'Ok',null,'COMMAND');
         } else {
           $this->logBlock('Probleme execution variables json' , 'ERROR');
         }
