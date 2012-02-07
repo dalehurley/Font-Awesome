@@ -14,7 +14,7 @@ class spLessCss extends dmFrontUser {
 		}
 		
 		//actualisation des paramètres du framework
-		if ($pageOptions['isLess']) sidSPLessCss::loadLessParameters();
+		if($pageOptions['isLess']) sidSPLessCss::loadLessParameters();
 		
 		//ajout des variables dans la config générale
 		$addVars = sfConfig::add(array('pageOptions' => $pageOptions));
@@ -552,12 +552,5 @@ class spLessCss extends dmFrontUser {
 		$contentWidth = self::gridGetWidth($gridCol_Content);
 		
 		return $contentWidth;
-	}
-
-	//permet de supprimer les paragraphes
-	public static function textEditorStripParagraph($inputText) {
-		$filteredText = str_replace('<p>', '', $inputText);
-		$filteredText = str_replace('</p>', '', $filteredText);
-		return $filteredText;
 	}
 }
