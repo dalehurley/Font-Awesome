@@ -28,7 +28,6 @@ if (count($articles)) { // si nous avons des actu articles
 		$articleOpt = array(
 						'name' => $article->getTitle(),
 						'description' => $article->getResume(),
-						'image' => $article->getImage(),
 						'dateCreated' => $article->created_at,
 						'isDateMeta' => true,
 						'count' => $count,
@@ -39,8 +38,8 @@ if (count($articles)) { // si nous avons des actu articles
 						'url' => $article
 					);
 		
-		//on supprime les photos après les 3 premiers articles
-		if($count > 3) $articleOpt['image'] = false;
+		//on ajoute les photos pour les 3 premiers articles
+		if($count <= 3) $articleOpt['image'] = $article->getImage();
 		
 		//ajout de l'article
 		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);

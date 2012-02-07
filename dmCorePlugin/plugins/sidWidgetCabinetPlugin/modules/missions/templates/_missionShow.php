@@ -16,7 +16,6 @@ if(count($missions)) {
 					'description' => $missions->getResume(),
 					'articleBody' => $missions->getText()
 					);
-	//$missionOpts['node'] = $missions;
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $missionOpts);
 	
 }else{
