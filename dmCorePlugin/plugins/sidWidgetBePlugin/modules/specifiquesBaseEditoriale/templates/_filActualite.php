@@ -1,7 +1,8 @@
 <?php
+// vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
+
 $html = '';
 
-// vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
 if (count($articles)) { // si nous avons des actu articles
 	
 	$html.= get_partial('global/titleWidget', array('title' => $titreBloc));
