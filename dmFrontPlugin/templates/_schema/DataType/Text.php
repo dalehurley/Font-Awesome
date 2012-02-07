@@ -1,7 +1,7 @@
 <?php
 /*
  * Text.php
- * v1.4
+ * v1.5
  * Permet d'afficher un élément de base
  * 
  * Variables disponibles :
@@ -16,9 +16,13 @@
  * 
  */
 
-//récupération des valeurs par défaut
-$includeDefaultValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultValues.php';
-include $includeDefaultValues;
+//récupération des différentes variables par défault
+$separator =  _tag('span.separator', sfConfig::get('app_vars-partial_separator'));
+$ellipsis = _tag('span.ellipsis', sfConfig::get('app_vars-partial_ellipsis'));
+$dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
+
+//permet d'indiquer une version light de l'affichage (pour les listings simples)
+if(!isset($isLight)) $isLight = false;
 
 //Configuration par défaut
 
