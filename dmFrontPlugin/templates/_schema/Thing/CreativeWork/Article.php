@@ -204,10 +204,10 @@ if($isListing) {
 	$htmlFooter = '';
 	
 	// rajout stef (attention à modifier une fois l'upload de fichier multiples implémenté)
-	if(isset($uploadFile)) if($uploadFile){
+	if(isset($uploadFile) && isset($uploadFileTitle)) {
 		$htmlFooter.= _open('div.fileWrapper');
 		$htmlFooter.= _tag('h5.title',__('Download file, click the link below'));
-        $htmlFooter.= _link($uploadFile)->text($uploadFileTitle);
+		$htmlFooter.= ($uploadFileTitle != null) ? _link($uploadFile)->text($uploadFileTitle) : _link($uploadFile)->text($uploadFile->file);
 		$htmlFooter.= _close('div.fileWrapper');
 	}
 	// fin rajout stef
