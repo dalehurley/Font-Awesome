@@ -26,13 +26,16 @@ foreach ($articlePager as $article) {
 
 	//options de l'article
 	$articleOpt = array(
-					'node' => $article,
+					'name' => $article->getTitle(),
+					'description' => $article->getChapeau(),
+					'image' => '/_images/lea' . $article->filename . '-p.jpg',
+					'dateCreated' => $article->created_at,
+					'isDateMeta' => true,
 					'count' => $count,
 					'maxCount' => $maxCount,
 					'container' => 'li.element',
 					'isListing' => true,
 					'descriptionLength' => $defaultValueLength,
-					'image' => '/_images/lea' . $article->filename . '-p.jpg',
 					'url' => $article
 				);
 	
