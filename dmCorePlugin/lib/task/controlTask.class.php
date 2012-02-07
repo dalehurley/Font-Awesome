@@ -91,6 +91,12 @@ EOF;
               'options' => array()                
               ),
             11 => array(
+              'command' => 'dm:create-pages-cache',
+              'libelle' => 'Créer le cache des pages',
+              'arguments' => array(),
+              'options' => array()                
+              ),              
+            12 => array(
               'command' => 'dm:erase-site',
               'libelle' => 'ATTENTION: suppression du site',
               'arguments' => array(),
