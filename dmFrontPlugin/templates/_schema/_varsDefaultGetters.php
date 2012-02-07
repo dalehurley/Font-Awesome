@@ -44,6 +44,7 @@ if(isset($container)) {
 	if($isLess) $ctnOpts['class'][] = 'isVerified';
 }
 
+/*
 //Affectation des valeurs par défaut passées dans la node
 if(isset($node)) {
 	//Properties from Thing
@@ -59,9 +60,9 @@ if(isset($node)) {
 			}
 		}
 		//on raccourci la description si une longueur de description est définie
-		/*if($description != null && isset($descriptionLength)) {
-			$description = stringTools::str_truncate($description, $descriptionLength, '&#160;(...)', true, true);
-		}*/
+		//if($description != null && isset($descriptionLength)) {
+		//	$description = stringTools::str_truncate($description, $descriptionLength, '&#160;(...)', true, true);
+		//}
 	}
 	if(!isset($image)) {
 		try { $image = $node->getImage(); }
@@ -74,10 +75,10 @@ if(isset($node)) {
 	if(!isset($url)) $url = null;		//on affecte pas l'url à une valeur car elle impliquerait la génération d'un lien imposée sinon
 	
 	//Properties from ContactPoint :
-	/*if(!isset($contactType)) {
-		try { $contactType = $nomRubrique[$node->id]; }		//cf partie équipe
-		catch(Exception $e) { $contactType = null; }
-	}*/
+	//if(!isset($contactType)) {
+	//	try { $contactType = $nomRubrique[$node->id]; }		//cf partie équipe
+	//	catch(Exception $e) { $contactType = null; }
+	//}
 	if(!isset($email)) {
 		try { $email = $node->getEmail(); }
 		catch(Exception $e) { $email = null; }
@@ -149,6 +150,7 @@ if(isset($node)) {
 	}
     // fin rajout    
 }
+*/
 
 //définition de l'image
 $isImage = false;
