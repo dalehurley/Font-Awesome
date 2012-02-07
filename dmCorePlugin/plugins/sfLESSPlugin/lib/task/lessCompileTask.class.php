@@ -16,7 +16,7 @@
  * @author     Konstantin Kudryashov <ever.zet@gmail.com>
  * @version    1.0.0
  */
-class lessCompileTask extends sfBaseTask
+class lessCompileTask extends lioshiBaseTask
 {
   /**
    * @see sfTask

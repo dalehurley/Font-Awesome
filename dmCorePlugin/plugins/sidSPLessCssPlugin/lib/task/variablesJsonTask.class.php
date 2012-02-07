@@ -1,6 +1,6 @@
 <?php
 
-class variablesJsonTask extends sfBaseTask {
+class variablesJsonTask extends lioshiBaseTask {
     /**
      * @see sfTask
      */
