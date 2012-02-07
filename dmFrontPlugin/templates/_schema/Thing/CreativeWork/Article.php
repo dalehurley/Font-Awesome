@@ -1,7 +1,7 @@
 <?php
 /*
  * Article.php
- * v1.2
+ * v1.3
  * http://schema.org/Article
  * 
  * Variables disponibles :
@@ -101,7 +101,7 @@ if($isListing) {
 	//Titre affiché en span car utilisé dans un container
 	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
 	//Gestion de la date de création
-	if(isset($dateCreated)) if($dateCreated) $htmlText.= get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
+	if(isset($dateCreated)) if($dateCreated) $htmlText.= ($isDateMeta) ? _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated)) : get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
 	
 	//englobage dans un container si non vide
 	if($htmlText != null) $htmlText = _tag('span.subWrapper', $htmlText);
@@ -177,7 +177,19 @@ if($isListing) {
 		if(isset($description)) if($description) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
 
 		//Gestion de la date avec plusieurs possibilités (dateCreated, dateModified, etc)
-		if(isset($dateCreated)) if($dateCreated) $htmlHeader.= get_partial('global/dateWrapperFull', array('dateCreated' => $dateCreated, 'dateModified' => $dateModified));
+		if(isset($dateCreated)) if($dateCreated) {
+			if($isDateMeta) {
+				//affichage des meta dates
+				$htmlHeader.= _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated));
+				if(isset($dateModified)) $htmlHeader.= _tag('meta', array('itemprop' => 'dateModified', 'content' => $dateModified));
+			}else{
+				//création des options de la date affichée et de la date meta
+				$dateOptions = array('dateCreated' => $dateCreated);
+				if(isset($dateModified)) $dateOptions['dateModified'] = $dateModified;
+				//affichage de la date pleine
+				$htmlHeader.= get_partial('global/dateWrapperFull', $dateOptions);
+			}
+		}
 		
 	//affichage du header de l'article si non vide
 	if($htmlHeader != null) $html.= _tag('header.contentHeader', $htmlHeader);
