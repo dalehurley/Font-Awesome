@@ -18,6 +18,8 @@ if (count($recrutements)) { // si nous avons des actu articles
 		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
 												'name' => $recrutement->getTitle(),
 												'description' => $recrutement->getText(),
+												'dateCreated' => $recrutement->created_at,
+												'isDateMeta' => true,
 												'count' => $count,
 												'maxCount' => $maxCount,
 												'container' => 'li.element',

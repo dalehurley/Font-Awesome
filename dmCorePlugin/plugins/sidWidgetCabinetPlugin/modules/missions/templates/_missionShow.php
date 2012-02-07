@@ -11,6 +11,8 @@ if(count($missions)) {
 	$missionOpts = array(
 					'container' => 'article',
 					'name' => $missions->getTitle(),
+					'dateCreated' => $missions->created_at,
+					'isDateMeta' => true,
 					'description' => $missions->getResume(),
 					'articleBody' => $missions->getText()
 					);

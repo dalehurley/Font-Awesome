@@ -30,6 +30,7 @@ if (count($articles)) { // si nous avons des actu articles
 						'description' => $article->getResume(),
 						'image' => $article->getImage(),
 						'dateCreated' => $article->created_at,
+						'isDateMeta' => true,
 						'count' => $count,
 						'maxCount' => $maxCount,
 						'container' => 'li.element',

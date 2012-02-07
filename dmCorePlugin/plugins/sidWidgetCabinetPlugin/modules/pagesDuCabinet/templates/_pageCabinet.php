@@ -9,6 +9,8 @@ if (count($pageCabinet)) { // si nous avons des actu articles
 					'name' => $titlePage,
 					'description' => $pageCabinet->getResume(),
 					'image' => $pageCabinet->getImage(),
+					'dateCreated' => $pageCabinet->created_at,
+					'isDateMeta' => true,
 					'articleBody' => $pageCabinet->getText()
 					);
 	

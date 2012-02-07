@@ -30,7 +30,8 @@ if (count($missions)) { // si nous avons des actu articles
 		$missionOpt = array(
 							'name' => $mission->getTitle(),
 							'description' => $mission->getResume(),
-							'dateCreated' => false,
+							'dateCreated' => $mission->created_at,
+							'isDateMeta' => true,
 							'count' => $count,
 							'maxCount' => $maxCount,
 							'container' => 'li.element',

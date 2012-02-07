@@ -10,6 +10,8 @@ if(count($recrutements)){
 	$recrutementOpts = array(
 						'container' => 'article',
 						'name' => $recrutements->getTitle(),
+						'dateCreated' => $recrutements->created_at,
+						'isDateMeta' => true,
 						'articleBody' => $recrutements->getText()
 						);
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $recrutementOpts);
