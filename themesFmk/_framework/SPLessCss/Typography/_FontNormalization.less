@@ -11,9 +11,9 @@
 //Déclaration des polices générales du site
 body, select, input, textarea, button {
 	//application des polices
-	font: @fontGlobalSizePrct + e("/") + @fontGlobalLineHeight + @fontGlobalFamilySansSerif;
+	font: @fontGlobalSizePrct + e("/") + unitLess(@fontGlobalLineHeight) + @fontGlobalFamilySansSerif;
 	//IE8 ne supporte pas la notation en ligne du line-height
-	line-height: @fontGlobalLineHeight;
+	line-height: unitLess(@fontGlobalLineHeight);
 	//couleur de texte par défaut
 	color: @colorText;
 }
