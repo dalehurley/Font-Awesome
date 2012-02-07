@@ -116,6 +116,8 @@ EOF;
         }
 
         $results = contentTemplateTools::loadDB($file);
+        // on remet les permissions
+        $this->runTask('dm:permissions');
 
         $this->logBlock('Chargement de la base locale','INFO');
         foreach ($results as $result) {
