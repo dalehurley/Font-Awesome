@@ -15,7 +15,7 @@
  */
 
 //récupérations des options de page
-$pageOptions = spLessCss::pageTemplateGetOptions();
+$pageOptions = sfConfig::get('pageOptions');
 $isDev = $pageOptions['isDev'];
 $isLess = $pageOptions['isLess'];
 

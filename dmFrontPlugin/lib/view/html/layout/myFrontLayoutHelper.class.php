@@ -29,7 +29,7 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
         $options = dmString::toArray($options);
 		
 		//récupération des options de la page
-		$pageOptions = spLessCss::pageTemplateGetOptions();
+		$pageOptions = sfConfig::get('pageOptions');
 		
         //ajout des classes personnalisée sur le body
         $options['class'][] = $pageOptions['currentGabarit'];

@@ -430,7 +430,7 @@ class spLessCss extends dmFrontUser {
 	}
 	
 	//options de page par défaut
-	public static function pageTemplateGetOptions($optionsCustom = array()) {
+	private static function pageTemplateGetOptions($optionsCustom = array()) {
 		
 		//récupération du gabarit de la page
 		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
