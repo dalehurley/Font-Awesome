@@ -16,6 +16,9 @@ class spLessCss extends dmFrontUser {
 		//actualisation des paramètres du framework
 		if ($pageOptions['isLess']) sidSPLessCss::loadLessParameters();
 		
+		//ajout des variables dans la config générale
+		$addVars = sfConfig::add(array('pageOptions' => $pageOptions));
+		
 		return $pageOptions;
 	}
 	
