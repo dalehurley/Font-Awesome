@@ -14,7 +14,9 @@ if(count($articles)){
 						'image' => $articles->getImage(),
 						'dateCreated' => $articles->created_at,
 						'dateModified' => $articles->updated_at,
-						'articleBody' => $articles->getText()
+						'articleBody' => $articles->getText(),
+						'uploadFile' => $articles->getFiles(),
+						'uploadFileTitle' => $articles->getTitleFile()
 					);
 	
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
