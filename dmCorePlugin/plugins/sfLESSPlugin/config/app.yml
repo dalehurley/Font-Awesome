@@ -18,7 +18,7 @@ prod:
 
 less:
   sf_less_plugin:
-    compile:  true
+    compile:  false
     check_dates: false
     check_dependencies: true
 
