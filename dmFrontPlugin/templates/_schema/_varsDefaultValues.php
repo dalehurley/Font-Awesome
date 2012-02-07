@@ -1,7 +1,7 @@
 <?php
 /*
  * _varsDefaultValues.php
- * v1.2
+ * v1.3
  * Permet de définir de façon centralisée des valeurs par défaut pour différentes variables
  * 
  * Variables disponibles :
@@ -15,17 +15,13 @@
  * 
  */
 
-//séparateur par défaut
-if(!isset($separator)) $separator = '&#160;:&#160;';
-$separator = _tag('span.separator', $separator);
+//récupération des différentes variables par défault
+$separator =  _tag('span.separator', sfConfig::get('app_vars-partial_separator'));
+$ellipsis = _tag('span.ellipsis', sfConfig::get('app_vars-partial_ellipsis'));
+$dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
 
-//tiret par défaut
-if(!isset($dash)) $dash = '&#160;-&#160;';
-$dash = _tag('span.dash', $dash);
-
-//ellipsis par défaut
-if(!isset($ellipsis)) $ellipsis = '&#160;(...)';
-$ellipsis = _tag('span.ellipsis', $ellipsis);
+//longueur de texte de description par défaut
+$defaultValueLength = sfConfig::get('app_vars-partial_defaultValueLength');
 
 //permet de forcer la version listing de l'affichage
 if(!isset($isListing)) $isListing = false;
@@ -38,6 +34,3 @@ if(!isset($noMicrodata)) $noMicrodata = false;
 
 //active l'affichage de la date en balise meta et désactive l'affichage des dates
 if(!isset($isDateMeta)) $isDateMeta = false;
-
-//longueur de texte de description par défaut
-$defaultValueLength = 200;

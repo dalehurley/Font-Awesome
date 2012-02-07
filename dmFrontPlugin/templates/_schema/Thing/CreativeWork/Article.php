@@ -220,6 +220,20 @@ if($isListing) {
 														));
 	}
 	
+	//ajout des informations de publications à la fin de l'article
+	if(isset($copyrightHolder)) {
+		//affichage de la date pleine
+		$htmlMeta = get_partial('global/dateWrapperFull', array('dateCreated' => $dateCreated, 'isFooter' => true));
+		
+		//affichage du copyright
+		$htmlMeta.= $dash . '&#169;&#160;' . get_partial('global/schema/DataType/Text', array('value' => $copyrightHolder, 'itemprop' => 'copyrightHolder'));
+		
+		//ajout année du copyright
+		if(isset($copyrightYear)) $htmlMeta.= $dash . get_partial('global/schema/DataType/Text', array('value' => $copyrightYear, 'itemprop' => 'copyrightYear'));
+		
+		$htmlFooter.= _tag('span.meta', $htmlMeta);
+	}
+	
 	//affichage du footer de l'article si non vide
 	if($htmlFooter != null) $html.= _tag('footer.contentFooter', $htmlFooter);
 }

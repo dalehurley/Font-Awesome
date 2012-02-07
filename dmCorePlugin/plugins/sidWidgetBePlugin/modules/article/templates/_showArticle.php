@@ -51,6 +51,8 @@ if ($doc_xml->load($xml)) {
 						'dateCreated' => $article->created_at,
 						'dateModified' => $article->updated_at,
 						'articleBody' => $moteurXslt->transformToXML($doc_xml),
+						'copyrightHolder' => 'SID Presse',							//en attendant implémentation dans base depuis la valeur du XML
+						'copyrightYear' => substr($article->created_at, 0, 4)		//en attendant implémentation dans base depuis la valeur du XML
 					);
 	
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
