@@ -56,7 +56,7 @@ $dispoEnvs = array (
 );
 $this->logBlock('Environnements disponibles :', 'INFO_LARGE');
 foreach ($dispoEnvs as $k => $dispoEnv) {
-    $this->log($k . ' - ' . $dispoEnv);
+    $this->logSection($k,$dispoEnv);
 }
 // choix du dump
 $numEnv = $this->askAndValidate(array('', 'Le numero de l\'environnement choisi?', ''), new sfValidatorChoice(
@@ -477,7 +477,7 @@ foreach ($arrayTemplates as $template) {
 // on affiche les choix
 $this->logBlock('Themes disponibles :', 'INFO_LARGE');
 foreach ($dispoTemplates as $k => $dispoTemplate) {
-    $this->logBlock('['. $k . ']  ' . $dispoTemplate,'COMMENT');
+    $this->logSection($k,$dispoTemplate);
 }
 
 // choix de la maquette du coeur

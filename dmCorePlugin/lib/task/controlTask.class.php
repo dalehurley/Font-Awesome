@@ -12,7 +12,7 @@ class controlTask extends lioshiBaseTask {
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod') ,
         ));
         $this->namespace = '';
-        $this->name = 'control';
+        $this->name = 'controls';
         $this->briefDescription = 'Control tasks for webmaster';
         $this->detailedDescription = <<<EOF
 The [control|INFO] task show all controls available for webmaster.
