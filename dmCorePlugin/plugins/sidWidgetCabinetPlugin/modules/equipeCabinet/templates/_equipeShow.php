@@ -16,12 +16,27 @@ if (count($equipes)) { // si nous avons des actu articles
 		$implantations[$implantationId]['equipes'][] = $equipe;
 	}
 	
+	//compteur
+	$implantationCount = 0;
+	$implantationMaxCount = count($implantations);
+	
 	//affichage des équipes
 	foreach ($implantations as $implantationId => $implantation) {
+		//incrémentation compteur
+		$implantationCount++;
+		
+		//options du container
+		$wrapperOpt = array();
+		//gestion des classes de début et de fin
+		if($implantationCount == 1)						$wrapperOpt['class'][] = 'first';
+		if($implantationCount >= $implantationMaxCount)	$wrapperOpt['class'][] = 'last';
+		
 		//ouverture du container
-		$html.= _open('div.supWrapper.clearfix');
+		$html.= _open('div.supWrapper.clearfix', $wrapperOpt);
+		
 		//affichage de la ville d'implantation
 		$html.= get_partial('global/titleSupWrapper', array('title' => (__('Implantation') . '&#160;:&#160;'. $implantation['ville'])));
+		
 		//ouverture de la liste
 		$html.= _open('ul.elements');
 		
