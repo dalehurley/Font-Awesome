@@ -149,9 +149,9 @@ if($isListing) {
 	$htmlHeader = '';
 	
 		//La rubrique l'article, à savoir Actualités, Chiffre, Dossier, etc
-		if(isset($rubrique)) $htmlHeader.= _tag('h2.category', array('itemprop' => 'articleSection'), $rubrique);
+		//if(isset($rubrique)) $htmlHeader.= _tag('h2.category', array('itemprop' => 'articleSection'), $rubrique);
 		//La section de l'article, à savoir Social, Juridique, Fiscal, etc
-		if(isset($section)) $htmlHeader.= _tag('h3.section', array('itemprop' => 'articleSection'), $section);
+		//if(isset($section)) $htmlHeader.= _tag('h3.section', array('itemprop' => 'articleSection'), $section);
 
 		//on affiche l'image que si elle est effectivement présente
 		if($isImage && isset($image)){
@@ -171,10 +171,10 @@ if($isListing) {
 			//Appel du partial d'image
 			$htmlHeader.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 		}
-
+		
 		//Le titre de l'article, devant toujours être l'unique H1 dans la page
 		if(isset($name)) if($name) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
-
+		
 		//Chapeau de l'article si présent
 		if(isset($description)) if($description) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
 
