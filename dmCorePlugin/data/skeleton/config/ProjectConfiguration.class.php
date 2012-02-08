@@ -15,6 +15,10 @@ class ProjectConfiguration extends dmProjectConfiguration
     ));
 
     $this->setWebDir(##DIEM_WEB_DIR##);
+
+    $sessionDir = sfConfig::get('sf_root_dir').'/data/sessions';
+    if (!is_dir($sessionDir)) mkdir ($sessionDir); 
+    ini_set('session.save_path',$sessionDir);    
   }
   
 }
