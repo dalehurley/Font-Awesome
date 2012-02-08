@@ -16,9 +16,10 @@ class ProjectConfiguration extends dmProjectConfiguration
 
     $this->setWebDir(##DIEM_WEB_DIR##);
 
-    $sessionDir = sfConfig::get('sf_root_dir').'/data/sessions';
-    if (!is_dir($sessionDir)) mkdir ($sessionDir); 
-    ini_set('session.save_path',$sessionDir);    
+// essai avorté, problème d'acès entre apache et user qui installe... On laisse le repertoire de session par défaut
+//    $sessionDir = sfConfig::get('sf_root_dir').'/sessions';
+//    if (!is_dir($sessionDir)) mkdir ($sessionDir);  => create in installer.php
+//    ini_set('session.save_path',$sessionDir);    
   }
   
 }
