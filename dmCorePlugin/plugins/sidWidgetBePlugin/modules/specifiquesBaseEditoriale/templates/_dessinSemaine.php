@@ -34,7 +34,6 @@ echo _tag('h4.title', $rubriqueTitle);
             $i = 0;
             foreach ($dessins as $dessin) {
                 echo _open('li');
-
                 //on vérifie que l'image existe
                 $imgExist = is_file(sfConfig::get('sf_web_dir') . $dessin['imgLinkBig']);
                 $imageDessin = "";
