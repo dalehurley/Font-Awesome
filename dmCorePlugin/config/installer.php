@@ -531,8 +531,14 @@ $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../dmFrontPl
 
 // recherche des templates -> XXXSuccess.php
 $dirPageSuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/layouts';
+// on créé les répertoires s'ils n'existent pas
+$dirDmFront = sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront';
+$dirDmFrontTemplate = $dirDmFront.'/templates';
+if (!is_dir($dirDmFront)) mkdir($dirDmFront);
+if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
+
 // Copie des xxxSuccess.php du theme sur le site 
-$this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront/templates', $out, $err);
+$this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.$dirDmFrontTemplate, $out, $err);
 
 //-------------------------------------------------------------------------------------
 //    Les permissions
