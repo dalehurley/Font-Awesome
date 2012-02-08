@@ -319,6 +319,17 @@ $this->runTask('configure:database', array(
     'password' => $db['password']
 ));
 
+//-------------------------------------------------------------------------------------
+//    creation dossier des sessions
+//-------------------------------------------------------------------------------------
+    $sessionDir = sfConfig::get('sf_root_dir').'/data/sessions';
+    if (!is_dir($sessionDir)) mkdir ($sessionDir); 
+    ini_set('session.save_path',$sessionDir); 
+
+
+//-------------------------------------------------------------------------------------
+//    dmsetup
+//-------------------------------------------------------------------------------------
 try {
     if ('/' !== DIRECTORY_SEPARATOR) {
         throw new Exception('Automatic install disabled for windows servers');
