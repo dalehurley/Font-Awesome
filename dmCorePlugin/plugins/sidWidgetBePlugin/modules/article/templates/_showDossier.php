@@ -79,7 +79,7 @@ if (!is_file($xml)) {
 		if(count($linkedArticles) >= 1) {
 			
 			//inclusion du contenu dans un supWrapper
-			$articleBody = _tag('section.supWrapper.clearfix.first', $articleBody);
+			$articleBody = _tag('section.supWrapper.first', $articleBody);
 			
 			//compteur (rajout de 1 car l'intro a déjà un container)
 			$count = 1;

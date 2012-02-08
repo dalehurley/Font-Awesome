@@ -62,7 +62,7 @@ if(isset($count) && isset($maxCount)) {
 }
 
 //inclusion du contenu dans un supWrapper
-$html = _tag('section.supWrapper.clearfix', $wrapperOpt, $html);
+$html = _tag('section.supWrapper', $wrapperOpt, $html);
 
 //affichage html en sortie
 echo $html;
