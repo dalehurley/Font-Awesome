@@ -32,7 +32,7 @@ if (count($equipes)) { // si nous avons des actu articles
 		if($implantationCount >= $implantationMaxCount)	$wrapperOpt['class'][] = 'last';
 		
 		//ouverture du container
-		$html.= _open('div.supWrapper.clearfix', $wrapperOpt);
+		$html.= _open('section.supWrapper.clearfix', $wrapperOpt);
 		
 		//affichage de la ville d'implantation
 		$html.= get_partial('global/titleSupWrapper', array('title' => (__('Implantation') . '&#160;:&#160;'. $implantation['ville'])));
@@ -70,7 +70,7 @@ if (count($equipes)) { // si nous avons des actu articles
 		
 		//fermeture de la liste et du container
 		$html.= _close('ul.elements');
-		$html.= _close('div.supWrapper');
+		$html.= _close('section.supWrapper');
 	}
 }else{
 	$html.= "Aucun membre de l'équipe n'est présenté.";
