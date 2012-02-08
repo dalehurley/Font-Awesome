@@ -238,11 +238,14 @@ if($isListing) {
 		//affichage de la date pleine
 		$htmlMeta = get_partial('global/dateWrapperFull', array('dateCreated' => $dateCreated, 'isFooter' => true));
 		
-		//affichage du copyright
-		$htmlMeta.= $dash . '&#169;&#160;' . get_partial('global/schema/DataType/Text', array('value' => $copyrightHolder, 'itemprop' => 'copyrightHolder'));
+		//ajout tiret
+		$htmlMeta.= $dash;
 		
+		//affichage du copyright
+		$htmlCopyright = '&#169;&#160;' . get_partial('global/schema/DataType/Text', array('value' => $copyrightHolder, 'itemprop' => 'copyrightHolder'));
 		//ajout année du copyright
-		if(isset($copyrightYear)) $htmlMeta.= $dash . get_partial('global/schema/DataType/Text', array('value' => $copyrightYear, 'itemprop' => 'copyrightYear'));
+		if(isset($copyrightYear)) $htmlCopyright.= $dash . get_partial('global/schema/DataType/Text', array('value' => $copyrightYear, 'itemprop' => 'copyrightYear'));
+		$htmlMeta.= _tag('span.copyright', $htmlCopyright);
 		
 		$htmlFooter.= _tag('span.meta', $htmlMeta);
 	}
