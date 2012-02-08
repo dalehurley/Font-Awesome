@@ -1,6 +1,6 @@
 <?php
 
-class dumpDBTask extends sfBaseTask {
+class dumpDBTask extends lioshiBaseTask {
     protected function configure() {
         // // add your own arguments here
         $this->addArguments(array(

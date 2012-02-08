@@ -123,17 +123,17 @@ class baseEditorialeTools {
     }
 
     /*
-     * récupération des rubriques
+     * sélection des rubriques
      */
 
-    public static function loadRubriqueSectionJson() {
+    public static function answerRubriqueJson() {
         $tabRubrique = array(); // stockage du nom des rubriques
-        $return = array(); // array de logs
+        $answer = array(); // array de logs
         // les languages
         $arrayLangs = sfConfig::get('dm_i18n_cultures');
 
         if (sfConfig::get('app_rep-local-json') == '') {
-            $return[0]['ERROR'] = 'Merci de spécifier la variable app_rep-local-json dans le app.yml.';
+            $answer[0]['ERROR'] = 'Merci de spécifier la variable app_rep-local-json dans le app.yml.';
         } else {
 
             // POUR INTERROGER le rep local de la base editoriale : rubriques
@@ -141,6 +141,28 @@ class baseEditorialeTools {
 
             $i = 1;
             foreach ($localRubriquesJson as $j => $localRubrique) {
+
+                // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
+                $answer[$i]['RUBRIQUE'] = $localRubrique;
+                
+                $i++;
+            }
+        }
+
+        return $answer;
+    }
+
+    /*
+     * récupération des rubriques
+     */
+    public static function loadRubriqueJson($array) {
+        //$tabRubrique = array(); // stockage du nom des rubriques
+        $return = array(); // array de logs
+        // les languages
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+
+            $i = 1;
+            foreach ($array as $j => $localRubrique) {
 
                 // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
                 $bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitle($localRubrique);
@@ -153,32 +175,51 @@ class baseEditorialeTools {
                     $return[$i]['Rubrique existe dejà en base'] = $localRubrique;
                 }
                 $i++;
-
-                // POUR INTERROGER le rep local de la base editoriale : sections de la rubrique en cours
-                $localSectionsJson = transfertTools::scandirServeur(sfConfig::get('app_rep-local-json') . '/' . $localRubrique);
-
-                foreach ($localSectionsJson as $k => $localSection) {
-
-                    // Formatage de la section
-                    if (substr($localSection, -5) == '.json') {
-                        $localSection = substr($localSection, 0, -5);
-
-                        // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
-                        $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($localSection, $bdRubrique->id);
-
-                        if ($bdSection->isNew()) { // création de la section en base
-                            $bdSection->Translation[$arrayLangs[0]]->title = $localSection;  // On insère dans la langue par défaut
-                            $bdSection->rubrique_id = $bdRubrique->id;
-                            $bdSection->save();
-                            $return[$i]['SECTION+'] = $localRubrique . '/' . $localSection;
-                        } else {
-                            $return[$i]['Section existe dejà en base'] = $localRubrique . '/' . $localSection;
-                        }
-                        $i++;
-                    }
-                }
             }
-        }
+        return $return;
+    }
+
+    /*
+     * récupération des sections
+     */
+
+    public static function loadSectionJson() {
+        $tabRubrique = array(); // stockage du nom des rubriques
+        $return = array(); // array de logs
+        // les languages
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+
+            $i = 1;
+
+                // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
+                $bdRubriques = Doctrine_Core::getTable('SidRubrique')->findByIsActive(true);
+
+                foreach ($bdRubriques as $key => $bdRubrique) {
+                // POUR INTERROGER le rep local de la base editoriale : sections de la rubrique en cours
+                    $localSectionsJson = transfertTools::scandirServeur(sfConfig::get('app_rep-local-json') . '/' . $bdRubrique->getTitle());
+
+                    foreach ($localSectionsJson as $k => $localSection) {
+
+                        // Formatage de la section
+                        if (substr($localSection, -5) == '.json') {
+                            $localSection = substr($localSection, 0, -5);
+
+                            // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
+                            $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($localSection, $bdRubrique->id);
+
+                            if ($bdSection->isNew()) { // création de la section en base
+                                $bdSection->Translation[$arrayLangs[0]]->title = $localSection;  // On insère dans la langue par défaut
+                                $bdSection->rubrique_id = $bdRubrique->id;
+                                $bdSection->save();
+                                $return[$i]['SECTION+'] = $bdRubrique->getTitle() . '/' . $localSection;
+                            } else {
+                                $return[$i]['Section existe dejà en base'] = $bdRubrique->getTitle() . '/' . $localSection;
+                            }
+                            $i++;
+                        }
+                    }
+                
+            }
 
         return $return;
     }
@@ -1023,12 +1064,12 @@ echo $command;
                 //  affichage brut des articles
                 $returnArticle = '';
                 foreach ($linkedArticles as $linkedArticle) {
-                    $returnArticle .= $linkedArticle. ' / ';
+                    $returnArticle .= $linkedArticle. '  ';
                 }
 
-                $return[]['Dossier ' . $dossier->getSection()->getRubrique() . ' / '. $dossier->getSection() . ' / '. $dossier->filename . ''] = $returnArticle;
+                $return[]['Dossier ' . $dossier->getSection()->getRubrique() . '/'. $dossier->getSection() . '/'. $dossier->filename . ''] = '>> articles fils: '.$returnArticle;
             } else {
-                $return = 'ERREUR : XML invalide :' . $xml;
+                $return[]['ERREUR : XML invalide  ' . $xml] = '';
             }
         }
         

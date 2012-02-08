@@ -1,6 +1,6 @@
 <?php
 
-class loadBETask extends sfBaseTask {
+class loadBETask extends lioshiBaseTask {
 
     protected function configure() {
         // // add your own arguments here
@@ -51,7 +51,7 @@ EOF;
 //    recuperation WGET des XML
 //-------------------------------------------------------------------------------------	
 	// chargement des XML et images de LEA ?
-	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Charger les fichiers  XML dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
+	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Charger les fichiers XML dans le repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
 	    $results = baseEditorialeTools::recupFilesXmlLEA();
 	    $this->logSection('>>', 'Chargement des XML ...');
 	} else {
@@ -59,7 +59,7 @@ EOF;
 	}	
 	
 //-------------------------------------------------------------------------------------
-//    nettoyage des XML 
+//    nettoyage des répertoires contenant les XML 
 //-------------------------------------------------------------------------------------	
 	if (in_array("automatic", $arguments) || $this->askConfirmation(array('Nettoyage du repertoire local ? (y/n)'), 'QUESTION_LARGE', true)) {
 	    $results = baseEditorialeTools::nettoyageRepLocal();

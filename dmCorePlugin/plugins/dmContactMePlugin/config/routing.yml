@@ -1,3 +1,0 @@
-qaptchaAjax:
-  url:   /qaptchaAjax
-  param: { module: dmContactMe, action: ajax }

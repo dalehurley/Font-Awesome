@@ -1,0 +1,14 @@
+DmContact:  
+  actAs:              [ Timestampable ]  
+  columns:  
+    title:            { type: string(20), notnull: false }
+    name:             { type: string(255), notnull: true }
+    firstname:        { type: string(255), notnull: true }
+    function:         { type: string(255), notnull: false }      
+    adresse:          { type: string(255), notnull: true } 
+    postalcode:       { type: string(20), notnull: true }    
+    ville:            { type: string(255), notnull: true } 
+    email:            { type: string(255), notnull: true }
+    phone:            { type: string(20), notnull: true }     
+    fax:              { type: string(20), notnull: false }     
+    body:             { type: clob, notnull: true } 

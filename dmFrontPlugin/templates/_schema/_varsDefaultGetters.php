@@ -1,7 +1,7 @@
 <?php
 /*
  * _varsDefaultGetters.php
- * v1.0
+ * v1.1
  * Permet d'extraire de façon standardisée des variables de node
  * 
  * Variables disponibles :
@@ -137,12 +137,32 @@ if(isset($node)) {
 		}
 		catch(Exception $e) { $articleSection = null; }
 	}
+        
+        // rajout stef
+        if(!isset($uploadFile)) {
+		try { $uploadFile = $node->getFiles(); }
+		catch(Exception $e) { $uploadFile = null; }
+	}
+        if(!isset($uploadFileTitle)) {
+		try { 
+                    $uploadFileTitle = ($node->getTitleFile() != '') ? $node->getTitleFile() : $node->getFiles()->file; }
+		catch(Exception $e) { $uploadFileTitle = null; }
+	}
+        // fin rajout
 }
 
 //définition de l'image
 $isImage = false;
 if(isset($image)) if($image) {
-	//on vérifie que l'image existe sur le serveur avec son chemin absolu
-	$imageUpload = (strpos($image, 'uploads') === false) ? '/uploads/' : '/';
-	$isImage = is_file(sfConfig::get('sf_web_dir') . $imageUpload . $image);
+	//on vérifie si l'image est en base (de type objet dans ce cas)
+	$isDbImage = (gettype($image) == 'object') ? true : false;
+	
+	//si l'image est en base alors on rajoute le dossier upload devant pour obtenir l'url absolue
+	$imageUpload = ($isDbImage) ? sfConfig::get('sf_upload_dir') . '/' : sfConfig::get('sf_web_dir') . '/';
+	
+	//composition url absolue de l'image
+	$imageUrl = $imageUpload . $image;
+	
+	//test de la présence de l'image
+	$isImage = is_file($imageUrl);
 }

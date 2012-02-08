@@ -44,7 +44,7 @@ class dmFrontAssetConfig extends dmAssetConfig
     {
       return array(
         'lib.jquery',
-	    'lib.mobile-core',
+//	    'lib.mobile-core',
         sfConfig::get('sf_web_debug') ? 'lib.symfony_debug' : null,
         'lib.metadata',
         'lib.cookie',
@@ -84,7 +84,7 @@ class dmFrontAssetConfig extends dmAssetConfig
     
     return array(
       'lib.jquery',
-	  'lib.mobile-core',
+//	  'lib.mobile-core',
       sfConfig::get('sf_web_debug') ? 'lib.symfony_debug' : null,
       'lib.metadata',
       'core.config',

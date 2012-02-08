@@ -7,6 +7,10 @@
 //Config par défaut des widgets du template
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
+
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/NavigationBreadCrumb/_NavigationBreadCrumb.less";
 
@@ -57,7 +61,7 @@
 				display: block;
 				text-indent: -9999em;
 				margin-left: 0;
-				@sprite-navigation-separatorRight-S();
+				@spriteDefinition("Default"; "navigation"; "bullet"; "S"; @spriteFormat_S; @spriteOffX-navigation-separatorRight-S; @spriteOffY-navigation-separatorRight-S);
 			}
 		}
 	}
