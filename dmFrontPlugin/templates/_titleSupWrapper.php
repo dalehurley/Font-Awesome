@@ -10,4 +10,4 @@
  */
 
 //affichage html de sortie
-echo _tag('h5.title', $title);
+echo _tag('h3.title', $title);
