@@ -9,6 +9,10 @@ $html = '';
 //récupération de la section et de la rubrique
 $section = $article->getSectionPageTitle();
 $rubrique = $article->getRubriquePagetitle();
+//récupération des différentes variables par défault
+$dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
+//composition de la catégorie de l'article
+$articleSection = $rubrique . $dash . $section;
 
 //ciblage XML et XSL
 $xml = sfConfig::get('app_rep-local') .
@@ -27,11 +31,9 @@ if (!is_file($xsl)) $html.= debugTools::infoDebug(array(__('Error : missed file'
 if (!is_file($xml)) {
 	$html.= debugTools::infoDebug(array(__('Error : missed file') => $xml),'warning');
 } else {
-	//récupération des différentes variables par défault
-	$dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
 	
 	//titre du contenu
-	$html.= get_partial('global/titleWidget', array('title' => $rubrique . $dash . $section, 'isContainer' => true));
+	$html.= get_partial('global/titleWidget', array('title' => $articleSection, 'isContainer' => true));
 
 	//création du parser XML
 	$doc_xml = new DOMDocument();
@@ -53,6 +55,7 @@ if (!is_file($xml)) {
 							'image' => '/_images/lea' . $article->filename . '-g.jpg',
 							'dateCreated' => $article->created_at,
 							'dateModified' => $article->updated_at,
+							'articleSection' => $rubrique . ' - ' . $section,
 							'articleBody' => $moteurXslt->transformToXML($doc_xml),
 							'copyrightHolder' => 'SID Presse',							//en attendant implémentation dans base depuis la valeur du XML
 							'copyrightYear' => substr($article->created_at, 0, 4)		//en attendant implémentation dans base depuis la valeur du XML

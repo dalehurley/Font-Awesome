@@ -175,6 +175,9 @@ if($isListing) {
 		//Le titre de l'article, devant toujours être l'unique H1 dans la page
 		if(isset($name)) if($name) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
 		
+		//ajout meta articleSection pour référencement
+		if(isset($articleSection)) $htmlHeader.= _tag('meta', array('itemprop' => 'articleSection', 'content' => $articleSection));
+		
 		//Chapeau de l'article si présent
 		if(isset($description)) if($description) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
 
