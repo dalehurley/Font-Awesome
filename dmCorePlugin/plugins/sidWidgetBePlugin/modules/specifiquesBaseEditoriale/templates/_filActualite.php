@@ -33,7 +33,7 @@ if (count($articles)) { // si nous avons des actu articles
 												'container' => 'li.element',
 												'isListing' => true,
 												'descriptionLength' => $longueurTexte,
-												'navigationElements' => $elements,
+												'navigationBottomElements' => $elements,
 												'url' => $article
 												));
     }

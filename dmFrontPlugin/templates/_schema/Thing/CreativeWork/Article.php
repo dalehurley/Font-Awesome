@@ -1,12 +1,14 @@
 <?php
 /*
  * Article.php
- * v1.3
+ * v1.4
  * http://schema.org/Article
  * 
  * Variables disponibles :
  * $node
  * $container
+ * $navigationTopElements
+ * $navigationBottomElements
  * 
  * Properties from Thing :
  * $description
@@ -134,10 +136,10 @@ if($isListing) {
 	
 	
 	//ajout de liens de navigation si nécessaire
-	if(isset($navigationElements)) {
+	if(isset($navigationBottomElements)) {
 		$html.= get_partial('global/navigationWrapper', array(
 														'placement' => 'bottom',
-														'elements' => $navigationElements,
+														'elements' => $navigationBottomElements,
 														'container' => 'span'
 														));
 	}
@@ -191,6 +193,14 @@ if($isListing) {
 			}
 		}
 		
+		//ajout de liens de navigation si nécessaire
+		if(isset($navigationTopElements)) {
+			$htmlHeader.= get_partial('global/navigationWrapper', array(
+															'placement' => 'top',
+															'elements' => $navigationTopElements
+															));
+		}
+		
 	//affichage du header de l'article si non vide
 	if($htmlHeader != null) $html.= _tag('header.contentHeader', $htmlHeader);
 	
@@ -213,10 +223,10 @@ if($isListing) {
 	// fin rajout stef
 	
 	//ajout de liens de navigation si nécessaire
-	if(isset($navigationElements)) {
+	if(isset($navigationBottomElements)) {
 		$htmlFooter.= get_partial('global/navigationWrapper', array(
 														'placement' => 'bottom',
-														'elements' => $navigationElements
+														'elements' => $navigationBottomElements
 														));
 	}
 	
