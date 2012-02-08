@@ -44,10 +44,20 @@ if (!is_file($xml)) {
 		$doc_xsl->load($xsl);
 		$moteurXslt = new xsltProcessor();
 		$moteurXslt->importstylesheet($doc_xsl);
-
+		
+		//options du contenu
+		$articleOpts = array(
+							'container' => 'article',
+							'name' => $article->title,
+							'description' => $article->getChapeau(),
+							'image' => '/_images/lea' . $article->filename . '-g.jpg',
+							'dateCreated' => $article->created_at,
+							'dateModified' => $article->updated_at,
+							'copyrightHolder' => 'SID Presse',							//en attendant implémentation dans base depuis la valeur du XML
+							'copyrightYear' => substr($article->created_at, 0, 4)		//en attendant implémentation dans base depuis la valeur du XML
+						);
 		//création du contenu à afficher
 		$articleBody = $moteurXslt->transformToXML($doc_xml);
-
 
 		//récupération des articles associées au dossier affiché
 		$sections = $doc_xml->getElementsByTagName("Section");
@@ -60,56 +70,47 @@ if (!is_file($xml)) {
 				if(isset($AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue)) $linkedArticles[] = $AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue;
 			}
 		}
-
-		$html.= "linkedArticles : " . print_r($linkedArticles, true);
-
-		//compteur
-		$count = 0;
-		$maxCount = count($linkedArticles);
-
-		//récupération des articles et ajout à l'intérieur du contenu
-		foreach ($linkedArticles as $linkedArticle) {
-			//incrémentation compteur
-			$count++;
-
-			//récupérarion du nom de fichier de l'article en question directement dans la base
-			$linkedSidArticle = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($linkedArticle, $article->sectionId);
-			//ajout information de débug
-			//$articleBody.= debugTools::infoDebug(array('ID LEA' => $linkedArticle . ' - ' . $article->sectionId));
-
-			$articleBody.= get_partial('article/showArticleInDossier', array('article' => $linkedSidArticle, 'count' => $count, 'maxCount' => $maxCount));
-		}
-
-		//affichage du contenu
-		$articleOpts = array(
-							'container' => 'article',
-							'name' => $article->title,
-							'description' => $article->getChapeau(),
-							'image' => '/_images/lea' . $article->filename . '-g.jpg',
-							'dateCreated' => $article->created_at,
-							'dateModified' => $article->updated_at,
-							'articleBody' => $articleBody,
-							'copyrightHolder' => 'SID Presse',							//en attendant implémentation dans base depuis la valeur du XML
-							'copyrightYear' => substr($article->created_at, 0, 4)		//en attendant implémentation dans base depuis la valeur du XML
-						);
-
-		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
-
-
-
-
-
-		/*
-
-		echo $return; // on affiche les titres et chapeau de l'article principal du dossier avant d'afficher tous les sous articles puis de fermer la balise article
-			//  affichage brut des articles
+		
+		
+		//on ne récupère le contenu des articles associés que si un ou plusieurs articles est détecté
+		if(count($linkedArticles) >= 1) {
+			
+			//inclusion du contenu dans un supWrapper
+			$articleBody = _tag('div.supWrapper.clearfix.first', $articleBody);
+			
+			//compteur (rajout de 1 car l'intro a déjà un container)
+			$count = 1;
+			$maxCount = count($linkedArticles) + 1;
+			
+			//création d'un tableau de liens à afficher
+			$elements = array();
+			
+			//récupération des articles et ajout à l'intérieur du contenu
 			foreach ($linkedArticles as $linkedArticle) {
+				//incrémentation compteur
+				$count++;
+				
+				//récupérarion du nom de fichier de l'article en question directement dans la base
 				$linkedSidArticle = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($linkedArticle, $article->sectionId);
-				echo debugTools::infoDebug(array('ID LEA' => $linkedArticle.' - '.$article->sectionId));
-				// affichage du texte de l'article avec le xsl
-				include_partial('article/showArticleInDossier', array('article' => $linkedSidArticle));
+				
+				//remplissage du tableau de navigation
+				$elements[] = array('title' => $article->title, 'linkUrl' => $article, 'anchor' => 'supWrapper_' . $linkedSidArticle->id);
+				
+				//ajout information de débug
+				//$articleBody.= debugTools::infoDebug(array('ID LEA' => $linkedArticle . ' - ' . $article->sectionId));
+				
+				$articleBody.= get_partial('article/showArticleInDossier', array('article' => $linkedSidArticle, 'count' => $count, 'maxCount' => $maxCount));
 			}
-		*/	
+			
+			//ajout du tableau de liens aux options de l'article
+			$articleOpts['navigationTopElements'] = $elements;
+		}
+		
+		//insertion du contenu
+		$articleOpts['articleBody'] = $articleBody;
+		
+		//affichage du contenu
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
 	} else {
 		$html.= debugTools::infoDebug(array(__('Error : invalid xml') => $xml),'warning');
 	}
