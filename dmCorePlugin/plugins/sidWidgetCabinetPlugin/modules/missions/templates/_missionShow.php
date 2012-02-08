@@ -14,7 +14,8 @@ if(count($missions)) {
 					'dateCreated' => $missions->created_at,
 					'isDateMeta' => true,
 					'description' => $missions->getResume(),
-					'articleBody' => $missions->getText()
+					'articleBody' => $missions->getText(),
+					'articleSection' => $titreBloc
 					);
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $missionOpts);
 	

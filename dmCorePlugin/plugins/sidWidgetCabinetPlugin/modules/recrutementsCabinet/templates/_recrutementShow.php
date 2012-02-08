@@ -12,7 +12,8 @@ if(count($recrutements)){
 						'name' => $recrutements->getTitle(),
 						'dateCreated' => $recrutements->created_at,
 						'isDateMeta' => true,
-						'articleBody' => $recrutements->getText()
+						'articleBody' => $recrutements->getText(),
+						'articleSection' => $titreBloc
 						);
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $recrutementOpts);
 	

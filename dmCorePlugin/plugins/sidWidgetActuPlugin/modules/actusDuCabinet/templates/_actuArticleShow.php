@@ -15,6 +15,7 @@ if(count($articles)){
 						'dateCreated' => $articles->created_at,
 						'dateModified' => $articles->updated_at,
 						'articleBody' => $articles->getText(),
+						'articleSection' => $titreBloc,
 						'uploadFile' => $articles->getFiles(),
 						'uploadFileTitle' => $articles->getTitleFile()
 					);
