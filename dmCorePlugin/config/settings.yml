@@ -48,8 +48,8 @@ all:
       - rubriqueAdmin
       - articleAdmin
       - dmCkEditor
-      - dmContactMe
-      - dmContactMeAdmin
+      - dmContact
+      - dmContactAdmin
       - dmBotAdmin
       - dmMediaUploadifyerAdmin
       - dmWidgetFeedReader
