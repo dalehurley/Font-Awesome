@@ -78,7 +78,7 @@ EOF;
             $settings = dmDb::query('DmSetting s')->withI18n($options['lang'])->where('s.name = ?', 'base_urls')->limit(1)->fetchRecords();
             
             foreach ($settings as $setting) {
-                $this->logBlock($setting->Translation[$options['lang']]->value, 'HELP');
+            //    $this->logBlock($setting->Translation[$options['lang']]->value, 'HELP');
                 
                 // une liste json des url (les controleurs) utilisées dans le site, pour chaque app et environnement accédés via un navigateur
                 $siteEnvsUrl = json_decode($setting->Translation[$options['lang']]->value);
@@ -91,7 +91,7 @@ EOF;
             // on récupère le premier controleur disponible
             
             foreach ($envsIndex as $key => $value) {
-                $this->logBlock($value, 'HELP');
+                $this->logBlock('Contrôleur : '.$value, 'HELP');
 
                 $firstController = $value;
                 break;
