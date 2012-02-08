@@ -1,13 +1,11 @@
 <?php
-/*
- * Retourne un article xml formaté par le XSL, en html
- */
+//html de sortie
 $html = '';
 
 //récupération des différentes variables par défault
 $dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
 
-//ciblage du XML
+//ciblage XML et XSL
 $xml = sfConfig::get('app_rep-local') .
         $article->getSection()->getRubrique() .
         '/' .
