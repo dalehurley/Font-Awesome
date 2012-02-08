@@ -116,6 +116,8 @@ EOF;
         }
 
         $results = contentTemplateTools::loadDB($file);
+        // on purge le cache
+        $this->runTask('cc');
         // on remet les permissions
         $this->runTask('dm:permissions');
 

@@ -43,7 +43,7 @@ class lioshiBaseTask extends sfBaseTask {
         ));
         $f->setStyle('HELP', array(
             'bg' => 'white',
-            'fg' => 'black',
+            'fg' => 'cyan',
             'bold' => false
         ));
         $f->setStyle('LINE', array(

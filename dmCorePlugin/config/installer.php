@@ -605,8 +605,8 @@ if ($site==''){
 //-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
-$this->logBlock('Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php.','CHOICE');
-$this->logBlock('Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'"','CHOICE');
-$this->logBlock('Lancer la commande "php symfony controls" afin de charger un dump de contenu','QUESTION_LARGE');
+$this->logBlock('Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php.','INFO');
+$this->logBlock('Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'"','HELP_LARGE');
+$this->logBlock('Lancer la commande "php symfony controls" afin de charger un dump de contenu','HELP_LARGE');
 exit;
 
