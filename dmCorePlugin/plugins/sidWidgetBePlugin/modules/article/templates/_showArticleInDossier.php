@@ -1,8 +1,16 @@
 <?php
-
 /**
  * Retourne un sous-article de dossier xml formaté par le XSL, en html
  */
+
+//html de sortie
+$html = '';
+
+//récupération de la section et de la rubrique
+$section = $article->getSectionPagetitle();
+$rubrique = $article->getRubriquePageTitle();
+
+//ciblage XML et XSL
 $xml = sfConfig::get('app_rep-local') .
         $article->getSection()->getRubrique() .
         '/' .
@@ -12,16 +20,21 @@ $xml = sfConfig::get('app_rep-local') .
         '.xml';
 $xsl = dm::getDir() . '/dmCorePlugin/plugins/sidWidgetBePlugin/lib/xsl/' . sfConfig::get('app_xsl-article');
 
-$return = '';
-$section = $article->getSectionPagetitle();
-$rubrique = $article->getRubriquePageTitle();
+// vérification du fichier XSL
+if (!is_file($xsl)) $html.= debugTools::infoDebug(array(__('Error : missed file') => $xsl),'warning');
 
-// vérification des fichiers xml
+// vérification du fichier XML
 if (!is_file($xml)) {
-    $return .= debugTools::infoDebug(array(__('Error : missed file') => $xml), 'warning');
+	$html.= debugTools::infoDebug(array(__('Error : missed file') => $xml),'warning');
 } else {
-
+	//titre du contenu
+	$html.= $article->title . '<br/>';
+	
+	/*
     $doc_xml = new DOMDocument();
+	
+	
+	
     if ($doc_xml->load($xml)) {
         if (!is_file($xsl)) {
             $return .= debugTools::infoDebug(array(__('Error : missed file') => $xsl), 'warning');
@@ -56,6 +69,10 @@ if (!is_file($xml)) {
     } else {
         $return .= debugTools::infoDebug(array(__('Error : invalid file') => $xml), 'warning');
     }
+	 * 
+	 */
 }
-echo $return;
-?>
+
+
+//affichage html en sortie
+echo $html;
