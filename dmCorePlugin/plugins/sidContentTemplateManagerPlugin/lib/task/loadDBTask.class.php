@@ -58,7 +58,7 @@ EOF;
             $this->logBlock('Themes disponibles :', 'INFO_LARGE');
             
             foreach ($dispoTemplates as $k => $dispoTemplate) {
-                $this->log($k . ' - ' . $dispoTemplate);
+                $this->logSection($k , $dispoTemplate);
             }
             // choix de la maquette du coeur
             $numTemplate = $this->askAndValidate(array(
@@ -116,6 +116,8 @@ EOF;
         }
 
         $results = contentTemplateTools::loadDB($file);
+        // on purge le cache
+        $this->runTask('cc');
         // on remet les permissions
         $this->runTask('dm:permissions');
 

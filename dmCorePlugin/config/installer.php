@@ -56,7 +56,7 @@ $dispoEnvs = array (
 );
 $this->logBlock('Environnements disponibles :', 'INFO_LARGE');
 foreach ($dispoEnvs as $k => $dispoEnv) {
-    $this->log($k . ' - ' . $dispoEnv);
+    $this->logSection($k,$dispoEnv);
 }
 // choix du dump
 $numEnv = $this->askAndValidate(array('', 'Le numero de l\'environnement choisi?', ''), new sfValidatorChoice(
@@ -319,6 +319,17 @@ $this->runTask('configure:database', array(
     'password' => $db['password']
 ));
 
+//-------------------------------------------------------------------------------------
+//    creation dossier des sessions
+//-------------------------------------------------------------------------------------
+    $sessionDir = sfConfig::get('sf_root_dir').'/data/sessions';
+    if (!is_dir($sessionDir)) mkdir ($sessionDir); 
+    ini_set('session.save_path',$sessionDir); 
+
+
+//-------------------------------------------------------------------------------------
+//    dmsetup
+//-------------------------------------------------------------------------------------
 try {
     if ('/' !== DIRECTORY_SEPARATOR) {
         throw new Exception('Automatic install disabled for windows servers');
@@ -477,7 +488,7 @@ foreach ($arrayTemplates as $template) {
 // on affiche les choix
 $this->logBlock('Themes disponibles :', 'INFO_LARGE');
 foreach ($dispoTemplates as $k => $dispoTemplate) {
-    $this->logBlock('['. $k . ']  ' . $dispoTemplate,'COMMENT');
+    $this->logSection($k,$dispoTemplate);
 }
 
 // choix de la maquette du coeur
@@ -520,8 +531,14 @@ $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../dmFrontPl
 
 // recherche des templates -> XXXSuccess.php
 $dirPageSuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/layouts';
+// on créé les répertoires s'ils n'existent pas
+$dirDmFront = sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront';
+$dirDmFrontTemplate = $dirDmFront.'/templates';
+if (!is_dir($dirDmFront)) mkdir($dirDmFront);
+if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
+
 // Copie des xxxSuccess.php du theme sur le site 
-$this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront/templates', $out, $err);
+$this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.$dirDmFrontTemplate, $out, $err);
 
 //-------------------------------------------------------------------------------------
 //    Les permissions
@@ -605,8 +622,8 @@ if ($site==''){
 //-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
-$this->logBlock('Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php.','CHOICE');
-$this->logBlock('Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'"','CHOICE');
-$this->logBlock('Lancer la commande "php symfony control" afin de charger un dump de contenu','QUESTION_LARGE');
+$this->logBlock('Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php.','INFO');
+$this->logBlock('Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'"','HELP_LARGE');
+$this->logBlock('Lancer la commande "php symfony controls" afin de charger un dump de contenu','HELP_LARGE');
 exit;
 
