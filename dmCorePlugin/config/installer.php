@@ -586,7 +586,7 @@ foreach ($commands as $libCommand => $command) {
   $out = $err = null;
   $this->getFilesystem()->execute($command, $out, $err);
     } catch (exception $e) {
-  $this->logBlock('Error: '.$libCommand, 'ERROR_LARGE');
+  $this->logBlock('Error: '.$libCommand, 'ERROR');
     }
 }
 
