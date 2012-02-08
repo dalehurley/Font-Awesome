@@ -64,7 +64,7 @@ EOF;
                 break;
 
             default:
-                $message = 'Générer le cache des ' . $options['nb'] . ' premières pages du site';
+                $message = 'Générer le cache des ' . $nbPages[$options['nb']] . ' premières pages du site';
                 break;
         }
         if ($this->askConfirmation(array(
@@ -78,6 +78,8 @@ EOF;
             $settings = dmDb::query('DmSetting s')->withI18n($options['lang'])->where('s.name = ?', 'base_urls')->limit(1)->fetchRecords();
             
             foreach ($settings as $setting) {
+                $this->logBlock($setting->Translation[$options['lang']]->value, 'HELP');
+                
                 // une liste json des url (les controleurs) utilisées dans le site, pour chaque app et environnement accédés via un navigateur
                 $siteEnvsUrl = json_decode($setting->Translation[$options['lang']]->value);
             }
@@ -89,6 +91,8 @@ EOF;
             // on récupère le premier controleur disponible
             
             foreach ($envsIndex as $key => $value) {
+                $this->logBlock($value, 'HELP');
+
                 $firstController = $value;
                 break;
             }
@@ -104,7 +108,7 @@ EOF;
             
             foreach ($dmPages as $dmPage) {
                 // nb de pages à traiter
-                if ($nb >= $options['nb'] && $options['nb'] != 0) break;
+                if ($nb >= $nbPages[$options['nb']] && $nbPages[$options['nb']] != 0) break;
 
                 $nb++;
                 $timeBeginPage = microtime(true);
