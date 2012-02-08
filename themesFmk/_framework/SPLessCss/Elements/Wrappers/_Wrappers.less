@@ -71,7 +71,7 @@
 
 //stylage minimal du teaser/description
 .teaser, .description {
-	.isLess & { background-color: lightblue; }
+	.isLess & { background-color: fadeout(#AEDCEB, 50%); }
 	//une fois que l'article est affiché en pleine page
 	#dm_content article & { font-weight: bold; }
 }
@@ -93,7 +93,7 @@
 //Gestion des listings
 .elements {
 	//couleur de débug
-	.isLess & { background-color: #999; }
+	.isLess & { background-color: fadeout(#999, 25%); }
 	
 	//suppression de toute marge et puce (à tester avec un article (vérifier si balisage identique)
 	margin: 0;
@@ -101,11 +101,11 @@
 	list-style: none;
 	
 	.element {
-		//force l'agrandissement en cas de présence de contenu flottant
-		@getClearfix();
-		
 		//couleurs de débug
 		.isLess & { background-color: #bbb; }
+		
+		//force l'agrandissement en cas de présence de contenu flottant
+		@getClearfix();
 		
 		//débuggage alignements des différents éléments constitutifs des itemprops
 		.type, .separator, .value, .dash, .ellipsis { line-height: @gridBaseline; vertical-align: top; }
@@ -132,7 +132,7 @@
 		}
 		
 		.jobTitle {
-			.isLess & { background-color: lightgreen; }
+			.isLess & { background-color: fadeout(#AEF5B0, 25%); }
 		}
 		
 		//permet de replacer la description sous le titre et la date
