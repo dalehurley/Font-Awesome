@@ -1,11 +1,10 @@
 <?php
 /*
  * Person.php
- * v1.1
+ * v1.3
  * http://schema.org/Person
  * 
  * Variables disponibles :
- * $node
  * $container
  * $isLight
  * 
@@ -67,7 +66,7 @@ $html = '';
 $htmlImage = '';
 
 //on affiche l'image que si elle est effectivement présente
-if($isImage && isset($image)){
+if($isImage){
 	//dimensions de l'image
 	$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbS_col') : sidSPLessCss::getLessParam('thumbM_col');
 	$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbS_bl') : sidSPLessCss::getLessParam('thumbM_bl') * 2;
@@ -91,8 +90,8 @@ if($isImage && isset($image)){
 $htmlText = '';
 
 //if(isset($name) || isset($jobTitle)) {
-	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
-	if(isset($jobTitle)) if($jobTitle) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));
+	if(isset($name))		$htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
+	if(isset($jobTitle))	$htmlText.= get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));
 	//englobage dans un container
 	//$dash . 
 	//$htmlText = _tag('span.subWrapper', $htmlText);
