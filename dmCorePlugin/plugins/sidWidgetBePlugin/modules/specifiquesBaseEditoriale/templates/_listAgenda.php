@@ -25,7 +25,6 @@ if(count($agendas)){
 												'maxCount' => $maxCount,
 												'container' => 'li.element',
 												'isListing' => true,
-												'dateCreated' => false,
 												'descriptionLength' => $length,
 												'url' => $agenda
 												));
