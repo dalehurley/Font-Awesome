@@ -77,7 +77,7 @@ if($isListing) {
 	$htmlImage = '';
 	
 	//on affiche l'image que si elle est effectivement présente
-	if($isImage && isset($image)){
+	if($isImage){
 		//dimensions de l'image
 		$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
 		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
@@ -101,15 +101,15 @@ if($isListing) {
 	$htmlText = '';
 	
 	//Titre affiché en span car utilisé dans un container
-	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
+	if(isset($name)) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
 	//Gestion de la date de création
-	if(isset($dateCreated)) if($dateCreated) $htmlText.= ($isDateMeta) ? _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated)) : get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
+	if(isset($dateCreated)) $htmlText.= ($isDateMeta) ? _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated)) : get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
 	
 	//englobage dans un container si non vide
 	if($htmlText != null) $htmlText = _tag('span.subWrapper', $htmlText);
 
 	//Chapeau de l'article si présent
-	if(isset($description)) if($description) {
+	if(isset($description)) {
 		//ajout de la longueur de la description
 		$descriptionOpt = array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser');
 		if(isset($descriptionLength)) $descriptionOpt['valueLength'] = $descriptionLength;
@@ -154,7 +154,7 @@ if($isListing) {
 		//if(isset($section)) $htmlHeader.= _tag('h3.section', array('itemprop' => 'articleSection'), $section);
 
 		//on affiche l'image que si elle est effectivement présente
-		if($isImage && isset($image)){
+		if($isImage){
 			//dimensions de l'image
 			$imageGridWidth = sidSPLessCss::getLessParam('thumbContent_col');
 			$imageGridHeight = sidSPLessCss::getLessParam('thumbContent_bl');
@@ -173,16 +173,16 @@ if($isListing) {
 		}
 		
 		//Le titre de l'article, devant toujours être l'unique H1 dans la page
-		if(isset($name)) if($name) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
+		if(isset($name)) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
 		
 		//ajout meta articleSection pour référencement
 		if(isset($articleSection)) $htmlHeader.= _tag('meta', array('itemprop' => 'articleSection', 'content' => $articleSection));
 		
 		//Chapeau de l'article si présent
-		if(isset($description)) if($description) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
+		if(isset($description)) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
 
 		//Gestion de la date avec plusieurs possibilités (dateCreated, dateModified, etc)
-		if(isset($dateCreated)) if($dateCreated) {
+		if(isset($dateCreated)) {
 			if($isDateMeta) {
 				//affichage des meta dates
 				$htmlHeader.= _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated));

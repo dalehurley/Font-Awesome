@@ -154,7 +154,7 @@ if(isset($node)) {
 
 //définition de l'image
 $isImage = false;
-if(isset($image)) if($image) {
+if(isset($image)) {
 	//on vérifie si l'image est en base (de type objet dans ce cas)
 	$isDbImage = (gettype($image) == 'object') ? true : false;
 	
@@ -169,4 +169,4 @@ if(isset($image)) if($image) {
 }
 
 //nettoyage de certaines variables
-if(isset($description)) if($description) $description = strip_tags($description, '<sup><sub>');
+if(isset($description)) $description = strip_tags($description, '<sup><sub>');
