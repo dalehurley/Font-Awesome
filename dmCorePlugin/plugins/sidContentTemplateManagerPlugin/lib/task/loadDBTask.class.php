@@ -58,7 +58,7 @@ EOF;
             $this->logBlock('Themes disponibles :', 'INFO_LARGE');
             
             foreach ($dispoTemplates as $k => $dispoTemplate) {
-                $this->log($k . ' - ' . $dispoTemplate);
+                $this->logSection($k , $dispoTemplate);
             }
             // choix de la maquette du coeur
             $numTemplate = $this->askAndValidate(array(
@@ -95,7 +95,7 @@ EOF;
             $this->logBlock('Dump existants du theme ' . $dispoTemplates[$numTemplate] . ' :', 'INFO_LARGE');
             
             foreach ($dispoTemplateDumps as $k => $dispoTemplateDump) {
-                $this->log($k . ' - ' . $dispoTemplateDump);
+                $this->logSection($k, $dispoTemplateDump);
             }
 
             // choix du dump
@@ -116,6 +116,8 @@ EOF;
         }
 
         $results = contentTemplateTools::loadDB($file);
+        // on purge le cache
+        $this->runTask('cc');
         // on remet les permissions
         $this->runTask('dm:permissions');
 

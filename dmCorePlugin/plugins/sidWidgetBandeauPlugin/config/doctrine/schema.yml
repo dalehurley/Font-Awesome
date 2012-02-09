@@ -1,6 +1,9 @@
 SidGroupeBandeau:
   actAs:
-    Timestampable:
+    I18n:
+      fields: [ title ]
+      actAs:
+        Timestampable:
   columns:
     title:
       type: string(255)
@@ -22,12 +25,12 @@ SidGroupeBandeau:
 
 SidBandeau:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)

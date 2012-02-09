@@ -32,12 +32,12 @@
 
 SidCabinetPageCabinet:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, text, resume ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)
@@ -69,12 +69,12 @@ SidCabinetPageCabinet:
 SidCabinetEquipe:
   actAs:
 #    DmTaggable:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, statut, tel, fax, gsm, email, text ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)
@@ -144,12 +144,12 @@ SidCabinetEquipeSidRubrique:
 SidCabinetMission:
   actAs:
 #    DmTaggable:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, text, resume ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)
@@ -193,12 +193,12 @@ SidCabinetMissionSidRubrique:
       
 SidCabinetRecrutement:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, text ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)

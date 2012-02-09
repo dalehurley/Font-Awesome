@@ -12,7 +12,7 @@ class controlTask extends lioshiBaseTask {
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod') ,
         ));
         $this->namespace = '';
-        $this->name = 'control';
+        $this->name = 'controls';
         $this->briefDescription = 'Control tasks for webmaster';
         $this->detailedDescription = <<<EOF
 The [control|INFO] task show all controls available for webmaster.
@@ -50,7 +50,7 @@ EOF;
               ),
             4 => array(
               'command' => 'less:compile-all', 
-              'libelle' => 'Compilation des fichiers .less en .css',
+              'libelle' => 'Compilation des .less en .css + fichier de variables .json',
               'arguments' => array(),
               'options' => array()                
               ),
@@ -91,6 +91,12 @@ EOF;
               'options' => array()                
               ),
             11 => array(
+              'command' => 'dm:create-pages-cache',
+              'libelle' => 'Créer le cache des pages',
+              'arguments' => array(),
+              'options' => array()                
+              ),              
+            12 => array(
               'command' => 'dm:erase-site',
               'libelle' => 'ATTENTION: suppression du site',
               'arguments' => array(),
@@ -101,14 +107,11 @@ EOF;
         $this->logBlock('Tâches disponibles :', 'INFO_LARGE');
         
         foreach ($dispoTasks as $k => $dispoTask) {
-            $nbSpaces = str_repeat(' ',strlen(count($dispoTasks))-strlen($k));
-            $this->logBlock('['. $k . ']  '. $nbSpaces . $dispoTask['libelle'], 'COMMENT');
+            $this->logSection($k, $dispoTask['libelle']);
         }
         
-        $messageAccueil = '  Vous pouvez choisir une tâche. Faîtes Ctrl+c pour sortir.';
-        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'LINE'); // une ligne de pointillé
-        $this->logBlock($messageAccueil, 'COMMENT');
-        $this->logBlock(str_repeat('-',strlen($messageAccueil)), 'LINE');
+        $messageAccueil = 'Vous pouvez choisir une tâche. Faîtes Ctrl+c pour sortir.';
+        $this->logBlock($messageAccueil, 'HELP');
 
         // choix de la tâche
         $numTask = $this->askAndValidate(array(
@@ -123,11 +126,9 @@ EOF;
         );
 
         // traitement de la commande
-        $messageCommande = '  '.$dispoTasks[$numTask]['libelle'].'  ['.$dispoTasks[$numTask]['command'].']  ';
-        $this->logBlock(str_repeat('-',strlen($messageCommande)), 'LINE'); 
-        $this->logBlock($messageCommande, 'COMMENT');
-        $this->logBlock(str_repeat('-',strlen($messageCommande)), 'LINE');
-           
+        $messageCommande = $dispoTasks[$numTask]['libelle'].'  ['.$dispoTasks[$numTask]['command'].']';
+        $this->logBlock($messageCommande, 'INFO_LARGE');
+
         $timerTask = new sfTimer();        
         $this->runTask($dispoTasks[$numTask]['command'], $dispoTasks[$numTask]['arguments'], $dispoTasks[$numTask]['options']);
         

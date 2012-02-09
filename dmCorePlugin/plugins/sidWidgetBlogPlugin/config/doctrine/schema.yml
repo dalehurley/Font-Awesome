@@ -1,11 +1,11 @@
 SidBlogRubrique:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(40)
@@ -20,12 +20,12 @@ SidBlogRubrique:
 
 SidBlogType:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     id:
       type: integer(4)
@@ -48,12 +48,12 @@ SidBlogType:
 SidBlogArticle:
   actAs:
     DmTaggable:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, text, resume ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     id:
       type: integer(4)

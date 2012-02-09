@@ -555,7 +555,10 @@ CKEDITOR.lang['fr'] =
 		tag_h4 : 'Titre 4',
 		tag_h5 : 'Titre 5',
 		tag_h6 : 'Titre 6',
-		tag_div : 'Normal (DIV)'
+		tag_div : 'Normal (DIV)',
+                // rajout stef
+                tag_sup : 'Exposant'
+                // rajout stef
 	},
 
 	div :

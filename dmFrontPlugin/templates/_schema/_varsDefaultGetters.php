@@ -116,11 +116,11 @@ if(isset($node)) {
 	
 	//Properties from CreativeWork (rajouter autres variables quand implémentées) :
 	if(!isset($dateCreated)) {
-		try { $dateCreated = $node->created_at; }
+		try { $dateCreated = $node->getCreatedAt(); }
 		catch(Exception $e) { $dateCreated = null; }
 	}
 	if(!isset($dateModified)) {
-		try { $dateModified = $node->updated_at; }
+		try { $dateModified = $node->getUpdatedAt(); }
 		catch(Exception $e) { $dateModified = null; }
 	}
 	
