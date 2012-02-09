@@ -1,11 +1,10 @@
 <?php
 /*
  * _varsDefaultGetters.php
- * v1.2
+ * v1.3
  * Permet d'extraire de façon standardisée des variables de node
  * 
  * Variables disponibles :
- * $node
  * $container
  * $descriptionLength
  * $navigationElements	indique les éléments de navigations
@@ -167,6 +166,3 @@ if(isset($image)) {
 	//test de la présence de l'image
 	$isImage = is_file($imageUrl);
 }
-
-//nettoyage de certaines variables
-if(isset($description)) $description = strip_tags($description, '<sup><sub>');

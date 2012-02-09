@@ -1,7 +1,7 @@
 <?php
 /*
  * Text.php
- * v1.5
+ * v1.6
  * Permet d'afficher un élément de base
  * 
  * Variables disponibles :
@@ -32,17 +32,20 @@ if(!isset($container)) $container = 'span';
 //Composition de la sortie html
 $html = '';
 
-//raccourcissement de la valeur si une longueur est définie
-if($value != null && isset($valueLength)) $value = stringTools::str_truncate($value, $valueLength, $ellipsis, true, true);
-
 //définition des options du container
 $ctnOpts = array();
 if(isset($itemprop)) {
 	$ctnOpts['class'][] = 'itemprop';
 	$ctnOpts['class'][] = $itemprop;
 	if((!isset($type) && !isset($url)) || $itemprop == 'url') $ctnOpts['itemprop'] = $itemprop;
+	
+	//Filtrage du texte en entrée en fonction du type (ne garde que les exposants et indices)
+	if($itemprop == 'name' || $itemprop == 'description') $value = strip_tags($value, '<sup><sub>');
 }
 if(isset($customClass)) $ctnOpts['class'][] = $customClass;
+
+//raccourcissement de la valeur si une longueur est définie
+if($value != null && isset($valueLength)) $value = stringTools::str_truncate($value, $valueLength, $ellipsis, true, true);
 
 //concaténation du lien si présent
 if(isset($url) && $itemprop != 'url') {
