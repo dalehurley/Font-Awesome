@@ -67,14 +67,8 @@ if(isset($description)) $html.= get_partial('global/schema/DataType/Text', array
 //on extrait les variables contenus dans adresse et on remplace celle éventuellement définies
 if(isset($address)) extract($address, EXTR_OVERWRITE);
 
-$addressOpt = array('container' => 'div.address itemprop="address"', 'url' => false);
-//désactivation d'éléments
-$addressOpt['name']				= false;
-$addressOpt['email']			= false;
-$addressOpt['faxNumber']		= false;
-$addressOpt['telephone']		= false;
-
-//ajout des propriétés			
+//options de l'adresse
+$addressOpt = array('container' => 'div.address itemprop="address"', 'url' => false);		
 if(isset($addressLocality)) $addressOpt['addressLocality']	= $addressLocality;
 if(isset($postalCode))		$addressOpt['postalCode']		= $postalCode;
 if(isset($streetAddress))	$addressOpt['streetAddress']	= $streetAddress;
