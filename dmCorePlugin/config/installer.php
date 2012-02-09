@@ -69,6 +69,7 @@ $numEnv = $this->askAndValidate(array('', 'Le numero de l\'environnement choisi?
         ));
 switch ($numEnv) {
   case 1:
+    $ipDefault = '127.0.0.1';
     $apacheDirLog = '/data/logs/sitesv3';
     $webDirDefault = 'htdocs';
     $dbHost = 'localhost';
@@ -79,6 +80,7 @@ switch ($numEnv) {
     break;
 
   case 2:
+    $ipDefault = '91.194.100.239';  
     $apacheDirLog = '/data/logs/sitesv3';
     $webDirDefault = 'htdocs';
     $dbHost = 'db.local';
@@ -106,11 +108,19 @@ if ('Doctrine' != $this->options['orm']) {
 $projectKey = dmProject::getKey();
 
 $ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com)', ''), new sfValidatorRegex(
-                        array('pattern' => '/^([a-z0-9-]+\.)+[a-z]{2,6}$/'),
-                        array('required' => true),
+                        array('pattern' => '/^([a-z0-9-]+\.)+[a-z]{2,6}$/',
+                        'required' => true),
                         array('invalid' => 'Le nom de domaine est pas invalide')
         ));
 $settings['ndd'] = $ndd;
+
+$ip = $this->askAndValidate(array('', 'L\'ip du serveur pour la configuration du virtualhost? (par defaut: '.$ipDefault.')', ''), new sfValidatorRegex(
+                        array('pattern' => '/^[0-9]{1,3}+\.+[0-9]{1,3}+\.+[0-9]{1,3}+\.+[0-9]{1,3}$/',
+                        'required' => false),
+                        array('invalid' => 'Ip invalide')
+        ));
+$settings['ip'] = $ip;
+$settings['ip'] = empty($settings['ip']) ? $ipDefault : $settings['ip']; 
 
 //// le nom du projet
 //$projectName = $ndd;
@@ -322,29 +332,12 @@ $this->runTask('configure:database', array(
 //-------------------------------------------------------------------------------------
 //    creation dossier des sessions
 //-------------------------------------------------------------------------------------
-    $sessionDir = sfConfig::get('sf_root_dir').'/data/sessions';
-    if (!is_dir($sessionDir)) mkdir ($sessionDir); 
-    ini_set('session.save_path',$sessionDir); 
+//    $sessionDir = sfConfig::get('sf_root_dir').'/sessions';
+//    if (!is_dir($sessionDir)) mkdir ($sessionDir, 0777); 
+//    ini_set('session.save_path',$sessionDir); 
 
 
-//-------------------------------------------------------------------------------------
-//    dmsetup
-//-------------------------------------------------------------------------------------
-try {
-    if ('/' !== DIRECTORY_SEPARATOR) {
-        throw new Exception('Automatic install disabled for windows servers');
-    }
 
-    $this->logBlock('Installation de ' . $projectKey . '. Ceci peut etre long.', 'INFO_LARGE');
-
-    $out = $err = null;
-    $this->getFilesystem()->execute(sprintf(
-                    '%s "%s" %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'dm:setup --no-confirmation'
-            ), $out, $err);
-
-} catch (Exception $e) {
-    $this->logBlock('Un soucis...  Lancez "php symfony dm:setup"', 'ERROR_LARGE');
-}
 
 /*
  * Mise en cron de la gÃ©nÃ©ration :
@@ -365,9 +358,10 @@ try {
 // sitemap.xml
 //chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml', 0666);
 
-/*
- * GÃ©nÃ©ration du fichier de conf
- */
+
+//-----------------------------------------------------------------------------------------------
+//      Generation du fichier de conf
+//-----------------------------------------------------------------------------------------------
 
 //$this->logBlock('APACHE : Creation du fichier '.sfConfig::get('sf_root_dir').'/conf/httpd.conf', 'INFO_LARGE');
 //$ip = $this->ask(array('', 'IP du serveur? (par defaut : '.$ipDefault.')', ''));
@@ -376,8 +370,8 @@ try {
 //$ip = empty($ip) ? $ipDefault : $ip;
 //$port = empty($port) ? $portDefault : $port;
 
-
-$confFileContent = '<VirtualHost '.$settings['ndd'].' >
+//$confFileContent = '<VirtualHost '.$settings['ndd'].' >
+$confFileContent = '<VirtualHost '.$settings['ip'].':80>
   ServerName    ' . $settings['ndd'] . '
   DocumentRoot  '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'
   ErrorLog        '.$settings['apache_dir_log'].'/'.$projectKey.'/error.log
@@ -452,10 +446,14 @@ fputs($confFile, $confFileContent);
 fclose($confFile);
 $this->logBlock('APACHE : Le fichier "'.$fileConf.'" a inclure dans la configuration d\'Apache est cree.', 'INFO_LARGE');
 
-// pour le serveur de dev
+//------------------------------------------------------------------------------------
+// pour le serveur de dev, ou si votre apache va scanner le repertoire /data/conf 
+// pour y trouver les httpd.conf de chaque site
+// -----------------------------------------------------------------------------------
 if (is_dir('/data/conf')){ 
  //   cp /data/www/xxxxxxxx/conf/httpd.conf /data/conf/
     //$this->logSection('>>','Copie httpd.conf du site dans /data/conf/httpd-'.$projectKey.'.conf');
+    $out = $err = null;
     $this->getFilesystem()->execute('cp '.sfConfig::get('sf_root_dir').'/conf/httpd.conf /data/conf/', $out, $err);
     $this->getFilesystem()->execute('mv /data/conf/httpd.conf /data/conf/httpd-'.$projectKey.'.conf', $out, $err);
 }
@@ -500,10 +498,10 @@ $settings['numTemplate'] = $numTemplate;
 $nomTemplateChoisi = $dispoTemplates[$settings['numTemplate']];
 $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
 
-// on integre tout le framework
-// 
+//-----------------------------------------------------------------------
+//               on integre tout le framework
+//----------------------------------------------------------------------- 
 
-// on est dans le dossier htdocs:
 // Copie du dossier diem/themesFmk/theme 
 
 $dirTheme = sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme';
@@ -520,29 +518,42 @@ $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk
 //liaison vers le dossier templates contenant les partials du coeur
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../dmFrontPlugin/templates/ '.sfConfig::get('sf_root_dir').'/apps/front/templates', $out, $err);
 
-//// Cas particulier d'Opera 
-//if ($nomTemplateChoisi == 'OperaTheme') {
-//    //Changer la ligne de widgetNavigationMenu.less : mettre en commentaire l'import du fichier less du menuNavigation
-//    $this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme/less -name "widgetNavigationMenu.less" -print | xargs sed -i \'s/@import "_templates\/OperaTheme\/Widgets\/NavigationMenu\/_NavigationMenu.less";/\/\/@import "_templates\/OperaTheme\/Widgets\/NavigationMenu\/_NavigationMenu.less";/g\'');
-//
-//    //Changer la ligne de style.less : supprime l'import du framework complet et le remplace par l'import du fichier de _style.less
-//    $this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme/less -name "style.less" -print | xargs sed -i \'s/@import "_framework\/SPLessCss\/_SPLessCss.less";/@import "_templates\/OperaTheme\/_style.less";/g\'');
-//}
-
 // recherche des templates -> XXXSuccess.php
 $dirPageSuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/layouts';
+
 // on créé les répertoires s'ils n'existent pas
 $dirDmFront = sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront';
 $dirDmFrontTemplate = $dirDmFront.'/templates';
 if (!is_dir($dirDmFront)) mkdir($dirDmFront);
 if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
-
 // Copie des xxxSuccess.php du theme sur le site 
 $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.$dirDmFrontTemplate, $out, $err);
+
+
+//-------------------------------------------------------------------------------------
+//    dmsetup
+//-------------------------------------------------------------------------------------
+try {
+    if ('/' !== DIRECTORY_SEPARATOR) {
+        throw new Exception('Automatic install disabled for windows servers');
+    }
+
+    $this->logBlock('Installation de ' . $projectKey . '. Ceci peut etre long.', 'INFO_LARGE');
+
+    $out = $err = null;
+    $this->getFilesystem()->execute(sprintf(
+                    '%s "%s" %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'dm:setup --no-confirmation'
+            ), $out, $err);
+
+} catch (Exception $e) {
+    $this->logBlock('Un soucis...  Lancez "php symfony dm:setup"', 'ERROR_LARGE');
+}
 
 //-------------------------------------------------------------------------------------
 //    Les permissions
 //-------------------------------------------------------------------------------------
+/*   Plus besoin, effectué dans le dm:setup au dessus
+
 $this->logBlock('Les permissions (dm:permissions)', 'INFO_LARGE');
 // pour laisser php ecrire via lessPlugin et sprite_init
 $out = $err = null;
@@ -556,6 +567,8 @@ $this->getFilesystem()->execute(sprintf(
 //$this->logBlock('Chmod 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads" pour laisser php ecrire via dmMedia', 'INFO_LARGE');
 $out = $err = null;
 $this->getFilesystem()->execute('chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads', $out, $err);
+
+*/
 
 //-------------------------------------------------------------------------------------
 //    Redemarrage Apache
@@ -573,7 +586,7 @@ foreach ($commands as $libCommand => $command) {
   $out = $err = null;
   $this->getFilesystem()->execute($command, $out, $err);
     } catch (exception $e) {
-  $this->logBlock('Error: '.$libCommand, 'ERROR_LARGE');
+  $this->logBlock('Error: '.$libCommand, 'ERROR');
     }
 }
 

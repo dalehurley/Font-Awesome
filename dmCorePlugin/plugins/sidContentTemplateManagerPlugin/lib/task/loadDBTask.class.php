@@ -95,7 +95,7 @@ EOF;
             $this->logBlock('Dump existants du theme ' . $dispoTemplates[$numTemplate] . ' :', 'INFO_LARGE');
             
             foreach ($dispoTemplateDumps as $k => $dispoTemplateDump) {
-                $this->log($k . ' - ' . $dispoTemplateDump);
+                $this->logSection($k, $dispoTemplateDump);
             }
 
             // choix du dump
