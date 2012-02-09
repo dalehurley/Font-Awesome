@@ -29,8 +29,5 @@ if(!isset($isListing)) $isListing = false;
 //permet d'indiquer une version light de l'affichage (pour les listings simples)
 if(!isset($isLight)) $isLight = false;
 
-//désactive tout ajout de microdata
-if(!isset($noMicrodata)) $noMicrodata = false;
-
 //active l'affichage de la date en balise meta et désactive l'affichage des dates
 if(!isset($isDateMeta)) $isDateMeta = false;
