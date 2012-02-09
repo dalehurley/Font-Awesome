@@ -43,7 +43,6 @@ $serverCheck->setCommandApplication($this->commandApplication);
 //    }
 //}
 
-// édité par : http://patorjk.com/software/taag/
 $this->logBlock('Diem Sid - Installation','CHOICE_LARGE');
 
 /**
@@ -69,7 +68,6 @@ $numEnv = $this->askAndValidate(array('', 'Le numero de l\'environnement choisi?
         ));
 switch ($numEnv) {
   case 1:
-    $ipDefault = '127.0.0.1';
     $apacheDirLog = '/data/logs/sitesv3';
     $webDirDefault = 'htdocs';
     $dbHost = 'localhost';
@@ -80,7 +78,6 @@ switch ($numEnv) {
     break;
 
   case 2:
-    $ipDefault = '91.194.100.239';  
     $apacheDirLog = '/data/logs/sitesv3';
     $webDirDefault = 'htdocs';
     $dbHost = 'db.local';
@@ -114,6 +111,7 @@ $ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com)
         ));
 $settings['ndd'] = $ndd;
 
+/*
 $ip = $this->askAndValidate(array('', 'L\'ip du serveur pour la configuration du virtualhost? (par defaut: '.$ipDefault.')', ''), new sfValidatorRegex(
                         array('pattern' => '/^[0-9]{1,3}+\.+[0-9]{1,3}+\.+[0-9]{1,3}+\.+[0-9]{1,3}$/',
                         'required' => false),
@@ -121,6 +119,7 @@ $ip = $this->askAndValidate(array('', 'L\'ip du serveur pour la configuration du
         ));
 $settings['ip'] = $ip;
 $settings['ip'] = empty($settings['ip']) ? $ipDefault : $settings['ip']; 
+*/
 
 //// le nom du projet
 //$projectName = $ndd;
@@ -370,8 +369,7 @@ $this->runTask('configure:database', array(
 //$ip = empty($ip) ? $ipDefault : $ip;
 //$port = empty($port) ? $portDefault : $port;
 
-//$confFileContent = '<VirtualHost '.$settings['ndd'].' >
-$confFileContent = '<VirtualHost '.$settings['ip'].':80>
+$confFileContent = '<VirtualHost *:80>
   ServerName    ' . $settings['ndd'] . '
   DocumentRoot  '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'
   ErrorLog        '.$settings['apache_dir_log'].'/'.$projectKey.'/error.log
@@ -538,11 +536,11 @@ try {
         throw new Exception('Automatic install disabled for windows servers');
     }
 
-    $this->logBlock('Installation de ' . $projectKey . '. Ceci peut etre long.', 'INFO_LARGE');
+    $this->logBlock('Installation de ' . $projectKey . '. Ceci peut être long.', 'INFO_LARGE');
 
     $out = $err = null;
     $this->getFilesystem()->execute(sprintf(
-                    '%s "%s" %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'dm:setup --no-confirmation'
+                    '%s "%s" %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'dm:setup'// --no-confirmation'
             ), $out, $err);
 
 } catch (Exception $e) {
@@ -635,8 +633,10 @@ if ($site==''){
 //-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
-$this->logBlock('Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php.','INFO');
-$this->logBlock('Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'"','HELP_LARGE');
-$this->logBlock('Lancer la commande "php symfony controls" afin de charger un dump de contenu','HELP_LARGE');
+$this->logBlock('
+  Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php. 
+  Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'". 
+  Lancer maintenant la commande "php symfony controls" afin de charger un dump de contenu.
+','HELP');
 exit;
 
