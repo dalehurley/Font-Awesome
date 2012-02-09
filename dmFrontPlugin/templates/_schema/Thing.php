@@ -1,11 +1,10 @@
 <?php
 /*
  * Thing.php
- * v1.1
+ * v1.2
  * http://schema.org/Thing
  * 
  * Variables disponibles :
- * $node
  * $container
  * $imageGridWidth		nombre de colonnes en largeur de l'image
  * $imageGridHeight		nombre de lignes en hauteur de l'image
@@ -47,8 +46,8 @@ if($isImage) {
 	$html.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 }
 
-if(isset($name)) if($name) $html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
-if(isset($description)) if($description) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
+if(isset($name))		$html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
+if(isset($description)) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
 
 //voir pour intégration image et url dans les datatypes
 
