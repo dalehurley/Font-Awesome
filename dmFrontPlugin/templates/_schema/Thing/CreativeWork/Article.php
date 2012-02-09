@@ -63,9 +63,13 @@
 //Définition du type (inséré dans le container si présent)
 $itemType = "Article";
 
-//récupération des valeurs dans la node par les getters par défaut
-$includeDefault = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultGetters.php';
-include $includeDefault;
+//insertions des includes nécessaires à ce partial
+$initValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitValues.php';
+$initContainer = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitContainer.php';
+$initImage = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitImage.php';
+include $initValues;
+include $initContainer;
+include $initImage;
 
 //Composition du html de sortie
 $html = '';

@@ -20,9 +20,11 @@
 //Définition du type (inséré dans le container si présent)
 $itemType = "ContactPoint";
 
-//récupération des valeurs dans la node par les getters par défaut
-$includeDefault = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultGetters.php';
-include $includeDefault;
+//insertions des includes nécessaires à ce partial
+$initContainer = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitContainer.php';
+$initImage = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitImage.php';
+include $initContainer;
+include $initImage;
 
 //Composition du html de sortie
 $html = '';
