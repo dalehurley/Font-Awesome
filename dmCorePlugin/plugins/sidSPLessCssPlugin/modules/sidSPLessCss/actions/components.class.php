@@ -11,8 +11,8 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 		$this->getResponse()->addStylesheet(sidSPLessCss::getCssPathTemplate().'/Widgets/SidSPLessCssDebug/SidSPLessCssDebug.css');
 		
 		//récupération des valeurs de configuration par défaut de la page
-		$pageTemplateOptionsDefault = spLessCss::pageTemplateGetOptions();
-
+		$pageTemplateOptionsDefault = sfConfig::get('pageOptions');;
+		
         // affichage de la page courante
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);

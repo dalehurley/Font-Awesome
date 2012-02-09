@@ -114,7 +114,6 @@
 	}
 }
 
-
 //Décalage containers
 .supWrapper {
 	.elements {
@@ -132,9 +131,10 @@
 	}
 	margin: 0 (@zonesOffsetPad * -1 +1px) @gridBaseline (@zonesOffsetPad * -1 +1px);
 	padding: 0 (@zonesOffsetPad -1px) (@gridBaseline - 1px) (@zonesOffsetPad -1px);
+	//gestion bordure du wrapper
 	border-bottom: 1px solid @zonesBorderColor;
+	&.last { border: 0; padding-bottom: 0; }
 }
-
 
 //configuration des liens de navigations
 .navigation {
