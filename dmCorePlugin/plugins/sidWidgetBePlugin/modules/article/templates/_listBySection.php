@@ -1,7 +1,7 @@
 <?php // Vars: $articlePager, $parent, $route
-//récupération des valeurs par défaut
-$includeDefaultValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultValues.php';
-include $includeDefaultValues;
+//insertions des includes nécessaires à ce partial
+$initValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitValues.php';
+include $initValues;
 
 $html = '';
 
