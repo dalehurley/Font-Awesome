@@ -20,7 +20,6 @@ if (count($articles)) { // si nous avons des actu articles
 		//création d'un tableau de liens à afficher
 		$elements = array();
 		$elements[] = array('title' => $titreLien . '&#160;' . $arrayRubrique[$article->filename], 'linkUrl' => $article->Section);
-		
 		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
 												'node' => $article,
 //                    'description' => $article->getChapeau(),'dateCreated' => $article->created_at,'dateModified' => $article->updated_at,'section' => $article->getSectionPageTitle(),
@@ -32,7 +31,8 @@ if (count($articles)) { // si nous avons des actu articles
 												'isListing' => true,
 												'descriptionLength' => $longueurTexte,
 												'navigationElements' => $elements,
-												'url' => $article
+												'url' => $article,
+                                                                                                'photo' => $photo
 												));
     }
 	

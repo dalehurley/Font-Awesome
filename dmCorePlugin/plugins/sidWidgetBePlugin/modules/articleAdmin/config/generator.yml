@@ -43,7 +43,7 @@ generator:
           NONE: [title, is_active, section_id]
           Chapeau: [chapeau]
           Others: [filename]
-          Keywords: [tags]          
+          Keywords: [tags_list]          
         class: SidArticleAdminForm
         fields: {  }
       edit: ~

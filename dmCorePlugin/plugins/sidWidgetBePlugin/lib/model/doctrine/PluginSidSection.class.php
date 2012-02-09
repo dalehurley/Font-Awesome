@@ -29,8 +29,8 @@ abstract class PluginSidSection extends BaseSidSection {
 
         return $rubriquePage[0]->name . ' - ' . $sectionPage[0]->name;
     }
-    
-public function show_section_rubrique() {
+
+    public function show_section_rubrique() {
 
         // on récupère le name de la page de la rubrique, plutot que le title de la rubrique, ou section...
         $sectionPage = dmDb::table('DmPage') //->findAllBySectionId($vars['section']);
@@ -44,12 +44,11 @@ public function show_section_rubrique() {
                 ->where('p.module = ? and p.action=? and p.record_id=?', array('rubrique', 'show', $this->getRubrique()->id))
                 ->limit(1)
                 ->execute();
-        
-        
 
-        return  $sectionPage[0]->name. ' - ' . $rubriquePage[0]->name;
+
+
+        return $sectionPage[0]->name . ' - ' . $rubriquePage[0]->name;
 //        return  $sectionPage[0]->name;
     }
-    
-    
+
 }

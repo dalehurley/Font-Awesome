@@ -73,26 +73,26 @@ $html = '';
 if($isListing) {
 	//html image
 	$htmlImage = '';
+	 if((!isset($photo)) || ($photo == true)){
+            //on affiche l'image que si elle est effectivement présente
+            if($isImage && isset($image)){
+                    //dimensions de l'image
+                    $imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
+                    $imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
+                    //options de l'image
+                    $imageWrapperOpts = array(
+                                                                            'image'	=>	$image,
+                                                                            'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
+                                                                            'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+                                                                            );
+                    //ajout du nom de l'article dans la balise Alt de l'image
+                    if(isset($name)) $imageWrapperOpts['alt'] = $name;
+
+                    //Appel du partial d'image
+                    $htmlImage.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
+            }
 	
-	//on affiche l'image que si elle est effectivement présente
-	if($isImage && isset($image)){
-		//dimensions de l'image
-		$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
-		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
-		//options de l'image
-		$imageWrapperOpts = array(
-									'image'	=>	$image,
-									'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
-									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
-									);
-		//ajout du nom de l'article dans la balise Alt de l'image
-		if(isset($name)) $imageWrapperOpts['alt'] = $name;
-		
-		//Appel du partial d'image
-		$htmlImage.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 	}
-	
-	
 	
 	
 	//html hors image
@@ -150,7 +150,7 @@ if($isListing) {
 		if(isset($rubrique)) $htmlHeader.= _tag('h2.category', array('itemprop' => 'articleSection'), $rubrique);
 		//La section de l'article, à savoir Social, Juridique, Fiscal, etc
 		if(isset($section)) $htmlHeader.= _tag('h3.section', array('itemprop' => 'articleSection'), $section);
-
+                if((!isset($photo)) || ($photo == true)){
 		//on affiche l'image que si elle est effectivement présente
 		if($isImage && isset($image)){
 			//dimensions de l'image
@@ -169,6 +169,7 @@ if($isListing) {
 			//Appel du partial d'image
 			$htmlHeader.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 		}
+                }
 
 		//Le titre de l'article, devant toujours être l'unique H1 dans la page
 		if(isset($name)) if($name) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));

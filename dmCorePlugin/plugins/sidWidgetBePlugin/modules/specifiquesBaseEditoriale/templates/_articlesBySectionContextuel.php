@@ -15,7 +15,7 @@ if (count($articles)) { // si nous avons des actu articles
     echo _open ('ul.elements');
         echo _open ('li.element');
             if($titreLien){$text = $titreLien;}
-            else $text = $section->title.' en '. $rubrique->name;
+            else $text = $section->title.' '.__('in').' '. $rubrique->name;
             echo _link($article->Section)->text($text);
         echo _close('li');
     echo _close('ul');
