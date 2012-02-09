@@ -47,9 +47,9 @@ if (count($articles)) { // si nous avons des actu articles
 echo $html;
 
 
-//TEST DE PERFORMANCE modif pour html UNIQUEMENTT
-?>
-
+//TEST DE PERFORMANCE
+//modif pour html UNIQUEMENTT
+/*
 
 <!--        <h4 class="title">Actualités</h4>
         <ul class="elements">
@@ -102,13 +102,8 @@ echo $html;
                 </span>
             </li>
         </ul>-->
-    
-    
-    
-    
-    
- <?php   
- // MODIF POUR HELPER HTML
+*/  
+// MODIF POUR HELPER HTML
 // echo _tag('h4.title','Actualités');
 //        echo _open('ul.elements');
 //            echo _open('li.element.itemscope.Article.first');
@@ -192,6 +187,4 @@ echo $html;
 //            echo _close('li');
 //        };
 //        echo _close('ul.elements');
-}
-
- ?>
+//}
