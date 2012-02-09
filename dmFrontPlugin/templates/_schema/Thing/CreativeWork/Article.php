@@ -1,11 +1,10 @@
 <?php
 /*
  * Article.php
- * v1.4
+ * v1.5
  * http://schema.org/Article
  * 
  * Variables disponibles :
- * $node
  * $container
  * $navigationTopElements
  * $navigationBottomElements
@@ -88,7 +87,7 @@ if($isListing) {
 									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
 									);
 		//ajout du nom de l'article dans la balise Alt de l'image
-		if(isset($name)) $imageWrapperOpts['alt'] = $name;
+		if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;
 		
 		//Appel du partial d'image
 		$htmlImage.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
@@ -101,15 +100,15 @@ if($isListing) {
 	$htmlText = '';
 	
 	//Titre affiché en span car utilisé dans un container
-	if(isset($name)) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
+	if(isset($name) && $name != null) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
 	//Gestion de la date de création
-	if(isset($dateCreated)) $htmlText.= ($isDateMeta) ? _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated)) : get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
+	if(isset($dateCreated) && $dateCreated != null) $htmlText.= ($isDateMeta) ? _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated)) : get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
 	
 	//englobage dans un container si non vide
 	if($htmlText != null) $htmlText = _tag('span.subWrapper', $htmlText);
 
 	//Chapeau de l'article si présent
-	if(isset($description)) {
+	if(isset($description) && $description != null) {
 		//ajout de la longueur de la description
 		$descriptionOpt = array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser');
 		if(isset($descriptionLength)) $descriptionOpt['valueLength'] = $descriptionLength;
@@ -166,23 +165,23 @@ if($isListing) {
 									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
 									);
 			//ajout du nom de l'article dans la balise Alt de l'image
-			if(isset($name)) $imageWrapperOpts['alt'] = $name;
+			if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;
 		
 			//Appel du partial d'image
 			$htmlHeader.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 		}
 		
 		//Le titre de l'article, devant toujours être l'unique H1 dans la page
-		if(isset($name)) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
+		if(isset($name) && $name != null) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
 		
 		//ajout meta articleSection pour référencement
-		if(isset($articleSection)) $htmlHeader.= _tag('meta', array('itemprop' => 'articleSection', 'content' => $articleSection));
+		if(isset($articleSection) && $articleSection != null) $htmlHeader.= _tag('meta', array('itemprop' => 'articleSection', 'content' => $articleSection));
 		
 		//Chapeau de l'article si présent
-		if(isset($description)) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
+		if(isset($description) && $description != null) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
 
 		//Gestion de la date avec plusieurs possibilités (dateCreated, dateModified, etc)
-		if(isset($dateCreated)) {
+		if(isset($dateCreated) && $dateCreated != null) {
 			if($isDateMeta) {
 				//affichage des meta dates
 				$htmlHeader.= _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated));
@@ -211,7 +210,7 @@ if($isListing) {
 	
 	
 	//affichage du contenu de la page
-	if(isset($articleBody))	$html.= _tag('section.contentBody', array('itemprop' => 'articleBody'), $articleBody);
+	if(isset($articleBody) && $articleBody != null)	$html.= _tag('section.contentBody', array('itemprop' => 'articleBody'), $articleBody);
 	
 	//contenu du footer de l'article
 	$htmlFooter = '';
@@ -234,7 +233,7 @@ if($isListing) {
 	}
 	
 	//ajout des informations de publications à la fin de l'article
-	if(isset($copyrightHolder)) {
+	if(isset($copyrightHolder) && $copyrightHolder != null) {
 		//affichage de la date pleine
 		$htmlMeta = get_partial('global/dateWrapperFull', array('dateCreated' => $dateCreated, 'isFooter' => true));
 		
@@ -244,7 +243,7 @@ if($isListing) {
 		//affichage du copyright
 		$htmlCopyright = '&#169;&#160;' . get_partial('global/schema/DataType/Text', array('value' => $copyrightHolder, 'itemprop' => 'copyrightHolder'));
 		//ajout année du copyright
-		if(isset($copyrightYear)) $htmlCopyright.= $dash . get_partial('global/schema/DataType/Text', array('value' => $copyrightYear, 'itemprop' => 'copyrightYear'));
+		if(isset($copyrightYear) && $copyrightYear != null) $htmlCopyright.= $dash . get_partial('global/schema/DataType/Text', array('value' => $copyrightYear, 'itemprop' => 'copyrightYear'));
 		$htmlMeta.= _tag('span.copyright', $htmlCopyright);
 		
 		$htmlFooter.= _tag('span.meta', $htmlMeta);

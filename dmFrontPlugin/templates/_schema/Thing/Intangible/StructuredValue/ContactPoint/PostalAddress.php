@@ -55,20 +55,20 @@ if(isset($telephone))	$contactPointOpt['telephone']	= $telephone;
 $html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint', $contactPointOpt);
 
 //Properties from PostalAddress :
-if(isset($streetAddress))	$html.= get_partial('global/schema/DataType/Text',			array('type' => __('Street'),			'value' => $streetAddress,	'itemprop' => 'streetAddress'));
+if(isset($streetAddress) && $streetAddress != null)	$html.= get_partial('global/schema/DataType/Text',			array('type' => __('Street'),			'value' => $streetAddress,	'itemprop' => 'streetAddress'));
 
 //html ville et code postal
 $htmlLPC = '';
-if(isset($postalCode))		$htmlLPC.= get_partial('global/schema/DataType/Text',		array('type' => __('Postal Code'),		'value' => $postalCode,		'itemprop' => 'postalCode'));
-if(isset($addressLocality))	$htmlLPC.= ' ' . get_partial('global/schema/DataType/Text', array('type' => __('Locality'),			'value' => $addressLocality,'itemprop' => 'addressLocality'));
+if(isset($postalCode) && $postalCode != null)			$htmlLPC.= get_partial('global/schema/DataType/Text',		array('type' => __('Postal Code'),		'value' => $postalCode,		'itemprop' => 'postalCode'));
+if(isset($addressLocality) && $addressLocality != null)	$htmlLPC.= ' ' . get_partial('global/schema/DataType/Text', array('type' => __('Locality'),			'value' => $addressLocality,'itemprop' => 'addressLocality'));
 //englobage dans un container
 if($htmlLPC != null) {
 	$htmlLPC = _tag('span.subWrapper', $htmlLPC);
 	$html.= $htmlLPC;
 }
 
-if(isset($addressRegion))	$html.= get_partial('global/schema/DataType/Text',			array('type' => __('Region'),			'value' => $addressRegion,	'itemprop' => 'addressRegion'));
-if(isset($addressCountry))	$html.= get_partial('global/schema/DataType/Text',			array('type' => __('Country'),			'value' => $addressCountry,	'itemprop' => 'addressCountry'));
+if(isset($addressRegion) && $addressRegion != null)		$html.= get_partial('global/schema/DataType/Text',			array('type' => __('Region'),			'value' => $addressRegion,	'itemprop' => 'addressRegion'));
+if(isset($addressCountry) && $addressCountry != null)	$html.= get_partial('global/schema/DataType/Text',			array('type' => __('Country'),			'value' => $addressCountry,	'itemprop' => 'addressCountry'));
 
 //englobage dans un container
 if(isset($container)) $html = _tag($container, $ctnOpts, $html);

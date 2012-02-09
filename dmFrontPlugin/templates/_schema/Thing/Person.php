@@ -77,7 +77,7 @@ if($isImage){
 								'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
 								);
 	//ajout du nom de l'article dans la balise Alt de l'image
-	if(isset($name)) $imageWrapperOpts['alt'] = $name;
+	if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;
 
 	//Appel du partial d'image
 	$htmlImage.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
@@ -90,8 +90,8 @@ if($isImage){
 $htmlText = '';
 
 //if(isset($name) || isset($jobTitle)) {
-	if(isset($name))		$htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
-	if(isset($jobTitle))	$htmlText.= get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));
+	if(isset($name) && $name != null)			$htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
+	if(isset($jobTitle) && $jobTitle != null)	$htmlText.= get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));
 	//englobage dans un container
 	//$dash . 
 	//$htmlText = _tag('span.subWrapper', $htmlText);
@@ -108,7 +108,7 @@ $htmlText.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactP
 //__('Responsable in')
 
 //affichage de la description
-if(isset($description) && !$isLight) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
+if(isset($description) && $description != null && !$isLight) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
 
 //insertion dans un wrapper si une image est présente
 if($isImage) $htmlText = _tag('span.wrapper', $htmlText);

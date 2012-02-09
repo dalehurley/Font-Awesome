@@ -40,10 +40,10 @@ if(isset($url))			$thingOpt['url']			= $url;
 $html.= get_partial('global/schema/Thing', $thingOpt);
 
 //Properties from ContactPoint :
-if(isset($contactType))	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Contact type'),	'value' => $contactType,	'itemprop' => 'contactType'));
+if(isset($contactType) && $contactType != null)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Contact type'),	'value' => $contactType,	'itemprop' => 'contactType'));
 
 //options d'affichage de l'email
-if(isset($email)) {
+if(isset($email) && $email != null) {
 	$emailOpt = array(
 				'type'		=> __('Email'),
 				'value'		=> $email,
@@ -51,14 +51,13 @@ if(isset($email)) {
 				'isLight'	=> $isLight
 			);
 	//si l'URL n'est pas définit pour la personne ou désactivé alors on peut rajouter l'email dans l'affichage
-	if(!isset($url))					$emailOpt['url'] = 'mailto:' . $email;
-	if(isset($url)) if($url == null)	$emailOpt['url'] = 'mailto:' . $email;
+	if(!isset($url) || (isset($url) && $url == null)) $emailOpt['url'] = 'mailto:' . $email;
 		
 	$html.= get_partial('global/schema/DataType/Text', $emailOpt);
 }
 
-if(isset($telephone))	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Phone'),			'value' => $telephone,		'itemprop' => 'telephone'));
-if(isset($faxNumber))	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Fax'),			'value' => $faxNumber,		'itemprop' => 'faxNumber'));
+if(isset($telephone) && $telephone != null)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Phone'),			'value' => $telephone,		'itemprop' => 'telephone'));
+if(isset($faxNumber) && $faxNumber != null)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Fax'),			'value' => $faxNumber,		'itemprop' => 'faxNumber'));
 
 //englobage dans un container
 if(isset($container)) $html = _tag($container, $ctnOpts, $html);
