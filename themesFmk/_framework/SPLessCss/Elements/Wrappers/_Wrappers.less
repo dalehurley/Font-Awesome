@@ -51,33 +51,8 @@
 	}
 }
 
-//styalge minimal de l'email
-.email {
-	//on réduit la taille et la largeur lorsque que le type est inclut avec value
-	.value {
-		display: inline;
-		vertical-align: top;
-		font-size: @fontSizeSmall;
-		line-height: @gridBaseline;
-		word-spacing: -0.05em;
-		letter-spacing: -0.05em;
-	}
-}
 
-//stylage minimal de la date
-.date {
-	.isLess & { background-color: lightgreen; }
-	font-size: @fontSizeSmall;
-	line-height: @gridBaseline;
-	vertical-align: top;
-}
 
-//stylage minimal du teaser/description
-.teaser, .description {
-	.isLess & { background-color: fadeout(#AEDCEB, 50%); }
-	//une fois que l'article est affiché en pleine page
-	#dm_content article & { font-weight: bold; }
-}
 
 //séparateur de type &#160;:&#160;
 .separator { }
