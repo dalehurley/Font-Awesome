@@ -1,11 +1,10 @@
 <?php
 /*
  * CreativeWork.php
- * v1.0
+ * v1.1
  * http://schema.org/CreativeWork
  * 
  * Variables disponibles :
- * $node
  * $container
  * 
  * Properties from Thing :
