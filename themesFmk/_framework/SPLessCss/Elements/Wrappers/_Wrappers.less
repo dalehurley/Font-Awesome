@@ -7,7 +7,7 @@
 //configuration des styles de base des différents containers pouvant servir à la mise en page du site
 
 //affection d'un style block à tous les containers
-.contentWrapper, .supWrapper, .wrapper, .subWrapper, .imageWrapper, .imageGallery { display: block; }
+.contentWrapper, .navigationWrapper, .fileWrapper, .supWrapper, .wrapper, .subWrapper, .imageWrapper, .imageGallery { position: relative; display: block; }
 
 //configuration de base des deux containers d'images
 .imageWrapper, .imageGallery {
@@ -36,21 +36,19 @@
 
 //container utilisé pour contenir tout le contenu d'une publication
 .contentWrapper {
-	//indicateur visuel indiquant que la zone a été stylée par Arnaud
-	.isLess &.isVerified {
-		&:after {
-			position: absolute;
-			top: 0;
-			right: 0;
-			content: "isVerified";
-			color: @colorRequired;
-		}
-	}
+	
 }
 
 //container situés directement dans un widget en enblobant plusieurs sous-contenus
 .supWrapper {
-	& > .title { margin-bottom: @gridBaseline; }
+	.isLess & { background-color: #D9E8A5; }
+	& > .title {
+		.isLess & { background-color: #B7D450; }
+		margin-bottom: @gridBaseline;
+	}
+	article & {
+		.isLess & { background-color: #A8B382; }
+	}
 }
 
 //styalge minimal de l'email
@@ -68,6 +66,7 @@
 
 //stylage minimal de la date
 .date {
+	.isLess & { background-color: lightgreen; }
 	font-size: @fontSizeSmall;
 	line-height: @gridBaseline;
 	vertical-align: top;
@@ -75,6 +74,7 @@
 
 //stylage minimal du teaser/description
 .teaser, .description {
+	.isLess & { background-color: fadeout(#AEDCEB, 50%); }
 	//une fois que l'article est affiché en pleine page
 	#dm_content article & { font-weight: bold; }
 }
@@ -96,7 +96,7 @@
 //Gestion des listings
 .elements {
 	//couleur de débug
-	.isLess & { background-color: #777; }
+	.isLess & { background-color: fadeout(#999, 25%); }
 	
 	//suppression de toute marge et puce (à tester avec un article (vérifier si balisage identique)
 	margin: 0;
@@ -104,21 +104,11 @@
 	list-style: none;
 	
 	.element {
+		//couleurs de débug
+		.isLess & { background-color: #bbb; }
+		
 		//force l'agrandissement en cas de présence de contenu flottant
 		@getClearfix();
-		
-		//couleurs de débug
-		.isLess & { background-color: #999; }
-		//indicateur visuel indiquant que la zone a été stylée par Arnaud
-		.isLess &.first.isVerified {
-			&:after {
-				position: absolute;
-				top: 0;
-				right: 0;
-				content: "isVerified";
-				color: @colorRequired;
-			}
-		}
 		
 		//débuggage alignements des différents éléments constitutifs des itemprops
 		.type, .separator, .value, .dash, .ellipsis { line-height: @gridBaseline; vertical-align: top; }
@@ -145,16 +135,10 @@
 		}
 		
 		.jobTitle {
-			.isLess & { background-color: lightgreen; }
-		}
-		
-		//permet de replacer la description sous le titre et la date
-		.description {
-			.isLess & { background-color: lightblue; }
+			.isLess & { background-color: fadeout(#AEF5B0, 25%); }
 		}
 		
 		.date {
-			.isLess & { background-color: lightgreen; }
 			//uniquement dans le contenu où on a la place horizontale
 			#dm_content & { margin-left: @offM; }
 		}
