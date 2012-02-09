@@ -1,12 +1,13 @@
 <?php
 /*
  * Article.php
- * v1.2
+ * v1.5
  * http://schema.org/Article
  * 
  * Variables disponibles :
- * $node
  * $container
+ * $navigationTopElements
+ * $navigationBottomElements
  * 
  * Properties from Thing :
  * $description
@@ -62,9 +63,13 @@
 //Définition du type (inséré dans le container si présent)
 $itemType = "Article";
 
-//récupération des valeurs dans la node par les getters par défaut
-$includeDefault = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultGetters.php';
-include $includeDefault;
+//insertions des includes nécessaires à ce partial
+$initValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitValues.php';
+$initContainer = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitContainer.php';
+$initImage = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitImage.php';
+include $initValues;
+include $initContainer;
+include $initImage;
 
 //Composition du html de sortie
 $html = '';
@@ -73,41 +78,41 @@ $html = '';
 if($isListing) {
 	//html image
 	$htmlImage = '';
-	 if((!isset($photo)) || ($photo == true)){
-            //on affiche l'image que si elle est effectivement présente
-            if($isImage && isset($image)){
-                    //dimensions de l'image
-                    $imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
-                    $imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
-                    //options de l'image
-                    $imageWrapperOpts = array(
-                                                                            'image'	=>	$image,
-                                                                            'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
-                                                                            'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
-                                                                            );
-                    //ajout du nom de l'article dans la balise Alt de l'image
-                    if(isset($name)) $imageWrapperOpts['alt'] = $name;
-
-                    //Appel du partial d'image
-                    $htmlImage.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
-            }
 	
+	//on affiche l'image que si elle est effectivement présente
+	if($isImage){
+		//dimensions de l'image
+		$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
+		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
+		//options de l'image
+		$imageWrapperOpts = array(
+									'image'	=>	$image,
+									'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
+									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+									);
+		//ajout du nom de l'article dans la balise Alt de l'image
+		if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;
+		
+		//Appel du partial d'image
+		$htmlImage.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 	}
+	
+	
 	
 	
 	//html hors image
 	$htmlText = '';
 	
 	//Titre affiché en span car utilisé dans un container
-	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
+	if(isset($name) && $name != null) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'span.title'));
 	//Gestion de la date de création
-	if(isset($dateCreated)) if($dateCreated) $htmlText.= get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
+	if(isset($dateCreated) && $dateCreated != null) $htmlText.= ($isDateMeta) ? _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated)) : get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
 	
 	//englobage dans un container si non vide
 	if($htmlText != null) $htmlText = _tag('span.subWrapper', $htmlText);
 
 	//Chapeau de l'article si présent
-	if(isset($description)) if($description) {
+	if(isset($description) && $description != null) {
 		//ajout de la longueur de la description
 		$descriptionOpt = array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser');
 		if(isset($descriptionLength)) $descriptionOpt['valueLength'] = $descriptionLength;
@@ -134,10 +139,10 @@ if($isListing) {
 	
 	
 	//ajout de liens de navigation si nécessaire
-	if(isset($navigationElements)) {
+	if(isset($navigationBottomElements)) {
 		$html.= get_partial('global/navigationWrapper', array(
 														'placement' => 'bottom',
-														'elements' => $navigationElements,
+														'elements' => $navigationBottomElements,
 														'container' => 'span'
 														));
 	}
@@ -147,12 +152,12 @@ if($isListing) {
 	$htmlHeader = '';
 	
 		//La rubrique l'article, à savoir Actualités, Chiffre, Dossier, etc
-		if(isset($rubrique)) $htmlHeader.= _tag('h2.category', array('itemprop' => 'articleSection'), $rubrique);
+		//if(isset($rubrique)) $htmlHeader.= _tag('h2.category', array('itemprop' => 'articleSection'), $rubrique);
 		//La section de l'article, à savoir Social, Juridique, Fiscal, etc
-		if(isset($section)) $htmlHeader.= _tag('h3.section', array('itemprop' => 'articleSection'), $section);
-                if((!isset($photo)) || ($photo == true)){
+		//if(isset($section)) $htmlHeader.= _tag('h3.section', array('itemprop' => 'articleSection'), $section);
+
 		//on affiche l'image que si elle est effectivement présente
-		if($isImage && isset($image)){
+		if($isImage){
 			//dimensions de l'image
 			$imageGridWidth = sidSPLessCss::getLessParam('thumbContent_col');
 			$imageGridHeight = sidSPLessCss::getLessParam('thumbContent_bl');
@@ -164,21 +169,43 @@ if($isListing) {
 									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
 									);
 			//ajout du nom de l'article dans la balise Alt de l'image
-			if(isset($name)) $imageWrapperOpts['alt'] = $name;
+			if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;
 		
 			//Appel du partial d'image
 			$htmlHeader.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 		}
-                }
-
+		
 		//Le titre de l'article, devant toujours être l'unique H1 dans la page
-		if(isset($name)) if($name) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
-
+		if(isset($name) && $name != null) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name', 'container' => 'h1.title'));
+		
+		//ajout meta articleSection pour référencement
+		if(isset($articleSection) && $articleSection != null) $htmlHeader.= _tag('meta', array('itemprop' => 'articleSection', 'content' => $articleSection));
+		
 		//Chapeau de l'article si présent
-		if(isset($description)) if($description) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
+		if(isset($description) && $description != null) $htmlHeader.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description', 'container' => 'span.teaser'));
 
 		//Gestion de la date avec plusieurs possibilités (dateCreated, dateModified, etc)
-		if(isset($dateCreated)) if($dateCreated) $htmlHeader.= get_partial('global/dateWrapperFull', array('node' => $node));
+		if(isset($dateCreated) && $dateCreated != null) {
+			if($isDateMeta) {
+				//affichage des meta dates
+				$htmlHeader.= _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated));
+				if(isset($dateModified)) $htmlHeader.= _tag('meta', array('itemprop' => 'dateModified', 'content' => $dateModified));
+			}else{
+				//création des options de la date affichée et de la date meta
+				$dateOptions = array('dateCreated' => $dateCreated);
+				if(isset($dateModified)) $dateOptions['dateModified'] = $dateModified;
+				//affichage de la date pleine
+				$htmlHeader.= get_partial('global/dateWrapperFull', $dateOptions);
+			}
+		}
+		
+		//ajout de liens de navigation si nécessaire
+		if(isset($navigationTopElements)) {
+			$htmlHeader.= get_partial('global/navigationWrapper', array(
+															'placement' => 'top',
+															'elements' => $navigationTopElements
+															));
+		}
 		
 	//affichage du header de l'article si non vide
 	if($htmlHeader != null) $html.= _tag('header.contentHeader', $htmlHeader);
@@ -187,27 +214,43 @@ if($isListing) {
 	
 	
 	//affichage du contenu de la page
-	if(isset($articleBody))	$html.= _tag('section.contentBody', array('itemprop' => 'articleBody'), $articleBody);
+	if(isset($articleBody) && $articleBody != null)	$html.= _tag('section.contentBody', array('itemprop' => 'articleBody'), $articleBody);
 	
-	
-	// rajout stef
-	if($uploadFile != ''){
 	//contenu du footer de l'article
-        $htmlFooter ="";   
-	$htmlFooter = _tag('h5.title',__('Download file, click the link below'));
-        $htmlFooter.= _link($uploadFile)->text($uploadFileTitle);
-        }
-        else{
-        //contenu du footer de l'article
 	$htmlFooter = '';
-        }
+	
+	// rajout stef (attention à modifier une fois l'upload de fichier multiples implémenté)
+	if(isset($uploadFile) && isset($uploadFileTitle)) {
+		$htmlFooter.= _open('div.fileWrapper');
+		$htmlFooter.= _tag('h5.title',__('Download file, click the link below'));
+		$htmlFooter.= ($uploadFileTitle != null) ? _link($uploadFile)->text($uploadFileTitle) : _link($uploadFile)->text($uploadFile->file);
+		$htmlFooter.= _close('div.fileWrapper');
+	}
 	// fin rajout stef
+	
 	//ajout de liens de navigation si nécessaire
-	if(isset($navigationElements)) {
+	if(isset($navigationBottomElements)) {
 		$htmlFooter.= get_partial('global/navigationWrapper', array(
 														'placement' => 'bottom',
-														'elements' => $navigationElements
+														'elements' => $navigationBottomElements
 														));
+	}
+	
+	//ajout des informations de publications à la fin de l'article
+	if(isset($copyrightHolder) && $copyrightHolder != null) {
+		//affichage de la date pleine
+		$htmlMeta = get_partial('global/dateWrapperFull', array('dateCreated' => $dateCreated, 'isFooter' => true));
+		
+		//ajout tiret
+		$htmlMeta.= $dash;
+		
+		//affichage du copyright
+		$htmlCopyright = '&#169;&#160;' . get_partial('global/schema/DataType/Text', array('value' => $copyrightHolder, 'itemprop' => 'copyrightHolder'));
+		//ajout année du copyright
+		if(isset($copyrightYear) && $copyrightYear != null) $htmlCopyright.= $dash . get_partial('global/schema/DataType/Text', array('value' => $copyrightYear, 'itemprop' => 'copyrightYear'));
+		$htmlMeta.= _tag('span.copyright', $htmlCopyright);
+		
+		$htmlFooter.= _tag('span.meta', $htmlMeta);
 	}
 	
 	//affichage du footer de l'article si non vide

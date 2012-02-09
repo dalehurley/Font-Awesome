@@ -1,11 +1,10 @@
 <?php
 /*
  * CreativeWork.php
- * v1.0
+ * v1.1
  * http://schema.org/CreativeWork
  * 
  * Variables disponibles :
- * $node
  * $container
  * 
  * Properties from Thing :
@@ -57,19 +56,12 @@
 //Définition du type (inséré dans le container si présent)
 $itemType = "CreativeWork";
 
-//récupération des valeurs dans la node par les getters par défaut
-$includeDefault = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultGetters.php';
-include $includeDefault;
+//insertions des includes nécessaires à ce partial
+$initContainer = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitContainer.php';
+include $initContainer;
 
 //Composition du html de sortie
 $html = '';
-
-//On organise le contenu différemment selon le type de version d'affichage
-if($isLight) {
-	//voir plus tard, inutilisé
-}else{
-	//voir plus tard, inutilisé
-}
 
 //inclusion dans le lien si nécessaire
 if(isset($url)) $html = _link($url)->text($html)->title($name)->set('.link_box');

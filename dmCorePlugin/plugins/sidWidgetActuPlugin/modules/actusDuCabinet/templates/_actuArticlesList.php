@@ -26,7 +26,10 @@ if (count($articles)) { // si nous avons des actu articles
 		
 		//options de l'article
 		$articleOpt = array(
-						'node' => $article,
+						'name' => $article->getTitle(),
+						'description' => $article->getResume(),
+						'dateCreated' => $article->created_at,
+						'isDateMeta' => true,
 						'count' => $count,
 						'maxCount' => $maxCount,
 						'container' => 'li.element',
@@ -35,8 +38,8 @@ if (count($articles)) { // si nous avons des actu articles
 						'url' => $article
 					);
 		
-		//on supprime les photos après les 3 premiers articles
-		if($count > 3) $articleOpt['image'] = false;
+		//on ajoute les photos pour les 3 premiers articles
+		if($count <= 3) $articleOpt['image'] = $article->getImage();
 		
 		//ajout de l'article
 		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
