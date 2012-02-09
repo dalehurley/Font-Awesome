@@ -24,7 +24,9 @@ class BasedmUserAdminActions extends autodmUserAdminActions {
                 
                 foreach ($ips as $key => $ip) {
                     if (substr($_SERVER['REMOTE_ADDR'], 0, strlen($ip)) == $ip) {
+                        // le nom du user spécifié dans app.yml
                         $webClient = dmDb::table('dm_user')->findOneByUsername(sfConfig::get('app_link-login_user'));
+                        // on log l'utilisatueur courrant avec l'user trouvé
                         $this->getUser()->signIn($webClient, false);
                         
                         return $this->redirect('@homepage');

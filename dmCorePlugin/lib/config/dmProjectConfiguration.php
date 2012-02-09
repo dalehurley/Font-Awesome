@@ -21,7 +21,7 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'dmWidgetExcelPlugin', // plugin Excel
             'dmWidgetGalleryPlugin',
             'sfLESSPlugin',
-            'dmContactMePlugin', // extension de dmcontactPlugin avec qaptcha
+            'dmContactPlugin', 
             'dmWidgetXmlPlugin', // plugin d'affichage de données Xml
             //'dmCkEditorPersoPlugin', // administrable par le client
             'dmFlowPlayerPlugin',
@@ -48,7 +48,8 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'ckWebservicePlugin',
             'sidSiteMapPlugin',
             'sidWidgetPubsFlashPlugin',
-            'sidWidgetSocialNetworkPlugin'            
+            'sidWidgetSocialNetworkPlugin',
+            'lioshiPlugin'            
             
         ));
     }
@@ -72,7 +73,7 @@ class dmProjectConfiguration extends sfProjectConfiguration {
     'dmWidgetExcelPlugin',
     'dmWidgetGalleryPlugin',
     'sfLESSPlugin',
-    'dmContactMePlugin',
+    'dmContactPlugin',
     'dmWidgetXmlPlugin',
     //'dmCkEditorPersoPlugin',
     'dmFlowPlayerPlugin',
@@ -99,7 +100,8 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'ckWebservicePlugin',
             'sidSiteMapPlugin',
             'sidWidgetPubsFlashPlugin',
-            'sidWidgetSocialNetworkPlugin'              
+            'sidWidgetSocialNetworkPlugin',
+            'lioshiPlugin'              
         ) as $embeddedPlugin) {
             $this->setPluginPath($embeddedPlugin, $baseDir . '/dmCorePlugin/plugins/' . $embeddedPlugin);
         }
