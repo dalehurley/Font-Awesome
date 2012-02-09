@@ -8,13 +8,17 @@
 
 .contentHeader {
 	.isLess & { background-color: #E3CAE6; }
+	.title {
+		.isLess & { background-color: #DE9CE6; }
+	}
 	.date, .description { display: block; }
 }
 
 .contentBody {
 	.isLess & { background-color: #CAE6DF; }
-	
-	p { .isLess & { background-color: #7ED6C0; } }
+	p {
+		.isLess & { background-color: #7ED6C0; }
+	}
 }
 
 .contentFooter {
@@ -22,9 +26,12 @@
 }
 
 .annotation {
+	.isLess & { background-color: #BDE6F2; }
 	.titreAnnotation {
+		.isLess & { background-color: #8CC9DB; }
 	}
 	.texteAnnotation {
+		.isLess & { background-color: #9BB9C2; }
 	}
 }
 
