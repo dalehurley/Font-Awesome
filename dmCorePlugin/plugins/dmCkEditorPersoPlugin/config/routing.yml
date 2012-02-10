@@ -1,3 +1,0 @@
-dmWidgetTextareaAjax:
-  url:   /dmCkEditorPersoAjax
-  param: { module: dmCkEditorPerso, action: ajax }
