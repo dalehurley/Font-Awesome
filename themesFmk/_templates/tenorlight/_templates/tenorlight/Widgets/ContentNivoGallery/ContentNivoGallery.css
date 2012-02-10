@@ -1,0 +1,80 @@
+/* This CSS is autocompiled by LESS parser. Don't edit it manually. */
+
+.content_nivo_gallery { position:relative; }
+.content_nivo_gallery #dm_widget_nivo_gallery img {
+  position:absolute;
+  top:0;
+  left:0;
+  display:none;
+}
+.content_nivo_gallery #dm_widget_nivo_gallery a {
+  display:block;
+  border:0;
+}
+.content_nivo_gallery .nivo-controlNav {
+  position:absolute;
+  top:18px;
+  z-index:9;
+}
+.content_nivo_gallery .nivo-controlNav a {
+  display:block;
+  border:0;
+  text-indent:-9999em;
+  float:left;
+  width:16px;
+  height:16px;
+  background-image:url(/theme/images/Sprites/f4ad44e-Default-S.png);
+  background-repeat:no-repeat;
+  background-position:-576px 0px;
+  padding-top:1px;
+  padding-bottom:1px;
+  margin-right:1px;
+  margin-left:1px;
+}
+.svg .content_nivo_gallery .nivo-controlNav a {
+  background-image:url(/theme/images/Sprites/Default/f4ad44e-internet-bullet.svg);
+  background-position:0 0;
+}
+.content_nivo_gallery .nivo-controlNav a.active { background-position:-48px 0px; }
+.svg .content_nivo_gallery .nivo-controlNav a.active {
+  background-image:url(/theme/images/Sprites/Default/f4ad44e-internet-bulletOver.svg);
+  background-position:0 0;
+}
+.content_nivo_gallery .nivo-directionNav {
+  position:absolute;
+  top:50%;
+  z-index:9;
+  width:100%;
+}
+.content_nivo_gallery .nivo-directionNav a {
+  display:block;
+  position:absolute;
+  top:-16px;
+  border:0;
+  text-indent:-9999em;
+  width:32px;
+  height:32px;
+  background-image:url(/theme/images/Sprites/f4ad44e-Default-M.png);
+  background-repeat:no-repeat;
+}
+.content_nivo_gallery .nivo-directionNav a.nivo-prevNav {
+  background-position:-32px 0px;
+  left:14px;
+}
+.svg .content_nivo_gallery .nivo-directionNav a.nivo-prevNav {
+  background-image:url(/theme/images/Sprites/Default/f4ad44e-internet-back.svg);
+  background-position:0 0;
+}
+.content_nivo_gallery .nivo-directionNav a.nivo-nextNav {
+  background-position:0px 0px;
+  right:14px;
+}
+.svg .content_nivo_gallery .nivo-directionNav a.nivo-nextNav {
+  background-image:url(/theme/images/Sprites/Default/f4ad44e-internet-forward.svg);
+  background-position:0 0;
+}
+.content_nivo_gallery .nivo-caption {
+  background-color:#5e5645;
+  color:#eae5da;
+}
+.content_nivo_gallery .nivo-caption p { padding:1px; }
