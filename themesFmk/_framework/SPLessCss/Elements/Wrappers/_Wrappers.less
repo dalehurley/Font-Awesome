@@ -15,13 +15,8 @@
 
 //container utilisé pour contenir les éléments de navigation de la page ou du widget
 .navigationWrapper {
-}
-
-//elements de navigation
-.navigation {
-	display: block;
+	.isLess & { background-color: #FCD80A; }
 	clear: both;
-	
 	//suppression marge de la navigation
 	.elements .element & { margin: 0; }
 }
@@ -46,7 +41,7 @@
 
 //container de texte, on ne met les éléments en block que lorsqu'il sont contenu dedans
 .wrapper {
-	.isLess & { background-color: #95AEBD; }
+	.isLess & { background-color: fadeout(#95AEBD, 50%); }
 }
 
 //container situé dans un sous élément (par exemple un listing)
@@ -102,18 +97,14 @@
 
 //Gestion des listings
 .elements {
-	//couleur de débug
-	.isLess & { background-color: fadeout(#999, 25%); }
-	
+	.isLess & { background-color: fadeout(#999, 75%); }
 	//suppression de toute marge et puce (à tester avec un article (vérifier si balisage identique)
 	margin: 0;
 	padding: 0;
 	list-style: none;
 	
 	.element {
-		//couleurs de débug
-		.isLess & { background-color: #bbb; }
-		
+		.isLess & { background-color: fadeout(#bbb, 75%); }
 		//force l'agrandissement en cas de présence de contenu flottant
 		@getClearfix();
 	}
