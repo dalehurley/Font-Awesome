@@ -72,6 +72,8 @@
 		float: left;
 		margin-bottom: @gridBaseline;
 		margin-right: @gridGutter;
+		//suppression marge dans listings
+		.elements .element & { margin-bottom: 0; }
 		&.last { margin-right: 0; }
 	}
 	.link .image { float:none; margin: 0; }
