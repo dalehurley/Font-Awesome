@@ -25,6 +25,38 @@
 	}
 }
 
+//container utitlisé pour contenir les fichiers liés à un article
+.fileWrapper {
+	background-color: @colorCouleur3Clair;
+	border: 1px solid @zonesBorderColor;
+	padding: (@gridBaseline/2 -1px) (@gridGutter/2 -1px);
+	margin: 0 @gridColWidth + @gridGutter;
+	//changement couleur de titre
+	.title { color: @colorCouleur3Fonce; }
+	
+	//décalage de marge
+	@decalV: (@gridBaseline*2 - @spriteFormat_M) / 2;
+	@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+	
+	.generatedcontent & {
+		min-height: @spriteFormat_M + @decalV*2;
+		padding-left: @spriteFormat_M + @decalH*2 + @gridGutter/2;
+	}
+	
+	&:before {
+		.isLess & { background-color: #ED5583; }
+		position: absolute;
+		display: block;
+		float: left;
+		content: "";
+		top: 0;
+		left: 0;
+		margin: (@decalV + @gridBaseline/2) @decalH;
+		//chargement sprite entière avec dimension et SVG
+		@spriteDefinition("Default"; "explorer"; "file"; "M"; @spriteFormat_M; @spriteOffX-explorer-file; @spriteOffY-explorer-file);
+	}
+}
+
 //container situés directement dans un widget en enblobant plusieurs sous-contenus
 .supWrapper {
 	.elements {
