@@ -36,12 +36,15 @@
 .name, .title {
 	//changement de la police spécifique à Ténor
 	font-family: @fontGlobalFamilySerif;
-	
+	//dans un listing
 	.elements .element & { font-weight: bold; color: @colorText; }
 }
 
 .description, .teaser {
+	//dans un listing
 	.elements .element & { font-size: @fontSizeSmall; }
+	//dans du contenu
+	#dm_content .contentHeader & { margin-top: @gridBaseline/2; }
 }
 
 
@@ -51,10 +54,13 @@
 
 //stylage minimal de la date
 .date {
+	//dans un listing
 	.elements .element & {
 		//désactivation date dans certaines zones
 		#dm_sidebar_left &, #dm_sidebar_right & { display: none; visibility: hidden; }
 	}
+	//dans du contenu
+	#dm_content .contentHeader & { margin-top: @gridBaseline/2; }
 }
 
 
