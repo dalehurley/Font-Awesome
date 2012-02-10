@@ -25,6 +25,14 @@
 	}
 }
 
+//container utilisé pour contenir les éléments de navigation de la page ou du widget
+.navigationTop { margin-bottom: @gridBaseline/2; }
+.navigationBottom {
+	margin-top: @gridBaseline/2;
+	//lorsque précédé d'un listing
+	.elements + & { margin-top: 0; }
+}
+
 //container utitlisé pour contenir les fichiers liés à un article
 .fileWrapper {
 	background-color: @colorCouleur3Clair;
@@ -99,6 +107,9 @@
 		margin-right: 0;
 		margin-left: @gridGutter;
 		&.last { margin-left: 0; }
+		
+		//réduction marge dans listings
+		.elements .element & { margin-bottom: @gridBaseline/2; }
 	}
 	
 	//on réinitialise pour le container des équipes
