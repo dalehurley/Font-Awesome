@@ -30,7 +30,7 @@ EOF;
         //        recuperation des differentes maquettes du coeur
         //---------------------------------------------------------------------------------
         // scan du dossier /data/templates du plugin
-        $arrayTemplates = scandir(dm::getDir() . '/dmCorePlugin/plugins/sidThemePlugin/data/templates');
+        $arrayTemplates = scandir(dm::getDir() . '/dmCorePlugin/plugins/sidThemePlugin/data/themes');
         $i = 0;
         $dispoTemplates = array();
         
@@ -58,23 +58,22 @@ EOF;
         ) , array(
             'invalid' => 'Le template n\'existe pas'
         )));
-        $settings['numTemplate'] = $numTemplate;
-        $nomTemplateChoisi = $dispoTemplates[$settings['numTemplate']];
+        $nomTemplateChoisi = $dispoTemplates[$numTemplate];
         $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
         //$this->logBlock('Execution time  ' . round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
         //---------------------------------------------------------------------------------
         //        installation du theme
         //---------------------------------------------------------------------------------
         $pluginDataDir = dm::getDir() . '/dmCorePlugin/plugins/sidThemePlugin/data';
-        $dirTheme = sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme';
+        $dirTheme = sfConfig::get('sf_web_dir') . '/theme';
 
         // Copie du dossier diem/themesFmk/theme
         if (!is_dir($dirTheme)) mkdir($dirTheme);
         $this->getFilesystem()->execute('cp -r ' . $pluginDataDir.'/theme/* ' . $dirTheme, $out, $err);
         // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
-        $this->getFilesystem()->execute('find ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
+        $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
         // on cree les liens symboliques
-        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir.'/themes ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme/themes', $out, $err);
+        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir.'/themes ' . sfConfig::get('sf_web_dir') . '/theme/themes', $out, $err);
 
         // recherche des templates -> XXXSuccess.php
         $dirPageSuccessFile = $pluginDataDir.'/themes/' . $nomTemplateChoisi . '/Externals/php/layouts';
