@@ -497,36 +497,45 @@ $nomTemplateChoisi = $dispoTemplates[$settings['numTemplate']];
 $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
 
 //-----------------------------------------------------------------------
+//               TENORLIGHT
+//----------------------------------------------------------------------- 
+if($nomTemplateChoisi == 'tenorlight'){
+    $this->runTask('theme:install');
+} else {
+//-----------------------------------------------------------------------
 //               on integre tout le framework
 //----------------------------------------------------------------------- 
 
-// Copie du dossier diem/themesFmk/theme 
+    // Copie du dossier diem/themesFmk/theme 
+    $dirTheme = sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme';
+    if (!is_dir($dirTheme)) mkdir ($dirTheme);
 
-$dirTheme = sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme';
-if (!is_dir($dirTheme)) mkdir ($dirTheme);
+    $this->getFilesystem()->execute('cp -r ' . $diemLibConfigDir . '/../../themesFmk/theme/* '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme', $out, $err);
+    // on remplace dans le dossier    sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme  les ##THEME## par le $nomTemplateChoisi
+    //MACOSX : modifs syntaxe
+    $this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/'.$nomTemplateChoisi.'/g\'');
+    // on cree les liens symboliques
+    //MACOSX : modifs syntaxe
+    $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_framework', $out, $err);
+    $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_templates', $out, $err);
 
-$this->getFilesystem()->execute('cp -r ' . $diemLibConfigDir . '/../../themesFmk/theme/* '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme', $out, $err);
-// on remplace dans le dossier    sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme  les ##THEME## par le $nomTemplateChoisi
-//MACOSX : modifs syntaxe
-$this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/'.$nomTemplateChoisi.'/g\'');
-// on cree les liens symboliques
-//MACOSX : modifs syntaxe
-$this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_framework', $out, $err);
-$this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_templates', $out, $err);
-//liaison vers le dossier templates contenant les partials du coeur
+    // recherche des templates -> XXXSuccess.php
+    $dirPageSuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/layouts';
+
+    // on créé les répertoires s'ils n'existent pas
+    $dirDmFront = sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront';
+    $dirDmFrontTemplate = $dirDmFront.'/templates';
+    if (!is_dir($dirDmFront)) mkdir($dirDmFront);
+    if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
+    // Copie des xxxSuccess.php du theme sur le site 
+    $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.$dirDmFrontTemplate, $out, $err);
+}
+
+//-------------------------------------------------------------------------------------
+//    liaison vers le dossier templates contenant les partials du coeur
+//-------------------------------------------------------------------------------------
+
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../dmFrontPlugin/templates/ '.sfConfig::get('sf_root_dir').'/apps/front/templates', $out, $err);
-
-// recherche des templates -> XXXSuccess.php
-$dirPageSuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/layouts';
-
-// on créé les répertoires s'ils n'existent pas
-$dirDmFront = sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront';
-$dirDmFrontTemplate = $dirDmFront.'/templates';
-if (!is_dir($dirDmFront)) mkdir($dirDmFront);
-if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
-// Copie des xxxSuccess.php du theme sur le site 
-$this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.$dirDmFrontTemplate, $out, $err);
-
 
 //-------------------------------------------------------------------------------------
 //    dmsetup
