@@ -42,11 +42,10 @@ EOF;
               'options' => array()                
               ),
             3 => array(
-              'command' => 'cc',
-              'libelle' => 'Purge du cache',
+              'command' => 'theme:install',
+              'libelle' => 'Installation du thème (Attention, suppression des styles personnalisés du site)',
               'arguments' => array(),
-              'options' => array(),
-              'credentials' => 'dev'                
+              'options' => array()
               ),
             4 => array(
               'command' => 'less:compile-all', 
@@ -101,7 +100,14 @@ EOF;
               'libelle' => 'ATTENTION: suppression du site',
               'arguments' => array(),
               'options' => array()                
-              )  
+              ),
+            13 => array(
+              'command' => 'cc',
+              'libelle' => 'Purge du cache',
+              'arguments' => array(),
+              'options' => array(),
+              'credentials' => 'dev'                
+              ),              
         );
 
         $this->logBlock('Tâches disponibles :', 'INFO_LARGE');
