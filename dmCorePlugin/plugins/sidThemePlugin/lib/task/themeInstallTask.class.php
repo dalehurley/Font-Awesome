@@ -30,7 +30,7 @@ EOF;
         //        recuperation des differentes maquettes du coeur
         //---------------------------------------------------------------------------------
         // scan du dossier /data/templates du plugin
-        $arrayTemplates = scandir(dm::getDir() . '/dmCorePlugin/plugins/sidThemePlugin/data/themes');
+        $arrayTemplates = scandir(dm::getDir() . '/dmCorePlugin/plugins/sidThemePlugin/data/_themes');
         $i = 0;
         $dispoTemplates = array();
         
@@ -72,11 +72,11 @@ EOF;
         $this->getFilesystem()->execute('cp -r ' . $pluginDataDir.'/theme/* ' . $dirTheme, $out, $err);
         // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
         $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
-        // on cree les liens symboliques
-        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir.'/themes ' . sfConfig::get('sf_web_dir') . '/theme/themes', $out, $err);
+        // on cree le lien symbolique
+        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir.'/_themes ' . sfConfig::get('sf_web_dir') . '/theme/less/_themes', $out, $err);
 
         // recherche des templates -> XXXSuccess.php
-        $dirPageSuccessFile = $pluginDataDir.'/themes/' . $nomTemplateChoisi . '/Externals/php/layouts';
+        $dirPageSuccessFile = $pluginDataDir.'/_themes/' . $nomTemplateChoisi . '/Externals/php/layouts';
         // on créé les répertoires s'ils n'existent pas
         $dirDmFront = sfConfig::get('sf_root_dir') . '/apps/front/modules/dmFront';
         $dirDmFrontTemplate = $dirDmFront . '/templates';
