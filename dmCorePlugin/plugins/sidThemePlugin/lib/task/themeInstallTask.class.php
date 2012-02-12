@@ -73,7 +73,22 @@ EOF;
         // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
         $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
         // on cree le lien symbolique
-        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir.'/_themes ' . sfConfig::get('sf_web_dir') . '/theme/less/_themes', $out, $err);
+        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir.'/_themes/ ' . sfConfig::get('sf_web_dir') . '/theme/less/_themes', $out, $err);
+
+// les fichiers less de _theme ne seront pas pris en compte par sfless
+// TODO : Modifier : public function getCssPathOfLess($lessFile) pour qu'il accepte le dossier _themes...
+// proprement.... en appelant une fonction sfLess::setNewChemin for less files...
+/*  //debug chemins des liens symboliques
+    $token = 'themesFmk';
+    if(strpos($lessFile, $token)){
+      //on récupère la portion se situant après themesFmk
+      $lessFile = self::getConfig()->getLessPaths() . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
+    }
+*/
+
+// TODO: intégrer le plugin sidThemePlugin dans sfLessPlugin, avec comme ça un dossier _themes où les less peuvent être compiler en css déposés localement sur le site...
+
+
 
         // recherche des templates -> XXXSuccess.php
         $dirPageSuccessFile = $pluginDataDir.'/_themes/' . $nomTemplateChoisi . '/Externals/php/layouts';
