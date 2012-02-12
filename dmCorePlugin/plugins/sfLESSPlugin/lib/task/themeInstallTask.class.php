@@ -11,7 +11,7 @@ class themeInstallTask extends lioshiBaseTask {
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'front') ,
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod') ,
         ));
-        $this->namespace = 'theme';
+        $this->namespace = 'less';
         $this->name = 'install';
         $this->briefDescription = 'Install a new theme';
         $this->detailedDescription = <<<EOF

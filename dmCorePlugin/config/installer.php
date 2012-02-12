@@ -500,7 +500,7 @@ $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_
 //               TENORLIGHT
 //----------------------------------------------------------------------- 
 if($nomTemplateChoisi == 'tenorlight'){
-    //$this->runTask('theme:install');
+    //$this->runTask('theme:install');  tache non chargée encore, incluse dans un plugin...
      $this->logBlock('Theme à installer via php symfony controls', 'INFO_LARGE');
 } else {
 //-----------------------------------------------------------------------
