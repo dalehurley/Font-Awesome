@@ -1,23 +1,49 @@
 <?php
 // vars : $articles, $titreBloc, $titreLien, $longueurTexte, $articles, $rubrique, $section
+
+$html = '';
+
 if (count($articles)) { // si nous avons des actu articles
-
-    echo _tag('h4.title', $titreBloc);
-    echo _open('ul.elements');
-    foreach ($articles as $article){
-
-	include_partial("objectPartials/articleBySectionContextuel", array("article" => $article,"textLength" => $longueurTexte,"textEnd" => '(...)'));
-
+	
+	$html.= get_partial('global/titleWidget', array('title' => $titreBloc));
+	
+	//ouverture du listing
+    $html.= _open('ul.elements');
+	
+	//compteur
+	$count = 0;
+	$maxCount = count($articles);
+	
+	foreach ($articles as $article) {
+		//incrémentation compteur
+		$count++;
+		
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
+												'name' => $article->getTitle(),
+												'description' => $article->getChapeau(),
+												'dateCreated' => $article->created_at,
+												'isDateMeta' => true,
+												'count' => $count,
+												'maxCount' => $maxCount,
+												'container' => 'li.element',
+												'isListing' => true,
+												'descriptionLength' => $longueurTexte,
+												'url' => $article
+												));
     }
-    echo _close('ul');
-    
-    echo _open('div.navigation.navigationBottom');
-    echo _open ('ul.elements');
-        echo _open ('li.element');
-            if($titreLien){$text = $titreLien;}
-            else $text = $section->title.' en '. $rubrique->name;
-            echo _link($article->Section)->text($text);
-        echo _close('li');
-    echo _close('ul');
-    echo _close('div');
+	
+    //fermeture du listing
+    $html.= _close('ul.elements');
+	
+	//création d'un tableau de liens à afficher
+	$elements = array();
+	$elements[] = array('title' => ($titreLien ? $titreLien : $section->title . ' en ' . $rubrique->name), 'linkUrl' => 'sidActuArticle/list');
+	
+	$html.= get_partial('global/navigationWrapper', array(
+													'placement' => 'bottom',
+													'elements' => $elements
+													));
 }
+
+//affichage html en sortie
+echo $html;

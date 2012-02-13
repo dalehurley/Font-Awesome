@@ -98,11 +98,11 @@ CKEDITOR.plugins.add( 'format',
  * setting named "format_(tagName)". For example, the "p" entry has its
  * definition taken from config.format_p.
  * @type String
- * @default 'p;h1;h2;h3;h4;h5;h6;pre;address;div'
+ * @default 'p;h1;h2;h3;h4;h5;h6;pre;address;div;sup'
  * @example
- * config.format_tags = 'p;h2;h3;pre'
+ * config.format_tags = 'p;h2;h3;pre;sup'
  */
-CKEDITOR.config.format_tags = 'p;h1;h2;h3;h4;h5;h6;pre;address;div';
+CKEDITOR.config.format_tags = 'p;h1;h2;h3;h4;h5;h6;pre;address;div;sup';
 
 /**
  * The style definition to be used to apply the "Normal" format.
@@ -130,7 +130,16 @@ CKEDITOR.config.format_div = { element : 'div' };
  * config.format_pre = { element : 'pre', attributes : { class : 'code' } };
  */
 CKEDITOR.config.format_pre = { element : 'pre' };
-
+// rajout stef
+/**
+ * The style definition to be used to apply the "Formatted" format.
+ * @type Object
+ * @default { element : 'sup' }
+ * @example
+ * config.format_sup = { element : 'sup', attributes : { class : 'code' } };
+ */
+CKEDITOR.config.format_sup = { element : 'sup' };
+// rajout stef
 /**
  * The style definition to be used to apply the "Address" format.
  * @type Object

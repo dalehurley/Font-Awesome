@@ -1,8 +1,20 @@
 <?php
-
-/*
- * Retourne un article xml formaté par le XSL, en html
+/**
+ * Retourne un article d'actualité xml formaté par le XSL, en html
  */
+
+//html de sortie
+$html = '';
+
+//récupération de la section et de la rubrique
+$section = $article->getSectionPageTitle();
+$rubrique = $article->getRubriquePagetitle();
+//récupération des différentes variables par défault
+$dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
+//composition de la catégorie de l'article
+$articleSection = $rubrique . $dash . $section;
+
+//ciblage XML et XSL
 $xml = sfConfig::get('app_rep-local') .
         $article->getSection()->getRubrique() .
         '/' .
@@ -12,58 +24,49 @@ $xml = sfConfig::get('app_rep-local') .
         '.xml';
 $xsl = dm::getDir() . '/dmCorePlugin/plugins/sidWidgetBePlugin/lib/xsl/' . sfConfig::get('app_xsl-article');
 
-$return = '';
+// vérification du fichier XSL
+if (!is_file($xsl)) $html.= debugTools::infoDebug(array(__('Error : missed file') => $xsl),'warning');
 
-$section = $article->getSectionPageTitle();
-$rubrique = $article->getRubriquePagetitle();
-
-// vérification des fichiers xml
+// vérification du fichier XML
 if (!is_file($xml)) {
-    echo debugTools::infoDebug(array(__('Error : missed file') => $xml),'warning');
-}
-
-$doc_xml = new DOMDocument();
-if ($doc_xml->load($xml)) {
-    // Je charge en mï¿½moire mon document XSL
-    // vérification des fichiers xsl
-    if (!is_file($xsl)) {
-        echo debugTools::infoDebug(array(__('Error : missed file') => $xsl),'warning');
-    }
-
-    $return .= _tag('h2.title', $rubrique . ' - ' . $section);
-    $return .= '<article itemscope itemtype="http://schema.org/Article">';
-
-    //lien vers l'image
-    $imgLink = '/_images/lea' . $article->filename . '-g.jpg';
-    //on vérifie que l'image existe
-    $imgExist = is_file(sfConfig::get('sf_web_dir') . $imgLink);
-
-    // on teste si le fichier image est présent sur le serveur avec son chemin absolu
-    if ($imgExist) {
-        $return .= _open('div.imageFullWrapper');
-        $return .= _media($imgLink)
-                ->set('.image itemprop="image"')
-                ->alt($article->getTitle())
-                //redimenssionnement propre lorsque l'image sera en bibliothèque
-                ->width(spLessCss::gridGetContentWidth());
-        //->height(spLessCss::gridGetHeight(14,0))
-        $return .= _close('div');
-    }
-
-    $return .= _tag('h2.title itemprop="name"', $article->title);
-
-    $doc_xsl = new DOMDocument();
-    $doc_xsl->load($xsl);
-    $moteurXslt = new xsltProcessor();
-    $moteurXslt->importstylesheet($doc_xsl);
-    
-    $return .= $moteurXslt->transformToXML($doc_xml);
-
-//Fermeture de l'article
-    $return .= _close('article');
+	$html.= debugTools::infoDebug(array(__('Error : missed file') => $xml),'warning');
 } else {
-    $return = 'ERREUR : XML invalide :' . $xml;
+	
+	//titre du contenu
+	$html.= get_partial('global/titleWidget', array('title' => $articleSection, 'isContainer' => true));
+
+	//création du parser XML
+	$doc_xml = new DOMDocument();
+
+	//ouverture du document XML
+	if ($doc_xml->load($xml)) {
+
+		//récupération du contenu du XML
+		$doc_xsl = new DOMDocument();
+		$doc_xsl->load($xsl);
+		$moteurXslt = new xsltProcessor();
+		$moteurXslt->importstylesheet($doc_xsl);
+
+		//affichage du contenu
+		$articleOpts = array(
+							'container' => 'article',
+							'name' => $article->title,
+							'description' => $article->getChapeau(),
+							'image' => '/_images/lea' . $article->filename . '-g.jpg',
+							'dateCreated' => $article->created_at,
+							'dateModified' => $article->updated_at,
+							'articleSection' => $rubrique . ' - ' . $section,
+							'articleBody' => $moteurXslt->transformToXML($doc_xml),
+							'copyrightHolder' => 'SID Presse',							//en attendant implémentation dans base depuis la valeur du XML
+							'copyrightYear' => substr($article->created_at, 0, 4)		//en attendant implémentation dans base depuis la valeur du XML
+						);
+
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
+
+	} else {
+		$html.= debugTools::infoDebug(array(__('Error : invalid xml') => $xml),'warning');
+	}
 }
 
-echo $return;
-?>
+//affichage html en sortie
+echo $html;

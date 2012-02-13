@@ -200,13 +200,34 @@ div.dm_version_check_upgrade {
 }
 
 /* ajout stef */
+div.dm_admin_homepage_column #accueil.dm_box_perso div.dm_box_inner.m5{
+    margin:0px;
+}
+
 div.dm_admin_homepage_column #accueil .level0 li.ui-state-default {
-  margin-bottom: 20px
+  margin-bottom: 20px;
+  text-align: center;
+  border-radius: 4px 4px 4px 4px;
+  background: none repeat scroll 0 0 #FBFBFB;
+    border: 1px solid #D3D3D3;
+}
+
+div.dm_admin_homepage_column #accueil .level0 li.ui-state-default ul.level1{
+  text-align: left;
+  border: none;
+  margin: 5px;
+  background:  none
 }
 
 div.dm_admin_homepage_column #accueil .level0 li.ui-state-default > a {
-  font-size:1.25em;
-  font-weight: bold;
+  font-size: 123.1%;
+/*  font-weight: bold;*/
+  display: block;
+  height: 22px;
+  border-bottom: 1px solid #D3D3D3;
+  background: url("../../dmCorePlugin/images/default_bg.png") repeat-x scroll 50% 50% #E6E6E6;
+  cursor: text;
+  padding-top: 2px
 }
 
 div.dm_admin_homepage_column #accueil .level0 li.ui-state-default ul.level1 li.first {

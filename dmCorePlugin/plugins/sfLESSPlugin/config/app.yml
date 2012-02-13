@@ -1,6 +1,6 @@
 all:
   sf_less_plugin:
-    compile:  true
+    compile:  false    # plus de compilation en ligne, tout en ligne de commande
     use_js:   false
     check_dates: true 
     # IMPORTANT : allow use of lessphp parser
@@ -19,8 +19,6 @@ prod:
 less:
   sf_less_plugin:
     compile:  false
-    check_dates: false
-    check_dependencies: true
 
 #all:
 #  sf_less_php_plugin:

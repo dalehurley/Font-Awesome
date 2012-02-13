@@ -1,7 +1,7 @@
 <?php
 /*
  * Text.php
- * v1.4
+ * v1.6
  * Permet d'afficher un élément de base
  * 
  * Variables disponibles :
@@ -16,9 +16,13 @@
  * 
  */
 
-//récupération des valeurs par défaut
-$includeDefaultValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultValues.php';
-include $includeDefaultValues;
+//récupération des différentes variables par défault
+$separator =  _tag('span.separator', sfConfig::get('app_vars-partial_separator'));
+$ellipsis = _tag('span.ellipsis', sfConfig::get('app_vars-partial_ellipsis'));
+$dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
+
+//permet d'indiquer une version light de l'affichage (pour les listings simples)
+if(!isset($isLight)) $isLight = false;
 
 //Configuration par défaut
 
@@ -28,17 +32,20 @@ if(!isset($container)) $container = 'span';
 //Composition de la sortie html
 $html = '';
 
-//raccourcissement de la valeur si une longueur est définie
-if($value != null && isset($valueLength)) $value = stringTools::str_truncate($value, $valueLength, $ellipsis, true, true);
-
 //définition des options du container
 $ctnOpts = array();
 if(isset($itemprop)) {
 	$ctnOpts['class'][] = 'itemprop';
 	$ctnOpts['class'][] = $itemprop;
 	if((!isset($type) && !isset($url)) || $itemprop == 'url') $ctnOpts['itemprop'] = $itemprop;
+	
+	//Filtrage du texte en entrée en fonction du type (ne garde que les exposants et indices)
+	if($itemprop == 'name' || $itemprop == 'description') $value = strip_tags($value, '<sup><sub>');
 }
 if(isset($customClass)) $ctnOpts['class'][] = $customClass;
+
+//raccourcissement de la valeur si une longueur est définie
+if($value != null && isset($valueLength)) $value = stringTools::str_truncate($value, $valueLength, $ellipsis, true, true);
 
 //concaténation du lien si présent
 if(isset($url) && $itemprop != 'url') {

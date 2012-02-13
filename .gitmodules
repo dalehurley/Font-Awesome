@@ -22,7 +22,6 @@
 [submodule "dmCorePlugin/lib/vendor/php-user-agent"]
 	path = dmCorePlugin/lib/vendor/php-user-agent
 	url = https://github.com/diem-project/php-user-agent.git
-
 [submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/lessphp"]
 	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/lessphp
 	url = git@github.com:SidPresse/lessphp.git

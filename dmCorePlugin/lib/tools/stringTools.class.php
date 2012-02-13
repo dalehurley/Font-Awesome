@@ -20,9 +20,9 @@ class stringTools {
                 return $string;
             }
             if ($max_length != 0) {
-                $max_length-= strlen($replacement);
+                $max_length-= strlen(strip_tags($replacement));
                 $string_length = strlen($string);
-                if ($string_length <= $max_length) 
+                if ($string_length <= $max_length)
                 return $string;
                 if ($trunc_at_space && ($space_position = strrpos($string, ' ', $max_length - $string_length))) $max_length = $space_position;
                 
@@ -32,11 +32,11 @@ class stringTools {
                 return $string;
             }
         } else {
-            $stringSimple = strip_tags($string, ' ');
+            $stringSimple = strip_tags($string);
             if ($max_length != 0) {
-                $max_length-= strlen($replacement);
+                $max_length-= strlen(strip_tags($replacement));
                 $string_length = strlen($stringSimple);
-                if ($string_length <= $max_length) 
+                if ($string_length <= $max_length)
                 return $string;
                 if ($trunc_at_space && ($space_position = strrpos($stringSimple, ' ', $max_length - $string_length))) $max_length = $space_position;
                 

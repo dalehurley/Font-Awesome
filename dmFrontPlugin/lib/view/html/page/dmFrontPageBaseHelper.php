@@ -366,7 +366,7 @@ abstract class dmFrontPageBaseHelper extends dmConfigurable
 		 */
 		$html .= '</div>';
 
-    		// si le widget-inner est vide alors on n'affiche pas le widget
+    		// lioshi : si le widget-inner est vide alors on n'affiche pas le widget
     		if (strip_tags($this->renderWidgetInner($widget) == '')){
        			return ''; 
    		} else {

@@ -56,3 +56,4 @@ test:
     no_script_name:         true
     etag:                   false
     logging_enabled:        false
+

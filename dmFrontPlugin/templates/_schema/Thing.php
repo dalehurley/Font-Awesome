@@ -1,11 +1,10 @@
 <?php
 /*
  * Thing.php
- * v1.1
+ * v1.2
  * http://schema.org/Thing
  * 
  * Variables disponibles :
- * $node
  * $container
  * $imageGridWidth		nombre de colonnes en largeur de l'image
  * $imageGridHeight		nombre de lignes en hauteur de l'image
@@ -21,9 +20,11 @@
 //Définition du type (inséré dans le container si présent)
 $itemType = "ContactPoint";
 
-//récupération des valeurs dans la node par les getters par défaut
-$includeDefault = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultGetters.php';
-include $includeDefault;
+//insertions des includes nécessaires à ce partial
+$initContainer = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitContainer.php';
+$initImage = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitImage.php';
+include $initContainer;
+include $initImage;
 
 //Composition du html de sortie
 $html = '';
@@ -47,8 +48,8 @@ if($isImage) {
 	$html.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
 }
 
-if(isset($name)) if($name) $html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
-if(isset($description)) if($description) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
+if(isset($name))		$html.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
+if(isset($description)) $html.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
 
 //voir pour intégration image et url dans les datatypes
 
