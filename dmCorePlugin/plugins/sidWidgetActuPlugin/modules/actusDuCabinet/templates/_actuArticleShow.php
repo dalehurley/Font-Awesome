@@ -15,10 +15,12 @@ if(count($articles)){
 						'dateCreated' => $articles->created_at,
 						'dateModified' => $articles->updated_at,
 						'articleBody' => $articles->getText(),
-						'articleSection' => $titreBloc,
-						'uploadFile' => $articles->getFiles(),
-						'uploadFileTitle' => $articles->getTitleFile()
+						'articleSection' => $titreBloc
 					);
+	
+	//ajout des options de fichiers
+	if($articles->getFiles() != null) $articleOpts['uploadFile'] = $articles->getFiles();
+	if($articles->getTitleFile() != null) $articleOpts['uploadFileTitle'] = $articles->getTitleFile();
 	
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
 }else{
