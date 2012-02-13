@@ -23,7 +23,6 @@ $maxCount = count($articlePager);
 foreach ($articlePager as $article) {
 	//incrémentation compteur
 	$count++;
-
 	//options de l'article
 	$articleOpt = array(
 					'node' => $article,

@@ -15,6 +15,7 @@ class handWidgetsListSousHomeByRubriqueView extends dmWidgetPluginView {
         $arrayArticles = array();
         $arrayGlobal = array();
         $articles = array();
+        $sectionNames = array();
         $vars = $this->getViewVars();
         
         $namePage = $this->context->getPage()->getName();
@@ -29,8 +30,9 @@ class handWidgetsListSousHomeByRubriqueView extends dmWidgetPluginView {
         foreach ($sections as $section){
         $articles = dmDb::table('SidArticle') //->findOneBySectionId($section->id);
                 ->createQuery('a')
+                ->leftJoin('a.Translation b')
                 ->where('a.section_id = ? and a.is_active = ? ', array($section->id, true))
-                ->orderBy('updated_at DESC')
+                ->orderBy('b.updated_at DESC')
                 ->limit(1)
                 ->execute();
                 

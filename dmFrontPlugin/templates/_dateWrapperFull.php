@@ -11,8 +11,8 @@
  * 
  */
 //Valeurs par défaut
-if(isset($node)/* && isset($node->getCreatedAt())*/) $dateCreated = $node->getCreatedAt();
-if(isset($node) /*&& isset($node->getUpdatedAt())*/) $dateModified = $node->getUpdatedAt();
+if(isset($node) && isset($node->createdAt)) $dateCreated = $node->createdAt;
+if(isset($node) && isset($node->updatedAt)) $dateModified = $node->updatedAt;
 
 //html de sortie
 $dateDisplay = "";

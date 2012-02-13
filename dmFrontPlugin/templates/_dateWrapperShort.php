@@ -10,7 +10,7 @@
  * 
  */
 //Valeurs par défaut
-if(isset($node) /*&& isset($node->getCreatedAt())*/) $dateCreated = $node->getCreatedAt();
+if(isset($node) && isset($node->createdAt)) $dateCreated = $node->createdAt;
 
 //html de sortie
 $dateDisplay = "";
