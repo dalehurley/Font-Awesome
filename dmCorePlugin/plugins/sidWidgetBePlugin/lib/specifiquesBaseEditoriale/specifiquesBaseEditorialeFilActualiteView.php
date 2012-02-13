@@ -70,14 +70,12 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                         ->execute();
                 
                 $arrayRubrique[$article->filename] = $rubriquePage[0]->name;
-                $article['updated_at'] = $article->getUpdatedAt();
-                echo'<pre>';print_r($article); echo '</pre>';
                 $arrayFilActus[$article->filename] = $article;
             }
         }
 
         foreach ($arrayFilActus as $key => $value) {
-            $updated[$key] = $value['updated_at'];
+            $updated[$key] = $value['updatedAt'];
         }
         array_multisort($updated, SORT_DESC, $arrayFilActus);
         $arrayFilActus = array_slice($arrayFilActus, 0, $vars['nbArticle']);
