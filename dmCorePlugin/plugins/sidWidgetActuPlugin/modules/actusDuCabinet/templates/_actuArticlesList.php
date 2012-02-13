@@ -3,10 +3,16 @@ $html = '';
 
 if (count($articles)) { // si nous avons des actu articles
 	
+	//indique si le titre du bloc est le titre du contenu
+	$isTitleContent = false;
+	
 	//gestion affichage du titre
     if($nbArticles == 1){
-        if ($titreBloc != true) $html.= get_partial('global/titleWidget', array('title' => current($articles)));
-        else $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
+        if ($titreBloc != true) {
+			$html.= get_partial('global/titleWidget', array('title' => current($articles)));
+			$isTitleContent = true;
+		}
+		else $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
     }
     else {
         if ($titreBloc != true) $html.= get_partial('global/titleWidget', array('title' => __('The other news of the office')));
@@ -26,7 +32,6 @@ if (count($articles)) { // si nous avons des actu articles
 		
 		//options de l'article
 		$articleOpt = array(
-						'name' => $article->getTitle(),
 						'description' => $article->getResume(),
 						'dateCreated' => $article->created_at,
 						'isDateMeta' => true,
@@ -37,6 +42,9 @@ if (count($articles)) { // si nous avons des actu articles
 						'descriptionLength' => $longueurTexte,
 						'url' => $article
 					);
+		
+		//on active le titre du contenu que lorsqu'il n'est pas affiché dans le titre du widget
+		if(!$isTitleContent) $articleOpt['name'] = $article->getTitle();
 		
 		//on ajoute les photos pour les 3 premiers articles
 		if($count <= 3) $articleOpt['image'] = $article->getImage();
