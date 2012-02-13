@@ -9,7 +9,11 @@ if (count($pageCabinet)) { // si nous avons des actu articles
     $html.= _open('ul.elements');
 	
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
-												'node' => $pageCabinet,
+												'name' => $pageCabinet->getTitle(),
+												'description' => $pageCabinet->getResume(),
+												'image' => $pageCabinet->getImage(),
+												'dateCreated' => $pageCabinet->created_at,
+												'isDateMeta' => true,
 												'count' => 1,
 												'maxCount' => 1,
 												'container' => 'li.element',

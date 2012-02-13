@@ -4,10 +4,15 @@ $html = '';
 if (count($pageCabinet)) { // si nous avons des actu articles
 	
 	//affichage du contenu
-	$articleOpts = array('container' => 'article');
-	$articleOpts['node'] = $pageCabinet;
-	$articleOpts['name'] = $titlePage;
-	$articleOpts['description'] = $pageCabinet->getResume();
+	$articleOpts = array(
+					'container' => 'article',
+					'name' => $titlePage,
+					'description' => $pageCabinet->getResume(),
+					'image' => $pageCabinet->getImage(),
+					'dateCreated' => $pageCabinet->created_at,
+					'isDateMeta' => true,
+					'articleBody' => $pageCabinet->getText()
+					);
 	
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
 	

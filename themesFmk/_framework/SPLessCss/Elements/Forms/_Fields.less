@@ -10,15 +10,12 @@
 
 //STYLAGE DE BASE
 label {
-	@gridDebugBgc(DarkOliveGreen);
 	position: relative;
 	display: block;
 	text-align: right;
 }
 
 select, input, textarea, button {
-	@gridDebugBgc(Khaki);
-	@gridDebugBrc(DeepPink);
 	position: relative;
 	display: block;
 	//réduction taille pour maintien baseline
@@ -37,7 +34,6 @@ select {
 }
 
 input[type=submit], input.submit, input[type=button], button {
-	@gridDebugBgc(PaleTurquoise);
 	padding-top: 1px;
 	padding-bottom: 0;
 	height: @gridBaseline;
@@ -51,7 +47,6 @@ input[type=submit], input.submit, input[type=button], button {
 }
 
 textarea {
-	@gridDebugBgc(PeachPuff);
 	//désactivation resize utilisateur (remplacer par un JS automatique)
 	resize: none;
 	line-height: @gridBaseline;

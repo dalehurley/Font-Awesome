@@ -1,29 +1,31 @@
 <?php
 /*
  * _dateWrapperFull.php
- * v0.2
+ * v0.3
  * Permet d'afficher une date complète.
  * 
  * Variables disponibles :
  * $node			élément englobant tous les objet de la page
  * $dateCreated		date de création
  * $dateModified	date de mise à jour
+ * $isFooter			indique une version longue
  * 
  */
 //Valeurs par défaut
-if(isset($node) && isset($node->createdAt)) $dateCreated = $node->createdAt;
-if(isset($node) && isset($node->updatedAt)) $dateModified = $node->updatedAt;
+if(isset($node) && isset($node->created_at)) $dateCreated = $node->created_at;
+if(isset($node) && isset($node->updated_at)) $dateModified = $node->updated_at;
+if(!isset($isFooter)) $isFooter = false;
 
 //html de sortie
 $dateDisplay = "";
 
 //ajout date de publication
 if(isset($dateCreated)){
-	$dateDisplay.= "Publié le ";
+	$dateDisplay.= $isFooter ? "Article du " : "Publié le ";
 	$dateDisplay.= get_partial('global/dateTime', array(
 												'date'	=>	$dateCreated,
 												'type'	=>	'created',
-												'format'=>	'D'
+												'format'=>	$isFooter ? 'd' : 'D'
 												));
 }
 
@@ -41,7 +43,7 @@ if(isset($dateCreated) && isset($dateModified)){
 		$dateDisplay.= get_partial('global/dateTime', array(
 												'date'	=>	$dateModified,
 												'type'	=>	'updated',
-												'format'=>	'D'
+												'format'=>	$isFooter ? 'd' : 'D'
 												));
 	}
 }

@@ -19,12 +19,12 @@ if(count($agendas)){
 		$count++;
 		
 		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
-												'node' => $agenda,
+												'name' => $agenda->getTitle(),
+												'description' => $agenda->getChapeau(),
 												'count' => $count,
 												'maxCount' => $maxCount,
 												'container' => 'li.element',
 												'isListing' => true,
-												'dateCreated' => false,
 												'descriptionLength' => $length,
 												'url' => $agenda
 												));

@@ -1,7 +1,7 @@
 <?php // Vars: $articlePager, $parent, $route
-//récupération des valeurs par défaut
-$includeDefaultValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultValues.php';
-include $includeDefaultValues;
+//insertions des includes nécessaires à ce partial
+$initValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitValues.php';
+include $initValues;
 
 $html = '';
 
@@ -25,13 +25,16 @@ foreach ($articlePager as $article) {
 	$count++;
 	//options de l'article
 	$articleOpt = array(
-					'node' => $article,
+					'name' => $article->getTitle(),
+					'description' => $article->getChapeau(),
+					'image' => '/_images/lea' . $article->filename . '-p.jpg',
+					'dateCreated' => $article->created_at,
+					'isDateMeta' => true,
 					'count' => $count,
 					'maxCount' => $maxCount,
 					'container' => 'li.element',
 					'isListing' => true,
 					'descriptionLength' => $defaultValueLength,
-					'image' => '/_images/lea' . $article->filename . '-p.jpg',
 					'url' => $article
 				);
 	
