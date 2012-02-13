@@ -12,8 +12,7 @@
 
 .bandeau_smart_bandeau {
 	.isLess & { background-color: MediumAquamarine; }
-	float: left;
-	@gridWidth(@gridCol - @gridCol_SidebarLeft);
+	@gridWidth(@gridCol);
 	height: @gridBaseline;
 	overflow: hidden;
 	
@@ -30,6 +29,7 @@
 	.bandeau_smart_bandeau {
 		display: none;
 		visibility: hidden;
+		//@gridWidth(@gridCol_TabletPortrait);
 		//@gridWidth(@gridCol - @gridCol_SidebarLeft - @gridCol_SidebarRight);
 	}
 }
