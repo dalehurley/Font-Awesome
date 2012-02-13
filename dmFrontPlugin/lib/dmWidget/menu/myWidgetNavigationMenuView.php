@@ -43,7 +43,6 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		if(!isset($vars['menuType'])) $vars['menuType'] = "default";
 		
         //on ajoute la classe du type de menu provenant du paramètre du widget
-        //$vars['menu']->ulClass(myUser::getLessParam('templateMenu'));
         $vars['menu']->ulClass($vars['menuType']);
 		
 		//ajout des classes CSS de dossier

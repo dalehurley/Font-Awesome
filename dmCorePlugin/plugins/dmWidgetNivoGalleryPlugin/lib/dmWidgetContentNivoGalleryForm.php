@@ -47,7 +47,7 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
     $this->validatorSchema['media_alt'] = new sfValidatorPass();
     
     $this->validatorSchema['media_position'] = new sfValidatorPass();
-	
+	/*
 	$this->widgetSchema['media_area'] = new sfWidgetFormSelect(array(
 		'choices' => array(
 			'thumbFull'				=>	'Preset thumbFull (largeur du site)',
@@ -60,6 +60,7 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
 	$this->validatorSchema['media_area'] = new sfValidatorString(array(
       'required' => true
     ));
+    */
 	
     $methods = $this->getService('i18n')->translateArray(self::$methods);
     $this->widgetSchema['method'] = new sfWidgetFormSelect(array(

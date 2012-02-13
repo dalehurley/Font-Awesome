@@ -23,9 +23,9 @@ _tag('div#'.$baseTabId.'_medias.drop_zone',
 
 _tag('div#'.$baseTabId.'_thumbnails',
   _tag('ul',
-    _tag('li.dm_form_element.thumbnail.clearfix',
-	  $form['media_area']->label(__('Area'))->render()
-    ).
+//    _tag('li.dm_form_element.thumbnail.clearfix',
+//	  $form['media_area']->label(__('Area'))->render()
+//    ).
     _tag('li.dm_form_element.multi_inputs.thumbnail.clearfix',
       $form['method']->label(__('Method'))->render()
     ).

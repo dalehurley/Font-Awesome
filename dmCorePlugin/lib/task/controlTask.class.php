@@ -122,6 +122,10 @@ EOF;
               ),                               
         );
 
+        // on supprime l'entrée de key = 0 car le zéro est interprété comme null en cli
+        array_unshift($dispoTasks, "");
+        unset($dispoTasks[0]);
+
         $this->logBlock('Tâches disponibles :', 'INFO_LARGE');
         
         foreach ($dispoTasks as $k => $dispoTask) {

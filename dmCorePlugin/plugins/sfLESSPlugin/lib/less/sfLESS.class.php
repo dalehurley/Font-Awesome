@@ -126,10 +126,10 @@ class sfLESS
    */
   public function getCssPathOfLess($lessFile)
   {
-	//Changement du chemin absolu pour les fichiers issus du dossier _themes qui est inclu en lien symbolique
+	//Changement du chemin absolu pour les fichiers issus du dossier _templates qui est inclu en lien symbolique
   // en chemin relatif au site
   // afin que ces fichiers less se retrouvent dans le dossier css du site
-	$token = '_themes';
+	$token = '_templates';
 	if(strpos($lessFile, $token)){
 	  //on récupère la portion se situant après themesFmk
 	  $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);

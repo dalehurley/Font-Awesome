@@ -53,7 +53,7 @@ EOF;
         // choix de la maquette du coeur
         $numTemplate = $this->askAndValidate(array(
             '',
-            'Le numero du template choisi?',
+            'Le numero du template a dupliquer choisi?',
             ''
         ) , new sfValidatorChoice(array(
             'choices' => array_keys($dispoTemplates) ,

@@ -10,6 +10,7 @@ class themeInstallTask extends lioshiBaseTask {
             // application positionnée sur front afin d'avoir accès aux app.yml du front
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'front') ,
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod') ,
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine')
         ));
         $this->namespace = 'theme';
         $this->name = 'install';
@@ -26,6 +27,9 @@ EOF;
      * @see sfTask
      */
     protected function execute($arguments = array() , $options = array()) {
+        // initialize the database connection
+        $databaseManager = new sfDatabaseManager($this->configuration);
+        $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         //---------------------------------------------------------------------------------
         //        recuperation des differentes maquettes du coeur
         //---------------------------------------------------------------------------------
@@ -85,5 +89,41 @@ EOF;
         if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
         // Copie des xxxSuccess.php du theme sur le site
         $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile . '/*Success.php ' . $dirDmFrontTemplate, $out, $err);
+        // Sauvegarde du nom du theme choisi
+        // choix de la langue
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+        // on supprime l'entrée de key = 0 car le zéro est interprété comme null en cli
+        array_unshift($arrayLangs, "");
+        unset($arrayLangs[0]);
+        
+        // on affiche les choix de langue
+        $this->logBlock('Langues disponibles :', 'INFO_LARGE');        
+        foreach ($arrayLangs as $k => $arrayLang) {
+            $this->logSection($k, $arrayLang);
+        }
+        $lang = $this->askAndValidate(array(
+            '',
+            'Quelle langue pour ce theme?',
+            ''
+        ) , new sfValidatorChoice(array(
+            'choices' => array_keys($arrayLangs) ,
+            'required' => true
+        ) , array(
+            'invalid' => 'La langue n\'existe pas'
+        )));
+
+        // sauvegarde du site_theme dans la table dmSetting
+        $configSiteTheme = array(
+            'type' => 'text',
+            'default_value' => $nomTemplateChoisi,
+            'value' => $nomTemplateChoisi,
+            'description' => 'Site current theme',
+            'group_name' => 'site',
+            'lang' => $arrayLangs[$lang]
+        );
+        $setting = Doctrine::getTable('dmSetting')->findOneByName('site_theme');
+        $setting->set('name', 'site_theme');
+        $setting->fromArray($configSiteTheme);
+        $setting->save();
     }
 }

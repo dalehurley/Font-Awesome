@@ -27,6 +27,8 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
   protected function filterViewVars(array $vars = array())
   {
     $vars = parent::filterViewVars($vars);
+
+    /*
 	//Ajout Arnaud
 	//composition du paramètres de miniature sélectionné et par défaut
 	$thumbTypeWidth = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_col';
@@ -37,6 +39,7 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
 	//ajout des variables au widget
 	$vars['width'] = spLessCss::gridGetWidth($thumbTypeWidth);
 	$vars['height'] = spLessCss::gridGetHeight($thumbTypeHeight);
+  */
 	
     // extract media ids
     $mediaIds = array();
