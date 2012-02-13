@@ -542,7 +542,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_constantes` WRITE;
 /*!40000 ALTER TABLE `sid_constantes` DISABLE KEYS */;
-INSERT INTO `sid_constantes` (`id`, `name`, `is_active`, `position`, `version`) VALUES (1,'nomcabinet',-1,2),(2,'adressecabinet',-2,1),(3,'recrutement',-3,1),(4,'actualites_du_cabinet',-4,1);
+INSERT INTO `sid_constantes` (`id`, `name`, `is_active`, `position`) VALUES (1,'nomcabinet',1,-1),(2,'adressecabinet',1,-2),(3,'recrutement',1,-3),(4,'actualites_du_cabinet',1,-4);
 /*!40000 ALTER TABLE `sid_constantes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -552,7 +552,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_constantes_translation` WRITE;
 /*!40000 ALTER TABLE `sid_constantes_translation` DISABLE KEYS */;
-INSERT INTO `sid_constantes_translation` (`id`,`content`, `created_at`, `updated_at`) VALUES (1,'Cabinet TENOR Expert-Comptable','2011-09-23 18:16:12','2011-10-11 20:31:07'),(2,'16, rue du 4 Septembre - 75002 Paris','2011-09-26 18:17:01','2011-09-26 18:17:01'),(3,'Le cabinet ne propose pas d\'annonce de recrutement actuellement.','2011-12-29 14:21:36','2011-12-29 14:21:36'),(4,'Le cabinet n\'a pas publié d\'actualités','2011-12-29 14:22:49','2011-12-29 14:22:49');
+INSERT INTO `sid_constantes_translation` (`id`,`content`, `created_at`, `updated_at`,version,`lang`) VALUES (1,'Cabinet TENOR Expert-Comptable','2011-09-23 18:16:12','2011-10-11 20:31:07',2,'fr'),(2,'16, rue du 4 Septembre - 75002 Paris','2011-09-26 18:17:01','2011-09-26 18:17:01',1,'fr'),(3,'Le cabinet ne propose pas d\'annonce de recrutement actuellement.','2011-12-29 14:21:36','2011-12-29 14:21:36',1,'fr'),(4,'Le cabinet n\'a pas publié d\'actualités','2011-12-29 14:22:49','2011-12-29 14:22:49',1,'fr');
 /*!40000 ALTER TABLE `sid_constantes_translation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -562,7 +562,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_constantes_translation_version` WRITE;
 /*!40000 ALTER TABLE `sid_constantes_translation_version` DISABLE KEYS */;
-INSERT INTO `sid_constantes_translation_version` (`id`, `name`, `content`, `is_active`, `created_at`, `updated_at`, `position`, `version`) VALUES (1,'nomcabinet','Cabinet TENOR CGP',1,'2011-09-23 18:16:12','2011-09-23 18:16:12',-1,1),(1,'nomcabinet','Cabinet TENOR Expert-Comptable',1,'2011-09-23 18:16:12','2011-10-11 20:31:07',-1,2),(1,'nomcabinet','Cabinet TENOR Expert-Comptable (sitediem)',1,'2011-09-23 18:16:12','2011-11-24 11:20:13',-1,3),(2,'adressecabinet','16, rue du 4 Septembre - 75002 Paris',1,'2011-09-26 18:17:01','2011-09-26 18:17:01',-2,1),(3,'recrutement','Le cabinet ne propose pas d\'annonce de recrutement actuellement.',1,'2011-12-29 14:21:36','2011-12-29 14:21:36',-3,1),(4,'actualites_du_cabinet','Le cabinet n\'a pas publié d\'actualités',1,'2011-12-29 14:22:49','2011-12-29 14:22:49',-4,1);
+INSERT INTO `sid_constantes_translation_version` (`id`,`content`, `lang`, `created_at`, `updated_at`, `version`) VALUES (1,'Cabinet TENOR CGP','fr','2011-09-23 18:16:12','2011-09-23 18:16:12',1),(1,'Cabinet TENOR Expert-Comptable','fr','2011-09-23 18:16:12','2011-10-11 20:31:07',2),(1,'Cabinet TENOR Expert-Comptable (sitediem)','fr','2011-09-23 18:16:12','2011-11-24 11:20:13',3),(2,'16, rue du 4 Septembre - 75002 Paris','fr','2011-09-26 18:17:01','2011-09-26 18:17:01',1),(3,'Le cabinet ne propose pas d\'annonce de recrutement actuellement.','fr','2011-12-29 14:21:36','2011-12-29 14:21:36',1),(4,'Le cabinet n\'a pas publié d\'actualités','fr','2011-12-29 14:22:49','2011-12-29 14:22:49',1);
 /*!40000 ALTER TABLE `sid_constantes_translation_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -592,7 +592,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_groupe_bandeau` WRITE;
 /*!40000 ALTER TABLE `sid_groupe_bandeau` DISABLE KEYS */;
-INSERT INTO `sid_groupe_bandeau` (`id`, , `dm_page_id`, `is_active`) VALUES (1,1,1),(2,1595,1),(3,1658,1),(6,6555,1),(7,6778,1),(8,6775,1),(9,6780,1);
+INSERT INTO `sid_groupe_bandeau` (`id`, `dm_page_id`, `is_active`) VALUES (1,1,1),(2,1595,1),(3,1658,1),(6,6555,1),(7,6778,1),(8,6775,1),(9,6780,1);
 /*!40000 ALTER TABLE `sid_groupe_bandeau` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -651,7 +651,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_rubrique` WRITE;
 /*!40000 ALTER TABLE `sid_rubrique` DISABLE KEYS */;
-INSERT INTO `sid_rubrique` (`id`, `is_active`, `position`) VALUES (67,0,-6),(68,0,-7),(69,0,-8),(70,0,'2012-01-03 15:09:26','2012-02-08 15:09:41',-9),(71,0,-10),(72,0,-11),(73,0,-12),(74,0,-13);
+INSERT INTO `sid_rubrique` (`id`, `is_active`, `position`) VALUES (67,0,-6),(68,0,-7),(69,0,-8),(70,0,-9),(71,0,-10),(72,0,-11),(73,0,-12),(74,0,-13);
 /*!40000 ALTER TABLE `sid_rubrique` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -661,7 +661,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_rubrique_translation` WRITE;
 /*!40000 ALTER TABLE `sid_rubrique_translation` DISABLE KEYS */;
-INSERT INTO `sid_rubrique_translation` (`id`, `title`, `lang`, `created_at`, `updated_at`) VALUES (67,'ec_creation_entreprise','fr','2012-01-03 15:09:26','2012-02-08 15:08:54'),(68,'ec_echeancier','fr','2012-01-03 15:09:26','2012-02-08 14:33:10'),(69,'ec_fiscal','fr'),(70,'ec_gestion','fr','2012-01-03 15:09:26','2012-02-08 15:00:58'),(71,'ec_juridique','fr','2012-01-03 15:09:26','2012-02-08 15:09:19'),(72,'ec_multimedia','fr','2012-01-03 15:09:26','2012-02-08 15:09:52'),(73,'ec_patrimoine','fr','2012-01-03 15:09:26','2012-02-08 15:10:04'),(74,'ec_social','fr','2012-01-03 15:09:27','2012-02-08 15:09:06');
+INSERT INTO `sid_rubrique_translation` (`id`, `title`, `lang`, `created_at`, `updated_at`) VALUES (67,'ec_creation_entreprise','fr','2012-01-03 15:09:26','2012-02-08 15:08:54'),(68,'ec_echeancier','fr','2012-01-03 15:09:26','2012-02-08 14:33:10'),(69,'ec_fiscal','fr','2012-01-03 15:09:26','2012-02-08 14:33:10'),(70,'ec_gestion','fr','2012-01-03 15:09:26','2012-02-08 15:00:58'),(71,'ec_juridique','fr','2012-01-03 15:09:26','2012-02-08 15:09:19'),(72,'ec_multimedia','fr','2012-01-03 15:09:26','2012-02-08 15:09:52'),(73,'ec_patrimoine','fr','2012-01-03 15:09:26','2012-02-08 15:10:04'),(74,'ec_social','fr','2012-01-03 15:09:27','2012-02-08 15:09:06');
 /*!40000 ALTER TABLE `sid_rubrique_translation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -681,7 +681,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_section_translation` WRITE;
 /*!40000 ALTER TABLE `sid_section_translation` DISABLE KEYS */;
-INSERT INTO `sid_section_translation` (`id`, `title`, `lang`, `created_at`, `updated_at`) VALUES (242,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(246,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(247,'ec_chiffres','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(248,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(249,'ec_faq','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(250,'ec_loi_de_finances','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(251,'ec_faq','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(252,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(253,'ec_chiffres','fr'),(254,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(255,'ec_faq','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(256,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(258,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(259,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(260,'ec_faq','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(261,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(262,'ec_chiffres','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(263,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(264,'ec_faq','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(265,'ec_paie','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(267,'ec_aides','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(280,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(282,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(310,'201110','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(311,'201111','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(312,'201112','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(313,'201201','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(316,'201202','fr','2012-01-03 15:09:26','2012-01-12 13:28:57');
+INSERT INTO `sid_section_translation` (`id`, `title`, `lang`, `created_at`, `updated_at`) VALUES (242,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(246,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(247,'ec_chiffres','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(248,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(249,'ec_faq','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(250,'ec_loi_de_finances','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(251,'ec_faq','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(252,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(253,'ec_chiffres','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(254,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(255,'ec_faq','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(256,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(258,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(259,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(260,'ec_faq','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(261,'ec_actualites','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(262,'ec_chiffres','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(263,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(264,'ec_faq','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(265,'ec_paie','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(267,'ec_aides','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(280,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(282,'ec_dossiers','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(310,'201110','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(311,'201111','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(312,'201112','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(313,'201201','fr','2012-01-03 15:09:26','2012-01-12 13:28:57'),(316,'201202','fr','2012-01-03 15:09:26','2012-01-12 13:28:57');
 /*!40000 ALTER TABLE `sid_section_translation` ENABLE KEYS */;
 UNLOCK TABLES;
 
