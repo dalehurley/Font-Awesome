@@ -33,8 +33,9 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
 
         $recrutements = Doctrine_Query::create()
                 ->from('SidCabinetRecrutement a')
+                ->leftJoin('a.Translation b')
                 ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
-                ->orderBy('a.updated_at DESC')
+                ->orderBy('b.updated_at DESC')
                 ->limit($nb)
                 ->execute();
         
@@ -48,8 +49,9 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
 
         $recrutements = Doctrine_Query::create()
                 ->from('SidCabinetRecrutement a')
+                ->leftJoin('a.Translation b')
                 ->where('a.is_active = ? ', array(true))
-                ->orderBy('a.updated_at DESC')
+                ->orderBy('b.updated_at DESC')
                 ->limit($nb)
                 ->execute();
         
