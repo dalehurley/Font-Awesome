@@ -9,11 +9,11 @@ class dmWidgetContentImageForm extends dmWidgetContentBaseMediaForm
 	
 	$this->widgetSchema['media_bl'] = new sfWidgetFormInputText();
 	$this->validatorSchema['media_bl'] = new sfValidatorInteger(array(
-		'required' => true
-    ));
-	/*,
+		'required' => false,
 		'min' => 2,
-		'max' => 20*/
+		'max' => 20
+    ));
+	/**/
 	
     $this->widgetSchema['legend'] = new sfWidgetFormInputText();
     $this->validatorSchema['legend'] = new sfValidatorString(array(
