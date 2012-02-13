@@ -1,0 +1,54 @@
+#dm_custom_bottom .adresses_multiples {
+  margin-left:-100%;
+  margin-right:-100%;
+  background-color:#eae5da;
+}
+#dm_custom_bottom .adresses_multiples .dm_widget_inner {
+  position:relative;
+  width:1006px;
+  padding-left:0;
+  padding-right:0;
+  margin-left:auto;
+  margin-right:auto;
+  padding:9px 0;
+}
+.adresses_multiples .elements {
+  margin:0;
+  padding:0;
+}
+.adresses_multiples .elements .element {
+  width:238px;
+  float:left;
+  padding:0 8px 0 9px;
+  border:0;
+  border-right:1px dashed #c4bdad;
+  font-size:11px;
+  line-height:18px;
+}
+.csstransitions .adresses_multiples .elements .element {
+  -webkit-transition:none;
+  -khtml-transition:none;
+  -moz-transition:none;
+  -ms-transition:none;
+  -o-transition:none;
+  transition:none;
+}
+.adresses_multiples .elements .element:hover { background-color:transparent; }
+.adresses_multiples .elements .element.first, .adresses_multiples .elements .element.last { width:229px; }
+.adresses_multiples .elements .element.last {
+  border-right:0;
+  padding-right:9px;
+}
+#dm_page .adresses_multiples .elements .element .streetAddress .type, #dm_page .adresses_multiples .elements .element .streetAddress .separator, #dm_page .adresses_multiples .elements .element .postalCode .type, #dm_page .adresses_multiples .elements .element .postalCode .separator, #dm_page .adresses_multiples .elements .element .addressLocality .type, #dm_page .adresses_multiples .elements .element .addressLocality .separator {
+  display:none;
+  visibility:hidden;
+}
+@media only screen and (max-width: 1023px) and (orientation:portrait) {
+  .debugTemplate .debugInfo .screenType .value, .debugTemplate .debugInfo .screenType .value:after { content:"TabletPortrait"; }
+  html { overflow-y:hidden; }
+  #dm_custom_bottom .adresses_multiples .dm_widget_inner {
+    width:750px;
+    padding-left:0;
+    padding-right:0;
+  }
+}

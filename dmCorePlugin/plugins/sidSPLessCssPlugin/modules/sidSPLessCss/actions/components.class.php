@@ -35,10 +35,6 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 								'value' =>	sidSPLessCss::getLessParam('templateDate')
 							),
 							array(
-								'info'	=>	'templateGabarit',
-								'value' =>	sidSPLessCss::getLessParam('templateGabarit')
-							),
-							array(
 								'info'	=>	'templateGrid',
 								'value' =>	sidSPLessCss::getLessParam('templateGrid')
 							),
@@ -49,10 +45,6 @@ class sidSPLessCssComponents extends myFrontModuleComponents {
 							array(
 								'info'	=>	'templateAuthor',
 								'value' =>	sidSPLessCss::getLessParam('templateAuthor')
-							),
-							array(
-								'info'	=>	'currentGabarit',
-								'value' =>	$pageTemplateOptionsDefault['currentGabarit']
 							),
 							array(
 								'info'	=>	'gridContainer',

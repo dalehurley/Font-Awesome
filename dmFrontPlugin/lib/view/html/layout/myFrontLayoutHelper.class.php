@@ -24,18 +24,9 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		$this->renderHeadJavascripts();
 	}
 	
-	//Ajout de la variable de gabarit dans les classes CSS appelÃ©es dans le body (par Lionel)
 	public function renderBodyTag($options = array()) {
         $options = dmString::toArray($options);
-		
-		//récupération des options de la page
-		$pageOptions = sfConfig::get('pageOptions');
-		
-        //ajout des classes personnalisée sur le body
-        $options['class'][] = $pageOptions['currentGabarit'];
-		if($pageOptions['isDev']) $options['class'][] = 'isDev';
-		if($pageOptions['isLess']) $options['class'][] = 'isLess';
-		
+				
         return parent::renderBodyTag($options);
     }
 	

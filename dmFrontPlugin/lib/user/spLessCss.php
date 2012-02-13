@@ -432,17 +432,12 @@ class spLessCss extends dmFrontUser {
 	//options de page par défaut
 	private static function pageTemplateGetOptions($optionsCustom = array()) {
 		
-		//récupération du gabarit de la page
-		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
-		if ($currentGabarit == 'default' || $currentGabarit == '') {
-			$currentGabarit = sidSPLessCss::getLessParam('templateGabarit');
-		}
+
 		
 		//composition des options de page par défault
 		$pageTemplateOptionsDefault = array(
 							'isDev'				=> ((sfConfig::get('sf_environment') == 'dev') ? true : false),
 							'isLess'			=> ((sfConfig::get('sf_environment') == 'less') ? true : false),
-							'currentGabarit'	=> $currentGabarit,
 							'areas'				=> array(
 								'dm_page_content'		=>	array(
 														'areaName'	=> 'content',
@@ -452,13 +447,13 @@ class spLessCss extends dmFrontUser {
 													),
 								'dm_sidebar_left'	=>	array(
 														'areaName'	=> 'left',
-														'isActive'	=> (($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-left') ? true : false),
+														'isActive'	=> true,
 														'isPage'	=> false,
 														'clearfix'	=> false
 													),
 								'dm_sidebar_right'	=>	array(
 														'areaName'	=> 'right',
-														'isActive'	=> (($currentGabarit == 'two-sidebars' || $currentGabarit == 'sidebar-right') ? true : false),
+														'isActive'	=> true,
 														'isPage'	=> false,
 														'clearfix'	=> false
 													)
@@ -526,30 +521,13 @@ class spLessCss extends dmFrontUser {
 	
 	//calcul de la largeur du contenu
 	public static function gridGetContentWidth(){
-		//récupération du gabarit courant
-		$currentGabarit = sfContext::getInstance()->getPage()->get('gabarit');
-		if ($currentGabarit == 'default' || $currentGabarit == '') {
-			$currentGabarit = sidSPLessCss::getLessParam('templateGabarit');
-		}
-
 		//récupération des valeurs de colonnes
 		$gridCol = sidSPLessCss::getLessParam('gridCol');
 		$gridCol_SidebarLeft = sidSPLessCss::getLessParam('gridCol_SidebarLeft');
 		$gridCol_SidebarRight = sidSPLessCss::getLessParam('gridCol_SidebarRight');
-		
-		if($currentGabarit === 'sidebar-left'){
-			$gridCol_Content = $gridCol - $gridCol_SidebarLeft;
-		}elseif($currentGabarit === 'sidebar-right'){
-			$gridCol_Content = $gridCol - $gridCol_SidebarRight;
-		}elseif($currentGabarit === 'two-sidebars'){
-			$gridCol_Content = $gridCol - $gridCol_SidebarLeft - $gridCol_SidebarRight;
-		}elseif($currentGabarit === 'no-sidebar'){
-			$gridCol_Content = $gridCol;
-		}else{
-			$gridCol_Content = $gridCol;
-		}
+
 		//calcul de la dimension du contenu
-		$contentWidth = self::gridGetWidth($gridCol_Content);
+		$contentWidth = self::gridGetWidth($gridCol);
 		
 		return $contentWidth;
 	}
