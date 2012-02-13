@@ -1,11 +1,10 @@
 <?php
 /*
  * Person.php
- * v1.1
+ * v1.3
  * http://schema.org/Person
  * 
  * Variables disponibles :
- * $node
  * $container
  * $isLight
  * 
@@ -53,9 +52,14 @@
 //Définition du type (inséré dans le container si présent)
 $itemType = "Person";
 
-//récupération des valeurs dans la node par les getters par défaut
-$includeDefault = sfConfig::get('dm_front_dir') . '/templates/_schema/_varsDefaultGetters.php';
-include $includeDefault;
+//insertions des includes nécessaires à ce partial
+$initValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitValues.php';
+$initContainer = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitContainer.php';
+$initImage = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitImage.php';
+include $initValues;
+include $initContainer;
+include $initImage;
+
 
 //Composition du html de sortie
 $html = '';
@@ -67,7 +71,7 @@ $html = '';
 $htmlImage = '';
 
 //on affiche l'image que si elle est effectivement présente
-if($isImage && isset($image)){
+if($isImage){
 	//dimensions de l'image
 	$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbS_col') : sidSPLessCss::getLessParam('thumbM_col');
 	$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbS_bl') : sidSPLessCss::getLessParam('thumbM_bl') * 2;
@@ -78,7 +82,7 @@ if($isImage && isset($image)){
 								'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
 								);
 	//ajout du nom de l'article dans la balise Alt de l'image
-	if(isset($name)) $imageWrapperOpts['alt'] = $name;
+	if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;
 
 	//Appel du partial d'image
 	$htmlImage.= get_partial('global/schema/DataType/Image', $imageWrapperOpts);
@@ -91,8 +95,8 @@ if($isImage && isset($image)){
 $htmlText = '';
 
 //if(isset($name) || isset($jobTitle)) {
-	if(isset($name)) if($name) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
-	if(isset($jobTitle)) if($jobTitle) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));
+	if(isset($name) && $name != null)			$htmlText.= get_partial('global/schema/DataType/Text', array('value' => $name, 'itemprop' => 'name'));
+	if(isset($jobTitle) && $jobTitle != null)	$htmlText.= get_partial('global/schema/DataType/Text', array('value' => $jobTitle, 'itemprop' => 'jobTitle'));
 	//englobage dans un container
 	//$dash . 
 	//$htmlText = _tag('span.subWrapper', $htmlText);
@@ -109,7 +113,7 @@ $htmlText.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactP
 //__('Responsable in')
 
 //affichage de la description
-if(isset($description) && !$isLight) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
+if(isset($description) && $description != null && !$isLight) $htmlText.= get_partial('global/schema/DataType/Text', array('value' => $description, 'itemprop' => 'description'));
 
 //insertion dans un wrapper si une image est présente
 if($isImage) $htmlText = _tag('span.wrapper', $htmlText);

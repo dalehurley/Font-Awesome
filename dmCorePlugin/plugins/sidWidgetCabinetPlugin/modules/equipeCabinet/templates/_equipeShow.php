@@ -16,12 +16,27 @@ if (count($equipes)) { // si nous avons des actu articles
 		$implantations[$implantationId]['equipes'][] = $equipe;
 	}
 	
+	//compteur
+	$implantationCount = 0;
+	$implantationMaxCount = count($implantations);
+	
 	//affichage des équipes
 	foreach ($implantations as $implantationId => $implantation) {
+		//incrémentation compteur
+		$implantationCount++;
+		
+		//options du container
+		$wrapperOpt = array();
+		//gestion des classes de début et de fin
+		if($implantationCount == 1)						$wrapperOpt['class'][] = 'first';
+		if($implantationCount >= $implantationMaxCount)	$wrapperOpt['class'][] = 'last';
+		
 		//ouverture du container
-		$html.= _open('div.supWrapper.clearfix');
+		$html.= _open('section.supWrapper.clearfix', $wrapperOpt);
+		
 		//affichage de la ville d'implantation
 		$html.= get_partial('global/titleSupWrapper', array('title' => (__('Implantation') . '&#160;:&#160;'. $implantation['ville'])));
+		
 		//ouverture de la liste
 		$html.= _open('ul.elements');
 		
@@ -36,7 +51,13 @@ if (count($equipes)) { // si nous avons des actu articles
 			
 			//options des personnes
 			$personOpt = array(
-							'node' => $equipe,
+							'name' => $equipe->getTitle(),
+							'description' => $equipe->getText(),
+							'image' => $equipe->getImage(),
+							'email' => $equipe->getEmail(),
+							'faxNumber' => $equipe->getFax(),
+							'telephone' => $equipe->getTel(),
+							'jobTitle' => $equipe->getStatut(),
 							'container' => 'li.element',
 							'count' => $count,
 							'maxCount' => $maxCount
@@ -49,7 +70,7 @@ if (count($equipes)) { // si nous avons des actu articles
 		
 		//fermeture de la liste et du container
 		$html.= _close('ul.elements');
-		$html.= _close('div.supWrapper');
+		$html.= _close('section.supWrapper');
 	}
 }else{
 	$html.= "Aucun membre de l'équipe n'est présenté.";

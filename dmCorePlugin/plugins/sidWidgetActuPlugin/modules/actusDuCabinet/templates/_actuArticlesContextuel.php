@@ -1,32 +1,64 @@
 <?php
 // vars : $articles, $titreBloc, $longueurTexte, $nbArticles, $photo, $titreLien, $chapo
+$html = '';
 
 if (count($articles)) { // si nous avons des actu articles
+	
+	//gestion affichage du titre
     if($nbArticles == 1){
-        if ($titreBloc != true) {
-            echo _tag('h4.title', current($articles));
-        }
-        else  echo _tag('h4.title', $titreBloc);
+        if ($titreBloc != true) $html.= get_partial('global/titleWidget', array('title' => current($articles)));
+        else $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
     }
     else {
-        if ($titreBloc != true) {
-            echo _tag('h4.title', __('The news of the office'));
-        }
-        else  echo _tag('h4.title', $titreBloc);
+        if ($titreBloc != true) $html.= get_partial('global/titleWidget', array('title' => __('The news of the office')));
+        else $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
     }
-    echo _open('ul.elements');
-    foreach ($articles as $article) {
-
-	include_partial("objectPartials/actuArticleContextuel", array("article" => $article,"textLength" => $longueurTexte,"textEnd" => '(...)',"photo" => $photo,"nbArticle" => $nbArticles,'titreBloc' => $titreBloc,"chapo" => $chapo));
-
+	
+	//ouverture du listing
+    $html.= _open('ul.elements');
+	
+	//compteur
+	$count = 0;
+	$maxCount = count($articles);
+	
+	foreach ($articles as $article) {
+		//incrémentation compteur
+		$count++;
+		
+		//options de l'article
+		$articleOpt = array(
+						'name' => $article->getTitle(),
+						'description' => $article->getResume(),
+						'image' => $article->getImage(),
+						'dateCreated' => $article->created_at,
+						'isDateMeta' => true,
+						'count' => $count,
+						'maxCount' => $maxCount,
+						'container' => 'li.element',
+						'isListing' => true,
+						'descriptionLength' => $longueurTexte,
+						'url' => $article
+					);
+		
+		//on supprime les photos après les 3 premiers articles
+		if($count > 3) $articleOpt['image'] = false;
+		
+		//ajout de l'article
+		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
     }
-    echo _close('ul');
-
-    echo _open('div.navigation.navigationBottom');
-	echo _open('ul.elements');
-	    echo _open('li.element');
-		echo _link('sidActuArticle/list')->text($titreLien);
-	    echo _close('li');
-	echo _close('ul');
-    echo _close('div');
+	
+	//fermeture du listing
+    $html.= _close('ul.elements');
+	
+	//création d'un tableau de liens à afficher
+	$elements = array();
+	$elements[] = array('title' => $titreLien, 'linkUrl' => 'sidActuArticle/list');
+	
+	$html.= get_partial('global/navigationWrapper', array(
+													'placement' => 'bottom',
+													'elements' => $elements
+													));
 } // sinon on affiche rien
+
+//affichage html en sortie
+echo $html;

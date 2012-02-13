@@ -1,7 +1,8 @@
 <?php
+// vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
+
 $html = '';
 
-// vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
 if (count($articles)) { // si nous avons des actu articles
 	
 	$html.= get_partial('global/titleWidget', array('title' => $titreBloc));
@@ -20,30 +21,34 @@ if (count($articles)) { // si nous avons des actu articles
 		//création d'un tableau de liens à afficher
 		$elements = array();
 		$elements[] = array('title' => $titreLien . '&#160;' . $arrayRubrique[$article->filename], 'linkUrl' => $article->Section);
+		
 		$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
-												'node' => $article,
-//                    'description' => $article->getChapeau(),'dateCreated' => $article->created_at,'dateModified' => $article->updated_at,'section' => $article->getSectionPageTitle(),
-//			'rubrique' => $article->getRubriquePagetitle(),'articleSection' => $article->getRubriquePagetitle() . '&#160;-&#160;' . $article->getSectionPageTitle(),
+												'name' => $article->getTitle(),
+												'description' => $article->getChapeau(),
 												'image' => '/_images/lea' . $article->filename . '-p.jpg',
+												'dateCreated' => $article->created_at,
+												'isDateMeta' => true,
 												'count' => $count,
 												'maxCount' => $maxCount,
 												'container' => 'li.element',
 												'isListing' => true,
 												'descriptionLength' => $longueurTexte,
-												'navigationElements' => $elements,
-												'url' => $article,
-                                                                                                'photo' => $photo
+												'navigationBottomElements' => $elements,
+												'url' => $article
 												));
     }
 	
     //fermeture du listing
     $html.= _close('ul.elements');
-  
-    //affichage html en sortie
-echo $html;
-    // modif pour html UNIQUEMENTT
-?>
+    
+}
 
+//affichage html en sortie
+echo $html;
+
+//TEST DE PERFORMANCE
+//modif pour html UNIQUEMENTT
+/*
 
 <!--        <h4 class="title">Actualités</h4>
         <ul class="elements">
@@ -96,13 +101,8 @@ echo $html;
                 </span>
             </li>
         </ul>-->
-    
-    
-    
-    
-    
- <?php   
- // MODIF POUR HELPER HTML
+*/  
+// MODIF POUR HELPER HTML
 // echo _tag('h4.title','Actualités');
 //        echo _open('ul.elements');
 //            echo _open('li.element.itemscope.Article.first');
@@ -186,6 +186,4 @@ echo $html;
 //            echo _close('li');
 //        };
 //        echo _close('ul.elements');
-}
-
- ?>
+//}

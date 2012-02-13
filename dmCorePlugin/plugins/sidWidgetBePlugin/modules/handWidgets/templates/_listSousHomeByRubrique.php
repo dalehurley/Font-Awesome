@@ -1,5 +1,8 @@
 <?php //  var articles - titreBloc - rubrique - link - sectionName
 
+echo 'TEMPLATE SOUS HOME BY RUBRIQUE CENSÉ NE PAS ÊTRE UTILISÉ';
+
+/*
 if (count($articles) != NULL) {
     echo _tag('h2.title', ucfirst($rubrique));
     
@@ -48,3 +51,4 @@ if (count($articles) != NULL) {
         }
     echo _close('ul');
 }
+ */
