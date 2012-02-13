@@ -5,7 +5,7 @@
  *
  */
 class baseEditorialeTools {
-    const memoryNeeded = '1024M';
+    const memoryNeeded = '2048M';
 
     /**
      * création d'un fichier Json des articles actifs de toutes les rubriques
@@ -211,6 +211,8 @@ class baseEditorialeTools {
 
                             if ($bdSection->isNew()) { // création de la section en base
                                 $bdSection->Translation[$arrayLangs[0]]->title = $localSection;  // On insère dans la langue par défaut
+                                //$bdSection->Translation[$arrayLangs[0]]->created_at = date('Y-m-d h:m:s');
+                                //$bdSection->Translation[$arrayLangs[0]]->updated_at = date('Y-m-d h:m:s');
                                 $bdSection->rubrique_id = $bdRubrique->id;
                                 $bdSection->save();
                                 $return[$i]['SECTION+'] = $bdRubrique->getTitle() . '/' . $localSection;
@@ -264,7 +266,7 @@ class baseEditorialeTools {
 
                     $return[$i]['WARNING'] = 'Rubrique : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' non active.';
                 } else {
-                    $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueId($rubrique->id);
+                    $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueIdAndIsActive($rubrique->id, true);
                     
                     if (count($sidSections) == 0) {
                         $return[$i]['WARNING'] = 'La rubrique : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' ne contient pas de section.';
