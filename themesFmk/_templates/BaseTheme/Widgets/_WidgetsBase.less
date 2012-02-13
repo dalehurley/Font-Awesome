@@ -47,8 +47,8 @@
 		float: left;
 	}
 	
-	.content_title {
-		.isLess & { background-color: #B8C0D6; }
+	.content_ck_editor {
+		.isLess & { background-color: #B8D6C1; }
 		float: left;
 		margin-left: @offM;
 		
@@ -56,9 +56,19 @@
 			color: @colorCouleur3ClairSup;
 			text-transform: uppercase;
 			padding-top: @gridBaseline/2;
-			padding-bottom: (@gridBaseline/2 -1px);
-			border-bottom: 1px solid @colorCouleur3ClairSup;
-			h1, h2, h3, h4, h5, h6, p, div { margin: 0; padding: 0; }
+			padding-bottom: @gridBaseline/2;
+			
+			//stylage des élements de titrage
+			.dm_site_title, .dm_site_slogan { margin: 0; padding: 0; }
+			.dm_site_title {
+				.isLess & { background-color: #B6BFB9; }
+				padding-bottom: @gridBaseline/2;
+			}
+			.dm_site_slogan {
+				.isLess & { background-color: #ACBFB2; }
+				padding-top: (@gridBaseline/2 -1px);
+				border-top: 1px solid @colorCouleur3ClairSup;
+			}
 		}
 	}
 }
