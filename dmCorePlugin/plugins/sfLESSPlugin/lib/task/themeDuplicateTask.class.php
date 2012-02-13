@@ -26,6 +26,7 @@ EOF;
      * @see sfTask
      */
     protected function execute($arguments = array() , $options = array()) {
+        $out = $err = null;
         //---------------------------------------------------------------------------------
         //        recuperation des differentes maquettes du coeur
         //---------------------------------------------------------------------------------
@@ -64,45 +65,27 @@ EOF;
         $this->logBlock('Vous avez choisi de dupliquer le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
 
 
+        // choix du nouveau nom de theme 
+        $newThemeName = $this->askAndValidate(array('', 'Le nom du nouveau thème? (en minuscule sans espace, de 5 à 15 caractères)', ''), new sfValidatorRegex(
+                        array('pattern' => '/^[a-z]{5,15}$/',
+                        'required' => true),
+                        array('invalid' => 'Le nom du thème est invalide')
+        ));
+        // on suffixe par Theme
+        $newThemeName = $newThemeName . 'Theme';
+        // duplication du thème
+        $duplicateThemeDir = dirname ( __FILE__ ).'/../../data/_templates/'.$nomTemplateChoisi;
+        $newThemeDir = dirname ( __FILE__ ).'/../../data/_templates/'.$newThemeName;
 
-
-        // choix du nouveau nom
-        $numTemplate = $this->askAndValidate(array(
-            '',
-            'Le numero du template choisi?',
-            ''
-        ) , new sfValidatorChoice(array(
-            'choices' => array_keys($dispoTemplates) ,
-            'required' => true
-        ) , array(
-            'invalid' => 'Le template n\'existe pas'
-        )));
-
-
-        //---------------------------------------------------------------------------------
-        //        installation du theme
-        //---------------------------------------------------------------------------------
-        //$pluginDataDir = dm::getDir() . '/dmCorePlugin/plugins/sfLESSPlugin/data';
-        $pluginDataDir = dirname ( __FILE__ ).'/../../data';
-        $dirTheme = sfConfig::get('sf_web_dir') . '/theme';
-
-        // Copie du dossier diem/themesFmk/theme
-        exec ('rm -rf '.$dirTheme);
-        mkdir($dirTheme);
-        $this->getFilesystem()->execute('cp -r ' . $pluginDataDir.'/theme/* ' . $dirTheme, $out, $err);
-        // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
-        $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
-        // on cree le lien symbolique vers le dossier des _templates
-        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir.'/_templates/ ' . sfConfig::get('sf_web_dir') . '/theme/less/_templates', $out, $err);
-
-        // recherche des templates -> XXXSuccess.php
-        $dirPageSuccessFile = $pluginDataDir.'/_templates/' . $nomTemplateChoisi . '/Externals/php/layouts';
-        // on créé les répertoires s'ils n'existent pas
-        $dirDmFront = sfConfig::get('sf_root_dir') . '/apps/front/modules/dmFront';
-        $dirDmFrontTemplate = $dirDmFront . '/templates';
-        if (!is_dir($dirDmFront)) mkdir($dirDmFront);
-        if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
-        // Copie des xxxSuccess.php du theme sur le site
-        $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile . '/*Success.php ' . $dirDmFrontTemplate, $out, $err);
+        if (!is_dir($newThemeDir)){
+            // duplication
+        mkdir($newThemeDir);
+        $this->getFilesystem()->execute('cp -r ' . $duplicateThemeDir .'/* ' . $newThemeDir, $out, $err);
+        // changement du nom du theme dans le code des fichiers .less
+         $this->getFilesystem()->execute('find '. $newThemeDir .' -name "*.less" -print | xargs perl -pi -e \'s/'.$nomTemplateChoisi.'/'.$newThemeName.'/g\'');
+        } else {
+            $this->logBlock('Template déjà existant : ' . $newThemeName, 'ERROR');
+            exit;
+        } 
     }
 }
