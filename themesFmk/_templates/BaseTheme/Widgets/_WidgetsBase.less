@@ -54,7 +54,10 @@
 		
 		.dm_widget_inner {
 			color: @colorCouleur3ClairSup;
+			font-family: @fontGlobalFamilyWebFont;
 			text-transform: uppercase;
+			word-spacing: 0.125em;
+			letter-spacing: 0.125em;
 			padding-top: @gridBaseline/2;
 			padding-bottom: @gridBaseline/2;
 			
@@ -62,6 +65,7 @@
 			.dm_site_title, .dm_site_slogan { margin: 0; padding: 0; }
 			.dm_site_title {
 				.isLess & { background-color: #B6BFB9; }
+				font-weight: bold;
 				padding-bottom: @gridBaseline/2;
 			}
 			.dm_site_slogan {
