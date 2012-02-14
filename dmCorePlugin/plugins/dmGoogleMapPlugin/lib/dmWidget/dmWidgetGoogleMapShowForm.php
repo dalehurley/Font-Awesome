@@ -38,7 +38,24 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
     $this->widgetSchema['scaleControl'] = new sfWidgetFormInputCheckbox();
     $this->validatorSchema['scaleControl'] = new sfValidatorBoolean();
     $this->widgetSchema['scaleControl']->setLabel('Scale');
-
+	
+	$this->widgetSchema['media_area'] = new sfWidgetFormSelect(array(
+		'choices' => array(
+			'thumbS'				=>	'Preset thumbS',
+			'thumbM'				=>	'Preset thumbM',
+			'thumbL'				=>	'Preset thumbL',
+			'thumbX'				=>	'Preset thumbX',
+			'thumbFull'				=>	'Preset thumbFull (largeur du site)',
+			'thumbContent'			=>	'Preset thumbContent (largeur du contenu)',
+			'thumbSidebarLeft'		=>	'Preset thumbSidebarLeft (largeur sidebarLeft)',
+			'thumbSidebarRight'		=>	'Preset thumbSidebarRight (largeur sidebarRight)',
+		),
+		'default' => 'thumbX'
+	));
+	$this->validatorSchema['media_area'] = new sfValidatorString(array(
+      'required' => true
+    ));
+	/*
     $this->widgetSchema['width'] = new sfWidgetFormInputText(array(), array('size' => 5));
     $this->validatorSchema['width'] = new dmValidatorCssSize(array(
       'required' => false
@@ -48,13 +65,14 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
     $this->validatorSchema['height'] = new dmValidatorCssSize(array(
       'required' => false
     ));
-
+	*/
+	
     $this->widgetSchema['splash'] = new sfWidgetFormInputText();
     $this->validatorSchema['splash'] = new sfValidatorString(array(
       'required' => false
     ));
     $this->widgetSchema->setHelp('splash', 'Display a message while the map is loading');
-
+	/*
     if(!$this->getDefault('width'))
     {
       $this->setDefault('width', '100%');
@@ -63,6 +81,7 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
     {
       $this->setDefault('height', '500px');
     }
+    */
     if(!$this->getDefault('mapTypeId'))
     {
       $this->setDefault('mapTypeId', 'roadmap');

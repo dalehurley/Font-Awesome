@@ -1,18 +1,39 @@
 <?php // Vars: $groupeSitesUtilesPager
-echo _tag('h4.title', __('Different groups of useful sites'));
-echo $groupeSitesUtilesPager->renderNavigationTop();
+$html = get_partial('global/titleWidget', array('title' => __('Different groups of useful sites')));
 
-echo _open('ul.elements');
+//affichage du pager du haut
+$html.= get_partial('global/navigationWrapper', array('placement' => 'top', 'pager' => $groupeSitesUtilesPager));
 
-foreach ($groupeSitesUtilesPager as $groupeSitesUtiles)
-{
-  echo _open('li.element');
+//ouverture du listing
+$html.= _open('ul.elements');
 
-    echo _link($groupeSitesUtiles)->set('link_box')->text(_tag('span.wrapper',_tag('span.title', $groupeSitesUtiles)));
+//compteur
+$count = 0;
+$maxCount = count($groupeSitesUtilesPager);
 
-  echo _close('li');
+foreach ($groupeSitesUtilesPager as $groupeSitesUtiles) {
+	//incrémentation compteur
+	$count++;
+	
+	//options de l'article
+	$articleOpt = array(
+					'name' => $groupeSitesUtiles,
+					'url' => $groupeSitesUtiles,
+					'count' => $count,
+					'maxCount' => $maxCount,
+					'container' => 'li.element',
+					'isListing' => true
+				);
+
+	//ajout de l'article
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
 }
+	
+//fermeture du listing
+$html.= _close('ul.elements');
 
-echo _close('ul');
+//affichage du pager du bas
+$html.= get_partial('global/navigationWrapper', array('placement' => 'bottom', 'pager' => $groupeSitesUtilesPager));
 
-echo $groupeSitesUtilesPager->renderNavigationBottom();
+//affichage html en sortie
+echo $html;
