@@ -12,6 +12,7 @@ class spriteInitTask extends lioshiBaseTask {
             // application positionnée sur front afin d'avoir accès aux app.yml du front
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'front') ,
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod') ,
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine')           
         ));
         $this->namespace = 'less';
         $this->name = 'sprite';
@@ -28,6 +29,10 @@ EOF;
      * @see sfTask
      */
     protected function execute($arguments = array() , $options = array()) {
+        // initialize the database connection
+        $databaseManager = new sfDatabaseManager($this->configuration);
+        $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
+                
         if (in_array("verbose", $arguments)) {
                 $verbose = true;
             } else {

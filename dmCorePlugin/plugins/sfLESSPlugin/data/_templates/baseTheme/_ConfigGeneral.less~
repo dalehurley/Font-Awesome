@@ -8,8 +8,8 @@
 //impossibilité d'importer des fichiers de config de variable par une fonction incluant un import de fichier less, car elles ne sont pas prises en compte par la suite !
 
 //définition du theme par défaut
-@mainTemplate: "##THEME##";
+@mainTemplate: "baseTheme";
 //timeStamp Unix codé en md5 raccourci sur 7 chiffres
 @mainHashMd5: "be35210";
 //importation du fichier de config du thème choisi
-@import "_templates/##THEME##/Config/_ConfigTemplateDefault.less";
+@import "_templates/baseTheme/Config/_ConfigTemplateDefault.less";

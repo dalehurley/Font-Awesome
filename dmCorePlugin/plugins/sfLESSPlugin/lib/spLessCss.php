@@ -25,7 +25,7 @@ class spLessCss {
 	//fonction de génération de hash md5 du timeStamp unix pour changer les appels de sprite
 	public static function spriteUpdateHashMd5() {
 		//ciblage du fichier de config
-		$urlConfigGeneral = sfConfig::get('sf_web_dir') . '/theme/less/_ConfigGeneral.less';
+		$urlConfigGeneral = sfConfig::get('sf_web_dir') . '/theme/less/style.less';
 		
 		//génération du timeStamp md5 sur 7 chiffres
 		$md5TimeStamp = substr(md5(microtime(true)), 0, 7);
@@ -108,8 +108,8 @@ class spLessCss {
 	//génération du listing des icônes
 	private static function spriteGetListing($hashMd5 = null) {
 		//emplacement et récupération des thèmes de sprites
-		$urlThemes = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathFramework() . '/Sprites';
-		$urlThemesClient = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites';
+		$urlThemes = sfConfig::get('sf_web_dir') . '/theme/less/_templates/' . dmConfig::get('site_theme'). '/_framework/SPLessCss/Images/Sprites';
+		$urlThemesClient = sfConfig::get('sf_web_dir') . '/theme/images/Sprites';
 		$getThemes = sfFinder::type('directory')->follow_link()->relative()->in($urlThemes);
 		
 		//création du tableau de stockage des sprites
@@ -145,7 +145,7 @@ class spLessCss {
 	//purge des miniatures
 	private static function spriteReset(){
 		//emplacement et récupération des thèmes de sprites
-		$urlThemesClient = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites';
+		$urlThemesClient = sfConfig::get('sf_web_dir') . '/theme/images/Sprites';
 		$getThemesClient = sfFinder::type('directory')->follow_link()->relative()->in($urlThemesClient);
 		
 		//récupération des miniatures assemblées déjà générées
@@ -177,7 +177,7 @@ class spLessCss {
 			}
 			
 			//suppression du dossier du thème
-			$urlThemeClient = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites/' . $themeClient;
+			$urlThemeClient = sfConfig::get('sf_web_dir') . '/theme/images/Sprites/' . $themeClient;
 			if(is_dir($urlThemeClient)){
 				$testRmdir = rmdir($urlThemeClient);
 				//affichage d'un message en cas d'erreur
@@ -301,9 +301,9 @@ class spLessCss {
 	//copie de toutes les icônes et changement des couleurs
 	private static function spriteGenerate($hashMd5 = null, $spriteListing = array(), $spriteFormat = 'L'){
 		//dimension par défaut des sprites (imposé par le format SVG utilisé)
-		$dimDefault = intval(sidSPLessCss::getLessParam('spriteFormat'));
+		$dimDefault = intval(self::getSpriteParam());
 		//dimension des sprites dans les paramètres du framework (égale à S, M, L ou X)
-		$dimFramework = intval(sidSPLessCss::getLessParam('spriteFormat_' . $spriteFormat));
+		$dimFramework = intval(self::getSpriteParam($spriteFormat));
 		
 		//calcul du ratio de redimenssionnement
 		$resizeRatio = $dimFramework / $dimDefault;
@@ -321,7 +321,7 @@ class spLessCss {
 			$categories = $info['categories'];
 			
 			//création du dossier du thème si non présent
-			$urlThemes = sfConfig::get('sf_web_dir') . sidSPLessCss::getImgPathClient() . '/Sprites';
+			$urlThemes = sfConfig::get('sf_web_dir') . '/theme/images/Sprites';
 			$urlThemeClient = $urlThemes . '/' . $theme;
 			if(!is_dir($urlThemeClient)){
 				$testMkdir = mkdir($urlThemeClient, 0775, true);
@@ -361,7 +361,7 @@ class spLessCss {
 						//on enlève les délimiteurs ## de la couleur
 						$colorKey = substr($colorToken, 2, -2);
 						//on récupère la valeur de la couleur correspondante
-						$colorValue = sidSPLessCss::getLessParam($colorKey);
+						$colorValue = self::getColorsParam($colorKey);
 						
 						//composition de la commmande de changement de couleurs
 						$execColor = "perl -pi -w -e 's/" . $colorToken . "/". $colorValue ."/g;' " . $value['urlClient'];
@@ -413,7 +413,52 @@ class spLessCss {
 		//retour de la valeur de sortie LESS
 		return $output;	
 	}
-	
+	/**
+	 * renvoie la taille en px pour chaque format
+	 * @param  string $spriteFormat Le format
+	 * @return string
+	 */
+	private static function getSpriteParam($spriteFormat = ''){
+		switch ($spriteFormat) {
+			case '':
+				return '64px';
+				break;
+			case 'S':
+				return '16px';
+				break;
+			case 'M':
+				return '32px';
+				break;
+			case 'L':
+				return '64px';
+				break;
+			case 'X':
+				return '128px';
+				break;															
+			default:
+				return '64px';
+				break;
+		}
+	}
+
+	private static function getColorsParam($colorKey){
+
+		// il faut aller chercher dans le fichier  	
+		$fileConfig = sfconfig::get('sf_web_dir').'/theme/config/spriteColors.css';
+		// on lit chaque ligne du fichier pour trouver la chaine $colorKey
+		$lines = file($fileConfig);
+		foreach ($lines as $lineNumber => $lineContent)
+		{
+			$posColorKey = strpos($lineContent, $colorKey);
+			if ($posColorKey === false) {
+			} else {
+				return substr($lineContent,strpos($lineContent, '#'),7);
+			}
+		}
+
+		
+	}
+
 	//récupération du layout par défaut du template sélectionné
 	public static function pageSuccessTemplateInclude() {
 		//Ciblage du layout de page par défaut du template sélectionné

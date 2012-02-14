@@ -1,6 +1,3 @@
-//timeStamp Unix codé en md5 raccourci sur 7 chiffres, utilisé pour le nom des sprites et les appels css associes
-@mainHashMd5: "xxxxxxx";
-
 //importation des themes du coeur
 @import "_templates/##THEME##/_baseStyle.less";
 
