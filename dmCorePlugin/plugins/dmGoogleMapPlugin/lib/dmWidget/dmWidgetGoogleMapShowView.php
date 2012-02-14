@@ -22,14 +22,15 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
   protected function doRender()
   {
     $vars = $this->getViewVars();
-    // requète pour construire l'adresse du cabinet
+	// requète pour construire l'adresse du cabinet
     $adresseRequest = Doctrine_Query::create()->from('SidCoordName a')
           ->where('a.id = ?', $vars['address'] )
           ->fetchOne();
-    $adresseCabinet = $adresseRequest->getAdresse();
-    if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
-    $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
-
+	
+	//composition de l'adresse pour Google Map
+	$adresseCabinet = $adresseRequest->getAdresse();
+    if($adresseRequest->getAdresse2() != NULL) $adresseCabinet.= '-' . $adresseRequest->getAdresse2();
+    $adresseCabinet.= '-' . $adresseRequest->getCodePostal() . ' ' . $adresseRequest->getVille();
     
     $map = $this->getService('google_map_helper')->map()
     ->address($adresseCabinet)
