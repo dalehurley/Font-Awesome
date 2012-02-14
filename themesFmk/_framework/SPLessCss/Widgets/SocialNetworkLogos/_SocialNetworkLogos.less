@@ -34,8 +34,8 @@
 			//décalage de marge (pour avoir un décalage d'une demi-colonne)
 			@decalHCol: (@gridColWidth/2 - @gridGutter);
 			margin-right: @decalHCol;
-			//on supprime le décalage à gauche pour le dernier et une icone sur 5 (à adapter si changement taille sidebar-left)
-			&.last, &:nth-child(5) { margin-right: 0; }
+			//on supprime le décalage à gauche pour le dernier
+			&.last { margin-right: 0; }
 		}
 	}
 	

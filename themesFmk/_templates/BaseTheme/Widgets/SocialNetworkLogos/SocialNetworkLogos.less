@@ -23,4 +23,11 @@
 			margin-right: @gridGutter;
 		}
 	}
+	
+	.elements {
+		.element {
+			//on supprime le décalage à gauche pour une icone sur 5 (à adapter si changement taille sidebar-left)
+			&:nth-child(5) { margin-right: 0; }
+		}
+	}
 }
