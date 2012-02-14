@@ -1,0 +1,8 @@
+Content:
+  
+  "Debug":
+    
+    debug:
+      name:                    Infos debug
+      actions:
+        debug:

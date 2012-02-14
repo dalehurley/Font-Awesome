@@ -45,7 +45,7 @@ EOF;
             array(
               'separator' => 'Style',
               'command' => 'less:compile-all', 
-              'libelle' => 'Compilation des .less en .css + fichier de variables .json',
+              'libelle' => 'Compilation des .less en .css',
               'arguments' => array(),
               'options' => array()                
               ),

@@ -610,15 +610,6 @@ $this->getFilesystem()->execute(sprintf(
   ), $out, $err);
 
 //-------------------------------------------------------------------------------------
-//    Creation du fichier .json des parametres less
-//-------------------------------------------------------------------------------------
-$this->logBlock('Generation du fichier .json des parametres less.', 'INFO');
-$out = $err = null;
-$this->getFilesystem()->execute(sprintf(
-    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:variables'
-  ), $out, $err);
-
-//-------------------------------------------------------------------------------------
 //    Génération 
 //    Creation des sprites + compilation LESS (plus besoin au dessus)
 //-------------------------------------------------------------------------------------

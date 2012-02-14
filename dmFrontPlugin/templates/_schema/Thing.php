@@ -32,14 +32,14 @@ $html = '';
 //intégration de l'image
 if($isImage) {
 	//dimensions par défaut de l'image
-	$imageGridWidth = (isset($imageGridWidth)) ? $imageGridWidth : sidSPLessCss::getLessParam('thumbS_col');
-	$imageGridHeight = (isset($imageGridHeight)) ? $imageGridHeight : sidSPLessCss::getLessParam('thumbS_bl');
+//	$imageGridWidth = (isset($imageGridWidth)) ? $imageGridWidth : sidSPLessCss::getLessParam('thumbS_col');
+//	$imageGridHeight = (isset($imageGridHeight)) ? $imageGridHeight : sidSPLessCss::getLessParam('thumbS_bl');
 	
 	//options de l'image
 	$imageWrapperOpts = array(
 								'image'	=>	$image,
-								'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
-								'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+								'width'	=>	'',
+								'height'=>	''
 								);
 	//ajout du nom de l'article dans la balise Alt de l'image
 	if(isset($name)) $imageWrapperOpts['alt'] = $name;

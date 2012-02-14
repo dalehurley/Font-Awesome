@@ -18,7 +18,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
 		$stylesheets = array();
 		
 		//lien vers le js associé au menu
-		$cssLink = sidSPLessCss::getCssPathTemplate(). '/Widgets/EquipeCabinetEquipesContextuel/EquipeCabinetEquipesContextuel.css';
+		$cssLink = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/EquipeCabinetEquipesContextuel/EquipeCabinetEquipesContextuel.css';
 		//chargement de la CSS si existante
 		if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
 		

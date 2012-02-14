@@ -55,7 +55,7 @@ EOF;
         // choix de la maquette du coeur
         $numTemplate = $this->askAndValidate(array(
             '',
-            'Le numero du template choisi?',
+            'Le numero du theme choisi?',
             ''
         ) , new sfValidatorChoice(array(
             'choices' => array_keys($dispoTemplates) ,
@@ -64,7 +64,7 @@ EOF;
             'invalid' => 'Le template n\'existe pas'
         )));
         $nomTemplateChoisi = $dispoTemplates[$numTemplate];
-        $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
+        $this->logBlock('Vous avez choisi le thème : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
         //$this->logBlock('Execution time  ' . round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
         //---------------------------------------------------------------------------------
         //        installation du theme
@@ -93,11 +93,14 @@ EOF;
         // choix de la langue
         $arrayLangs = sfConfig::get('dm_i18n_cultures');
         // on supprime l'entrée de key = 0 car le zéro est interprété comme null en cli
+        // la première clef du tableau devient donc 1
         array_unshift($arrayLangs, "");
         unset($arrayLangs[0]);
-        
+
+        if (count($arrayLangs) > 1){
         // on affiche les choix de langue
-        $this->logBlock('Langues disponibles :', 'INFO_LARGE');        
+        $this->logBlock('Langues disponibles :', 'INFO_LARGE');
+        
         foreach ($arrayLangs as $k => $arrayLang) {
             $this->logSection($k, $arrayLang);
         }
@@ -111,19 +114,29 @@ EOF;
         ) , array(
             'invalid' => 'La langue n\'existe pas'
         )));
-
+        } else {
+            $lang = 1;
+        }
         // sauvegarde du site_theme dans la table dmSetting
         $configSiteTheme = array(
             'type' => 'text',
-            'default_value' => $nomTemplateChoisi,
+            'default_value' => ' ',
             'value' => $nomTemplateChoisi,
             'description' => 'Site current theme',
             'group_name' => 'site',
             'lang' => $arrayLangs[$lang]
         );
-        $setting = Doctrine::getTable('dmSetting')->findOneByName('site_theme');
-        $setting->set('name', 'site_theme');
-        $setting->fromArray($configSiteTheme);
-        $setting->save();
+        $setting = dmDB::table('dmSetting')->findOneByName('site_theme');
+        if (is_object($setting)) {
+            $settingTranslation = dmDB::table('dmSettingTranslation')->findOneByIdAndLang($setting->id, $arrayLangs[$lang]);
+            $settingTranslation->set('value', $nomTemplateChoisi);
+            $settingTranslation->save();
+        } else {
+            $setting = new DmSetting;
+            $setting->set('name', 'site_theme');
+            $setting->fromArray($configSiteTheme);
+            $setting->save();
+        }
+        $this->logBlock('Le theme : ' . $nomTemplateChoisi . ' est installe.', 'INFO_LARGE');
     }
 }
