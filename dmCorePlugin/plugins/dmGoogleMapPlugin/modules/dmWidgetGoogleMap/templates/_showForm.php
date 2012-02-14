@@ -30,6 +30,7 @@ _tag('div#'.$baseTabId.'_controls.drop_zone',
 _tag('div#'.$baseTabId.'_presentation',
   _tag('ul.dm_form_elements',
     _tag('li.dm_form_element.multi_inputs.clearfix',
+	  $form['media_area']->label(__('Area'))->render().
       $form['width']->renderError().
       $form['height']->renderError().
       _tag('label', __('Dimensions')).

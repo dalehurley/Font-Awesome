@@ -18,6 +18,24 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
       'height'
     ));
   }
+  
+  
+  protected function filterViewVars(array $vars = array()) {
+	  $vars = parent::filterViewVars($vars);
+	  
+	  //Ajout Arnaud
+	  //composition du paramètres de miniature sélectionné et par défaut
+	  $thumbTypeWidth = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_col';
+	  $thumbTypeHeight = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_bl';
+	  //récupération des paramètres depuis le framework
+	  $thumbTypeWidth = sidSPLessCss::getLessParam($thumbTypeWidth);
+	  $thumbTypeHeight = sidSPLessCss::getLessParam($thumbTypeHeight);
+	  //ajout des variables au widget
+	  $vars['width'] = spLessCss::gridGetWidth($thumbTypeWidth);
+	  $vars['height'] = spLessCss::gridGetHeight($thumbTypeHeight);
+	  
+	  return $vars;
+  }
 
   protected function doRender()
   {
@@ -31,7 +49,12 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
 	$adresseCabinet = $adresseRequest->getAdresse();
     if($adresseRequest->getAdresse2() != NULL) $adresseCabinet.= '-' . $adresseRequest->getAdresse2();
     $adresseCabinet.= '-' . $adresseRequest->getCodePostal() . ' ' . $adresseRequest->getVille();
+	
+	//récupération de valeurs par défaut pour la taille du widget
+	$defaultWidth = spLessCss::gridGetWidth(sidSPLessCss::getLessParam('thumbX_col'));
+	$defaultHeight = spLessCss::gridGetHeight(sidSPLessCss::getLessParam('thumbX_bl'));
     
+	//composition de la googleMap
     $map = $this->getService('google_map_helper')->map()
     ->address($adresseCabinet)
     // passage d'une valeur supplémentaire au fichier dmGoogleMapTag.php
@@ -39,15 +62,15 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
     ->mapTypeId($vars['mapTypeId'])
     ->zoom($vars['zoom'])
     ->style(sprintf(
-      'width: %s; height: %s;',
-      dmArray::get($vars, 'width', '100%'),
-      dmArray::get($vars, 'height', '300px')
+      'width: %spx; height: %spx;',
+      dmArray::get($vars, 'width', $defaultWidth),
+      dmArray::get($vars, 'height', $defaultHeight)
     ))
     ->navigationControl($vars['navigationControl'])
     ->mapTypeControl($vars['mapTypeControl'])
     ->scaleControl($vars['scaleControl'])
     ->splash($vars['splash']);
-
+	
     $this
     ->addJavascript($map->getJavascripts())
     ->addStylesheet($map->getStylesheets());

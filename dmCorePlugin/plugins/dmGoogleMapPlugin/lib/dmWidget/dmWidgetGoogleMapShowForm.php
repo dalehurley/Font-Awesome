@@ -38,6 +38,23 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
     $this->widgetSchema['scaleControl'] = new sfWidgetFormInputCheckbox();
     $this->validatorSchema['scaleControl'] = new sfValidatorBoolean();
     $this->widgetSchema['scaleControl']->setLabel('Scale');
+	
+	$this->widgetSchema['media_area'] = new sfWidgetFormSelect(array(
+		'choices' => array(
+			'thumbS'				=>	'Preset thumbS',
+			'thumbM'				=>	'Preset thumbM',
+			'thumbL'				=>	'Preset thumbL',
+			'thumbX'				=>	'Preset thumbX',
+			'thumbFull'				=>	'Preset thumbFull (largeur du site)',
+			'thumbContent'			=>	'Preset thumbContent (largeur du contenu)',
+			'thumbSidebarLeft'		=>	'Preset thumbSidebarLeft (largeur sidebarLeft)',
+			'thumbSidebarRight'		=>	'Preset thumbSidebarRight (largeur sidebarRight)',
+		),
+		'default' => 'thumbX'
+	));
+	$this->validatorSchema['media_area'] = new sfValidatorString(array(
+      'required' => true
+    ));
 
     $this->widgetSchema['width'] = new sfWidgetFormInputText(array(), array('size' => 5));
     $this->validatorSchema['width'] = new dmValidatorCssSize(array(
