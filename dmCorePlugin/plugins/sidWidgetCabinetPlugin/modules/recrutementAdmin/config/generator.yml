@@ -30,6 +30,12 @@ generator:
       fields:
         is_active:
           label: Active
+        title_file:
+          label: 'Nom du fichier'
+        file_form:
+          label: 'Choisir un fichier'
+        image_form:
+          label: 'Choisir une image'
       list:
         batch_actions:
           delete:
@@ -62,6 +68,8 @@ generator:
           Type de l'offre: [is_active]
           Titre de l'offre: [title]
           Text: [text]
+          Image: [image_form, image_view]
+          Fichier : [ file_form, file_view, title_file]
         class: SidCabinetRecrutementAdminForm
         fields: {  }
       edit: ~
