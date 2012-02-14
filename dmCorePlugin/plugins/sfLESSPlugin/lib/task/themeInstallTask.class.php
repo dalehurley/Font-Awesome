@@ -78,8 +78,13 @@ EOF;
         $this->getFilesystem()->execute('cp -r ' . $pluginDataDir . '/theme/* ' . $dirTheme, $out, $err);
         // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
         $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
+        
         // on cree le lien symbolique vers le dossier des _templates
         $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_templates/ ' . sfConfig::get('sf_web_dir') . '/theme/less/_templates', $out, $err);
+        // on cree le lien symbolique vers le dossier du _framework
+        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_framework/ ' . sfConfig::get('sf_web_dir') . '/theme/less/_framework', $out, $err);
+
+
         // recherche des templates -> XXXSuccess.php
         $dirPageSuccessFile = $pluginDataDir . '/_templates/' . $nomTemplateChoisi . '/Externals/php/layouts';
         // on créé les répertoires s'ils n'existent pas

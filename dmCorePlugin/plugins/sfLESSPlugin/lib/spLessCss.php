@@ -25,7 +25,7 @@ class spLessCss {
 	//fonction de génération de hash md5 du timeStamp unix pour changer les appels de sprite
 	public static function spriteUpdateHashMd5() {
 		//ciblage du fichier de config
-		$urlConfigGeneral = sfConfig::get('sf_web_dir') . '/theme/less/style.less';
+		$urlConfigGeneral = sfConfig::get('sf_web_dir') . '/theme/less/_ConfigGeneral.less';
 		
 		//génération du timeStamp md5 sur 7 chiffres
 		$md5TimeStamp = substr(md5(microtime(true)), 0, 7);
@@ -108,7 +108,7 @@ class spLessCss {
 	//génération du listing des icônes
 	private static function spriteGetListing($hashMd5 = null) {
 		//emplacement et récupération des thèmes de sprites
-		$urlThemes = sfConfig::get('sf_web_dir') . '/theme/less/_templates/' . dmConfig::get('site_theme'). '/_framework/SPLessCss/Images/Sprites';
+		$urlThemes = sfConfig::get('sf_web_dir') . '/theme/less/_framework/SPLessCss/Images/Sprites';
 		$urlThemesClient = sfConfig::get('sf_web_dir') . '/theme/images/Sprites';
 		$getThemes = sfFinder::type('directory')->follow_link()->relative()->in($urlThemes);
 		
@@ -444,7 +444,7 @@ class spLessCss {
 	private static function getColorsParam($colorKey){
 
 		// il faut aller chercher dans le fichier  	
-		$fileConfig = sfconfig::get('sf_web_dir').'/theme/config/spriteColors.css';
+		$fileConfig = sfconfig::get('sf_web_dir').'/theme/css/_framework/SPLessCss/Config/GetVariables.css';
 		// on lit chaque ligne du fichier pour trouver la chaine $colorKey
 		$lines = file($fileConfig);
 		foreach ($lines as $lineNumber => $lineContent)
@@ -455,8 +455,6 @@ class spLessCss {
 				return substr($lineContent,strpos($lineContent, '#'),7);
 			}
 		}
-
-		
 	}
 
 	//récupération du layout par défaut du template sélectionné

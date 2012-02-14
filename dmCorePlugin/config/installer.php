@@ -465,6 +465,8 @@ $this->logBlock('Lien symbolique images.', 'INFO_LARGE');
 $out = $err = null;
 $this->getFilesystem()->execute('ln -s '.$beDirImages. ' '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/_images', $out, $err);
  
+
+/*   plus de themeFmk, installation du theme dans controls 
 //-------------------------------------------------------------------------------------
 //    inclusion theme thmFmk
 //-------------------------------------------------------------------------------------
@@ -531,6 +533,8 @@ if($nomTemplateChoisi == 'tenorlight'){
     // Copie des xxxSuccess.php du theme sur le site 
     $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.$dirDmFrontTemplate, $out, $err);
 }
+*/
+
 
 //-------------------------------------------------------------------------------------
 //    liaison vers le dossier templates contenant les partials du coeur
