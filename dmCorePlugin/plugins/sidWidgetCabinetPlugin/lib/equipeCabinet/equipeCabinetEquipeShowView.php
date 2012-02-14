@@ -20,7 +20,7 @@ class equipeCabinetEquipeShowView extends dmWidgetPluginView {
         $equipes = Doctrine_Query::create()
                 ->from('SidCabinetEquipe a')
                 ->where('a.is_active = ? ', array(true))
-                ->orderBy('a.implentation_id')
+                ->orderBy('a.position')
                 ->execute();
 
         foreach ($equipes as $equipe) { // on stock les NB actu article 

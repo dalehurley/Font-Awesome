@@ -25,14 +25,19 @@ class pagesDuCabinetIntroPageCabinetView extends dmWidgetPluginView {
 
         $pageCabinet = dmDb::table('SidCabinetPageCabinet')->findOneById($vars['page']);
         if($vars['title_page'] == NULL || $vars['title_page'] == " "){
-        $vars['title_page'] = $pageCabinet->getTitle();
-        }
+			$vars['title_page'] = $pageCabinet->getTitle();
+			$vars['isTitleContent'] = true;
+        }else{
+			$vars['isTitleContent'] = false;
+		}
+		
         return $this->getHelper()->renderPartial('pagesDuCabinet', 'introPageCabinet', array(
                     
                     'pageCabinet' => $pageCabinet,
                     'lenght' => $vars['lenght'],
                     'titlePage' => $vars['title_page'],
-                    'lien' => $vars['lien']
+                    'lien' => $vars['lien'],
+					'isTitleContent' => $vars['isTitleContent']
                 ));
     }
 

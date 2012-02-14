@@ -19,8 +19,8 @@ if(count($articles)){
 					);
 	
 	//ajout des options de fichiers
-	if($articles->getFiles() != null) $articleOpts['uploadFile'] = $articles->getFiles();
-	if($articles->getTitleFile() != null) $articleOpts['uploadFileTitle'] = $articles->getTitleFile();
+	if($articles->getFiles() != '') $articleOpts['uploadFile'] = $articles->getFiles();
+	if($articles->getTitleFile() != '') $articleOpts['uploadFileTitle'] = $articles->getTitleFile();
 	
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
 }else{

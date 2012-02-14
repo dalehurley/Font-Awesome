@@ -1,7 +1,7 @@
 <?php
 /*
  * Image.php
- * v1.0
+ * v1.1
  * Permet d'afficher une image
  * 
  * Variables disponibles :
@@ -21,11 +21,7 @@
 if(!isset($container)) $container = 'span.imageWrapper';
 
 //Composition de la sortie html
-$html = _media($image)
-			->set('.image itemprop="image"')
-			->alt($alt)
-			->width($width)
-			->height($height);
+$html = _media($image)->set('.image itemprop="image"');
 
 //Ajout des options à l'image
 if(isset($alt))		$html->alt($alt);

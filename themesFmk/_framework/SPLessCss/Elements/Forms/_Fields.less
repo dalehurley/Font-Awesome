@@ -20,8 +20,8 @@ select, input, textarea, button {
 	display: block;
 	//réduction taille pour maintien baseline
 	font-size: @fontSizeSmall;
-	line-height: (@gridBaseline - 6px);		//on soustrait la différence de padding et de bordure (2*2 + 2)
-	padding: 2px @icoOffset 1px @icoOffset;
+	line-height: (@gridBaseline - 4px);			//on soustrait la différence de padding et de bordure (2*1 + 2)
+	padding: 1px @icoOffset 1px @icoOffset;
 	border-width: 1px;
 	border-style: solid;
 }
@@ -29,7 +29,7 @@ select, input, textarea, button {
 //Pour plus tard : utiliser -webkit-appearance: textfield; et rajouter une icone de défilement personnalisée en bgi
 select {
 	padding-top: 1px;
-	padding-bottom: 0px;
+	padding-bottom: 0;
 	height: @gridBaseline;
 }
 

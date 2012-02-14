@@ -16,6 +16,21 @@ class dmWidgetContentImageView extends dmWidgetContentBaseMediaView
     
     if ($vars['mediaTag'])
     {
+		//Modif Arnaud
+		//on récupère les dimensions passées dans la baseline
+		if($vars['media_bl']) {
+			//on récupère les dimensions de l'image depuis le système de grille
+			$getHeight = spLessCss::gridGetHeight($vars['media_bl']);
+			//calcul du ratio
+			$ratio = $vars['mediaTag']->getWidth() / $vars['mediaTag']->getHeight();
+			//application des dimensions
+			$vars['height'] = $getHeight;
+			$vars['width'] = $getHeight * $ratio;
+			
+			$vars['mediaTag']->size($vars['width'], $vars['height']);
+		}
+		
+		
       if ($vars['legend'])
       {
         $vars['mediaTag']->alt($vars['legend']);
@@ -57,6 +72,8 @@ class dmWidgetContentImageView extends dmWidgetContentBaseMediaView
     }
     else
     {
+		
+		
       $html = $vars['mediaTag']->render();
     }
 

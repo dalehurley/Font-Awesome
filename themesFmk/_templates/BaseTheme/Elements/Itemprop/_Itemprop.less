@@ -92,67 +92,62 @@
 
 //ajout sprites pour certains éléments
 .email, .faxNumber, .telephone {
-	.elements .element & {
-		//masquage separateur
-		.separator { display: none; visibility: hidden; }
-
-		//dimension de l'icone
-		.type {
-			position: relative;
-			display: inline-block;
-			text-indent:-9999em;
-			@spriteDimension(@spriteFormat_S);
-			//appel différenciées des fonctions de sprite
-			@spriteBgi("Default"; "S");
-			//décalage de marge
-			@decalV: (@gridBaseline - @spriteFormat_S) / 2;
-			@decalH: (@gridGutter - @spriteFormat_S) / 2;
-			padding-top: @decalV;
-			padding-bottom: @decalV;
-			margin-right: @decalH + @offS;
-			margin-left: @decalH;
-			/*
-			//test ajout toolTip à partir de la balise Title
-			&:after {
-				background-color: teal;
-				position: absolute;
-				white-space: nowrap;
-				content: attr(title);
-				color: #fff;
-				//white-space: nowrap;
-				//opacity: 0;
-			}
-			&:hover:after {
-				//opacity: 1;
-			}*/
+	//masquage separateur
+	.separator { display: none; visibility: hidden; }
+	
+	//dimension de l'icone
+	.type {
+		position: relative;
+		display: inline-block;
+		text-indent:-9999em;
+		@spriteDimension(@spriteFormat_S);
+		//appel différenciées des fonctions de sprite
+		@spriteBgi("Default"; "S");
+		//décalage de marge
+		@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+		@decalH: (@gridGutter - @spriteFormat_S) / 2;
+		padding-top: @decalV;
+		padding-bottom: @decalV;
+		margin-right: @decalH + @offS;
+		margin-left: @decalH;
+		/*
+		//test ajout toolTip à partir de la balise Title
+		&:after {
+			background-color: teal;
+			position: absolute;
+			white-space: nowrap;
+			content: attr(title);
+			color: #fff;
+			//white-space: nowrap;
+			//opacity: 0;
 		}
+		&:hover:after {
+			//opacity: 1;
+		}*/
 	}
 }
 
 .email {
-	.elements .element & {
-		.type {
-			@spriteBgp(@spriteFormat_S; @spriteOffX-communication-email; @spriteOffY-communication-email);
-			@spriteBgiSvg("Default"; "communication"; "email");
-		}
+	.isLess & { background-color: #D773FF; }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-email; @spriteOffY-communication-email);
+		@spriteBgiSvg("Default"; "communication"; "email");
 	}
 }
 
 .faxNumber {
-	.elements .element & {
-		.type {
-			@spriteBgp(@spriteFormat_S; @spriteOffX-communication-faxNumber; @spriteOffY-communication-faxNumber);
-			@spriteBgiSvg("Default"; "communication"; "faxNumber");
-		}
+	.isLess & { background-color: #FF73BB; }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-faxNumber; @spriteOffY-communication-faxNumber);
+		@spriteBgiSvg("Default"; "communication"; "faxNumber");
 	}
 }
 
 .telephone {
-	.elements .element & {
-		.type {
-			@spriteBgp(@spriteFormat_S; @spriteOffX-communication-telephone; @spriteOffY-communication-telephone);
-			@spriteBgiSvg("Default"; "communication"; "telephone");
-		}
+	.isLess & { background-color: #FF7393; }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-telephone; @spriteOffY-communication-telephone);
+		@spriteBgiSvg("Default"; "communication"; "telephone");
 	}
 }
 
@@ -164,12 +159,15 @@
 //http://schema.org/PostalAddress
 
 .streetAddress {
+	.isLess & { background-color: #7398FF; }
 }
 
 .postalCode {
+	.isLess & { background-color: #73E5FF; }
 }
 
 .addressLocality {
+	.isLess & { background-color: #73FFCC; }
 }
 
 .addressRegion {

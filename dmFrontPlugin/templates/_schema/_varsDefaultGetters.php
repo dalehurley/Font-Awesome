@@ -90,7 +90,7 @@ if(isset($node)) {
 		try { $telephone = $node->getTel(); }
 		catch(Exception $e) { $telephone = null; }
 	}
-	
+
 	//Properties from PostalAddress (rajouter autres variables quand implémentées) :
 	if(!isset($addressLocality)) {
 		try { $addressLocality = $node->getVille(); }
