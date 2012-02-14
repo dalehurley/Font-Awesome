@@ -23,7 +23,7 @@ $html = _link('@homepage')
 		->title('Nomcabinet')
 		->text($html);
 
-$html.= _tag('h1.title.dm_site_title', '{{Nomcabinet}}');
+$html.= _tag('h1.title.dm_site_title', '{{nomcabinet}}');
 /*
 $html.= _open('span.wrapper');
 	$texteLegal =  'Inscrit au Registre des intermédiaires d\'assurances sous le numéro ORIAS 00 000 000
