@@ -1,9 +1,10 @@
 SidRubrique:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title ]
+      actAs:
+        Timestampable:
   columns:
     title:
       type: string(40)
@@ -15,10 +16,11 @@ SidRubrique:
 
 SidSection:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title ]
+      actAs:
+        Timestampable:
   columns:
     title:
       type: string(40)
@@ -47,10 +49,11 @@ SidSection:
 SidArticle:
   actAs:
     DmTaggable:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, chapeau ]
+      actAs:
+        Timestampable:
   columns:
     filename:
       type: string(255)

@@ -5,7 +5,7 @@
  *
  */
 class baseEditorialeTools {
-    const memoryNeeded = '1024M';
+    const memoryNeeded = '2048M';
 
     /**
      * création d'un fichier Json des articles actifs de toutes les rubriques
@@ -65,11 +65,13 @@ class baseEditorialeTools {
                             $arrayJson[$j]['filename'] = $article->filename;
                             $arrayJson[$j]['isActive'] = $article->getIsActive();
                             $arrayJson[$j]['isDossier'] = $article->getIsDossier();
-                            $arrayJson[$j]['createdAt'] = $article->createdAt;
-                            $arrayJson[$j]['updatedAt'] = $article->updatedAt;
+//                            $arrayJson[$j]['createdAt'] = $article->createdAt;
+//                            $arrayJson[$j]['updatedAt'] = $article->updatedAt;
                             foreach ($arrayLangs as $lang) {
                                 $arrayJson[$j]['title'][$lang] = $article->getTranslation()->$lang->title;
                                 $arrayJson[$j]['chapeau'][$lang] = $article->getTranslation()->$lang->chapeau;
+                                $arrayJson[$j]['createdAt'][$lang] = $article->getTranslation()->$lang->created_at;
+                                $arrayJson[$j]['updatedAt'][$lang] = $article->getTranslation()->$lang->updatedAt;
                             }
                             // récup des tags
                             $listTags = '';
@@ -184,6 +186,7 @@ class baseEditorialeTools {
      */
 
     public static function loadSectionJson() {
+        ini_set("memory_limit", self::memoryNeeded); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
         $tabRubrique = array(); // stockage du nom des rubriques
         $return = array(); // array de logs
         // les languages
@@ -209,6 +212,8 @@ class baseEditorialeTools {
 
                             if ($bdSection->isNew()) { // création de la section en base
                                 $bdSection->Translation[$arrayLangs[0]]->title = $localSection;  // On insère dans la langue par défaut
+                                //$bdSection->Translation[$arrayLangs[0]]->created_at = date('Y-m-d h:m:s');
+                                //$bdSection->Translation[$arrayLangs[0]]->updated_at = date('Y-m-d h:m:s');
                                 $bdSection->rubrique_id = $bdRubrique->id;
                                 $bdSection->save();
                                 $return[$i]['SECTION+'] = $bdRubrique->getTitle() . '/' . $localSection;
@@ -262,8 +267,8 @@ class baseEditorialeTools {
 
                     $return[$i]['WARNING'] = 'Rubrique : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' non active.';
                 } else {
-
-                    $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueId($rubrique->id);
+                    $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueIdAndIsActive($rubrique->id, true);
+                    
                     if (count($sidSections) == 0) {
                         $return[$i]['WARNING'] = 'La rubrique : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' ne contient pas de section.';
                     }
@@ -294,14 +299,14 @@ class baseEditorialeTools {
 
 
                                     // trier le tableau json pour n'avoir que les articles depuis le dernier updatedAt des articles
-                                    $lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAtBySection($sidSection->id);
+                                    $lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAtBySection($sidSection->id, $arrayLangs[0]);
                                     //$lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAt();
                                     //$return[$i]['-> Nb Articles total - '.$k] = count($arrayArticlesBaseEditoriale);
 
                                     $arrayArticlesBaseEditorialeSorted = array();
                                     foreach ($arrayArticlesBaseEditoriale as $article) { // on ne garde que les articles récents
                                         //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate->updatedAt;
-                                        if ($article->updatedAt > $lastUpdatedDate) {
+                                        if ($article->updatedAt->$arrayLangs[0] > $lastUpdatedDate) {
                                             $arrayArticlesBaseEditorialeSorted[] = $article;
                                             // $return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
                                             $k++;
@@ -336,6 +341,7 @@ class baseEditorialeTools {
                                                     $article->Translation[$lang]->title = $articleBE->title->$lang;
                                                 if (isset($articleBE->chapeau->$lang))
                                                     $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
+                            
                                             }
 
                                             $article->sectionId = $sidSection->id;  // la rubrique/section en cours de traitement
@@ -343,11 +349,21 @@ class baseEditorialeTools {
                                             $article->isActive = $articleBE->isActive;
                                             $article->isDossier = $articleBE->isDossier;
 
-                                            $article->createdAt = $articleBE->createdAt;
-                                            $article->save();
-                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
-                                            $article->updatedAt = $articleBE->updatedAt;
-                                            $article->save();
+                                            
+                                            foreach ($arrayLangs as $lang) {
+                  
+                                                 if (isset($articleBE->createdAt->$lang)){
+                                                    $article->Translation[$lang]->created_at = $articleBE->createdAt->$lang;
+                                                    } 
+                                                 if (isset($articleBE->updatedAt->$lang)){
+                                                    $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;
+                                                    }
+                                            }
+//                                            $article->createdAt = $articleBE->createdAt;
+//                                            $article->save();
+//                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
+//                                            $article->updatedAt = $articleBE->updatedAt;
+//                                            $article->save();
 
                                             // maj des tags de l'article à partir des données Json
                                             $article->removeAllTags();
@@ -357,7 +373,7 @@ class baseEditorialeTools {
                                             $articleName = $articleBE->title->$arrayLangs[0];
 
                                             //$return[$i]['Insertion article ' . $article->filename . ' - ' . $article->id] =  $articleName;
-                                        } elseif ($article->updatedAt < $articleBE->updatedAt) {    // l'article doit etre mis à jour 
+                                        } elseif ($article->Translation[$arrayLangs[0]]->updatedAt < $articleBE->updatedAt) {    // l'article doit etre mis à jour 
                                             foreach ($arrayLangs as $lang) {
                                                 if (isset($articleBE->title->$lang))
                                                     $article->Translation[$lang]->title = $articleBE->title->$lang;
@@ -368,10 +384,13 @@ class baseEditorialeTools {
                                             $article->isActive = $articleBE->isActive;
                                             $article->isDossier = $articleBE->isDossier;
                                             
-                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
-                                            $article->updatedAt = $articleBE->updatedAt;
-                                            $article->save();
-
+//                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
+//                                            $article->updatedAt = $articleBE->updatedAt;
+//                                            $article->save();
+                                            foreach ($arrayLangs as $lang) {
+                                                 if (isset($articleBE->updatedAt->$lang)){
+                                                    $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;}
+                                            }
                                             // maj des tags de l'article à partir des données Json
                                             $article->removeAllTags();
                                             $article->setTags($articleBE->tags);
@@ -821,7 +840,7 @@ echo $command;
 
                                     $article->setSectionId($section->id);
                                     $article->setFilename($filename);
-                                    $article->createdAt = $date_publication;
+                                    $article->Translation[$arrayLangs[0]]->created_at = $date_publication;
 
                                     // traitement des dossiers : 
                                     // - on met article.is_dossier à true 
@@ -833,7 +852,7 @@ echo $command;
 
                                     $article->save();
                                     // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
-                                    $article->updatedAt = $date_update;
+                                    $article->Translation[$arrayLangs[0]]->updated_at = $date_update;
                                     $article->save();
 
                                     //$return[$j]['Article ' . $filename] = 'Insertion dans la base ->' . (microtime(true) - $beginTime) . ' s';
@@ -843,7 +862,7 @@ echo $command;
                                     // $return[$j]['>>>'] = $date_update_xml.' - '.$date_update_bdd->updated_at;
                                     // }
                                     // Si le xml est plus récent que celui de la bdd, alors j'update le titre, le chapeau et la rubrique
-                                    if ($date_update > $article->updated_at) {
+                                    if ($date_update > $article->Translation[$arrayLangs[0]]->updated_at) {
                                         $filename = $update->getElementsByTagName('Code')->item(0)->nodeValue;
                                         $titre = $update->getElementsByTagName('Headline')->item(0)->nodeValue;
                                         $chapo = $update->getElementsByTagName('Head')->item(0)->nodeValue;
@@ -853,7 +872,7 @@ echo $command;
 
                                         $article->setSectionId($section->id);
 
-                                        $article->updatedAt = $date_update;
+                                        $article->Translation[$arrayLangs[0]]->updated_at = $date_update;
 
                                         // traitement des dossiers : 
                                         // - on met article.is_dossier à true 

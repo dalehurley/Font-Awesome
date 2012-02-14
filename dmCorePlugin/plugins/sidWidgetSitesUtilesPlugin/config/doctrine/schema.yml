@@ -1,9 +1,10 @@
 SidIndexSitesUtiles:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, description ]
+      actAs:
+        Timestampable:
   columns:
     title:
       type: string(40)
@@ -19,10 +20,11 @@ SidIndexSitesUtiles:
       
 SidGroupeSitesUtiles:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, description ]
+      actAs:
+        Timestampable:
   columns:
     title:
       type: string(255)
@@ -39,12 +41,12 @@ SidGroupeSitesUtiles:
 SidSitesUtiles:
   actAs:
 #    DmTaggable:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, description, url ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)

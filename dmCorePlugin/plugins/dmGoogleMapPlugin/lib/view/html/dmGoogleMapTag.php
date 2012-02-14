@@ -91,28 +91,45 @@ class dmGoogleMapTag extends dmHtmlTag
 
     $splash = $preparedAttributes['splash'];
     unset($preparedAttributes['splash']);
-    // initialisation des variables
-    $adresseCabinet = '';
-    $titreBloc ='';
-    //$adresseCabinet est l'adresse du cabinet récupéré en base
-
-    $adresseRequest = DmDb::table('SidCoordName')->findOneByIdAndIsActive($preparedAttributes['idCabinet'],true);
-    $adresseCabinet = $adresseRequest->getAdresse();
-    //vérification de adresse2
-    ($adresseRequest->getAdresse2() != NULL) ? $adresseCabinet .='-'.$adresseRequest->getAdresse2() : $adresseCabinet .='';
-
-    $adresseCabinet .= ' - '.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
-    // vérif si tél existe
-    ($adresseRequest->getTel() != NULL) ? $tel = '<p>Tél : '.$adresseRequest->getTel() : $tel = '';
-    // vérif si fax existe
-    ($adresseRequest->getFax() !=NULL) ? $fax = ' - Fax : '.$adresseRequest->getFax().'</p>' : $fax = '</p>';
-    // si l'adresse à afficher est le siège social, alors on affiche le titreBloc, 
-    //sinon on n'affiche rien dans le titreBloc car normalement la première adresse est tjrs celle du siège social
-    ($adresseRequest->siege_social == true ) ? $titreBloc = '<h2 class="title">'.  sfContext::getInstance()->getI18N()->__('Map').'</h2>' : $titreBloc ='' ;
-    // construction de la chaîne html
-    $tag = $titreBloc.'<div style="text-align: center"><p><b>'.$adresseRequest->getTitle().'</b><br />'.$adresseCabinet.'</p>'.$tel.$fax.'</div><div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
-
-    return $tag;
+	
+	//récupération de l'adresse en base
+	$adresseRequest = DmDb::table('SidCoordName')->findOneByIdAndIsActive($preparedAttributes['idCabinet'], true);
+	
+	//Ajout Arnaud : affichage de l'adresse
+	
+	//récupération du tiret
+	$dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
+	
+	//html de sortie
+	$html = '';
+	
+	//Si l'adresse à afficher est le siège social, alors on affiche le titreBloc
+	//Sinon on n'affiche rien dans le titreBloc car normalement la première adresse est tjrs celle du siège social
+	$isSiegeSocial = ($adresseRequest->siege_social == true);
+	$titreBloc = sfContext::getInstance()->getI18N()->__('Map');
+	if($isSiegeSocial) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
+	
+	//insertion de la carte GoogleMap
+    $html.= '<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
+	
+	//composition des options du partial d'adresse
+	$addressOpts = array(
+					'name' => $adresseRequest->getTitle(),
+					'addressLocality' => $adresseRequest->getVille(),
+					'postalCode' => $adresseRequest->getCodePostal(),
+					'faxNumber' => $adresseRequest->getFax(),
+					'telephone' => $adresseRequest->getTel(),
+					'container' => 'div.mapAddress'
+				);
+	
+	$addressOpts['streetAddress'] = $adresseRequest->getAdresse();
+	if ($adresseRequest->getAdresse2() != NULL) $addressOpts['streetAddress'].= $dash . $adresseRequest->getAdresse2();
+	
+	//insertion du partial d'organization
+	$html.= get_partial('global/schema/Thing/Organization', $addressOpts);
+	
+	
+    return $html;
   }
 
   protected function prepareAttributesForHtml(array $attributes)

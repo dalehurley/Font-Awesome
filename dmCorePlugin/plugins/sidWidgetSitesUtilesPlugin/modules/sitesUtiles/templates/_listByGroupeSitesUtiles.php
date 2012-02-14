@@ -1,33 +1,49 @@
 <?php
-
 // Vars: $sitesUtilesPager
 
-echo $sitesUtilesPager->renderNavigationTop();
-
+//récupération du titre
 foreach ($sitesUtilesPager as $sitesUtiles) {
     $firstSitesUtilesGroup = $sitesUtiles->getGroupeSitesUtiles()->title;
     break;
 }
-echo _tag('h2.title', $firstSitesUtilesGroup);
+$html = get_partial('global/titleWidget', array('title' => $firstSitesUtilesGroup));
 
-echo _open('ul.elements');
+//affichage du pager du haut
+$html.= get_partial('global/navigationWrapper', array('placement' => 'top', 'pager' => $sitesUtilesPager));
+
+//ouverture du listing
+$html.= _open('ul.elements');
+
+//compteur
+$count = 0;
+$maxCount = count($sitesUtilesPager);
 
 foreach ($sitesUtilesPager as $sitesUtiles) {
-    echo _open('li.element');
-
-    // echo _link($sitesUtiles);
-    echo $sitesUtiles->description;
-    echo _tag('div.siteLogo', _link($sitesUtiles->url)->text(
-                    _media($sitesUtiles->getImage())->width(160)->method('inflate')
-            )
-    );
-    echo _link($sitesUtiles->url)->set('#siteLink.small')->text($sitesUtiles )->target('blank');
-
-    echo _tag('hr');
-    
-    echo _close('li');
+	//incrémentation compteur
+	$count++;
+	
+	//options de l'article
+	$articleOpt = array(
+					'name' => $sitesUtiles,
+					'description' => $sitesUtiles->description,
+					'image' => $sitesUtiles->getImage(),
+					'url' => $sitesUtiles->url,
+					'isUrlBlank' => true,
+					'count' => $count,
+					'maxCount' => $maxCount,
+					'container' => 'li.element',
+					'isListing' => true
+				);
+	
+	//ajout de l'article
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
 }
+	
+//fermeture du listing
+$html.= _close('ul.elements');
 
-echo _close('ul');
+//affichage du pager du bas
+$html.= get_partial('global/navigationWrapper', array('placement' => 'bottom', 'pager' => $sitesUtilesPager));
 
-echo $sitesUtilesPager->renderNavigationBottom();
+//affichage html en sortie
+echo $html;

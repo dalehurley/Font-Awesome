@@ -1,7 +1,7 @@
 <?php
 /*
  * _navigationWrapper.php
- * v1.3
+ * v1.4
  * Permet d'afficher une navigation de page (à améliorer avec gestion intégrée des tableaux
  * 
  * Variables disponibles :
@@ -18,7 +18,7 @@
 if(!isset($container)) $container = 'div';
 
 //déclaration des propriétés par défaut du container
-$ctnOpts = array('class' => array('navigation'));
+$ctnOpts = array('class' => array('navigationWrapper'));
 switch ($placement) {
 	case 'top':
 		$ctnOpts['class'][] = 'navigationTop';

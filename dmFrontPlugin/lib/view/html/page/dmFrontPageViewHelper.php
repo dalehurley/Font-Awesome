@@ -69,12 +69,15 @@ class dmFrontPageViewHelper extends dmFrontPageBaseHelper
                 }
                 
                 $const = dmDb::table('SidConstantes')->findOneByName(strtolower($matchDB));  // les sidConstantes.name sont en minuscules
-                if (isset($const->content)) {
-                    $infosDev .= '[' . $matchDB . ' -> '.$const->content.']<br>';
+                //ajout stef
+                $content = $const->getContent();
+                // ajout stef
+                if (isset($content)) {
+                    $infosDev .= '[' . $matchDB . ' -> '.$const->getContent().']<br>';
                     if ($isMaj){  // on met la première lettre en majuscule si spécifié
-                        $replaceConstante = ucfirst($const->content);
+                        $replaceConstante = ucfirst($const->getContent());
                     } else {
-                        $replaceConstante = $const->content;
+                        $replaceConstante = $const->getContent();
                     }
                     $html = str_replace($match, $replaceConstante , $html);
                 } else {

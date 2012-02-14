@@ -32,12 +32,12 @@
 
 SidCabinetPageCabinet:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, text, resume ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)
@@ -69,12 +69,12 @@ SidCabinetPageCabinet:
 SidCabinetEquipe:
   actAs:
 #    DmTaggable:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, statut, tel, fax, gsm, email, text ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)
@@ -144,12 +144,12 @@ SidCabinetEquipeSidRubrique:
 SidCabinetMission:
   actAs:
 #    DmTaggable:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, text, resume ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)
@@ -169,6 +169,8 @@ SidCabinetMission:
       type: boolean
       notnull: true
       default: true
+    image:
+      type: integer
   attributes:
     export: all
     validate: true
@@ -177,6 +179,11 @@ SidCabinetMission:
       foreignAlias: SidRubrique
       class: SidRubrique
       refClass: SidCabinetMissionSidRubrique
+      onDelete: Cascade
+    Image:
+      class: DmMedia
+      local: image
+      foreignAlias: Photos
       onDelete: Cascade
       
 SidCabinetMissionSidRubrique:
@@ -193,12 +200,12 @@ SidCabinetMissionSidRubrique:
       
 SidCabinetRecrutement:
   actAs:
-    Timestampable:
     DmSortable:
     I18n:
       fields: [ title, text ]
       actAs:
         DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)
@@ -215,3 +222,20 @@ SidCabinetRecrutement:
 #      type: boolean
 #      notnull: true
 #      default: false
+    image:
+      type: integer
+    file:
+      type: integer
+    title_file:
+      type: string(255)
+  relations:
+    Image:
+      class: DmMedia
+      local: image
+      foreignAlias: Photos
+      onDelete: Cascade
+    Files:
+      class:          DmMedia
+      local:          file
+      foreignAlias:   SidActuArticles
+      onDelete: Cascade

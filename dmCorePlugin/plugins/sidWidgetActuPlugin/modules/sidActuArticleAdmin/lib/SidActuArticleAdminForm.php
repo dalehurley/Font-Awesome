@@ -19,10 +19,6 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
         return $form;
     }
     protected function createMediaFormForFile() {
-//  $this->validatorSchema['file'] = new sfValidatorFile(array('mime_types'=> array('web_images','application/pdf', 'application/zip'),'required'=>false));
-//      $this->widgetSchema->setHelp('file',$this->getFile());
-//    return DmMediaForRecordForm::factory($this->object, 'file', 'Files', $this->validatorSchema['file']->setOption('mime_types'=> array('web_images','application/pdf', 'application/zip')));
-	// get the DmMedia form
 	$form = parent::createMediaFormForFile();
         unset($form['legend'], $form['author'], $form['license']); 
 
@@ -46,6 +42,7 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 
     public function setup() {
 	parent::setup();
+        $this->widgetSchema['title_file']->setAttributes(array('class' => 'input_short'));
 //	$this->widgetSchema['m_sections_list'] = new sfWidgetFormDoctrineChoice(array(
 //		    'model' => 'SidSection',
 //		    'method' => 'show_rubrique_section',

@@ -38,9 +38,10 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
 
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidActuArticle a')
+                            ->leftJoin('a.Translation b')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('a.is_active = ? and sata.sid_actu_type_id = ? and a.id <> ?', array(true, $vars['type'], $dmPage->record_id))
-                        ->orderBy('a.updated_at DESC')
+                        ->orderBy('b.updated_at DESC')
                         ->limit($nb)
                         ->execute();
 
@@ -57,9 +58,10 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
 
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidActuArticle a')
+                            ->leftJoin('a.Translation b')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('a.is_active = ? and sata.sid_actu_type_id = ?', array(true, $vars['type']))
-                        ->orderBy('a.updated_at DESC')
+                        ->orderBy('b.updated_at DESC')
                         ->limit($nb)
                         ->execute();
 

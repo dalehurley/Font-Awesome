@@ -109,8 +109,8 @@ if($isListing) {
 	//Gestion de la date de création
 	if(isset($dateCreated) && $dateCreated != null) $htmlText.= ($isDateMeta) ? _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated)) : get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
 	
-	//englobage dans un container si non vide
-	if($htmlText != null) $htmlText = _tag('span.subWrapper', $htmlText);
+	//englobage dans un container si non vide et si présence de la date en plus du nom
+	if($htmlText != null && (isset($dateCreated) && $dateCreated != null)) $htmlText = _tag('span.subWrapper', $htmlText);
 
 	//Chapeau de l'article si présent
 	if(isset($description) && $description != null) {
@@ -130,6 +130,7 @@ if($isListing) {
 	//inclusion dans le lien si nécessaire
 	if(isset($url)) {
 		$htmlLink = _link($url)->text($htmlImage . $htmlText)->set('.link_box');
+		if($isUrlBlank) $htmlLink->target('blank');
 		if(isset($name)) $htmlLink->title($name);
 		$html.= $htmlLink;
 	}else{
@@ -221,10 +222,10 @@ if($isListing) {
 	$htmlFooter = '';
 	
 	// rajout stef (attention à modifier une fois l'upload de fichier multiples implémenté)
-	if(isset($uploadFile) && isset($uploadFileTitle)) {
+	if(isset($uploadFile) && $uploadFile != '') {
 		$htmlFooter.= _open('div.fileWrapper');
 		$htmlFooter.= _tag('h5.title',__('Download file, click the link below'));
-		$htmlFooter.= ($uploadFileTitle != null) ? _link($uploadFile)->text($uploadFileTitle) : _link($uploadFile)->text($uploadFile->file);
+		$htmlFooter.= (isset($uploadFileTitle) && $uploadFileTitle != '') ? _link($uploadFile)->text($uploadFileTitle) : _link($uploadFile)->text($uploadFile->file);
 		$htmlFooter.= _close('div.fileWrapper');
 	}
 	// fin rajout stef
