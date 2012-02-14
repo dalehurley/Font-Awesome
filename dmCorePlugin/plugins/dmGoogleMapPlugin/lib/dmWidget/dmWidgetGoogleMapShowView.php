@@ -13,9 +13,9 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
       'zoom',
       'navigationControl',
       'mapTypeControl',
-      'scaleControl',
+      'scaleControl'/*,
       'width',
-      'height'
+      'height'*/
     ));
   }
   
