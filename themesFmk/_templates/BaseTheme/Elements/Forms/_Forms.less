@@ -34,7 +34,7 @@ form {
 			//padding horizontal soustrait à la largeur
 			@padHSub: (@icoOffset + 1px) * 2;
 			//application largeur
-			@gridWidth(3; @padHSub);
+			@gridWidth((@gridCol_Content - 3); @padHSub);
 			//padding vertical soustrait à la hauteur
 			@padVSub: (2px + 1px) * 2;
 			min-height: @gridBaseline * 5 - @padVSub;
