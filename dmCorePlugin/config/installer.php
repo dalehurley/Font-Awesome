@@ -641,7 +641,9 @@ if ($site==''){
 $this->logBlock('
   Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php. 
   Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'". 
-  Lancer maintenant la commande "php symfony controls" afin de charger un dump de contenu.
+  Lancer maintenant la commande "php symfony controls" afin de :
+  - charger un dump de contenu
+  - installer un thème
 ','HELP');
 exit;
 

@@ -79,8 +79,10 @@ EOF;
         // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
         $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
         
-        // on cree le lien symbolique vers le dossier des _templates
-        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_templates/ ' . sfConfig::get('sf_web_dir') . '/theme/less/_templates', $out, $err);
+        // on cree le lien symbolique vers le dossier des _templates/$nomTemplateChoisi
+        $dirThemeTemplates = $dirTheme.'/less/_templates';
+        mkdir($dirThemeTemplates);
+        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_templates/'. $nomTemplateChoisi . ' ' . $dirThemeTemplates .'/'.$nomTemplateChoisi, $out, $err);
         // on cree le lien symbolique vers le dossier du _framework
         $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_framework/ ' . sfConfig::get('sf_web_dir') . '/theme/less/_framework', $out, $err);
 

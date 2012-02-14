@@ -533,42 +533,4 @@ class spLessCss {
 		
 		return $options;
 	}
-	
-	//calcul de la largeur d'un élément en fonction du nombre de colonnes passées en paramètre
-	public static function gridGetWidth($nbreCols = 1, $padSub = 0){
-		//récupération des valeurs de dimension de la grille
-		$nbreCols = intval($nbreCols);
-		$padSub = intval($padSub);
-		$gridColWidth = intval(sidSPLessCss::getLessParam('gridColWidth'));
-		$gridGutter = intval(sidSPLessCss::getLessParam('gridGutter'));
-		//calcul des paramètres
-		$elementWidth = $gridColWidth * $nbreCols + $gridGutter * ($nbreCols -1) - $padSub;
-
-		return $elementWidth;
-	}
-
-	//calcul de la hauteur d'un élément en fonction du nombre de lignes passées en paramètre
-	public static function gridGetHeight($nbreLine = 1, $padSub = 0) {
-		//récupération des valeurs de dimension de la grille
-		$nbreLine = intval($nbreLine);
-		$padSub = intval($padSub);
-		$gridBaseline = intval(sidSPLessCss::getLessParam('gridBaseline'));
-		//calcul des paramètres
-		$elementHeight = ($gridBaseline * $nbreLine) - $padSub;
-
-		return $elementHeight;
-	}
-	
-	//calcul de la largeur du contenu
-	public static function gridGetContentWidth(){
-		//récupération des valeurs de colonnes
-		$gridCol = sidSPLessCss::getLessParam('gridCol');
-		$gridCol_SidebarLeft = sidSPLessCss::getLessParam('gridCol_SidebarLeft');
-		$gridCol_SidebarRight = sidSPLessCss::getLessParam('gridCol_SidebarRight');
-
-		//calcul de la dimension du contenu
-		$contentWidth = self::gridGetWidth($gridCol);
-		
-		return $contentWidth;
-	}
 }
