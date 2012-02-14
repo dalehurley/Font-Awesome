@@ -186,6 +186,7 @@ class baseEditorialeTools {
      */
 
     public static function loadSectionJson() {
+        ini_set("memory_limit", self::memoryNeeded); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
         $tabRubrique = array(); // stockage du nom des rubriques
         $return = array(); // array de logs
         // les languages

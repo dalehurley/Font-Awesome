@@ -13,6 +13,12 @@ class SidCabinetMissionAdminForm extends BaseSidCabinetMissionForm {
 	parent::configure();
     }
 
+    protected function createMediaFormForImage() {
+        $form = parent::createMediaFormForImage();
+        unset($form['legend'], $form['author'], $form['license']);
+        return $form;
+    }
+    
     public function setup() {
 	parent::setup();
 //        $this->widgetSchema['tags_list'] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'DmTag', 'expanded' => false));
