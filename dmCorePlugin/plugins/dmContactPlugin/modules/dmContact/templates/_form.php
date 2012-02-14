@@ -8,33 +8,9 @@ $html = get_partial('global/titleWidget', array('title' => __('ContactUs'), 'isC
 //ajout message de validation
 if($sf_user->hasFlash('contact_form_valid')) $html.= _tag('p.form_valid', __('Thank you, your contact request has been sent.'));
 
-//open the form tag with a dm_contact_form css class
-$html.= $form->open();
-
-//ouverture du listing
-$html.= _open('ul.dm_form_elements');
-
-$html.= $form['title']->renderRow().
-		$form['name']->renderRow().
-		$form['firstname']->renderRow().
-		$form['function']->renderRow().
-		$form['adresse']->renderRow().
-		$form['postalcode']->renderRow().
-		$form['ville']->renderRow().
-		$form['email']->renderRow().
-		$form['phone']->renderRow().
-		$form['fax']->renderRow().
-		$form['body']->renderRow();
-
-//fermeture du listing
-$html.= _close('ul.dm_form_elements');
-
-
-// render captcha if enabled
-if($form->isCaptchaEnabled())
-{
-
-    $html.= '<script type="text/javascript">
+//ajout du javascript pour le captcha
+if($form->isCaptchaEnabled()) {
+	$html.= '<script type="text/javascript">
        
         var RecaptchaOptions = {  
             custom_translations : {
@@ -56,10 +32,32 @@ if($form->isCaptchaEnabled())
             lang : \'' . $sf_user->getCulture() . '\',
         };
     </script>';
-
-  $html.= $form['captcha']->label('Captcha', 'for=false')->field()->error();
-
 }
+
+//open the form tag with a dm_contact_form css class
+$html.= $form->open();
+
+//ouverture du listing
+$html.= _open('ul.dm_form_elements');
+
+$html.= $form['title']->renderRow().
+		$form['name']->renderRow().
+		$form['firstname']->renderRow().
+		$form['function']->renderRow().
+		$form['adresse']->renderRow().
+		$form['postalcode']->renderRow().
+		$form['ville']->renderRow().
+		$form['email']->renderRow().
+		$form['phone']->renderRow().
+		$form['fax']->renderRow().
+		$form['body']->renderRow();
+
+// render captcha if enabled
+//if($form->isCaptchaEnabled()) $html.= $form['captcha']->label('Captcha', 'for=false')->field()->error();
+if($form->isCaptchaEnabled()) $html.= $form['captcha']->renderRow();
+
+//fermeture du listing
+$html.= _close('ul.dm_form_elements');
 
 $html.= $form->renderHiddenFields();
 
