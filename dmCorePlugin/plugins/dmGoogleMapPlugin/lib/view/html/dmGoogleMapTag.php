@@ -109,6 +109,9 @@ class dmGoogleMapTag extends dmHtmlTag
 	$titreBloc = sfContext::getInstance()->getI18N()->__('Map');
 	if($isSiegeSocial) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
 	
+	//insertion de la carte GoogleMap
+    $html.= '<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
+	
 	//composition des options du partial d'adresse
 	$addressOpts = array(
 					'name' => $adresseRequest->getTitle(),
@@ -116,7 +119,7 @@ class dmGoogleMapTag extends dmHtmlTag
 					'postalCode' => $adresseRequest->getCodePostal(),
 					'faxNumber' => $adresseRequest->getFax(),
 					'telephone' => $adresseRequest->getTel(),
-					'container' => 'div'
+					'container' => 'div.mapAddress'
 				);
 	
 	$addressOpts['streetAddress'] = $adresseRequest->getAdresse();
@@ -125,8 +128,6 @@ class dmGoogleMapTag extends dmHtmlTag
 	//insertion du partial d'organization
 	$html.= get_partial('global/schema/Thing/Organization', $addressOpts);
 	
-	//insertion de la carte GoogleMap
-    $html.= '<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
 	
     return $html;
   }
