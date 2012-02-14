@@ -35,9 +35,6 @@ foreach ($sitesUtilesPager as $sitesUtiles) {
 					'isListing' => true
 				);
 	
-	//ajout de l'image si présente
-	
-
 	//ajout de l'article
 	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
 }
