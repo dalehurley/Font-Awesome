@@ -494,15 +494,15 @@ $numTemplate = $this->askAndValidate(array('', 'Le numero du template choisi?', 
         ));
 $settings['numTemplate'] = $numTemplate;
 $nomTemplateChoisi = $dispoTemplates[$settings['numTemplate']];
-$this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
 
 //-----------------------------------------------------------------------
 //               TENORLIGHT
 //----------------------------------------------------------------------- 
 if($nomTemplateChoisi == 'tenorlight'){
     //$this->runTask('theme:install');  tache non chargée encore, incluse dans un plugin...
-     $this->logBlock('Theme à installer via php symfony controls', 'INFO_LARGE');
+    $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi . '. Theme à installer via php symfony controls', 'CHOICE_LARGE');//
 } else {
+    $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
 //-----------------------------------------------------------------------
 //               on integre tout le framework
 //----------------------------------------------------------------------- 
@@ -613,11 +613,11 @@ $this->getFilesystem()->execute(sprintf(
 //    Génération 
 //    Creation des sprites + compilation LESS (plus besoin au dessus)
 //-------------------------------------------------------------------------------------
-$this->logBlock('Generation des sprites + compilation LESS.', 'INFO');
-$out = $err = null;
-$this->getFilesystem()->execute(sprintf(
-    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:sprite'
-  ), $out, $err);
+//$this->logBlock('Generation des sprites + compilation LESS.', 'INFO');
+//$out = $err = null;
+//$this->getFilesystem()->execute(sprintf(
+//    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:sprite'
+//  ), $out, $err);
 
 //-------------------------------------------------------------------------------------
 //    Lecture de la page $settings['ndd'] afin de creer l'entrée base_url dans la table dmSettings

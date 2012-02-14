@@ -66,8 +66,8 @@ EOF;
 
 
         // choix du nouveau nom de theme 
-        $newThemeName = $this->askAndValidate(array('', 'Le nom du nouveau thème? (en minuscule sans espace, de 5 à 15 caractères)', ''), new sfValidatorRegex(
-                        array('pattern' => '/^[a-z]{5,15}$/',
+        $newThemeName = $this->askAndValidate(array('', 'Le nom du nouveau thème? (en minuscule sans espace, de 3 à 15 caractères)', ''), new sfValidatorRegex(
+                        array('pattern' => '/^[a-z]{3,15}$/',
                         'required' => true),
                         array('invalid' => 'Le nom du thème est invalide')
         ));

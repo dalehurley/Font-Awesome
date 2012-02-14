@@ -1,0 +1,41 @@
+// _Forms.less
+// v1.0
+// Last Updated : 2011-03-29 10:20
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//STYLAGE DE BASE
+form {
+	margin-bottom: @gridBaseline;
+	
+	.dm_form_elements {
+		margin-left: 0;
+		margin-bottom: @gridBaseline;
+		list-style-type: none;
+	}
+	.dm_form_element {
+		margin-bottom: @gridBaseline;
+	}
+	.dm_help_wrap {
+		font-size: @fontSizeSmall;
+	}
+	.error_list {
+		font-size: @fontSizeSmall;
+		list-style-type: none;
+		margin-left: 0;
+		margin-bottom: 0;
+	}
+}
+
+fieldset {
+	padding: @gridGutter 0;			//soustraction épaisseur bordure
+	margin-bottom: @gridBaseline;
+}
+
+legend {
+	padding: 0;					//soustraction épaisseur bordure padding: 0 (@offS -1px)
+	font-size: @fontSizeH5Px;
+}
+
+//IMPORTATION DES STYLES PAR DÉFAUT DES DIFFÉRENTS CHAMPS
+@import "_templates/baseTheme/_framework/SPLessCss/Elements/Forms/_Fields.less";

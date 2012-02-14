@@ -38,7 +38,7 @@ if($isImage) {
 	//options de l'image
 	$imageWrapperOpts = array(
 								'image'	=>	$image,
-								'width'	=>	'',
+								'width'	=>	'120',
 								'height'=>	''
 								);
 	//ajout du nom de l'article dans la balise Alt de l'image

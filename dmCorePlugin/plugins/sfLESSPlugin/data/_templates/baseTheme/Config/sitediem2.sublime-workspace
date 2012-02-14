@@ -1,0 +1,208 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"acc",
+				"accesGranted"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/data/www/sitediem2/htdocs/theme/css/style.css",
+			"settings":
+			{
+				"buffer_size": 47227,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 326.0,
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"codei",
+				"SublimeCodeIntel: Enable Plugin"
+			],
+			[
+				"codein",
+				"SublimeCodeIntel: Disable Plugin"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/data/www/sitediem/htdocs/dm_check.php",
+		"/data/www/sitediem/htdocs/less.php",
+		"/data/www/sitediem/htdocs/dev.php",
+		"/data/www/sitediem/config/dm/config.yml",
+		"/data/www/_lib/diem/dmCorePlugin/lib/task/dmCreatePagesCacheTash.class.php",
+		"/data/www/_lib/diem/dmCorePlugin/plugins/sidWidgetBePlugin/lib/affichage/affichageArticleView.php",
+		"/data/www/_lib/diem/dmCorePlugin/plugins/sfLESSPlugin/lib/task/lessCompileTask.class.php",
+		"/data/www/_lib/diem/dmCorePlugin/plugins/sidWidgetBePlugin/lib/affichage/affichageArticleForm.php"
+	],
+	"find":
+	{
+		"height": 0.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"LIFETIME",
+			"populate(",
+			"eras",
+			"dmErase"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/data/www/sitediem2/htdocs/theme/css/style.css",
+					"settings":
+					{
+						"buffer_size": 47227,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"encoding_helper_encoding": "UTF-8",
+							"encoding_helper_encoding_sublime": "UTF-8",
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"erase",
+				"dmCorePlugin/lib/task/dmEraseSiteTask.class.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/home/lionel/Sublime-Text-2/diem.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 310.0,
+	"status_bar_visible": true
+}
