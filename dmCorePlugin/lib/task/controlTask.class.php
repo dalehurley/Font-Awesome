@@ -32,13 +32,13 @@ EOF;
             array(
               'separator' => 'Contenu',
               'command' => 'db:load',
-              'libelle' => 'DB: Chargement du contenu',
+              'libelle' => 'DB: Chargement du contenu.',
               'arguments' => array(),
               'options' => array()                
               ),
             array(
               'command' => 'db:dump',
-              'libelle' => 'DB: Sauvegarde du contenu',
+              'libelle' => 'DB: Sauvegarde du contenu.',
               'arguments' => array(),
               'options' => array()                
               ),
@@ -63,7 +63,7 @@ EOF;
               'options' => array()                
               ),
             array(
-              'command' => 'be:loadArticles',
+              'command' => 'be:loadArticles', 
               'libelle' => 'BE: Chargement des sections',
               'arguments' => array('sections', 'verbose'),
               'options' => array()                
