@@ -66,7 +66,7 @@ EOF;
 
 
         // choix du nouveau nom de theme 
-        $newThemeName = $this->askAndValidate(array('', 'Le nom du nouveau thème? (en minuscule sans espace, de 3 à 15 caractères)', ''), new sfValidatorRegex(
+        $newThemeName = $this->askAndValidate(array('', 'Le nom du nouveau thème? (en minuscule sans espace, de 3 à 15 caractères, le suffixe Theme sera ajouter automatiquement)', ''), new sfValidatorRegex(
                         array('pattern' => '/^[a-z]{3,15}$/',
                         'required' => true),
                         array('invalid' => 'Le nom du thème est invalide')
@@ -82,7 +82,12 @@ EOF;
         mkdir($newThemeDir);
         $this->getFilesystem()->execute('cp -r ' . $duplicateThemeDir .'/* ' . $newThemeDir, $out, $err);
         // changement du nom du theme dans le code des fichiers .less
-         $this->getFilesystem()->execute('find '. $newThemeDir .' -name "*.less" -print | xargs perl -pi -e \'s/'.$nomTemplateChoisi.'/'.$newThemeName.'/g\'');
+        $this->getFilesystem()->execute('find '. $newThemeDir .' -name "*.less" -print | xargs perl -pi -e \'s/'.$nomTemplateChoisi.'/'.$newThemeName.'/g\'');
+        // renommage du fichier racine du template qui doit avoir le nom du theme $newThemeDir.'/_'.$nomTemplateChoisi.'.less' en $newThemeDir.'/_'.$newThemeName.'.less'
+        $this->getFilesystem()->execute('mv '.$newThemeDir.'/_'.$nomTemplateChoisi.'.less ' .$newThemeDir.'/_'.$newThemeName.'.less');
+        
+        $this->getFilesystem()->execute('find '. $newThemeDir .' -name "*.less" -print | xargs perl -pi -e \'s/'.$nomTemplateChoisi.'/'.$newThemeName.'/g\'');
+                 
         } else {
             $this->logBlock('Template déjà existant : ' . $newThemeName, 'ERROR');
             exit;
