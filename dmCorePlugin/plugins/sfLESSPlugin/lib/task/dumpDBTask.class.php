@@ -32,13 +32,15 @@ EOF;
         if (!isset($arguments['file'])) {
             // recuperation des differentes maquettes du coeur
             // scan du dossier _templates
-            $arrayTemplates = scandir(dm::getDir() . '/themesFmk/_templates');
+
+            
+            $arrayTemplates = scandir(dirname(__FILE__).'/../../data/_templates');
             $i = 0;
             $dispoTemplates = array();
             
             foreach ($arrayTemplates as $template) {
                 // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
-                if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_') {
+                if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_' && substr($template, -5) == 'Theme') {
                     $i++;
                     $dispoTemplates[$i] = $template;
                 }
@@ -62,7 +64,7 @@ EOF;
             )));
             // Affichages des dump existants pour ce template
             // scan du dossier _templates/themechoisi/Externals/db
-            $dirDbDump = dm::getDir() . '/themesFmk/_templates/' . $dispoTemplates[$numTemplate] . '/Externals/db';
+            $dirDbDump = dirname(__FILE__).'/../../data/_templates/' . $dispoTemplates[$numTemplate] . '/Externals/db';
             if (is_dir($dirDbDump)) {
                 $arrayTemplateDumps = scandir($dirDbDump);
             } else {

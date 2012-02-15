@@ -43,7 +43,7 @@ EOF;
         if (!isset($arguments['file'])) {
             // recuperation des differentes maquettes du coeur
             // scan du dossier _templates
-            $arrayTemplates = scandir(dm::getDir() . '/themesFmk/_templates');
+            $arrayTemplates = scandir(dirname(__FILE__).'/../../data/_templates');
             $i = 0;
             $dispoTemplates = array();
             
@@ -74,7 +74,7 @@ EOF;
 
             // Affichages des dump existants pour ce template
             // scan du dossier _templates/themechoisi/Externals/db
-            $dirDbDump = dm::getDir() . '/themesFmk/_templates/' . $dispoTemplates[$numTemplate] . '/Externals/db';
+            $dirDbDump = dirname(__FILE__).'/../../data/_templates/' . $dispoTemplates[$numTemplate] . '/Externals/db';
             if (is_dir($dirDbDump)) {
                 $arrayTemplateDumps = scandir($dirDbDump);
             } else {
