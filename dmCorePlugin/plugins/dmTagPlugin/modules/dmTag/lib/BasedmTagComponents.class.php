@@ -15,7 +15,7 @@ class BasedmTagComponents extends myFrontModuleComponents
     $this->dmTags = dmDb::table('DmTag')->getPopularTags(array(), 100);
 	
 	//insertion de la CSS du widget du theme courant
-	$this->getResponse()->addStylesheet(sidSPLessCss::getCssPathTemplate().'/Widgets/DmTagPopular/DmTagPopular.css');
+	$this->getResponse()->addStylesheet('/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/DmTagPopular/DmTagPopular.css');
   }
 
   public function executeShow()

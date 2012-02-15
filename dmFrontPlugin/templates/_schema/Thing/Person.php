@@ -73,13 +73,13 @@ $htmlImage = '';
 //on affiche l'image que si elle est effectivement présente
 if($isImage){
 	//dimensions de l'image
-	$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbS_col') : sidSPLessCss::getLessParam('thumbM_col');
-	$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbS_bl') : sidSPLessCss::getLessParam('thumbM_bl') * 2;
+//	$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbS_col') : sidSPLessCss::getLessParam('thumbM_col');
+//	$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbS_bl') : sidSPLessCss::getLessParam('thumbM_bl') * 2;
 	//options de l'image
 	$imageWrapperOpts = array(
 								'image'	=>	$image,
-								'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
-								'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+								'width'	=>	'60',
+								'height'=>	''
 								);
 	//ajout du nom de l'article dans la balise Alt de l'image
 	if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;

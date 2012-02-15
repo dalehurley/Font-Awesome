@@ -15,7 +15,7 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
         : 'dmWidgetNivoGalleryPlugin.nivo'));
     
 	//ciblage CSS personnalisée du framework
-	$cssLink = sidSPLessCss::getCssPathTemplate(). '/Widgets/ContentNivoGallery/ContentNivoGallery.css';
+	$cssLink = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/ContentNivoGallery/ContentNivoGallery.css';
 	
     $this->addStylesheet(array('dmWidgetNivoGalleryPlugin.view',
       //sfConfig::get('app_dmWidgetNivoGalleryPlugin_css')
@@ -27,17 +27,7 @@ class dmWidgetContentNivoGalleryView extends dmWidgetPluginView
   protected function filterViewVars(array $vars = array())
   {
     $vars = parent::filterViewVars($vars);
-	//Ajout Arnaud
-	//composition du paramètres de miniature sélectionné et par défaut
-	$thumbTypeWidth = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_col';
-	$thumbTypeHeight = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_bl';
-	//récupération des paramètres depuis le framework
-	$thumbTypeWidth = sidSPLessCss::getLessParam($thumbTypeWidth);
-	$thumbTypeHeight = sidSPLessCss::getLessParam($thumbTypeHeight);
-	//ajout des variables au widget
-	$vars['width'] = spLessCss::gridGetWidth($thumbTypeWidth);
-	$vars['height'] = spLessCss::gridGetHeight($thumbTypeHeight);
-	
+
     // extract media ids
     $mediaIds = array();
     foreach($vars['medias'] as $index => $mediaConfig)

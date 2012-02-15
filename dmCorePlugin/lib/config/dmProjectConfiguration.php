@@ -43,14 +43,12 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'sidWidgetActuPlugin',
             'sidWidgetCabinetPlugin',
             'sidWidgetCoordonneesExpertPlugin',
-            'sidSPLessCssPlugin',
             'sidWebservicesPlugin',
             'ckWebservicePlugin',
             'sidSiteMapPlugin',
             'sidWidgetPubsFlashPlugin',
             'sidWidgetSocialNetworkPlugin',
-            'lioshiPlugin'            
-            
+            'lioshiPlugin'          
         ));
     }
 
@@ -95,13 +93,12 @@ class dmProjectConfiguration extends sfProjectConfiguration {
     'sidWidgetActuPlugin',
     'sidWidgetCabinetPlugin',
     'sidWidgetCoordonneesExpertPlugin',
-    'sidSPLessCssPlugin',
     'sidWebservicesPlugin',            
             'ckWebservicePlugin',
             'sidSiteMapPlugin',
             'sidWidgetPubsFlashPlugin',
             'sidWidgetSocialNetworkPlugin',
-            'lioshiPlugin'              
+            'lioshiPlugin'
         ) as $embeddedPlugin) {
             $this->setPluginPath($embeddedPlugin, $baseDir . '/dmCorePlugin/plugins/' . $embeddedPlugin);
         }
