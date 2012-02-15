@@ -1,0 +1,49 @@
+// _Areas.less
+// v1.1
+// Last Updated : 2012-01-18 11:00
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//COULEURS DE DEBUG (affichée en mode /less.php)
+.isLess {
+	#dm_page{ background-color: #eee; }
+	#dm_sidebar_left .dm_zones { background-color: #ccccb8; }
+	#dm_sidebar_right .dm_zones { background-color: #b8ccb8; }
+	#dm_content .dm_zones { background-color: #b8cccc; }
+	#dm_custom_top .dm_zones { background-color: #ccccb8; }
+	#dm_custom_bottom .dm_zones { background-color: #ccb8cc; }
+	#dm_main_inner .dm_zones { background-color: #ccc; }
+}
+
+//couleur de la zone située sous le header jusqu'en bas
+#dm_main {
+	background-color: #eee;
+}
+
+//stylage du header
+#dm_header {
+	background-color: #aaa;
+	
+	.dm_zones {
+		background-color: #bbb;
+		@gridSiteWidth();
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+//stylage du footer
+#dm_footer {
+	background-color: #aaa;
+	
+	.dm_zones {
+		background-color: #bbb;
+	}
+}
+
+
+//stylage de la zone sous le header
+#dm_custom_top {
+	background-color: #ccccb8;
+	min-height: @gridBaseline;
+}
