@@ -1107,6 +1107,8 @@ $this->logBlock('Lien symbolique images.', 'INFO_LARGE');
 $out = $err = null;
 $this->getFilesystem()->execute('ln -s '.$beDirImages. ' '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/_images', $out, $err);
  
+
+/*   plus de themeFmk, installation du theme dans controls 
 //-------------------------------------------------------------------------------------
 //    inclusion theme thmFmk
 //-------------------------------------------------------------------------------------
@@ -1136,39 +1138,51 @@ $numTemplate = $this->askAndValidate(array('', 'Le numero du template choisi?', 
         ));
 $settings['numTemplate'] = $numTemplate;
 $nomTemplateChoisi = $dispoTemplates[$settings['numTemplate']];
-$this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
 
+//-----------------------------------------------------------------------
+//               TENORLIGHT
+//----------------------------------------------------------------------- 
+if($nomTemplateChoisi == 'tenorlight'){
+    //$this->runTask('theme:install');  tache non chargée encore, incluse dans un plugin...
+    $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi . '. Theme à installer via php symfony controls', 'CHOICE_LARGE');//
+} else {
+    $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
 //-----------------------------------------------------------------------
 //               on integre tout le framework
 //----------------------------------------------------------------------- 
 
-// Copie du dossier diem/themesFmk/theme 
+    // Copie du dossier diem/themesFmk/theme 
+    $dirTheme = sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme';
+    if (!is_dir($dirTheme)) mkdir ($dirTheme);
 
-$dirTheme = sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme';
-if (!is_dir($dirTheme)) mkdir ($dirTheme);
+    $this->getFilesystem()->execute('cp -r ' . $diemLibConfigDir . '/../../themesFmk/theme/* '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme', $out, $err);
+    // on remplace dans le dossier    sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme  les ##THEME## par le $nomTemplateChoisi
+    //MACOSX : modifs syntaxe
+    $this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/'.$nomTemplateChoisi.'/g\'');
+    // on cree les liens symboliques
+    //MACOSX : modifs syntaxe
+    $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_framework', $out, $err);
+    $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_templates', $out, $err);
 
-$this->getFilesystem()->execute('cp -r ' . $diemLibConfigDir . '/../../themesFmk/theme/* '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme', $out, $err);
-// on remplace dans le dossier    sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme  les ##THEME## par le $nomTemplateChoisi
-//MACOSX : modifs syntaxe
-$this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/'.$nomTemplateChoisi.'/g\'');
-// on cree les liens symboliques
-//MACOSX : modifs syntaxe
-$this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_framework', $out, $err);
-$this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_templates', $out, $err);
-//liaison vers le dossier templates contenant les partials du coeur
+    // recherche des templates -> XXXSuccess.php
+    $dirPageSuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/layouts';
+
+    // on créé les répertoires s'ils n'existent pas
+    $dirDmFront = sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront';
+    $dirDmFrontTemplate = $dirDmFront.'/templates';
+    if (!is_dir($dirDmFront)) mkdir($dirDmFront);
+    if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
+    // Copie des xxxSuccess.php du theme sur le site 
+    $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.$dirDmFrontTemplate, $out, $err);
+}
+*/
+
+
+//-------------------------------------------------------------------------------------
+//    liaison vers le dossier templates contenant les partials du coeur
+//-------------------------------------------------------------------------------------
+
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../dmFrontPlugin/templates/ '.sfConfig::get('sf_root_dir').'/apps/front/templates', $out, $err);
-
-// recherche des templates -> XXXSuccess.php
-$dirPageSuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/layouts';
-
-// on créé les répertoires s'ils n'existent pas
-$dirDmFront = sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront';
-$dirDmFrontTemplate = $dirDmFront.'/templates';
-if (!is_dir($dirDmFront)) mkdir($dirDmFront);
-if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
-// Copie des xxxSuccess.php du theme sur le site 
-$this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.$dirDmFrontTemplate, $out, $err);
-
 
 //-------------------------------------------------------------------------------------
 //    dmsetup
@@ -1242,23 +1256,14 @@ $this->getFilesystem()->execute(sprintf(
   ), $out, $err);
 
 //-------------------------------------------------------------------------------------
-//    Creation du fichier .json des parametres less
-//-------------------------------------------------------------------------------------
-$this->logBlock('Generation du fichier .json des parametres less.', 'INFO');
-$out = $err = null;
-$this->getFilesystem()->execute(sprintf(
-    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:variables'
-  ), $out, $err);
-
-//-------------------------------------------------------------------------------------
 //    Génération 
 //    Creation des sprites + compilation LESS (plus besoin au dessus)
 //-------------------------------------------------------------------------------------
-$this->logBlock('Generation des sprites + compilation LESS.', 'INFO');
-$out = $err = null;
-$this->getFilesystem()->execute(sprintf(
-    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:sprite'
-  ), $out, $err);
+//$this->logBlock('Generation des sprites + compilation LESS.', 'INFO');
+//$out = $err = null;
+//$this->getFilesystem()->execute(sprintf(
+//    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:sprite'
+//  ), $out, $err);
 
 //-------------------------------------------------------------------------------------
 //    Lecture de la page $settings['ndd'] afin de creer l'entrée base_url dans la table dmSettings
@@ -1278,7 +1283,9 @@ if ($site==''){
 $this->logBlock('
   Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php. 
   Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'". 
-  Lancer maintenant la commande "php symfony controls" afin de charger un dump de contenu.
+  Lancer maintenant la commande "php symfony controls" afin de :
+  - charger un dump de contenu
+  - installer un thème
 ','HELP');
 exit;
 

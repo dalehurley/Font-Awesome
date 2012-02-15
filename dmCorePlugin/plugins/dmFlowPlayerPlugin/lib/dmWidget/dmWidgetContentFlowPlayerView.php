@@ -20,7 +20,7 @@ class dmWidgetContentFlowPlayerView extends dmWidgetContentBaseMediaView
 		$stylesheets = parent::getStylesheets();
 		
 		//lien vers le js associé au menu
-		$cssLink = sidSPLessCss::getCssPathTemplate(). '/Widgets/ContentFlowPlayer/ContentFlowPlayer.css';
+		$cssLink = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/ContentFlowPlayer/ContentFlowPlayer.css';
 		//chargement de la CSS si existante
 		if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
 		
