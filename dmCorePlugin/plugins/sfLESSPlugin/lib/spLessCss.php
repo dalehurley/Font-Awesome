@@ -421,22 +421,22 @@ class spLessCss {
 	private static function getSpriteParam($spriteFormat = ''){
 		switch ($spriteFormat) {
 			case '':
-				return '64px';
+				return '64';
 				break;
 			case 'S':
-				return '16px';
+				return '16';
 				break;
 			case 'M':
-				return '32px';
+				return '32';
 				break;
 			case 'L':
-				return '64px';
+				return '64';
 				break;
 			case 'X':
-				return '128px';
+				return '128';
 				break;															
 			default:
-				return '64px';
+				return '64';
 				break;
 		}
 	}

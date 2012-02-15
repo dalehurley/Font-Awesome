@@ -31,7 +31,7 @@
 			
 			//complément de l'appel de la sprite sur le titre
 			#dm_sidebar_left &:after, #dm_sidebar_right &:after {
-				@spriteBgp(@spriteFormat_M; @spriteOffX-DefaultLight-cabinet-contact; @spriteOffY-DefaultLight-cabinet-contact);
+				@spriteBgp(@spriteFormat_M; @spriteOffX-cabinet-contact; @spriteOffY-cabinet-contact);
 			}
 		}
 	}

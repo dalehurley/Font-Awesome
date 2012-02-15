@@ -88,7 +88,7 @@ if($isListing) {
 		//options de l'image
 		$imageWrapperOpts = array(
 									'image'	=>	$image,
-									'width'	=>	'300',
+									'width'	=>	'200',
 									'height'=>	''
 									);
 		//ajout du nom de l'article dans la balise Alt de l'image
@@ -167,7 +167,7 @@ if($isListing) {
 			$imageWrapperOpts = array(
 									'image'	=>	$image,
 									'container' => 'div.imageFullWrapper',
-									'width'	=>	'',
+									'width'	=>	'300',
 									'height'=>	''
 									);
 			//ajout du nom de l'article dans la balise Alt de l'image
