@@ -4,12 +4,16 @@
 // Copyright : SID Presse
 // Author : Sébastien ROCCA
 
-.pages_du_cabinet_intro_page_cabinet {
+.dm_widget.pages_du_cabinet_intro_page_cabinet {
 	#dm_content & {
 		background-color: #479650;
 
 		.dm_widget_inner {
+			@transitionCompress(;1s;;.5s);
 			background-color: #79D483;
+			&:hover {
+				background-color: #C1D479;
+			}
 		}
 	}
 }
