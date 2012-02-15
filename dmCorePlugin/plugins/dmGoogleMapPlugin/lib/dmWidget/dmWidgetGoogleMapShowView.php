@@ -13,60 +13,34 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
       'zoom',
       'navigationControl',
       'mapTypeControl',
-      'scaleControl'/*,
+      'scaleControl',
       'width',
-      'height'*/
+      'height'
     ));
   }
-  
   public function getStylesheets() {
 	//on créé un nouveau tableau car c'est un nouveau widget (si c'est une extension utiliser $stylesheets = parent::getStylesheets();)
 	$stylesheets = parent::getStylesheets();
 
 	//lien vers le js associé au menu
-	$cssLink = sidSPLessCss::getCssPathTemplate(). '/Widgets/GoogleMapShow/GoogleMapShow.css';
+	$cssLink = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/GoogleMapShow/GoogleMapShow.css';
 	//chargement de la CSS si existante
 	if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
 
 	return $stylesheets;
   }
-  
-  
-  protected function filterViewVars(array $vars = array()) {
-	  $vars = parent::filterViewVars($vars);
-	  
-	  //Ajout Arnaud
-	  //composition du paramètres de miniature sélectionné et par défaut
-	  $thumbTypeWidth = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_col';
-	  $thumbTypeHeight = dmArray::get($vars, 'media_area', 'thumbContent', true) . '_bl';
-	  //récupération des paramètres depuis le framework
-	  $thumbTypeWidth = sidSPLessCss::getLessParam($thumbTypeWidth);
-	  $thumbTypeHeight = sidSPLessCss::getLessParam($thumbTypeHeight);
-	  //ajout des variables au widget
-	  $vars['width'] = spLessCss::gridGetWidth($thumbTypeWidth);
-	  $vars['height'] = spLessCss::gridGetHeight($thumbTypeHeight);
-	  
-	  return $vars;
-  }
-
   protected function doRender()
   {
     $vars = $this->getViewVars();
-	// requète pour construire l'adresse du cabinet
+    // requète pour construire l'adresse du cabinet
     $adresseRequest = Doctrine_Query::create()->from('SidCoordName a')
           ->where('a.id = ?', $vars['address'] )
           ->fetchOne();
-	
-	//composition de l'adresse pour Google Map
-	$adresseCabinet = $adresseRequest->getAdresse();
-    if($adresseRequest->getAdresse2() != NULL) $adresseCabinet.= '-' . $adresseRequest->getAdresse2();
-    $adresseCabinet.= '-' . $adresseRequest->getCodePostal() . ' ' . $adresseRequest->getVille();
-	
-	//récupération de valeurs par défaut pour la taille du widget
-	$defaultWidth = spLessCss::gridGetWidth(sidSPLessCss::getLessParam('thumbX_col'));
-	$defaultHeight = spLessCss::gridGetHeight(sidSPLessCss::getLessParam('thumbX_bl'));
+    $adresseCabinet = $adresseRequest->getAdresse();
+    if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
+    $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
+
     
-	//composition de la googleMap
     $map = $this->getService('google_map_helper')->map()
     ->address($adresseCabinet)
     // passage d'une valeur supplémentaire au fichier dmGoogleMapTag.php
@@ -74,15 +48,15 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
     ->mapTypeId($vars['mapTypeId'])
     ->zoom($vars['zoom'])
     ->style(sprintf(
-      'width: %spx; height: %spx;',
-      dmArray::get($vars, 'width', $defaultWidth),
-      dmArray::get($vars, 'height', $defaultHeight)
+      'width: %s; height: %s;',
+      dmArray::get($vars, 'width', '100%'),
+      dmArray::get($vars, 'height', '300px')
     ))
     ->navigationControl($vars['navigationControl'])
     ->mapTypeControl($vars['mapTypeControl'])
     ->scaleControl($vars['scaleControl'])
     ->splash($vars['splash']);
-	
+
     $this
     ->addJavascript($map->getJavascripts())
     ->addStylesheet($map->getStylesheets());
