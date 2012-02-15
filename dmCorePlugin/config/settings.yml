@@ -60,5 +60,5 @@ all:
       - dmFlowPlayer
       - dmWidgetExternalVideo
       - dmCoreTranslator
-      - sidSPLessCss
       - sidWebservices
+      - debug

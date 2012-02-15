@@ -4,7 +4,7 @@ DmPage:
   actAs:
     NestedSet:
     I18n:
-      fields:               [slug, name, title, h1, gabarit, description, keywords, auto_mod, is_active, is_secure, is_indexable, is_visible_bread_crumb]
+      fields:               [slug, name, title, h1, description, keywords, auto_mod, is_active, is_secure, is_indexable, is_visible_bread_crumb]
       length:               7
   columns:
     module:                 { type: string(127), notnull: true }
@@ -14,7 +14,6 @@ DmPage:
     name:                   { type: string(255), notnull: true }
     title:                  { type: string(255), notnull: false }
     h1:                     { type: string(255), notnull: false }
-    gabarit:                { type: string(255), notnull: false, default: 'default' }    # ajout lionel pour framework gabarit 
     description:            { type: string(255), notnull: false }
     keywords:               { type: string(255), notnull: false }
     auto_mod:               { type: string(6), notnull: true, default: 'snthdk' } # slug, name, title, h1, description, keywords
