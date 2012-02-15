@@ -8,19 +8,24 @@ if (count($pageCabinet)) { // si nous avons des actu articles
 	//ouverture du listing
     $html.= _open('ul.elements');
 	
-	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array(
-												'name' => $pageCabinet->getTitle(),
-												'description' => $pageCabinet->getResume(),
-												'image' => $pageCabinet->getImage(),
-												'dateCreated' => $pageCabinet->created_at,
-												'isDateMeta' => true,
-												'count' => 1,
-												'maxCount' => 1,
-												'container' => 'li.element',
-												'isListing' => true,
-												'descriptionLength' => $lenght,
-												'url' => $pageCabinet
-												));
+	//options de l'article
+	$articleOpt = array(
+					'description' => $pageCabinet->getResume(),
+					'image' => $pageCabinet->getImage(),
+					'dateCreated' => $pageCabinet->created_at,
+					'isDateMeta' => true,
+					'count' => 1,
+					'maxCount' => 1,
+					'container' => 'li.element',
+					'isListing' => true,
+					'descriptionLength' => $lenght,
+					'url' => $pageCabinet
+					);
+	
+	//on active le titre du contenu que lorsqu'il n'est pas affiché dans le titre du widget
+	if(!$isTitleContent) $articleOpt['name'] = $pageCabinet->getTitle();
+	
+	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
 	//fermeture du listing
     $html.= _close('ul.elements');
 	

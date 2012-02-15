@@ -1,8 +1,11 @@
 <?php // Vars: $indexSitesUtiles
+//titre du contenu
+$html = get_partial('global/titleWidget', array('title' => $indexSitesUtiles, 'isContainer' => true));
 
-echo _tag('h2.title',$indexSitesUtiles);
-echo _open('span.wrapper');
-echo _open('span.teaser');
-echo $indexSitesUtiles->description;
-echo _close('span.teaser');
-echo _close('span.wrapper');
+//affichage du contenu
+$articleOpts = array('articleBody' => $indexSitesUtiles->description);
+
+$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
+
+//affichage html en sortie
+echo $html;

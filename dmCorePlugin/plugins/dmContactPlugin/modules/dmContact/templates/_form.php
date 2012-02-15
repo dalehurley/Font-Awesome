@@ -2,33 +2,15 @@
 // Contact : Form
 // Vars : $form
 
-if($sf_user->hasFlash('contact_form_valid'))
-{
-  echo _tag('p.form_valid', __('Thank you, your contact request has been sent.'));
-}
+//titre du contenu
+$html = get_partial('global/titleWidget', array('title' => __('ContactUs'), 'isContainer' => true));
 
-// open the form tag with a dm_contact_form css class
-echo $form->open();
+//ajout message de validation
+if($sf_user->hasFlash('contact_form_valid')) $html.= _tag('p.form_valid', __('Thank you, your contact request has been sent.'));
 
-
-   echo _tag('ul.dm_form_elements', $form['title']->renderRow() .
-            $form['name']->renderRow() .
-            $form['firstname']->renderRow() .
-            $form['function']->renderRow() .
-            $form['adresse']->renderRow() .
-            $form['postalcode']->renderRow() .
-            $form['ville']->renderRow() .
-            $form['email']->renderRow() .
-            $form['phone']->renderRow() .
-            $form['fax']->renderRow() .
-            $form['body']->renderRow()
-    );
-
-// render captcha if enabled
-if($form->isCaptchaEnabled())
-{
-
-        echo '<script type="text/javascript">
+//ajout du javascript pour le captcha
+if($form->isCaptchaEnabled()) {
+	$html.= '<script type="text/javascript">
        
         var RecaptchaOptions = {  
             custom_translations : {
@@ -50,15 +32,40 @@ if($form->isCaptchaEnabled())
             lang : \'' . $sf_user->getCulture() . '\',
         };
     </script>';
-
-  echo $form['captcha']->label('Captcha', 'for=false')->field()->error();
-
 }
 
-echo $form->renderHiddenFields();
+//open the form tag with a dm_contact_form css class
+$html.= $form->open();
+
+//ouverture du listing
+$html.= _open('ul.dm_form_elements');
+
+$html.= $form['title']->renderRow().
+		$form['name']->renderRow().
+		$form['firstname']->renderRow().
+		$form['function']->renderRow().
+		$form['adresse']->renderRow().
+		$form['postalcode']->renderRow().
+		$form['ville']->renderRow().
+		$form['email']->renderRow().
+		$form['phone']->renderRow().
+		$form['fax']->renderRow().
+		$form['body']->renderRow();
+
+// render captcha if enabled
+//if($form->isCaptchaEnabled()) $html.= $form['captcha']->label('Captcha', 'for=false')->field()->error();
+if($form->isCaptchaEnabled()) $html.= $form['captcha']->renderRow();
+
+//fermeture du listing
+$html.= _close('ul.dm_form_elements');
+
+$html.= $form->renderHiddenFields();
 
 // change the submit button text
-echo _tag('div.submit_wrap', $form->submit(__('Send')));
+$html.= _tag('div.submit_wrap', $form->submit(__('Send')));
 
 // close the form tag
-echo $form->close();  
+$html.= $form->close();
+
+//affichage html en sortie
+echo $html;

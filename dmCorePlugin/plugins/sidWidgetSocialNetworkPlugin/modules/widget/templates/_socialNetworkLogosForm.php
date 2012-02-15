@@ -1,11 +1,9 @@
 <?php
-
 echo
-
 $form->renderGlobalErrors(),
- _tag('div', $form['twitter']->renderRow() .
-        $form['facebook']->renderRow().
-        $form['googleplus']->renderRow()
+ _tag('div', 
+		 $form['facebook']->renderRow().
+		 $form['googleplus']->renderRow().
+		 $form['linkedin']->renderRow().
+		 $form['twitter']->renderRow()
 );
-
-

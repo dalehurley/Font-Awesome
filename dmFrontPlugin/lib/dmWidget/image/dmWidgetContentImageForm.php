@@ -4,8 +4,17 @@ class dmWidgetContentImageForm extends dmWidgetContentBaseMediaForm
 {
   public function configure()
   {
+	//Modif Arnaud : on désactive les champs width et height pour les remplacer par des champs personnalisés
     parent::configure();
-    
+	
+	$this->widgetSchema['media_bl'] = new sfWidgetFormInputText();
+	$this->validatorSchema['media_bl'] = new sfValidatorInteger(array(
+		'required' => false,
+		'min' => 2,
+		'max' => 20
+    ));
+	/**/
+	
     $this->widgetSchema['legend'] = new sfWidgetFormInputText();
     $this->validatorSchema['legend'] = new sfValidatorString(array(
       'required' => false

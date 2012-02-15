@@ -102,16 +102,17 @@ class PluginSidArticleTable extends myDoctrineTable {
         }
     }
     
-    public function getMaxUpdatedAtBySection($sectionId) {
+    public function getMaxUpdatedAtBySection($sectionId, $lang) {
         $a = $this->createQuery('a')
-                ->where('section_id = ?', array( $sectionId))
-                ->orderBy('updated_at DESC');;  
+                ->leftJoin('a.Translation b')
+                ->where('a.section_id = ? and b.lang = ?', array( $sectionId, $lang))
+                ->orderBy('b.updated_at DESC');  
 
       //  return $a->getSqlQuery().$sectionId;
        if ($a->execute()->count() < 1) {
             return 0;
         } else {
-            return $a->fetchOne()->updatedAt;
+            return $a->fetchOne()->getTranslation()->$lang->updated_at;
         }
 
     }

@@ -49,12 +49,12 @@ select {
 	
 	//Modernizr enhancement (syntaxe lessPHP v0.3.0)
 	.rgba & {
-		background-color: fadeout(@colorCouleur3ClairSup,50);
-		&:hover, &:focus { background-color: fadeout(@colorWhite,50); }
+		background-color: fadeout(@colorCouleur3ClairSup, 50%);
+		&:hover, &:focus { background-color: fadeout(@colorWhite, 50%); }
 		&:disabled { background-color: @colorCouleur3Moyen; }
 	}
 	.boxshadow & {
-		@boxShadow(inset 0 @offS @offM @colorCouleur3MoyenSup);
+		@boxShadow(inset 0 @offS @offM @colorCouleur3Moyen);
 		&:hover, &:focus { @boxShadow(inset 0 @offS @offM @colorCouleur3Clair); }
 		&:disabled { @boxShadow(none); }
 	}

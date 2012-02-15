@@ -90,7 +90,7 @@ if(isset($node)) {
 		try { $telephone = $node->getTel(); }
 		catch(Exception $e) { $telephone = null; }
 	}
-	
+
 	//Properties from PostalAddress (rajouter autres variables quand implémentées) :
 	if(!isset($addressLocality)) {
 		try { $addressLocality = $node->getVille(); }
@@ -116,11 +116,11 @@ if(isset($node)) {
 	
 	//Properties from CreativeWork (rajouter autres variables quand implémentées) :
 	if(!isset($dateCreated)) {
-		try { $dateCreated = $node->created_at; }
+		try { $dateCreated = $node->createdAt; }
 		catch(Exception $e) { $dateCreated = null; }
 	}
 	if(!isset($dateModified)) {
-		try { $dateModified = $node->updated_at; }
+		try { $dateModified = $node->updatedAt; }
 		catch(Exception $e) { $dateModified = null; }
 	}
 	

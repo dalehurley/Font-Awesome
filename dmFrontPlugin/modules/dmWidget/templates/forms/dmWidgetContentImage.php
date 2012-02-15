@@ -25,6 +25,9 @@ if ($hasMedia)
   _tag('ul.dm_form_elements',
     $form['legend']->renderRow().
     _tag('li.dm_form_element.multi_inputs.thumbnail.clearfix',
+	  $form['media_bl']->renderError().
+	  _tag('label', __('Baseline')).
+	  $form['media_bl']->render().
       $form['width']->renderError().
       $form['height']->renderError().
       _tag('label', __('Dimensions')).

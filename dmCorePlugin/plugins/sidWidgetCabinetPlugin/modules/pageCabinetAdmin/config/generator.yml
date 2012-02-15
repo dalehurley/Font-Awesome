@@ -32,6 +32,8 @@ generator:
           label: Active
         title:
           label: 'Libellé'
+        image_form:
+          label: 'Choisir une image'
       list:
         batch_actions:
           delete:

@@ -1,6 +1,6 @@
+
 <?php
 // vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
-
 $html = '';
 
 if (count($articles)) { // si nous avons des actu articles
@@ -45,7 +45,6 @@ if (count($articles)) { // si nous avons des actu articles
 
 //affichage html en sortie
 echo $html;
-
 
 //TEST DE PERFORMANCE
 //modif pour html UNIQUEMENTT
