@@ -1,0 +1,32 @@
+// _ContentNivoGallery.less
+// v1.1
+// Last Updated : 2012-01-09 11:25
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/modeleTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+
+//Importation de la mise en page par défaut du widget
+@import "_framework/SPLessCss/Widgets/ContentNivoGallery/_ContentNivoGallery.less";
+
+.content_nivo_gallery {
+	background-color: #C2EDD4;
+	
+	//placement sélecteurs de navigation
+	.nivo-controlNav {
+		background-color: #92D1AD;
+	}
+	
+	//placement flêches directionnelles
+	.nivo-directionNav {
+		background-color: #5AE694;
+	}
+	
+	//placement des légendes (à améliorer dès implémentation de la balise title dans nivoSlider)
+	.nivo-caption {
+		background-color: #548066;
+	}
+}
