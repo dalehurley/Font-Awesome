@@ -82,13 +82,14 @@ if($isListing) {
 	//on affiche l'image que si elle est effectivement présente
 	if($isImage){
 		//dimensions de l'image
-		$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
-		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
+//		$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
+//		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl')
+;
 		//options de l'image
 		$imageWrapperOpts = array(
 									'image'	=>	$image,
-									'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
-									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+									'width'	=>	'200',
+									'height'=>	''
 									);
 		//ajout du nom de l'article dans la balise Alt de l'image
 		if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;
@@ -160,14 +161,14 @@ if($isListing) {
 		//on affiche l'image que si elle est effectivement présente
 		if($isImage){
 			//dimensions de l'image
-			$imageGridWidth = sidSPLessCss::getLessParam('thumbContent_col');
-			$imageGridHeight = sidSPLessCss::getLessParam('thumbContent_bl');
+//			$imageGridWidth = sidSPLessCss::getLessParam('thumbContent_col');
+//			$imageGridHeight = sidSPLessCss::getLessParam('thumbContent_bl');
 			//options de l'image
 			$imageWrapperOpts = array(
 									'image'	=>	$image,
 									'container' => 'div.imageFullWrapper',
-									'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
-									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+									'width'	=>	'300',
+									'height'=>	''
 									);
 			//ajout du nom de l'article dans la balise Alt de l'image
 			if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;

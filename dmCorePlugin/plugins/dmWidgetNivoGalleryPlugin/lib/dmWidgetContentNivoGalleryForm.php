@@ -47,17 +47,14 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
     $this->validatorSchema['media_alt'] = new sfValidatorPass();
     
     $this->validatorSchema['media_position'] = new sfValidatorPass();
-	
-	$this->widgetSchema['media_area'] = new sfWidgetFormSelect(array(
-		'choices' => array(
-			'thumbFull'				=>	'Preset thumbFull (largeur du site)',
-			'thumbContent'			=>	'Preset thumbContent (largeur du contenu)',
-			'thumbSidebarLeft'		=>	'Preset thumbSidebarLeft (largeur sidebarLeft)',
-			'thumbSidebarRight'		=>	'Preset thumbSidebarRight (largeur sidebarRight)',
-		),
-		'default' => 'thumbContent'
-	));
-	$this->validatorSchema['media_area'] = new sfValidatorString(array(
+
+    $this->widgetSchema['width'] = new sfWidgetFormInputText(array(), array('size' => 5));
+    $this->validatorSchema['width'] = new dmValidatorCssSize(array(
+      'required' => true
+    ));
+
+    $this->widgetSchema['height'] = new sfWidgetFormInputText(array(), array('size' => 5));
+    $this->validatorSchema['height'] = new dmValidatorCssSize(array(
       'required' => true
     ));
 	
@@ -233,7 +230,7 @@ class dmWidgetContentNivoGalleryForm extends dmWidgetPluginForm
       );
     }
     
-    unset($values['widget_width'], $values['media_position'], $values['media_id'], $values['media_link']);
+    unset($values['media_position'], $values['media_id'], $values['media_link']);
     
     return $values;
   }

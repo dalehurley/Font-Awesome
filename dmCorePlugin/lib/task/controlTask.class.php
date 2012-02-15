@@ -29,85 +29,113 @@ EOF;
 
         // on affiche les choix d'environnemnts pour les valeurs par defaut
         $dispoTasks = array(
-            1 => array(
+            array(
+              'separator' => 'Contenu',
               'command' => 'db:load',
-              'libelle' => 'DB: Chargement du contenu',
+              'libelle' => 'DB: Chargement du contenu.',
               'arguments' => array(),
               'options' => array()                
               ),
-            2 => array(
+            array(
               'command' => 'db:dump',
-              'libelle' => 'DB: Sauvegarde du contenu',
+              'libelle' => 'DB: Sauvegarde du contenu.',
               'arguments' => array(),
               'options' => array()                
               ),
-            3 => array(
-              'command' => 'cc',
-              'libelle' => 'Purge du cache',
-              'arguments' => array(),
-              'options' => array(),
-              'credentials' => 'dev'                
-              ),
-            4 => array(
+            array(
+              'separator' => 'Style',
               'command' => 'less:compile-all', 
-              'libelle' => 'Compilation des .less en .css + fichier de variables .json',
+              'libelle' => 'Compilation des .less en .css',
               'arguments' => array(),
               'options' => array()                
               ),
-            5 => array(
+            array(
               'command' => 'less:sprite',
               'libelle' => 'Génération des sprites',
               'arguments' => array('verbose'),
               'options' => array()  
               ),
-            6 => array(
-              'command' => 'dm:setup',
-              'libelle' => 'Setup du site',
-              'arguments' => array(),
-              'options' => array()                
-              ),
-            7 => array(
+            array(
+              'separator' => 'Base editoriale',              
               'command' => 'be:loadArticles',
               'libelle' => 'BE: Chargement des rubriques',
               'arguments' => array('rubriques', 'verbose'),
               'options' => array()                
               ),
-            8 => array(
-              'command' => 'be:loadArticles',
+            array(
+              'command' => 'be:loadArticles', 
               'libelle' => 'BE: Chargement des sections',
               'arguments' => array('sections', 'verbose'),
               'options' => array()                
               ),
-            9 => array(
+            array(
               'command' => 'be:loadArticles',
               'libelle' => 'BE: Chargement des articles',
               'arguments' => array('articles', 'verbose'),
               'options' => array()                
               ),
-            10 => array(
+            array(
               'command' => 'be:report',
               'libelle' => 'BE: Rapport sur les articles',
               'arguments' => array(),
               'options' => array()                
               ),
-            11 => array(
+            array(
+              'separator' => 'Gestion du cache',              
+              'command' => 'cc',
+              'libelle' => 'Purge du cache',
+              'arguments' => array(),
+              'options' => array(),
+              'credentials' => 'dev'                
+              ),  
+            array(
               'command' => 'dm:create-pages-cache',
               'libelle' => 'Créer le cache des pages',
               'arguments' => array(),
               'options' => array()                
+              ),                
+            array(
+              'separator' => 'Themes',              
+              'command' => 'theme:install',
+              'libelle' => 'Installation du thème (Attention, suppression des styles personnalisés du site)',
+              'arguments' => array(),
+              'options' => array()
               ),              
-            12 => array(
+            array(
+              'command' => 'theme:duplicate',
+              'libelle' => 'Duplication du thème',
+              'arguments' => array(),
+              'options' => array()
+              ),
+            array(
+              'separator' => 'Outils',              
               'command' => 'dm:erase-site',
               'libelle' => 'ATTENTION: suppression du site',
               'arguments' => array(),
               'options' => array()                
-              )  
+              ),  
+            array(
+              'command' => 'dm:setup',
+              'libelle' => 'Setup du site',
+              'arguments' => array(),
+              'options' => array()                
+              ),                               
         );
+
+        // on supprime l'entrée de key = 0 car le zéro est interprété comme null en cli
+        array_unshift($dispoTasks, "");
+        unset($dispoTasks[0]);
 
         $this->logBlock('Tâches disponibles :', 'INFO_LARGE');
         
         foreach ($dispoTasks as $k => $dispoTask) {
-            $this->logSection($k, $dispoTask['libelle']);
+          if (isset($dispoTask['separator'])){
+            // entetes HELP de largeur égale
+            $helpSeparatorWidth = 70;
+            $helpSeparator = $dispoTask['separator'].str_repeat(' ', $helpSeparatorWidth - strlen($dispoTask['separator']));
+            $this->logblock($helpSeparator, 'HELP');
+          } 
+          $this->logSection($k, $dispoTask['libelle']);
         }
         
         $messageAccueil = 'Vous pouvez choisir une tâche. Faîtes Ctrl+c pour sortir.';
