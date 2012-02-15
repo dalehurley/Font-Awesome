@@ -28,7 +28,8 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		//récupération des variables de la vue
         $vars = $this->getViewVars();
 		//lien vers le js associé au menu
-        $jsLink = '/theme/less/_templates/'.dmConfig::get('site_theme').'/Externals/js/navigationMenu/' . $vars['menuType'] . '.js';
+        //$jsLink = '/theme/less/_templates/'.dmConfig::get('site_theme').'/Externals/js/navigationMenu/' . $vars['menuType'] . '.js';
+        $jsLink = '/theme/less/_framework/SPLessCss/Externals/js/navigationMenu/' . $vars['menuType'] . '.js';        
         //chargement du JS si existant
         if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) $javascripts[] = $jsLink;
 		
