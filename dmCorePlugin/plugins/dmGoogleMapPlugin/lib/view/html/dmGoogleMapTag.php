@@ -116,10 +116,10 @@ class dmGoogleMapTag extends dmHtmlTag
     $adresseCabinet = $adresseRequest->getAdresse();
     //vérification de adresse2
     ($adresseRequest->getAdresse2() != NULL) ? $adresseCabinet .='-'.$adresseRequest->getAdresse2() : $adresseCabinet .='';
-    $cabinet .= '<div itemtype="http://schema.org/PostalAddress" itemscope="itemscope" class="address itemscope PostalAddress" itemprop="address"><span class="itemprop streetAddress"><span title="Rue" class="type">'.__("Street").'</span><span class="separator"> : </span><span itemprop="streetAddress" class="value">'.$adresseCabinet.'</span></span>';
+    $cabinet .= '<div itemtype="http://schema.org/PostalAddress" itemscope="itemscope" class="address itemscope PostalAddress" itemprop="address"><span class="itemprop streetAddress"><span title="Rue" class="type">'.sfContext::getInstance()->getI18N()->__("Street").'</span><span class="separator"> : </span><span itemprop="streetAddress" class="value">'.$adresseCabinet.'</span></span>';
     $adresseCabinet .= ' - '.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
-    $cabinet .= '<span class="subWrapper"><span class="itemprop postalCode"><span class="type" title="Postal Code">'.__("Postal Code").'</span><span class="separator">&nbsp;:&nbsp;</span><span class="value" itemprop="postalCode">'.$adresseRequest->getCodePostal().'</span>';
-    $cabinet .= '<span class="itemprop addressLocality"><span title="Localité" class="type">'.__("Locality").'</span><span class="separator"> : </span><span itemprop="addressLocality" class="value">'.$adresseRequest->getVille().'</span></span></span></div>';
+    $cabinet .= '<span class="subWrapper"><span class="itemprop postalCode"><span class="type" title="Postal Code">'.sfContext::getInstance()->getI18N()->__("Postal Code").'</span><span class="separator">&nbsp;:&nbsp;</span><span class="value" itemprop="postalCode">'.$adresseRequest->getCodePostal().'</span>';
+    $cabinet .= '<span class="itemprop addressLocality"><span title="Localité" class="type"> '.sfContext::getInstance()->getI18N()->__("Locality").'</span><span class="separator"> : </span><span itemprop="addressLocality" class="value">'.$adresseRequest->getVille().'</span></span></span></div>';
     // vérif si tél existe
     ($adresseRequest->getTel() != NULL) ? $tel = '<p>Tél : '.$adresseRequest->getTel() : $tel = '';
     ($adresseRequest->getTel() != NULL) ? $cabinet .= '<span class="itemprop telephone"><span title="Téléphone" class="type">Téléphone</span><span class="separator"> : </span><span itemprop="telephone" class="value">'.$adresseRequest->getTel().'</span></span>' : $cabinet .= '';
