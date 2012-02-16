@@ -27,6 +27,13 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	public function renderBodyTag($options = array()) {
         $options = dmString::toArray($options);
 				
+		//récupération des options de la page
+		$pageOptions = sfConfig::get('pageOptions');
+
+        //ajout des classes personnalisée sur le body
+		if($pageOptions['isDev']) $options['class'][] = 'isDev';
+		if($pageOptions['isLess']) $options['class'][] = 'isLess';
+
         return parent::renderBodyTag($options);
     }
 	
