@@ -65,12 +65,13 @@ EOF;
             // Affichages des dump existants pour ce template
             // scan du dossier _templates/themechoisi/Externals/db
             $dirDbDump = dirname(__FILE__).'/../../data/_templates/' . $dispoTemplates[$numTemplate] . '/Externals/db';
-            if (is_dir($dirDbDump)) {
-                $arrayTemplateDumps = scandir($dirDbDump);
-            } else {
-                $this->logBlock('Dossier ' . $dirDbDump . ' inexistant. Annulation.', 'ERROR');
-                exit;
+            if (!is_dir($dirDbDump)) {
+                $this->logBlock('Dossier ' . $dirDbDump . ' inexistant. Création.', 'INFO');
+                mkdir($dirDbDump);
             }
+
+            $arrayTemplateDumps = scandir($dirDbDump);
+
             $i = 0;
             $dispoTemplateDumps = array();
             
