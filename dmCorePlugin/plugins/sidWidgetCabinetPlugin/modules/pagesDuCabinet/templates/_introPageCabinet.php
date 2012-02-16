@@ -1,44 +1,48 @@
 <?php
-$html = '';
+
 
 if (count($pageCabinet)) { // si nous avons des actu articles
 	
-	$html.= get_partial('global/titleWidget', array('title' => $titlePage));
-	
-	//ouverture du listing
-    $html.= _open('ul.elements');
-	
-	//options de l'article
-	$articleOpt = array(
-					'description' => $pageCabinet->getResume(),
-					'image' => $pageCabinet->getImage(),
-					'dateCreated' => $pageCabinet->created_at,
-					'isDateMeta' => true,
-					'count' => 1,
-					'maxCount' => 1,
-					'container' => 'li.element',
-					'isListing' => true,
-					'descriptionLength' => $lenght,
-					'url' => $pageCabinet
-					);
-	
-	//on active le titre du contenu que lorsqu'il n'est pas affiché dans le titre du widget
-	if(!$isTitleContent) $articleOpt['name'] = $pageCabinet->getTitle();
-	
-	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
-	//fermeture du listing
-    $html.= _close('ul.elements');
-	
-	//création d'un tableau de liens à afficher
-	$elements = array();
-	$elements[] = array('title' => $lien, 'linkUrl' => $pageCabinet);
-	
-	$html.= get_partial('global/navigationWrapper', array(
-													'placement' => 'bottom',
-													'elements' => $elements
-													));
-	
-} // sinon on affiche rien
+    echo _tag('h4.title',$titlePage);
+    ?>
+    
+<ul class="elements">
 
-//affichage html de sortie
-echo $html;
+    <li class="element itemscope Article first last" itemtype="http://schema.org/Article" itemscope="itemscope">
+        
+        <?php
+        $link = '';
+        if((isset($image)) AND ($image!= '')){ 
+        $link .= '<span class="imageWrapper">';
+        $link .= _media($image)->width($width)->set('.image');
+        $link .= '</span>';
+        
+        };
+                $link .='<span class="wrapper">
+                <span class="subWrapper">';
+        
+                    if($titlePage != $pageCabinet->getTitle()){
+                    $link .= '<span class="title itemprop name" itemprop="name">'.$pageCabinet->getTitle().'</span>';
+                    };
+                    $link .= '<meta content="'.$pageCabinet->createdAt.'" itemprop="datePublished">
+                </span>
+                <span class="teaser itemprop description" itemprop="description">';
+                $link .= stringTools::str_truncate($pageCabinet->getResume(), $length, '(...)', true).'</span></span>';
+       echo _link($pageCabinet)->set('.link_box')->text($link); 
+       ?>
+    </li>
+</ul>
+<?php
+
+ if ((isset($lien)) AND ($lien != '')) { ?>
+        <div class="navigationWrapper navigationBottom">
+            <ul class="elements">
+                <li class="element first last">
+                    <?php echo _link('pageCabinet/list')->set('.link_box')->text($lien); ?>
+                </li>
+        </ul>
+        </div>
+        <?php
+    }
+
+} ?>
