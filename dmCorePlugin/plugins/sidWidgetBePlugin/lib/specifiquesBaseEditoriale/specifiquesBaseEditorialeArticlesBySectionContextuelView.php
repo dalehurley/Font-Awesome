@@ -21,7 +21,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
 		$stylesheets = array();
 		
 		//lien vers le js associé au menu
-		$cssLink = sidSPLessCss::getCssPathTemplate(). '/Widgets/SpecifiquesBaseEditorialeArticlesBySectionContextuel/SpecifiquesBaseEditorialeArticlesBySectionContextuel.css';
+		$cssLink = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/SpecifiquesBaseEditorialeArticlesBySectionContextuel/SpecifiquesBaseEditorialeArticlesBySectionContextuel.css';
 		//chargement de la CSS si existante
 		if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
 		
@@ -50,27 +50,33 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                 // je scrute les sections choisies pour afficher le contenu dans le bloc
                 foreach ($vars['section'] as $section) {
                     // je récupère l'objet Section via l'integer $section qui est l'id de la Section
-                    $sectionPages = Doctrine_Query::create()->from('SidSection sa')
+                    $sectionPages = Doctrine_Query::create()
+                            ->from('SidSection sa')
+                            ->leftJoin('sa.Translation b')
                             ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
-                            ->orderBy('sa.updated_at DESC')
+                            ->orderBy('b.updated_at DESC')
                             ->limit(1)
                             ->execute();
                     // je vérifie que le champ de la section->rubrique_id est le même que le record_id de la page en cours
                     if ($sectionPages[0]->rubrique_id == $rubrique->id) {
                         // traitement pour article, chiffre, faq, aides, paie
                         if($vars['isDossier'] == false){
-                        $articles = Doctrine_Query::create()->from('SidArticle sa')
+                        $articles = Doctrine_Query::create()
+                                ->from('SidArticle sa')
+                                ->leftJoin('sa.Translation b')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $sectionPages[0]->id ,false))
-                                ->orderBy('sa.updated_at DESC')
+                                ->orderBy('b.updated_at DESC')
                                 ->limit($vars['nbArticle'])
                                 ->execute();
                         
                         }
                         // traitement pour dossier
                         elseif($vars['isDossier'] == true){
-                            $articles = Doctrine_Query::create()->from('SidArticle sa')
+                            $articles = Doctrine_Query::create()
+                                ->from('SidArticle sa')
+                                ->leftJoin('sa.Translation b')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $sectionPages[0]->id, true))
-                                ->orderBy('sa.updated_at DESC')
+                                ->orderBy('b.updated_at DESC')
                                 ->limit($vars['nbArticle'])
                                 ->execute();
                         }
@@ -93,26 +99,32 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                 // je scrute les sections choisies pour afficher le contenu dans le bloc
                 foreach ($vars['section'] as $section) {
                     // je récupère l'objet Section via l'integer $section qui est l'id de la Section
-                    $sectionPages = Doctrine_Query::create()->from('SidSection sa')
+                    $sectionPages = Doctrine_Query::create()
+                            ->from('SidSection sa')
+                            ->leftJoin('sa.Translation b')
                             ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
-                            ->orderBy('sa.updated_at DESC')
+                            ->orderBy('b.updated_at DESC')
                             ->limit(1)
                             ->execute();
                     // je vérifie que le champ de la section->rubrique_id est le même que le record_id de la page en cours
                     if ($sectionPages[0]->rubrique_id == $rubrique->id) {
                         // traitement pour article, chiffre, faq, aides, paie
                         if($vars['isDossier'] == false){
-                        $articles = Doctrine_Query::create()->from('SidArticle sa')
+                        $articles = Doctrine_Query::create()
+                                ->from('SidArticle sa')
+                                ->leftJoin('sa.Translation b')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,false))
-                                ->orderBy('sa.updated_at DESC')
+                                ->orderBy('b.updated_at DESC')
                                 ->limit($vars['nbArticle'])
                                 ->execute();
                     }
                     // traitement pour dossier
                         elseif($vars['isDossier'] == true){   
-                            $articles = Doctrine_Query::create()->from('SidArticle sa')
+                            $articles = Doctrine_Query::create()
+                                ->from('SidArticle sa')
+                                ->leftJoin('sa.Translation b')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,true))
-                                ->orderBy('sa.updated_at DESC')
+                                ->orderBy('b.updated_at DESC')
                                 ->limit($vars['nbArticle'])
                                 ->execute();
                         } 
@@ -150,26 +162,32 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                     // je scrute les sections choisies pour afficher le contenu dans le bloc
                     foreach ($vars['section'] as $section) {
                         // je récupère l'objet Section via l'integer $section qui est l'id de la Section
-                        $sectionPages = Doctrine_Query::create()->from('SidSection sa')
+                        $sectionPages = Doctrine_Query::create()
+                                ->from('SidSection sa')
+                                ->leftJoin('sa.Translation b')
                                 ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
-                                ->orderBy('sa.updated_at DESC')
+                                ->orderBy('b.updated_at DESC')
                                 ->limit(1)
                                 ->execute();
 
                         if ($sectionPages[0]->rubrique_id == $rubrique->id) {
                             // je vérifie que le champ de la section->rubrique_id est le même que le record_id de la page en cours
                             if($vars['isDossier'] == false){
-                            $articles = Doctrine_Query::create()->from('SidArticle sa')
+                            $articles = Doctrine_Query::create()
+                                    ->from('SidArticle sa')
+                                    ->leftJoin('sa.Translation b')
                                     ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,false))
-                                    ->orderBy('sa.updated_at DESC')
+                                    ->orderBy('b.updated_at DESC')
                                     ->limit($vars['nbArticle'])
                                     ->execute();
                             }
                             // traitement pour dossier
                             elseif($vars['isDossier'] == true){ 
-                                $articles = Doctrine_Query::create()->from('SidArticle sa')
+                                $articles = Doctrine_Query::create()
+                                    ->from('SidArticle sa')
+                                    ->leftJoin('sa.Translation b')
                                     ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,true))
-                                    ->orderBy('sa.updated_at DESC')
+                                    ->orderBy('b.updated_at DESC')
                                     ->limit($vars['nbArticle'])
                                     ->execute();
                             }

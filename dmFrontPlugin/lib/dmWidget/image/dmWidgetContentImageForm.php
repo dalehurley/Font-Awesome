@@ -5,7 +5,7 @@ class dmWidgetContentImageForm extends dmWidgetContentBaseMediaForm
   public function configure()
   {
     parent::configure();
-    
+	
     $this->widgetSchema['legend'] = new sfWidgetFormInputText();
     $this->validatorSchema['legend'] = new sfValidatorString(array(
       'required' => false

@@ -36,21 +36,18 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'dmWidgetNivoGalleryPlugin',
             'sidWidgetBandeauPlugin',
             // 'sidWidgetBlogPlugin',  // Finalisé mais inutile pour le moment
-            'sidContentTemplateManagerPlugin', // plugin de gestion des template de contenu
             'sidWidgetConstantesPlugin', // plugin de gestion des constantes du site
             'sidWidgetSitesUtilesPlugin',
             'dmGoogleMapPlugin',
             'sidWidgetActuPlugin',
             'sidWidgetCabinetPlugin',
             'sidWidgetCoordonneesExpertPlugin',
-            'sidSPLessCssPlugin',
             'sidWebservicesPlugin',
             'ckWebservicePlugin',
             'sidSiteMapPlugin',
             'sidWidgetPubsFlashPlugin',
             'sidWidgetSocialNetworkPlugin',
-            'lioshiPlugin'            
-            
+            'lioshiPlugin'          
         ));
     }
 
@@ -88,20 +85,18 @@ class dmProjectConfiguration extends sfProjectConfiguration {
     'dmWidgetNivoGalleryPlugin',
     'sidWidgetBandeauPlugin',
     //'sidWidgetBlogPlugin', 
-    'sidContentTemplateManagerPlugin',
     'sidWidgetConstantesPlugin',
     'sidWidgetSitesUtilesPlugin',
     'dmGoogleMapPlugin',
     'sidWidgetActuPlugin',
     'sidWidgetCabinetPlugin',
     'sidWidgetCoordonneesExpertPlugin',
-    'sidSPLessCssPlugin',
     'sidWebservicesPlugin',            
             'ckWebservicePlugin',
             'sidSiteMapPlugin',
             'sidWidgetPubsFlashPlugin',
             'sidWidgetSocialNetworkPlugin',
-            'lioshiPlugin'              
+            'lioshiPlugin'
         ) as $embeddedPlugin) {
             $this->setPluginPath($embeddedPlugin, $baseDir . '/dmCorePlugin/plugins/' . $embeddedPlugin);
         }

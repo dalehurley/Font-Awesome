@@ -24,18 +24,16 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		$this->renderHeadJavascripts();
 	}
 	
-	//Ajout de la variable de gabarit dans les classes CSS appelÃ©es dans le body (par Lionel)
 	public function renderBodyTag($options = array()) {
         $options = dmString::toArray($options);
-		
+				
 		//récupération des options de la page
 		$pageOptions = sfConfig::get('pageOptions');
-		
+
         //ajout des classes personnalisée sur le body
-        $options['class'][] = $pageOptions['currentGabarit'];
 		if($pageOptions['isDev']) $options['class'][] = 'isDev';
 		if($pageOptions['isLess']) $options['class'][] = 'isLess';
-		
+
         return parent::renderBodyTag($options);
     }
 	
@@ -53,9 +51,10 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	public function renderIeHtml5Fix()
 	{
 		if ($this->isHtml5()) {
-			$html = '<script src="' . sidSPLessCss::getJsPathFramework().'/modernizr/modernizr-2.0.6.custom.min.js"></script>';
+			$html = '<script src="/theme/less/_framework/SPLessCss/Externals/js/modernizr/modernizr-2.0.6.custom.min.js"></script>';
 			$html.= PHP_EOL;
 			$html.= '<!--[if (gte IE 6)&(lte IE 8)]><script src="'.sfConfig::get('sf_js_cdn_cdnjs').'/selectivizr/1.0.2/selectivizr-min.js"></script><![endif]-->';
+			//return '<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
 		} else {
 			$html = '';
 		}

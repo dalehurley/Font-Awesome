@@ -82,13 +82,13 @@ if($isListing) {
 	//on affiche l'image que si elle est effectivement présente
 	if($isImage){
 		//dimensions de l'image
-		$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
-		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
+//		$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
+//		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
 		//options de l'image
 		$imageWrapperOpts = array(
 									'image'	=>	$image,
-									'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
-									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+									'width'	=>	'200',
+									'height'=>	''
 									);
 		//ajout du nom de l'article dans la balise Alt de l'image
 		if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;
@@ -108,8 +108,8 @@ if($isListing) {
 	//Gestion de la date de création
 	if(isset($dateCreated) && $dateCreated != null) $htmlText.= ($isDateMeta) ? _tag('meta', array('itemprop' => 'datePublished', 'content' => $dateCreated)) : get_partial('global/dateWrapperShort', array('dateCreated' => $dateCreated));
 	
-	//englobage dans un container si non vide
-	if($htmlText != null) $htmlText = _tag('span.subWrapper', $htmlText);
+	//englobage dans un container si non vide et si présence de la date en plus du nom
+	if($htmlText != null && (isset($dateCreated) && $dateCreated != null)) $htmlText = _tag('span.subWrapper', $htmlText);
 
 	//Chapeau de l'article si présent
 	if(isset($description) && $description != null) {
@@ -129,6 +129,7 @@ if($isListing) {
 	//inclusion dans le lien si nécessaire
 	if(isset($url)) {
 		$htmlLink = _link($url)->text($htmlImage . $htmlText)->set('.link_box');
+		if($isUrlBlank) $htmlLink->target('blank');
 		if(isset($name)) $htmlLink->title($name);
 		$html.= $htmlLink;
 	}else{
@@ -159,14 +160,14 @@ if($isListing) {
 		//on affiche l'image que si elle est effectivement présente
 		if($isImage){
 			//dimensions de l'image
-			$imageGridWidth = sidSPLessCss::getLessParam('thumbContent_col');
-			$imageGridHeight = sidSPLessCss::getLessParam('thumbContent_bl');
+//			$imageGridWidth = sidSPLessCss::getLessParam('thumbContent_col');
+//			$imageGridHeight = sidSPLessCss::getLessParam('thumbContent_bl');
 			//options de l'image
 			$imageWrapperOpts = array(
 									'image'	=>	$image,
 									'container' => 'div.imageFullWrapper',
-									'width'	=>	spLessCss::gridGetWidth($imageGridWidth,0),
-									'height'=>	spLessCss::gridGetHeight($imageGridHeight,0)
+									'width'	=>	'300',
+									'height'=>	''
 									);
 			//ajout du nom de l'article dans la balise Alt de l'image
 			if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;
@@ -220,10 +221,10 @@ if($isListing) {
 	$htmlFooter = '';
 	
 	// rajout stef (attention à modifier une fois l'upload de fichier multiples implémenté)
-	if(isset($uploadFile)) {
+	if(isset($uploadFile) && $uploadFile != '') {
 		$htmlFooter.= _open('div.fileWrapper');
 		$htmlFooter.= _tag('h5.title',__('Download file, click the link below'));
-		$htmlFooter.= (isset($uploadFileTitle) && $uploadFileTitle != null) ? _link($uploadFile)->text($uploadFileTitle) : _link($uploadFile)->text($uploadFile->file);
+		$htmlFooter.= (isset($uploadFileTitle) && $uploadFileTitle != '') ? _link($uploadFile)->text($uploadFileTitle) : _link($uploadFile)->text($uploadFile->file);
 		$htmlFooter.= _close('div.fileWrapper');
 	}
 	// fin rajout stef

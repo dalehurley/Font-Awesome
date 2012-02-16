@@ -52,9 +52,11 @@ class specifiquesBaseEditorialeArticlesContextuelView extends dmWidgetPluginView
                 // dans la page d'accueil, on renvoie le dernièr article des rubriques choisies
                 foreach ($arrayRubriquesLists as $i => $rubriqueList) {
                     if ($rubriqueList != null) {
-                        $articles = Doctrine_Query::create()->from('SidArticle sa')
+                        $articles = Doctrine_Query::create()
+                                ->from('SidArticle sa')
+                                ->leftJoin('sa.Translation b')
                                 ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $rubriqueList))
-                                ->orderBy('sa.updated_at DESC')
+                                ->orderBy('b.updated_at DESC')
                                 ->limit(1)
                                 ->execute();
 

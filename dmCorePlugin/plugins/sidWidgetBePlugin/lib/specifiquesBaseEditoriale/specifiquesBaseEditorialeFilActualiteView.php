@@ -20,7 +20,7 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
 		$stylesheets = array();
 		
 		//lien vers le js associé au menu
-		$cssLink = sidSPLessCss::getCssPathTemplate(). '/Widgets/SpecifiquesBaseEditorialeFilActualite/SpecifiquesBaseEditorialeFilActualite.css';
+		$cssLink = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/SpecifiquesBaseEditorialeFilActualite/SpecifiquesBaseEditorialeFilActualite.css';
 		//chargement de la CSS si existante
 		if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
 		
@@ -55,8 +55,9 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
             // je récupère UN article (le plus récemment mis à jour) de chaque section
             $articles = dmDb::table('SidArticle')
                     ->createQuery('a')
+                    ->leftJoin('a.Translation b')
                     ->where('a.section_id = ? AND a.is_active = ?', array($section, true))
-                    ->orderBy('updated_at DESC')
+                    ->orderBy('b.updated_at DESC')
                     ->limit(1)
                     ->execute();
             // Pour cet article, je le mets dans un tableau général et je mets dans un tableau le nom de la page de la Rubrique
@@ -67,15 +68,14 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                         ->where('p.module = ? and p.action=? and p.record_id=?', array('rubrique', 'show', $article->Section->rubrique_id))
                         ->limit(1)
                         ->execute();
-
+                
                 $arrayRubrique[$article->filename] = $rubriquePage[0]->name;
-
                 $arrayFilActus[$article->filename] = $article;
             }
         }
 
         foreach ($arrayFilActus as $key => $value) {
-            $updated[$key] = $value['updated_at'];
+            $updated[$key] = $value['updatedAt'];
         }
         array_multisort($updated, SORT_DESC, $arrayFilActus);
         $arrayFilActus = array_slice($arrayFilActus, 0, $vars['nbArticle']);

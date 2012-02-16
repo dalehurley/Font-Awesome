@@ -57,6 +57,8 @@ class dmWidgetContentImageView extends dmWidgetContentBaseMediaView
     }
     else
     {
+		
+		
       $html = $vars['mediaTag']->render();
     }
 

@@ -31,3 +31,6 @@ if(!isset($isLight)) $isLight = false;
 
 //active l'affichage de la date en balise meta et désactive l'affichage des dates
 if(!isset($isDateMeta)) $isDateMeta = false;
+
+//active l'ouverture du lien dans une nouvelle fenêtre
+if(!isset($isUrlBlank)) $isUrlBlank = false;

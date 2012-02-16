@@ -1,4 +1,9 @@
 <?php  // var: $sites
+
+//Ajout Arnaud : echo debug car non utilisé
+echo "Erreur : ce widget ne doit pas être utilisé et n'est donc pas stylé.";
+
+/*
 if(count($sites) != NULL) {
     echo _tag('h4.title',__('Our useful sites'));
     echo _open('ul.elements');
@@ -9,3 +14,4 @@ if(count($sites) != NULL) {
     }
     echo _close('ul');
 }
+ */

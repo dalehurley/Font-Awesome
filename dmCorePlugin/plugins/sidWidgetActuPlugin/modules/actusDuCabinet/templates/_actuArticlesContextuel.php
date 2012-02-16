@@ -1,64 +1,61 @@
 <?php
-// vars : $articles, $titreBloc, $longueurTexte, $nbArticles, $photo, $titreLien, $chapo
-$html = '';
+// vars : $articles, $nbArticles, $titlePage, $lien, $length, $chapo, $width, $height
 
+$i = 1;
 if (count($articles)) { // si nous avons des actu articles
 	
+	
+	
 	//gestion affichage du titre
-    if($nbArticles == 1){
-        if ($titreBloc != true) $html.= get_partial('global/titleWidget', array('title' => current($articles)));
-        else $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
-    }
-    else {
-        if ($titreBloc != true) $html.= get_partial('global/titleWidget', array('title' => __('The news of the office')));
-        else $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
-    }
-	
-	//ouverture du listing
-    $html.= _open('ul.elements');
-	
-	//compteur
-	$count = 0;
-	$maxCount = count($articles);
-	
-	foreach ($articles as $article) {
-		//incrémentation compteur
-		$count++;
-		
-		//options de l'article
-		$articleOpt = array(
-						'name' => $article->getTitle(),
-						'description' => $article->getResume(),
-						'image' => $article->getImage(),
-						'dateCreated' => $article->created_at,
-						'isDateMeta' => true,
-						'count' => $count,
-						'maxCount' => $maxCount,
-						'container' => 'li.element',
-						'isListing' => true,
-						'descriptionLength' => $longueurTexte,
-						'url' => $article
-					);
-		
-		//on supprime les photos après les 3 premiers articles
-		if($count > 3) $articleOpt['image'] = false;
-		
-		//ajout de l'article
-		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
-    }
-	
-	//fermeture du listing
-    $html.= _close('ul.elements');
-	
-	//création d'un tableau de liens à afficher
-	$elements = array();
-	$elements[] = array('title' => $titreLien, 'linkUrl' => 'sidActuArticle/list');
-	
-	$html.= get_partial('global/navigationWrapper', array(
-													'placement' => 'bottom',
-													'elements' => $elements
-													));
-} // sinon on affiche rien
+    echo _tag('h4.title',$titlePage);
+?>
+<ul class="elements">
+<?php		
+	foreach ($articles as $article) {  
+        $link = '';    ?>
+       <li class="element itemscope Article first last" itemtype="http://schema.org/Article" itemscope="itemscope">
+        
+       <?php
+        
+        if(($article->getImage() != NULL) and ($i <= sfConfig::get('app_nb-image'))){ 
+        $link .= '<span class="imageWrapper">';
+        $link .= _media($article->getImage())->width($width)->set('.image');
+        $link .= '</span>';
+        
+        };
+        $link .='<span class="wrapper">
+                <span class="subWrapper">';
 
-//affichage html en sortie
-echo $html;
+                   if ($titlePage != $article->getTitle()) {
+                       $link .= '<span class="title itemprop name" itemprop="name">' . $article->getTitle() . '</span>';
+                   };
+                   $link .= '<meta content="' . $article->createdAt . '" itemprop="datePublished">
+                </span>
+                <span class="teaser itemprop description" itemprop="description">';
+                   if ($chapo == 0) {
+                       $link .= stringTools::str_truncate($article->getResume(), $length, '(...)', true);
+                   } 
+                   else if ($chapo == 1) {
+                       $link .= $article->getText();
+                   }
+                   $link .= '</span></span>';
+      
+       echo _link($article)->set('.link_box')->text($link); 
+       $i++;   
+     ?>
+       </li>
+       <?php
+    } ?>
+</ul>
+<?php
+if ((isset($lien)) AND ($lien != '')) { ?>
+        <div class="navigationWrapper navigationBottom">
+            <ul class="elements">
+                <li class="element first last">
+                    <?php echo _link('sidActuArticle/list')->set('.link_box')->text($lien); ?>
+                </li>
+        </ul>
+        </div>
+        <?php
+    }
+} // sinon on affiche rien

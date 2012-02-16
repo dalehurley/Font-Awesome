@@ -1,5 +1,5 @@
 <?php
-// vars : $equipes, $titreBloc, $titreLien, $pageEquipe, $lenght, $rubrique, $nomRubrique
+// vars : $equipes, $titreBloc, $titreLien, $pageEquipe, $length, $rubrique, $nomRubrique
 $html = '';
 
 if (count($equipes)) { // si nous avons des actu articles

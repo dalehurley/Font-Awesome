@@ -97,7 +97,9 @@ class dmFrontToolBarView extends dmToolBarView
   {
     if ($this->user->can('zone_add, widget_add'))
     {
-      return $this->helper->tag('a.tipable.edit_toggle.widget24.s24block.s24_view_'.($this->user->getIsEditMode() ? 'on' : 'off'), array('title' => $this->i18n->__('Show page structure')), '');
+      //return $this->helper->tag('a.tipable.edit_toggle.widget24.s24block.s24_view_'.($this->user->getIsEditMode() ? 'on' : 'off'), array('title' => $this->i18n->__('Show page structure')), '');
+      // lioshi: at the refresh of page the edit toggle button must be off
+      return $this->helper->tag('a.tipable.edit_toggle.widget24.s24block.s24_view_off', array('title' => $this->i18n->__('Show page structure')), '');
     }
   }
 

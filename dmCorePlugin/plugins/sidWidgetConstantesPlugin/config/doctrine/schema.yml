@@ -1,8 +1,11 @@
 SidConstantes:
   actAs:
-    Timestampable:
     DmSortable:
-    DmVersionable:
+    I18n:
+      fields: [ content ]
+      actAs:
+        Timestampable:
+        DmVersionable:
   columns:
     name:
       type: string(50)

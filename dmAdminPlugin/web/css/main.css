@@ -252,3 +252,10 @@ div.dm_admin_homepage_column #accueil .level0 li.ui-state-default a.link:hover{
     text-decoration: underline;
 }
 
+div.sf_admin_form div.sf_admin_form_row_inner input.input_short {
+    width:38%
+}
+div.sf_admin_form form .sf_admin_form_inner .sf_admin_form_row_inner .help{
+    margin-left:80px;
+    margin-top:5px
+}

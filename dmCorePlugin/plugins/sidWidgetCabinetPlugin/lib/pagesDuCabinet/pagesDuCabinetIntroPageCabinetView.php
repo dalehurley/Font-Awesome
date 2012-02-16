@@ -7,9 +7,12 @@ class pagesDuCabinetIntroPageCabinetView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'page',
-            'lenght',	
+            'length',	
             'title_page',
-            'lien'
+            'lien',
+            'widthImage',
+            'heightImage',
+            'withImage'
         ));
     }
 
@@ -24,15 +27,20 @@ class pagesDuCabinetIntroPageCabinetView extends dmWidgetPluginView {
         $arrayArticle = array();
 
         $pageCabinet = dmDb::table('SidCabinetPageCabinet')->findOneById($vars['page']);
-        if($vars['title_page'] == NULL || $vars['title_page'] == " "){
-        $vars['title_page'] = $pageCabinet->getTitle();
-        }
+        ($vars['withImage'] == true) ? (($pageCabinet->getImage() != '') ? $image = $pageCabinet->getImage() : $image = ''): $image = '';
+        ($vars['title_page'] == NULL || $vars['title_page'] == " ") ? $vars['title_page'] = $pageCabinet->getTitle():'';
+        ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
+		
         return $this->getHelper()->renderPartial('pagesDuCabinet', 'introPageCabinet', array(
                     
                     'pageCabinet' => $pageCabinet,
-                    'lenght' => $vars['lenght'],
+                    'length' => $vars['length'],
                     'titlePage' => $vars['title_page'],
-                    'lien' => $vars['lien']
+                    'lien' => $vars['lien'],
+                    'image' => $image,
+                    'lien' => $lien,
+                    'width' => $vars['widthImage'],
+                    'height' => $vars['heightImage']
                 ));
     }
 
