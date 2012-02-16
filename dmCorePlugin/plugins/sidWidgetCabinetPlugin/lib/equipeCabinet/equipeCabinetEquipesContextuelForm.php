@@ -20,8 +20,8 @@ class equipeCabinetEquipesContextuelForm extends dmWidgetPluginForm {
                     'required' => true
                 ));
         
-        $this->widgetSchema['lenght'] = new sfWidgetFormInputText(array('default' => 0, 'label' => 'Longueur du texte'));
-        $this->validatorSchema['lenght'] = new sfValidatorInteger(array(
+        $this->widgetSchema['length'] = new sfWidgetFormInputText(array('default' => 0, 'label' => 'Longueur du texte'));
+        $this->validatorSchema['length'] = new sfValidatorInteger(array(
                     'required' => false
                 ));
         

@@ -4,18 +4,18 @@ class missionsMissionsContextuelForm extends dmWidgetPluginForm {
 
     public function configure() {
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('label' => 'Titre du bloc'));
-        $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
+        $this->widgetSchema['title_page'] = new sfWidgetFormInputText(array('label' => 'Titre du bloc'));
+        $this->validatorSchema['title_page'] = new sfValidatorString(array(
                     'required' => false
                 ));
 
-        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('label' => 'Titre du lien','default' => 'Toutes nos missions'));
-        $this->validatorSchema['titreLien'] = new sfValidatorString(array(
+        $this->widgetSchema['lien'] = new sfWidgetFormInputText(array('label' => 'Titre du lien','default' => 'Toutes nos missions'));
+        $this->validatorSchema['lien'] = new sfValidatorString(array(
                     'required' => true
                 ));
 
-        $this->widgetSchema['nb'] = new sfWidgetFormInputText(array('label' => 'Nbre d\'article', 'default' => 1));
-        $this->validatorSchema['nb'] = new sfValidatorInteger(array(
+        $this->widgetSchema['nbArticles'] = new sfWidgetFormInputText(array('label' => 'Nbre d\'article', 'default' => 1));
+        $this->validatorSchema['nbArticles'] = new sfValidatorInteger(array(
                     'required' => true,
                     'min' => 1
                 ));
@@ -33,9 +33,9 @@ class missionsMissionsContextuelForm extends dmWidgetPluginForm {
 //        $this->validatorSchema['titreMission']  = new sfValidatorBoolean();
 
         $this->widgetSchema->setHelps(array(
-            'titreBloc' => 'Le titre optionnel du bloc. Si null, le titre de la mission s\'affichera dans le titre du bloc',
-            'titreLien' => 'Le libellé du lien vers toutes les missions.',
-            'nb' => 'Le nombre maximum de missions affichées. mini 1',
+            'title_page' => 'Le titre optionnel du bloc. Si null, le titre de la mission s\'affichera dans le titre du bloc',
+            'lien' => 'Le libellé du lien vers toutes les missions.',
+            'nbArticles' => 'Le nombre maximum de missions affichées. mini 1',
             'length' => 'Longueur du texte à afficher (si 0 : texte en entier)',
             'chapo' => 'Choisir si on veut afficher le résumé de la page ou le contenu entier de la page'
         ));
