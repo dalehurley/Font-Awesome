@@ -79,15 +79,18 @@ EOF;
 
         if (!is_dir($newThemeDir)){
             // duplication
-        mkdir($newThemeDir);
-        $this->getFilesystem()->execute('cp -r ' . $duplicateThemeDir .'/* ' . $newThemeDir, $out, $err);
-        // changement du nom du theme dans le code des fichiers .less
-        $this->getFilesystem()->execute('find '. $newThemeDir .' -name "*.less" -print | xargs perl -pi -e \'s/'.$nomTemplateChoisi.'/'.$newThemeName.'/g\'');
-        // renommage du fichier racine du template qui doit avoir le nom du theme $newThemeDir.'/_'.$nomTemplateChoisi.'.less' en $newThemeDir.'/_'.$newThemeName.'.less'
-        $this->getFilesystem()->execute('mv '.$newThemeDir.'/_'.$nomTemplateChoisi.'.less ' .$newThemeDir.'/_'.$newThemeName.'.less');
-        
-        $this->getFilesystem()->execute('find '. $newThemeDir .' -name "*.less" -print | xargs perl -pi -e \'s/'.$nomTemplateChoisi.'/'.$newThemeName.'/g\'');
-                 
+            $this->logBlock('Copie du dossier ' . $duplicateThemeDir . ' en '. $newThemeDir, 'INFO');
+            mkdir($newThemeDir);
+            $this->getFilesystem()->execute('cp -r ' . $duplicateThemeDir .'/* ' . $newThemeDir, $out, $err);
+            // changement du nom du theme dans le code des fichiers .less
+            $this->logBlock('Renommage dans les fichiers', 'INFO');
+            $this->getFilesystem()->execute('find '. $newThemeDir .' -name "*.less" -print | xargs perl -pi -e \'s/'.$nomTemplateChoisi.'/'.$newThemeName.'/g\'');
+            // renommage du fichier racine du template qui doit avoir le nom du theme $newThemeDir.'/_'.$nomTemplateChoisi.'.less' en $newThemeDir.'/_'.$newThemeName.'.less'
+            $this->logBlock('Renommage du fichier racine', 'INFO');
+            $this->getFilesystem()->execute('mv '.$newThemeDir.'/_'.$nomTemplateChoisi.'.less ' .$newThemeDir.'/_'.$newThemeName.'.less');
+            // suppression des dumps du dossier $newThemeDir.'/Externals/db'
+            $this->logBlock('Suppression des dumps existants', 'INFO');
+            $this->getFilesystem()->execute('rm -rf '.$newThemeDir.'/Externals/db/*');        
         } else {
             $this->logBlock('Template déjà existant : ' . $newThemeName, 'ERROR');
             exit;
