@@ -2,6 +2,7 @@
 
 class pagesDuCabinetIntroPageCabinetForm extends dmWidgetPluginForm {
 
+
     public function configure() {
 
         $this->widgetSchema['page'] = new sfWidgetFormDoctrineChoice(array(
@@ -12,8 +13,8 @@ class pagesDuCabinetIntroPageCabinetForm extends dmWidgetPluginForm {
                     'model' => 'SidCabinetPageCabinet'
                 ));
 	
-        $this->widgetSchema['lenght'] = new sfWidgetFormInputText(array('default'=>0));
-        $this->validatorSchema['lenght'] = new sfValidatorInteger(array(
+        $this->widgetSchema['length'] = new sfWidgetFormInputText(array('default'=>0));
+        $this->validatorSchema['length'] = new sfValidatorInteger(array(
                     'required' => false
                 ));
        $this->widgetSchema['title_page'] = new sfWidgetFormInputText();
@@ -27,10 +28,10 @@ class pagesDuCabinetIntroPageCabinetForm extends dmWidgetPluginForm {
         
         $this->widgetSchema->setHelps(array(
             'page' => 'Choisir une page du cabinet',
-            'lenght' => 'Nombre de caractère du chapeau',
+            'length' => 'Nombre de caractère du chapeau',
             'title_page'=> 'Titre du bloc, si vide on affiche le titre de la page',
-            'lien'=> 'Titre du lien pour aller sur la page concernée'
-            
+            'lien'=> 'Titre du lien pour aller sur la page concernée',
+            'withImage' => 'affiche ou pas la photo',
         ));
 
         parent::configure();
