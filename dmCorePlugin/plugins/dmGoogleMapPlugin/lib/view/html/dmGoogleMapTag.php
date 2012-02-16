@@ -91,13 +91,30 @@ class dmGoogleMapTag extends dmHtmlTag
 
     $splash = $preparedAttributes['splash'];
     unset($preparedAttributes['splash']);
-    // initialisation des variables
-    $adresseCabinet = '';
-    $titreBloc ='';
-    //$adresseCabinet est l'adresse du cabinet récupéré en base
-
+	
+    //récupération de l'adresse en base
     $adresseRequest = DmDb::table('SidCoordName')->findOneByIdAndIsActive($preparedAttributes['idCabinet'],true);
-    $addressOpts = array(
+	
+	
+    //Ajout Arnaud : affichage de l'adresse
+	
+	//récupération du tiret
+	$dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
+	
+	//html de sortie
+	$html = '';
+	
+	//Si l'adresse à afficher est le siège social, alors on affiche le titreBloc
+	//Sinon on n'affiche rien dans le titreBloc car normalement la première adresse est tjrs celle du siège social
+	$isSiegeSocial = ($adresseRequest->siege_social == true);
+	$titreBloc = sfContext::getInstance()->getI18N()->__('Map');
+	if($isSiegeSocial) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
+	/*
+	//insertion de la carte GoogleMap
+    $html.= '<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
+	
+	//composition des options du partial d'adresse
+	$addressOpts = array(
 					'name' => $adresseRequest->getTitle(),
 					'addressLocality' => $adresseRequest->getVille(),
 					'postalCode' => $adresseRequest->getCodePostal(),
@@ -110,10 +127,29 @@ class dmGoogleMapTag extends dmHtmlTag
 	if ($adresseRequest->getAdresse2() != NULL) $addressOpts['streetAddress'].= $dash . $adresseRequest->getAdresse2();
 	
 	//insertion du partial d'organization
-	//$htmls= get_partial('global/schema/Thing/Organization', $addressOpts);
-    $cabinet = '';
-    $cabinet .= '<div xmlns="http://www.w3.org/1999/xhtml" itemtype="http://schema.org/Organization" itemscope="itemscope" class="mapAddress itemscope Organization"><span itemprop="name" class="itemprop name">'.$adresseRequest->getTitle().'</span>';
-    $adresseCabinet = $adresseRequest->getAdresse();
+	$html.= get_partial('global/schema/Thing/Organization', $addressOpts);
+	*/
+	
+	//début de débug Arnaud
+	$html.= _open('div.mapAddress.itemscope.Organization', array('itemtype' => 'http://schema.org/Organization', 'itemscope' => 'itemscope'));
+		$html.= _tag('span.itemprop.name', array('itemprop' => 'name'), $adresseRequest->getTitle());
+		$html.= _open('div.address.itemscope.PostalAddress', array('itemtype' => 'http://schema.org/PostalAddress', 'itemscope' => 'itemscope', 'itemprop' => 'address'));
+			//continuer à insérer ici le code avec les balises tags
+		$html.= _close('div');
+	$html.= _close('div');
+	
+	// initialisation des variables
+    $adresseCabinet = '';
+    $titreBloc = '';
+	
+	
+	
+	
+	
+	$cabinet = '<div itemtype="http://schema.org/Organization" itemscope="itemscope" class="mapAddress itemscope Organization">';
+	$cabinet.= '<span itemprop="name" class="itemprop name">'.$adresseRequest->getTitle().'</span>';
+	
+	$adresseCabinet = $adresseRequest->getAdresse();
     //vérification de adresse2
     ($adresseRequest->getAdresse2() != NULL) ? $adresseCabinet .='-'.$adresseRequest->getAdresse2() : $adresseCabinet .='';
     $cabinet .= '<div itemtype="http://schema.org/PostalAddress" itemscope="itemscope" class="address itemscope PostalAddress" itemprop="address"><span class="itemprop streetAddress"><span title="Rue" class="type">'.sfContext::getInstance()->getI18N()->__("Street").'</span><span class="separator"> : </span><span itemprop="streetAddress" class="value">'.$adresseCabinet.'</span></span>';
