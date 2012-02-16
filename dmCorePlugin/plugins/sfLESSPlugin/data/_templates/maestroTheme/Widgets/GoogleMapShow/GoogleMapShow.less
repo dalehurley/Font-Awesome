@@ -8,14 +8,36 @@
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
 .google_map_show {
-	background-color: #E0CBF2;
+	.isLess & { background-color: #E0CBF2; }
 	
 	//container de l'adresse
 	.mapAddress {
-		background-color: #F2CBF1;
+		.isLess & { background-color: #F2CBF1; }
+		position: relative;
+		display: block;
+		margin: 0;
+		padding-top: @gridBaseline/2;
+		
+		//placement des éléments internes
+		.itemprop { display: block; }
+		.subWrapper .itemprop { display: inline; }
+		
+		//masquage de différents éléments .type
+		#dm_page & { .streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } } }
+		
+		//stylage du nom
+		.name {
+			font-weight: bold;
+			font-size: @fontSizeH6Px;
+		}
 	}
 	
 	.dm_google_map {
-		background-color: #CBD3F2;
+		.isLess & { background-color: #CBD3F2; }
+		position: relative;
+		display: block;
+		float: right;
+		margin: 0;
+		padding: @gridBaseline/2 0 0 @gridGutter;
 	}
 }

@@ -7,10 +7,16 @@
 //Config par défaut des widgets du template
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
-.missions_missions_contextuel {
-	background-color: #AC97AD;
+#dm_sidebar_left, #dm_sidebar_right {
+	.missions_missions_contextuel {
+		//appel de la fonction de placement de la sprite
+		@widgetTitleSprite("Default"; "cabinet"; "missions");
 	
-	.dm_widget_inner {
-		background-color: #EAA8ED;
+		.dm_widget_inner {
+			& > .title {
+				//complément de l'appel de la sprite sur le titre
+				&:after { @spriteBgp(@spriteFormat_M; @spriteOffX-cabinet-missions; @spriteOffY-cabinet-missions); }
+			}
+		}
 	}
 }
