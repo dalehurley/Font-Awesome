@@ -1,0 +1,38 @@
+// _WidgetsBase.less
+// v1.0
+// Last Updated : 2011-09-14 15:10
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Ce fichier permet d'initialiser un style par défaut pour tous les widgets et n'est inclu qu'une seule fois dans le template
+
+//EN ATTENDANT OPTIMISATION GÉNÉRALE DU FRAMEWORK : inclusion des widgets ne nécessitant pas d'appels médias séparés
+@import "_templates/maestroTheme/Widgets/ActusDuCabinetActuArticlesContextuel/_ActusDuCabinetActuArticlesContextuel.less";
+@import "_templates/maestroTheme/Widgets/EquipeCabinetEquipesContextuel/_EquipeCabinetEquipesContextuel.less";
+@import "_templates/maestroTheme/Widgets/MissionsMissionsContextuel/_MissionsMissionsContextuel.less";
+@import "_templates/maestroTheme/Widgets/PagesDuCabinetIntroPageCabinet/_PagesDuCabinetIntroPageCabinet.less";
+@import "_templates/maestroTheme/Widgets/SpecifiquesBaseEditorialeArticlesBySectionContextuel/_SpecifiquesBaseEditorialeArticlesBySectionContextuel.less";
+@import "_templates/maestroTheme/Widgets/SpecifiquesBaseEditorialeFilActualite/_SpecifiquesBaseEditorialeFilActualite.less";
+@import "_templates/maestroTheme/Widgets/SpecifiquesBaseEditorialeListAgenda/_SpecifiquesBaseEditorialeListAgenda.less";
+
+//STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
+.dm_widget {
+	background-color: #DCD5F0;
+	
+	.dm_widget_inner {
+		background-color: #C2B8DE;
+		
+		& > .title {
+			color: @colorCouleur1;
+			background-color: #EB50E8;
+			font-family: @fontGlobalFamilyWebFont;
+			text-transform: uppercase;
+		}
+		#dm_content & {
+			background-color: orange;
+			.navigationWrapper .link {
+				color: @colorWhite;
+			}
+		}
+	}
+}
