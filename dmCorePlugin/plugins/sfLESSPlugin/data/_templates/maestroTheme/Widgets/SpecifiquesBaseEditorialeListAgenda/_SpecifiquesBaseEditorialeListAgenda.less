@@ -7,9 +7,16 @@
 //Config par défaut des widgets du template
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
-.specifiques_base_editoriale_list_agenda {
-	background-color: #D0E8B7;
-	.dm_widget_inner {
-		background-color: #9CB582;
+#dm_sidebar_left, #dm_sidebar_right {
+	.specifiques_base_editoriale_list_agenda {
+		//appel de la fonction de placement de la sprite
+		@widgetTitleSprite("Default"; "section"; "agenda");
+	
+		.dm_widget_inner {
+			& > .title {
+				//complément de l'appel de la sprite sur le titre
+				&:after { @spriteBgp(@spriteFormat_M; @spriteOffX-section-agenda; @spriteOffY-section-agenda); }
+			}
+		}
 	}
 }

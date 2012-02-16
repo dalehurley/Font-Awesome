@@ -1,12 +1,17 @@
 <?php
 /**
+ * Framework SPLessCss components
  * 
+ * No redirection nor database manipulation ( insert, update, delete ) here
  */
 class debugComponents extends myFrontModuleComponents {
 	
 	public function executeDebug() {
 		//insertion de la CSS du widget du theme courant
-		$this->getResponse()->addStylesheet('/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/Debug/Debug.css');
+		$this->getResponse()->addStylesheet('/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/Debug/Debug.css');		
+		
+		//récupération des valeurs de configuration par défaut de la page
+		$pageTemplateOptionsDefault = sfConfig::get('pageOptions');;
 		
         // affichage de la page courante
         $idDmPage = sfContext::getInstance()->getPage()->id;
@@ -21,13 +26,47 @@ class debugComponents extends myFrontModuleComponents {
 								'info'	=>	'mainTemplate',
 								'value' =>	dmConfig::get('site_theme')
 							),
+//							array(
+//								'info'	=>	'templateVersion',
+//								'value' =>	sidSPLessCss::getLessParam('templateVersion')
+//							),
+//							array(
+//								'info'	=>	'templateDate',
+//								'value' =>	sidSPLessCss::getLessParam('templateDate')
+//							),
+							array(
+								'info'	=>	'templateGrid',
+								'value' =>	'Grid_Default'
+							),
+//							array(
+//								'info'	=>	'templateCopyright',
+//								'value' =>	sidSPLessCss::getLessParam('templateCopyright')
+//							),
+//							array(
+//								'info'	=>	'templateAuthor',
+//								'value' =>	sidSPLessCss::getLessParam('templateAuthor')
+//							),
+							array(
+								'info'	=>	'gridContainer',
+								'value' =>	'dm_main_inner'   // valeurs en "dur" car on ne stocke plus les variables less 
+							),
 							array(
 								'info'	=>	'gridColWidth',
-								'value' =>	'...' // a afficher à partir du css généré avec :after
+								'value' =>	'46px'            // valeurs en "dur" car on ne stocke plus les variables less 
 							),
 							array(
 								'info'	=>	'gridGutter',
-								'value' =>	'...' // a afficher à partir du css généré avec :after
+								'value' =>	'18px'            // valeurs en "dur" car on ne stocke plus les variables less 
+							),
+							array(
+								'info'	=>	'screenType'
+							),
+							array(
+								'info'	=>	'windowInnerWidth'
+							),
+							array(
+								'info'	=>	'windowOrientation',
+								'value'	=>	'n/a'
 							),
 							array(
 								'info'	=>	'pageCurrent',
@@ -38,6 +77,7 @@ class debugComponents extends myFrontModuleComponents {
 								'value'	=>	$layoutPage
 							)                    
 						);
+		
 		
 		//déclaration des variables se remplissant avec les valeurs et propriétés à afficher
 		$debugParam = array();
@@ -55,7 +95,15 @@ class debugComponents extends myFrontModuleComponents {
 		}
 		
 		$this->html = _open('div.debugTemplate', array('json' => $debugParam));
-
+		
+		//on affiche la génération des sprites car le getCLI n'est pas diponible en environnement de dev
+		/* plus de génération de sprite via le navigteur. A effectuer en ligne de commande
+		if($pageTemplateOptionsDefault['isLess']) {
+			$this->html.= _open('div.debugUtils');
+			$this->html.= _tag('button.spriteInit', array('type' => 'submit', 'formaction' => url_for('@spriteInit')), 'Génération des sprites');
+			$this->html.= _close('div.debugUtils');
+		}*/
+		
 		$this->html.= _open('div.debugInfo');
 		$this->html.= $debugDisplay;
 		$this->html.= _close('div.debugInfo');
@@ -63,3 +111,5 @@ class debugComponents extends myFrontModuleComponents {
 		$this->html.= _close('div.debugTemplate');
 	}
 }
+
+

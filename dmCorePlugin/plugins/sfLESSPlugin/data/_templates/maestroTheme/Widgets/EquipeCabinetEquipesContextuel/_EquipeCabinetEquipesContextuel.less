@@ -7,9 +7,16 @@
 //Config par défaut des widgets du template
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
-.equipe_cabinet_equipes_contextuel {
-	background-color: #D3B6DE;
-	.dm_widget_inner {
-		background-color: #CE8EE8;
+#dm_sidebar_left, #dm_sidebar_right {
+	.equipe_cabinet_equipes_contextuel {
+		//appel de la fonction de placement de la sprite
+		@widgetTitleSprite("Default"; "cabinet"; "equipe");
+	
+		.dm_widget_inner {
+			& > .title {
+				//complément de l'appel de la sprite sur le titre
+				&:after { @spriteBgp(@spriteFormat_M; @spriteOffX-cabinet-equipe; @spriteOffY-cabinet-equipe); }
+			}
+		}
 	}
 }
