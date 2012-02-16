@@ -83,8 +83,7 @@ if($isListing) {
 	if($isImage){
 		//dimensions de l'image
 //		$imageGridWidth = ($isLight) ? sidSPLessCss::getLessParam('thumbM_col') : sidSPLessCss::getLessParam('thumbL_col');
-//		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl')
-;
+//		$imageGridHeight = ($isLight) ? sidSPLessCss::getLessParam('thumbM_bl') : sidSPLessCss::getLessParam('thumbL_bl');
 		//options de l'image
 		$imageWrapperOpts = array(
 									'image'	=>	$image,
