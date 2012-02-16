@@ -11,13 +11,13 @@ class actusDuCabinetActuArticlesContextuelForm extends dmWidgetPluginForm {
                     'model' => 'SidActuType'
                 ));
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText();
-        $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
+        $this->widgetSchema['title_page'] = new sfWidgetFormInputText();
+        $this->validatorSchema['title_page'] = new sfValidatorString(array(
                     'required' => false
                 ));
 	
-        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('default' => 'TOUTES LES ACTUALITES DU CABINET'));
-        $this->validatorSchema['titreLien'] = new sfValidatorString(array(
+        $this->widgetSchema['lien'] = new sfWidgetFormInputText(array('default' => 'TOUTES LES ACTUALITES DU CABINET'));
+        $this->validatorSchema['lien'] = new sfValidatorString(array(
                     'required' => true
                 ));	
 
@@ -27,24 +27,21 @@ class actusDuCabinetActuArticlesContextuelForm extends dmWidgetPluginForm {
                     'required' => true
                 ));
         
-        $this->widgetSchema['longueurTexte'] = new sfWidgetFormInputText(array('default' => 0));
-        $this->validatorSchema['longueurTexte'] = new sfValidatorInteger(array(
+        $this->widgetSchema['length'] = new sfWidgetFormInputText(array('default' => 0));
+        $this->validatorSchema['length'] = new sfValidatorInteger(array(
                     'required' => false
                 ));
-        
-        $this->widgetSchema['photo'] = new sfWidgetFormInputCheckbox(array('default'=> true));
-        $this->validatorSchema['photo']  = new sfValidatorBoolean();
         
         $this->widgetSchema['chapo'] = new sfWidgetFormSelectRadio(array('choices' => array('chapeau','texte'),'default'=>1));
         $this->validatorSchema['chapo']  = new sfValidatorChoice(array('choices' =>array(0,1),'multiple' => false));
         
         $this->widgetSchema->setHelps(array(
             'type' => 'Le type de l\'article',
-            'titreBloc' => 'Le titre optionnel du bloc.', 
-            'titreLien' => "Le libellé du lien vers tous les articles actus.",	    
+            'title_page' => 'Le titre optionnel du bloc.', 
+            'lien' => "Le libellé du lien vers tous les articles actus.",	    
             'nbArticles' => 'Le nombre maximum d\'articles affichés.',            
-            'longueurTexte' => 'Longueur du texte avant de la tronquer',
-            'photo' => 'affiche ou pas la photo',
+            'length' => 'Longueur du texte avant de la tronquer',
+            'withImage' => 'affiche ou pas la photo',
             'chapo' => 'Choisir si on veut afficher le résumé de la page ou le contenu entier de la page'
         ));
 
