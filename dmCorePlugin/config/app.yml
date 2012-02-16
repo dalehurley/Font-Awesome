@@ -23,3 +23,6 @@ all:
     ellipsis: '&#160;(...)'
     #longueur de texte de description par défaut
     defaultValueLength: 200
+    
+  # nombre de photo pour les listings des articles BE ou du Cabinet
+  nb-image: 3

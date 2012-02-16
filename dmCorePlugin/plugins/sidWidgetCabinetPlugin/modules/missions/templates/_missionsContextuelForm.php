@@ -11,12 +11,14 @@ $form->renderGlobalErrors(),
 
 
 _tag('div',
- 
-    $form['titreBloc']->renderRow().
-    $form['titreLien']->renderRow().	
+    $form['title_page']->renderRow().
+    $form['lien']->renderRow().
+    $form['nbArticles']->renderRow().
     $form['length']->renderRow().
-    $form['nb']->renderRow().
-    $form['chapo']->renderRow()
+    $form['chapo']->renderRow().
+    $form['withImage']->renderRow().
+    $form['widthImage']->renderRow().
+    $form['heightImage']->renderRow()
     
          
   
