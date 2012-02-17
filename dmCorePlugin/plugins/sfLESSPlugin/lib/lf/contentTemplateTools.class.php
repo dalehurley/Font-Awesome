@@ -190,7 +190,7 @@ class contentTemplateTools {
 //        print_r($out);
 
         if (count($out) == 0)
-            $return[]['COMMENT'] = $file . ' ---> BD ' . $dbname;
+            $return[]['COMMENT'] = $file . ' ===> BD ' . $dbname;
 
         foreach ($out as $outLine) {
             if (strpos($outLine, 'ERROR') === false) {
@@ -211,11 +211,11 @@ class contentTemplateTools {
         // le dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
         $output = exec("cp -R " . $dirINassets ."/* ". $webDirName . "/;");
-        $return[]['COMMENT'] = 'copie des assets';
+        $return[]['COMMENT'] = 'copie des assets : '.$output;
         
         // load du dossier apps/front/modules/main
         $output = exec("cp -R " . $dirINmodule ."/* apps/front/modules/;");
-        $return[]['COMMENT'] = 'copie du module main du front';        
+        $return[]['COMMENT'] = 'copie du module main du front : '.$output;        
 
         return $return;
     }
