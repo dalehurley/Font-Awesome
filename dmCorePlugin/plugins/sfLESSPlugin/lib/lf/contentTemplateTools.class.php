@@ -96,9 +96,9 @@ class contentTemplateTools {
         // le nom du dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
         if (is_dir($dirOUTassets)){
-            $command = "rm -rf " . $dirOUTassets . ";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;";
+            $command = "rm -rf " . $dirOUTassets . ";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/uploads;";
         } else {
-            $command = "mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/;";
+            $command = "mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/uploads;";
         }
 
         $output = exec($command);
