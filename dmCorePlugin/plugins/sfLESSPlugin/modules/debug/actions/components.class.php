@@ -52,11 +52,11 @@ class debugComponents extends myFrontModuleComponents {
 							),
 							array(
 								'info'	=>	'gridColWidth',
-								'value' =>	'46px'            // valeurs en "dur" car on ne stocke plus les variables less 
+								'value' =>	'46'            // valeurs en "dur" car on ne stocke plus les variables less 
 							),
 							array(
 								'info'	=>	'gridGutter',
-								'value' =>	'18px'            // valeurs en "dur" car on ne stocke plus les variables less 
+								'value' =>	'18'            // valeurs en "dur" car on ne stocke plus les variables less 
 							),
 							array(
 								'info'	=>	'screenType'
@@ -111,5 +111,3 @@ class debugComponents extends myFrontModuleComponents {
 		$this->html.= _close('div.debugTemplate');
 	}
 }
-
-
