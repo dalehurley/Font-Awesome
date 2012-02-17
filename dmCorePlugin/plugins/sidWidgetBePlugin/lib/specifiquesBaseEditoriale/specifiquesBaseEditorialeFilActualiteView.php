@@ -11,7 +11,8 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
             'longueurTexte',
             'nbArticle',
             'section',
-            'photo'
+            'photo',
+            'widthImage'
         ));
     }
 	
@@ -94,7 +95,8 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                     'longueurTexte' => $vars['longueurTexte'],
                     'section' => $vars['section'],
                     'arrayRubrique' => $arrayRubrique,
-                    'photo' => $vars['photo']
+                    'photo' => $vars['photo'],
+                    'widthImage' => $vars['widthImage']
                 ));
     }
 
