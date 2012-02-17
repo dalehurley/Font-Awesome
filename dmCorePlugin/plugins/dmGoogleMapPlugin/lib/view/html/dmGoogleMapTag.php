@@ -95,10 +95,10 @@ class dmGoogleMapTag extends dmHtmlTag
     //récupération de l'adresse en base
     $adresseRequest = DmDb::table('SidCoordName')->findOneByIdAndIsActive($preparedAttributes['idCabinet'],true);
 	
+    //Ajout Arnaud : correction affichage de l'adresse sans partial
 	
-    //Ajout Arnaud : affichage de l'adresse
-	
-	//récupération du tiret
+	//récupération des différentes variables par défault
+	$separator =  _tag('span.separator', sfConfig::get('app_vars-partial_separator'));
 	$dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
 	
 	//html de sortie
@@ -108,11 +108,13 @@ class dmGoogleMapTag extends dmHtmlTag
 	//Sinon on n'affiche rien dans le titreBloc car normalement la première adresse est tjrs celle du siège social
 	$isSiegeSocial = ($adresseRequest->siege_social == true);
 	$titreBloc = sfContext::getInstance()->getI18N()->__('Map');
-	if($isSiegeSocial) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
-	/*
+	//if($isSiegeSocial) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
+	if($isSiegeSocial) $html.= _tag('h4.title', $titreBloc);
+	
 	//insertion de la carte GoogleMap
     $html.= '<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
 	
+	/*
 	//composition des options du partial d'adresse
 	$addressOpts = array(
 					'name' => $adresseRequest->getTitle(),
@@ -130,21 +132,65 @@ class dmGoogleMapTag extends dmHtmlTag
 	$html.= get_partial('global/schema/Thing/Organization', $addressOpts);
 	*/
 	
-	//début de débug Arnaud
+	//début de débug Arnaud sans partial
+	//ouverture de la div contenant l'adresse
 	$html.= _open('div.mapAddress.itemscope.Organization', array('itemtype' => 'http://schema.org/Organization', 'itemscope' => 'itemscope'));
 		$html.= _tag('span.itemprop.name', array('itemprop' => 'name'), $adresseRequest->getTitle());
+		
+		//ouverture container de l'adresse
 		$html.= _open('div.address.itemscope.PostalAddress', array('itemtype' => 'http://schema.org/PostalAddress', 'itemscope' => 'itemscope', 'itemprop' => 'address'));
-			//continuer à insérer ici le code avec les balises tags
-		$html.= _close('div');
-	$html.= _close('div');
+			//composition de streetAddress
+			$streetAddress = $adresseRequest->getAdresse();
+			if ($adresseRequest->getAdresse2() != NULL) $$streetAddress.= $dash . $adresseRequest->getAdresse2();
+			//insertion de l'adresse
+			$html.= _tag('span.itemprop.streetAddress',
+						_tag('span.type', array('title' => __('Street')), __('Street')) .
+						$separator .
+						_tag('span.value', array('itemprop' => 'streetAddress'), $streetAddress)
+					);
+			
+			//ouverture du subwrapper pour le code postal et la ville
+			$html.= _open('span.subWrapper');
+				$html.= _tag('span.itemprop.postalCode',
+						_tag('span.type', array('title' => __('Postal Code')), __('Postal Code')) .
+						$separator .
+						_tag('span.value', array('itemprop' => 'postalCode'), $adresseRequest->getCodePostal())
+					);
+				$html.= _tag('span.itemprop.addressLocality',
+						_tag('span.type', array('title' => __('Locality')), __('Locality')) .
+						$separator .
+						_tag('span.value', array('itemprop' => 'addressLocality'), $adresseRequest->getVille())
+					);
+			$html.= _close('span.subWrapper');
+		
+		//fermeture container de l'adresse
+		$html.= _close('div.address');
+		
+		//ajout du téléphone si non vide
+		if ($adresseRequest->getTel() != NULL) $html.= _tag('span.itemprop.telephone',
+															_tag('span.type', array('title' => __('Phone')), __('Phone')) .
+															$separator .
+															_tag('span.value', array('itemprop' => 'telephone'), $adresseRequest->getTel())
+														);
+		
+		//ajout du fax si non vide
+		if ($adresseRequest->getFax() != NULL) $html.= _tag('span.itemprop.faxNumber',
+															_tag('span.type', array('title' => __('Fax')), __('Fax')) .
+															$separator .
+															_tag('span.value', array('itemprop' => 'faxNumber'), $adresseRequest->getFax())
+														);
 	
+	//fermeture de la div contenant l'adresse
+	$html.= _close('div.mapAddress');
+	
+	return $html;
+	
+	
+	//ancien code brute de Stéphane
+	/*
 	// initialisation des variables
     $adresseCabinet = '';
     $titreBloc = '';
-	
-	
-	
-	
 	
 	$cabinet = '<div itemtype="http://schema.org/Organization" itemscope="itemscope" class="mapAddress itemscope Organization">';
 	$cabinet.= '<span itemprop="name" class="itemprop name">'.$adresseRequest->getTitle().'</span>';
@@ -172,6 +218,8 @@ class dmGoogleMapTag extends dmHtmlTag
     $tag = $titreBloc.'<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>'.$cabinet;
     
     return $tag;
+	 * 
+	 */
   }
 
   protected function prepareAttributesForHtml(array $attributes)
