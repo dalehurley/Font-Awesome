@@ -17,7 +17,7 @@ if (count($articles)) { // si nous avons des actu articles
     foreach ($articles as $article) {
 
     	echo '<li class="element itemscope Article first" itemscope="itemscope" itemtype="http://schema.org/Article">';
-    	echo _link($article)->set('.title.itemprop.name')->text(
+    	echo _link($article)->set('.link.link_box')->text(
       	   	'<span class="imageWrapper">'.
       	   		_media('/_images/lea' . $article->filename . '-p.jpg')->width($widthImage)->set('.image'). // ajouter itemprop="image"
 	      	'</span>'.
