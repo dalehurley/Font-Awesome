@@ -1,65 +1,52 @@
 <?php
-$html = '';
+$i = 1;
 
 if (count($articles)) { // si nous avons des actu articles
 	
-	//indique si le titre du bloc est le titre du contenu
-	$isTitleContent = false;
-	
-	//gestion affichage du titre
-    if($nbArticles == 1){
-        if ($titreBloc != true) {
-			$html.= get_partial('global/titleWidget', array('title' => current($articles)));
-			$isTitleContent = true;
-		}
-		else $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
-    }
-    else {
-        if ($titreBloc != true) $html.= get_partial('global/titleWidget', array('title' => __('The other news of the office')));
-        else $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
-    }
-	
-	//ouverture du listing
-    $html.= _open('ul.elements');
-	
-	//compteur
-	$count = 0;
-	$maxCount = count($articles);
-	
-	foreach ($articles as $article) {
-		//incrémentation compteur
-		$count++;
-		
-		//options de l'article
-		$articleOpt = array(
-						'description' => $article->getResume(),
-						'dateCreated' => $article->created_at,
-						'isDateMeta' => true,
-						'count' => $count,
-						'maxCount' => $maxCount,
-						'container' => 'li.element',
-						'isListing' => true,
-						'descriptionLength' => $longueurTexte,
-						'url' => $article
-					);
-		
-		//on active le titre du contenu que lorsqu'il n'est pas affiché dans le titre du widget
-		if(!$isTitleContent) $articleOpt['name'] = $article->getTitle();
-		
-		//on ajoute les photos pour les 3 premiers articles
-		if($count <= 3) $articleOpt['image'] = $article->getImage();
-		
-		//ajout de l'article
-		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
-    }
-	
-	//fermeture du listing
-    $html.= _close('ul.elements');
-    
+		//gestion affichage du titre
+    echo _tag('h4.title',$titreBloc);
+?>
+<ul class="elements">
+<?php		
+	foreach ($articles as $article) {  
+        $link = '';    ?>
+       <li class="element itemscope Article first last" itemtype="http://schema.org/Article" itemscope="itemscope">
+        
+       <?php
+        
+        if ($withImage == true) {
+            if (($article->getImage() != NULL) and ($i <= sfConfig::get('app_nb-image'))) {
+                $link .= '<span class="imageWrapper">';
+                $link .= _media($article->getImage())->width($width)->set('.image');
+                $link .= '</span>';
+            }
+        };
+        $link .='<span class="wrapper">
+                <span class="subWrapper">';
+
+                   if ($titreBloc != $article->getTitle()) {
+                       $link .= '<span class="title itemprop name" itemprop="name">' . $article->getTitle() . '</span>';
+                   };
+                   $link .= '<meta content="' . $article->createdAt . '" itemprop="datePublished">
+                </span>
+                <span class="teaser itemprop description" itemprop="description">';
+                   if ($chapo == 0) {
+                       $link .= stringTools::str_truncate($article->getResume(), $length, '(...)', true);
+                   } 
+                   else if ($chapo == 1) {
+                       $link .= $article->getText();
+                   }
+                   $link .= '</span></span>';
+      
+       echo _link($article)->set('.link_box')->text($link); 
+       $i++;   
+     ?>
+       </li>
+       <?php
+    } ?>
+</ul>
+<?php    
 } else {
 	// sinon on affiche la constante de la page concernée
-	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{actualites_du_cabinet}}'));
+	echo '{{actualites_du_cabinet}}';
 }
-
-//affichage html en sortie
-echo $html;
