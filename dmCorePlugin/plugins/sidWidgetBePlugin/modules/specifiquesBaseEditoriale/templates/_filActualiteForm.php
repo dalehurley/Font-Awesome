@@ -12,7 +12,8 @@ $form->renderGlobalErrors(),
         $form['nbArticle']->renderRow() .
         $form['section']->renderRow() .
         $form['titreLien']->renderRow().
-        $form['photo']->renderRow()
+        $form['photo']->renderRow().
+        $form['widthImage']->renderRow()
 );
 
 
