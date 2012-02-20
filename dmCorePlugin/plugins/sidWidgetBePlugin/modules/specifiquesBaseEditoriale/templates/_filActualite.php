@@ -15,7 +15,7 @@ if (count($articles)) { // si nous avons des actu articles
 	$maxCount = count($articles);
 	
     foreach ($articles as $article) {
-
+/*
     	echo '<li class="element itemscope Article first" itemscope="itemscope" itemtype="http://schema.org/Article">';
     	echo _link($article)->set('.link.link_box')->text(
       	   	'<span class="imageWrapper">'.
@@ -39,9 +39,9 @@ if (count($articles)) { // si nous avons des actu articles
       		echo '</li>';
       	echo '</ul>';
     echo '</li>';
+*/
 
 
-/*
 		//création d'un tableau de liens à afficher
 		$elements = array();
 		$elements[] = array('title' => $titreLien . '&#160;' . $arrayRubrique[$article->filename], 'linkUrl' => $article->Section);
@@ -60,7 +60,7 @@ if (count($articles)) { // si nous avons des actu articles
 												'navigationBottomElements' => $elements,
 												'url' => $article
 												));
-*/
+
 
 
     }
