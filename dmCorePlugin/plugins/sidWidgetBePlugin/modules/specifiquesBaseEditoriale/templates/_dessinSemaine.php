@@ -30,10 +30,21 @@ echo _tag('h4.title', $rubriqueTitle);
 
             <?php
             echo _open('ul.ad-thumb-list');
-
+			
+			//compteur
             $i = 0;
+			$maxCount = count($dessins);
+			
             foreach ($dessins as $dessin) {
-                echo _open('li');
+				
+				//ajout des options au li
+				$liOpts = array();
+				if($i == 0)				$liOpts['class'][] = 'first';
+				if($i >= $maxCount-1)	$liOpts['class'][] = 'last';
+				
+				//ouverture du li
+				echo _open('li.ad-thumb', $liOpts);
+				
                 //on vérifie que l'image existe
                 $imgExist = is_file(sfConfig::get('sf_web_dir') . $dessin['imgLinkBig']);
                 $imageDessin = "";
@@ -41,9 +52,9 @@ echo _tag('h4.title', $rubriqueTitle);
                 if($imgExist) {
                     $imageDessin = _link($dessin['imgLinkBig'])->text(
                             _media($dessin['imgLinkSmall'])
-                                    ->set('.image' . $i . ' title="' . $dessin['titre'] . ' ('.$dessin['dateArticle'].')"')
+                                    ->set('.image title="' . $dessin['titre'] . ' ('.$dessin['dateArticle'].')"')
                                     ->alt($dessin['chapeau'])
-                                    ->height(54)
+                                    ->height(72)
                             )
                     ;
                     $i++;
