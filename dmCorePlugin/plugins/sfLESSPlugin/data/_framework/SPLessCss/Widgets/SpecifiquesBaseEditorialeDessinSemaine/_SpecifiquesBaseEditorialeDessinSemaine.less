@@ -31,10 +31,16 @@
 			.isLess & { background-color: #89B8CC; }
 		}
 		.ad-prev {
-			.ad-prev-image { }
+			.isLess & { background-color: fadeout(#3A94BA, 75%); }
+			.ad-prev-image {
+				.isLess & { background-color: #D9252E; }
+			}
 		}
 		.ad-next {
-			.ad-next-image { }
+			.isLess & { background-color: fadeout(#44B3B1, 75%); }
+			.ad-next-image {
+				.isLess & { background-color: #D9252E; }
+			}
 		}
 		.ad-loader {
 			
@@ -83,7 +89,7 @@
 		.isLess & { background-color: #D68989; }
 		//suppression bordure et marge
 		border: 0;
-		margin: 0;
+		margin: 0 0 @gridBaseline 0;
 
 		.ad-thumbs {
 			.isLess & { background-color: #CCB4B4; }
@@ -107,6 +113,7 @@
 					.link {
 						//on force l'arrière plan sur du blanc car tous les dessins sont sur fond blanc
 						background-color: @colorWhite;
+						outline: 0;
 						overflow: hidden;
 
 						.image {

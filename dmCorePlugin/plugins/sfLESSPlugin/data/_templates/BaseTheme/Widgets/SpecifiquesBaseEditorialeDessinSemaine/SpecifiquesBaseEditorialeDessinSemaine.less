@@ -9,6 +9,7 @@
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/SpecifiquesBaseEditorialeDessinSemaine/_SpecifiquesBaseEditorialeDessinSemaine.less";
@@ -21,6 +22,27 @@
 		#dm_content & {
 			@gridWidth(@thumbContent_col);
 			@gridHeight(@thumbContent_bl);
+		}
+
+		//replacement en hauteur des icônes de navigation
+		.ad-prev .ad-prev-image, .ad-next .ad-next-image {
+			top: (@thumbContent_bl * @gridBaseline) / 2 - (@spriteFormat_M / 2);
+		}
+
+		//décalage pour alignement grille
+		@decalH: @gridColWidth - @spriteFormat_M;
+		//application des sprites
+		.ad-prev {
+			.ad-prev-image {
+				@spriteDefinition("Default"; "internet"; "back"; "M"; @spriteFormat_M; @spriteOffX-internet-back; @spriteOffY-internet-back);
+				left: @decalH;
+			}
+		}
+		.ad-next {
+			.ad-next-image {
+				@spriteDefinition("Default"; "internet"; "forward"; "M"; @spriteFormat_M; @spriteOffX-internet-forward; @spriteOffY-internet-forward);
+				right: @decalH;
+			}
 		}
 	}
 
