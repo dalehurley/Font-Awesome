@@ -1,5 +1,5 @@
 <?php
-// vars : $articles, $nbArticles, $titlePage, $lien, $length, $chapo, $width, $height
+// vars : $articles, $nbArticles, $titreBloc, $lien, $length, $chapo, $width, $height
 
 $i = 1;
 if (count($articles)) { // si nous avons des actu articles
@@ -7,7 +7,7 @@ if (count($articles)) { // si nous avons des actu articles
 	
 	
 	//gestion affichage du titre
-    echo _tag('h4.title',$titlePage);
+    echo _tag('h4.title',$titreBloc);
 ?>
 <ul class="elements">
 <?php		
@@ -17,16 +17,17 @@ if (count($articles)) { // si nous avons des actu articles
         
        <?php
         
-        if(($article->getImage() != NULL) and ($i <= sfConfig::get('app_nb-image'))){ 
-        $link .= '<span class="imageWrapper">';
-        $link .= _media($article->getImage())->width($width)->set('.image');
-        $link .= '</span>';
-        
+        if ($withImage == true) {
+            if (($article->getImage() != NULL) and ($i <= sfConfig::get('app_nb-image'))) {
+                $link .= '<span class="imageWrapper">';
+                $link .= _media($article->getImage())->width($width)->set('.image');
+                $link .= '</span>';
+            }
         };
         $link .='<span class="wrapper">
                 <span class="subWrapper">';
 
-                   if ($titlePage != $article->getTitle()) {
+                   if ($titreBloc != $article->getTitle()) {
                        $link .= '<span class="title itemprop name" itemprop="name">' . $article->getTitle() . '</span>';
                    };
                    $link .= '<meta content="' . $article->createdAt . '" itemprop="datePublished">

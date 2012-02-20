@@ -11,13 +11,13 @@ _tag('div',
  
     $form['page']->renderRow().
     $form['length']->renderRow().
-    $form['title_page']->renderRow().
+    $form['titreBloc']->renderRow().
     $form['lien']->renderRow().
     $form['withImage']->renderRow().
     $form['widthImage']->renderRow().
     $form['heightImage']->renderRow()
           
-); 
+);
 
 
 

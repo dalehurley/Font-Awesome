@@ -8,9 +8,11 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
         $this->addRequiredVar(array(
             'titreBloc',
             'nbArticles',
-            'longueurTexte',
-            'photo',
-            'chapo'
+            'length',
+            'withImage',
+            'chapo',
+            'heightImage',
+            'widthImage'
         ));
     }
 
@@ -26,56 +28,52 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
         $arrayArticle = array();
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-
+        
+        
+        $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars["nbArticles"];
+        
         switch ($dmPage->module . '/' . $dmPage->action) {
-
+            // si on est dans la page d'un article su cabinet, on enlève de la liste des articles en bas de page l'article qui est affiché ($dmPage->record_id)
             case 'sidActuArticle/show':
-                if ($vars['nbArticles'] == 0) {
-                    $nb = dmDb::table('SidActuArticle')->count();
-                }
-                else
-                    $nb = $vars['nbArticles'];
-
+                
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidActuArticle a')
                             ->leftJoin('a.Translation b')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('a.is_active = ? and sata.sid_actu_type_id = ? and a.id <> ?', array(true, $vars['type'], $dmPage->record_id))
                         ->orderBy('b.updated_at DESC')
-                        ->limit($nb)
+                        ->limit($nbArticles)
                         ->execute();
 
                 foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
                     $arrayArticle[$actuArticle->id] = $actuArticle;
                 }
                 break;
+            // pour affichage du listing des articles du cabinet quand on est sur la page "Actualités du cabinet"
             default:
-                if ($vars['nbArticles'] == 0) {
-                    $nb = dmDb::table('SidActuArticle')->count();
-                }
-                else
-                    $nb = $vars['nbArticles'];
-
+                
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidActuArticle a')
                             ->leftJoin('a.Translation b')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('a.is_active = ? and sata.sid_actu_type_id = ?', array(true, $vars['type']))
                         ->orderBy('b.updated_at DESC')
-                        ->limit($nb)
+                        ->limit($nbArticles)
                         ->execute();
 
                 foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
                     $arrayArticle[$actuArticle->id] = $actuArticle;
                 }
         }
-
+        $vars['titreBloc'] = ($vars['titreBloc'] == NULL || $vars['titreBloc'] == ' ') ? $dmPage->getName() : $vars['titreBloc'];
         return $this->getHelper()->renderPartial('actusDuCabinet', 'actuArticlesList', array(
                     'articles' => $arrayArticle,
                     'nbArticles' => $vars['nbArticles'],
                     'titreBloc' => $vars['titreBloc'],
-                    'longueurTexte' => $vars['longueurTexte'],
-                    'photo' => $vars['photo'],
+                    'length' => $vars['length'],
+                    'width' => $vars['widthImage'],
+                    'height' => $vars['heightImage'],
+                    'withImage' => $vars['withImage'],
                     'chapo' => $vars['chapo'],
                 ));
     }
