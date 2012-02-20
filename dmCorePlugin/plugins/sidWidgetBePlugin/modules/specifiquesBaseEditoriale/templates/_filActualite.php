@@ -11,10 +11,21 @@ if (count($articles)) { // si nous avons des actu articles
     echo _open('ul.elements');
 	
 	//compteur
-	$count = 0;
-	$maxCount = count($articles);
+	$i = 1;
+	$i_max = count($articles);
 	
     foreach ($articles as $article) {
+    	$position = '';
+        switch ($i){
+            case '1' : 
+            	if ($i_max == 1) $position = ' first last';
+            	else $position = ' first';
+                break;
+            default : 
+            	if ($i == $i_max) $position = ' last';
+            	else $position = '';
+            	break;
+        }
 
 		// gestion de l'image    	
     	$imageFile = '/_images/lea' . $article->filename . '-p.jpg';
@@ -25,7 +36,7 @@ if (count($articles)) { // si nous avons des actu articles
 	      	'</span>';
 	    }
 	    // affichage de l'article
-    	echo '<li class="element itemscope Article first" itemscope="itemscope" itemtype="http://schema.org/Article">';
+    	echo '<li class="element itemscope Article'.$position.'" itemscope="itemscope" itemtype="http://schema.org/Article">';
     	echo _link($article)->set('.link.link_box')->text(
     		$imageHtml.
 	      	'<span class="wrapper">'.
@@ -47,7 +58,7 @@ if (count($articles)) { // si nous avons des actu articles
       		'</ul>';
 
     	echo '</li>';
-
+    	$i++;
 
 /*
 		//création d'un tableau de liens à afficher
