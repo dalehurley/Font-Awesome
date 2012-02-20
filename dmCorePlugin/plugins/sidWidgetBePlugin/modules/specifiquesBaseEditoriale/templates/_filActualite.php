@@ -16,11 +16,18 @@ if (count($articles)) { // si nous avons des actu articles
 	
     foreach ($articles as $article) {
 
+		// gestion de l'image    	
+    	$imageFile = '/_images/lea' . $article->filename . '-p.jpg';
+    	$imageHtml = '';
+    	if (is_file(sfConfig::get('sf_web_dir').$imageFile)){
+      	   	$imageHtml = '<span class="imageWrapper">'.
+      	   		_media($imageFile)->width($widthImage)->set('.image itemprop="image"')->alt($article). 
+	      	'</span>';
+	    }
+	    // affichage de l'article
     	echo '<li class="element itemscope Article first" itemscope="itemscope" itemtype="http://schema.org/Article">';
     	echo _link($article)->set('.link.link_box')->text(
-      	   	'<span class="imageWrapper">'.
-      	   		_media('/_images/lea' . $article->filename . '-p.jpg')->width($widthImage)->set('.image itemprop="image"')->alt($article). // ajouter itemprop="image"
-	      	'</span>'.
+    		$imageHtml.
 	      	'<span class="wrapper">'.
 	      		'<span class="subWrapper">'.
 	      			'<span class="title itemprop name" itemprop="name">'.$article.'</span>'.
@@ -31,15 +38,15 @@ if (count($articles)) { // si nous avons des actu articles
 		    '</span>'
 		);
 
-	    echo '<ul class="elements">';
-      		echo '<li class="element first last">';
-      			echo '<span class="navigationWrapper navigationBottom">';
-      				echo _link($article->getSection())->set('.link')->text($titreLien.' '.$article->getRubriquePageTitle());
-      				
-      			echo '</span>';
-      		echo '</li>';
-      	echo '</ul>';
-    echo '</li>';
+	    echo '<ul class="elements">'.
+      			'<li class="element first last">'.
+      				'<span class="navigationWrapper navigationBottom">'.
+      				_link($article->getSection())->set('.link')->text($titreLien.' '.$article->getRubriquePageTitle()).
+      				'</span>'.
+      			'</li>'.
+      		'</ul>';
+
+    	echo '</li>';
 
 
 /*
