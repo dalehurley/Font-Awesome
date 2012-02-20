@@ -18,7 +18,7 @@
                      width: false,
                      height: false,
                      display_next_and_prev: true,
-                     display_back_and_forward: true,
+                     display_back_and_forward: false,
                      scroll_jump: 0, // If 0, it jumps the width of the container
                      slideshow: {
                        enable: true,
