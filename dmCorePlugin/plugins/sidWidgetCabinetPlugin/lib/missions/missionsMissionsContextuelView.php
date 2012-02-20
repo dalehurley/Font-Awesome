@@ -6,11 +6,14 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'titreBloc',
-            'titreLien',
+            'title_page',
+            'lien',
+            'nbArticles',
             'length',
-            'nb',
-            'chapo'
+            'chapo',
+            'widthImage',
+            'heightImage',
+            'withImage'
         ));
     }
 	
@@ -44,7 +47,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                         ->leftJoin('p.SidCabinetMissionSidRubrique sas')
                         ->leftJoin('sas.SidRubrique s')
                         ->where('s.id = ? AND p.is_active  = ? ', array($recordId, true))
-                        ->limit($vars['nb'])
+                        ->limit($vars['nbArticles'])
                         ->execute();
                 // Si il n'y a pas de missions associées, on en affiche Nb classée aléatoirement
 
@@ -55,7 +58,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                             ->select('*')
                             ->where('p.is_active = ? ', array(true))
                             ->orderBy('RANDOM()')
-                            ->limit($vars['nb'])
+                            ->limit($vars['nbArticles'])
                             ->execute();
                 }
                 foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
@@ -72,7 +75,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                             ->leftJoin('p.SidCabinetMissionSidRubrique sas')
                             ->leftJoin('sas.SidRubrique s')
                             ->where('s.id = ? ', array($rubrique->id))
-                            ->limit($vars['nb'])
+                            ->limit($vars['nbArticles'])
                             ->execute();
                     // Si il n'y a pas de missions associées, on en affiche Nb classée aléatoirement
 
@@ -83,7 +86,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                                 ->select('*')
                                 ->where('p.is_active = ? ', array(true))
                                 ->orderBy('RANDOM()')
-                                ->limit($vars['nb'])
+                                ->limit($vars['nbArticles'])
                                 ->execute();
                     }
                     foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
@@ -118,7 +121,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                                 ->select('*')
                                 ->where('p.is_active = ? ', array(true))
                                 ->orderBy('RANDOM()')
-                                ->limit($vars['nb'])
+                                ->limit($vars['nbArticles'])
                                 ->execute();
                     }
                     foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
@@ -138,22 +141,49 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                     ->leftJoin('a.Translation b')
                         ->orderBy('b.updated_at DESC')
                         ->where('a.is_active = ?', array(true))
-                        ->limit($vars['nb'])
+                        ->limit($vars['nbArticles'])
                         ->execute();
                 foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
                     $arrayMission[$actuMission->id] = $actuMission;
                 }
         }
-
-
+        
+        
+        
+// je vérifie que le titre de la page n'esxiste pas ou est égal à un espace
+        if ($vars['title_page'] == NULL || $vars['title_page'] == " ") {
+            // je vérifie le nbre d'article
+            // si un seul , on affiche en titre le titre de l'article
+            if ($vars['nbArticles'] == 1) {
+                $vars['title_page'] = current($arrayMission)->getTitle();
+            } 
+            // si plusieurs articles, on affiche en titre le nom de la page parente à ces articles
+            elseif ($vars['nbArticles'] > 1){
+                $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('sidActuArticle', 'list');
+                $vars['title_page'] = $namePage->getName();
+            }
+        }
+       
+        ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
         return $this->getHelper()->renderPartial('missions', 'missionsContextuel', array(
-                    'missions' => $arrayMission,
-                    'titreBloc' => $vars['titreBloc'],
-                    'titreLien' => $vars['titreLien'],
-                    'chapo' => $vars['chapo'],
+                    'articles' => $arrayMission,
+                    'nbArticles' => $vars['nbArticles'],
+                    'titlePage' => $vars['title_page'],
+                    'lien' => $lien,
                     'length' => $vars['length'],
-                    'nb' => $vars['nb']
+                    'chapo' => $vars['chapo'],
+                    'width' => $vars['widthImage'],
+                    'height' => $vars['heightImage']
                 ));
+
+//        return $this->getHelper()->renderPartial('missions', 'missionsContextuel', array(
+//                    'missions' => $arrayMission,
+//                    'titreBloc' => $vars['titreBloc'],
+//                    'titreLien' => $vars['titreLien'],
+//                    'chapo' => $vars['chapo'],
+//                    'length' => $vars['length'],
+//                    'nb' => $vars['nb']
+//                ));
     }
 
 }

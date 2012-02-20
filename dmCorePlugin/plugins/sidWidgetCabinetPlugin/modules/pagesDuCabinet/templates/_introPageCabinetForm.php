@@ -10,9 +10,12 @@ $form->renderGlobalErrors(),
 _tag('div',
  
     $form['page']->renderRow().
-    $form['lenght']->renderRow().
+    $form['length']->renderRow().
     $form['title_page']->renderRow().
-    $form['lien']->renderRow()
+    $form['lien']->renderRow().
+    $form['withImage']->renderRow().
+    $form['widthImage']->renderRow().
+    $form['heightImage']->renderRow()
           
 ); 
 

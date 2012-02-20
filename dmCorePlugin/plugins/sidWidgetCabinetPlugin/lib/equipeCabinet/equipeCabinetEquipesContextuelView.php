@@ -9,7 +9,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
             'titreBloc',
             'titreLien',
             'nb',
-            'lenght'
+            'length'
         ));
     }
 	
@@ -202,7 +202,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                     'titreBloc' => $vars['titreBloc'],
                     'titreLien' => $vars['titreLien'],
                     'pageEquipe' => $pageEquipe[0],
-                    'lenght' => $vars['lenght'],
+                    'length' => $vars['length'],
                     'rubrique' => $arrayRubrique,
                     'nomRubrique' => $arrayNomRubrique
                 ));
