@@ -15,33 +15,34 @@ if (count($articles)) { // si nous avons des actu articles
 	$maxCount = count($articles);
 	
     foreach ($articles as $article) {
-/*
+
     	echo '<li class="element itemscope Article first" itemscope="itemscope" itemtype="http://schema.org/Article">';
     	echo _link($article)->set('.link.link_box')->text(
       	   	'<span class="imageWrapper">'.
-      	   		_media('/_images/lea' . $article->filename . '-p.jpg')->width($widthImage)->set('.image'). // ajouter itemprop="image"
+      	   		_media('/_images/lea' . $article->filename . '-p.jpg')->width($widthImage)->set('.image itemprop="image"')->alt($article). // ajouter itemprop="image"
 	      	'</span>'.
 	      	'<span class="wrapper">'.
 	      		'<span class="subWrapper">'.
-	      			'<span class="title itemprop name" itemprop="name">Retrait du permis de conduire et contrat de travail</span>'.
+	      			'<span class="title itemprop name" itemprop="name">'.$article.'</span>'.
 	      		'</span>'.
-	      		'<span class="teaser itemprop description" itemprop="description">Le retrait ou la suspension du permis de conduire en raison dinfractions'.
-	      			'<span class="ellipsis">&nbsp;(...)</span>'.
+	      		'<span class="teaser itemprop description" itemprop="description">'.
+		      		stringTools::str_truncate($article->getChapeau(), $longueurTexte, '(...)', true).
 		      	'</span>'.
 		    '</span>'
-);
+		);
 
 	    echo '<ul class="elements">';
       		echo '<li class="element first last">';
       			echo '<span class="navigationWrapper navigationBottom">';
-      				echo '<a class="link" href="/dev.php/rubriques/social/actualites">Lactualit&Atilde;&copy;en&nbsp;Social</a>';
+      				echo _link($article->getSection())->set('.link')->text($titreLien.' '.$article->getRubriquePageTitle());
+      				
       			echo '</span>';
       		echo '</li>';
       	echo '</ul>';
     echo '</li>';
-*/
 
 
+/*
 		//création d'un tableau de liens à afficher
 		$elements = array();
 		$elements[] = array('title' => $titreLien . '&#160;' . $arrayRubrique[$article->filename], 'linkUrl' => $article->Section);
@@ -60,7 +61,7 @@ if (count($articles)) { // si nous avons des actu articles
 												'navigationBottomElements' => $elements,
 												'url' => $article
 												));
-
+*/
 
 
     }
