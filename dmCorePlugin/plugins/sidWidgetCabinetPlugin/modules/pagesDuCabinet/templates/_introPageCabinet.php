@@ -1,9 +1,7 @@
 <?php
-
-
 if (count($pageCabinet)) { // si nous avons des actu articles
 	
-    echo _tag('h4.title',$titlePage);
+    echo _tag('h4.title',$titreBloc);
     ?>
     
 <ul class="elements">
@@ -12,16 +10,16 @@ if (count($pageCabinet)) { // si nous avons des actu articles
         
         <?php
         $link = '';
-        if((isset($image)) AND ($image!= '')){ 
+        if($pageCabinet->getImage()->checkFileExists() == true){ 
         $link .= '<span class="imageWrapper">';
-        $link .= _media($image)->width($width)->set('.image');
+        $link .= _media($pageCabinet->getImage())->width($width)->set('.image')->alt($pageCabinet->getTitle());
         $link .= '</span>';
         
         };
                 $link .='<span class="wrapper">
                 <span class="subWrapper">';
         
-                    if($titlePage != $pageCabinet->getTitle()){
+                    if($titreBloc != $pageCabinet->getTitle()){
                     $link .= '<span class="title itemprop name" itemprop="name">'.$pageCabinet->getTitle().'</span>';
                     };
                     $link .= '<meta content="'.$pageCabinet->createdAt.'" itemprop="datePublished">
@@ -40,7 +38,7 @@ if (count($pageCabinet)) { // si nous avons des actu articles
                 <li class="element first last">
                     <?php echo _link('pageCabinet/list')->set('.link_box')->text($lien); ?>
                 </li>
-        </ul>
+            </ul>
         </div>
         <?php
     }

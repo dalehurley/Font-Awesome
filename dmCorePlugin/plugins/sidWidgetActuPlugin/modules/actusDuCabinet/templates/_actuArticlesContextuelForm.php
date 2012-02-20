@@ -15,7 +15,7 @@ $form->renderGlobalErrors(),
 
 _tag('div',
     $form['type']->renderRow().
-    $form['title_page']->renderRow().
+    $form['titreBloc']->renderRow().
     $form['lien']->renderRow().	
     $form['nbArticles']->renderRow().
     $form['length']->renderRow().
