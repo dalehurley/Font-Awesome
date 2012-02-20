@@ -123,22 +123,39 @@
 //TEMPORAIRE : DÉFINITION DES DIMENSIONS DIRECTEMENT EN CSS EN ATTENDANT IMPLÉMENTATION HAUTEUR PROPREMENT DANS LES WIDGETS
 .imageWrapper {
 	//dans les listings de contenu
-	#dm_content .elements .element & {
+	.elements .element & {
 		.isLess & {background-color: #B550A9; }
 		overflow: hidden;
-		//application dimensions en dur
-		@gridWidth(@thumbL_col);
-		@gridHeight(@thumbL_bl);
 		//on remet le décalage  à l'extérieur du container car l'image est positionnée en absolute
 		margin-left: @gridGutter;
+		
+		//application dimensions en dur
+		#dm_content & {
+			@gridWidth(@thumbL_col);
+			@gridHeight(@thumbL_bl);
+		}
+
+		#dm_sidebar_right & {
+			@gridWidth(@thumbSidebarRight_col);
+			@gridHeight(@thumbSidebarRight_bl);
+		}
+		
+		//replacement de l'image
 		.image {
 			.isLess & {background-color: #6150B5; }
 			position: absolute;
 			float: none;
-			top: 50%;
 			margin: 0;
+
 			//valeur arbitraire de replacement car on ne connait par forcément la hauteur de l'image
-			margin-top: -25%;
+			#dm_content &, #dm_sidebar_right & { top: 50%; margin-top: -25%; }
+
+			//débug de dimensions sur certaines images biens précises de la base éditoriale au format P (appliqué manuellement sur chaque widget ou c'est nécessaire)
+			#dm_sidebar_right .specifiques_base_editoriale_fil_actualite & {
+				top: 0; margin-top: 0;
+				@gridWidth(@thumbSidebarRight_col);
+				@gridHeight(@thumbSidebarRight_bl);
+			}
 		}
 	}
 }
