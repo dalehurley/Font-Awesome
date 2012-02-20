@@ -40,8 +40,8 @@ class actusDuCabinetActuArticleShowView extends dmWidgetPluginView {
         return $this->getHelper()->renderPartial('actusDuCabinet', 'actuArticleShow', array(
                     'articles' => $actuArticles,
                     'titreBloc' => $vars['titreBloc'],
-                    'widthImage' => $vars['widthImage'],
-                    'heightImage' => $vars['heightImage']
+                    'width' => $vars['widthImage'],
+                    'height' => $vars['heightImage']
             
                 ));        
 

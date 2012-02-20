@@ -34,9 +34,9 @@ if(count($articles)){
 echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));  
 echo _open('header', array('class' => 'contentHeader'));
 
-        if ($article->getImage() != NULL) {
+        if ($article->getImage()->checkFileExists() == true) {
             echo _open('div', array('class' => 'imageFullWrapper'));
-            if($widthImage != null) {echo  _media($article->getImage())->width($widthImage)->set('.image')->alt($article->getTitle());}
+            if($width != null) {echo  _media($article->getImage())->width($width)->set('.image')->alt($article->getTitle());}
             echo _close('div');
         }
 echo _tag('h1', array('class' => 'title itemprop name', 'itemprop' => "name"), $article->getTitle());
@@ -53,6 +53,7 @@ echo _close('article');
 
 
 }else{
+    echo _tag('h2.title', $titreBloc);
 	echo '{{actualites_du_cabinet}}';
 }
 
