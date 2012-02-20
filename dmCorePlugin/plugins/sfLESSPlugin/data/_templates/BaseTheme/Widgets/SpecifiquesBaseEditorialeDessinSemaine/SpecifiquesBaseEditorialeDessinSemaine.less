@@ -14,5 +14,34 @@
 @import "_framework/SPLessCss/Widgets/SpecifiquesBaseEditorialeDessinSemaine/_SpecifiquesBaseEditorialeDessinSemaine.less";
 
 .specifiques_base_editoriale_dessin_semaine {
-	
+
+
+	.ad-image-wrapper {
+		//application dimensions de l'image
+		#dm_content & {
+			@gridWidth(@thumbContent_col);
+			@gridHeight(@thumbContent_bl);
+		}
+	}
+
+	.ad-descriptions {
+		.ad-image-description {
+			//on recopie le style des titres de listing
+			.ad-description-title {
+				//changement de la police spécifique à Ténor
+				font-family: @fontGlobalFamilySerif;
+				font-weight: bold;
+				color: @colorText;
+			}
+		}
+	}
+
+	.ad-thumb-list {
+		.ad-thumb .link {
+			#dm_content & {
+				@gridWidth(@thumbM_col);
+				@gridHeight(@thumbM_bl);
+			}
+		}
+	}
 }
