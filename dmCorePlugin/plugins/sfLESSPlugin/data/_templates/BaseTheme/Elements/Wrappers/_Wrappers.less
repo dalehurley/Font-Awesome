@@ -120,6 +120,29 @@
 	}
 }
 
+//TEMPORAIRE : DÉFINITION DES DIMENSIONS DIRECTEMENT EN CSS EN ATTENDANT IMPLÉMENTATION HAUTEUR PROPREMENT DANS LES WIDGETS
+.imageWrapper {
+	//dans les listings de contenu
+	#dm_content .elements .element & {
+		.isLess & {background-color: #B550A9; }
+		overflow: hidden;
+		//application dimensions en dur
+		@gridWidth(@thumbL_col);
+		@gridHeight(@thumbL_bl);
+		//on remet le décalage  à l'extérieur du container car l'image est positionnée en absolute
+		margin-left: @gridGutter;
+		.image {
+			.isLess & {background-color: #6150B5; }
+			position: absolute;
+			float: none;
+			top: 50%;
+			margin: 0;
+			//valeur arbitraire de replacement car on ne connait par forcément la hauteur de l'image
+			margin-top: -25%;
+		}
+	}
+}
+
 //listings d'éléments diverses (article, personnes, organisations, etc)
 .elements {
 	margin: 0 (@zonesOffsetPad * -1 +1px);
