@@ -38,9 +38,17 @@
 
 	.ad-thumb-list {
 		.ad-thumb .link {
+			border: 1px solid @zonesBorderColor;
+			&.ad-active { border: 2px solid @colorCouleur1; }
+
 			#dm_content & {
-				@gridWidth(@thumbM_col);
-				@gridHeight(@thumbM_bl);
+				//on soustrait l'épaisseur de la bordure
+				@gridWidth(@thumbM_col; 2px);
+				@gridHeight(@thumbM_bl; 2px);
+				&.ad-active {
+					@gridWidth(@thumbM_col; 4px);
+					@gridHeight(@thumbM_bl; 4px);
+				}
 			}
 		}
 	}
