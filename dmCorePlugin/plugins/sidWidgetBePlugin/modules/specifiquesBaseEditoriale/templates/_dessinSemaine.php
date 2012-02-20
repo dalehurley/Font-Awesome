@@ -38,17 +38,17 @@ echo _tag('h4.title', $rubriqueTitle);
                 $imgExist = is_file(sfConfig::get('sf_web_dir') . $dessin['imgLinkBig']);
                 $imageDessin = "";
                 // on teste si le fichier image est présent sur le serveur avec son chemin absolu
-                if ($imgExist) {
+                if($imgExist) {
                     $imageDessin = _link($dessin['imgLinkBig'])->text(
                             _media($dessin['imgLinkSmall'])
                                     ->set('.image' . $i . ' title="' . $dessin['titre'] . ' ('.$dessin['dateArticle'].')"')
                                     ->alt($dessin['chapeau'])
-                                    ->height(60)
+                                    ->height(54)
                             )
                     ;
                     $i++;
                 }
-
+				
                 echo $imageDessin;
                 echo _close('li');
             }
