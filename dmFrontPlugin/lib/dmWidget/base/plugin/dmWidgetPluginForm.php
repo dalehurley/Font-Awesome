@@ -40,7 +40,7 @@ abstract class dmWidgetPluginForm extends dmWidgetBaseForm
                 ));
         
     $this->widgetSchema['chapo'] = new sfWidgetFormSelectRadio(array('choices' => array('chapeau','texte'),'default'=>1));
-    $this->validatorSchema['chapo']  = new sfValidatorChoice(array('choices' =>array(0,1),'multiple' => false));
+    $this->validatorSchema['chapo']  = new sfValidatorChoice(array('choices' =>array(0,1),'multiple' => false,'required' => false));
     
     $this->widgetSchema->setHelps(array(
                 'widthImage' => 'Largeur de l\'image',
@@ -48,7 +48,7 @@ abstract class dmWidgetPluginForm extends dmWidgetBaseForm
                 'nbArticles' => 'Le nombre maximum d\'articles affichés - 0 pour afficher la liste complète.',
                 'length' => 'Longueur du texte avant de le tronquer',
                 'withImage' => 'affiche ou pas la photo',
-                'lien' => 'lien vers la page parent de l\'article',
+//                'lien' => 'lien vers la page parent de l\'article',
                 'titreBloc' => 'Le titre optionnel du bloc.',
                 'chapo' => 'Choisir si on veut afficher le résumé de la page ou le contenu entier de la page'
                 
