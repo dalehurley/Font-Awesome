@@ -7,9 +7,6 @@ echo _tag('h4.title', $rubriqueTitle);
 ?>
 
 <div class="ad-gallery">
-    <div class="ad-image-wrapper"></div>
-    <div class="ad-controls"></div>
-    <div class="ad-descriptions"></div>
     <div class="ad-nav">
         <div class="ad-thumbs">
 
@@ -69,6 +66,9 @@ echo _tag('h4.title', $rubriqueTitle);
 
         </div>
     </div>
+    <div class="ad-image-wrapper"></div>
+    <div class="ad-controls"></div>
+    <div class="ad-descriptions"></div>
 </div>
 
 
