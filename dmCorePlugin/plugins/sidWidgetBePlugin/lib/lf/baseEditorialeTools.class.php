@@ -62,7 +62,7 @@ class baseEditorialeTools {
                         $arrayJson = array();
                         $j = 0;
                         foreach ($articles as $article) {
-                            echo '----'.$article->filename;
+                            //echo '----'.$article->filename;
                             $arrayJson[$j]['filename'] = $article->filename;
                             $arrayJson[$j]['isActive'] = $article->getIsActive();
                             $arrayJson[$j]['isDossier'] = $article->getIsDossier();

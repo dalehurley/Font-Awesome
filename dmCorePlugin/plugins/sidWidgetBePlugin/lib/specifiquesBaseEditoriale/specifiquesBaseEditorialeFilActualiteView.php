@@ -52,23 +52,36 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                 break;
             
             default :
-            // je récupère les ids des articles appartenants aux sections choisies
-            $listSectionId = '';
-            foreach ($vars['section'] as $section) {
-                $listSectionId .= $section.',';
+            $listSectionId = implode(",", $vars['section']);
+            // requete brute
+            $req = '    SELECT s.id FROM sid_article s LEFT JOIN sid_article_translation s2 
+                        ON s.id = s2.id 
+                        WHERE s.is_active = true
+                        and s.section_id in ('.$listSectionId.')
+                        group by s.section_id
+                        ORDER BY s2.updated_at DESC
+                        LIMIT '.$vars['nbArticle'];
+
+            $articleIds = dmDb::pdo($req, array(), dmDb::table('SidArticle')->getConnection())->fetchAll(PDO::FETCH_COLUMN);
+
+            foreach ($articleIds as $articleId) {
+                $arrayFilActus[] = dmDb::table('SidArticle')->find($articleId);
             }
-                // je récupère UN article (le plus récemment mis à jour) de chaque section
-                $arrayFilActus = dmDb::table('SidArticle')
-                        ->createQuery('a')
-                        ->select('DISTINCT a.section_id as some_column')
-                        ->leftJoin('a.Translation b')
-                        ->where('a.section_id in (?) AND a.is_active = ?', array($listSectionId, true))
-                        ->orderBy('b.updated_at DESC')
-                        ->limit($vars['nbArticle'])
-                        ->fetchArray();
-                        //->execute();
+
+            // je récupère UN article (le plus récemment mis à jour) de chaque section
+            /*
+            $arrayFilActus = dmDb::table('SidArticle')
+                ->createQuery('a')
+                ->leftJoin('a.Translation b')
+                ->where('a.section_id in (?) AND a.is_active = ?', array($listSectionId, true))
+                ->groupBy('a.section_id')
+                ->orderBy('b.updated_at DESC')
+                ->limit($vars['nbArticle'])
+                ->execute();
+            */    
         }
-        
+
+
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'filActualite', array(
                     'articles' => $arrayFilActus,
                     'titreBloc' => $vars['titreBloc'],
