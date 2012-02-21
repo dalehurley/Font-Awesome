@@ -4,8 +4,8 @@
 <g>
 	
 		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-453.6665" y1="6735.0371" x2="-453.6665" y2="6688.7842" gradientTransform="matrix(1 0 0 -1 493.0049 6743.9102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<path fill="url(#SVGID_1_)" d="M56.892,30.48L31.008,9.504c-0.757-0.617-1.898-0.8-2.89-0.468
 		c-0.991,0.334-1.637,1.117-1.637,1.985v9.269h-5.475v23.42h5.474v9.269c0,0.869,0.647,1.653,1.638,1.982

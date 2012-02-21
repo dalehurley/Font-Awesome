@@ -4,11 +4,9 @@
 <g>
 	<g>
 		<radialGradient id="SVGID_1_" cx="297.5" cy="-357" r="27.0991" gradientTransform="matrix(1 0 0 -1 -265.5 -325)" gradientUnits="userSpaceOnUse">
-			<stop  offset="0.7582" style="stop-color:#000000"/>
-			<stop  offset="0.7962" style="stop-color:#050607"/>
-			<stop  offset="0.8511" style="stop-color:#14181A"/>
-			<stop  offset="0.9162" style="stop-color:#2C3539"/>
-			<stop  offset="0.99" style="stop-color:#4D5D65"/>
+			<stop  offset="0.80" style="stop-color:##spriteCouleurBlack##"/>
+			<stop  offset="0.98" style="stop-color:##spriteCouleur2Fonce##"/>
+			<stop  offset="1" style="stop-color:##spriteCouleur2FonceSup##"/>
 		</radialGradient>
 		<path fill="url(#SVGID_1_)" d="M59.1,31.992c0,14.96-12.137,27.106-27.098,27.106C17.035,59.101,4.9,46.952,4.9,31.992
 			S17.035,4.901,32.002,4.901C46.963,4.901,59.1,17.032,59.1,31.992z"/>
