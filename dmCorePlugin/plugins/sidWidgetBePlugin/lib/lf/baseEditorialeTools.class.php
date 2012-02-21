@@ -62,6 +62,7 @@ class baseEditorialeTools {
                         $arrayJson = array();
                         $j = 0;
                         foreach ($articles as $article) {
+                            echo '----'.$article->filename;
                             $arrayJson[$j]['filename'] = $article->filename;
                             $arrayJson[$j]['isActive'] = $article->getIsActive();
                             $arrayJson[$j]['isDossier'] = $article->getIsDossier();
@@ -71,7 +72,7 @@ class baseEditorialeTools {
                                 $arrayJson[$j]['title'][$lang] = $article->getTranslation()->$lang->title;
                                 $arrayJson[$j]['chapeau'][$lang] = $article->getTranslation()->$lang->chapeau;
                                 $arrayJson[$j]['createdAt'][$lang] = $article->getTranslation()->$lang->created_at;
-                                $arrayJson[$j]['updatedAt'][$lang] = $article->getTranslation()->$lang->updatedAt;
+                                $arrayJson[$j]['updatedAt'][$lang] = $article->getTranslation()->$lang->updated_at;
                             }
                             // récup des tags
                             $listTags = '';
