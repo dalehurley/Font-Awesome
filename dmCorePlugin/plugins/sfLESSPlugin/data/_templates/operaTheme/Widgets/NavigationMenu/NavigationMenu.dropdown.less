@@ -149,26 +149,14 @@ ul.dropdown {
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
-				margin-top: floor(@gridBaseline / 4) + 1px;
-				margin-bottom: floor(@gridBaseline / 4) + 1px;
-				padding-top: floor(@gridBaseline / 4) + 0px;
-				padding-bottom: floor(@gridBaseline / 4) + 0px;
-				border-bottom: 0;
-				//ajout des transitions pour navigateurs récents
-				//.csstransitions & {
-				//	@transitionCompress(all; .2s; ease-in-out; 0);
-				//}
-			}
-			//pleine hauteur lors du rollOver
-			&:hover > .link,
-			& > .link:hover,
-			& > .link:focus {
+				//suppression couleur de fond et changement couleur de rollOver
+				background-color: transparent;
+				&:hover, &:focus { background-color: @colorCouleur1; }
 				margin-top: 0;
 				margin-bottom: 0;
 				padding-top: @gridBaseline/2;
 				padding-bottom: @gridBaseline/2;
-				margin-left: -1px;
-				border-left: 1px solid @zonesBorderColor;
+				border-bottom: 0;
 			}
 			
 			//élargissement en pleine hauteur pour les dossiers

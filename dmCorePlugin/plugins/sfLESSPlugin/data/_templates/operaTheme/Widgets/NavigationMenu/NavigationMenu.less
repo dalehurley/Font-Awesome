@@ -9,6 +9,7 @@
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
@@ -39,16 +40,30 @@
 		margin-right: -100%;
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
-		//dégradé vertical en fond
-		//@verticalGradient(@colorCouleur2Clair; @colorCouleur2);
-		background-color: @colorCouleur2;
+		//ajout dégradé shiny
+		@verticalGradientMultiPie-4(13%;50%;50%;87%;@colorCouleur1Clair;@colorCouleur1;@colorCouleur1Moyen;@colorCouleur1Fonce);
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
+			.isLess & { background-color: transparent; }
 			position: relative;
 			@gridSiteWidth();
 			margin-left: auto;
 			margin-right: auto;
+
+			//création de l'ombres à l'aides d'une pseudo classes (évite l'ajout de balisage de mise en forme dans pageSuccess)
+			&:before {
+				position: absolute;
+				display: block;
+				content: "";
+				z-index: -10;
+				@gridSiteWidth();
+				height: 100%;
+				top: 0;
+				left: 0;
+				background-color: transparent;
+				@boxShadowPie(0 0 @gridPadding/2 @colorBlack);
+			}
 		}
 	}
 }
