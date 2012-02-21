@@ -40,8 +40,8 @@
 	<!-- Icône en superposition avec dégradé -->
 	<g>
 		<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="537.1406" y1="306.8125" x2="547.4805" y2="306.8125" gradientTransform="matrix(0 1 1 0 -274.4229 -521.71)">
-			<stop  offset="0" style="stop-color:#4D5D65"/>
-			<stop  offset="0.1677" style="stop-color:#46555C"/>
+			<stop  offset="0" style="stop-color:##colorCouleur2Sup##"/>
+			<stop  offset="0.1677" style="stop-color:##colorCouleur2##"/>
 			<stop  offset="0.4413" style="stop-color:##spriteCouleur2FonceSup##"/>
 			<stop  offset="0.7844" style="stop-color:##spriteCouleur2Fonce##"/>
 			<stop  offset="1" style="stop-color:##spriteCouleurBlack##"/>
