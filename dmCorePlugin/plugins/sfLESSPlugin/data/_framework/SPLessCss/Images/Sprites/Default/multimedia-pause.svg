@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" xml:space="preserve">
+<g>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-470.0049" y1="6732.2344" x2="-470.0049" y2="6691.5859" gradientTransform="matrix(1 0 0 -1 493.0049 6743.9102)">
+		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+	</linearGradient>
+	<path fill="url(#SVGID_1_)" d="M19.804,11.676c-1.63,0-2.95,1.321-2.95,2.951v16.632v18.116c0,1.629,1.32,2.949,2.95,2.949h6.393
+		c1.629,0,2.949-1.32,2.949-2.949V27.757v-13.13c0-1.63-1.32-2.951-2.949-2.951H19.804L19.804,11.676z"/>
+	
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-452.0054" y1="6732.2344" x2="-452.0054" y2="6691.5859" gradientTransform="matrix(1 0 0 -1 493.0049 6743.9102)">
+		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+	</linearGradient>
+	<path fill="url(#SVGID_2_)" d="M37.805,11.676c-1.631,0-2.951,1.321-2.951,2.951v16.632v18.116c0,1.629,1.32,2.949,2.951,2.949
+		h6.393c1.629,0,2.949-1.32,2.949-2.949V27.757v-13.13c0-1.63-1.32-2.951-2.949-2.951H37.805L37.805,11.676z"/>
+</g>
+</svg>
