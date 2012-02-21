@@ -4,14 +4,11 @@
 $i = 1;
 $position = '';
 if (count($articles)) { // si nous avons des actu articles
-	
-	
-	
 	//gestion affichage du titre
     echo _tag('h4.title',$titreBloc);
 
     echo _open('ul', array('class' => 'elements'));
-    
+    $i_max = count($articles);
 	foreach ($articles as $article) {  
         $link = '';    
         
@@ -29,9 +26,9 @@ if (count($articles)) { // si nous avons des actu articles
         echo _open('li', array('class' => 'element itemscope Article '.$position, 'itemtype' => 'http://schema.org/Article' , 'itemscope' => 'itemscope'));
         
         if ($withImage == true) {
-            if (($article->getImage() != NULL) and ($i <= sfConfig::get('app_nb-image'))) {
+            if (($article->getImage()->checkFileExists() == true) and ($i <= sfConfig::get('app_nb-image'))) {
                 $link .= _open('span', array('class' => 'imageWrapper'));
-                $link .= _media($article->getImage())->width($width)->set('.image')->alt($article->getTitle());
+                $link .= _media($article->getImage())->width($width)->set('.image itemprop="image"')->alt($article->getTitle());
                 $link .= _close('span');
             }
         };
@@ -55,18 +52,16 @@ if (count($articles)) { // si nous avons des actu articles
       
        echo _link($article)->set('.link_box')->text($link); 
        $i++;   
-     ?>
-       </li>
-       <?php
-    } ?>
-</ul>
-<?php
+    echo _close('li');
+    } 
+echo _close('ul');
 if ((isset($lien)) AND ($lien != '')) { 
         echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
             echo _open('ul', array('class' => 'elements'));
-                echo _tag('li', array('class' => 'element'), 
+                echo _tag('li', array('class' => 'element first last'), 
                         _link('sidActuArticle/list')->set('.link_box')->text($lien)
                         );
+            echo _close('ul');
         echo _close('div');
     
     }

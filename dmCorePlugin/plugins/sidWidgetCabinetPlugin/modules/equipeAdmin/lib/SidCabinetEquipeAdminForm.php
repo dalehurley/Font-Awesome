@@ -37,14 +37,14 @@ class SidCabinetEquipeAdminForm extends BaseSidCabinetEquipeForm {
                         //'add_empty' => '-- Sections --'
                 ));
 
-        $this->widgetSchema['implentation_id'] = new sfWidgetFormDoctrineChoice(array(
+        $this->widgetSchema['coord_name_id'] = new sfWidgetFormDoctrineChoice(array(
                     'model' => 'SidCoordName',
                     'method' => 'show_list_ville',
                     'multiple' => false,
                     'expanded' => false,
                 ));
         
-        $this->validatorSchema['implentation_id'] = new sfValidatorDoctrineChoice(array('model' => 'SidCoordName'));
+        $this->validatorSchema['coord_name_id'] = new sfValidatorDoctrineChoice(array('model' => 'SidCoordName'));
         $this->validatorSchema['m_rubriques_list'] = new sfValidatorDoctrineChoice(array('model' => 'SidRubrique','required' => false,'multiple' =>true));
 
         $this->widgetSchema->setHelps(array(

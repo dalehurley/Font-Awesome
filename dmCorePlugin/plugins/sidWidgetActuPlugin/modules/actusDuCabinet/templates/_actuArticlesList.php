@@ -3,10 +3,10 @@
 $i = 1;
 $position = '';
 
-if (count($articles)) { // si nous avons des actu articles
-	
-		//gestion affichage du titre
+//gestion affichage du titre
     echo _tag('h4.title',$titreBloc);
+
+if (count($articles)) { // si nous avons des actu articles
 
 echo _open('ul', array('class' => 'elements'));
 
@@ -14,9 +14,15 @@ $i_max = count($articles);
 	foreach ($articles as $article) {  
         $link = ''; 
         // class first ou last pour listing
-        if($i == 1){ $position = 'first';}
-        else if($i == $i_max){ $position = 'last';}
-        else $position = '';
+        switch ($i){
+            case 1: 
+                if($i_max == 1)$position = 'first last';
+                else $position = 'first';
+                break;
+            case $i_max : $position = 'last';
+                break;
+            default : $position = '';
+        }
         
         echo _open('li', array('class' => 'element itemscope Article '.$position, 'itemtype' => 'http://schema.org/Article' , 'itemscope' => 'itemscope'));
         
@@ -25,7 +31,7 @@ $i_max = count($articles);
         if ($withImage == true) {
             if (($article->getImage()->checkFileExists() == true) and ($i <= sfConfig::get('app_nb-image'))) {
                 $link .= _open('span', array('class' => 'imageWrapper'));
-                $link .= _media($article->getImage())->width($width)->set('.image');
+                $link .= _media($article->getImage())->width($width)->set('.image itemprop="image"')->alt($article->getTitle());
                 $link .= _close('span');
             }
         };
@@ -49,14 +55,10 @@ $i_max = count($articles);
       
        echo _link($article)->set('.link_box')->text($link); 
        $i++;   
-     ?>
-       </li>
-       <?php
-    } ?>
-</ul>
-<?php    
+     echo _close('li');
+    } 
+echo _close('ul');
 } else {
 	// sinon on affiche la constante de la page concernée
-    echo _tag('h2.title', $titreBloc);
-	echo '{{actualites_du_cabinet}}';
+        echo '{{actualites_du_cabinet}}';
 }

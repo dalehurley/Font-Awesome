@@ -6,7 +6,8 @@ class equipeCabinetEquipeShowView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'titreBloc'
+            'titreBloc',
+            'withImage'
         ));
     }
 
@@ -14,21 +15,27 @@ class equipeCabinetEquipeShowView extends dmWidgetPluginView {
         $vars = $this->getViewVars();
         $arrayEquipes = array();
         $arrayNomRubrique = array();
-        $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+//        $idDmPage = sfContext::getInstance()->getPage()->id;
+//        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
 
         $equipes = Doctrine_Query::create()
                 ->from('SidCabinetEquipe a')
                 ->where('a.is_active = ? ', array(true))
-                ->orderBy('a.position')
+//                ->orderBy('a.position')
                 ->execute();
 
         foreach ($equipes as $equipe) { // on stock les NB actu article 
             $arrayEquipes[$equipe->id] = $equipe;
         };
+        
+        foreach ($arrayEquipes as $key => $value) {
+            $implentation[$key] = $value['ImplentationId']['siege_social'];
+        }
+        array_multisort($implentation, SORT_DESC, $arrayEquipes);
+        
         // je stocke les collaborateurs et leur(s) rubrique(s) respective(s)
-        foreach ($equipes as $equipe) { // on stock les NB actu article 
-            $arrayEquipe[$equipe->id] = $equipe;
+        foreach ($equipes as $equipe) { 
+//            $arrayEquipe[$equipe->id] = $equipe;
             $rubriques = $equipe->getMRubriques();
             $nomRubrique = "";
             // je resort les rubriques
@@ -51,10 +58,14 @@ class equipeCabinetEquipeShowView extends dmWidgetPluginView {
             }
                     
         }
+        if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
+        $vars['titreBloc'] = $pageCabinet->getTitle();
+        }
         return $this->getHelper()->renderPartial('equipeCabinet', 'equipeShow', array(
                     'equipes' => $arrayEquipes,
                     'titreBloc' => $vars['titreBloc'],
-                    'nomRubrique' => $arrayNomRubrique
+                    'nomRubrique' => $arrayNomRubrique,
+                    'withImage' => $vars['withImage']
                 ));
     }
 

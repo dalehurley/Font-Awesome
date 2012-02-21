@@ -9,8 +9,6 @@ echo _tag('h2.title', $titreBloc);
 if(count($articles)){
 
     foreach ($articles as $article){
-
-        $html = '';
         $image = '';
 	//affichage du contenu
 //	$articleOpts = array(
@@ -36,7 +34,7 @@ echo _open('header', array('class' => 'contentHeader'));
 
         if ($article->getImage()->checkFileExists() == true) {
             echo _open('div', array('class' => 'imageFullWrapper'));
-            if($width != null) {echo  _media($article->getImage())->width($width)->set('.image')->alt($article->getTitle());}
+            if($width != null) {echo  _media($article->getImage())->width($width)->set('.image itemprop="image"')->alt($article->getTitle());}
             echo _close('div');
         }
 echo _tag('h1', array('class' => 'title itemprop name', 'itemprop' => "name"), $article->getTitle());
@@ -53,9 +51,6 @@ echo _close('article');
 
 
 }else{
-    echo _tag('h2.title', $titreBloc);
+   
 	echo '{{actualites_du_cabinet}}';
 }
-
-//affichage html en sortie
-echo $html;

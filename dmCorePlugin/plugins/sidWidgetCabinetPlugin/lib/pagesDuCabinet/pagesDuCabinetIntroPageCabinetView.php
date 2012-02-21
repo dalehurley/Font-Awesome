@@ -27,15 +27,14 @@ class pagesDuCabinetIntroPageCabinetView extends dmWidgetPluginView {
         $vars = $this->getViewVars();
         $arrayArticle = array();
 
-        $pageCabinet = dmDb::table('SidCabinetPageCabinet')->findOneById($vars['page']);
-        ($vars['withImage'] == true) ? (($pageCabinet->getImage()->checkFileExists() == true) ? $image = $pageCabinet->getImage() : $image = ''): $image = '';
-        ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $pageCabinet->getTitle():'';
+        $pageCabinets = dmDb::table('SidCabinetPageCabinet')->findById($vars['page']);
+//        ($vars['withImage'] == true) ? (($pageCabinet->getImage()->checkFileExists() == true) ? $image = $pageCabinet->getImage() : $image = ''): $image = '';
+        ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $pageCabinets[0]->getTitle():'';
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
 		
         return $this->getHelper()->renderPartial('pagesDuCabinet', 'introPageCabinet', array(
-                    'pageCabinet' => $pageCabinet,
+                    'pageCabinets' => $pageCabinets,
                     'length' => $vars['length'],
-//                    'image' => $image,
                     'lien' => $lien,
                     'titreBloc' => $vars['titreBloc'],
                     'width' => $vars['widthImage'],

@@ -1,14 +1,17 @@
 <?php
+// $vars = $equipes, $titreBloc, $nomRubrique, $withImage
 $html = '';
 
-if($titreBloc != null) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
-
+echo _tag('h4.title',$titreBloc);
+foreach ($equipes as $equipe) { echo $equipe->ImplentationId->ville.' - '.$equipe->ImplentationId->siege_social.'<br />';}
 // vars  $equipes, $titreBloc, $nomRubrique
 if (count($equipes)) { // si nous avons des actu articles
 	
 	//afin de séparer les affichages par implantations on créé un nouveau tableau
 	//dont chaque clé correspond à une implantation et contient un tableau des membres associés
 	$implantations = array();
+        
+        
 	foreach ($equipes as $equipe) {
 		$implantationId = dmString::slugify($equipe->ImplentationId);
 		//remplissage d'un nouveau tableau à chaque implantation
@@ -78,3 +81,45 @@ if (count($equipes)) { // si nous avons des actu articles
 
 //affichage html en sortie
 echo $html;
+?>
+
+<h4 class="title">Notre équipe, vos conseils</h4>
+<section class="supWrapper clearfix first">
+    <section class="supWrapper clearfix">
+        <section class="supWrapper clearfix last">
+            <h3 class="title">Implantation&nbsp;:&nbsp;Poitiers</h3>
+            <ul class="elements">
+                <li class="element itemscope Person first" itemtype="http://schema.org/Person" itemscope="itemscope">
+                <li class="element itemscope Person" itemtype="http://schema.org/Person" itemscope="itemscope">
+                <li class="element itemscope Person" itemtype="http://schema.org/Person" itemscope="itemscope">
+                <li class="element itemscope Person last" itemtype="http://schema.org/Person" itemscope="itemscope">
+                    <span class="imageWrapper">
+                        <img class="image" height="60" width="60" src="/uploads/equipe/.thumbs/portrait_homme04_7741d2.jpg" itemprop="image" alt="Monsieur LeSecrétaire">
+                    </span>
+                    <span class="wrapper">
+                        <span class="itemprop name" itemprop="name">Monsieur LeSecrétaire</span>
+                        <span class="itemprop jobTitle" itemprop="jobTitle">Secrétariat</span>
+                        <span class="contactPoints itemscope ContactPoint" itemtype="http://schema.org/ContactPoint" itemscope="itemscope" itemprop="contactPoints">
+                            <span class="itemprop contactType">
+                                <span class="type" title="Responsable en">Responsable en</span>
+                                <span class="separator">&nbsp;:&nbsp;</span>
+                                <span class="value" itemprop="contactType">Fiscal - Création d'entreprise - Multimédia</span>
+                            </span>
+                            <span class="itemprop email">
+                                <span class="type" title="Email">Email</span>
+                                <span class="separator">&nbsp;:&nbsp;</span>
+                                <span class="value">
+                                    <a class="link" itemprop="email" href="mailto:lesecretaire@ec-tenor.com">lesecretaire@ec-tenor.com</a>
+                                </span>
+                            </span>
+                            <span class="itemprop telephone">
+                                <span class="type" title="Téléphone">Téléphone</span>
+                                <span class="separator">&nbsp;:&nbsp;</span>
+                                <span class="value" itemprop="telephone">05 49 60 20 63</span>
+                            </span>
+                        </span>
+                        <span class="itemprop description" itemprop="description"> Phasellus eu mauris diam. Sed commodo facilisis tempus. Integer enim justo, vehicula sit amet dignissim quis, tincidunt in sapien. Etiam porttitor dolor in justo laoreet facilisis ullamcorper enim tristique. Nunc sodales imperdiet eros eget tincidunt. Donec eleifend ultrices leo, at aliquam felis blandit nec. Etiam et diam nec est gravida accumsan sit amet eu ipsum. </span>
+                    </span>
+                </li>
+            </ul>
+        </section>

@@ -101,7 +101,7 @@ SidCabinetEquipe:
       notnull: false
     image:
       type: integer
-    implentation_id:
+    coord_name_id:
       type: integer
       notnull: true
     is_active:
@@ -124,8 +124,9 @@ SidCabinetEquipe:
       onDelete: Cascade
     ImplentationId:
       class: SidCoordName
-      local: implentation_id
-      foreignAlias: ImplentationIds
+      local: coord_name_id
+      foreign: id
+      foreignAlias: SidCoordNames
       onDelete: Cascade
       
 SidCabinetEquipeSidRubrique:
