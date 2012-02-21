@@ -82,7 +82,7 @@ default:
 ###### Ajouts config général ######
 dev: 
   cache:
-    apc: false
+    apc: true
   js:
     compress: false
   css:
@@ -90,7 +90,7 @@ dev:
 
 less: 
   cache:
-    apc: false
+    apc: true
   js:
     compress: false
   css:
