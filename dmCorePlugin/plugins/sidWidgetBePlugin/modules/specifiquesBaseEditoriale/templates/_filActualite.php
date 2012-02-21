@@ -5,7 +5,7 @@ $html = '';
 
 if (count($articles)) { // si nous avons des actu articles
 	
-	echo '<h4 class="title">'.$titreBloc.'</h4>';
+	if($titreBloc) echo '<h4 class="title">'.$titreBloc.'</h4>';
 		
 	//ouverture du listing
     echo _open('ul.elements');
