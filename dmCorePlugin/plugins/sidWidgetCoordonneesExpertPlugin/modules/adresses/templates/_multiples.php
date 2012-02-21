@@ -1,11 +1,5 @@
 <?php
-
-//insertions des includes nécessaires à ce partial
-$initValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitValues.php';
-include $initValues;
-
 // vars : $adresses, $titreBloc
-$html = '';
 
 if (count($adresses)) {
 	//titre du contenu
@@ -32,25 +26,6 @@ if (count($adresses)) {
             	break;
         }
 
-
-/*		
-		//affichage du contenu
-		$addressOpts = array(
-							'name' => $adresse->getTitle(),
-							'addressLocality' => $adresse->getVille(),
-							'postalCode' => $adresse->getCodePostal(),
-							'email' => $adresse->getEmail(),
-							'faxNumber' => $adresse->getFax(),
-							'telephone' => $adresse->getTel(),
-							'container' => 'li.element',
-							'count' => $count,
-							'maxCount' => $maxCount
-						);
-		$addressOpts['streetAddress'] = $adresse->getAdresse();
-		if ($adresse->getAdresse2() != NULL) $addressOpts['streetAddress'].= $dash . $adresse->getAdresse2();
-		
-		$html.= get_partial('global/schema/Thing/Organization', $addressOpts);
-*/
 		$emailSpan = '';
 		if ($adresse->getEmail()){
 		$emailSpan = '<span class="itemprop email">'.
@@ -70,7 +45,7 @@ if (count($adresses)) {
 		}
 
 		$faxSpan = '';
-		if ($adresse->getTel()){
+		if ($adresse->getFax()){
 			$faxSpan = '<span class="itemprop faxNumber">'.
 						'<span class="type" title="Fax">Fax</span>'.
 						'<span class="separator">&nbsp;:&nbsp;</span>'.

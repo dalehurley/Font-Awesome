@@ -1,7 +1,6 @@
 
 <?php
 // vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
-$html = '';
 
 if (count($articles)) { // si nous avons des actu articles
 	
@@ -60,8 +59,6 @@ if (count($articles)) { // si nous avons des actu articles
 		'</span>';
     	echo '</li>';
     	$i++;
-
-
     }
 	
     //fermeture du listing
