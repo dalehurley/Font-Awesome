@@ -14,7 +14,7 @@
                      description_wrapper: $('.ad-descriptions'),
                      thumb_opacity: 0.5,
                      animate_first_image: false,
-                     animation_speed: 400,
+                     animation_speed: 500,
                      width: false,
                      height: false,
                      display_next_and_prev: true,

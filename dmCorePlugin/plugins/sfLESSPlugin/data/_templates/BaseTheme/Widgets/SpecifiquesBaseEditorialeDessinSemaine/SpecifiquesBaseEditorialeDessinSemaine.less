@@ -34,14 +34,53 @@
 		//application des sprites
 		.ad-prev {
 			.ad-prev-image {
-				@spriteDefinition("Default"; "internet"; "back"; "M"; @spriteFormat_M; @spriteOffX-internet-back; @spriteOffY-internet-back);
+				@spriteDefinition("Default"; "navigation"; "squareArrowLeft"; "M"; @spriteFormat_M; @spriteOffX-internet-back; @spriteOffY-internet-back);
 				left: @decalH;
 			}
 		}
 		.ad-next {
 			.ad-next-image {
-				@spriteDefinition("Default"; "internet"; "forward"; "M"; @spriteFormat_M; @spriteOffX-internet-forward; @spriteOffY-internet-forward);
+				@spriteDefinition("Default"; "navigation"; "squareArrowRight"; "M"; @spriteFormat_M; @spriteOffX-internet-forward; @spriteOffY-internet-forward);
 				right: @decalH;
+			}
+		}
+	}
+
+	.ad-controls {
+
+		.ad-info {
+			display: block;
+			color: @colorCouleur3Fonce;
+			font-size: @fontSizeSmall;
+			line-height: @gridBaseline;
+		}
+		
+		.ad-slideshow-controls {
+			//décalage de marge
+			@decalV: (@gridBaseline*2 - @spriteFormat_M) / 2;
+			@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+
+			.ad-slideshow-start, .ad-slideshow-stop {
+				text-indent: -9999em;
+				padding: 0;
+				margin: @decalV @decalH;
+			}
+
+			.ad-slideshow-start {
+				display: block;
+				@spriteDefinition("Default"; "multimedia"; "play"; "M"; @spriteFormat_M; @spriteOffX-internet-forward; @spriteOffY-internet-forward);
+			}
+			.ad-slideshow-stop {
+				display: none;
+				@spriteDefinition("Default"; "multimedia"; "pause"; "M"; @spriteFormat_M; @spriteOffX-internet-forward; @spriteOffY-internet-forward);
+			}
+			//masquage compte à rebour
+			.ad-slideshow-countdown { display: none !important; visibility: hidden; }
+
+			//inversion lors du lancement de l'animation
+			&.ad-slideshow-running {
+				.ad-slideshow-start { display: none; }
+				.ad-slideshow-stop { display: block; }
 			}
 		}
 	}
