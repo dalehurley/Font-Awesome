@@ -9,7 +9,7 @@
  */
 (function($) {
   $.fn.adGallery = function(options) {
-    var defaults = { loader_image: 'loader.gif',
+    var defaults = { loader_image: '/theme/less/_framework/SPLessCss/Images/Loaders/loader-circle1.gif',
                      start_at_index: 0,
                      description_wrapper: $('.ad-descriptions'),
                      thumb_opacity: 0.5,
