@@ -67,18 +67,6 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
             foreach ($articleIds as $articleId) {
                 $arrayFilActus[] = dmDb::table('SidArticle')->find($articleId);
             }
-
-            // je récupère UN article (le plus récemment mis à jour) de chaque section
-            /*
-            $arrayFilActus = dmDb::table('SidArticle')
-                ->createQuery('a')
-                ->leftJoin('a.Translation b')
-                ->where('a.section_id in (?) AND a.is_active = ?', array($listSectionId, true))
-                ->groupBy('a.section_id')
-                ->orderBy('b.updated_at DESC')
-                ->limit($vars['nbArticle'])
-                ->execute();
-            */    
         }
 
 
