@@ -734,9 +734,10 @@ class baseEditorialeTools {
         if (!is_dir(sfConfig::get('app_rep-local-dessin-semaine'))) {
             mkdir(sfConfig::get('app_rep-local-dessin-semaine'));
         }
+        $command = "rm -Rf ".sfConfig::get('app_rep-local-dessin-semaine').'*';
+        exec($command, $output);
 
         $command = "wget -c -N ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-password')) . "@" . sfConfig::get('app_ftp-dessin-host') . "/" . sfConfig::get('app_ftp-dessin-rep') . "" .sfConfig::get('app_xml-dessin'). " -P " . sfConfig::get('app_rep-local-dessin-semaine');
-echo $command;
         exec($command, $output);
     }
 
