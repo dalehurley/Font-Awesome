@@ -354,7 +354,7 @@ class spLessCss {
 					exec($execCopy);
 					
 					//on récupère toutes les occurences de la couleur spriteCouleur dans le fichier
-					$isMatchColors = preg_match_all('/\#\#spriteCouleur\d[A-Za-z]*\#\#/', file_get_contents($value['urlClient']), $matchColors);
+					$isMatchColors = preg_match_all('/\#\#spriteCouleur[A-Za-z\d]*\#\#/', file_get_contents($value['urlClient']), $matchColors);
 					
 					//on parcourt les couleurs trouvées et on les remplace
 					foreach ($matchColors[0] as $colorToken) {
