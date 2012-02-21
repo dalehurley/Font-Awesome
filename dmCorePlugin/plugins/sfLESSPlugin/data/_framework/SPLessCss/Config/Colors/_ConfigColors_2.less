@@ -29,25 +29,8 @@
 @colorCouleur3Fonce: #50565e;			// TSL : 42/27/37		S+15 L-20
 @colorCouleur3FonceSup: #5b626b;		// TSL : 42/27/42		S+15 L-15
 
-//CONFIGURATION DES COULEURS SYSTÈME GÉNÉRALES
-@colorText: #444;
-@colorBlack: #000;
-@colorWhite: #fff;
-@colorSelection: @colorCouleur3Moyen;			//Also: hot pink! : #ff5e99
-@colorIns: #ff9;
-@colorMark: #ff0;
-@colorRequired: #f55;
-@colorValidate: #abbe5f;
+//IMPORTATION DES COULEURS SYSTÈME GÉNÉRALES (enlever import et recopier pour override)
+@import "_framework/SPLessCss/Config/Colors/_ConfigColorsSystem.less";
 
-//CONFIGURATION DES COULEURS DES SPRITES (à partir des couleurs de base)
-@spriteCouleur1: @colorCouleur1;
-@spriteCouleur1Clair: @colorCouleur1Clair;
-@spriteCouleur1Moyen: @colorCouleur1Moyen;
-@spriteCouleur1Fonce: @colorCouleur1Fonce;
-@spriteCouleur2: @colorCouleur3;
-@spriteCouleur2Clair: @colorCouleur3Clair;
-@spriteCouleur2ClairSup: @colorCouleur3ClairSup;
-@spriteCouleur2Moyen: @colorCouleur3Moyen;
-@spriteCouleur2MoyenSup: @colorCouleur3MoyenSup;
-@spriteCouleur2Fonce: @colorCouleur3Fonce;
-@spriteCouleur2FonceSup: @colorCouleur3FonceSup;
+//IMPORTATION DES COULEURS DES SPRITES (enlever import et recopier pour override)
+@import "_framework/SPLessCss/Config/Colors/_ConfigColorsSprite.less";
