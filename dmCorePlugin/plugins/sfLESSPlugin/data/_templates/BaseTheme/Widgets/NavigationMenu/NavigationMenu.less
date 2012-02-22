@@ -58,7 +58,7 @@ ul.dropdown, ul.megadropdown, ul.accordion {
 		text-decoration: none;
 		outline: 0;
 		cursor: pointer;
-		word-wrap: break-word;
+		//word-wrap: break-word;
 		
 		//ajout des transitions pour navigateurs récents
 		.csstransitions & {
@@ -170,8 +170,8 @@ ul.accordion li.dm_parent > .link:after {
 
 //mise en couleur des cellules ouvertes
 ul.dropdown li.dm_dir:hover > .link,
-#dm_custom_top .navigation_menu ul.dropdown li.dm_dir:hover > .link,
-#dm_custom_top .navigation_menu ul.megadropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.megadropdown li.dm_dir:hover > .link,
 ul.accordion li.dm_parent > .link,
 ul.accordion li.dm_parent li.dm_parent > .link {
 	background-color: @colorCouleur1;
@@ -182,7 +182,7 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletPortrait(){
 	#dm_custom_top {
-		.navigation_menu {
+		.dm_widget.navigation_menu {
 			.dm_widget_inner {
 				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
 			}
