@@ -1,0 +1,125 @@
+// NavigationMenu.dropdown.less
+// v1.2
+// Last Updated : 2012-02-02 16:30
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/BaseTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+
+//Config du widget courant
+@import "_templates/BaseTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
+
+//Importation des classes de composition du menu
+@import "_framework/SPLessCss/Widgets/NavigationMenu/Megadropdown/_Megadropdown.less";
+
+ul.megadropdown {
+	//.isLess & { background-color: darkgreen; }
+	
+	//configuration des dimensions à différents sous-niveaux
+	ul {
+		.isLess & { background-color: #754F5E !important; }
+		background-color: @colorCouleur2;
+		//changement de la pleine largeur au premier sous-niveau
+		padding: @gridBaseline @gridGutter;
+		@gridWidth(@gridCol; (@gridGutter*2));
+
+		//ajout ombre
+		@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
+
+		//niveau 2 et +
+		ul {
+			.isLess & { background-color: #C785A0 !important; }
+			padding: 0; left: 0;
+			background-color: transparent;
+			@boxShadow(none);
+		}
+		
+		//sous parties de niveau 2 et +
+		li {
+			&.dm_dir {
+				border-right: 1px dotted @colorCouleur3Clair;
+				padding: 0 (@gridGutter/2 -1px) 0 (@gridGutter/2);
+				margin-bottom: @gridBaseline;
+				
+				//raccourcissement des zones extrêmes (sauf .last car pas forcément en fin de ligne) (firstOfRow, lastOfRow, inFirstRow et inLastRow ajoutés en JS)
+				&.first, &.firstOfRow, &.lastOfRow {
+					ul { @gridWidth(2; @gridGutter); }
+				}
+				&.first, &.firstOfRow { padding-left: 0; }
+				&.last, &.lastOfRow { border-right: 0; }
+				&.lastOfRow { padding-right: 0; }
+				
+				//suppression marge pour la dernière ligne
+				&.inLastRow { margin-bottom: 0; }
+				
+				//niveau 3 et +
+				ul li.dm_dir { padding-left: @gridGutter; padding-right: 0; }
+			}
+		}
+	}
+
+
+	/*
+	//tous les liens
+	.link {
+		text-transform: uppercase;
+		color: @colorCouleur3Clair;
+		text-decoration: none;
+	}
+
+	//liens du niveau 0
+	& > li {
+		& > .link {
+			font-weight: bold;
+			font-size: @fontGlobalSizePx;
+			
+			padding: (@gridBaseline/2) (@gridGutter -1px);
+			//padding: (floor(@gridBaseline*3/4) + 0px) (@gridGutter -1px) (floor(@gridBaseline*3/4) + 1px) (@gridGutter -1px);
+			border-left: 1px solid @colorCouleur3Clair;
+			border-right: 1px solid @colorCouleur3Fonce;
+			&:hover {
+				//ajout dégradé shiny
+				@verticalGradientMultiPie-4(13%;50%;50%;87%;@colorCouleur2Clair;@colorCouleur2MoyenSup;@colorCouleur2Moyen;@colorCouleur2);
+			}
+		}
+		//suppression bordures aux extrêmes
+		&.first > .link {
+			border-left: 0; padding-left: @gridGutter;
+			&:hover { border-left: 1px solid @colorCouleur3Clair; padding-left: (@gridGutter -1px); }
+		}
+		&.last > .link {
+			border-right: 0; padding-right: @gridGutter;
+			&:hover { border-right: 1px solid @colorCouleur3Clair; padding-right: (@gridGutter -1px); }
+		}
+	}
+	
+	//liens des niveaux 1 et +
+	ul li {
+		.link:hover { background-color: @colorCouleur3Clair; color: @colorCouleur1; }
+		//liens des sous parties
+		&.dm_dir > .link {
+			color: @colorCouleur1;
+			font-weight: bold;
+			font-size: @fontSizeH6Px;
+			&:hover { background-color: transparent; text-decoration: underline; }
+		}
+	}
+	*/
+	//DÉFINITIONS DES STYLES DES SOUS MENUS À DIFFÉRENTS NIVEAUX
+	//niveau 1 et +
+	ul {
+		
+		
+		
+		
+		/*
+		
+		*/
+	}
+}
