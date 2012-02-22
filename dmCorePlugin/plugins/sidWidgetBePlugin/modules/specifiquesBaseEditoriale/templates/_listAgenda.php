@@ -104,7 +104,7 @@ if (count($articles)) { // si nous avons des actu articles
 	    	'<span class="navigationWrapper navigationBottom">'.
 		     	'<ul class="elements">'.
 	      			'<li class="element first last">'.
-	      				_link($article->getSection())->set('.link')->text($titreLien).  
+	      				_link($article->getSection())->set('.link.link_box')->text($titreLien).  
 	      			'</li>'.
 	      		'</ul>'.
 			'</span>';

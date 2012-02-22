@@ -53,7 +53,7 @@ if (count($articles)) { // si nous avons des actu articles
 		echo '<span class="navigationWrapper navigationBottom">'.
 	     	'<ul class="elements">'.
       			'<li class="element first last">'.
-      				_link($article->getSection())->set('.link')->text($titreLien.' '.$article->getRubriquePageTitle()).  // 2170  (415)
+      				_link($article->getSection())->set('.link.link_box')->text($titreLien.' '.$article->getRubriquePageTitle()).  // 2170  (415)
       			'</li>'.
       		'</ul>'.
 		'</span>';
