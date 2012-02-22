@@ -10,9 +10,9 @@ ul.megadropdown {
 	float: left;
 
 	//test affichage pour stylage
-	& > li:nth-child(6) {
-		ul, ul ul { visibility: visible !important; }
-	}
+	//& > li:nth-child(6) {
+	//	ul, ul ul { visibility: visible !important; }
+	//}
 
 	//Au cas où : suppression marges et listes à puce
 	&, & ul, & li { list-style: none; margin: 0; padding: 0; }
@@ -62,13 +62,14 @@ ul.megadropdown {
 			left: 0;
 		}
 		//on force également la taille du lien de titrage pour éviter les débordements
-		ul, li > .link { @gridWidth(2); }
+		ul, li.dm_dir .link { @gridWidth(2); }
 		
 		li {
 			position: relative;
 			float: none;
 			//pour les liens de niveau 1 non situé dans un dossier
 			@gridWidth(3; @gridGutter);
+			.isLess & { background-color: red; }
 			
 			//largeur automatique pour les suivants
 			li{ width: auto; }
