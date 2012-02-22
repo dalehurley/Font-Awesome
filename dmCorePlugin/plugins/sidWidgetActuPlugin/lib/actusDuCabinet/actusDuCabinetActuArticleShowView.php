@@ -22,9 +22,13 @@ class actusDuCabinetActuArticleShowView extends dmWidgetPluginView {
      */
     protected function doRender() {
         
-         $vars = $this->getViewVars();
+        $vars = $this->getViewVars();
         $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $recordDmPage = sfContext::getInstance()->getPage()->record_id;
+//        echo 'recordDmPage : '.$recordDmPage;
+        echo 'idDmPage : '.$idDmPage;
+//        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        //echo '<br /> dmPage : '.$dmPage->id;
         
         // $nameParent pour afficher le nom de la page parent au cas ou il n'y a rien dans le titreBloc
         $ancestors = $this->context->getPage()->getNode()->getAncestors();
@@ -32,8 +36,7 @@ class actusDuCabinetActuArticleShowView extends dmWidgetPluginView {
        
         $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
                         ->leftJoin('a.SidActuTypeArticle sata')
-                        ->Where('a.is_active = ? and a.id = ?', array(true,$dmPage->record_id))
-                        ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
+                        ->Where('a.is_active = ? and a.id = ? and sata.sid_actu_type_id = ?', array(true,$recordDmPage,$vars['type']))
                         ->execute();
         
         $vars['titreBloc'] = ($vars['titreBloc'] == NULL || $vars['titreBloc'] == ' ') ? $nameParent : $vars['titreBloc'];
