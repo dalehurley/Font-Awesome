@@ -108,7 +108,7 @@ ul.dropdown {
 	}
 	
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
-	#dm_custom_top .navigation_menu & {
+	#dm_custom_top .dm_widget.navigation_menu & {
 		//supression bordure à gauche sur le premier niveau
 		border-left: 0;
 		
@@ -152,11 +152,22 @@ ul.dropdown {
 				//suppression couleur de fond et changement couleur de rollOver
 				background-color: transparent;
 				&:hover, &:focus { background-color: @colorCouleur1; }
+				margin-top: floor(@gridBaseline / 4) + 1px;
+				margin-bottom: floor(@gridBaseline / 4) + 1px;
+				padding-top: floor(@gridBaseline / 4) + 0px;
+				padding-bottom: floor(@gridBaseline / 4) + 0px;
+				border-bottom: 0;
+			}
+			//pleine hauteur lors du rollOver
+			&:hover > .link,
+			& > .link:hover,
+			& > .link:focus {
 				margin-top: 0;
 				margin-bottom: 0;
 				padding-top: @gridBaseline/2;
 				padding-bottom: @gridBaseline/2;
-				border-bottom: 0;
+				margin-left: -1px;
+				border-left: 1px solid @zonesBorderColor;
 			}
 			
 			//élargissement en pleine hauteur pour les dossiers
@@ -208,7 +219,7 @@ ul.dropdown {
 					//insertion de la sprite
 					@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
 					//suppression rollOver
-					&:hover, &:focus { background-color: transparent; }
+					&, &:hover, &:focus { background-color: transparent; }
 				}
 				
 				//uniformisation des marges du bouton
