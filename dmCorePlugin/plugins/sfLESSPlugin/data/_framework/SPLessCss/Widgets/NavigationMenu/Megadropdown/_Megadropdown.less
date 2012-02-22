@@ -4,6 +4,9 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+
 ul.megadropdown {
 	position: relative;
 	z-index: 597;
@@ -69,7 +72,6 @@ ul.megadropdown {
 			float: none;
 			//pour les liens de niveau 1 non situé dans un dossier
 			@gridWidth(3; @gridGutter);
-			.isLess & { background-color: red; }
 			
 			//largeur automatique pour les suivants
 			li{ width: auto; }
@@ -88,6 +90,26 @@ ul.megadropdown {
 					width: auto;
 					border-right: 0;
 				}
+			}
+		}
+	}
+
+	//ajout des transitions pour navigateurs récents
+	.csstransitions.opacity & {
+		//gestion de l'affichage direct du premier niveau
+		& > li.dm_dir {
+			& > ul {
+				opacity: 0;
+				//@transitionCompress(visibility, opacity; .2s; ease-out; .2s, 0);
+				@transitionProperty(visibility, opacity);
+				@transitionDuration(0, .2s);
+				@transitionFunction(ease-out);
+				@transitionDelay(.2s, 0);
+			}
+			&.hover > ul, &:hover > ul {
+				opacity: 1;
+				//@transitionCompress(visibility, opacity; .2s; ease-out; 0);
+				@transitionDelay(0, 0);
 			}
 		}
 	}

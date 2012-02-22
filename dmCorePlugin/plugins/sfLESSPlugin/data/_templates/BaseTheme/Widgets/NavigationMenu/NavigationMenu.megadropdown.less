@@ -20,7 +20,6 @@
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Megadropdown/_Megadropdown.less";
 
 ul.megadropdown {
-	//.isLess & { background-color: darkgreen; }
 	
 	//configuration des dimensions à différents sous-niveaux
 	ul {
@@ -156,64 +155,5 @@ ul.megadropdown {
 				}
 			}
 		}
-	}
-
-
-	/*
-	//tous les liens
-	.link {
-		text-transform: uppercase;
-		color: @colorCouleur3Clair;
-		text-decoration: none;
-	}
-
-	//liens du niveau 0
-	& > li {
-		& > .link {
-			font-weight: bold;
-			font-size: @fontGlobalSizePx;
-			
-			padding: (@gridBaseline/2) (@gridGutter -1px);
-			//padding: (floor(@gridBaseline*3/4) + 0px) (@gridGutter -1px) (floor(@gridBaseline*3/4) + 1px) (@gridGutter -1px);
-			border-left: 1px solid @colorCouleur3Clair;
-			border-right: 1px solid @colorCouleur3Fonce;
-			&:hover {
-				//ajout dégradé shiny
-				@verticalGradientMultiPie-4(13%;50%;50%;87%;@colorCouleur2Clair;@colorCouleur2MoyenSup;@colorCouleur2Moyen;@colorCouleur2);
-			}
-		}
-		//suppression bordures aux extrêmes
-		&.first > .link {
-			border-left: 0; padding-left: @gridGutter;
-			&:hover { border-left: 1px solid @colorCouleur3Clair; padding-left: (@gridGutter -1px); }
-		}
-		&.last > .link {
-			border-right: 0; padding-right: @gridGutter;
-			&:hover { border-right: 1px solid @colorCouleur3Clair; padding-right: (@gridGutter -1px); }
-		}
-	}
-	
-	//liens des niveaux 1 et +
-	ul li {
-		.link:hover { background-color: @colorCouleur3Clair; color: @colorCouleur1; }
-		//liens des sous parties
-		&.dm_dir > .link {
-			color: @colorCouleur1;
-			font-weight: bold;
-			font-size: @fontSizeH6Px;
-			&:hover { background-color: transparent; text-decoration: underline; }
-		}
-	}
-	*/
-	//DÉFINITIONS DES STYLES DES SOUS MENUS À DIFFÉRENTS NIVEAUX
-	//niveau 1 et +
-	ul {
-		
-		
-		
-		
-		/*
-		
-		*/
 	}
 }
