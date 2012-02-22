@@ -7,10 +7,9 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'nbArticles',
-            'title',
+            'titreBloc',
             'lien',
-            'length',
-            'pageCentrale'
+            'length'          
         ));
     }
 	
@@ -28,6 +27,40 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
 
     protected function doRender() {
 
+        $vars = $this->getViewVars();
+        $arrayFilActus = array();
+
+        // recherche de la section en cours pour l'agenda, elle s'appelle : AAAAMM
+        $AAAAMM = date('Ym');
+        $sectionCurrentMonthAgenda = dmDb::table('SidSection')
+                ->createQuery('a')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                ->where('aTranslation.title = ?', $AAAAMM)
+                ->limit(1)
+                ->execute();
+        $sectionId = $sectionCurrentMonthAgenda[0]->id;
+        
+        if($sectionId){
+            //$arrayFilActus = dmDb::table('SidArticle')->findByIsActiveAndSectionId(true,$sectionId)->limit(3);
+            $arrayFilActus = dmDb::table('SidArticle')            
+                ->createQuery('a')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                ->where('a.section_id = ? and a.is_active=?', array($sectionId, true))
+                ->orderBy('aTranslation.created_at')
+                ->limit($vars['nbArticles'])
+                ->execute();
+        }
+
+        return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'listAgenda', array(
+                    'articles' => $arrayFilActus,
+                    'titreBloc' => $vars['titreBloc'],
+                    'titreLien' => $vars['lien'],
+                    'length' => $vars['length']
+                ));
+    
+
+
+/*
         $vars = $this->getViewVars();
         // variable pour vérifier qu'il y un rep correspondant au mois en cours
         $noRep = true;
@@ -170,6 +203,9 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
             }
            
         }
+*/
+
+
     }
 
 }

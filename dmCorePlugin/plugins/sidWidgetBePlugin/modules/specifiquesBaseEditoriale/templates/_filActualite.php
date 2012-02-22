@@ -1,11 +1,10 @@
 
 <?php
 // vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
-$html = '';
 
 if (count($articles)) { // si nous avons des actu articles
 	
-	echo '<h4 class="title">'.$titreBloc.'</h4>';
+	if($titreBloc) echo '<h4 class="title">'.$titreBloc.'</h4>';
 		
 	//ouverture du listing
     echo _open('ul.elements');
@@ -60,11 +59,11 @@ if (count($articles)) { // si nous avons des actu articles
 		'</span>';
     	echo '</li>';
     	$i++;
-
-
     }
 	
     //fermeture du listing
     echo _close('ul.elements');
+} else {
+    echo debugTools::infoDebug(array(__('fil actualites') => __('No entries')),'warning');
 }
-
+ 
