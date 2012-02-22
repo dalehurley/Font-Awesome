@@ -86,13 +86,15 @@ ul.megadropdown {
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
-				margin-top: floor(@gridBaseline / 4) + 1px;
-				margin-bottom: floor(@gridBaseline / 4) + 1px;
+				//suppression couleur de fond et changement couleur de rollOver
+				background-color: transparent;
+				&:hover, &:focus { background-color: @colorCouleur1; }
+				
 				//ajout bordure à droite
 				border-right: 1px solid @zonesBorderColor;
 
 				//personnalisation padding pour menu horizontal
-				@padV: floor(@gridBaseline / 4) + 0px;
+				@padV: @gridBaseline / 2;
 				@padH: @menuDropdownPadHCustomTop;
 				padding: @padV @padH @padV (@padH +1px);
 			}
@@ -100,10 +102,6 @@ ul.megadropdown {
 			&:hover > .link,
 			& > .link:hover,
 			& > .link:focus {
-				margin-top: 0;
-				margin-bottom: 0;
-				padding-top: @gridBaseline/2;
-				padding-bottom: @gridBaseline/2;
 				margin-left: -1px;
 				border-left: 1px solid @zonesBorderColor;
 			}
