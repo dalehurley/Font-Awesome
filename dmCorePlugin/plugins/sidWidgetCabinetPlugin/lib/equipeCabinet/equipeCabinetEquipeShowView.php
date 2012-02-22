@@ -7,35 +7,32 @@ class equipeCabinetEquipeShowView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'titreBloc',
-            'withImage'
+            'withImage',
+            'widthImage'
         ));
     }
 
     protected function doRender() {
         $vars = $this->getViewVars();
-        $arrayEquipes = array();
         $arrayNomRubrique = array();
-//        $idDmPage = sfContext::getInstance()->getPage()->id;
-//        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $arrayVilles = array();
 
         $equipes = Doctrine_Query::create()
                 ->from('SidCabinetEquipe a')
+                ->leftJoin('a.CoordName scn WITH a.coord_name_id =  scn.id')
                 ->where('a.is_active = ? ', array(true))
-//                ->orderBy('a.position')
+                ->orderBy('scn.siege_social DESC, a.position')
                 ->execute();
-
-        foreach ($equipes as $equipe) { // on stock les NB actu article 
-            $arrayEquipes[$equipe->id] = $equipe;
-        };
         
-        foreach ($arrayEquipes as $key => $value) {
-            $implentation[$key] = $value['ImplentationId']['siege_social'];
-        }
-        array_multisort($implentation, SORT_DESC, $arrayEquipes);
-        
-        // je stocke les collaborateurs et leur(s) rubrique(s) respective(s)
+        // je trie les membres du cabinet par ville (les villes sont triées de manière à avoir le siège social en premier)
         foreach ($equipes as $equipe) { 
-//            $arrayEquipe[$equipe->id] = $equipe;
+            $ville = $equipe->CoordName->ville;
+            if(!array_key_exists($ville, $arrayVilles)){
+                $arrayVilles[$ville] = array();
+            }
+            array_push($arrayVilles[$ville], $equipe);
+            
+            // je stocke les collaborateurs et leur(s) rubrique(s) respective(s)
             $rubriques = $equipe->getMRubriques();
             $nomRubrique = "";
             // je resort les rubriques
@@ -62,10 +59,11 @@ class equipeCabinetEquipeShowView extends dmWidgetPluginView {
         $vars['titreBloc'] = $pageCabinet->getTitle();
         }
         return $this->getHelper()->renderPartial('equipeCabinet', 'equipeShow', array(
-                    'equipes' => $arrayEquipes,
+                    'arrayVilles' => $arrayVilles,
                     'titreBloc' => $vars['titreBloc'],
                     'nomRubrique' => $arrayNomRubrique,
-                    'withImage' => $vars['withImage']
+                    'withImage' => $vars['withImage'],
+                    'width' => $vars['widthImage']
                 ));
     }
 

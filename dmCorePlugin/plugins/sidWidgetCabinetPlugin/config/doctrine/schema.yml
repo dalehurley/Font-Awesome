@@ -122,7 +122,7 @@ SidCabinetEquipe:
       class: SidRubrique
       refClass: SidCabinetEquipeSidRubrique
       onDelete: Cascade
-    ImplentationId:
+    CoordName:
       class: SidCoordName
       local: coord_name_id
       foreign: id
