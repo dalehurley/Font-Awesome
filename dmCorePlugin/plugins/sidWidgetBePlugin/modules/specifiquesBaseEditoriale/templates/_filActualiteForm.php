@@ -8,11 +8,12 @@ echo
 
 $form->renderGlobalErrors(),
  _tag('div', $form['titreBloc']->renderRow() .
-        $form['longueurTexte']->renderRow() .
+        $form['length']->renderRow() .
         $form['nbArticle']->renderRow() .
         $form['section']->renderRow() .
         $form['titreLien']->renderRow().
-        $form['photo']->renderRow()
+        $form['withImage']->renderRow().
+        $form['widthImage']->renderRow()
 );
 
 

@@ -6,7 +6,7 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'title_page',
+            'titreBloc',
             'lien',
             'nbArticles',
             'length',
@@ -36,7 +36,8 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-        //$arrayArticle[] = $dmPage->module.' - '.$dmPage->action.' - '.$dmPage->record_id;
+        //si nbArticle est à 0, on ne mets rien dans le LIMIT pour tout afficher
+        $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars["nbArticles"];
         switch ($dmPage->module . '/' . $dmPage->action) {
 
 //            case 'pageCabinet/equipe':
@@ -55,9 +56,9 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                         ->where('s.id = ?  ', array($recordId))
                         ->andWhere('a.is_active = ?', true)
                         ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
-                        ->limit($vars['nbArticles'])
+                        ->limit($nbArticles)
                         ->execute();
-                // Si il n'y a pas d'actus associées, on en affiche la dernière actu
+                // Si il n'y a pas d'actus associées, on affiche la dernière actu
 
                 if (count($actuArticles) == 0) {
                     
@@ -69,7 +70,7 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                             ->andWhere('a.is_active = ?', true)
                             ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
                             ->orderBy('b.updated_at DESC')
-                            ->limit($vars['nbArticles'])
+                            ->limit($nbArticles)
                             ->execute();
                 }
                 foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
@@ -90,10 +91,10 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                             ->andWhere('a.is_active = ?', true)
                             ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
                             ->orderBy('b.updated_at DESC')
-                            ->limit($vars['nbArticles'])
+                            ->limit($nbArticles)
                             ->execute();
 
-                    // Si il n'y a pas d'actus associées, on en affiche la dernière actu
+                    // Si il n'y a pas d'actus associées, on affiche la dernière actu
 
                     if (count($actuArticles) == 0) {
                         $actuArticles = '';
@@ -103,7 +104,7 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                                 ->andWhere('a.is_active = ?', true)
                                 ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
                                 ->orderBy('b.updated_at DESC')
-                                ->limit($vars['nbArticles'])
+                                ->limit($nbArticles)
                                 ->execute();
                     }
                     foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
@@ -121,36 +122,37 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                         ->Where('a.is_active = ?', true)
                         ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
                         ->orderBy('b.updated_at DESC')
-                        ->limit($vars['nbArticles'])
+                        ->limit($nbArticles)
                         ->execute();
                 foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
                     $arrayArticle[$actuArticle->id] = $actuArticle;
                 };
         }
-        // je vérifie que le titre de la page n'esxiste pas ou est égal à un espace
-        if ($vars['title_page'] == NULL || $vars['title_page'] == " ") {
+        // je vérifie que le titre de la page n'existe pas ou est égal à un espace
+        if ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") {
             // je vérifie le nbre d'article
-            // si un seul , on affiche en titre le titre de l'article
+            // si un seul , on affiche en titreBloc le titre de l'article
             if ($vars['nbArticles'] == 1) {
-                $vars['title_page'] = current($arrayArticle)->getTitle();
+                $vars['titreBloc'] = current($arrayArticle)->getTitle();
             } 
-            // si plusieurs articles, on affiche en titre le nom de la page parente à ces articles
+            // si plusieurs articles, on affiche en titreBloc le nom de la page parente à ces articles
             elseif ($vars['nbArticles'] > 1){
                 $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('sidActuArticle', 'list');
-                $vars['title_page'] = $namePage->getName();
+                $vars['titreBloc'] = $namePage->getName();
             }
         }
-       
+       // vérification qu'il y a du texte pour le lien, sinon, on vide $lien
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
         return $this->getHelper()->renderPartial('actusDuCabinet', 'actuArticlesContextuel', array(
                     'articles' => $arrayArticle,
                     'nbArticles' => $vars['nbArticles'],
-                    'titlePage' => $vars['title_page'],
+                    'titreBloc' => $vars['titreBloc'],
                     'lien' => $lien,
                     'length' => $vars['length'],
                     'chapo' => $vars['chapo'],
                     'width' => $vars['widthImage'],
-                    'height' => $vars['heightImage']
+                    'height' => $vars['heightImage'],
+                    'withImage' => $vars['withImage']
                 ));
     }
 

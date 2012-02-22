@@ -26,20 +26,11 @@ class specifiquesBaseEditorialeFilActualiteForm extends dmWidgetPluginForm {
                     'required' => true
                 ));
 
-        $this->widgetSchema['longueurTexte'] = new sfWidgetFormInputText(array('default' => 0));
-        $this->validatorSchema['longueurTexte'] = new sfValidatorInteger(array(
-                    'required' => false
-                ));
-
         $this->widgetSchema['nbArticle'] = new sfWidgetFormInputText(array('default' => 1));
         $this->validatorSchema['nbArticle'] = new sfValidatorInteger(array(
                     'required' => true
                 ));
         
-        $this->widgetSchema['photo'] = new sfWidgetFormInputCheckbox(array('default'=> true));
-        $this->validatorSchema['photo']  = new sfValidatorBoolean();
-
-
         $this->widgetSchema->setHelps(array(
             'titreBloc' => 'Le titre OBLIGATOIRE du bloc.',
             'titreLien' => 'Le titre OBLIGATOIRE du lien vers les articles de la section.',

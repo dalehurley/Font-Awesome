@@ -7,7 +7,10 @@ echo _tag('ul.help', _tag('li', "Ce widget permet d'afficher la liste des membre
 echo
 
 $form->renderGlobalErrors(),
- _tag('div', $form['titreBloc']->renderRow()
+ _tag('div', 
+     $form['titreBloc']->renderRow().
+     $form['withImage']->renderRow().
+     $form['widthImage']->renderRow()
 );
 
 

@@ -102,35 +102,35 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
 
             // on affiche les missions ayant les mêmes rubriques que la page actu du cabinet
             case 'sidActuArticle/show':
-                // on cherche la rubrique de l'article
-                $rubriques = dmDb::table('SidActuArticleSidRubrique')->findBySidActuArticleId($dmPage->record_id);
-                // on parcourt les sections pour extraire les articles
-                foreach ($rubriques as $rubrique) {
-                    $actuMissions = dmDb::table('SidCabinetMission')
-                            ->createQuery('p')
-                            ->leftJoin('p.SidCabinetMissionSidRubrique sas')
-                            ->leftJoin('sas.SidRubrique s')
-                            ->where('s.id = ? ', array($rubrique->sidRubriqueId))
-                            ->execute();
-                    // Si il n'y a pas de missions associées, on en affiche Nb classée aléatoirement
-
-                    if (count($actuMissions) == 0) {
-                        $actuMissions = '';
-                        $actuMissions = Doctrine_Query::create()
-                                ->from('SidCabinetMission p')
-                                ->select('*')
-                                ->where('p.is_active = ? ', array(true))
-                                ->orderBy('RANDOM()')
-                                ->limit($vars['nbArticles'])
-                                ->execute();
-                    }
-                    foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
-                        // on compte le nbre de missions pour ne stocker que la quantité demandée
-                        if (count($arrayMission) < $vars['nb']) {
-                            $arrayMission[$actuMission->id] = $actuMission;
-                        }
-                    }
-                }
+//                // on cherche la rubrique de l'article
+//                $rubriques = dmDb::table('SidActuArticleSidRubrique')->findBySidActuArticleId($dmPage->record_id);
+//                // on parcourt les sections pour extraire les articles
+//                foreach ($rubriques as $rubrique) {
+//                    $actuMissions = dmDb::table('SidCabinetMission')
+//                            ->createQuery('p')
+//                            ->leftJoin('p.SidCabinetMissionSidRubrique sas')
+//                            ->leftJoin('sas.SidRubrique s')
+//                            ->where('s.id = ? ', array($rubrique->sidRubriqueId))
+//                            ->execute();
+//                    // Si il n'y a pas de missions associées, on en affiche Nb classée aléatoirement
+//
+//                    if (count($actuMissions) == 0) {
+//                        $actuMissions = '';
+//                        $actuMissions = Doctrine_Query::create()
+//                                ->from('SidCabinetMission p')
+//                                ->select('*')
+//                                ->where('p.is_active = ? ', array(true))
+//                                ->orderBy('RANDOM()')
+//                                ->limit($vars['nbArticles'])
+//                                ->execute();
+//                    }
+//                    foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
+//                        // on compte le nbre de missions pour ne stocker que la quantité demandée
+//                        if (count($arrayMission) < $vars['nb']) {
+//                            $arrayMission[$actuMission->id] = $actuMission;
+//                        }
+//                    }
+//                }
                 break;
 
             case 'pageCabinet/equipe':

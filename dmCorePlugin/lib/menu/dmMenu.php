@@ -336,35 +336,11 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         }
         $objetPageTableaux = array();
         $treeObject = dmDb::table('DmPage')->getTree();
-        $treeObject->setBaseQuery(dmDb::table('DmPage')->createQuery('p')->withI18n($this->user->getCulture() , null, 'p')->select('p.*, pTranslation.*')
-        // ajout stef pour trier par ordre d'integration les sous menus (utiles pour les sections des rubriques dans le menu de gauche)
-        //            ->orderBy('p.record_id')
-        // fin ajout
+        $treeObject->setBaseQuery(dmDb::table('DmPage')->createQuery('p')->withI18n($this->user->getCulture() , null, 'p')->select('p.*, pTranslation.*')->orderBy('pTranslation.name') // tri par ordre alphabétique sur le name de la page
         );
         if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
-            // tri de pageChild par position dans le module de l'objet
-            
+             
             foreach ($pageChildren as $i => $childPage) {
-                if ($childPage->get('record_id') != 0) {
-                    // ajout lionel
-                    // on ajoute les dmPage qui ont un record_id != 0 (donc des pages automatiques) que si elles sont liées à un objet ayant is_active à true
-                    $dmPageTable = dmString::camelize($this->moduleManager->getModuleBySfName($childPage->get('module'))->getTable()->getTableName());
-                    $dmPageRecordId = $childPage->get('record_id');
-                    $requestDmPageObject = Doctrine_Query::create()->from($dmPageTable . ' a')->where('a.id = ?', $dmPageRecordId)->fetchOne();
-                    if (isset($requestDmPageObject->is_active) && !$requestDmPageObject->is_active) {
-                    } else {
-                        $objetPageTableaux[$requestDmPageObject->position] = $childPage;
-                    }
-                } else {
-                    $objetPageTableaux[$childPage->get('lft') ] = $childPage;
-                }
-            }
-            ksort($objetPageTableaux);
-            $pageChildren = $objetPageTableaux;
-            
-            foreach ($pageChildren as $i => $childPage) {
-                // $this->addChild($childPage->get('name'), $childPage)->addRecursiveChildren($depth - 1);
-                //if (is_object($this->moduleManager->getModuleBySfName($childPage->get('module'))->getTable())){
                 $this->addChild($childPage->get('name') , $childPage)->addRecursiveChildren($depth - 1);
             }
         }
