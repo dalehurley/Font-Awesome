@@ -21,7 +21,7 @@
 @import "_framework/SPLessCss/Widgets/NavigationMenu/_NavigationMenu.less";
 
 //personnalisation du widget par rapport à la zone contenante
-.navigation_menu {
+.dm_widget.navigation_menu {
 	margin: 0;
 	
 	//suppression bordure et padding
@@ -68,9 +68,23 @@
 	}
 }
 
-ul.dropdown, ul.accordion {
+//configuration de base des textes pour tous les types de menus
+ul.dropdown, ul.megadropdown, ul.accordion {
+	//stylage minimale du lien
+	.link {
+		text-decoration: none;
+		outline: 0;
+		cursor: pointer;
+		//word-wrap: break-word;
+		
+		//ajout des transitions pour navigateurs récents
+		.csstransitions & {
+			@transitionCompress(background-color, color; .2s; ease-in-out; 0);
+		}
+	}
+
 	//gestion grosseur texte
-	li {
+	li, ul li.dm_dir {
 		font-weight: bold;
 		text-transform: uppercase;
 		word-spacing: -0.05em;
@@ -80,22 +94,18 @@ ul.dropdown, ul.accordion {
 		font-weight: normal;
 		text-transform: none;
 	}
-	
+}
+
+//configuration de base des liens pour les menus dropdown et accordion
+ul.dropdown, ul.accordion {
 	//gestion des liens
 	.link {
 		background-color: @colorCouleur3ClairSup;
-		//padding: @menuDropdownPadV @menuDropdownPadH @menuDropdownPadV @gridGutter;
 		padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
 		border-style: solid;
-		//border-width: 1px 1px 1px 0;
-		//border-color: @colorCouleur3ClairSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup;
 		border-width: 0 1px 1px 0;
 		border-color: @zonesBorderColor;
-		//border-color: yellow red blue orange;
 		color: @colorCouleur3Fonce;
-		text-decoration: none;
-		outline: 0;
-		cursor: pointer;
 		
 		//changement taille selon zone
 		#dm_custom_top & { font-size: @fontGlobalSizePx; }
@@ -106,11 +116,6 @@ ul.dropdown, ul.accordion {
 		//LoVe's Hurts Fade Away
 		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
 		&:active { color: @colorCouleur1Moyen; }
-		
-		//ajout des transitions pour navigateurs récents
-		.csstransitions & {
-			@transitionCompress(background-color, color; .2s; ease-in-out; 0);
-		}
 	}
 	
 	li {
@@ -182,7 +187,8 @@ ul.accordion li.dm_parent > .link:after {
 
 //mise en couleur des cellules ouvertes
 ul.dropdown li.dm_dir:hover > .link,
-#dm_custom_top .navigation_menu ul.dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.megadropdown li.dm_dir:hover > .link,
 ul.accordion li.dm_parent > .link,
 ul.accordion li.dm_parent li.dm_parent > .link {
 	background-color: @colorCouleur1;
@@ -193,7 +199,7 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletPortrait(){
 	#dm_custom_top {
-		.navigation_menu {
+		.dm_widget.navigation_menu {
 			.dm_widget_inner {
 				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
 			}
