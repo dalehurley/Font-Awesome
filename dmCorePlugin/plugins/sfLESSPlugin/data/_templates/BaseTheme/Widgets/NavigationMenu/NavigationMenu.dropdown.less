@@ -154,10 +154,6 @@ ul.dropdown {
 				padding-top: floor(@gridBaseline / 4) + 0px;
 				padding-bottom: floor(@gridBaseline / 4) + 0px;
 				border-bottom: 0;
-				//ajout des transitions pour navigateurs récents
-				//.csstransitions & {
-				//	@transitionCompress(all; .2s; ease-in-out; 0);
-				//}
 			}
 			//pleine hauteur lors du rollOver
 			&:hover > .link,
@@ -220,7 +216,7 @@ ul.dropdown {
 					//insertion de la sprite
 					@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
 					//suppression rollOver
-					&:hover, &:focus { background-color: transparent; }
+					&, &:hover, &:focus { background-color: transparent; }
 				}
 				
 				//uniformisation des marges du bouton
