@@ -38,9 +38,7 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayFilActus = array();
-        $arrayTitreLiens = array();
-        $arrayLienIds = array();
-        $arrayRubrique = array();
+
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);

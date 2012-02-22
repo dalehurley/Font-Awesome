@@ -94,12 +94,13 @@ class contentTemplateTools {
         // save du dossier uploads
         $dirOUTassets = $file . "." . self::dumpExtension . ".assets";
         // le nom du dossier web
-        $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
-        if (is_dir($dirOUTassets)){
-            $command = "rm -rf " . $dirOUTassets . ";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/uploads;";
-        } else {
-            $command = "mkdir " . $dirOUTassets .";cp -R ". $webDirName . "/uploads " . $dirOUTassets ."/uploads;";
-        }
+        $webDirName = sfConfig::get('sf_web_dir');
+        
+        $command = "rm -rf " . $dirOUTassets . ";";
+        $command .= "mkdir " . $dirOUTassets .";";
+        $command .= "mkdir " . $dirOUTassets."/uploads" .";";        
+        $command .= "cp -R ". $webDirName . "/uploads/* " . $dirOUTassets ."/uploads;";
+
 
         $output = exec($command);
         // nettoyage du dossier assets en supprimant les dossiers .thumbs

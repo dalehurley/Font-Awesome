@@ -896,7 +896,8 @@ class baseEditorialeTools {
                                 $article->removeAllTags();
                                 $article->setTags($tagsString)->save();
                             } else {
-                                $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
+                                exec ('rm '.$xmlFile);
+                                $return[$j]['ERREUR XML invalide supprimé : '] = $xmlFile;
                             }
 
                             $j++;

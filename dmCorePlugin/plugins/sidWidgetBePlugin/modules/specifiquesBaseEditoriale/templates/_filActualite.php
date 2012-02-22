@@ -63,5 +63,7 @@ if (count($articles)) { // si nous avons des actu articles
 	
     //fermeture du listing
     echo _close('ul.elements');
+} else {
+    echo debugTools::infoDebug(array(__('fil actualites') => __('No entries')),'warning');
 }
-
+ 

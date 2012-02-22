@@ -20,7 +20,7 @@ foreach ($logos as $logoName => $logoLink) {
 	if($count >= $maxCount)	$elementOpt['class'][] = 'last';
 	
 	//création du lien
-	$htmlLink = _link($logoLink)->text($logoName)->title(__('Follow us on') . ' ' . $logoName)->set('.link_' . dmString::slugify($logoName));
+	$htmlLink = _link($logoLink)->text($logoName)->title(__('Follow us on') . ' ' . $logoName)->set('.link_' . dmString::slugify($logoName))->target('blank');
 	
 	//insertion du lien dans un li
 	$html.= _tag('li.element', $elementOpt, $htmlLink);
