@@ -4,7 +4,7 @@ default:
     cultures:             [ en ]        # Available cultures
 
   cache:                                # Cache management
-    apc:                  false         # (RECOMMENDED) Use Apc if available on current server
+    apc:                  true         # (RECOMMENDED) Use Apc if available on current server
 
   js:
     compress:             true          # (RECOMMENDED) Performance : Minifies javascripts and put them into a single compressed file
@@ -82,7 +82,7 @@ default:
 ###### Ajouts config général ######
 dev: 
   cache:
-    apc: false
+    apc: true
   js:
     compress: false
   css:
@@ -90,7 +90,7 @@ dev:
 
 less: 
   cache:
-    apc: false
+    apc: true
   js:
     compress: false
   css:

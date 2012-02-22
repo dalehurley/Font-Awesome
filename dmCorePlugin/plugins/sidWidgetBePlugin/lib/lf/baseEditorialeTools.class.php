@@ -62,6 +62,7 @@ class baseEditorialeTools {
                         $arrayJson = array();
                         $j = 0;
                         foreach ($articles as $article) {
+                            //echo '----'.$article->filename;
                             $arrayJson[$j]['filename'] = $article->filename;
                             $arrayJson[$j]['isActive'] = $article->getIsActive();
                             $arrayJson[$j]['isDossier'] = $article->getIsDossier();
@@ -71,7 +72,7 @@ class baseEditorialeTools {
                                 $arrayJson[$j]['title'][$lang] = $article->getTranslation()->$lang->title;
                                 $arrayJson[$j]['chapeau'][$lang] = $article->getTranslation()->$lang->chapeau;
                                 $arrayJson[$j]['createdAt'][$lang] = $article->getTranslation()->$lang->created_at;
-                                $arrayJson[$j]['updatedAt'][$lang] = $article->getTranslation()->$lang->updatedAt;
+                                $arrayJson[$j]['updatedAt'][$lang] = $article->getTranslation()->$lang->updated_at;
                             }
                             // récup des tags
                             $listTags = '';
@@ -733,9 +734,10 @@ class baseEditorialeTools {
         if (!is_dir(sfConfig::get('app_rep-local-dessin-semaine'))) {
             mkdir(sfConfig::get('app_rep-local-dessin-semaine'));
         }
+        $command = "rm -Rf ".sfConfig::get('app_rep-local-dessin-semaine').'*';
+        exec($command, $output);
 
         $command = "wget -c -N ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-dessin-password')) . "@" . sfConfig::get('app_ftp-dessin-host') . "/" . sfConfig::get('app_ftp-dessin-rep') . "" .sfConfig::get('app_xml-dessin'). " -P " . sfConfig::get('app_rep-local-dessin-semaine');
-echo $command;
         exec($command, $output);
     }
 
@@ -894,7 +896,8 @@ echo $command;
                                 $article->removeAllTags();
                                 $article->setTags($tagsString)->save();
                             } else {
-                                $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
+                                exec ('rm '.$xmlFile);
+                                $return[$j]['ERREUR XML invalide supprimé : '] = $xmlFile;
                             }
 
                             $j++;

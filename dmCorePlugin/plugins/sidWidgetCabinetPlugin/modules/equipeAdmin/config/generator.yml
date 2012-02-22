@@ -78,7 +78,7 @@ generator:
           - updated_at
       form:
         display:
-          Identite: [title, is_active, statut, tel, fax, gsm, email, implentation_id]
+          Identite: [title, is_active, statut, tel, fax, gsm, email, coord_name_id]
           Photo: [image_form, image_view]
           Description: [text]
 #          'Mots clés': [tags_list]

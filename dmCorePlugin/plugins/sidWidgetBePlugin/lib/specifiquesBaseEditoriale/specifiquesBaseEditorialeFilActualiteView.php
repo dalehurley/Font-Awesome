@@ -8,10 +8,10 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
         $this->addRequiredVar(array(
             'titreBloc',
             'titreLien',
-            'longueurTexte',
+            'length',
             'nbArticle',
             'section',
-            'photo',
+            'withImage',
             'widthImage'
         ));
     }
@@ -38,64 +38,43 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayFilActus = array();
-        $arrayTitreLiens = array();
-        $arrayLienIds = array();
-        $arrayRubrique = array();
+
 
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+
         switch($dmPage->module.'/'.$dmPage->action){
-            
+
             case 'article/show':
                 $arrayFilActus = array();
                 break;
             
             default :
-        // je récupère les ids des articles appartenants aux sections choisies
-        foreach ($vars['section'] as $section) {
-            // je récupère UN article (le plus récemment mis à jour) de chaque section
-            $articles = dmDb::table('SidArticle')
-                    ->createQuery('a')
-                    ->leftJoin('a.Translation b')
-                    ->where('a.section_id = ? AND a.is_active = ?', array($section, true))
-                    ->orderBy('b.updated_at DESC')
-                    ->limit(1)
-                    ->execute();
-            // Pour cet article, je le mets dans un tableau général et je mets dans un tableau le nom de la page de la Rubrique
-            foreach ($articles as $article) {
+            $listSectionId = implode(",", $vars['section']);
+            // requete brute
+            $req = '    SELECT s.id FROM sid_article s LEFT JOIN sid_article_translation s2 
+                        ON s.id = s2.id 
+                        WHERE s.is_active = true
+                        and s.section_id in ('.$listSectionId.')
+                        group by s.section_id
+                        ORDER BY s2.updated_at DESC
+                        LIMIT '.$vars['nbArticle'];
 
-                $rubriquePage = dmDb::table('DmPage') //->findAllBySectionId($vars['section']);
-                        ->createQuery('p')
-                        ->where('p.module = ? and p.action=? and p.record_id=?', array('rubrique', 'show', $article->Section->rubrique_id))
-                        ->limit(1)
-                        ->execute();
-                
-                $arrayRubrique[$article->filename] = $rubriquePage[0]->name;
-                $arrayFilActus[$article->filename] = $article;
+            $articleIds = dmDb::pdo($req, array(), dmDb::table('SidArticle')->getConnection())->fetchAll(PDO::FETCH_COLUMN);
+
+            foreach ($articleIds as $articleId) {
+                $arrayFilActus[] = dmDb::table('SidArticle')->find($articleId);
             }
         }
 
-        foreach ($arrayFilActus as $key => $value) {
-            $updated[$key] = $value['updatedAt'];
-        }
-        array_multisort($updated, SORT_DESC, $arrayFilActus);
-        $arrayFilActus = array_slice($arrayFilActus, 0, $vars['nbArticle']);
-        }
-        
-//        foreach ($arrayFilActus as $key => $value) {
-//            $updated[$key] = $value['updated_at'];
-//        }
-//        array_multisort($updated, SORT_DESC, $arrayFilActus);
-//        $arrayFilActus = array_slice($arrayFilActus, 0, $vars['nbArticle']);
 
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'filActualite', array(
                     'articles' => $arrayFilActus,
                     'titreBloc' => $vars['titreBloc'],
                     'titreLien' => $vars['titreLien'],
-                    'longueurTexte' => $vars['longueurTexte'],
+                    'length' => $vars['length'],
                     'section' => $vars['section'],
-                    'arrayRubrique' => $arrayRubrique,
-                    'photo' => $vars['photo'],
+                    'withImage' => $vars['withImage'],
                     'widthImage' => $vars['widthImage']
                 ));
     }

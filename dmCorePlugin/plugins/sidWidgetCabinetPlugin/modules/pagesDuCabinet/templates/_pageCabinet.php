@@ -1,32 +1,46 @@
 <?php
+// $vars = $pageCabinet, $titlePage, $lien
 $html = '';
-
-if (count($pageCabinet)) { // si nous avons des actu articles
-	
+use_helper('Date');
 	//affichage du contenu
-	$articleOpts = array(
-					'container' => 'article',
-					'name' => $titlePage,
-					'description' => $pageCabinet->getResume(),
-					'image' => $pageCabinet->getImage(),
-					'dateCreated' => $pageCabinet->created_at,
-					'isDateMeta' => true,
-					'articleBody' => $pageCabinet->getText()
-					);
-	
-	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
-	
-	//création d'un tableau de liens à afficher
-	$elements = array();
-	$elements[] = array('title' => $lien, 'linkUrl' => 'main/contact');
-	
-	$html.= get_partial('global/navigationWrapper', array(
-													'placement' => 'bottom',
-													'elements' => $elements
-													));
-} else {
-	$html.= get_partial('global/schema/Thing/CreativeWork/Article', array('container' => 'article', 'articleBody' => '{{page_cabinet}}'));
-}
+//	$pageCabinetOpts = array(
+//					'container' => 'article',
+//					'name' => $titlePage,
+//					'description' => $pageCabinet->getResume(),
+//					'image' => $pageCabinet->getImage(),
+//					'dateCreated' => $pageCabinet->created_at,
+//					'isDateMeta' => true,
+//					'articleBody' => $pageCabinet->getText()
+//					);
+//	
+//	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $pageCabinetOpts);
+//	
+//	//création d'un tableau de liens à afficher
+//	$elements = array();
+//	$elements[] = array('title' => $lien, 'linkUrl' => 'main/contact');
+//	
+//	$html.= get_partial('global/navigationWrapper', array(
+//													'placement' => 'bottom',
+//													'elements' => $elements
+//													));
 
-//affichage html de sortie
-echo $html;
+echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));  
+echo _open('header', array('class' => 'contentHeader'));
+
+        if ($pageCabinet->getImage()->checkFileExists() == true) {
+            echo _open('div', array('class' => 'imageFullWrapper'));
+            if($width != null) {echo  _media($pageCabinet->getImage())->width($width)->set('.image itemprop="image"')->alt($pageCabinet->getTitle());}
+            echo _close('div');
+        }
+echo _tag('h1', array('class' => 'title itemprop name', 'itemprop' => "name"), $pageCabinet->getTitle());
+echo _tag('meta', array('content' => $pageCabinet->createdAt, 'itemprop' => 'datePublished'));
+echo _tag('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'), $pageCabinet->getResume());
+echo _close('header');
+echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $pageCabinet->getText());
+echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
+            echo _open('ul', array('class' => 'elements'));
+                echo _tag('li', array('class' => 'element first last'), 
+                        _link('main/contact')->text($lien)
+                        );
+            echo _close('ul');
+        echo _close('div');

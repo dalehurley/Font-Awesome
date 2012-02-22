@@ -6,8 +6,11 @@ class pagesDuCabinetPageCabinetView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'title_page',
-            'lien'
+            'titreBloc',
+            'lien',
+            'widthImage',
+            'heightImage',
+            'withImage'
         ));
     }
 
@@ -24,8 +27,8 @@ class pagesDuCabinetPageCabinetView extends dmWidgetPluginView {
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
 
         $pageCabinet = dmDb::table('SidCabinetPageCabinet')->findOneByIdAndIsActive($dmPage->record_id, true);
-        if($vars['title_page'] == NULL || $vars['title_page'] == " "){
-        $vars['title_page'] = $pageCabinet->getTitle();
+        if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
+        $vars['titreBloc'] = $pageCabinet->getTitle();
         }
         if($vars['lien'] == NULL || $vars['lien'] == " "){
         $vars['lien'] = sfContext::getInstance()->getI18N()->__('Contact');
@@ -33,8 +36,11 @@ class pagesDuCabinetPageCabinetView extends dmWidgetPluginView {
         return $this->getHelper()->renderPartial('pagesDuCabinet', 'pageCabinet', array(
                     
                     'pageCabinet' => $pageCabinet,
-                    'titlePage' => $vars['title_page'],
-                    'lien' => $vars['lien']
+                    'titreBloc' => $vars['titreBloc'],
+                    'lien' => $vars['lien'],
+                    'width' => $vars['widthImage'],
+                    'height' => $vars['heightImage'],
+                    'withImage' => $vars['withImage'],
                 ));
     }
 
