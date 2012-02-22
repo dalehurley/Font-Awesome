@@ -4,19 +4,13 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
-
-ul.megadropdown,
-ul.megadropdown li,
-ul.megadropdown ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
 ul.megadropdown {
 	position: relative;
 	z-index: 597;
 	float: left;
+
+	//Au cas où : suppression marges et listes à puce
+	&, & ul, & li { list-style: none; margin: 0; padding: 0; }
 	
 	//test affichage pour stylage
 	//& > li:nth-child(5) {
