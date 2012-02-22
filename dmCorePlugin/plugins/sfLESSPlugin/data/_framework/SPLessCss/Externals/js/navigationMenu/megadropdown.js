@@ -1,6 +1,6 @@
 // megadropdown.js
-// v0.1
-// Last Updated : 2011-10-07 09:30
+// v0.5
+// Last Updated : 2012-02-22 16:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -31,7 +31,7 @@
 				if(currentColHeight > highestCol) {
 					highestCol = currentColHeight;
 				}
-				
+				//on récupère la plus grande largeur
 				var currentColWidth = $(this).width();
 				if(currentColWidth > colWidth) {
 					colWidth = currentColWidth;
@@ -64,7 +64,7 @@
 					if(currentRow == 0) {
 						$(this).addClass('inFirstRow');
 					}
-					if(currentRow == displayNbreRow) {
+					if(currentRow >= (displayNbreRow - 1)) {
 						$(this).addClass('inLastRow');
 					}
 				});
