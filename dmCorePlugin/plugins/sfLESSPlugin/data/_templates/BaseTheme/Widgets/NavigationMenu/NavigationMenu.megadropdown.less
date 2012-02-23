@@ -50,6 +50,12 @@ ul.megadropdown {
 		//sous parties de niveau 2 et +
 		li {
 			&.dm_dir {
+				//configuration titre des sous parties
+				& > .link {
+					#dm_custom_top .dm_widget.navigation_menu &,
+					.dm_widget.navigation_menu & { color : @colorCouleur1; }
+				}
+				
 				border-right: 1px dotted @zonesBorderColor;
 				padding: 0 (@gridGutter/2 -1px) 0 (@gridGutter/2);
 				margin-bottom: @gridBaseline;
