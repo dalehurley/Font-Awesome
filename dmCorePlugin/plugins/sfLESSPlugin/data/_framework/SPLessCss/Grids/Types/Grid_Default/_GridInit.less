@@ -1,6 +1,6 @@
 // _GridInit.less
-// v1.4
-// Last Updated : 2012-02-01 14:20
+// v1.5
+// Last Updated : 2012-02-23 17:55
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -16,15 +16,9 @@
 .debugTemplate .debugInfo .screenType .value { &, &:after { content: @gridScreenType; } }
 
 //PLACEMENT GÉNÉRAL
-#dm_page {
-	position: relative;
-	#dm_page_inner {}
-}
+#dm_page, #dm_page_inner { position: relative; }
 
-#dm_main {
-	position: relative;
-	#dm_main_inner { }
-}
+#dm_main, #dm_main_inner { position: relative; }
 
 //HACK IE DE MISE EN PAGE
 .ie6 {
