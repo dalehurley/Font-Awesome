@@ -33,21 +33,20 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
         $vars = $this->getViewVars();
         $arrayMission = array();
 
-        $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-
+        $dmPage = sfContext::getInstance()->getPage();
+        $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars['nbArticles'];
         switch ($dmPage->module . '/' . $dmPage->action) {
             case 'section/show':
                 // il faut que je récupère l'id de la rubrique de la section
                 // je récupère donc l'ancestor de la page courante pour extraire le record_id de ce dernier afin de retrouver la rubrique
-                $ancestors = $this->context->getPage()->getNode()->getAncestors();
+                $ancestors = $dmPage->getNode()->getAncestors();
                 $recordId = $ancestors[count($ancestors) - 1]->getRecordId();
                 $actuMissions = dmDb::table('SidCabinetMission')
                         ->createQuery('p')
                         ->leftJoin('p.SidCabinetMissionSidRubrique sas')
                         ->leftJoin('sas.SidRubrique s')
                         ->where('s.id = ? AND p.is_active  = ? ', array($recordId, true))
-                        ->limit($vars['nbArticles'])
+                        ->limit($nbArticles)
                         ->execute();
                 // Si il n'y a pas de missions associées, on en affiche Nb classée aléatoirement
 
@@ -58,7 +57,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                             ->select('*')
                             ->where('p.is_active = ? ', array(true))
                             ->orderBy('RANDOM()')
-                            ->limit($vars['nbArticles'])
+                            ->limit($nbArticles)
                             ->execute();
                 }
                 foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
@@ -75,7 +74,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                             ->leftJoin('p.SidCabinetMissionSidRubrique sas')
                             ->leftJoin('sas.SidRubrique s')
                             ->where('s.id = ? ', array($rubrique->id))
-                            ->limit($vars['nbArticles'])
+                            ->limit($nbArticles)
                             ->execute();
                     // Si il n'y a pas de missions associées, on en affiche Nb classée aléatoirement
 
@@ -86,7 +85,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                                 ->select('*')
                                 ->where('p.is_active = ? ', array(true))
                                 ->orderBy('RANDOM()')
-                                ->limit($vars['nbArticles'])
+                                ->limit($nbArticles)
                                 ->execute();
                     }
                     foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
@@ -141,7 +140,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                     ->leftJoin('a.Translation b')
                         ->orderBy('b.updated_at DESC')
                         ->where('a.is_active = ?', array(true))
-                        ->limit($vars['nbArticles'])
+                        ->limit($nbArticles)
                         ->execute();
                 foreach ($actuMissions as $actuMission) { // on stock les NB actu article 
                     $arrayMission[$actuMission->id] = $actuMission;

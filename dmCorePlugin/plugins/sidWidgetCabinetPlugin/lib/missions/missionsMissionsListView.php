@@ -28,9 +28,7 @@ class missionsMissionsListView extends dmWidgetPluginView {
         $vars = $this->getViewVars();
         $arrayMissions = array();
         $dmPage = sfContext::getInstance()->getPage();
-        if($vars['nbArticles'] == 0) { $nb = dmDb::table('SidCabinetMission')->count();}
-        else $nb = $vars['nbArticles'];
-
+        $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars['nbArticles'];
         switch ($dmPage->module.'/'.$dmPage->action){
             
             case 'mission/show':
@@ -41,7 +39,7 @@ class missionsMissionsListView extends dmWidgetPluginView {
                     ->leftJoin('a.Translation b')
                     ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
                     ->orderBy('b.updated_at DESC')
-                    ->limit($nb)
+                    ->limit($nbArticles)
                     ->execute();
         
                 foreach ($missions as $mission) { // on stock les NB actu article 
@@ -55,7 +53,7 @@ class missionsMissionsListView extends dmWidgetPluginView {
                     ->leftJoin('a.Translation b')
                     ->where('a.is_active = ? ', array(true))
                     ->orderBy('b.updated_at DESC')
-                    ->limit($nb)
+                    ->limit($nbArticles)
                     ->execute();
         
                 foreach ($missions as $mission) { // on stock les NB actu article 
