@@ -12,7 +12,7 @@
 	#dm_sidebar_left .dm_zones { background-color: #ccccb8; }
 	#dm_sidebar_right .dm_zones { background-color: #b8ccb8; }
 	#dm_content .dm_zones { background-color: #b8cccc; }
-	#dm_custom_top .dm_zones { background-color: #ccccb8; }
+	//#dm_custom_top .dm_zones { background-color: #ccccb8; }
 	#dm_custom_bottom .dm_zones { background-color: #ccb8cc; }
 	#dm_main .dm_zones { background-color: #bbb; }
 	#dm_main_inner .dm_zones { background-color: #ccc; }
@@ -20,6 +20,23 @@
 
 //couleur de la zone située sous le header jusqu'en bas
 #dm_main {
+	background-color: @colorWhite;
+}
+
+#dm_main_inner {
+	z-index: 1;
+	&:before {
+		position: absolute;
+		display: block;
+		content: "before";
+		@gridSiteWidth();
+		@gridHeight(30);
+		top: 0;
+		left: @gridPadding;
+		//ombre répétée dans WidgetBase sur le dm_zones:before de dm_layout_centerTopTop
+		@boxShadow(0 0 @gridPadding*4 @colorBlack);
+		z-index: -10;
+	}
 }
 
 //stylage du header
@@ -28,6 +45,7 @@
 		@gridSiteWidth();
 		margin-left: auto;
 		margin-right: auto;
+		padding: @gridBaseline 0;
 	}
 }
 
@@ -40,5 +58,7 @@
 
 //stylage de la zone sous le header
 #dm_custom_top {
+	background-color: @colorCouleur2;
+	padding: @gridBaseline/2 0;
 	min-height: @gridBaseline;
 }
