@@ -9,7 +9,7 @@ class equipeCabinetEquipeShowView extends dmWidgetPluginView {
             'titreBloc',
             'withImage',
             'widthImage'
-        ));
+            ));
     }
 
     protected function doRender() {
