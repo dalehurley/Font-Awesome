@@ -336,7 +336,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         }
         $objetPageTableaux = array();
         $treeObject = dmDb::table('DmPage')->getTree();
-        $treeObject->setBaseQuery(dmDb::table('DmPage')->createQuery('p')->withI18n($this->user->getCulture() , null, 'p')->select('p.*, pTranslation.*')->orderBy('pTranslation.name') // tri par ordre alphabétique sur le name de la page
+        $treeObject->setBaseQuery(dmDb::table('DmPage')->createQuery('p')->withI18n($this->user->getCulture() , null, 'p')->select('p.*, pTranslation.*')->orderBy('p.rgt') // tri par ordre alphabétique sur le name de la page : ->orderBy('pTranslation.name')
         );
         if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
              
