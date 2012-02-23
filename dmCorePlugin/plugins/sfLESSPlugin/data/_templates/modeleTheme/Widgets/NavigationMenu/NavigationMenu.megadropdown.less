@@ -20,7 +20,9 @@
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Megadropdown/_Megadropdown.less";
 
 ul.megadropdown {
-	
+
+	//TODO : configuration standardisé des liens de premiers niveau dans sidebars
+
 	//configuration des dimensions à différents sous-niveaux
 	ul {
 		background-color: @colorCouleur2;
@@ -28,6 +30,16 @@ ul.megadropdown {
 		padding: @gridBaseline @gridGutter;
 		@gridWidth(@gridCol; (@gridGutter*2));
 
+		#dm_sidebar_left & {
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteLeft(@gridCol_SidebarLeft; (@zonesOffsetPad * -1));
+		}
+		
+		#dm_sidebar_right & {
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteRight(@gridCol_SidebarRight; (@zonesOffsetPad * -1));
+		}
+		
 		//niveau 2 et +
 		ul {
 			padding: 0;
@@ -47,6 +59,13 @@ ul.megadropdown {
 					//on force également la taille du lien de titrage pour éviter les débordements
 					ul, &.dm_dir > .link { @gridWidth(2; @gridGutter); }
 				}
+				//on force le redimenssionnement du dernier lorsque contenu dans une sidebar
+				#dm_sidebar_left &, #dm_sidebar_right & {
+					&.lastOfRow {
+						ul, &.dm_dir > .link { @gridWidth(2; @gridGutter); }
+					}
+				}
+
 				&.first, &.firstOfRow { padding-left: 0; }
 				&.last, &.lastOfRow { border-right: 0; }
 				&.lastOfRow { padding-right: 0; }
