@@ -83,3 +83,6 @@ foreach ($recrutements as $recrutement) {
     } 
 echo _close('ul');
 }
+else{
+	echo '{{recrutement}}';
+}

@@ -59,7 +59,7 @@ if ((isset($lien)) AND ($lien != '')) {
         echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
             echo _open('ul', array('class' => 'elements'));
                 echo _tag('li', array('class' => 'element first last'), 
-                        _link('sidActuArticle/list')->set('.link_box')->text($lien)
+                        _link('sidActuArticle/list')->text($lien)
                         );
             echo _close('ul');
         echo _close('div');

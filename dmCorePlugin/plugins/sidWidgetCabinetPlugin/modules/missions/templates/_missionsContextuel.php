@@ -59,7 +59,7 @@ $nbArticle = 1;
             <ul class="elements">
                 <li class="element first last">
                     <?php
-        echo _link('mission/list')->set('.link_box')->text($lien); ?>
+        echo _link('mission/list')->text($lien); ?>
                 </li>
         </ul>
         </div>
