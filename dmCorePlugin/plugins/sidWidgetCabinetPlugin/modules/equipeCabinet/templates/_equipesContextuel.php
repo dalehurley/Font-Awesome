@@ -56,7 +56,7 @@ foreach($equipes as $equipe) {
                         echo _close('span');
                     echo _close('span');
                 echo _close('li');
-                $nbEquipe++;
+                $i++;
                 };
             echo _close('ul');
 if ((isset($lien)) AND ($lien != '')) { 

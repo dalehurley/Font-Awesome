@@ -36,6 +36,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
 //        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
         $dmPage = sfContext::getInstance()->getPage();
         $ancestors = $dmPage->getNode()->getAncestors();
+        $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars["nbArticles"];
         switch ($dmPage->module . '/' . $dmPage->action) {
             case 'article/show':
                 // il faut que je récupère l'id de la rubrique de la section
@@ -47,7 +48,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                         ->leftJoin('sas.SidRubrique s')
                         ->where('s.id = ? and p.is_active = ? ', array($recordId,true))
-                        ->limit($vars['nbArticles'])
+                        ->limit($nbArticles)
                         ->execute();
                 
                 // si il n'y a pas de contexte ou pas de collaborateur affecté à une rubrique
@@ -57,7 +58,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                             ->createQuery('p')
                             ->where('p.is_active = ? ', array(true))
                             ->orderBy('RANDOM()')
-                            ->limit($vars['nbArticles'])
+                            ->limit($nbArticles)
                             ->execute();
                 };
                 break;
@@ -71,7 +72,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                         ->leftJoin('sas.SidRubrique s')
                         ->where('s.id = ? and p.is_active = ?', array($recordId,true))
-                        ->limit($vars['nbArticles'])
+                        ->limit($nbArticles)
                         ->execute();
                 // si il n'y a pas de contexte ou pas de collaborateur affecté à une rubrique
                 if (count($equipes) == 0) {
@@ -80,7 +81,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                             ->createQuery('p')
                             ->where('p.is_active = ? ', array(true))
                             ->orderBy('RANDOM()')
-                            ->limit($vars['nbArticles'])
+                            ->limit($nbArticles)
                             ->execute();
                 };
                 break;
@@ -133,7 +134,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                                 ->createQuery('p')
                                 ->where('p.is_active = ? ', array(true))
                                 ->orderBy('RANDOM()')
-                                ->limit($vars['nbArticles'])
+                                ->limit($nbArticles)
                                 ->execute();
                     }
                 
@@ -162,13 +163,20 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
 //                    }
 //                
 //                break;
-
+            case 'pageCabinet/list':
+                $equipes = dmDb::table('SidCabinetEquipe')
+                        ->createQuery('p')
+                        ->where('p.is_active = ? ', array(true))
+                        ->orderBy('p.position')
+                        ->limit($nbArticles)
+                        ->execute();
+            break;
             default:
                 $equipes = dmDb::table('SidCabinetEquipe')
                         ->createQuery('p')
                         ->where('p.is_active = ? ', array(true))
                         ->orderBy('RANDOM()')
-                        ->limit($vars['nbArticles'])
+                        ->limit($nbArticles)
                         ->execute();
                 
             }    
