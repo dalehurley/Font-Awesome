@@ -45,11 +45,18 @@ if(count($articles)){
                 echo _close('span');    
             echo _close('header');
             echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $article->getText());
+            if($article->getFiles()->checkFileExists() == true){
+            echo _open('footer', array('class' => 'contentFooter'));
+                echo _open('div', array('class' => 'fileWrapper'));
+                    echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
+                    echo _link($article->getFiles());
+                echo _close('div');
+            echo _close('footer');
+        }
         echo _close('article');
     }
 
 
 }else{
-   
 	echo '{{actualites_du_cabinet}}';
 }
