@@ -14,12 +14,16 @@ ul.megadropdown {
 	//################################################
 
 	//test affichage pour stylage
-	//& > li:nth-child(13) {
-	& > li.dm_dir.last {
-		& > ul, & > ul ul { visibility: visible !important; }
-	}
-	.isLess & { background-color: #475F63; }
-	li { .isLess & { background-color: #6BC0D1; } }
+	//& > li:nth-child(6) {
+	//& > li.last {
+	//	ul, ul ul { opacity: 1 !important; visibility: visible !important; }
+	//}
+	//.isLess & { background-color: #475F63; }
+	//li { .isLess & { background-color: #6BC0D1; } }
+	//.isLess & {
+	//	ul { background-color: darkblue !important; }
+	//	.link { background-color: orange !important; }
+	//}
 
 	//################################################
 	//########### 1 CONFIGURATION DE BASE ############
@@ -37,11 +41,11 @@ ul.megadropdown {
 	font-size: @fontGlobalSize;
 	line-height: @gridBaseline;
 	vertical-align: middle;
-
+	
 	//gestion placement vertical
-	#dm_sidebar_left & { float: left; }
-	#dm_sidebar_right & { float: right; }
-
+	//#dm_sidebar_left & { float: left; }
+	//#dm_sidebar_right & { float: right; }
+	
 	//niveau 1 et +
 	ul {
 		position: absolute;
@@ -50,13 +54,13 @@ ul.megadropdown {
 		left: 0;
 		//permet d'éviter les débordements de texte inopinés
 		overflow: hidden;
-
+		
 		//gestion placement vertical
 		#dm_sidebar_left &, #dm_sidebar_right & { top: 0; }
 		//débuggage comportements opposés
 		#dm_sidebar_left & { right: auto !important; }
 		#dm_sidebar_right & { left: auto !important; }
-
+		
 		ul {
 			position: relative;
 			top: 0;
@@ -71,6 +75,12 @@ ul.megadropdown {
 		vertical-align: middle;
 		zoom: 1;
 
+		&.hover, &:hover {
+			z-index: 599;
+			//cursor: default;
+			left: 0;
+		}
+
 		//suppression du float sur les li des sous-parties
 		li {
 			position: relative;
@@ -79,20 +89,17 @@ ul.megadropdown {
 		}
 
 		//gestion placement vertical
-		#dm_sidebar_left &, #dm_sidebar_right & { position: relative; float: none; }
+		#dm_sidebar_left &, #dm_sidebar_right & {
+			position: relative;
+			float: none;
+			& li.dm_dir { float: left; }
+		}
 		#dm_sidebar_left & { text-align: left; }
 		#dm_sidebar_right & { text-align: right; }
-
-		/*
-		&.hover, &:hover {
-			z-index: 599;
-			//cursor: default;
-			left: 0;
-		}*/
 	}
 
 	//positionnement des liens (toujours ciblé par cette classe)
-	.link { position: relative; display:block; }
+	.link { position: relative; display:block; width: auto; }
 
 	//################################################
 	//################# 2 DIMENSIONS #################
@@ -101,26 +108,17 @@ ul.megadropdown {
 	//NIVEAU 0 : largeur automatique
 	li { width: auto; }
 
-	//gestion placement vertical
-	#dm_sidebar_left & {
-		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarLeft; 0);
-	}
-	#dm_sidebar_right & {
-		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarRight; 0);
-	}
-
 	//NIVEAU 1 : pleine largeur
 	ul {
 		//affectation de la pleine largeur au premier sous-niveau
 		@gridSiteWidth();
-
+		
 		//largeur du contenu pour le premier sous-niveau quand situé dans une sidebar
 		#dm_sidebar_left &, #dm_sidebar_right & {
-			@gridWidth(@gridCol_Content);
+			//on rajoute la gouttière pour avoir une zone continue
+			@gridWidth(@gridCol_Content; @gridGutter);
 		}
-
+		
 		#dm_sidebar_left & {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteLeft(@gridCol_SidebarLeft; 0);
@@ -134,7 +132,7 @@ ul.megadropdown {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			ul { right: 0; }
 		}
-
+		
 		//on force également la taille du lien de titrage pour éviter les débordements
 		ul, li.dm_dir .link {
 			&, #dm_sidebar_left &, #dm_sidebar_right & {
@@ -142,17 +140,11 @@ ul.megadropdown {
 			}
 		}
 
-		//largeur auto pour les sous-dossiers de niveau 1 et +
-		/*li, 
-		li.dm_dir,
-		li.dm_dir ul li.dm_dir {
-			&, #dm_sidebar_left &, #dm_sidebar_right & {
-				width: auto;
-			}
-		}*/
-
 		//pour les liens de niveau 1 non situé dans un dossier
 		li { @gridWidth(3; @gridGutter); }
+
+		//largeur auto pour les sous-dossiers de niveau 1 et +
+		li.dm_dir { width: auto; }
 	}
 
 
