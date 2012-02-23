@@ -26,13 +26,11 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayArticle = array();
-        $idDmPage = sfContext::getInstance()->getPage();
-//        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-        echo 'toto module : '.$idDmPage->module . '/ action : ' . $idDmPage->action.' id : '.$idDmPage->id;
+        $dmPage = sfContext::getInstance()->getPage();
         
         $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars["nbArticles"];
         
-        switch ($idDmPage->module . '/' . $idDmPage->action) {
+        switch ($dmPage->module . '/' . $dmPage->action) {
             // si on est dans la page d'un article su cabinet, on enlève de la liste des articles en bas de page l'article qui est affiché ($dmPage->record_id)
             case 'sidActuArticle/show':
                 
@@ -40,7 +38,7 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
                         ->from('SidActuArticle a')
                             ->leftJoin('a.Translation b')
                         ->leftJoin('a.SidActuTypeArticle sata')
-                        ->where('a.is_active = ? and sata.sid_actu_type_id = ? and a.id <> ?', array(true, $vars['type'], $idDmPage->record_id))
+                        ->where('a.is_active = ? and sata.sid_actu_type_id = ? and a.id <> ?', array(true, $vars['type'], $dmPage->record_id))
                         ->orderBy('b.updated_at DESC')
                         ->limit($nbArticles)
                         ->execute();
@@ -65,7 +63,7 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
                     $arrayArticle[$actuArticle->id] = $actuArticle;
                 }
         }
-        $vars['titreBloc'] = ($vars['titreBloc'] == NULL || $vars['titreBloc'] == ' ') ? $idDmPage->getName() : $vars['titreBloc'];
+        $vars['titreBloc'] = ($vars['titreBloc'] == NULL || $vars['titreBloc'] == ' ') ? $dmPage->getName() : $vars['titreBloc'];
         return $this->getHelper()->renderPartial('actusDuCabinet', 'actuArticlesList', array(
                     'articles' => $arrayArticle,
                     'nbArticles' => $vars['nbArticles'],
