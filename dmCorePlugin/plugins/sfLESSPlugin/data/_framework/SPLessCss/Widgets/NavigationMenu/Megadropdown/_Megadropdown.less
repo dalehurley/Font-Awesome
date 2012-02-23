@@ -1,6 +1,6 @@
 // _Megadropdown.less
-// v1.1
-// Last Updated : 2012-02-22 16:55
+// v1.2
+// Last Updated : 2012-02-23 11:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -8,90 +8,162 @@
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 
 ul.megadropdown {
+
+	//################################################
+	//############ 0 AFFICHAGE DE DEBUG ##############
+	//################################################
+
+	//test affichage pour stylage
+	//& > li:nth-child(13) {
+	& > li.dm_dir.last {
+		& > ul, & > ul ul { visibility: visible !important; }
+	}
+	.isLess & { background-color: #475F63; }
+	li { .isLess & { background-color: #6BC0D1; } }
+
+	//################################################
+	//########### 1 CONFIGURATION DE BASE ############
+	//################################################
+
+	//Au cas où : suppression marges et listes à puce
+	&, & ul, & li { list-style: none; margin: 0; padding: 0; }
+
+	//gestion profondeur de placement
 	position: relative;
 	z-index: 597;
 	float: left;
 
-	//test affichage pour stylage
-	//& > li:nth-child(6) {
-	//	ul, ul ul { visibility: visible !important; }
-	//}
+	//définitions de la taille de police par défaut
+	font-size: @fontGlobalSize;
+	line-height: @gridBaseline;
+	vertical-align: middle;
 
-	//Au cas où : suppression marges et listes à puce
-	&, & ul, & li { list-style: none; margin: 0; padding: 0; }
-	
+	//gestion placement vertical
+	#dm_sidebar_left & { float: left; }
+	#dm_sidebar_right & { float: right; }
+
+	//niveau 1 et +
+	ul {
+		position: absolute;
+		z-index: 598;
+		top: 100%;
+		left: 0;
+		//permet d'éviter les débordements de texte inopinés
+		overflow: hidden;
+
+		//gestion placement vertical
+		#dm_sidebar_left &, #dm_sidebar_right & { top: 0; }
+		//débuggage comportements opposés
+		#dm_sidebar_left & { right: auto !important; }
+		#dm_sidebar_right & { left: auto !important; }
+
+		ul {
+			position: relative;
+			top: 0;
+			left: 0;
+		}
+	}
+
 	//niveau 0
 	li {
 		float: left;
 		line-height: @gridBaseline;
 		vertical-align: middle;
 		zoom: 1;
-		
-		//positionnement des liens (toujours ciblé par cette classe)
-		.link { position: relative; display:block; }
-		
-		&.hover, &:hover {
-			z-index: 599;
-			cursor: default;
-			left: 0;
-		}
-	}
-	
-	//gestion de l'affichage direct du premier niveau
-	& > li.dm_dir {
-		& > ul {
-			visibility: hidden;
-		}
-		&.hover > ul, &:hover > ul {
-			visibility: visible;
-		}
-	}
-	
-	//niveau 1 et +
-	ul {
-		position: absolute;
-		top: 100%;
-		left: 0;
-		z-index: 598;
-		//permet d'éviter les débordements de texte inopinés
-		overflow: hidden;
-		
-		//affectation de la pleine largeur au premier sous-niveau
-		@gridSiteWidth();
-		
-		ul {
-			position: relative;
-			top: 0;
-			left: 0;
-		}
-		//on force également la taille du lien de titrage pour éviter les débordements
-		ul, li.dm_dir .link { @gridWidth(2); }
-		
+
+		//suppression du float sur les li des sous-parties
 		li {
 			position: relative;
 			float: none;
-			//pour les liens de niveau 1 non situé dans un dossier
-			@gridWidth(3; @gridGutter);
-			
-			//largeur automatique pour les suivants
-			li{ width: auto; }
-			
-			&.dm_dir {
-				float: left;
-				width: auto;
-				
-				&.last, &.lastOfRow {
-					//border-right: 0;
-					//@gridWidth(2);
-				}
-				
-				//gestion des sous-niveau supérieur à 2
-				ul li.dm_dir {
-					width: auto;
-					border-right: 0;
-				}
+			&.dm_dir { float: left; }
+		}
+
+		//gestion placement vertical
+		#dm_sidebar_left &, #dm_sidebar_right & { position: relative; float: none; }
+		#dm_sidebar_left & { text-align: left; }
+		#dm_sidebar_right & { text-align: right; }
+
+		/*
+		&.hover, &:hover {
+			z-index: 599;
+			//cursor: default;
+			left: 0;
+		}*/
+	}
+
+	//positionnement des liens (toujours ciblé par cette classe)
+	.link { position: relative; display:block; }
+
+	//################################################
+	//################# 2 DIMENSIONS #################
+	//################################################
+
+	//NIVEAU 0 : largeur automatique
+	li { width: auto; }
+
+	//gestion placement vertical
+	#dm_sidebar_left & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarLeft; 0);
+	}
+	#dm_sidebar_right & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarRight; 0);
+	}
+
+	//NIVEAU 1 : pleine largeur
+	ul {
+		//affectation de la pleine largeur au premier sous-niveau
+		@gridSiteWidth();
+
+		//largeur du contenu pour le premier sous-niveau quand situé dans une sidebar
+		#dm_sidebar_left &, #dm_sidebar_right & {
+			@gridWidth(@gridCol_Content);
+		}
+
+		#dm_sidebar_left & {
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteLeft(@gridCol_SidebarLeft; 0);
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			ul { left: 0; }
+		}
+		
+		#dm_sidebar_right & {
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteRight(@gridCol_SidebarRight; 0);
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			ul { right: 0; }
+		}
+
+		//on force également la taille du lien de titrage pour éviter les débordements
+		ul, li.dm_dir .link {
+			&, #dm_sidebar_left &, #dm_sidebar_right & {
+				@gridWidth(2);
 			}
 		}
+
+		//largeur auto pour les sous-dossiers de niveau 1 et +
+		/*li, 
+		li.dm_dir,
+		li.dm_dir ul li.dm_dir {
+			&, #dm_sidebar_left &, #dm_sidebar_right & {
+				width: auto;
+			}
+		}*/
+
+		//pour les liens de niveau 1 non situé dans un dossier
+		li { @gridWidth(3; @gridGutter); }
+	}
+
+
+	//################################################
+	//################# 3 AFFICHAGE ##################
+	//################################################
+	
+	//gestion de l'affichage direct du premier niveau
+	& > li.dm_dir {
+		& > ul { visibility: hidden; }
+		&.hover > ul, &:hover > ul { visibility: visible; }
 	}
 
 	//ajout des transitions pour navigateurs récents
