@@ -106,8 +106,10 @@ $countVille = count($arrayVilles);
             // initialisation des variables pour les class first et last
             foreach ($arrayVille as $key=>$equipe) {
                 // condition pour gérer les class des listings
-                if ($nbEquipe == 1)
+                if ($nbEquipe == 1){
                     $incrementEquipe = 'first';
+                    if($nbEquipe == $countEquipe) $incrementEquipe = 'first last';
+                    }
                 elseif ($nbEquipe == $countEquipe)
                     $incrementEquipe = 'last';
                 else

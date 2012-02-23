@@ -23,8 +23,7 @@ class pagesDuCabinetPageCabinetView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         
-        $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $dmPage = sfContext::getInstance()->getPage();
 
         $pageCabinet = dmDb::table('SidCabinetPageCabinet')->findOneByIdAndIsActive($dmPage->record_id, true);
         if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){

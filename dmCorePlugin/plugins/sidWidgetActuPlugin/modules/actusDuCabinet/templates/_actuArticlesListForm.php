@@ -18,7 +18,8 @@ _tag('div',
     $form['chapo']->renderRow().
     $form['withImage']->renderRow().
     $form['widthImage']->renderRow().
-    $form['heightImage']->renderRow()
+    $form['heightImage']->renderRow().
+    $form['cssClass']->renderRow()
          
   
 ); 

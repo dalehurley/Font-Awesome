@@ -1,55 +1,73 @@
 <?php
 // vars : $equipes, $titreBloc, $titreLien, $pageEquipe, $length, $rubrique, $nomRubrique
-$html = '';
+$i = 1;
+$i_max = count($equipes);
+$class ='';
+if (count($equipes)) { // si nous avons des membres de l'article
+echo _tag('h4.title',$titreBloc);
+echo _open('ul', array('class' => 'elements'));
 
-if (count($equipes)) { // si nous avons des actu articles
-	
-	//affichage du titre du bloc
-    if($titreBloc != null) $html.= get_partial('global/titleWidget', array('title' => $titreBloc));
-	
-	//ouverture du listing
-    $html.= _open('ul.elements');
-	
-	//compteur
-	$count = 0;
-	$maxCount = count($equipes);
-	
-    foreach ($equipes as $equipe) {
-		//incrémentation compteur
-		$count++;
-		
-		//options des personnes
-		$personOpt = array(
-						'name' => $equipe->getTitle(),
-						'description' => $equipe->getText(),
-						'image' => $equipe->getImage(),
-						'email' => $equipe->getEmail(),
-						'faxNumber' => $equipe->getFax(),
-						'telephone' => $equipe->getTel(),
-						'jobTitle' => $equipe->getStatut(),
-						'container' => 'li.element',
-						'count' => $count,
-						'maxCount' => $maxCount,
-						'isLight' => true
-						);
-		//rajout de la responsabilité seulement si présent
-		if(array_key_exists($equipe->id, $nomRubrique)) $personOpt['contactType'] = $nomRubrique[$equipe->id];
-		
-		$html.= get_partial('global/schema/Thing/Person', $personOpt);
+foreach($equipes as $equipe) {
+        // condition pour gérer les class des listings
+        if ($i == 1) {
+            $class = 'first';
+            if ($i == $i_max)
+                $class = 'first last';
+        }
+        elseif ($i == $i_max)
+            $class = 'last';
+        else
+            $class = '';
+                // condition pour gérer les class des listings
+
+                echo _open('li', array('class' => 'element itemscope Person ' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
+
+                    if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
+                        echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->alt($equipe->getTitle())->set('.image itemprop="image"'));
+                    };
+                    echo _open('span', array('class' => 'wrapper'));
+                        echo _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), $equipe->getTitle());
+                        echo _tag('span', array('class' => 'itemprop jobTitle', 'itemprop' => 'jobTitle'), $equipe->getStatut());
+                        echo _open('span', array('class' => 'contactPoints itemscope ContactPoint', 'itemtype' => 'http://schema.org/ContactPoint', 'itemscope' => 'itemscope', 'itemprop' => 'contactPoints'));
+                            
+                            if ($equipe->email != NULL) {
+                                echo _open('span', array('class' => 'itemprop email'));
+                                echo _tag('span', array('class' => 'type', 'title' => __('Email')), __('Email'));
+                                echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
+                                echo _open('span', array('class' => 'value'));
+                                echo _link('mailto:' . $equipe->email)->set(' itemprop="email"')->text('mail');
+                                echo _close('span');
+                                echo _close('span');
+                            };
+                            if ($equipe->tel != NULL) {
+                                echo _open('span', array('class' => 'itemprop telephone'));
+                                echo _tag('span', array('class' => 'type', 'title' => __('Phone')), __('Phone'));
+                                echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
+                                echo _tag('span', array('class' => 'value', 'itemprop' => 'telephone'), $equipe->tel);
+                                echo _close('span');
+                            };
+                            if ($equipe->gsm != NULL) {
+                                echo _open('span', array('class' => 'itemprop cellphone'));
+                                echo _tag('span', array('class' => 'type', 'title' => __('Cellphone')), __('Cellphone'));
+                                echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
+                                echo _tag('span', array('class' => 'value', 'itemprop' => 'cellphone'), $equipe->gsm);
+                                echo _close('span');
+                            };
+                        echo _close('span');
+                    echo _close('span');
+                echo _close('li');
+                $i++;
+                };
+            echo _close('ul');
+if ((isset($lien)) AND ($lien != '')) { 
+        echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
+            echo _open('ul', array('class' => 'elements'));
+                echo _tag('li', array('class' => 'element first last'), 
+                        _link('pageCabinet/equipe')->text($lien)
+                        );
+            echo _close('ul');
+        echo _close('div');
+    
     }
-	
-	//fermeture du listing
-    $html.= _close('ul.elements');
-	
-	//création d'un tableau de liens à afficher
-	$elements = array();
-	$elements[] = array('title' => $titreLien, 'linkUrl' => 'pageCabinet/equipe');
-	
-	$html.= get_partial('global/navigationWrapper', array(
-													'placement' => 'bottom',
-													'elements' => $elements
-													));
+    
 } // sinon on affiche rien
-
-//affichage html en sortie
-echo $html;

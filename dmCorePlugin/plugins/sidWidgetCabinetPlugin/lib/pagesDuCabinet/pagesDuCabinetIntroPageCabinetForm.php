@@ -16,9 +16,6 @@ class pagesDuCabinetIntroPageCabinetForm extends dmWidgetPluginForm {
                 ));
 
         $this->widgetSchema['lien'] = new sfWidgetFormInputText(array('default'=>'Vers la page du cabinet'));
-        $this->validatorSchema['lien'] = new sfValidatorString(array(
-                    'required' => false
-                ));
         
         $this->widgetSchema->setHelp('page' ,'Choisir une page du cabinet');
           

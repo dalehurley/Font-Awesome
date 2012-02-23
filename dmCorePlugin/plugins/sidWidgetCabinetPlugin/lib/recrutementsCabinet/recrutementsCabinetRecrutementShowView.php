@@ -6,7 +6,10 @@ class recrutementsCabinetRecrutementShowView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'titreBloc'
+            'titreBloc',
+            'withImage',
+            'widthImage',
+            'heightImage',
         ));
     }
 
@@ -19,13 +22,17 @@ class recrutementsCabinetRecrutementShowView extends dmWidgetPluginView {
      */
     protected function doRender() {
         $vars = $this->getViewVars();
-        $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $dmPage = sfContext::getInstance()->getPage();
        
+        if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
+        $vars['titreBloc'] = $dmPage->getName();
+        };
         $recrutements = dmDb::table('SidCabinetRecrutement')->findOneByIdAndIsActive($dmPage->record_id,true);
         return $this->getHelper()->renderPartial('recrutementsCabinet', 'recrutementShow', array(
                     'recrutements' => $recrutements,
-                    'titreBloc' => $vars['titreBloc']
+                    'titreBloc' => $vars['titreBloc'],
+                    'width' => $vars['widthImage'],
+                    'withImage' => $vars['withImage'],
             
                 ));
     }
