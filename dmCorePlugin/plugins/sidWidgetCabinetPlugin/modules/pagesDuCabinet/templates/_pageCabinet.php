@@ -25,22 +25,21 @@ use_helper('Date');
 //													));
 
 echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));  
-echo _open('header', array('class' => 'contentHeader'));
-
+    echo _open('header', array('class' => 'contentHeader'));
         if ($pageCabinet->getImage()->checkFileExists() == true) {
             echo _open('div', array('class' => 'imageFullWrapper'));
-            if($width != null) {echo  _media($pageCabinet->getImage())->width($width)->set('.image itemprop="image"')->alt($pageCabinet->getTitle());}
+                if($width != null) {echo  _media($pageCabinet->getImage())->width($width)->set('.image itemprop="image"')->alt($pageCabinet->getTitle());}
             echo _close('div');
         }
-echo _tag('h1', array('class' => 'title itemprop name', 'itemprop' => "name"), $pageCabinet->getTitle());
-echo _tag('meta', array('content' => $pageCabinet->createdAt, 'itemprop' => 'datePublished'));
-echo _tag('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'), $pageCabinet->getResume());
-echo _close('header');
-echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $pageCabinet->getText());
-echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
-            echo _open('ul', array('class' => 'elements'));
-                echo _tag('li', array('class' => 'element first last'), 
-                        _link('main/contact')->text($lien)
-                        );
-            echo _close('ul');
-        echo _close('div');
+        echo _tag('h1', array('class' => 'title itemprop name', 'itemprop' => "name"), $pageCabinet->getTitle());
+        echo _tag('meta', array('content' => $pageCabinet->createdAt, 'itemprop' => 'datePublished'));
+        echo _tag('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'), $pageCabinet->getResume());
+    echo _close('header');
+    echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $pageCabinet->getText());
+    echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
+        echo _open('ul', array('class' => 'elements'));
+            echo _tag('li', array('class' => 'element first last'), 
+                    _link('main/contact')->text($lien)
+                    );
+        echo _close('ul');
+    echo _close('div');

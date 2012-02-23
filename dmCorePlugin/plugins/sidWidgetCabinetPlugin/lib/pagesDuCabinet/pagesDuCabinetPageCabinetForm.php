@@ -7,9 +7,6 @@ class pagesDuCabinetPageCabinetForm extends dmWidgetPluginForm {
         parent::configure();
         
         $this->widgetSchema['lien'] = new sfWidgetFormInputText(array('default'=>'Contactez nous'));
-        $this->validatorSchema['lien'] = new sfValidatorString(array(
-                    'required' => false
-                ));
 
         
     }

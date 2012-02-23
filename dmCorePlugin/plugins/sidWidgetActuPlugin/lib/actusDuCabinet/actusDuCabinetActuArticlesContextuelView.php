@@ -34,8 +34,7 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
         $vars = $this->getViewVars();
         $arrayArticle = array();
 
-        $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $dmPage = sfContext::getInstance()->getPage();
         //si nbArticle est à 0, on ne mets rien dans le LIMIT pour tout afficher
         $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars["nbArticles"];
         switch ($dmPage->module . '/' . $dmPage->action) {

@@ -8,7 +8,7 @@ if (array_key_exists($sidActuRubrique->id, $actuRubriques) == TRUE) {
         $html.= _media($actuRubriques[$sidActuRubrique->id]->getImage())
                 ->set('.image itemprop="image"')
                 ->alt($actuRubriques[$sidActuRubrique->id]->getTitle())
-                ->width('120px')
+                ->width(120);
 //                ->height();
         $html.= _close('span.imageWrapper');
     }

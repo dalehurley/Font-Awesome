@@ -1,6 +1,6 @@
 <?php
-// vars : $missions, $nbMissions, $titreBloc, $longueurTexte
-$html = '';
+// vars : $missions, $titreBloc, $lenght
+/*$html = '';
 
 if (count($missions)) { // si nous avons des actu articles
 	
@@ -55,4 +55,56 @@ if (count($missions)) { // si nous avons des actu articles
 } // sinon on affiche rien
 
 //affichage html de sortie
-echo $html;
+echo $html;*/
+if (count($missions)) {
+$i = 1;
+$i_max = count($missions);
+$class = '';
+
+echo _tag('h4', array('class' => 'title'), $titreBloc);
+echo _open('ul', array('class' => 'elements'));
+foreach ($missions as $mission) {  
+	$link = '';
+ if ($i == 1) {
+            $class = 'first';
+            if ($i == $i_max)
+                $class = 'first last';
+        }
+        elseif ($i == $i_max)
+            $class = 'last';
+        else
+            $class = '';
+        
+        echo _open('li', array('class' => 'element itemscope Article '.$class, 'itemtype' => 'http://schema.org/Article' , 'itemscope' => 'itemscope'));
+        if ($withImage == true) {
+            if (($mission->getImage()->checkFileExists() == true) and ($i <= sfConfig::get('app_nb-image'))) {
+                $link .= _open('span', array('class' => 'imageWrapper'));
+                $link .= _media($mission->getImage())->width($width)->set('.image itemprop="image"')->alt($mission->getTitle());
+                $link .= _close('span');
+            }
+        };
+        $link .= _open('span' , array('class' => 'wrapper'));
+                    _open('span' , array('class' => 'subWrapper'));
+
+                       if ($titreBloc != $mission->getTitle()) {
+                           $link .= _tag('span', array('class' => 'title itemprop name', 'itemprop' => 'name') , $mission->getTitle());
+                       };
+                       $link .= _tag('meta' , array('content' => $mission->createdAt, 'itemprop' => 'datePublished'));
+                    $link .= _close('span');
+                    $link .= _open('span', array('class' =>'teaser itemprop description' , 'itemprop' => 'description'));
+                       if ($chapo == 0) {
+                           $link .= stringTools::str_truncate($mission->getResume(), $length, '(...)', true);
+                       } 
+                       else if ($chapo == 1) {
+                           $link .= $mission->getText();
+                       }
+                   $link .= _close('span');
+               $link .= _close('span');
+      
+       echo _link($mission)->set('.link_box')->text($link); 
+       $i++;   
+     echo _close('li');
+    } 
+echo _close('ul');
+}
+?>
