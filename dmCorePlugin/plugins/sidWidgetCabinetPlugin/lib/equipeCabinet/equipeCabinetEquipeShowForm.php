@@ -10,7 +10,7 @@ class equipeCabinetEquipeShowForm extends dmWidgetPluginForm {
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => true
                 ));
-
+        $this->widgetSchema->setHelp('widthImage', 'recommandé à 110');
     }
 
     public function getStylesheets() {

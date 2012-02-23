@@ -1,16 +1,30 @@
 <?php
 // vars : $articles, $nbArticles, $titlePage, $lien, $length, $chapo, $width, $height
 $i = 1;
+$i_max = count($articles);
+$class='';
 if (count($articles)) { // si nous avons des actu articles
     //gestion affichage du titre
     echo _tag('h4.title', $titlePage);
 ?>
 <ul class="elements">
 <?php
+// initialisation des variables pour les class first et last
+$nbArticle = 1;
+
     
     foreach ($articles as $article) {
+        if ($i == 1) {
+            $class = 'first';
+            if ($i == $i_max)
+                $class = 'first last';
+        }
+        elseif ($i == $i_max)
+            $class = 'last';
+        else
+            $class = '';
         $link = ''; ?>
-       <li class="element itemscope Article first last" itemtype="http://schema.org/Article" itemscope="itemscope">
+       <li class="element itemscope Article <?php echo $class; ?>" itemtype="http://schema.org/Article" itemscope="itemscope">
         
        <?php
         if ($article->getImage()->checkFileExists() and ($i <= sfConfig::get('app_nb-image'))) {
@@ -45,7 +59,7 @@ if (count($articles)) { // si nous avons des actu articles
             <ul class="elements">
                 <li class="element first last">
                     <?php
-        echo _link('mission/list')->set('.link_box')->text($lien); ?>
+        echo _link('mission/list')->text($lien); ?>
                 </li>
         </ul>
         </div>
