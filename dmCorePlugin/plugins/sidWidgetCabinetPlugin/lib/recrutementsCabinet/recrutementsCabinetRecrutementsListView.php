@@ -7,8 +7,11 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'titreBloc',
-            'nbRecrutements',
-            'longueurTexte'
+            'nbArticles',
+            'length',
+            'withImage',
+            'widthImage',
+            'heightImage',
         ));
     }
 
@@ -22,52 +25,25 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayRecrutements = array();
-        $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $dmPage = sfContext::getInstance()->getPage();
         
-        switch ($dmPage->module.'/'.$dmPage->action){
-            
-            case 'recrutement/show':
-                if($vars['nbRecrutements'] == 0) { $nb = dmDb::table('SidCabinetRecrutement')->count();}
-        else $nb = $vars['nbRecrutements'];
+        $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars["nbArticles"];
 
         $recrutements = Doctrine_Query::create()
                 ->from('SidCabinetRecrutement a')
                 ->leftJoin('a.Translation b')
                 ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
                 ->orderBy('b.updated_at DESC')
-                ->limit($nb)
+                ->limit($nbArticles)
                 ->execute();
-        
-        foreach ($recrutements as $recrutement) { // on stock les NB actu article 
-                    $arrayRecrutements[$recrutement->id] = $recrutement;
-                }
-                break;
-        default:
-        if($vars['nbRecrutements'] == 0) { $nb = dmDb::table('SidCabinetRecrutement')->count();}
-        else $nb = $vars['nbRecrutements'];
-
-        $recrutements = Doctrine_Query::create()
-                ->from('SidCabinetRecrutement a')
-                ->leftJoin('a.Translation b')
-                ->where('a.is_active = ? ', array(true))
-                ->orderBy('b.updated_at DESC')
-                ->limit($nb)
-                ->execute();
-        
-        foreach ($recrutements as $recrutement) { // on stock les NB actu article 
-                    $arrayRecrutements[$recrutement->id] = $recrutement;
-                };
-                
-       break;
-                
-        }
 
         return $this->getHelper()->renderPartial('recrutementsCabinet', 'recrutementsList', array(
-                    'recrutements' => $arrayRecrutements,
-                    'nbMissions' => $vars['nbRecrutements'],
+                    'recrutements' => $recrutements,
                     'titreBloc' => $vars['titreBloc'],
-                    'longueurTexte' => $vars['longueurTexte']
+                    'length' => $vars['length'],
+                    'withImage' => $vars['withImage'],
+                    'width' => $vars['widthImage'],
+                    'withImage' => $vars['withImage']
             
                 ));
     }
