@@ -6,7 +6,10 @@ class missionsMissionShowView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'titreBloc'
+            'titreBloc',
+            'withImage',
+            'widthImage',
+            'heightImage'
         ));
     }
 
@@ -19,14 +22,20 @@ class missionsMissionShowView extends dmWidgetPluginView {
      */
     protected function doRender() {
         $vars = $this->getViewVars();
-        $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-       
+        $dmPage = sfContext::getInstance()->getPage();
+        $ancestors = $dmPage->getNode()->getAncestors();
+        $namePage = $ancestors[count($ancestors) - 1]->getName();
         $missions = dmDb::table('SidCabinetMission')->findOneByIdAndIsActive($dmPage->record_id,true);
+        
+        if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
+        $vars['titreBloc'] = ucfirst(strtolower($namePage));
+        }
         
         return $this->getHelper()->renderPartial('missions', 'missionShow', array(
                     'missions' => $missions,
-                    'titreBloc' => $vars['titreBloc']
+                    'titreBloc' => $vars['titreBloc'],
+                    'withImage' => $vars['withImage'],
+                    'width' => $vars['widthImage']
             
                 ));
     }
