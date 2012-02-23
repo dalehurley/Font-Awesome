@@ -1,7 +1,8 @@
 <?php
 //$vars =  $articles, $nbArticles, $titreBloc, $lien, $length, $chapo, $width, $height, $withImage
 $i = 1;
-$position = '';
+$i_max = count($articles);
+$class = '';
 
 //gestion affichage du titre
     echo _tag('h4.title',$titreBloc);
@@ -10,21 +11,21 @@ if (count($articles)) { // si nous avons des actu articles
 
 echo _open('ul', array('class' => 'elements'));
 
-$i_max = count($articles);
+
 	foreach ($articles as $article) {  
         $link = ''; 
         // class first ou last pour listing
-        switch ($i){
-            case 1: 
-                if($i_max == 1)$position = 'first last';
-                else $position = 'first';
-                break;
-            case $i_max : $position = 'last';
-                break;
-            default : $position = '';
+        if ($i == 1) {
+            $class = 'first';
+            if ($i == $i_max)
+                $class = 'first last';
         }
+        elseif ($i == $i_max)
+            $class = 'last';
+        else
+            $class = '';
         
-        echo _open('li', array('class' => 'element itemscope Article '.$position, 'itemtype' => 'http://schema.org/Article' , 'itemscope' => 'itemscope'));
+        echo _open('li', array('class' => 'element itemscope Article '.$class, 'itemtype' => 'http://schema.org/Article' , 'itemscope' => 'itemscope'));
         
       
         
