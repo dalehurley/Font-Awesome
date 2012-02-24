@@ -1,58 +1,63 @@
 <?php // Vars: $articlePager, $parent, $route
-//insertions des includes nécessaires à ce partial
-$initValues = sfConfig::get('dm_front_dir') . '/templates/_schema/_partialInitValues.php';
-include $initValues;
 
 $html = '';
 
-$html.= get_partial('global/titleWidget', array('title' => $parent . $dash . $route));
+$articleSection = $parent . ' - ' . $route;
+//titre du contenu
+if($articleSection) echo '<h4 class="title">'.$articleSection.'</h4>';
 
-//affichage du pager top
-$html.= get_partial('global/navigationWrapper', array(
-												'placement' => 'top',
-												'pager' => $articlePager
-												));
+echo _tag('div.navigation.navigationTop', $articlePager->renderNavigationTop());
 
 //ouverture du listing
-$html.= _open('ul.elements');
+echo _open('ul.elements');
 
-//compteur
-$count = 0;
-$maxCount = count($articlePager);
+$i = 0;
+$i_max = count($articlePager->getResults()); // il faut compter le nombre de resultats pour la page en cours, count($articlePager) renvoie la taille complète du pager	
 
 foreach ($articlePager as $article) {
-	//incrémentation compteur
-	$count++;
-	//options de l'article
-	$articleOpt = array(
-					'name' => $article->getTitle(),
-					'description' => $article->getChapeau(),
-					'image' => '/_images/lea' . $article->filename . '-p.jpg',
-					'dateCreated' => $article->created_at,
-					'isDateMeta' => true,
-					'count' => $count,
-					'maxCount' => $maxCount,
-					'container' => 'li.element',
-					'isListing' => true,
-					'descriptionLength' => $defaultValueLength,
-					'url' => $article
-				);
-	
+	$i++;
+	$position = '';
+	switch ($i){
+	    case '1' : 
+	      	if ($i_max == 1) $position = ' first last';
+	       	else $position = ' first';
+	        break;
+	    default : 
+	       	if ($i == $i_max) $position = ' last';
+	       	else $position = '';
+	       	break;
+	}
+
+
 	//on supprime les photos après les 3 premiers articles
-	if($count > 3) $articleOpt['image'] = false;
+	$imageLink = '/_images/lea' . $article->filename . '-p.jpg';
+	$imageHtml = '';
+	if (is_file(sfConfig::get('sf_web_dir').$imageLink) && $i < 4 ){  // les 3 premiers articles ont une image
+		$imageHtml = 	
+			'<span class="imageWrapper">'.
+				'<img src="'.$imageLink.'" itemprop="image" class="image" alt="'.$article->title.'">'.
+			'</span>';
+	}
 
 	//ajout de l'article
-	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
+	echo 
+	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">';
+	echo _link($article)->set('.link.link_box')->text(
+			$imageHtml.
+			'<span class="wrapper">'.
+				'<span class="subWrapper">'.
+					'<span itemprop="name" class="title itemprop name">'.$article->getTitle().'</span>'.
+					'<meta content="'.$article->created_at.'" itemprop="datePublished">'.
+				'</span>'.
+				'<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>'.
+			'</span>'
+	);
+	echo '</li>';
+
 }
 
 //fermeture du listing
-$html.= _close('ul.elements');
+echo _close('ul.elements');
 
-//affichage du pager bottom
-$html.= get_partial('global/navigationWrapper', array(
-												'placement' => 'bottom',
-												'pager' => $articlePager
-												));
+echo _tag('div.navigation.navigationBottom', $articlePager->renderNavigationBottom());
 
-//affichage html en sortie
-echo $html;

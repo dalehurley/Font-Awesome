@@ -20,7 +20,9 @@ class affichageArticleView extends dmWidgetPluginView {
         ))->orderBy('b.updated_at DESC')->limit(1)->execute();
         
         return $this->getHelper()->renderPartial('affichage', 'article', array(
-            'article' => $article[0]
+            'article' => $article[0], 
+            'widthImage' => $vars['widthImage'],
+            'withImage' => $vars['withImage']
         ));
     }
     /**
