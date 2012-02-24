@@ -7,7 +7,7 @@
 //COULEURS DE DEBUG (affichée en mode /less.php)
 .isLess {
 	#dm_page{ background-color: #aaa; }
-	#dm_header .dm_zones { background-color: #8ccccb; }
+	#dm_header .dm_zones { background-color: fadeout(#8ccccb, 50%); }
 	#dm_footer .dm_zones { background-color: #c8ccbc; }
 	#dm_sidebar_left .dm_zones { background-color: #ccccb8; }
 	#dm_sidebar_right .dm_zones { background-color: #b8ccb8; }
@@ -41,6 +41,13 @@
 
 //stylage du header
 #dm_header {
+	//hauteur minimale pour l'image par défaut du header (à désactiver au besoin dans les sites clients)
+	@gridHeight(@headerHeight_bl);
+	background-color: @headerBgColor;
+	background-image: url(@{headerBgImageUrl});
+	background-repeat: no-repeat;
+	background-position: 50% bottom;
+
 	.dm_zones {
 		@gridSiteWidth();
 		margin-left: auto;
