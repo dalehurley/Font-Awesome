@@ -16,6 +16,7 @@ if(isset($image)) {
 	$isDbImage = (gettype($image) == 'object') ? true : false;
 	
 	//si l'image est en base alors on rajoute le dossier upload devant pour obtenir l'url absolue
+	//$imageUpload = ($isDbImage) ? sfConfig::get('sf_upload_dir') . '/' : sfConfig::get('sf_web_dir') . '/';
 	$imageUpload = ($isDbImage) ? sfConfig::get('sf_upload_dir') . '/' : sfConfig::get('sf_web_dir') . '/';
 	
 	//composition url absolue de l'image

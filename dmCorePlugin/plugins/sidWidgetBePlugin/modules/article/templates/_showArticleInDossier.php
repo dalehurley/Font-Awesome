@@ -28,7 +28,7 @@ if (!is_file($xml)) {
 	$html.= debugTools::infoDebug(array(__('Error : missed file') => $xml),'warning');
 } else {
 	//titre du contenu
-	$html.= get_partial('global/titleSupWrapper', array('title' => $article->title));
+	if($article->title) $html = '<h3 class="title">'.$article->title.'</h3>';
 	
 	//création du parser XML
 	$doc_xml = new DOMDocument();
@@ -53,7 +53,7 @@ if (!is_file($xml)) {
 }
 
 //déclaration des propriétés par défaut du container
-$wrapperOpt = array('id' => 'supWrapper_' . $article->id);
+$wrapperOpt = array('id' => dmString::slugify($article.'-'.$article->id));
 
 //gestion de l'index de positionnement
 if(isset($count) && isset($maxCount)) {
