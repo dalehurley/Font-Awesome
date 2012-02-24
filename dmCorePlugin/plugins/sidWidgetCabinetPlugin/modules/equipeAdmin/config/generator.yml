@@ -38,6 +38,8 @@ generator:
 #          label: 'Mots clés'
         sortable:
           label: 'trier les pages'
+        coord_name_id:
+          label: 'implentation'
         
       list:
         batch_actions:
@@ -56,8 +58,7 @@ generator:
           - fax
           - gsm
           - email
-          - created_at
-          - updated_at
+          - _coord_name_id
         sort:
           - position
           - asc
@@ -68,17 +69,11 @@ generator:
         display:
           - title
           - is_active
-          - image
-          - statut
-          - tel
-          - fax
-          - gsm
-          - email
-          - created_at
-          - updated_at
       form:
         display:
-          Identite: [title, is_active, statut, tel, fax, gsm, email, coord_name_id]
+          Visible sur le site: [is_active]
+          Ville d'implentation: [coord_name_id]
+          Identite: [ statut, tel, fax, gsm, email]
           Photo: [image_form, image_view]
           Description: [text]
 #          'Mots clés': [tags_list]

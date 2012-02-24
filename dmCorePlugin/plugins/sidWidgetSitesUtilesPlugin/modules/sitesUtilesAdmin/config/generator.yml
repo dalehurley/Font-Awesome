@@ -73,7 +73,9 @@ generator:
 #          - description
       form:
         display:
-          NONE: [title, is_active, groupe_sites_utiles_id]
+          'Publication sur le site': [is_active]
+          'Titre du site utile': [title]
+          'Choix du groupe de ce site utile': [groupe_sites_utiles_id]
           Image: [image_id_form, image_id_view]
           Description: [description]
           Others: [url]

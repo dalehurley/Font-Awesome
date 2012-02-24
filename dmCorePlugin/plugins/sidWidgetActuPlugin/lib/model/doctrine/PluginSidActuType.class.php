@@ -12,5 +12,13 @@
  */
 abstract class PluginSidActuType extends BaseSidActuType
 {
-
+     /**
+     *
+     * @return int THE ONLY record in this table
+     * 
+     */
+    public function getSidActuTypeStd() {
+        $value = $this->title;
+        return $value;
+    }
 }
