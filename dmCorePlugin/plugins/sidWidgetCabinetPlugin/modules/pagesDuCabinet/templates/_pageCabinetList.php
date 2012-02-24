@@ -49,14 +49,4 @@ if (count($pageCabinets)) { // si nous avons des actu articles
     } 
 echo _close('ul');
 
- if ((isset($lien)) AND ($lien != '')) { 
-        echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
-            echo _open('ul', array('class' => 'elements'));
-                echo _tag('li', array('class' => 'element first last'), 
-                     _link('pageCabinet/list')->text($lien)
-                        );
-            echo _close('ul');
-        echo _close('div');
-    }
-
 } ?>

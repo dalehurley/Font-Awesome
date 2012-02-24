@@ -1,0 +1,44 @@
+<?php
+
+class pagesDuCabinetpageCabinetListView extends dmWidgetPluginView {
+
+    public function configure() {
+        parent::configure();
+
+        $this->addRequiredVar(array(
+            'length',	
+            'titreBloc',
+            'widthImage',
+            'heightImage',
+            'withImage'
+        ));
+    }
+
+    
+    /**
+     * On choisit la page du cabinet à afficher
+     * On choisit la longueur de texte
+     * On choisit le titre du bloc (Facultatif, si il n'y a rien, on affiche l'intitulé de la page)
+     *  
+     */
+    protected function doRender() {
+        $vars = $this->getViewVars();
+        $arrayArticle = array();
+
+        $pageCabinets = dmDb::table('SidCabinetPageCabinet')->findByIsActive(true);
+//        ($vars['withImage'] == true) ? (($pageCabinet->getImage()->checkFileExists() == true) ? $image = $pageCabinet->getImage() : $image = ''): $image = '';
+        ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $pageCabinets[0]->getTitle():'';
+        ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
+		
+        return $this->getHelper()->renderPartial('pagesDuCabinet', 'pageCabinetList', array(
+                    'pageCabinets' => $pageCabinets,
+                    'length' => $vars['length'],
+                    'lien' => $lien,
+                    'titreBloc' => $vars['titreBloc'],
+                    'width' => $vars['widthImage'],
+                    'height' => $vars['heightImage'],
+                    'withImage' => $vars['withImage'],
+                ));
+    }
+
+}
