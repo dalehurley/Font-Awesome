@@ -65,7 +65,7 @@ foreach ($recrutements as $recrutement) {
             }
         };
         $link .= _open('span' , array('class' => 'wrapper'));
-                    _open('span' , array('class' => 'subWrapper'));
+           $link .= _open('span' , array('class' => 'subWrapper'));
 
                        if ($titreBloc != $recrutement->getTitle()) {
                            $link .= _tag('span', array('class' => 'title itemprop name', 'itemprop' => 'name') , $recrutement->getTitle());
