@@ -11,7 +11,6 @@
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
-@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Config du widget courant
 @import "_templates/BaseTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
@@ -137,36 +136,6 @@ ul.megadropdown {
 				ul {
 					margin-left: 0;
 					ul { margin-left: -1px; }
-				}
-			}
-
-			//lien vers la page d'accueil
-			&.dm_root {
-				//décalage de marge
-				@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
-				@decalH: (@gridColWidth - @spriteFormat_M) / 2;
-				
-				//ajout de la sprite sur la home
-				& > .link_root {
-					//suppression du texte
-					text-indent:-9999em;
-					//insertion de la sprite
-					@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
-					//suppression rollOver
-					&, &:hover, &:focus { background-color: transparent; }
-				}
-				
-				//uniformisation des marges du bouton
-				& > .link_root,
-				&:hover > .link_root,
-				& > .link_root:hover,
-				& > .link_root:focus,
-				&.first:hover > .link_root,
-				&.first > .link_root:hover,
-				&.first > .link_root:focus {
-					border: 0;
-					padding: 0;
-					margin: @decalV @decalH;
 				}
 			}
 		}

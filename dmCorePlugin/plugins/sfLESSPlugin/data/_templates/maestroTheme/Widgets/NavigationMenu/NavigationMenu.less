@@ -12,6 +12,7 @@
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Config du widget courant
 @import "_templates/maestroTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
@@ -134,6 +135,42 @@ ul.dropdown, ul.accordion {
 						@origin(75%; 50%);
 					}
 				}
+			}
+		}
+	}
+}
+
+//ajout de l'icône sur le lien vers la page d'accueil pour les menus dropdown et megadropdown situé dans la zone dm_custom_top
+ul.dropdown, ul.megadropdown {
+	#dm_custom_top .dm_widget.navigation_menu & {
+		//décalage de marge
+		@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
+		@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+		
+		//lien vers la page d'accueil
+		& > li.dm_root {
+			//ajout de la sprite sur la home
+			& > .link_root {
+				//suppression du texte
+				text-indent:-9999em;
+				//insertion de la sprite
+				@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
+				//suppression rollOver
+				&, &:hover, &:focus { background-color: transparent; }
+			}
+		}
+
+		//double sélecteur pour forcer la réinitialisation sans utiliser !important
+		& > li.dm_root,
+		& > li.first.dm_root {
+			//uniformisation des marges du bouton
+			& > .link_root,
+			&:hover > .link_root,
+			& > .link_root:hover,
+			& > .link_root:focus {
+				border: 0;
+				padding: 0;
+				margin: @decalV @decalH;
 			}
 		}
 	}
