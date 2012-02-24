@@ -12,6 +12,7 @@ class articleComponents extends myFrontModuleComponents
   public function executeListBySection()
   {
     $query = $this->getListQuery();
+    // si une section contient au moins un dossier alors on ne va cherhcer dans la query que les dossiers de cette section
     // récupération des données pour filtrage des dossiers
     $section_id = $this->getPage()->getRecordId();
     $articleDossier = dmDb::table('SidArticle')->findByIsDossierAndSectionId(true,$section_id);

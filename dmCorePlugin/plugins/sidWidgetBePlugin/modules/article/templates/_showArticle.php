@@ -41,23 +41,8 @@ if (!is_file($xml)) {
 		$doc_xsl->load($xsl);
 		$moteurXslt = new xsltProcessor();
 		$moteurXslt->importstylesheet($doc_xsl);
-/*
-		//affichage du contenu
-		$articleOpts = array(
-							'container' => 'article',
-							'name' => $article->title,
-							'description' => $article->getChapeau(),
-							'image' => '/_images/lea' . $article->filename . '-g.jpg',
-							'dateCreated' => $article->created_at,
-							'dateModified' => $article->updated_at,
-							'articleSection' => $rubrique . ' - ' . $section,
-							'articleBody' => $moteurXslt->transformToXML($doc_xml),
-							'copyrightHolder' => 'SID Presse',							//en attendant implémentation dans base depuis la valeur du XML
-							'copyrightYear' => substr($article->created_at, 0, 4)		//en attendant implémentation dans base depuis la valeur du XML
-						);
 
-		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
-*/
+		//affichage du contenu
 		$imageLink = '/_images/lea' . $article->filename . '-g.jpg';
 		$imageHtml = '';
 		if (is_file(sfConfig::get('sf_web_dir').$imageLink) && $withImage){

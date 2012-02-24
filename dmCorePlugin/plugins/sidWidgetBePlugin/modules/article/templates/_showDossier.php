@@ -102,11 +102,11 @@ if (!is_file($xml)) {
 						'<div class="navigationWrapper navigationTop">'.
 							'<ul class="elements">';
 
-			$i = 1;
+			$i = 0;
 			$i_max = count($elements);							
 			
 			foreach ($elements as $element) {
-
+				$i++;
 		    	$position = '';
 		        switch ($i){
 		            case '1' : 
@@ -123,7 +123,6 @@ if (!is_file($xml)) {
 								'<li class="element'.$position.'">'.
 									'<a href="'.$element['linkUrl'].'#'.$element['anchor'].'" class="link link_box">'.$element['title'].'</a>'.
 								'</li>';
-				$i++;
 			}
 			$articleFilsNavigation .=
 							'</ul>'.
