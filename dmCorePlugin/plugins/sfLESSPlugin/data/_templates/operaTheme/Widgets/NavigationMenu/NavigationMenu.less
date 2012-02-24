@@ -174,7 +174,9 @@ ul.dropdown, ul.megadropdown {
 				//insertion de la sprite
 				@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
 				//suppression rollOver
-				&, &:hover, &:focus { background-color: transparent; }
+				&, .rgba & {
+					&, &:hover, &:focus { background-color: transparent; }
+				}
 			}
 		}
 
