@@ -102,7 +102,10 @@ ul.megadropdown {
 			& > .link {
 				//suppression couleur de fond et changement couleur de rollOver
 				background-color: transparent;
-				&:hover, &:focus { background-color: @colorCouleur1; }
+				&:hover, &:focus {
+					background-color: @colorCouleur1Moyen;
+					.rgba & { background-color: fadeout(@colorCouleur1Fonce, 33%); }
+				}
 				
 				//ajout bordure à droite
 				border-right: 1px solid @zonesBorderColor;
@@ -118,6 +121,14 @@ ul.megadropdown {
 			& > .link:focus {
 				margin-left: -1px;
 				border-left: 1px solid @zonesBorderColor;
+			}
+
+			//Opéra : changement couleur de rollOver avec couleur de fond de la sous partie
+			&.dm_dir > .link {
+				&:hover, &:focus {
+					background-color: mix(@colorCouleur1, @colorCouleur2, 33%);
+					.rgba & { background-color: fadeout(@colorCouleur2, 33%); }
+				}
 			}
 
 			//rajout bordure à gauche sur la première cellule
