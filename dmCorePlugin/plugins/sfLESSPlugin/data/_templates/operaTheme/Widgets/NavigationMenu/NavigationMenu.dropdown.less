@@ -151,6 +151,11 @@ ul.dropdown {
 				//suppression couleur de fond et changement couleur de rollOver
 				background-color: transparent;
 				&:hover, &:focus { background-color: @colorCouleur1; }
+
+				//uniformisation couleur de police
+				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
+				&.dm_inactive { color: @colorCouleur3Clair; }
+				
 				padding-top: @gridBaseline / 2;
 				padding-bottom: @gridBaseline / 2;
 				border-bottom: 0;

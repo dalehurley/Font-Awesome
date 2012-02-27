@@ -148,6 +148,10 @@ ul.dropdown {
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
+				//uniformisation couleur de police
+				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
+				&.dm_inactive { color: @colorCouleur3Clair; }
+				
 				margin-top: floor(@gridBaseline / 4) + 1px;
 				margin-bottom: floor(@gridBaseline / 4) + 1px;
 				padding-top: floor(@gridBaseline / 4) + 0px;
