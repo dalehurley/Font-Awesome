@@ -15,10 +15,19 @@
 @import "_templates/operaTheme/Widgets/SpecifiquesBaseEditorialeListAgenda/_SpecifiquesBaseEditorialeListAgenda.less";
 
 //STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
+
+//couleurs de débug dans les zones de contenu uniquement
+.isLess {
+	#dm_sidebar_left, #dm_sidebar_right, #dm_content {
+		.dm_widget {
+			background-color: fadeout(#DCDAE6, 50%);
+			.dm_widget_inner { background-color: fadeout(#D2CFE6, 50%); }
+		}
+	}
+}
+
 .dm_widget {
-	.isLess & { background-color: fadeout(#DCDAE6, 50%); }
 	.dm_widget_inner {
-		.isLess & { background-color: fadeout(#D2CFE6, 50%); }
 	}
 }
 
