@@ -73,21 +73,21 @@
 
 //gestion des paddings et des marges des sidebars et du contenu
 #dm_content {
-	.isLess & { background-color: #8A9999; }
+	.isLess & { background-color: #b8cccc; }
 
 	.dm_zones {
-		.isLess & { background-color: #b8cccc; }
-		margin-left: @gridColWidth - @gridGutter;
-		margin-right: @gridGutter;
+		.isLess & { background-color: #8A9999; }
+		padding-left: @gridColWidth;
+		padding-right: @gridGutter;
 	}
 }
 
 #dm_sidebar_right {
-	.isLess & { background-color: #8A998A; }
+	.isLess & { background-color: #b8ccb8; }
 
 	.dm_zones {
-		.isLess & { background-color: #b8ccb8; }
-		margin-left: 0;
-		margin-right: @gridColWidth - @gridGutter;
+		.isLess & { background-color: #8A998A; }
+		padding-left: @gridGutter;
+		padding-right: @gridColWidth;
 	}
 }
