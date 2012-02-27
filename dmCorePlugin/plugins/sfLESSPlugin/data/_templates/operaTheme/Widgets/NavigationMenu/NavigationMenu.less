@@ -51,21 +51,8 @@
 			@gridSiteWidth();
 			margin-left: auto;
 			margin-right: auto;
-			z-index: 1;
-
-			//création de l'ombres à l'aides d'une pseudo classes (évite l'ajout de balisage de mise en forme dans pageSuccess)
-			&:before {
-				position: absolute;
-				display: block;
-				content: "";
-				z-index: -10;
-				@gridSiteWidth();
-				height: 100%;
-				top: 0;
-				left: 0;
-				background-color: transparent;
-				@boxShadowPie(0 0 @gridPadding @colorBlack);
-			}
+			//ajout de l'ombrage
+			@boxShadowPie(0 0 @gridPadding @colorBlack);
 		}
 	}
 }
