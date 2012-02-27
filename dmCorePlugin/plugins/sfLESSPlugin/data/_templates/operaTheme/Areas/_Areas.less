@@ -21,23 +21,24 @@
 //couleur de la zone située sous le header jusqu'en bas
 #dm_main {
 	background-color: @colorWhite;
-}
-
-#dm_main_inner {
 	z-index: 1;
 	&:before {
-		position: absolute;
+		position: relative;
 		display: block;
-		content: "before";
+		z-index: -10;
+		content: "";
 		@gridSiteWidth();
 		@gridHeight(30);
-		top: 0;
-		left: @gridPadding;
+		//on force la hauteur de l'élément et on la soustrait en margin-bottom négatif par la suite
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: (@gridBaseline * -30);
 		//ombre répétée dans WidgetBase sur le dm_zones:before de dm_layout_centerTopTop
-		@boxShadow(0 0 @gridPadding*4 @colorBlack);
-		z-index: -10;
+		@boxShadow(0 0 (@gridGutter*4) @colorCouleur3Fonce);
 	}
 }
+
+#dm_main_inner { background-color: @colorWhite; }
 
 //stylage du header
 #dm_header {
