@@ -13,8 +13,8 @@
 	#dm_header > .dm_zones { background-color: fadeout(#8ccccb, 50%); }
 	#dm_footer > .dm_zones { background-color: #c8ccbc; }
 	#dm_sidebar_left > .dm_zones { background-color: #ccccb8; }
-	#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
-	#dm_content > .dm_zones { background-color: #b8cccc; }
+	//#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
+	//#dm_content > .dm_zones { background-color: #b8cccc; }
 	//#dm_custom_top > .dm_zones { background-color: #ccccb8; }
 	#dm_custom_bottom > .dm_zones { background-color: #ccb8cc; }
 }
@@ -64,10 +64,30 @@
 	}
 }
 
-
 //stylage de la zone sous le header
 #dm_custom_top {
 	background-color: @colorCouleur2;
 	padding-top: @gridBaseline/2;
 	min-height: @gridBaseline;
+}
+
+//gestion des paddings et des marges des sidebars et du contenu
+#dm_content {
+	.isLess & { background-color: #8A9999; }
+
+	.dm_zones {
+		.isLess & { background-color: #b8cccc; }
+		margin-left: @gridColWidth - @gridGutter;
+		margin-right: @gridGutter;
+	}
+}
+
+#dm_sidebar_right {
+	.isLess & { background-color: #8A998A; }
+
+	.dm_zones {
+		.isLess & { background-color: #b8ccb8; }
+		margin-left: 0;
+		margin-right: @gridColWidth - @gridGutter;
+	}
 }
