@@ -58,3 +58,6 @@ all:
   # nom des sessions pour le bloc articleBySectionContextuel
   article-data-type-article : Article
   article-data-type-dossier : Dossier
+
+  # copyrightHolder des articles de la base éditoriale
+  copyright-holder : Sid Presse

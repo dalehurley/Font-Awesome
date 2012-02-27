@@ -3,16 +3,13 @@
  * Retourne un article de dossier xml formaté par le XSL, en html
  */
 
-//html de sortie
-$html = '';
+use_helper('Date');
 
 //récupération de la section et de la rubrique
 $section = $article->getSectionPageTitle();
 $rubrique = $article->getRubriquePageTitle();
-//récupération des différentes variables par défault
-$dash = _tag('span.dash', sfConfig::get('app_vars-partial_dash'));
 //composition de la catégorie de l'article
-$articleSection = $rubrique . $dash . $section;
+$articleSection = $rubrique . ' - ' . $section;
 
 //ciblage XML et XSL
 $xml = sfConfig::get('app_rep-local') .
@@ -33,7 +30,7 @@ if (!is_file($xml)) {
 } else {
 	
 	//titre du contenu
-	$html.= get_partial('global/titleWidget', array('title' => $articleSection, 'isContainer' => true));
+	if($articleSection) echo '<h2 class="title">'.$articleSection.'</h2>';
 
 	//création du parser XML
 	$doc_xml = new DOMDocument();
@@ -47,18 +44,6 @@ if (!is_file($xml)) {
 		$moteurXslt = new xsltProcessor();
 		$moteurXslt->importstylesheet($doc_xsl);
 		
-		//options du contenu
-		$articleOpts = array(
-							'container' => 'article',
-							'name' => $article->title,
-							'description' => $article->getChapeau(),
-							'image' => '/_images/lea' . $article->filename . '-g.jpg',
-							'dateCreated' => $article->created_at,
-							'dateModified' => $article->updated_at,
-							'articleSection' => $rubrique . ' - ' . $section,
-							'copyrightHolder' => 'SID Presse',							//en attendant implémentation dans base depuis la valeur du XML
-							'copyrightYear' => substr($article->created_at, 0, 4)		//en attendant implémentation dans base depuis la valeur du XML
-						);
 		//création du contenu à afficher
 		$articleBody = $moteurXslt->transformToXML($doc_xml);
 
@@ -73,7 +58,6 @@ if (!is_file($xml)) {
 				if(isset($AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue)) $linkedArticles[] = $AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue;
 			}
 		}
-		
 		
 		//on ne récupère le contenu des articles associés que si un ou plusieurs articles est détecté
 		if(count($linkedArticles) >= 1) {
@@ -97,27 +81,93 @@ if (!is_file($xml)) {
 				$linkedSidArticle = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($linkedArticle, $article->sectionId);
 				
 				//remplissage du tableau de navigation
-				$elements[] = array('title' => $article->title, 'linkUrl' => $article, 'anchor' => 'supWrapper_' . $linkedSidArticle->id);
+				$elements[] = array('title' => $linkedSidArticle->title, 'linkUrl' => $article, 'anchor' => dmString::slugify($linkedSidArticle.'-'.$linkedSidArticle->id));
 				
 				//ajout information de débug
-				//$articleBody.= debugTools::infoDebug(array('ID LEA' => $linkedArticle . ' - ' . $article->sectionId));
+				//$articleBody.= debugTools::infoDebug(array('ID LEA' => $linkedArticle, 'Section ID' => $article->sectionId));
 				
 				$articleBody.= get_partial('article/showArticleInDossier', array('article' => $linkedSidArticle, 'count' => $count, 'maxCount' => $maxCount));
 			}
-			
-			//ajout du tableau de liens aux options de l'article
-			$articleOpts['navigationTopElements'] = $elements;
 		}
 		
 		//insertion du contenu
-		$articleOpts['articleBody'] = $articleBody;
+		// $articleBody : le texte de l'article père + les articles fils à la suite
+		// $elements    : la liste des articles fils avec un lien anchor sur la page
+
+		// afficahge de la navigation des articles fils
+		$articleFilsNavigation = '';
+		if (count($elements)){
+			
+			$articleFilsNavigation =
+						'<div class="navigationWrapper navigationTop">'.
+							'<ul class="elements">';
+
+			$i = 0;
+			$i_max = count($elements);							
+			
+			foreach ($elements as $element) {
+				$i++;
+		    	$position = '';
+		        switch ($i){
+		            case '1' : 
+		            	if ($i_max == 1) $position = ' first last';
+		            	else $position = ' first';
+		                break;
+		            default : 
+		            	if ($i == $i_max) $position = ' last';
+		            	else $position = '';
+		            	break;
+		        }
+
+        		$articleFilsNavigation .=
+								'<li class="element'.$position.'">'.
+									'<a href="'.$element['linkUrl'].'#'.$element['anchor'].'" class="link link_box">'.$element['title'].'</a>'.
+								'</li>';
+			}
+			$articleFilsNavigation .=
+							'</ul>'.
+						'</div>';
+					
+			}
 		
 		//affichage du contenu
-		$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpts);
+		$imageLink = '/_images/lea' . $article->filename . '-g.jpg';
+		$imageHtml = '';
+		if (is_file(sfConfig::get('sf_web_dir').$imageLink) && $withImage){
+			$imageHtml = 	'<div class="imageFullWrapper">'.
+						    	'<img width="'.$widthImage.'" src="'.$imageLink.'" itemprop="image" class="image" alt="'.$article->title.'">'.
+							'</div>';
+		}
+			echo '<article itemtype="http://schema.org/Article" itemscope="itemscope" class="itemscope Article">';
+				echo '<header class="contentHeader">';
+					echo $imageHtml;
+					echo '<h1 itemprop="name" class="title itemprop name">'.$article->title.'</h1>';
+					echo '<meta content="'.$articleSection.'" itemprop="articleSection">';
+					echo '<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>';
+					echo '<span class="date">'.__('Published on').' ';
+						echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'D').'</time>';
+					echo '</span>';
+					echo $articleFilsNavigation;
+				echo '</header>';
+				echo '<section itemprop="articleBody" class="contentBody">';
+					echo $articleBody;
+				echo '</section>';
+				echo '<footer class="contentFooter">';
+					echo '<span class="meta">';
+						echo '<span class="date">'.__('Article published on').' ';
+							echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'd').'</time>';
+						echo '</span>';
+						echo '<span class="dash">&nbsp;-&nbsp;</span>';
+						echo '<span class="copyright">&copy;&nbsp;';
+							echo '<span itemprop="copyrightHolder" class="itemprop copyrightHolder">'.sfConfig::get('app_copyright-holder').'</span>';
+							echo '<span class="dash">&nbsp;-&nbsp;</span>';
+							echo '<span itemprop="copyrightYear" class="itemprop copyrightYear">'.format_date($article->created_at, 'y ').'</span>';
+						echo '</span>';
+					echo '</span>';
+				echo '</footer>';
+			echo '</article>';
 	} else {
-		$html.= debugTools::infoDebug(array(__('Error : invalid xml') => $xml),'warning');
+		echo debugTools::infoDebug(array(__('Error : invalid xml') => $xml),'warning');
 	}
 }
 
-//affichage html en sortie
-echo $html;
