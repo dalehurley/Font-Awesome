@@ -17,8 +17,7 @@ $pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' =>
 $pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 
 //Opéra : désactivation sidebarLeft
-//$pageOptionsCustom['areas']['dm_sidebar_left']['isActive'] = false;
-//$pageOptionsCustom['areas']['dm_sidebar_right']['isActive'] = false;
+$pageOptionsCustom['areas']['dm_sidebar_left']['isActive'] = false;
 
 //Initialisation de la page et récupération des options de la page (avec fusion des options personnalisées)
 $pageOptions = spLessCss::pageInit($pageOptionsCustom);
