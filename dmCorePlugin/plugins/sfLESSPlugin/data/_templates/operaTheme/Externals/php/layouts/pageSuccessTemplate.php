@@ -18,6 +18,7 @@ $pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBot
 
 //Opéra : désactivation sidebarLeft
 //$pageOptionsCustom['areas']['dm_sidebar_left']['isActive'] = false;
+//$pageOptionsCustom['areas']['dm_sidebar_right']['isActive'] = false;
 
 //Initialisation de la page et récupération des options de la page (avec fusion des options personnalisées)
 $pageOptions = spLessCss::pageInit($pageOptionsCustom);

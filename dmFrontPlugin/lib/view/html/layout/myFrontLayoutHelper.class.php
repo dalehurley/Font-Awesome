@@ -31,6 +31,7 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		$pageOptions = sfConfig::get('pageOptions');
 
         //ajout des classes personnalisée sur le body
+		//$options['class'][] = $pageOptions['sdbConfig'];
 		if($pageOptions['isDev']) $options['class'][] = 'isDev';
 		if($pageOptions['isLess']) $options['class'][] = 'isLess';
 

@@ -503,6 +503,14 @@ class spLessCss {
 		//on fusionne des éventuelles propriétés personnalisées injectées dans la fonction
 		$pageOptions = (count($optionsCustom) === 0) ? $pageTemplateOptionsDefault : self::pageTemplateCustomOptions($pageTemplateOptionsDefault, $optionsCustom);
 		
+		//on vérifie les configs pour ajouter le paramètre sdbConfig
+		if($pageOptions['areas']['dm_sidebar_left']['isActive'] == true && $pageOptions['areas']['dm_sidebar_right']['isActive'] == true) $sdbConfig = "dm_sdbc_two";
+		elseif($pageOptions['areas']['dm_sidebar_left']['isActive'] == true)                                                              $sdbConfig = "dm_sdbc_left";
+		elseif($pageOptions['areas']['dm_sidebar_right']['isActive'] == true)                                                             $sdbConfig = "dm_sdbc_right";
+		else                                                                                                                              $sdbConfig = "dm_sdbc_none";
+		//on ajoute le paramètre
+		$pageOptions['sdbConfig'] = $sdbConfig;
+		
 		//retour de la valeur
 		return $pageOptions;
 	}
