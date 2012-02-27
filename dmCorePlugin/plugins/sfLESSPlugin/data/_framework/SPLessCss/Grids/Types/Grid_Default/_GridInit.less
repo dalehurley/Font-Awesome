@@ -48,7 +48,7 @@
 
 //CONFIGURATION ZONE DE CONTENU EN FONCTION DE LA PRÉSENCE DES SIDEBARS
 #dm_content,
-.no-sidebar #dm_content { float: left; }
+.dm_sdbc_none #dm_content { float: left; }
 
 //PLACEMENT SIDEBARS
 #dm_sidebar_left, #dm_sidebar_right { float: left; padding: 0; }
@@ -57,10 +57,10 @@
 @gridAutoLayout();
 
 //debug pour masquage sidebars
-.sidebar-right #dm_sidebar_left,
-.sidebar-left #dm_sidebar_right,
-.no-sidebar #dm_sidebar_left,
-.no-sidebar #dm_sidebar_right {
+.dm_sdbc_right #dm_sidebar_left,
+.dm_sdbc_left #dm_sidebar_right,
+.dm_sdbc_none #dm_sidebar_left,
+.dm_sdbc_none #dm_sidebar_right {
 	display: none;
 	visibility: hidden;
 }
