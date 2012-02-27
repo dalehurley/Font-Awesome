@@ -11,5 +11,26 @@
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 
 .bandeau_smart_bandeau {
+	//définitions de la largeur
+	width: 100%;
+	height: @gridBaseline;
+	overflow: hidden;
 	
+	.bandeau_show {
+		color: @colorCouleur3Clair;
+		font-weight: bold;
+	}
 }
+
+//TODO : revoir replacement élément en mode portrait car le JS impose la taille du bandeau au chargement !
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletPortrait(){
+	.bandeau_smart_bandeau {
+		display: none;
+		visibility: hidden;
+	}
+}
+
+//importation des requêtes média
+@import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";
