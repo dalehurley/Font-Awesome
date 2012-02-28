@@ -27,7 +27,19 @@
 //STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
 .dm_widget {
 	.dm_widget_inner {
-
+		//changement taille du titre des widgets
+		& > .title {
+			#dm_content & {
+				text-transform: none;
+				font-size: @fontSizeH3Px;
+				line-height: @gridBaseline;
+			}
+			#dm_sidebar_left &, #dm_sidebar_right & {
+				text-transform: uppercase;
+				font-size: @fontSizeH4Px;
+				line-height: @gridBaseline;
+			}
+		}
 	}
 }
 
@@ -78,6 +90,12 @@
 			padding: (@gridBaseline/2) 0;
 			//suppression bordures sous niveaux
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; } }
+
+			& > .title {
+				.isLess & { background-color: #5F8FA3; }
+				color: @colorCouleur2;
+				padding-top: @gridBaseline/2;
+			}
 		}
 	}
 }
