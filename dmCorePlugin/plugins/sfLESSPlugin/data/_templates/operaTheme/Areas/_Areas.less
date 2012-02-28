@@ -19,9 +19,11 @@
 	#dm_custom_bottom > .dm_zones { background-color: #ccb8cc; }
 }
 
+//couleur de fond de la page
+#dm_main, #dm_main_inner { background-color: @colorWhite; }
+
 //couleur de la zone située sous le header jusqu'en bas
 #dm_main {
-	background-color: @colorWhite;
 	z-index: 1;
 	&:before {
 		position: relative;
@@ -39,7 +41,11 @@
 	}
 }
 
-#dm_main_inner { background-color: @colorWhite; }
+//débordement externes des différentes zones de la page
+#dm_content, #dm_sidebar_left, #dm_sidebar_right, #dm_custom_top, #dm_custom_bottom {
+	//meilleure gestion uniformisée des bordures
+	.dm_zones { margin: 0 (@zonesOffsetPad * -1) 0 (@zonesOffsetPad * -1); }
+}
 
 //stylage du header
 #dm_header {
@@ -58,17 +64,18 @@
 	}
 }
 
-//stylage du footer
-#dm_footer {
+//stylage de la zone sous le header
+#dm_custom_top {
 	.dm_zones {
+		background-color: @colorCouleur2;
+		padding-top: @gridBaseline/2;
+		min-height: @gridBaseline;
 	}
 }
 
-//stylage de la zone sous le header
-#dm_custom_top {
-	background-color: @colorCouleur2;
-	padding-top: @gridBaseline/2;
-	min-height: @gridBaseline;
+//stylage du footer
+#dm_footer {
+	.dm_zones { }
 }
 
 //gestion des paddings et des marges des sidebars et du contenu
@@ -77,8 +84,7 @@
 
 	.dm_zones {
 		.isLess & { background-color: #8A9999; }
-		padding-left: @gridColWidth;
-		padding-right: @gridGutter;
+		//lorsque uniquement sidebar-right est présente
 	}
 }
 
@@ -87,7 +93,6 @@
 
 	.dm_zones {
 		.isLess & { background-color: #8A998A; }
-		padding-left: @gridGutter;
-		padding-right: @gridColWidth;
+		border-left: 1px solid red;
 	}
 }
