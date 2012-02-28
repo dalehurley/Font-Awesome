@@ -38,7 +38,7 @@
 	</g>
 
 	<!-- Icône en superposition avec dégradé (recopier icône standard à l'intérieur du groupe redimensionné) -->
-	<g transform="translate(32, 32) scale(0.6863, 0.6863) translate(-32, -32)">
+	<g transform="translate(32, 32) scale(0.62, 0.62) translate(-32, -32)">
 		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-282.0049" y1="-6389.7437" x2="-282.0049" y2="-6346.9175" gradientTransform="matrix(1 0 0 1 314.0049 6403.4102)">
 			<stop  offset="0" style="stop-color:##spriteCouleur3Fonce##"/>
 			<stop  offset="1" style="stop-color:##spriteCouleurBlack##"/>

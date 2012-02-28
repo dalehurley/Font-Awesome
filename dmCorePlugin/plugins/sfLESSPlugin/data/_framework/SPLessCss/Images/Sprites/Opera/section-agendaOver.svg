@@ -33,7 +33,7 @@
 	</g>
 
 	<!-- Icône en superposition monocouleur (recopier icône standard à l'intérieur du groupe redimensionné) -->
-	<g transform="translate(32, 32) scale(0.6863, 0.6863) translate(-32, -32)">
+	<g transform="translate(32, 32) scale(0.62, 0.62) translate(-32, -32)">
 		<path fill="##spriteCouleur3ClairSup##" d="M50.479,13.667h-6.594v3.812c0,2.269-1.838,4.106-4.107,4.106h-2.053
 			c-2.27,0-4.107-1.838-4.107-4.106v-3.812h-3.236v3.812c0,2.269-1.84,4.106-4.107,4.106h-2.053c-2.268,0-4.105-1.838-4.105-4.106
 			v-3.812H13.52c-2.268,0-4.106,1.838-4.106,4.106v34.612c0,2.268,1.838,4.107,4.106,4.107h36.958c2.27,0,4.107-1.84,4.107-4.107
