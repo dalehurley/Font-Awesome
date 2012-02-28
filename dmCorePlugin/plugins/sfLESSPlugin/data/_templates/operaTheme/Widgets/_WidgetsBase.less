@@ -14,8 +14,6 @@
 @import "_templates/operaTheme/Widgets/SpecifiquesBaseEditorialeFilActualite/_SpecifiquesBaseEditorialeFilActualite.less";
 @import "_templates/operaTheme/Widgets/SpecifiquesBaseEditorialeListAgenda/_SpecifiquesBaseEditorialeListAgenda.less";
 
-//STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
-
 //couleurs de débug dans les zones de contenu uniquement
 .isLess {
 	#dm_sidebar_left, #dm_sidebar_right, #dm_content {
@@ -26,8 +24,10 @@
 	}
 }
 
+//STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
 .dm_widget {
 	.dm_widget_inner {
+
 	}
 }
 
@@ -65,6 +65,19 @@
 				padding-top: (@gridBaseline/2 -1px);
 				border-top: 1px solid @headerTextColor;
 			}
+		}
+	}
+}
+
+//stylage par défaut des widgets dans les zones principales
+#dm_content, #dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget {
+		margin-bottom: @gridBaseline/2;
+		
+		.dm_widget_inner {
+			padding: (@gridBaseline/2) @zonesOffsetPad;
+			//suppression bordures sous niveaux
+			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; } }
 		}
 	}
 }
