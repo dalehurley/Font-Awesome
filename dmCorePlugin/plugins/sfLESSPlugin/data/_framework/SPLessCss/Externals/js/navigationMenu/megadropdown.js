@@ -1,6 +1,6 @@
 // megadropdown.js
-// v0.6
-// Last Updated : 2012-02-23 15:00
+// v0.7
+// Last Updated : 2012-02-28 11:55
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -51,8 +51,8 @@
 				var displayNbreCol = Math.floor(rowWidth / colWidth);
 				
 				//on ajoute une classe CSS spécifique à chaque début et fin de ligne
-				$(this).find('ul > li.dm_dir:nth-child('+displayNbreCol+')').addClass('lastOfRow');
-				$(this).find('ul > li.dm_dir:nth-child('+displayNbreCol+') + li.dm_dir').addClass('firstOfRow');
+				$(this).find('ul > li.dm_dir:nth-of-type('+displayNbreCol+'n)').addClass('lastOfRow');
+				$(this).find('ul > li.dm_dir:nth-of-type('+displayNbreCol+'n+1)').addClass('firstOfRow');
 				
 				//calcul du nombre de lignes affichables
 				//si le modulo (reste de la division) n'est pas égale à zéro alors on arrondi à l'entier inférieur et on rajoute un
@@ -63,7 +63,7 @@
 					var currentRow = Math.floor(intIndex / displayNbreCol);
 					
 					//affichage en console pour debug
-					//window.console.log("verif-" + intIndex + " currentRow : "+ currentRow + " displayNbreCol : " + displayNbreCol + " displayNbreRow : " + displayNbreRow);
+					window.console.log("verif-" + intIndex + " currentRow : "+ currentRow + " displayNbreCol : " + displayNbreCol + " displayNbreRow : " + displayNbreRow);
 					
 					//on ajoute une classe CSS en fonction de la ligne courante
 					if(currentRow == 0) {
