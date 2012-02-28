@@ -61,6 +61,7 @@ ul.megadropdown {
 		#dm_sidebar_left & { right: auto !important; }
 		#dm_sidebar_right & { left: auto !important; }
 		
+		//niveau 2 et +
 		ul {
 			position: relative;
 			top: 0;
@@ -136,12 +137,12 @@ ul.megadropdown {
 		//on force également la taille du lien de titrage pour éviter les débordements
 		ul, li.dm_dir .link {
 			&, #dm_sidebar_left &, #dm_sidebar_right & {
-				@gridWidth(2);
+				@gridWidth(4);
 			}
 		}
 
 		//pour les liens de niveau 1 non situé dans un dossier
-		li { @gridWidth(3; @gridGutter); }
+		li { @gridWidth(4; @gridGutter); }
 
 		//largeur auto pour les sous-dossiers de niveau 1 et +
 		li.dm_dir { width: auto; }
