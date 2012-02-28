@@ -3,7 +3,7 @@
 if (count($dessins)) { // si nous avons des actu articles
     echo _tag('h4.title', $rubriqueTitle);
     echo _open('ul.elements');
-    echo _open('li.element');
+    echo _open('li.element.first.last');
 
     //on vérifie que l'image existe
     $imgExist = is_file(sfConfig::get('sf_web_dir') . $dessins['imgLinkBig']);
