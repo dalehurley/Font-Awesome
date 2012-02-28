@@ -9,6 +9,7 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
             'titreBloc',
             'nbArticles',
             'length',
+            'lien',
             'withImage',
             'widthImage',
             'heightImage',
@@ -41,6 +42,7 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
         $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('recrutement','list');
         $vars['titreBloc'] = $namePage->getName();
         }
+        ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
 
         return $this->getHelper()->renderPartial('recrutementsCabinet', 'recrutementsList', array(
                     'recrutements' => $recrutements,
@@ -48,7 +50,8 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
                     'length' => $vars['length'],
                     'withImage' => $vars['withImage'],
                     'width' => $vars['widthImage'],
-                    'withImage' => $vars['withImage']
+                    'withImage' => $vars['withImage'],
+                    'lien' => $lien
             
                 ));
     }
