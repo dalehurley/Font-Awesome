@@ -10,7 +10,7 @@
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 
-.bandeau_smart_bandeau {
+.dm_widget.bandeau_smart_bandeau {
 	.isLess & { background-color: MediumAquamarine; }
 	@gridWidth(@gridCol);
 	height: @gridBaseline;
@@ -26,7 +26,7 @@
 
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletPortrait(){
-	.bandeau_smart_bandeau {
+	.dm_widget.bandeau_smart_bandeau {
 		display: none;
 		visibility: hidden;
 		//@gridWidth(@gridCol_TabletPortrait);
