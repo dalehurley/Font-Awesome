@@ -336,7 +336,12 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         }
         $objetPageTableaux = array();
         $treeObject = dmDb::table('DmPage')->getTree();
-        $treeObject->setBaseQuery(dmDb::table('DmPage')->createQuery('p')->withI18n($this->user->getCulture() , null, 'p')->select('p.*, pTranslation.*')->orderBy('p.rgt') // tri par ordre alphabétique sur le name de la page : ->orderBy('pTranslation.name')
+        $treeObject->setBaseQuery(dmDb::table('DmPage')->createQuery('p')->withI18n($this->user->getCulture() , null, 'p')->select('p.*, pTranslation.*')
+                // ajout stef pour rendre visible ou pas les pages inactive
+                // ATTENTION : les enfants d'une page inactive ne seront pas visible dans le site
+                ->where('pTranslation.is_active = ? ', true)
+                // ajout stef pour rendre visible ou pas les pages inactive
+                ->orderBy('p.rgt') // tri par ordre alphabétique sur le name de la page : ->orderBy('pTranslation.name')
         );
         if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
              
