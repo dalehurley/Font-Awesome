@@ -40,6 +40,7 @@
 		z-index: 9;
 		
 		a {
+			.isLess & { background-color: #98B399; }
 			display:block;
 			border:0;
 			text-indent:-9999em;
@@ -50,10 +51,8 @@
 			//décalage de marge
 			@decalV: (@gridBaseline - @spriteFormat_S) / 2;
 			@decalH: (@gridGutter - @spriteFormat_S) / 2;
-			padding-top: @decalV;
-			padding-bottom: @decalV;
-			margin-right: @decalH;
-			margin-left: @decalH;
+			padding: @decalV 0;
+			margin: 0 @decalH;
 			
 			&.active {
 				@spriteBgiSvg("Default"; "internet"; "bulletOver");
@@ -84,12 +83,12 @@
 			@decalH: @gridColWidth - @spriteFormat_M;
 			
 			&.nivo-prevNav {
-				@spriteBgiSvg("Default"; "internet"; "back");
+				@spriteBgiSvg("Default"; "navigation"; "squareArrowLeft");
 				@spriteBgp(@spriteFormat_M; @spriteOffX-internet-back; @spriteOffY-internet-back);
 				left: @decalH;
 			}
 			&.nivo-nextNav {
-				@spriteBgiSvg("Default"; "internet"; "forward");
+				@spriteBgiSvg("Default"; "navigation"; "squareArrowRight");
 				@spriteBgp(@spriteFormat_M; @spriteOffX-internet-forward; @spriteOffY-internet-forward);
 				right: @decalH;
 			}

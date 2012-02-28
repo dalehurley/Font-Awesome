@@ -3,26 +3,26 @@
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" xml:space="preserve">
 <g>
 	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-478.0928" y1="6699.0371" x2="-478.0928" y2="6687.8877" gradientTransform="matrix(1 0 0 -1 493.0049 6743.9102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<rect x="10.709" y="44.873" fill="url(#SVGID_1_)" width="8.406" height="11.149"/>
 	
 		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-466.2109" y1="6706.8975" x2="-466.2109" y2="6687.8887" gradientTransform="matrix(1 0 0 -1 493.0049 6743.9102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<rect x="22.59" y="37.013" fill="url(#SVGID_2_)" width="8.408" height="19.009"/>
 	
 		<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-454.3306" y1="6701.5957" x2="-454.3306" y2="6687.8887" gradientTransform="matrix(1 0 0 -1 493.0049 6743.9102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<rect x="34.471" y="42.314" fill="url(#SVGID_3_)" width="8.408" height="13.707"/>
 	
 		<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="-442.6333" y1="6716.7676" x2="-442.6333" y2="6687.8887" gradientTransform="matrix(1 0 0 -1 493.0049 6743.9102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<rect x="46.168" y="27.143" fill="url(#SVGID_4_)" width="8.408" height="28.879"/>
 	

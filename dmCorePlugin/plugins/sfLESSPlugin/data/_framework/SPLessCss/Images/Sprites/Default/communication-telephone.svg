@@ -4,8 +4,8 @@
 <g>
 	<g>
 		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-268.1606" y1="-6391.8301" x2="-268.1606" y2="-6347.1104" gradientTransform="matrix(1 0 0 1 314.0049 6403.4102)">
-			<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-			<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+			<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+			<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 		</linearGradient>
 		<path fill="url(#SVGID_1_)" d="M52.746,19.182c-2.811-3.991-6.369-6.256-8.855-7.453c-0.744-0.358-1.637-0.045-1.992,0.697
 			c-0.357,0.744-0.045,1.635,0.695,1.993c3.396,1.634,11.295,6.699,11.295,18.414c0,14.589-12.408,20.483-17.58,20.483
@@ -13,8 +13,8 @@
 			C56.875,27.659,55.486,23.066,52.746,19.182z"/>
 		
 			<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-298.877" y1="-6392.2295" x2="-298.877" y2="-6355.7368" gradientTransform="matrix(1 0 0 1 314.0049 6403.4102)">
-			<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-			<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+			<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+			<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 		</linearGradient>
 		<path fill="url(#SVGID_2_)" d="M22.222,14.047c0.76-0.324,1.111-1.201,0.789-1.959c-0.324-0.758-1.2-1.112-1.96-0.787
 			c-3.267,1.394-13.926,7.063-13.926,21.531c0,5.385,1.499,10.172,4.456,14.229c0.292,0.399,0.747,0.612,1.207,0.612

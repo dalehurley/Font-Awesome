@@ -120,6 +120,76 @@
 	}
 }
 
+//TEMPORAIRE : DÉFINITION DES DIMENSIONS DIRECTEMENT EN CSS EN ATTENDANT IMPLÉMENTATION HAUTEUR PROPREMENT DANS LES WIDGETS
+.isLess {
+	.imageFullWrapper {
+		.isLess & { background-color: #B550A9; }
+		overflow: hidden;
+
+		.image {
+			.isLess & {background-color: #6150B5; }
+			position: absolute;
+			//débug de dimensions sur certains widgets biens précis de la base éditoriale
+			#dm_content & {
+				@gridWidth(@thumbContent_col);
+				@gridHeight(@thumbContent_bl);
+			}
+		}
+
+		//application dimensions en dur
+		#dm_content & {
+			@gridWidth(@thumbContent_col);
+			@gridHeight(@thumbContent_bl);
+		}
+	}
+
+	.imageWrapper {
+		//dans les listings de contenu
+		.elements .element & {
+			.isLess & {background-color: #B550A9; }
+			overflow: hidden;
+			//on remet le décalage  à l'extérieur du container car l'image est positionnée en absolute
+			margin-left: @gridGutter;
+			
+			//application dimensions en dur
+			#dm_content & {
+				@gridWidth(@thumbL_col);
+				@gridHeight(@thumbL_bl);
+			}
+
+			#dm_sidebar_right & {
+				@gridWidth(@thumbSidebarRight_col);
+				@gridHeight(@thumbSidebarRight_bl);
+			}
+
+			//partie équipe
+			#dm_sidebar_right .equipe_cabinet_equipes_contextuel & {
+				@gridWidth(@thumbS_col);
+				@gridHeight(@thumbS_bl);
+			}
+			
+			//replacement de l'image
+			.image {
+				.isLess & {background-color: #6150B5; }
+				position: absolute;
+				float: none;
+				margin: 0;
+				right: 0;
+
+				//valeur arbitraire de replacement car on ne connait par forcément la hauteur de l'image
+				//#dm_content &, #dm_sidebar_right & { top: 50%; margin-top: -50%; }
+
+				//débug de dimensions sur certains widgets biens précis de la base éditoriale
+				#dm_content .article_list_by_section &,
+				#dm_sidebar_right .specifiques_base_editoriale_fil_actualite & {
+					@gridWidth(@thumbSidebarRight_col);
+					@gridHeight(@thumbSidebarRight_bl);
+				}
+			}
+		}
+	}
+}
+
 //listings d'éléments diverses (article, personnes, organisations, etc)
 .elements {
 	margin: 0 (@zonesOffsetPad * -1 +1px);
