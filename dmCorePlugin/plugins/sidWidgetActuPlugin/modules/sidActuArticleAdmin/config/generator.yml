@@ -88,14 +88,15 @@ generator:
           - updated_by          
       form:
         display:
+         'Publication sur le site': [is_active]
 <?php     
-//if (sfContext::getInstance()->getUser()->isSuperAdmin()){ // si l'utilisateur a la permission admin_bandeau_lite et qu'il n'est pas superAdmin'?>
+if(sfContext::getInstance()->getUser()->isSuperAdmin()){ ?>
          'Type des Articles': [sid_actu_type_list]
-<?php //} else if (!sfContext::getInstance()->getUser()->isSuperAdmin()) { ?>
-#         NONE: [on_home]
-<?php //} ?>
-#         "Définition de votre article": [title, is_active, rubrique_id]
-         "Définition de votre article": [title, is_active]
+         "Titre de votre article": [title]
+<?php }
+else if(!sfContext::getInstance()->getUser()->isSuperAdmin()){?>
+         "Titre de votre article": [sid_actu_type_list,title]
+<?php } ?>
          'Chapeau de votre article': [resume]
          Text: [text]
          Image: [image_form, image_view]

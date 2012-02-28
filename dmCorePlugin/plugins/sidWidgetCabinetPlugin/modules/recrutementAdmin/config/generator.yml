@@ -65,8 +65,8 @@ generator:
 #          - text
       form:
         display:
-          Type de l'offre: [is_active]
-          Titre de l'offre: [title]
+          "Type de l'offre": [is_active]
+          "Titre de l'offre de recrutement": [title]
           Text: [text]
           Image: [image_form, image_view]
           Fichier : [ file_form, file_view, title_file]

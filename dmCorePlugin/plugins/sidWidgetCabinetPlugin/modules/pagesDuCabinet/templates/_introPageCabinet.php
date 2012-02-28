@@ -26,7 +26,8 @@ if (count($pageCabinets)) { // si nous avons des actu articles
         
         
         $link = '';
-        if($pageCabinet->getImage()->checkFileExists() == true){ 
+
+        if(($withImage == true) && ($pageCabinet->getImage()->checkFileExists() == true)){ 
             $link .= _open('span', array('class' => 'imageWrapper'));
             $link .= _media($pageCabinet->getImage())->width($width)->set('.image itemprop="image"')->alt($pageCabinet->getTitle());
             $link .= _close('span');

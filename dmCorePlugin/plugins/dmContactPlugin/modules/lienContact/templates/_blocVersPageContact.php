@@ -7,7 +7,7 @@ $html.= _tag('div.wrapper', $message);
 
 //création d'un tableau de liens à afficher
 $elements = array();
-$elements[] = array('title' => $titreLien, 'linkUrl' => 'main/contact');
+$elements[] = array('title' => $lien, 'linkUrl' => 'main/contact');
 $html.= get_partial('global/navigationWrapper', array(
 												'placement' => 'bottom',
 												'elements' => $elements

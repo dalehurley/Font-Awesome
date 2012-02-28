@@ -4,13 +4,15 @@ class dmWidgetFeedReaderShowForm extends dmWidgetPluginForm
 {
   public function configure()
   {
+      parent::configure();
+      
     $this->widgetSchema['url'] = new sfWidgetFormInputText();
     $this->validatorSchema['url'] = new dmValidatorLinkUrl(array(
       'required' => true
     ));
 
-    $this->widgetSchema['nb_items'] = new sfWidgetFormInputText();
-    $this->validatorSchema['nb_items'] = new sfValidatorInteger(array(
+// modfi stef   $this->widgetSchema['nb_items'] = new sfWidgetFormInputText();
+    $this->validatorSchema['nbArticles'] = new sfValidatorInteger(array(
       'min' => 0,
       'max' => 100
     ));
@@ -27,9 +29,9 @@ class dmWidgetFeedReaderShowForm extends dmWidgetPluginForm
     
     $this->widgetSchema->setHelp('life_time', 'Cache life time in seconds');
 
-    if(!$this->getDefault('nb_items'))
+    if(!$this->getDefault('nbArticles'))
     {
-      $this->setDefault('nb_items', 10);
+      $this->setDefault('nbArticles', 10);
     }
 
     if(!$this->getDefault('life_time'))
@@ -37,6 +39,14 @@ class dmWidgetFeedReaderShowForm extends dmWidgetPluginForm
       $this->setDefault('life_time', 86400);
     }
     
-    parent::configure();
+    
   }
+// ajout stef le 27-02/2012 
+  protected function renderContent($attributes) {
+        return $this->getHelper()->renderPartial('dmWidget', 'dmWidgetFeedReaderShowForm', array(
+            'form' => $this,
+            'id' => 'dm_widget_feed_reader_' . $this->dmWidget->get('id')
+        ));
+    }
+// ajout stef le 27-02/2012 
 }

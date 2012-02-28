@@ -1,10 +1,12 @@
 <?php
 // Contact : Form
 // Vars : $form
+$html = '';
+echo _tag('h2', array('class' => 'title'), '{{Nom_page_contact}}');
 
 //titre du contenu
-$html = get_partial('global/titleWidget', array('title' => __('ContactUs'), 'isContainer' => true));
-
+//$html = get_partial('global/titleWidget', array('title' => __('ContactUs'), 'isContainer' => true));
+echo _tag('p',  '{{Accueil_contact}}');
 //ajout message de validation
 if($sf_user->hasFlash('contact_form_valid')) $html.= _tag('p.form_valid', __('Thank you, your contact request has been sent.'));
 
