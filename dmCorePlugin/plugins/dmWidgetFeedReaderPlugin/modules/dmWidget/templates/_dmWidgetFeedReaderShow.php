@@ -12,7 +12,7 @@
  */
 
 echo _tag('h2.title', $title);
-echo _open('ul');
+echo _open('ul'.$length);
 
 foreach($items[0] as $item)
 {
