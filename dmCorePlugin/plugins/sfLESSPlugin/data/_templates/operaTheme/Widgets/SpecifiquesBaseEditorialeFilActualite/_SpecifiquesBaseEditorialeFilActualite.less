@@ -7,9 +7,18 @@
 //Config par défaut des widgets du template
 @import "_templates/operaTheme/Widgets/_Widgets.less";
 
-.dm_widget.specifiques_base_editoriale_fil_actualite {
-	.isLess & { background-color: #CAEBD5; }
-	.dm_widget_inner {
-		.isLess & { background-color: #97BFA5; }
+#dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.specifiques_base_editoriale_fil_actualite {
+		//appel de la fonction de placement de la sprite
+		@widgetTitleSprite("Opera"; "section"; "actualitesOver");
+		//ajout de l'arrondi en débord blanc sur la sprite
+		@widgetTitleSpriteRound();
+		
+		.dm_widget_inner {
+			& > .title {
+				//complément de l'appel de la sprite sur le titre
+				&:after { @spriteBgp(@spriteFormat_M; @spriteOffX-Opera-section-actualites; @spriteOffY-Opera-section-actualites); }
+			}
+		}
 	}
 }
