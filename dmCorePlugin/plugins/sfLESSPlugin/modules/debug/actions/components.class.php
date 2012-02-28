@@ -16,7 +16,8 @@ class debugComponents extends myFrontModuleComponents {
         // affichage de la page courante
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-        $pageCurrent =  $dmPage->module.'/'.$dmPage->action.' - '.$dmPage->record_id;
+        $pageCurrent =  $dmPage->module.'/'.$dmPage->action;
+        $recordId = $dmPage->record_id;
         // récupération du Layout de la page en cours
         $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
 		
@@ -75,7 +76,11 @@ class debugComponents extends myFrontModuleComponents {
 							array(
 								'info'	=>	'pageLayout',
 								'value'	=>	$layoutPage
-							)                    
+							),
+							array(
+								'info'	=>	'recordId',
+								'value'	=>	$recordId
+							),
 						);
 		
 		

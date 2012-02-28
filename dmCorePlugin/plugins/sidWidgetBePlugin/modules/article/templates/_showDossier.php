@@ -144,7 +144,7 @@ if (!is_file($xml)) {
 					echo '<h1 itemprop="name" class="title itemprop name">'.$article->title.'</h1>';
 					echo '<meta content="'.$articleSection.'" itemprop="articleSection">';
 					echo '<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>';
-					echo '<span class="date">'.__('Published on').' ';
+					echo '<span class="date">'.__('published on').' ';
 						echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'D').'</time>';
 					echo '</span>';
 					echo $articleFilsNavigation;
