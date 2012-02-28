@@ -20,7 +20,7 @@
 			position: absolute;
 			display: block;
 			//décalage de marge
-			@decalV: (@gridBaseline + (@gridBaseline/2 - 1px) * 2 - @spriteFormat_M) / 2;
+			@decalV: (@gridBaseline + (@gridBaseline/2) * 2 - @spriteFormat_M) / 2;
 			top: @decalV;
 			left: @offS;
 			content: "";
@@ -43,7 +43,7 @@
 			//pour forcer le passage par devant
 			z-index: 10;
 		}
-		
+
 		&:after {
 			background-color: @colorWhite;
 			@borderRadiusCompress(@spriteFormat_M);
