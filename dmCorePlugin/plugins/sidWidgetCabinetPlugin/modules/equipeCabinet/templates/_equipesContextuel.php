@@ -8,6 +8,7 @@ echo _tag('h4.title',$titreBloc);
 echo _open('ul', array('class' => 'elements'));
 
 foreach($equipes as $equipe) {
+        $html ='';
         // condition pour gérer les class des listings
         if ($i == 1) {
             $class = 'first';
@@ -21,41 +22,45 @@ foreach($equipes as $equipe) {
                 // condition pour gérer les class des listings
 
                 echo _open('li', array('class' => 'element itemscope Person ' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
-
+                
                     if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
                         
-                        echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->alt($equipe->getTitle())->set('.image itemprop="image"'));
+                        $html.= _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->alt($equipe->getTitle())->set('.image itemprop="image"'));
                     };
-                    echo _open('span', array('class' => 'wrapper'));
-                        echo _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), $equipe->getTitle());
-                        echo _tag('span', array('class' => 'itemprop jobTitle', 'itemprop' => 'jobTitle'), $equipe->getStatut());
-                        echo _open('span', array('class' => 'contactPoints itemscope ContactPoint', 'itemtype' => 'http://schema.org/ContactPoint', 'itemscope' => 'itemscope', 'itemprop' => 'contactPoints'));
+                    $html.= _open('span', array('class' => 'wrapper'));
+                        $html.= _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), $equipe->getTitle());
+                        $html.= _tag('span', array('class' => 'itemprop jobTitle', 'itemprop' => 'jobTitle'), $equipe->getStatut());
+                        $html.= _open('span', array('class' => 'contactPoints itemscope ContactPoint', 'itemtype' => 'http://schema.org/ContactPoint', 'itemscope' => 'itemscope', 'itemprop' => 'contactPoints'));
                             
                             if ($equipe->email != NULL) {
-                                echo _open('span', array('class' => 'itemprop email'));
-                                echo _tag('span', array('class' => 'type', 'title' => __('Email')), __('Email'));
-                                echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
-                                echo _open('span', array('class' => 'value'));
-                                echo _link('mailto:' . $equipe->email)->set(' itemprop="email"')->text('mail');
-                                echo _close('span');
-                                echo _close('span');
+                                $html.= _open('span', array('class' => 'itemprop email'));
+                                $html.= _tag('span', array('class' => 'type', 'title' => __('Email')), __('Email'));
+                                $html.= _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
+                                $html.= _open('span', array('class' => 'value'));
+                                $html.= _link('mailto:' . $equipe->email)->set(' itemprop="email"')->text('mail');
+                                $html.= _close('span');
+                                $html.= _close('span');
                             };
                             if ($equipe->tel != NULL) {
-                                echo _open('span', array('class' => 'itemprop telephone'));
-                                echo _tag('span', array('class' => 'type', 'title' => __('Phone')), __('Phone'));
-                                echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
-                                echo _tag('span', array('class' => 'value', 'itemprop' => 'telephone'), $equipe->tel);
-                                echo _close('span');
+                                $html.= _open('span', array('class' => 'itemprop telephone'));
+                                $html.= _tag('span', array('class' => 'type', 'title' => __('Phone')), __('Phone'));
+                                $html.= _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
+                                $html.= _tag('span', array('class' => 'value', 'itemprop' => 'telephone'), $equipe->tel);
+                                $html.= _close('span');
                             };
                             if ($equipe->gsm != NULL) {
-                                echo _open('span', array('class' => 'itemprop cellphone'));
-                                echo _tag('span', array('class' => 'type', 'title' => __('Cellphone')), __('Cellphone'));
-                                echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
-                                echo _tag('span', array('class' => 'value', 'itemprop' => 'cellphone'), $equipe->gsm);
-                                echo _close('span');
+                                $html.= _open('span', array('class' => 'itemprop cellphone'));
+                                $html.= _tag('span', array('class' => 'type', 'title' => __('Cellphone')), __('Cellphone'));
+                                $html.= _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
+                                $html.= _tag('span', array('class' => 'value', 'itemprop' => 'cellphone'), $equipe->gsm);
+                                $html.= _close('span');
                             };
-                        echo _close('span');
-                    echo _close('span');
+                        $html.= _close('span');
+                    $html.= _close('span');
+                    if($equipe->email == NULL){
+                        echo _link($linkEquipe)->anchor($equipe->id)->set('.link_box')->text($html);
+                    }
+                    else echo $html;
                 echo _close('li');
                 $i++;
                 };

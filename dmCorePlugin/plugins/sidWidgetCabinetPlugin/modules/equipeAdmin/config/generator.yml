@@ -73,7 +73,7 @@ generator:
         display:
           Visible sur le site: [is_active]
           Ville d'implentation: [coord_name_id]
-          Identite: [ statut, tel, fax, gsm, email]
+          Identite: [ title,statut, tel, fax, gsm, email]
           Photo: [image_form, image_view]
           Description: [text]
 #          'Mots clés': [tags_list]
