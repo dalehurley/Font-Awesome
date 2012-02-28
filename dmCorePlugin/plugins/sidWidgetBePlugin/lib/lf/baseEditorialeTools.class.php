@@ -743,7 +743,12 @@ class baseEditorialeTools {
                                 }
                                 $date_update = $xml->getElementsByTagName('UpdateDate')->item(0)->nodeValue;
                                 // la date de publication
-                                $date_publication = $xml->getElementsByTagName('PublicationDate')->item(0)->getElementsByTagName('ISO')->item(0)->nodeValue;
+                                if ($dataType == 'AGENDA') {
+                                    $date_publication = $xml->getElementsByTagName('PublicationDate')->item(0)->getElementsByTagName('ISO')->item(0)->nodeValue;
+                                }
+                                else{
+                                $date_publication = $date = $xml->getElementsByTagName('Info1')->item(0)->nodeValue;
+                                }
                                 //$return[$j]['>>>>'] = $date_publication;
                                 // récupération des <keywords><keyword> du XML dans un tableau
                                 // de la forme $tagsString = 'tag1, tag2, tag3';
