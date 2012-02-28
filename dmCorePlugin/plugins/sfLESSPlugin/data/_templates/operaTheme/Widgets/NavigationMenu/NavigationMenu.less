@@ -80,14 +80,15 @@ ul.dropdown, ul.megadropdown, ul.accordion {
 		word-spacing: 0.05em;
 		letter-spacing: 0.05em;
 	}
-	ul li {
-		font-weight: normal;
-		text-transform: none;
-	}
 }
 
 //configuration de base des liens pour les menus dropdown et accordion
 ul.dropdown, ul.accordion {
+	//mise en minuscule des liens de toutes les sous parties, dossiers compris
+	ul li {
+		&, &.dm_dir { font-weight: normal; text-transform: none; }
+	}
+	
 	//gestion des liens
 	.link {
 		background-color: @colorCouleur3ClairSup;
