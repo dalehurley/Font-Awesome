@@ -12,6 +12,7 @@
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Config du widget courant
 @import "_templates/modeleTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
@@ -20,7 +21,7 @@
 @import "_framework/SPLessCss/Widgets/NavigationMenu/_NavigationMenu.less";
 
 //personnalisation du widget par rapport à la zone contenante
-.navigation_menu {
+.dm_widget.navigation_menu {
 	margin: 0;
 	
 	//suppression bordure et padding
@@ -39,8 +40,6 @@
 		margin-right: -100%;
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
-		//dégradé vertical en fond
-		//@verticalGradient(@colorCouleur2Clair; @colorCouleur2);
 		background-color: @colorCouleur2;
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
@@ -53,9 +52,23 @@
 	}
 }
 
-ul.dropdown, ul.accordion {
+//configuration de base des textes pour tous les types de menus
+ul.dropdown, ul.megadropdown, ul.accordion {
+	//stylage minimale du lien
+	.link {
+		text-decoration: none;
+		outline: 0;
+		cursor: pointer;
+		//word-wrap: break-word;
+		
+		//ajout des transitions pour navigateurs récents
+		.csstransitions & {
+			@transitionCompress(background-color, color; .2s; ease-in-out; 0);
+		}
+	}
+
 	//gestion grosseur texte
-	li {
+	li, ul li.dm_dir {
 		font-weight: bold;
 		text-transform: uppercase;
 		word-spacing: -0.05em;
@@ -65,22 +78,18 @@ ul.dropdown, ul.accordion {
 		font-weight: normal;
 		text-transform: none;
 	}
-	
+}
+
+//configuration de base des liens pour les menus dropdown et accordion
+ul.dropdown, ul.accordion {
 	//gestion des liens
 	.link {
 		background-color: @colorCouleur3ClairSup;
-		//padding: @menuDropdownPadV @menuDropdownPadH @menuDropdownPadV @gridGutter;
 		padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
 		border-style: solid;
-		//border-width: 1px 1px 1px 0;
-		//border-color: @colorCouleur3ClairSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup @colorCouleur3MoyenSup;
 		border-width: 0 1px 1px 0;
 		border-color: @zonesBorderColor;
-		//border-color: yellow red blue orange;
 		color: @colorCouleur3Fonce;
-		text-decoration: none;
-		outline: 0;
-		cursor: pointer;
 		
 		//changement taille selon zone
 		#dm_custom_top & { font-size: @fontGlobalSizePx; }
@@ -91,11 +100,6 @@ ul.dropdown, ul.accordion {
 		//LoVe's Hurts Fade Away
 		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
 		&:active { color: @colorCouleur1Moyen; }
-		
-		//ajout des transitions pour navigateurs récents
-		.csstransitions & {
-			@transitionCompress(background-color, color; .2s; ease-in-out; 0);
-		}
 	}
 	
 	li {
@@ -136,6 +140,44 @@ ul.dropdown, ul.accordion {
 	}
 }
 
+//ajout de l'icône sur le lien vers la page d'accueil pour les menus dropdown et megadropdown situé dans la zone dm_custom_top
+ul.dropdown, ul.megadropdown {
+	#dm_custom_top .dm_widget.navigation_menu & {
+		//décalage de marge
+		@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
+		@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+		
+		//lien vers la page d'accueil
+		& > li.dm_root {
+			//ajout de la sprite sur la home
+			& > .link_root {
+				//suppression du texte
+				text-indent:-9999em;
+				//insertion de la sprite
+				@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
+				//suppression rollOver
+				&, .rgba & {
+					&, &:hover, &:focus { background-color: transparent; }
+				}
+			}
+		}
+
+		//double sélecteur pour forcer la réinitialisation sans utiliser !important
+		& > li.dm_root,
+		& > li.first.dm_root {
+			//uniformisation des marges du bouton
+			& > .link_root,
+			&:hover > .link_root,
+			& > .link_root:hover,
+			& > .link_root:focus {
+				border: 0;
+				padding: 0;
+				margin: @decalV @decalH;
+			}
+		}
+	}
+}
+
 //comportement flèche différents selon les types de menu
 ul.dropdown li.dm_dir > .link:hover:after,
 ul.dropdown li.dm_dir:hover > .link:after,
@@ -167,7 +209,8 @@ ul.accordion li.dm_parent > .link:after {
 
 //mise en couleur des cellules ouvertes
 ul.dropdown li.dm_dir:hover > .link,
-#dm_custom_top .navigation_menu ul.dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.megadropdown li.dm_dir:hover > .link,
 ul.accordion li.dm_parent > .link,
 ul.accordion li.dm_parent li.dm_parent > .link {
 	background-color: @colorCouleur1;
@@ -178,7 +221,7 @@ ul.accordion li.dm_parent li.dm_parent > .link {
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletPortrait(){
 	#dm_custom_top {
-		.navigation_menu {
+		.dm_widget.navigation_menu {
 			.dm_widget_inner {
 				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
 			}

@@ -17,8 +17,8 @@
 		c3.855-1.287,8.876-1.354,8.925-1.354c0.016,0,0.03,0,0.044,0c0.732,0,1.119,0,1.603,0.051c6.386,4.583,8.845,6.696,8.845,10.532
 		C30.958,56.049,26.423,59.25,19.128,59.25z"/>
 	<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="31.9995" y1="0" x2="31.9995" y2="47.6379">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<g fill="url(#SVGID_3_)">
 		<path d="M19.037,23.457c-6.977,0-9.872-9.504-9.872-14.593c0-2.502,0.548-4.396,1.68-5.794

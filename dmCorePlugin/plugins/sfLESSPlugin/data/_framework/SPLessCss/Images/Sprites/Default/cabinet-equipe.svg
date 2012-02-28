@@ -3,8 +3,8 @@
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" xml:space="preserve">
 <g>
 	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-297.1934" y1="-6365.3413" x2="-297.1934" y2="-6345.9868" gradientTransform="matrix(1 0 0 1 314.0049 6403.4102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<path fill="url(#SVGID_1_)" d="M23.311,38.491l-0.067-0.053l-0.058,0.063c-1.117,1.23-2.613,2.086-4.227,2.442
 		c0.32,0.389,0.517,0.864,0.517,1.394c0,0.636-0.279,1.211-0.734,1.625l1.231,9.292l-2.925,2.926l-3.007-2.926l1.235-9.286
@@ -13,8 +13,8 @@
 		c4.72,0,9.368-1.259,13.447-3.649l0.046-0.026v-0.051C30.548,46.551,27.716,41.845,23.311,38.491z"/>
 	
 		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-296.9712" y1="-6380.8994" x2="-296.9712" y2="-6364.4019" gradientTransform="matrix(1 0 0 1 314.0049 6403.4102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<path fill="url(#SVGID_2_)" d="M11.487,36.863c1.47,1.331,3.412,2.145,5.544,2.145c1.848,0,3.557-0.612,4.934-1.643
 		c2.014-1.506,3.317-3.909,3.317-6.608c0-4.546-3.7-8.246-8.251-8.246c-4.545,0-8.246,3.7-8.246,8.246
@@ -37,29 +37,29 @@
 		C61.455,19.646,60.464,17.165,58.103,15.269z"/>
 	
 		<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="-276.6328" y1="-6381.1426" x2="-276.6328" y2="-6379.9346" gradientTransform="matrix(1 0 0 1 314.0049 6403.4102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<path fill="url(#SVGID_4_)" d="M30.688,23.476h13.369c0.333,0,0.604-0.271,0.604-0.604s-0.27-0.604-0.604-0.604H30.688
 		c-0.334,0-0.604,0.271-0.604,0.604S30.354,23.476,30.688,23.476z"/>
 	
 		<linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="-272.8711" y1="-6385.0908" x2="-272.8711" y2="-6383.8828" gradientTransform="matrix(1 0 0 1 314.0049 6403.4102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<path fill="url(#SVGID_5_)" d="M30.688,19.527H51.58c0.334,0,0.604-0.271,0.604-0.604c0-0.334-0.271-0.604-0.604-0.604H30.688
 		c-0.334,0-0.604,0.271-0.604,0.604S30.354,19.527,30.688,19.527z"/>
 	
 		<linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="-282.1162" y1="-6373.7949" x2="-282.1162" y2="-6369.1733" gradientTransform="matrix(1 0 0 1 314.0049 6403.4102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<path fill="url(#SVGID_6_)" d="M31.89,29.615c-1.275,0-2.312,1.034-2.312,2.311c0,1.275,1.035,2.311,2.312,2.311
 		s2.311-1.034,2.311-2.311C34.199,30.65,33.164,29.615,31.89,29.615z"/>
 	
 		<linearGradient id="SVGID_7_" gradientUnits="userSpaceOnUse" x1="-284.9976" y1="-6367.8452" x2="-284.9976" y2="-6365.3091" gradientTransform="matrix(1 0 0 1 314.0049 6403.4102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<circle fill="url(#SVGID_7_)" cx="29.008" cy="36.833" r="1.268"/>
 </g>
