@@ -23,7 +23,7 @@ foreach($items[0] as $item)
     _link($item['link'])->text($item['title'])->set('.feed_item_link').
 
     // render truncated feed content
-    _tag('div.feed_item_content', dmString::truncate(strip_tags($item['content']), 100))
+    _tag('div.feed_item_content', dmString::truncate(strip_tags($item['content']), $length))
 
   );
 }

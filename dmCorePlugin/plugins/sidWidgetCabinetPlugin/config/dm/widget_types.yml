@@ -8,6 +8,10 @@ pagesDuCabinet:
     cache:               true
     public_name:         (pagesDuCabinet) Page du cabinet
     
+  pageCabinetList:
+    cache:              true
+    public_name:        (pagesDuCabinet) Liste des pages cabinet
+    
 missions:
   missionsContextuel:
     cache:              true

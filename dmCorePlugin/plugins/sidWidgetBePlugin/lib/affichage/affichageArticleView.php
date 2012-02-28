@@ -3,6 +3,7 @@
 class affichageArticleView extends dmWidgetPluginView {
     public function configure() {
         parent::configure();
+
     }
     protected function doRender() {
         $vars = $this->getViewVars();

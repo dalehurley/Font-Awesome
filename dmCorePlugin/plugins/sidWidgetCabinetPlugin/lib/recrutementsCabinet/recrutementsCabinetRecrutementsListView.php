@@ -37,6 +37,11 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
                 ->limit($nbArticles)
                 ->execute();
 
+        if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
+        $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('recrutement','list');
+        $vars['titreBloc'] = $namePage->getName();
+        }
+
         return $this->getHelper()->renderPartial('recrutementsCabinet', 'recrutementsList', array(
                     'recrutements' => $recrutements,
                     'titreBloc' => $vars['titreBloc'],

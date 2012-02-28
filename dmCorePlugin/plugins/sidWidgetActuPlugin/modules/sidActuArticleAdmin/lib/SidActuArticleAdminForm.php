@@ -65,7 +65,14 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 		    //'add_empty' => '-- Sections --'
 		));
       
+        if(sfContext::getInstance()->getUser()->isSuperAdmin()){
         $this->widgetSchema['sid_actu_type_list'] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'SidActuType', 'expanded' => true));
+    }
+    else if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
+        $actuType = dmDb::table('SidActuType')->findOne();
+        (!is_object($actuType)) ? $actuTypeId = '':$actuTypeId = $actuType->id;
+        $this->widgetSchema['sid_actu_type_list'] = new sfWidgetFormInputHidden(array(),array('value' => $actuTypeId));
+    }
 
     }
     

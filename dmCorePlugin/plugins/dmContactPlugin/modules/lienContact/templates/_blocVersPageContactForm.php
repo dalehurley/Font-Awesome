@@ -13,7 +13,8 @@ $form->renderGlobalErrors(),
 _tag('div',
     $form['titreBloc']->renderRow().
     $form['message']->renderRow().
-    $form['titreLien']->renderRow()
+    $form['lien']->renderRow().
+    $form['cssClass']->renderRow()
   
 ); 
 

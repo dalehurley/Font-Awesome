@@ -180,10 +180,11 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->execute();
                 
             }    
-
+            $linkEquipe = dmDb::table('dmPage')->findOneByModuleAndAction('main', 'notreEquipe');
         return $this->getHelper()->renderPartial('equipeCabinet', 'equipesContextuel', array(
                     'equipes' => $equipes,
                     'titreBloc' => $vars['titreBloc'],
+                    'linkEquipe' => $linkEquipe,
                     'lien' => $vars['lien'],
                     'withImage' => $vars['withImage'],
                     'width' => $vars['widthImage']
