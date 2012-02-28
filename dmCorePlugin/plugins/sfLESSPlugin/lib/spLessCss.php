@@ -354,7 +354,7 @@ class spLessCss {
 					exec($execCopy);
 					
 					//on récupère toutes les occurences de la couleur spriteCouleur dans le fichier
-					$isMatchColors = preg_match_all('/\#\#spriteCouleur\d[A-Za-z]*\#\#/', file_get_contents($value['urlClient']), $matchColors);
+					$isMatchColors = preg_match_all('/\#\#spriteCouleur[A-Za-z\d]*\#\#/', file_get_contents($value['urlClient']), $matchColors);
 					
 					//on parcourt les couleurs trouvées et on les remplace
 					foreach ($matchColors[0] as $colorToken) {
@@ -502,6 +502,14 @@ class spLessCss {
 		
 		//on fusionne des éventuelles propriétés personnalisées injectées dans la fonction
 		$pageOptions = (count($optionsCustom) === 0) ? $pageTemplateOptionsDefault : self::pageTemplateCustomOptions($pageTemplateOptionsDefault, $optionsCustom);
+		
+		//on vérifie les configs pour ajouter le paramètre sdbConfig
+		if($pageOptions['areas']['dm_sidebar_left']['isActive'] == true && $pageOptions['areas']['dm_sidebar_right']['isActive'] == true) $sdbConfig = "dm_sdbc_two";
+		elseif($pageOptions['areas']['dm_sidebar_left']['isActive'] == true)                                                              $sdbConfig = "dm_sdbc_left";
+		elseif($pageOptions['areas']['dm_sidebar_right']['isActive'] == true)                                                             $sdbConfig = "dm_sdbc_right";
+		else                                                                                                                              $sdbConfig = "dm_sdbc_none";
+		//on ajoute le paramètre
+		$pageOptions['sdbConfig'] = $sdbConfig;
 		
 		//retour de la valeur
 		return $pageOptions;

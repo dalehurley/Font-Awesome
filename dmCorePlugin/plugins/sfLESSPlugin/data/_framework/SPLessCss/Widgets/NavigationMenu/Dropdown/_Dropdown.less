@@ -1,6 +1,6 @@
 // _Dropdown.less
-// v1.0
-// Last Updated : 2011-11-28 16:45
+// v1.1
+// Last Updated : 2012-02-23 11:55
 // Copyright : SID Presse | 2006-2008 Live Web Institute (http://www.lwis.net) | Stu Nicholls (http://www.cssplay.co.uk)
 // Author : Arnaud GAUDIN
 
@@ -15,23 +15,40 @@
 //nombre de colonnes pour le contenu des cellules
 @menuDropdownCols: 3;
 
-//Initialisation style de base du menu
-ul.dropdown { &, li, ul { list-style: none; margin: 0; padding: 0; } }
-
 ul.dropdown {
+
+	//################################################
+	//############ 0 AFFICHAGE DE DEBUG ##############
+	//################################################
+
+	//gestion du debug
+	//#dm_sidebar_left & > li:nth-child(2) {
+	//#dm_sidebar_right & > li:nth-child(1) {
+	//#dm_custom_top & > li:nth-child(2) {
+	//	& > ul,
+	//	& > ul > li:nth-child(1) > ul,
+	//	& > ul > li:nth-child(1) > ul > li:nth-child(2) > ul {
+	//		opacity: 1 !important;
+	//		visibility: visible !important;
+	//	}
+	//}
 	
 	//################################################
 	//########### 1 CONFIGURATION DE BASE ############
 	//################################################
-	
-	//définitions de la taille de police par défaut
-	font-size: @fontGlobalSize;
-	line-height: @gridBaseline;
-	
+
+	//Au cas où : suppression marges et listes à puce
+	&, & ul, & li { list-style: none; margin: 0; padding: 0; }
+
 	//gestion profondeur de placement
 	position: relative;
 	z-index: 100;
 	float: left;
+	
+	//définitions de la taille de police par défaut
+	font-size: @fontGlobalSize;
+	line-height: @gridBaseline;
+	vertical-align: middle;
 	
 	//rajout border-right invisible pour superposition
 	ul { border-right: 1px solid transparent; }
@@ -127,7 +144,7 @@ ul.dropdown {
 	
 	
 	//################################################
-	//################# 2 AFFICHAGE ##################
+	//################# 3 AFFICHAGE ##################
 	//################################################
 	
 	ul {
@@ -143,18 +160,6 @@ ul.dropdown {
 			@transitionDelay(.2s, 0);
 		}
 	}
-	
-	//gestion du debug
-	//#dm_sidebar_left & > li:nth-child(2) {
-	//#dm_sidebar_right & > li:nth-child(1) {
-	//#dm_custom_top & > li:nth-child(2) {
-	//	& > ul,
-	//	& > ul > li:nth-child(1) > ul,
-	//	& > ul > li:nth-child(1) > ul > li:nth-child(2) > ul {
-	//		opacity: 1 !important;
-	//		visibility: visible !important;
-	//	}
-	//}
 	
 	//GESTION DES APPARITIONS SUR 8 NIVEAUX
 	:hover ul ul,

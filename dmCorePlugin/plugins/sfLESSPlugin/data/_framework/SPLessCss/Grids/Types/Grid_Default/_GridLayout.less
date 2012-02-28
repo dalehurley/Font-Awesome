@@ -15,12 +15,39 @@
 	@getGridPadding: (@resolution - @getGridWidth_Site) / 2;
 	
 	//CONFIGURATION ZONE DE CONTENU EN FONCTION DE LA PRÉSENCE DES SIDEBARS
+	#dm_content,
+	.dm_sdbc_none #dm_content {
+		float: left;
+		width: @getGridWidth_Site;
+		margin-left: 0;
+		margin-right: @getGridWidth_Site * -1;
+	}
+	
+	.dm_sdbc_left #dm_content {
+		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
+		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
+		margin-right: @getGridWidth_Site * -1;
+	}
+	
+	.dm_sdbc_right #dm_content {
+		width: @getGridWidth_Site - @getGridWidth_SidebarRight - @gridGutter;
+		margin-left: 0;
+		margin-right: (@getGridWidth_Site - @getGridWidth_SidebarRight - @gridGutter) * -1;
+	}
+	
+	.dm_sdbc_two #dm_content {
+		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @getGridWidth_SidebarRight - @gridGutter * 2;
+		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
+		margin-right: (@getGridWidth_Site - @getGridWidth_SidebarRight - @gridGutter) * -1;
+	}
+
+	/*//Placement avec toutes les sidebars présentes dans la scène
 	#dm_content{
 		float: left;
 		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @getGridWidth_SidebarRight - @gridGutter * 2;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
 		margin-right: (@getGridWidth_Site - @getGridWidth_SidebarRight - @gridGutter) * -1;
-	}
+	}*/
 	
 	//PLACEMENT SIDEBARS
 	#dm_sidebar_left {
@@ -43,26 +70,46 @@
 	@getGridWidth_SidebarLeft: @gridColWidth * @nbreCols_SidebarLeft + @gridGutter * (@nbreCols_SidebarLeft -1);
 	@getGridWidth_SidebarRight: @gridColWidth * @nbreCols_SidebarRight + @gridGutter * (@nbreCols_SidebarRight -1);
 	@getGridPadding: (@resolution - @getGridWidth_Site) / 2;
-	
-	#dm_content {
-		//background-color: #baa;
+
+	//on ne déplace que la dm_sdbc_right donc on réorganise le contenu que si celle-ci est présente dans la page
+	.dm_sdbc_right #dm_content {
+		width: @getGridWidth_Site;
+		margin-left: 0;
+		margin-right: @getGridWidth_Site * -1;
+	}
+
+	.dm_sdbc_two #dm_content {
 		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
 		margin-right: @getGridWidth_Site * -1;
 	}
+
+	/*//Placement avec toutes les sidebars présentes dans la scène
+	#dm_content {
+		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
+		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
+		margin-right: @getGridWidth_Site * -1;
+	}*/
 	
 	//PLACEMENT SIDEBARS
 	//placement de la sidebarRight en dessous du contenu
 	#dm_sidebar_right {
-		//background-color: #977;
 		clear: both;
 		width: @getGridWidth_Site;
 		margin-left: 0;
 		margin-right: 0;
 	}
 	
-	#dm_sidebar_right {
+	.dm_sdbc_two #dm_sidebar_right {
 		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
 	}
+
+	/*//Placement avec toutes les sidebars présentes dans la scène
+	#dm_sidebar_right {
+		clear: both;
+		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
+		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
+		margin-right: 0;
+	}*/
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" xml:space="preserve">
+<g>
+	<!-- Fond coloré -->
+	<g>
+		<radialGradient id="SVGID_1_" cx="297.5" cy="-357" r="27.0991" gradientTransform="matrix(1 0 0 -1 -265.5 -325)" gradientUnits="userSpaceOnUse">
+			<stop  offset="0.60" style="stop-color:##spriteCouleurBlack##"/>
+			<stop  offset="0.85" style="stop-color:##spriteCouleur2Fonce##"/>
+			<stop  offset="0.92" style="stop-color:##spriteCouleur2##"/>
+			<stop  offset="0.98" style="stop-color:##spriteCouleur2Moyen##"/>
+		</radialGradient>
+		<path fill="url(#SVGID_1_)" d="M59.1,31.992c0,14.96-12.137,27.106-27.098,27.106C17.035,59.101,4.9,46.952,4.9,31.992
+			S17.035,4.901,32.002,4.901C46.963,4.901,59.1,17.032,59.1,31.992z"/>
+		<g>
+			<radialGradient id="SVGID_2_" cx="56.2461" cy="-343.7988" r="41.1343" gradientTransform="matrix(1 0 0 -1 -19.7197 -325)" gradientUnits="userSpaceOnUse">
+				<stop  offset="0.489" style="stop-color:##spriteCouleur1Clair##"/>
+				<stop  offset="0.6414" style="stop-color:##spriteCouleur1##"/>
+				<stop  offset="0.76" style="stop-color:##spriteCouleur1Moyen##"/>
+				<stop  offset="0.8437" style="stop-color:##spriteCouleur1##"/>
+				<stop  offset="0.8951" style="stop-color:##spriteCouleur1Clair##"/>
+			</radialGradient>
+			<path fill="url(#SVGID_2_)" d="M56.018,31.994c0,13.261-10.758,24.022-24.016,24.022c-13.266,0-24.02-10.763-24.02-24.022
+				S18.736,7.983,32.002,7.983C45.26,7.983,56.018,18.734,56.018,31.994z"/>
+			<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-792.7246" y1="41.832" x2="-792.5552" y2="42.464" gradientTransform="matrix(37.3965 0 0 37.3965 29672.7188 -1554.1572)">
+				<stop  offset="0" style="stop-color:##spriteCouleurWhite##" stop-opacity="0.80"/>
+				<stop  offset="0.7363" style="stop-color:##spriteCouleurWhite##" stop-opacity="0.05"/>
+			</linearGradient>
+			<path fill="url(#SVGID_3_)" d="M32.834,9.622c-1.404,0-2.857,0.132-4.326,0.404c-9.264,1.733-15.768,8.522-14.531,15.157
+				c1.041,5.581,7.242,9.278,14.701,9.278c1.408,0,2.859-0.133,4.326-0.406c9.27-1.733,15.771-8.517,14.533-15.146
+				C46.496,13.326,40.299,9.622,32.834,9.622z"/>
+		</g>
+	</g>
+
+	<!-- Icône en superposition monocouleur -->
+	<g>
+		<path fill="##spriteCouleur3ClairSup##" d="M47.891,25.771v-1.999c0-2.111-1.73-3.842-3.844-3.842h-2.496v-1.406c0-1.707-1.389-3.094-3.096-3.094
+			c-1.703,0-3.092,1.387-3.092,3.094v1.406h-5.699v-1.406c0-1.707-1.387-3.094-3.093-3.094c-1.707,0-3.095,1.387-3.095,3.094v1.406
+			h-2.741c-2.114,0-3.845,1.73-3.845,3.842v1.999H47.891z M25.028,22.286v-3.762c0-0.854,0.69-1.545,1.542-1.545
+			s1.541,0.691,1.541,1.545v3.762c0,0.854-0.689,1.543-1.541,1.543S25.028,23.139,25.028,22.286z M36.914,22.286v-3.762
+			c0-0.854,0.689-1.545,1.543-1.545c0.85,0,1.543,0.691,1.543,1.545v3.762c0,0.854-0.693,1.543-1.543,1.543
+			C37.604,23.829,36.914,23.139,36.914,22.286z"/>
+		<path fill="##spriteCouleur3ClairSup##" d="M16.891,27.104v15.335c0,2.115,1.73,3.844,3.845,3.844h23.312c2.112,0,3.845-1.729,3.845-3.844V27.104
+			H16.891z M28.754,41.629h-2.55v-9.603h-0.035l-2.151,1.101l-0.434-2.126l3.002-1.492h2.168V41.629z M35.604,41.834
+			c-1.371,0-2.516-0.335-3.141-0.689l0.486-2.125c0.484,0.26,1.509,0.597,2.531,0.597c1.095,0,2.256-0.56,2.256-1.847
+			c0-1.248-0.92-2.014-3.174-2.014c-0.625,0-1.06,0.037-1.511,0.111l0.729-6.358h6.211v2.331H35.62l-0.242,1.865
+			c0.242-0.037,0.451-0.037,0.729-0.037c1.074,0,2.186,0.262,2.967,0.876c0.85,0.615,1.369,1.622,1.369,3.039
+			C40.443,39.84,38.641,41.834,35.604,41.834z"/>
+	</g>
+</g>
+</svg>

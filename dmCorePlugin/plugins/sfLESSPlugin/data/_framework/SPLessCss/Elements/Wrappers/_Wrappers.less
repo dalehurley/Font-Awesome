@@ -30,9 +30,9 @@
 
 //container situés directement dans un widget en enblobant plusieurs sous-contenus
 .supWrapper {
-	.isLess & { background-color: #D9E8A5; }
+	.isLess & { background-color: fadeout(#D9E8A5, 90%); }
 	& > .title {
-		.isLess & { background-color: #B7D450; }
+		.isLess & { background-color: fadeout(#B7D450, 90%); }
 		margin-bottom: @gridBaseline;
 	}
 	article & {
@@ -42,12 +42,12 @@
 
 //container de texte, on ne met les éléments en block que lorsqu'il sont contenu dedans
 .wrapper {
-	.isLess & { background-color: fadeout(#95AEBD, 50%); }
+	.isLess & { background-color: fadeout(#95AEBD, 90%); }
 }
 
 //container situé dans un sous élément (par exemple un listing)
 .subWrapper {
-	.isLess & { background-color: Violet; }
+	.isLess & { background-color: fadeout(#E432ED, 90%); }
 	
 	.elements .element & {
 		line-height: @gridBaseline;

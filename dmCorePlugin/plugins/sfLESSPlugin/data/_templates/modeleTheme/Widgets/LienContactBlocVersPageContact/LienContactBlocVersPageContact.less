@@ -9,10 +9,9 @@
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 
-.lien_contact_bloc_vers_page_contact {
-	background-color: #7FD2F5;
-	
+.dm_widget.lien_contact_bloc_vers_page_contact {
+	.isLess & { background-color: #7FD2F5; }
 	.dm_widget_inner {
-		background-color: #70B0CC;
+		.isLess & { background-color: #70B0CC; }
 	}
 }

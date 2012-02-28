@@ -7,10 +7,9 @@
 //Config par défaut des widgets du template
 @import "_templates/modeleTheme/Widgets/_Widgets.less";
 
-.missions_missions_contextuel {
-	background-color: #AC97AD;
-	
+.dm_widget.missions_missions_contextuel {
+	.isLess & { background-color: #AC97AD; }
 	.dm_widget_inner {
-		background-color: #EAA8ED;
+		.isLess & { background-color: #EAA8ED; }
 	}
 }

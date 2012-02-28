@@ -1,0 +1,154 @@
+// SpecifiquesBaseEditorialeDessinSemaine.less
+// v1.0
+// Last Updated : 2012-02-20 15:30
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du framework
+@import "_framework/SPLessCss/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/General/_General.less";
+
+.dm_widget.specifiques_base_editoriale_dessin_semaine {
+	.isLess & { background-color: #B4DEDC; }
+
+	.ad-gallery {
+		.isLess & { background-color: #B4DEDC; }
+		//suppression padding et marges
+		padding: 0;
+		margin: 0;
+	}
+
+	.ad-image-wrapper {
+		//suppression bordure et marge
+		border: 0;
+		margin: 0;
+		//on force l'arrière plan sur du blanc car tous les dessins sont sur fond blanc
+		background-color: @colorWhite;
+
+		.ad-image {
+			.isLess & { background-color: #89B8CC; }
+		}
+		.ad-prev {
+			.isLess & { background-color: fadeout(#3A94BA, 75%); }
+			.ad-prev-image {
+				.isLess & { background-color: #D9252E; }
+			}
+		}
+		.ad-next {
+			.isLess & { background-color: fadeout(#44B3B1, 75%); }
+			.ad-next-image {
+				.isLess & { background-color: #D9252E; }
+			}
+		}
+		.ad-loader {
+			
+		}
+	}
+
+	.ad-controls {
+		.isLess & { background-color: #89CC8D; }
+		//changement marge
+		margin: @gridBaseline/2 0;
+		height: auto;
+		@getClearfix();
+
+		.ad-info {
+			.isLess & { background-color: #47914C; }
+		}
+		.ad-slideshow-controls {
+			.isLess & { background-color: #98B399; }
+			.ad-slideshow-start {
+				.isLess & { background-color: #259929; }
+				margin: 0;
+				padding: 0;
+			}
+			.ad-slideshow-stop {
+				.isLess & { background-color: #6DE872; }
+				margin: 0;
+				padding: 0;
+			}
+			.ad-slideshow-countdown {
+				.isLess & { background-color: #B8DBBA; }
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
+
+	.ad-descriptions {
+		.isLess & { background-color: #89CC8D; }
+		//changement marge
+		margin: @gridBaseline/2 0 @gridBaseline 0;
+		padding: 0;
+
+		.ad-image-description {
+			.isLess & { background-color: #369C3D; }
+			margin: 0;
+			padding: 0;
+			//on recopie le style des titres de listing
+			.ad-description-title {
+				.isLess & { background-color: #0FD61D; }
+				display: block;
+				line-height: @gridBaseline;
+				font-size: @fontSizeH6Px;
+			}
+		}
+	}
+
+	.ad-nav {
+		.isLess & { background-color: #D68989; }
+		//suppression bordure et marge
+		border: 0;
+		margin: 0 0 @gridBaseline 0;
+
+		.ad-thumbs {
+			.isLess & { background-color: #CCB4B4; }
+			//suppression marge
+			padding: 0;
+			margin: 0;
+
+			.ad-thumb-list {
+				.isLess & { background-color: #CCB4B4; }
+				//suppression marge
+				padding: 0;
+				margin: 0;
+
+				.ad-thumb {
+					.isLess & { background-color: #CCB4B4; }
+					//changement marge
+					margin: 0;
+					padding-right: @gridGutter;
+					&.last { padding-right: 0; }
+
+					.link {
+						//on force l'arrière plan sur du blanc car tous les dessins sont sur fond blanc
+						background-color: @colorWhite;
+						outline: 0;
+						overflow: hidden;
+
+						.image {
+							//suppression bordure
+							border: 0;
+							//placement horizontal
+							margin-right: auto;
+							margin-left: auto;
+						}
+
+						&.ad-active {
+							//suppression bordure
+							.image { border: 0; }
+						}
+					}
+				}
+			}
+		}
+		.ad-back {
+			
+		}
+		.ad-forward {
+			
+		}
+	}
+}

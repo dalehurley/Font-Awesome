@@ -14,12 +14,12 @@
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/NavigationBreadCrumb/_NavigationBreadCrumb.less";
 
-.navigation_bread_crumb {
+.dm_widget.navigation_bread_crumb {
 	float: left;
 	
 	.dm_widget_inner {
 		//ajout d'une bordure dont l'épaisseur a été déduite
-		border: @zonesOffsetBorder solid @zonesBorderColor;
+		border: 1px solid @zonesBorderColor;
 		//permet de sortie de la zone
 		margin: 1px (@zonesOffsetPad * -1) -1px (@zonesOffsetPad * -1);
 		//définitions de la largeur
@@ -60,7 +60,7 @@
 				display: block;
 				text-indent: -9999em;
 				margin-left: 0;
-				@spriteDefinition("Default"; "navigation"; "separatorRight"; "S"; @spriteFormat_S; @spriteOffX-navigation-separatorRight; @spriteOffY-navigation-separatorRight);
+				@spriteDefinition("Tenor"; "navigation"; "separatorRight"; "S"; @spriteFormat_S; @spriteOffX-navigation-separatorRight; @spriteOffY-navigation-separatorRight);
 			}
 		}
 	}
