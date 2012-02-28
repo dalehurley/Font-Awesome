@@ -84,7 +84,7 @@
 
 	.dm_zones {
 		.isLess & { background-color: #8A9999; }
-		//lorsque uniquement sidebar-right est présente
+		padding: 0 @zonesOffsetPad;
 	}
 }
 
@@ -94,5 +94,6 @@
 	.dm_zones {
 		.isLess & { background-color: #8A998A; }
 		border-left: 1px dotted @colorCouleur3Moyen;
+		padding-left: (@zonesOffsetPad -1px);
 	}
 }

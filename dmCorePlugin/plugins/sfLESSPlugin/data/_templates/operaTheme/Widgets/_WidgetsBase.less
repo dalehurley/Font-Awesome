@@ -75,14 +75,9 @@
 		margin-bottom: @gridBaseline/2;
 		
 		.dm_widget_inner {
-			padding: (@gridBaseline/2) @zonesOffsetPad;
+			padding: (@gridBaseline/2) 0;
 			//suppression bordures sous niveaux
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; } }
 		}
-	}
-}
-#dm_sidebar_right {
-	.dm_widget {
-		.dm_widget_inner { padding-left: (@zonesOffsetPad -1px); }
 	}
 }
