@@ -29,6 +29,8 @@
 	.dm_widget_inner {
 		//changement taille du titre des widgets
 		& > .title {
+			position: relative;
+			
 			#dm_content & {
 				text-transform: none;
 				font-size: @fontSizeH3Px;
@@ -94,7 +96,7 @@
 			& > .title {
 				.isLess & { background-color: #5F8FA3; }
 				color: @colorCouleur2;
-				padding-top: @gridBaseline/2;
+				padding: @gridBaseline/2 0;
 			}
 		}
 	}
