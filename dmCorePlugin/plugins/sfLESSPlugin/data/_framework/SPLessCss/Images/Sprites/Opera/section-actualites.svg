@@ -4,34 +4,34 @@
 <g>
 	<!-- Fond neutre -->
 	<g>
-		<radialGradient id="SVGID_1_" cx="297.5" cy="-357" r="27.0991" gradientTransform="matrix(1 0 0 -1 -265.5 -325)" gradientUnits="userSpaceOnUse">
-			<stop  offset="0.60" style="stop-color:#000000"/>
-			<stop  offset="0.85" style="stop-color:#0f1417"/>
-			<stop  offset="0.92" style="stop-color:#35434a"/>
-			<stop  offset="0.98" style="stop-color:#4c5b63"/>
+		<radialGradient id="fondBordure" cx="297.5" cy="-357" r="27.0991" gradientTransform="matrix(1 0 0 -1 -265.5 -325)" gradientUnits="userSpaceOnUse">
+			<stop  offset="0.60" style="stop-color:##spriteCouleurBlack##"/>
+			<stop  offset="0.85" style="stop-color:##spriteCouleur2Fonce##"/>
+			<stop  offset="0.92" style="stop-color:##spriteCouleur2##"/>
+			<stop  offset="0.98" style="stop-color:##spriteCouleur2Moyen##"/>
 		</radialGradient>
-		<path fill="url(#SVGID_1_)" d="M59.1,31.992c0,14.96-12.137,27.106-27.098,27.106C17.035,59.101,4.9,46.952,4.9,31.992
+		<path fill="url(#fondBordure)" d="M59.1,31.992c0,14.96-12.137,27.106-27.098,27.106C17.035,59.101,4.9,46.952,4.9,31.992
 			S17.035,4.901,32.002,4.901C46.963,4.901,59.1,17.032,59.1,31.992z"/>
 		<g>
-			<radialGradient id="SVGID_2_" cx="56.2461" cy="-343.7988" r="41.1343" gradientTransform="matrix(1 0 0 -1 -19.7197 -325)" gradientUnits="userSpaceOnUse">
-				<stop  offset="0.2802" style="stop-color:#9e9e9e"/>
-				<stop  offset="0.76" style="stop-color:#919191"/>
-				<stop  offset="0.8046" style="stop-color:#9e9e9e"/>
-				<stop  offset="0.8774" style="stop-color:#c4c4c4"/>
-				<stop  offset="0.98" style="stop-color:#ebebeb"/>
+			<radialGradient id="fondBackground" cx="56.2461" cy="-343.7988" r="41.1343" gradientTransform="matrix(1 0 0 -1 -19.7197 -325)" gradientUnits="userSpaceOnUse">
+				<stop  offset="0.2802" style="stop-color:##spriteCouleur3Sup##"/>
+				<stop  offset="0.76" style="stop-color:##spriteCouleur3##"/>
+				<stop  offset="0.8046" style="stop-color:##spriteCouleur3Sup##"/>
+				<stop  offset="0.8774" style="stop-color:##spriteCouleur3Moyen##"/>
+				<stop  offset="0.98" style="stop-color:##spriteCouleur3Clair##"/>
 			</radialGradient>
-			<path fill="url(#SVGID_2_)" d="M56.018,31.994c0,13.261-10.758,24.022-24.016,24.022c-13.266,0-24.02-10.763-24.02-24.022
+			<path fill="url(#fondBackground)" d="M56.018,31.994c0,13.261-10.758,24.022-24.016,24.022c-13.266,0-24.02-10.763-24.02-24.022
 				S18.736,7.983,32.002,7.983C45.26,7.983,56.018,18.734,56.018,31.994z"/>
-			<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-792.7246" y1="41.832" x2="-792.5552" y2="42.464" gradientTransform="matrix(37.3965 0 0 37.3965 29672.7188 -1554.1572)">
-				<stop  offset="0" style="stop-color:#ffffff"/>
-				<stop  offset="0.1787" style="stop-color:#f7f7f7"/>
-				<stop  offset="0.5358" style="stop-color:#ebebeb"/>
-				<stop  offset="0.7363" style="stop-color:#d1d1d1"/>
-				<stop  offset="0.8273" style="stop-color:#c4c4c4"/>
-				<stop  offset="0.9656" style="stop-color:#9e9e9e"/>
-				<stop  offset="1" style="stop-color:#919191"/>
+			<linearGradient id="fondHalo" gradientUnits="userSpaceOnUse" x1="-792.7246" y1="41.832" x2="-792.5552" y2="42.464" gradientTransform="matrix(37.3965 0 0 37.3965 29672.7188 -1554.1572)">
+				<stop  offset="0" style="stop-color:##spriteCouleurWhite##"/>
+				<stop  offset="0.1787" style="stop-color:##spriteCouleur3ClairSup##"/>
+				<stop  offset="0.5358" style="stop-color:##spriteCouleur3Clair##"/>
+				<stop  offset="0.7363" style="stop-color:##spriteCouleur3MoyenSup##"/>
+				<stop  offset="0.8273" style="stop-color:##spriteCouleur3Moyen##"/>
+				<stop  offset="0.9656" style="stop-color:##spriteCouleur3Sup##"/>
+				<stop  offset="1" style="stop-color:##spriteCouleur3##"/>
 			</linearGradient>
-			<path fill="url(#SVGID_3_)" d="M32.834,9.622c-1.404,0-2.857,0.132-4.326,0.404c-9.264,1.733-15.768,8.522-14.531,15.157
+			<path fill="url(#fondHalo)" d="M32.834,9.622c-1.404,0-2.857,0.132-4.326,0.404c-9.264,1.733-15.768,8.522-14.531,15.157
 				c1.041,5.581,7.242,9.278,14.701,9.278c1.408,0,2.859-0.133,4.326-0.406c9.27-1.733,15.771-8.517,14.533-15.146
 				C46.496,13.326,40.299,9.622,32.834,9.622z"/>
 		</g>
