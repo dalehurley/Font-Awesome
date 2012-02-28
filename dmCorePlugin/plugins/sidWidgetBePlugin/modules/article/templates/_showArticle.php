@@ -82,7 +82,7 @@ if (!is_file($xml)) {
 		echo debugTools::infoDebug(array(__('Error : invalid xml') => $xml),'warning');
 	}
 
-	if (isset($articleList)){
+	if (isset($articleList)){ // si on est dans le dataType agenda alors on a une liste d'articles de la meme section
 
 		echo '<hr>';
 		//ouverture du listing
