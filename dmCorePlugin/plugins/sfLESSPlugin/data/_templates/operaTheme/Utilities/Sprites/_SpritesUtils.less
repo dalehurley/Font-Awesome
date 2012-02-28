@@ -31,3 +31,22 @@
 		}
 	}
 }
+
+//Arrondi de la sprite avec couleur de fond blanc pour le contour
+@widgetTitleSpriteRound() {
+	//ciblage du titre du widget
+	& .dm_widget_inner > .title {
+		//que si l'élément :after est géré
+		.generatedcontent & {
+			//suppression padding inférieur pour superposition avec contenu en dessous
+			padding-bottom: 0;
+			//pour forcer le passage par devant
+			z-index: 10;
+		}
+		
+		&:after {
+			background-color: @colorWhite;
+			@borderRadiusCompress(@spriteFormat_M);
+		}
+	}
+}
