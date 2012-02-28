@@ -88,8 +88,10 @@ $countVille = count($arrayVilles);
 
     foreach ($arrayVilles as $key => $arrayVille) {
         // condition pour gérer les class des listings
-        if ($ville == 1)
+        if ($ville == 1){
             $incrementVille = 'first';
+            if($ville == $countVille) $incrementVille = 'first last';
+            }
         elseif ($ville == $countVille)
             $incrementVille = 'last';
         else
@@ -116,7 +118,7 @@ $countVille = count($arrayVilles);
                     $incrementEquipe = '';
                 // condition pour gérer les class des listings
 
-                echo _open('li', array('class' => 'element itemscope Person ' . $incrementEquipe, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
+                echo _open('li', array('class' => 'element itemscope Person ' . $incrementEquipe, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope', 'id' => $equipe->id));
 
                     if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
                         echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->alt($equipe->getTitle())->set('.image itemprop="image"'));

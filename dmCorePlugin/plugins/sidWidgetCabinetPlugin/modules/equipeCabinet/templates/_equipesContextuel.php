@@ -1,5 +1,5 @@
 <?php
-// vars : $equipes, $titreBloc, $titreLien, $pageEquipe, $length, $rubrique, $nomRubrique
+// vars : $equipes, $titreBloc, $titreLien, $pageEquipe, $length, $rubrique, $nomRubrique, $linkEquipe
 $i = 1;
 $i_max = count($equipes);
 $class ='';
@@ -23,6 +23,7 @@ foreach($equipes as $equipe) {
                 echo _open('li', array('class' => 'element itemscope Person ' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
 
                     if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
+                        
                         echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->alt($equipe->getTitle())->set('.image itemprop="image"'));
                     };
                     echo _open('span', array('class' => 'wrapper'));
@@ -63,7 +64,7 @@ if ((isset($lien)) AND ($lien != '')) {
         echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
             echo _open('ul', array('class' => 'elements'));
                 echo _tag('li', array('class' => 'element first last'), 
-                        _link('pageCabinet/equipe')->text($lien)
+                        _link($linkEquipe)->text($lien)
                         );
             echo _close('ul');
         echo _close('div');
