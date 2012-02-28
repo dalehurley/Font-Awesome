@@ -27,7 +27,7 @@ class pagesDuCabinetpageCabinetListView extends dmWidgetPluginView {
 
         $pageCabinets = dmDb::table('SidCabinetPageCabinet')->findByIsActive(true);
 //        ($vars['withImage'] == true) ? (($pageCabinet->getImage()->checkFileExists() == true) ? $image = $pageCabinet->getImage() : $image = ''): $image = '';
-        ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $pageCabinets[0]->getTitle():'';
+        ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = sfContext::getInstance()->getPage()->getName() :'';
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
 		
         return $this->getHelper()->renderPartial('pagesDuCabinet', 'pageCabinetList', array(
