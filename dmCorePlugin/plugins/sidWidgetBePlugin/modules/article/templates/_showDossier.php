@@ -96,7 +96,7 @@ if (!is_file($xml)) {
 
 		// afficahge de la navigation des articles fils
 		$articleFilsNavigation = '';
-		if (count($elements)){
+		if (isset($elements) && count($elements)){
 			
 			$articleFilsNavigation =
 						'<div class="navigationWrapper navigationTop">'.
