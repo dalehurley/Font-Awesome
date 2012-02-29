@@ -34,7 +34,7 @@ $nbArticle = 1;
         };
         $link.= '<span class="wrapper">
                 <span class="subWrapper">';
-        if ($titlePage != $article->getTitle()) {
+        if ($titreBloc != $article->getTitle()) {
             $link.= '<span class="title itemprop name" itemprop="name">' . $article->getTitle() . '</span>';
         };
         $link.= '<meta content="' . $article->createdAt . '" itemprop="datePublished">
