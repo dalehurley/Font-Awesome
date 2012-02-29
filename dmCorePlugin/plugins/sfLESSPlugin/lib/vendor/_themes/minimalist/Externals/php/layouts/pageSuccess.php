@@ -1,5 +1,4 @@
 <?php
-<?php
 /*
  * Render a page.
  * Layout areas and page content area are rendered.
