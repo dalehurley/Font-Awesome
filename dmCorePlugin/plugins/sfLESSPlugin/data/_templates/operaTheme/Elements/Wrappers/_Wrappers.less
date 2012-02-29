@@ -70,12 +70,32 @@
 
 //container situés directement dans un widget en enblobant plusieurs sous-contenus
 .supWrapper {
-	
+	.elements {
+		.element {
+			//suppression transition
+			.csstransitions & {
+				@transitionNone();
+			}
+			&:hover { background-color: transparent; }
+			
+			padding-bottom: @gridBaseline - 1px;
+			border-bottom: 1px solid @zonesBorderColor;
+			&.last { border: 0; padding-bottom: 0; }
+		}
+	}
+	margin-bottom: @gridBaseline;
+	padding-bottom: (@gridBaseline - 1px);
+	//gestion bordure du wrapper
+	border-bottom: 1px solid @zonesBorderColor;
+	&.last { border: 0; padding-bottom: 0; }
 }
 
 //container situé dans un sous élément (par exemple un listing)
 .subWrapper {
-	
+	.elements .element & {
+		//positionnement élément en ligne dans zone spécifique
+		#dm_custom_bottom & .itemprop { display: inline; vertical-align: top; }
+	}
 }
 
 //container de l'image en pleine largeur (utilisé dans l'affichage d'un article)
