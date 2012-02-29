@@ -15,6 +15,10 @@
 @import "_framework/SPLessCss/Widgets/ContentNivoGallery/_ContentNivoGallery.less";
 
 .dm_widget.content_nivo_gallery {
+
+	.dm_widget_inner {
+		#dm_content &, #dm_sidebar_left &, #dm_sidebar_right & { padding: 0; }
+	}
 	
 	//placement sélecteurs de navigation
 	.nivo-controlNav {
