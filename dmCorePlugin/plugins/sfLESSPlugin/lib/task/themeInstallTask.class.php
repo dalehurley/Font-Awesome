@@ -36,21 +36,49 @@ EOF;
         // scan du dossier /data/_templates du plugin
         $pluginDataDir = dirname(__FILE__) . '/../../data/_templates';
         $arrayTemplates = scandir($pluginDataDir);
-        $i = 0;
         $dispoTemplates = array();
+        $dispoTemplatesV1 = array();
+        $dispoTemplatesV2 = array();
         
         foreach ($arrayTemplates as $template) {
             // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
-            if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_') {
-                $i++;
-                $dispoTemplates[$i] = $template;
+            if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_' && substr($template, 0, 1) != '.') {
+                if (substr($template, -5) == 'Theme'){   // les anciens themes V1
+                    $dispoTemplatesV1[] = $template;
+                } else {  // les themes V2
+                    $dispoTemplatesV2[] = $template;
+                }
             }
         }
+        // on stocke tous les themes ensemble
+        $i = 1;
+        foreach ($dispoTemplatesV1 as $templateV1) {
+            $dispoTemplates[$i] = $templateV1;
+            $i++;
+        }
+        foreach ($dispoTemplatesV2 as $templateV2) {
+            $dispoTemplates[$i] = $templateV2;
+            $i++;
+        }
+
         // on affiche les choix
         $this->logBlock('Themes disponibles :', 'INFO_LARGE');
         
+        $afficheHelpV1 = false;
+        $afficheHelpV2 = false;        
         foreach ($dispoTemplates as $k => $dispoTemplate) {
+            // on affiche les entètes V1 et V2
+            if (substr($dispoTemplate, -5) == 'Theme' && !$afficheHelpV1){        
+                $this->logblock('Thèmes V1', 'HELP');
+                $afficheHelpV1 = true;
+            } 
+            if (substr($dispoTemplate, -5) != 'Theme' && !$afficheHelpV2) {
+                $this->logblock('Thèmes V2', 'HELP');
+                $afficheHelpV2 = true;
+            }
+           
             $this->logSection($k, $dispoTemplate);
+            
         }
         // choix de la maquette du coeur
         $numTemplate = $this->askAndValidate(array(
@@ -65,27 +93,46 @@ EOF;
         )));
         $nomTemplateChoisi = $dispoTemplates[$numTemplate];
         $this->logBlock('Vous avez choisi le thème : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
-        //$this->logBlock('Execution time  ' . round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
-        //---------------------------------------------------------------------------------
-        //        installation du theme
-        //---------------------------------------------------------------------------------
-        //$pluginDataDir = dm::getDir() . '/dmCorePlugin/plugins/sfLESSPlugin/data';
-        $pluginDataDir = dirname(__FILE__) . '/../../data';
-        $dirTheme = sfConfig::get('sf_web_dir') . '/theme';
-        // Copie du dossier diem/themesFmk/theme
-        exec('rm -rf ' . $dirTheme);
-        mkdir($dirTheme);
-        $this->getFilesystem()->execute('cp -r ' . $pluginDataDir . '/theme/* ' . $dirTheme, $out, $err);
-        // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
-        $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
-        
-        // on cree le lien symbolique vers le dossier des _templates/$nomTemplateChoisi
-        $dirThemeTemplates = $dirTheme.'/less/_templates';
-        mkdir($dirThemeTemplates);
-        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_templates/'. $nomTemplateChoisi . ' ' . $dirThemeTemplates .'/'.$nomTemplateChoisi, $out, $err);
-        // on cree le lien symbolique vers le dossier du _framework
-        $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_framework/ ' . sfConfig::get('sf_web_dir') . '/theme/less/_framework', $out, $err);
 
+        if (substr($nomTemplateChoisi, -5) == 'Theme'){ // theme V1
+            //$this->logBlock('Execution time  ' . round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
+            //---------------------------------------------------------------------------------
+            //        installation du theme
+            //---------------------------------------------------------------------------------
+            //$pluginDataDir = dm::getDir() . '/dmCorePlugin/plugins/sfLESSPlugin/data';
+            $pluginDataDir = dirname(__FILE__) . '/../../data';
+            $dirTheme = sfConfig::get('sf_web_dir') . '/theme';
+            // Copie du dossier diem/themesFmk/theme
+            exec('rm -rf ' . $dirTheme);
+            mkdir($dirTheme);
+            $this->getFilesystem()->execute('cp -r ' . $pluginDataDir . '/theme/* ' . $dirTheme, $out, $err);
+            // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
+            $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
+            
+            // on cree le lien symbolique vers le dossier des _templates/$nomTemplateChoisi
+            $dirThemeTemplates = $dirTheme.'/less/_templates';
+            mkdir($dirThemeTemplates);
+            $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_templates/'. $nomTemplateChoisi . ' ' . $dirThemeTemplates .'/'.$nomTemplateChoisi, $out, $err);
+            // on cree le lien symbolique vers le dossier du _framework
+            $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_framework/ ' . sfConfig::get('sf_web_dir') . '/theme/less/_framework', $out, $err);
+        } else { // installation du theme V2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
 
         // recherche des templates -> XXXSuccess.php
         $dirPageSuccessFile = $pluginDataDir . '/_templates/' . $nomTemplateChoisi . '/Externals/php/layouts';
