@@ -40,7 +40,7 @@ if(count($articles)){
                 echo _tag('meta', array('content' => $titreBloc, 'itemprop' => 'articleSection'));
                 echo _tag('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'), $article->getResume());
                 echo _open('span.date');
-                    echo __('published on').' ';
+                    echo __('Published on').' ';
                     echo _tag('time', array('class' => 'datePublished', 'itemprop' => 'datePublished', 'pubdate' => 'pubdate', 'datetime' => format_date($article->createdAt, 'I')), format_date($article->createdAt, 'D' ));
                 echo _close('span');    
             echo _close('header');
