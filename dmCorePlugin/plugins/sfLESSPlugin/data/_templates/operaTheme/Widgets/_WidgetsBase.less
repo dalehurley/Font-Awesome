@@ -89,14 +89,14 @@
 		margin-bottom: @gridBaseline/2;
 		
 		.dm_widget_inner {
-			padding: (@gridBaseline/2) 0;
+			padding: (@gridBaseline/2) @zonesOffsetPad;
 			//suppression bordures sous niveaux
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; } }
 
 			& > .title {
 				.isLess & { background-color: #5F8FA3; }
 				color: @colorCouleur2;
-				margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0;
+				margin: (@gridBaseline/-2) (@zonesOffsetPad*-1) (@gridBaseline/2) (@zonesOffsetPad*-1);
 				padding: @gridBaseline/2 0;
 
 				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
