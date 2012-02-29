@@ -1,6 +1,6 @@
 
 <?php
-// vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
+// vars : $section, $titreBloc, $lien, $longueurTexte, $articles, $arrayRubrique, $photo
 
 if (count($articles)) { // si nous avons des actu articles
 	
@@ -49,14 +49,15 @@ if (count($articles)) { // si nous avons des actu articles
 		      	'</span>'.
 		    '</span>'
 		);
-
+        if($lien != ''){
 		echo '<span class="navigationWrapper navigationBottom">'.
 	     	'<ul class="elements">'.
       			'<li class="element first last">'.
-      				_link($article->getSection())->set('.link.link_box')->text($titreLien.' '.$article->getRubriquePageTitle()).  // 2170  (415)
+      				_link($article->getSection())->text($lien.' '.$article->getRubriquePageTitle()).  // 2170  (415)
       			'</li>'.
       		'</ul>'.
 		'</span>';
+        };
     	echo '</li>';
     	$i++;
     }

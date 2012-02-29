@@ -9,9 +9,9 @@ echo
 $form->renderGlobalErrors(),
  _tag('div', $form['titreBloc']->renderRow() .
         $form['length']->renderRow() .
-        $form['nbArticle']->renderRow() .
+        $form['nbArticles']->renderRow() .
         $form['section']->renderRow() .
-        $form['titreLien']->renderRow().
+        $form['lien']->renderRow().
         $form['withImage']->renderRow().
         $form['widthImage']->renderRow()
 );

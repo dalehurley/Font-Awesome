@@ -4,6 +4,8 @@ class lienContactBlocVersPageContactForm extends dmWidgetPluginForm {
 
     public function configure() {
         
+         parent::configure();
+         
         $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' =>'Contact'));
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => true
@@ -25,7 +27,7 @@ class lienContactBlocVersPageContactForm extends dmWidgetPluginForm {
 //            'titreLien' => 'Le titre du lien.',
         ));
 
-        parent::configure();
+       
     }
 
     public function getStylesheets() {
