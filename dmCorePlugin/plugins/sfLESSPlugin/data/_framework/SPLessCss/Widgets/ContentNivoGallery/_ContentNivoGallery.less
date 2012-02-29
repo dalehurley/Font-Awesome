@@ -1,6 +1,6 @@
 // _ContentNivoGallery.less
-// v1.0
-// Last Updated : 2012-01-05 14:55
+// v1.1
+// Last Updated : 2012-02-29 15:55
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -8,4 +8,27 @@
 @import "_framework/SPLessCss/Widgets/_Widgets.less";
 
 //Mise en page par défaut du widget
-.dm_widget.content_nivo_gallery { position: relative; }
+.dm_widget.content_nivo_gallery {
+	position: relative;
+
+	//élément créé en JS lors du chargement des images
+	#slider {
+		//loader localisé dans le framework et fonctionnant sur un fond blanc
+		background: transparent url(@{urlImagesFramework}/Loaders/loader-circle1.gif) no-repeat 50% 50%;
+	}
+
+	//container de la galerie
+	.dm_widget_nivo_gallery {
+
+		//placement des images par défaut
+		img {
+			position:absolute;
+			top: 0;
+			left: 0;
+			display:none;
+		}
+		
+		//suppression bordures pour les images insérées en lien
+		a { display:block; border:0; }
+	}
+}
