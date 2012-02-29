@@ -322,7 +322,7 @@ class baseEditorialeTools {
                                             $articleName = $articleBE->title->$arrayLangs[0];
                                             //$return[$i]['Insertion article ' . $article->filename . ' - ' . $article->id] =  $articleName;
                                             
-                                        } elseif ($article->Translation[$arrayLangs[0]]->updatedAt < $articleBE->updatedAt) { // l'article doit etre mis à jour
+                                        } elseif ($article->Translation[$arrayLangs[0]]->updated_at < $articleBE->updatedAt->$arrayLangs[0]) { // l'article doit etre mis à jour
                                             
                                             foreach ($arrayLangs as $lang) {
                                                 if (isset($articleBE->title->$lang)) $article->Translation[$lang]->title = $articleBE->title->$lang;
@@ -743,11 +743,17 @@ class baseEditorialeTools {
                                 }
                                 $date_update = $xml->getElementsByTagName('UpdateDate')->item(0)->nodeValue;
                                 // la date de publication
-                                if ($dataType == 'AGENDA') {
-                                    $date_publication = $xml->getElementsByTagName('PublicationDate')->item(0)->getElementsByTagName('ISO')->item(0)->nodeValue;
-                                }
-                                else{
-                                $date_publication = $date = $xml->getElementsByTagName('Info1')->item(0)->nodeValue;
+                                // EXCEPTIONS POUR AGENDA
+                                //  - on met la date ISO identique au titre dans la date de création pour gérer l'affichage sur le site
+                                switch ($dataType) {
+                                    case 'AGENDA':
+                                        $date_publication =  $xml->getElementsByTagName('Info1')->item(0)->nodeValue;
+                                        $return[]['debug AGENDA : '.$filename] = $date_publication;
+                                        break;
+
+                                    default:
+                                        $date_publication = $xml->getElementsByTagName('PublicationDate')->item(0)->getElementsByTagName('ISO')->item(0)->nodeValue;
+                                        break;
                                 }
                                 //$return[$j]['>>>>'] = $date_publication;
                                 // récupération des <keywords><keyword> du XML dans un tableau
@@ -777,7 +783,7 @@ class baseEditorialeTools {
                                         $article->isDossier = false;
                                     }
                                     $article->save();
-                                    // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
+                                    // on lance une seconde fois la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
                                     $article->Translation[$arrayLangs[0]]->updated_at = $date_update;
                                     $article->save();
                                     //$return[$j]['Article ' . $filename] = 'Insertion dans la base ->' . (microtime(true) - $beginTime) . ' s';
@@ -816,6 +822,7 @@ class baseEditorialeTools {
                             } else {
                                 exec('rm ' . $xmlFile);
                                 $return[$j]['ERREUR XML invalide supprimé : '] = $xmlFile;
+                                
                             }
                             $j++;
                             //if ($j > 10) return $return;
