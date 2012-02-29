@@ -111,7 +111,7 @@ EOF;
             $dirThemes = $dirTheme.'/less/_themes';
             mkdir($dirThemes);
             $this->getFilesystem()->execute('ln -s ' . $pluginLibDir . '/_themes/'. $nomTemplateChoisi . ' ' . $dirThemes .'/'.$nomTemplateChoisi, $out, $err);
-            // on cree le lien symbolique vers le dossier du _framework
+            // on cree le lien symbolique vers le dossier bootstrap
             $this->getFilesystem()->execute('ln -s ' . $pluginLibDir . '/bootstrap/ ' . sfConfig::get('sf_web_dir') . '/theme/less/bootstrap', $out, $err);
 
             // recherche des templates -> XXXSuccess.php
