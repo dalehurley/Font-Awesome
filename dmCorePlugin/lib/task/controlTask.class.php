@@ -10,6 +10,7 @@ class controlTask extends lioshiBaseTask {
             // application positionnée sur front afin d'avoir accès aux app.yml du front
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'front') ,
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'prod') ,
+            new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine')              
         ));
         $this->namespace = '';
         $this->name = 'controls';
@@ -26,6 +27,10 @@ EOF;
      * @see sfTask
      */
     protected function execute($arguments = array() , $options = array()) {
+
+        // initialize the database connection
+        $databaseManager = new sfDatabaseManager($this->configuration);
+        $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
         // on affiche les choix d'environnemnts pour les valeurs par defaut
         $dispoTasks = array(
@@ -126,8 +131,23 @@ EOF;
         array_unshift($dispoTasks, "");
         unset($dispoTasks[0]);
 
+        // suppression de la tache less:sprite pour les autres theme version que v1
+        if (dmConfig::get('site_theme_version') != 'v1'){
+          foreach ($dispoTasks as $k => $dispoTask) {
+            if ($dispoTask['command'] == 'less:sprite'){
+              unset($dispoTasks[$k]); // sprite
+            }
+          }
+          // réorganiser les taches pour avoir une sequence de numéros correcte
+          $j = 1;
+          foreach ($dispoTasks as $dispoTask) {
+            $dispoTasksReorg[$j]= $dispoTask;
+            $j++;
+          }  
+          $dispoTasks = $dispoTasksReorg;        
+        }
+
         $this->logBlock('Tâches disponibles :', 'INFO_LARGE');
-        
         foreach ($dispoTasks as $k => $dispoTask) {
           if (isset($dispoTask['separator'])){
             // entetes HELP de largeur égale
