@@ -96,7 +96,11 @@
 			& > .title {
 				.isLess & { background-color: #5F8FA3; }
 				color: @colorCouleur2;
+				margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0;
 				padding: @gridBaseline/2 0;
+
+				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
+				& + .elements { margin-top: @gridBaseline/-2; }
 			}
 		}
 	}
