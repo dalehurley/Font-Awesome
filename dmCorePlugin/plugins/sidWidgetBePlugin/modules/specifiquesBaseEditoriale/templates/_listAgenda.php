@@ -51,7 +51,7 @@ echo $html;
 */
 
 
-// vars : $section, $titreBloc, $titreLien, $longueurTexte, $articles, $arrayRubrique, $photo
+// vars : $section, $titreBloc, $lien, $longueurTexte, $articles, $arrayRubrique, $photo
 
 if (count($articles)) { // si nous avons des actu articles
 	
@@ -100,18 +100,21 @@ if (count($articles)) { // si nous avons des actu articles
 		    '</span>'
 		);
 
-    	if ($i == $i_max) echo 
-	    	'<span class="navigationWrapper navigationBottom">'.
-		     	'<ul class="elements">'.
-	      			'<li class="element first last">'.
-	      				_link($article->getSection())->set('.link.link_box')->text($titreLien).  
-	      			'</li>'.
-	      		'</ul>'.
-			'</span>';
-
-    	echo '</li>';
-    	$i++;
-    }
+          if ($lien != '') {
+            if ($i == $i_max)
+                echo
+                '<span class="navigationWrapper navigationBottom">' .
+                    '<ul class="elements">' .
+                        '<li class="element first last">' .
+                            _link($article->getSection())->text($lien) .
+                        '</li>' .
+                    '</ul>' .
+                '</span>';
+          }
+            echo '</li>';
+            $i++;
+            
+        }
 	
     //fermeture du listing
     echo _close('ul.elements');
