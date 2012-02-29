@@ -30,71 +30,44 @@ EOF;
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-        //---------------------------------------------------------------------------------
-        //        recuperation des differentes maquettes du coeur
-        //---------------------------------------------------------------------------------
-        // scan du dossier /data/_templates du plugin
-        $pluginDataDir = dirname(__FILE__) . '/../../data/_templates';
-        $arrayTemplates = scandir($pluginDataDir);
-        $dispoTemplates = array();
-        $dispoTemplatesV1 = array();
-        $dispoTemplatesV2 = array();
-        
-        foreach ($arrayTemplates as $template) {
-            // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
-            if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_' && substr($template, 0, 1) != '.') {
-                if (substr($template, -5) == 'Theme'){   // les anciens themes V1
-                    $dispoTemplatesV1[] = $template;
-                } else {  // les themes V2
-                    $dispoTemplatesV2[] = $template;
-                }
-            }
-        }
-        // on stocke tous les themes ensemble
-        $i = 1;
-        foreach ($dispoTemplatesV1 as $templateV1) {
-            $dispoTemplates[$i] = $templateV1;
-            $i++;
-        }
-        foreach ($dispoTemplatesV2 as $templateV2) {
-            $dispoTemplates[$i] = $templateV2;
-            $i++;
-        }
+
+        $dispoTemplates = contentTemplateTools::dispoThemes();
 
         // on affiche les choix
+        $choices = array();
         $this->logBlock('Themes disponibles :', 'INFO_LARGE');
-        
-        $afficheHelpV1 = false;
-        $afficheHelpV2 = false;        
-        foreach ($dispoTemplates as $k => $dispoTemplate) {
-            // on affiche les entètes V1 et V2
-            if (substr($dispoTemplate, -5) == 'Theme' && !$afficheHelpV1){        
-                $this->logblock('Thèmes V1', 'HELP');
-                $afficheHelpV1 = true;
-            } 
-            if (substr($dispoTemplate, -5) != 'Theme' && !$afficheHelpV2) {
-                $this->logblock('Thèmes V2', 'HELP');
-                $afficheHelpV2 = true;
+        foreach ($dispoTemplates as $version => $arrayDispoTemplates) {     
+            // on affiche les entètes de version
+            $this->logblock('Thèmes '.$version, 'HELP');
+            foreach ($arrayDispoTemplates as $k => $dispoTemplate) {
+                $this->logSection($k, $dispoTemplate);
+                $choices[] = $k;
             }
-           
-            $this->logSection($k, $dispoTemplate);
-            
         }
+
         // choix de la maquette du coeur
         $numTemplate = $this->askAndValidate(array(
             '',
             'Le numero du theme choisi?',
             ''
         ) , new sfValidatorChoice(array(
-            'choices' => array_keys($dispoTemplates) ,
+            'choices' => $choices,
             'required' => true
         ) , array(
             'invalid' => 'Le template n\'existe pas'
         )));
-        $nomTemplateChoisi = $dispoTemplates[$numTemplate];
-        $this->logBlock('Vous avez choisi le thème : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
 
-        if (substr($nomTemplateChoisi, -5) == 'Theme'){ // theme V1
+        foreach ($dispoTemplates as $version => $arrayDispoTemplates) {     
+            if (isset($arrayDispoTemplates[$numTemplate])){
+                $nomTemplateChoisi = $arrayDispoTemplates[$numTemplate];
+                $nomVersionChoisi = $version;
+            }
+        }
+
+        $this->logBlock('Vous avez choisi le thème : ' . $nomTemplateChoisi. ' ('.$nomVersionChoisi.')', 'CHOICE_LARGE');
+       
+
+        if ($nomVersionChoisi == 'v1'){                                                                                                // installation theme V1
             //$this->logBlock('Execution time  ' . round($timerTask->getElapsedTime() , 3) . ' s', 'INFO_LARGE');
             //---------------------------------------------------------------------------------
             //        installation du theme
@@ -115,34 +88,44 @@ EOF;
             $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_templates/'. $nomTemplateChoisi . ' ' . $dirThemeTemplates .'/'.$nomTemplateChoisi, $out, $err);
             // on cree le lien symbolique vers le dossier du _framework
             $this->getFilesystem()->execute('ln -s ' . $pluginDataDir . '/_framework/ ' . sfConfig::get('sf_web_dir') . '/theme/less/_framework', $out, $err);
-        } else { // installation du theme V2
+            // recherche des templates -> XXXSuccess.php
+            $dirPageSuccessFile = $pluginDataDir . '/_templates/' . $nomTemplateChoisi . '/Externals/php/layouts';
+            // on créé les répertoires s'ils n'existent pas
+            $dirDmFront = sfConfig::get('sf_root_dir') . '/apps/front/modules/dmFront';
+            $dirDmFrontTemplate = $dirDmFront . '/templates';
+            if (!is_dir($dirDmFront)) mkdir($dirDmFront);
+            if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
+            // Copie des xxxSuccess.php du theme sur le site
+            $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile . '/*Success.php ' . $dirDmFrontTemplate, $out, $err);            
+        } else {                                                                                                                       // installation du theme V2
+            $pluginLibDir = dirname(__FILE__) . '/../../lib/vendor';
+            $dirTheme = sfConfig::get('sf_web_dir') . '/theme';
+            // Copie du dossier diem/themesFmk/theme
+            exec('rm -rf ' . $dirTheme);
+            mkdir($dirTheme);
+            $this->getFilesystem()->execute('cp -r ' . $pluginLibDir . '/theme/* ' . $dirTheme, $out, $err);
+            // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
+            $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
 
+            // on cree le lien symbolique vers le dossier des _templates/$nomTemplateChoisi
+            $dirThemes = $dirTheme.'/less/_themes';
+            mkdir($dirThemes);
+            $this->getFilesystem()->execute('ln -s ' . $pluginLibDir . '/_themes/'. $nomTemplateChoisi . ' ' . $dirThemes .'/'.$nomTemplateChoisi, $out, $err);
+            // on cree le lien symbolique vers le dossier du _framework
+            $this->getFilesystem()->execute('ln -s ' . $pluginLibDir . '/bootstrap/ ' . sfConfig::get('sf_web_dir') . '/theme/less/bootstrap', $out, $err);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            // recherche des templates -> XXXSuccess.php
+            $dirPageSuccessFile = $pluginLibDir . '/_themes/' . $nomTemplateChoisi . '/Externals/php/layouts';
+            // on créé les répertoires s'ils n'existent pas
+            $dirDmFront = sfConfig::get('sf_root_dir') . '/apps/front/modules/dmFront';
+            $dirDmFrontTemplate = $dirDmFront . '/templates';
+            if (!is_dir($dirDmFront)) mkdir($dirDmFront);
+            if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
+            // Copie des xxxSuccess.php du theme sur le site
+            $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile . '/*Success.php ' . $dirDmFrontTemplate, $out, $err);
         }
 
-        // recherche des templates -> XXXSuccess.php
-        $dirPageSuccessFile = $pluginDataDir . '/_templates/' . $nomTemplateChoisi . '/Externals/php/layouts';
-        // on créé les répertoires s'ils n'existent pas
-        $dirDmFront = sfConfig::get('sf_root_dir') . '/apps/front/modules/dmFront';
-        $dirDmFrontTemplate = $dirDmFront . '/templates';
-        if (!is_dir($dirDmFront)) mkdir($dirDmFront);
-        if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
-        // Copie des xxxSuccess.php du theme sur le site
-        $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile . '/*Success.php ' . $dirDmFrontTemplate, $out, $err);
+
         // Sauvegarde du nom du theme choisi
         // choix de la langue
         $arrayLangs = sfConfig::get('dm_i18n_cultures');
@@ -191,6 +174,26 @@ EOF;
             $setting->fromArray($configSiteTheme);
             $setting->save();
         }
-        $this->logBlock('Le theme : ' . $nomTemplateChoisi . ' est installe.', 'INFO_LARGE');
+        // sauvegarde du site_theme_version dans la table dmSetting
+        $configSiteThemeVersion = array(
+            'type' => 'text',
+            'default_value' => ' ',
+            'value' => $nomVersionChoisi,
+            'description' => 'Site current theme version',
+            'group_name' => 'site',
+            'lang' => $arrayLangs[$lang]
+        );
+        $setting = dmDB::table('dmSetting')->findOneByName('site_theme_version');
+        if (is_object($setting)) {
+            $settingTranslation = dmDB::table('dmSettingTranslation')->findOneByIdAndLang($setting->id, $arrayLangs[$lang]);
+            $settingTranslation->set('value', $nomVersionChoisi);
+            $settingTranslation->save();
+        } else {
+            $setting = new DmSetting;
+            $setting->set('name', 'site_theme_version');
+            $setting->fromArray($configSiteThemeVersion);
+            $setting->save();
+        }        
+        $this->logBlock('Le theme : ' . $nomTemplateChoisi. ' ('.$nomVersionChoisi.')' . ' est installe.', 'INFO_LARGE');
     }
 }
