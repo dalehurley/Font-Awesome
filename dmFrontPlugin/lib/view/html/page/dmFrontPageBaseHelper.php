@@ -13,7 +13,8 @@ abstract class dmFrontPageBaseHelper extends dmConfigurable
 	$area_fallBackCulture,
 	$area_culture,
 	$area_lid,
-	$area_vid;
+	$area_vid,
+	$idContentDiv;
 
 	public function __construct(sfEventDispatcher $dispatcher, sfServiceContainer $serviceContainer, dmHelper $helper, array $options = array())
 	{
@@ -236,7 +237,7 @@ abstract class dmFrontPageBaseHelper extends dmConfigurable
 		 */
 		if ('content' === $type)
 		{
-			$html .= '<div id="dm_content">';
+			//$html .= '<div id="dm_content">';  lioshi: Cette suppression permet d'utiliser le bootstrap row-fluid
 		}
 
 		$html .= $this->helper->open($tagName, $options);
@@ -254,7 +255,7 @@ abstract class dmFrontPageBaseHelper extends dmConfigurable
 		 */
 		if ('content' === $type)
 		{
-			$html .= '</div>';
+			//$html .= '</div>';
 		}
 
 		return $html;

@@ -10,22 +10,22 @@
 ?>
 <div id="dm_page"<?php $isEditMode && print ' class="edit"' ?>>
 
-	<div class="dm_layout container">
-		<div class="row">	
+	<div class="dm_layout container-fluid">
+		<div class="row-fluid">	
 	      		<?php echo $helper->renderArea('layout.top', '#dm_header.clearfix.span12') ?>
    		</div>
-		<div class="row">
+		<div class="row-fluid">
 			<?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.clearfix.span12') ?>
           	</div>
-		<div class="row">
+		<div class="row-fluid">
 			<?php echo $helper->renderArea('layout.left','#dm_sidebar_left.span2') ?>
 			<?php echo $helper->renderArea('page.content','#dm_page_content.span7') ?>
 			<?php echo $helper->renderArea('layout.right','#dm_sidebar_right.span3') ?>
 		</div>
-		<div class="row">		
+		<div class="row-fluid">		
 			<?php echo $helper->renderArea('layout.customBottom', '#dm_custom_bottom.clearfix.span12') ?>      
 		</div>
-		<div class="row">
+		<div class="row-fluid">
 			<?php echo $helper->renderArea('layout.bottom', '.clearfix.span12') ?>	
 		</div>
 	</div>
