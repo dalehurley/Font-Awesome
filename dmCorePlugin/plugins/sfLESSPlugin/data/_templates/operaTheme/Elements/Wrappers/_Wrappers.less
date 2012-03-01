@@ -106,6 +106,15 @@
 //configuration de base des deux containers d'images
 .imageWrapper, .imageGallery {
 	float: right;
+
+	//on supprime le décalage lorsque situé dans un listing
+	#dm_content .elements .element & { margin-right: @zonesOffsetPad * -1; }
+	#dm_sidebar_left .elements .element &,
+	#dm_sidebar_right .elements .element & {
+		margin-left: @zonesOffsetPad * -1;
+		margin-right: @zonesOffsetPad * -1;
+	}
+
 	.image, .link {
 		margin-right: 0;
 		margin-left: @gridGutter;
