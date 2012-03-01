@@ -161,83 +161,83 @@
 
 
 
-//TEMPORAIRE : DÉFINITION DES DIMENSIONS DIRECTEMENT EN CSS EN ATTENDANT IMPLÉMENTATION HAUTEUR PROPREMENT DANS LES WIDGETS
-.imageFullWrapper {
-	.isLess & {
-		background-color: #B550A9;
-	}
+// //TEMPORAIRE : DÉFINITION DES DIMENSIONS DIRECTEMENT EN CSS EN ATTENDANT IMPLÉMENTATION HAUTEUR PROPREMENT DANS LES WIDGETS
+// .imageFullWrapper {
+// 	.isLess & {
+// 		background-color: #B550A9;
+// 	}
 	
-	.image {
-		.isLess & { 
-			background-color: #6150B5;
-			position: absolute;
-		}
+// 	.image {
+// 		.isLess & { 
+// 			background-color: #6150B5;
+// 			position: absolute;
+// 		}
 		
-		//débug de dimensions sur certains widgets biens précis de la base éditoriale
-		.isLess #dm_content & {
-			@gridWidth(@thumbContent_col);
-			@gridHeight(@thumbContent_bl);
-		}
-	}
+// 		//débug de dimensions sur certains widgets biens précis de la base éditoriale
+// 		.isLess #dm_content & {
+// 			@gridWidth(@thumbContent_col);
+// 			@gridHeight(@thumbContent_bl);
+// 		}
+// 	}
 
-	//application dimensions en dur
-	.isLess #dm_content & {
-		@gridWidth(@thumbContent_col);
-		@gridHeight(@thumbContent_bl);
-	}
-}
+// 	//application dimensions en dur
+// 	.isLess #dm_content & {
+// 		@gridWidth(@thumbContent_col);
+// 		@gridHeight(@thumbContent_bl);
+// 	}
+// }
 
-.imageWrapper {
-	//dans les listings de contenu
-	.elements .element & {
-		.isLess & {
-			background-color: #B550A9;
-			//on remet le décalage  à l'extérieur du container car l'image est positionnée en absolute
-			margin-left: @gridGutter;
-		}
+// .imageWrapper {
+// 	//dans les listings de contenu
+// 	.elements .element & {
+// 		.isLess & {
+// 			background-color: #B550A9;
+// 			//on remet le décalage  à l'extérieur du container car l'image est positionnée en absolute
+// 			margin-left: @gridGutter;
+// 		}
 
-		//application dimensions en dur
-		.isLess #dm_content & {
-			@gridWidth(@thumbL_col);
-			@gridHeight(@thumbL_bl);
-		}
+// 		//application dimensions en dur
+// 		.isLess #dm_content & {
+// 			@gridWidth(@thumbL_col);
+// 			@gridHeight(@thumbL_bl);
+// 		}
 
-		.isLess #dm_sidebar_right & {
-			@gridWidth(@thumbSidebarRight_col);
-			@gridHeight(@thumbSidebarRight_bl);
-		}
+// 		.isLess #dm_sidebar_right & {
+// 			@gridWidth(@thumbSidebarRight_col);
+// 			@gridHeight(@thumbSidebarRight_bl);
+// 		}
 
-		//partie équipe
-		.isLess #dm_content .equipe_cabinet_equipe_show & {
-			@gridWidth(@thumbM_col);
-			@gridHeight(@thumbM_bl*2);
-			margin-left: 0;
-			margin-right: @gridGutter;
-		}
-		.isLess #dm_sidebar_right .equipe_cabinet_equipes_contextuel & {
-			@gridWidth(@thumbS_col);
-			@gridHeight(@thumbS_bl);
-		}
+// 		//partie équipe
+// 		.isLess #dm_content .equipe_cabinet_equipe_show & {
+// 			@gridWidth(@thumbM_col);
+// 			@gridHeight(@thumbM_bl*2);
+// 			margin-left: 0;
+// 			margin-right: @gridGutter;
+// 		}
+// 		.isLess #dm_sidebar_right .equipe_cabinet_equipes_contextuel & {
+// 			@gridWidth(@thumbS_col);
+// 			@gridHeight(@thumbS_bl);
+// 		}
 		
-		//replacement de l'image
-		.image {
-			.isLess & {
-				background-color: #6150B5;
-				position: absolute;
-				float: none;
-				margin: 0;
-				right: 0;
-			}
+// 		//replacement de l'image
+// 		.image {
+// 			.isLess & {
+// 				background-color: #6150B5;
+// 				position: absolute;
+// 				float: none;
+// 				margin: 0;
+// 				right: 0;
+// 			}
 			
-			//valeur arbitraire de replacement car on ne connait par forcément la hauteur de l'image
-			//#dm_content &, #dm_sidebar_right & { top: 50%; margin-top: -50%; }
+// 			//valeur arbitraire de replacement car on ne connait par forcément la hauteur de l'image
+// 			//#dm_content &, #dm_sidebar_right & { top: 50%; margin-top: -50%; }
 
-			//débug de dimensions sur certains widgets biens précis de la base éditoriale
-			.isLess #dm_content .article_list_by_section &,
-			.isLess #dm_sidebar_right .specifiques_base_editoriale_fil_actualite & {
-				@gridWidth(@thumbSidebarRight_col);
-				@gridHeight(@thumbSidebarRight_bl);
-			}
-		}
-	}
-}
+// 			//débug de dimensions sur certains widgets biens précis de la base éditoriale
+// 			.isLess #dm_content .article_list_by_section &,
+// 			.isLess #dm_sidebar_right .specifiques_base_editoriale_fil_actualite & {
+// 				@gridWidth(@thumbSidebarRight_col);
+// 				@gridHeight(@thumbSidebarRight_bl);
+// 			}
+// 		}
+// 	}
+// }
