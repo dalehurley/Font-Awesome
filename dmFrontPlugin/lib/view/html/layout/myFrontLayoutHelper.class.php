@@ -27,13 +27,18 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	public function renderBodyTag($options = array()) {
         $options = dmString::toArray($options);
 				
-		//récupération des options de la page
-		$pageOptions = sfConfig::get('pageOptions');
+		if (dmConfig::get('site_theme_version')=='v1'){
+			//récupération des options de la page
+			$pageOptions = sfConfig::get('pageOptions');
 
-        //ajout des classes personnalisée sur le body
-		$options['class'][] = $pageOptions['sdbConfig'];
-		if($pageOptions['isDev']) $options['class'][] = 'isDev';
-		if($pageOptions['isLess']) $options['class'][] = 'isLess';
+	        //ajout des classes personnalisée sur le body
+			$options['class'][] = $pageOptions['sdbConfig'];
+			if($pageOptions['isDev']) $options['class'][] = 'isDev';
+			if($pageOptions['isLess']) $options['class'][] = 'isLess';
+		}
+		// lioshi : on ajout la class correspondant au nom du layout en cours
+        $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
+		$options['class'][] = $layoutPage;
 
         return parent::renderBodyTag($options);
     }
