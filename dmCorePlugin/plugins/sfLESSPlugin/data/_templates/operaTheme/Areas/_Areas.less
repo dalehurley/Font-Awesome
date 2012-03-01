@@ -10,8 +10,8 @@
 	#dm_main { background-color: #bbb; }
 	#dm_main_inner { background-color: #ccc; }
 	
-	#dm_header > .dm_zones { background-color: fadeout(#8ccccb, 50%); }
-	#dm_footer > .dm_zones { background-color: #c8ccbc; }
+	// #dm_header > .dm_zones { background-color: fadeout(#8ccccb, 50%); }
+	// #dm_footer > .dm_zones { background-color: #c8ccbc; }
 	#dm_sidebar_left > .dm_zones { background-color: #ccccb8; }
 	//#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
 	//#dm_content > .dm_zones { background-color: #b8cccc; }
@@ -75,7 +75,48 @@
 
 //stylage du footer
 #dm_footer {
-	.dm_zones { }
+	background-color: @colorCouleur3Clair;
+	padding: 0;
+
+	.dm_zones {
+		@gridSiteWidth();
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	//widgets situés dans le footer
+	.content_text {
+		.isLess & { background-color: #B6E0D1; }
+		position: relative;
+		&, .link { color: @colorCouleur3Fonce; }
+		font-size: @fontSizeMicro;
+		line-height: @gridBaseline;
+		float: right;
+		.text_content p { margin: 0; }
+	}
+	.content_link {
+		.isLess & { background-color: #E0B6D1; }
+		position: relative;
+		&, .link { color: @colorCouleur3; }
+		font-size: @fontSizeMicro;
+		line-height: @gridBaseline;
+		text-transform: uppercase;
+		float: left;
+		margin-right: @offM;
+		//ajout de la sprite sur l'élément
+		padding-right: @spriteFormat_M;
+		&:after {
+			position: absolute;
+			display: block;
+			//décalage de marge
+			@decalV: (@gridBaseline - @spriteFormat_M) / 2;
+			top: @decalV;
+			right: 0;
+			content: "";
+			//appel de la sprite
+			@spriteDefinition("Default"; "navigation"; "arrowColorDown"; "M"; @spriteFormat_M; @spriteOffX-navigation-arrowColorDown; @spriteOffY-navigation-arrowColorDown);
+		}
+	}
 }
 
 //gestion des paddings et des marges des sidebars et du contenu
