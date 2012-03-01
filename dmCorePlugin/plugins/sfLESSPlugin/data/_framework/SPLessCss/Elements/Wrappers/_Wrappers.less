@@ -60,6 +60,8 @@
 //container de l'image en pleine largeur (utilisé dans l'affichage d'un article)
 .imageFullWrapper {
 	.isLess & { background-color: #169BB5; }
+	//masquage débordements
+	overflow: hidden;
 	margin-bottom: @gridBaseline;
 }
 
@@ -67,6 +69,8 @@
 .imageWrapper, .imageGallery {
 	@getClearfix();
 	float: left;
+	//masquage débordements
+	overflow: hidden;
 	.image, .link {
 		display: block;
 		float: left;
