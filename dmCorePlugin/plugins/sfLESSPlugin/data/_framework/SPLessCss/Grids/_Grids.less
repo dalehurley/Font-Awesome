@@ -13,9 +13,12 @@
 
 //Debug baseline (utilisé en dev par le script JS de previz de la grille)
 .debugBaseline {
-	background-color: transparent;
-	background-image: url(@{urlImagesFramework}/Grids/baseline-@{gridBaseline}.png);
-	background-repeat: repeat;
+	//on affiche la baseline qu'en mode Less pour éviter la confusion en mode DEV
+	.isLess & {
+		background-color: transparent;
+		background-image: url(@{urlImagesFramework}/Grids/baseline-@{gridBaseline}.png);
+		background-repeat: repeat;
+	}
 }
 
 #less-grid {
