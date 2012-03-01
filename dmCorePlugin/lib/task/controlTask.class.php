@@ -100,7 +100,7 @@ EOF;
               'options' => array()                
               ),                
             array(
-              'separator' => 'Themes',              
+              'separator' => 'Themes [actuel: '.dmConfig::get('site_theme').' '.dmConfig::get('site_theme_version').']',              
               'command' => 'theme:install',
               'libelle' => 'Installation du thème (Attention, suppression des styles personnalisés du site)',
               'arguments' => array(),
