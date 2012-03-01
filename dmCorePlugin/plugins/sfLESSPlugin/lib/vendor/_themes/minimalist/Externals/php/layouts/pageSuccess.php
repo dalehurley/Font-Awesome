@@ -10,57 +10,26 @@
 ?>
 <div id="dm_page"<?php $isEditMode && print ' class="edit"' ?>>
 
-  <div class="dm_layout">
-
-  	<?php echo $helper->renderArea('layout.top', '#dm_header.clearfix data-role="header"') ?>
-
-    <div class="dm_layout_center clearfix">
-
-      <?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.clearfix') ?>
-      
-      <?php echo $helper->renderArea('layout.left','#dm_sidebar_left') ?>
-
-      <?php echo $helper->renderArea('page.content','#dm_page_content') ?>
-
-      <?php echo $helper->renderArea('layout.right','#dm_sidebar_right') ?>
-
-      <?php echo $helper->renderArea('layout.customBottom', '#dm_custom_bottom.clearfix') ?>      
-
-    </div>
-
-    <?php echo $helper->renderArea('layout.bottom', '.clearfix') ?>
-
+	<div class="dm_layout container-fluid">
+		<div class="row-fluid">	
+	      		<?php echo $helper->renderArea('layout.top', '#dm_header.clearfix.span12') ?>
+   		</div>
+		<div class="row-fluid">
+			<?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.clearfix.span12') ?>
+          	</div>
+		<div class="row-fluid">
+			<?php echo $helper->renderArea('layout.left','#dm_sidebar_left.span2') ?>
+			<?php echo $helper->renderArea('page.content','#dm_page_content.span7') ?>
+			<?php echo $helper->renderArea('layout.right','#dm_sidebar_right.span3') ?>
+		</div>
+		<div class="row-fluid">		
+			<?php echo $helper->renderArea('layout.customBottom', '#dm_custom_bottom.clearfix.span12') ?>      
+		</div>
+		<div class="row-fluid">
+			<?php echo $helper->renderArea('layout.bottom', '.clearfix.span12') ?>	
+		</div>
+	</div>
   </div>
-
 </div>
 
-
-<hr>
-
-
-<div id="dm_page"<?php $isEditMode && print ' class="edit"' ?>>
-
-  <div class="dm_layout">
-
-  	<?php echo $helper->renderArea('layout.top', '#dm_header.clearfix data-role="header"') ?>
-
-    <div class="dm_layout_center clearfix">
-
-      <?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.clearfix') ?>
-      
-      <?php echo $helper->renderArea('layout.left','#dm_sidebar_left') ?>
-
-      <?php echo $helper->renderArea('page.content','#dm_page_content') ?>
-
-      <?php echo $helper->renderArea('layout.right','#dm_sidebar_right') ?>
-
-      <?php echo $helper->renderArea('layout.customBottom', '#dm_custom_bottom.clearfix') ?>      
-
-    </div>
-
-    <?php echo $helper->renderArea('layout.bottom', '.clearfix') ?>
-
-  </div>
-
-</div>
 
