@@ -110,11 +110,21 @@ class sfLESS
    */
   public function findLessFiles()
   {
-    return sfFinder::type('file')
-      ->name('*.less')
-      ->discard('_*')
-      ->follow_link()
-      ->in(self::getConfig()->getLessPaths());
+    if (dmConfig::get('site_theme_version') == 'v1'){
+      return sfFinder::type('file')
+        ->name('*.less')
+        ->discard('_*')
+        ->follow_link()
+        ->in(self::getConfig()->getLessPaths());
+    }
+
+    if (dmConfig::get('site_theme_version') == 'v2'){
+      return sfFinder::type('file')
+        ->name('style.less')
+        ->discard('_*')
+        ->follow_link()
+        ->in(self::getConfig()->getLessPaths());
+    }
   }
 
   /**
@@ -126,19 +136,19 @@ class sfLESS
    */
   public function getCssPathOfLess($lessFile)
   {
-	//Changement du chemin absolu pour les fichiers issus du dossier _templates qui est inclu en lien symbolique
-  // en chemin relatif au site
-  // afin que ces fichiers less se retrouvent dans le dossier css du site
-	$token = '_templates';
-	if(strpos($lessFile, $token)){
-	  //on récupère la portion se situant après themesFmk
-	  $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
-	}
-	$token = '_framework';
-  if(strpos($lessFile, $token)){
-    //on récupère la portion se situant après themesFmk
-    $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
-  }  
+  	//Changement du chemin absolu pour les fichiers issus du dossier _templates qui est inclu en lien symbolique
+    // en chemin relatif au site
+    // afin que ces fichiers less se retrouvent dans le dossier css du site
+  	$token = '_templates';
+  	if(strpos($lessFile, $token)){
+  	  //on récupère la portion se situant après themesFmk
+  	  $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
+  	}
+  	$token = '_framework';
+    if(strpos($lessFile, $token)){
+      //on récupère la portion se situant après themesFmk
+      $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
+    }  
   
     $file = preg_replace('/\.less$/', '.css', $lessFile);
     $file = preg_replace(sprintf('/^%s/', preg_quote(self::getConfig()->getLessPaths(), '/')), self::getConfig()->getCssPaths(), $file);
