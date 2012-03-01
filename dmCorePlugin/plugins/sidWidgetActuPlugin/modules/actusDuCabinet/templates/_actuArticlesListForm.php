@@ -14,9 +14,12 @@ _tag('div',
     $form['type']->renderRow().
     $form['titreBloc']->renderRow().	
     $form['nbArticles']->renderRow().
-    $form['longueurTexte']->renderRow().
-    $form['photo']->renderRow().
-    $form['chapo']->renderRow()
+    $form['length']->renderRow().
+    $form['chapo']->renderRow().
+    $form['withImage']->renderRow().
+    $form['widthImage']->renderRow().
+    $form['heightImage']->renderRow().
+    $form['cssClass']->renderRow()
          
   
 ); 

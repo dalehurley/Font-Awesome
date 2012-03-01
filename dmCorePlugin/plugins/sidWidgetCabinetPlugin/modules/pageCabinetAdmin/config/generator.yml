@@ -65,7 +65,8 @@ generator:
 #          - text
       form:
         display:
-          "Définition de votre page": [title, is_active]
+          'Publication sur le site': [is_active]
+          'Titre de la page': [title]
           "Résumé de la page": [resume]
           Text: [text]
           Image: [image_form, image_view]

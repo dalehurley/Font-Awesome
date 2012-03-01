@@ -4,16 +4,13 @@ class equipeCabinetEquipeShowForm extends dmWidgetPluginForm {
 
     public function configure() {
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Notre équipe, vos conseils'));
+        parent::configure();
+                
+        $this->widgetSchema['titreBloc']->setDefault('Notre équipe, vos conseils');
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => true
                 ));
-
-        $this->widgetSchema->setHelps(array(
-            'titreBloc' => 'Le titre du bloc.'
-        ));
-
-        parent::configure();
+        $this->widgetSchema->setHelp('widthImage', 'recommandé à 110 px');
     }
 
     public function getStylesheets() {

@@ -10,7 +10,6 @@ class indexSitesUtilesComponents extends myFrontModuleComponents
   public function executeShow()
   {
     $query = $this->getShowQuery();
-    
     $this->indexSitesUtiles = $this->getRecord($query);
   }
 

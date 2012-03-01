@@ -7,9 +7,14 @@ class missionsMissionsListView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'titreBloc',
-            'nbMissions',
-            'longueurTexte'
+            'nbArticles',
+            'length',
+            'chapo',
+            'withImage',
+            'widthImage',
+            'heightImage',
         ));
+
     }
 
     /**
@@ -22,53 +27,50 @@ class missionsMissionsListView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayMissions = array();
-        $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-        
+        $dmPage = sfContext::getInstance()->getPage();
+        $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars['nbArticles'];
         switch ($dmPage->module.'/'.$dmPage->action){
             
             case 'mission/show':
-                if($vars['nbMissions'] == 0) { $nb = dmDb::table('SidCabinetMission')->count();}
-        else $nb = $vars['nbMissions'];
+                
 
-        $missions = Doctrine_Query::create()
-                ->from('SidCabinetMission a')
-                ->leftJoin('a.Translation b')
-                ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
-                ->orderBy('b.updated_at DESC')
-                ->limit($nb)
-                ->execute();
+                $missions = Doctrine_Query::create()
+                    ->from('SidCabinetMission a')
+                    ->leftJoin('a.Translation b')
+                    ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
+                    ->orderBy('b.updated_at DESC')
+                    ->limit($nbArticles)
+                    ->execute();
         
-        foreach ($missions as $mission) { // on stock les NB actu article 
+                foreach ($missions as $mission) { // on stock les NB actu article 
                     $arrayMissions[$mission->id] = $mission;
                 }
-                break;
-        default:
-        if($vars['nbMissions'] == 0) { $nb = dmDb::table('SidCabinetMission')->count();}
-        else $nb = $vars['nbMissions'];
+            break;
+            default:
 
-        $missions = Doctrine_Query::create()
-                ->from('SidCabinetMission a')
-                ->leftJoin('a.Translation b')
-                ->where('a.is_active = ? ', array(true))
-                ->orderBy('b.updated_at DESC')
-                ->limit($nb)
-                ->execute();
+                $missions = Doctrine_Query::create()
+                    ->from('SidCabinetMission a')
+                    ->leftJoin('a.Translation b')
+                    ->where('a.is_active = ? ', array(true))
+                    ->orderBy('b.updated_at DESC')
+                    ->limit($nbArticles)
+                    ->execute();
         
-        foreach ($missions as $mission) { // on stock les NB actu article 
+                foreach ($missions as $mission) { // on stock les NB actu article 
                     $arrayMissions[$mission->id] = $mission;
                 };
                 
-       break;
+            break;
                 
         }
 
         return $this->getHelper()->renderPartial('missions', 'missionsList', array(
                     'missions' => $arrayMissions,
-                    'nbMissions' => $vars['nbMissions'],
                     'titreBloc' => $vars['titreBloc'],
-                    'longueurTexte' => $vars['longueurTexte']//,
-//                    'chapo' => $vars['chapo'],
+                    'length' => $vars['length'],
+                    'chapo' => $vars['chapo'],
+                    'withImage' => $vars['withImage'],
+                    'width' => $vars['widthImage']
             
                 ));
     }

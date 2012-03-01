@@ -7,34 +7,36 @@ class actusDuCabinetActuArticleShowView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'titreBloc',
-            'type'
+            'type',
+            'withImage',
+            'widthImage',
+            'heightImage'
         ));
     }
 
-    /**
-     * On affiche NB articles Actu selon 3 types:
-     * 1) il est sur une dmPage automatique de type "Rubrique" : on affiche les articles qui sont dans les sections de cette rubrique
-     * 2) il est sur une dmPage automatique de type "Section" : on affiche les articles qui sont dans cette section
-     * 3) il est sur une page ni Rubrique ni Section, automatique ou pas : on affiche les articles de la rubrique choisie par défaut
-     *  
-     */
+    
     protected function doRender() {
         
-         $vars = $this->getViewVars();
-        $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $vars = $this->getViewVars();
+        $dmPage = sfContext::getInstance()->getPage();
+        $recordDmPage = sfContext::getInstance()->getPage()->record_id;
+        
+        // $nameParent pour afficher le nom de la page parent au cas ou il n'y a rien dans le titreBloc
+        $ancestors = $dmPage->getNode()->getAncestors();
+        $nameParent = $ancestors[count($ancestors) - 1]->getName();
        
         $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
                         ->leftJoin('a.SidActuTypeArticle sata')
-                        ->Where('a.is_active = ? and a.id = ?', array(true,$dmPage->record_id))
-                        ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
+                        ->Where('a.is_active = ? and a.id = ? and sata.sid_actu_type_id = ?', array(true,$dmPage->record_id,$vars['type']))
                         ->execute();
-        foreach ($actuArticles as $actuArticle){
-            $actu = $actuArticle;
-        }
+        
+        $vars['titreBloc'] = ($vars['titreBloc'] == NULL || $vars['titreBloc'] == ' ') ? $nameParent : $vars['titreBloc'];
         return $this->getHelper()->renderPartial('actusDuCabinet', 'actuArticleShow', array(
-                    'articles' => $actu,
+                    'articles' => $actuArticles,
                     'titreBloc' => $vars['titreBloc'],
+                    'withImage' => $vars['withImage'],
+                    'width' => $vars['widthImage'],
+                    'height' => $vars['heightImage']
             
                 ));        
 

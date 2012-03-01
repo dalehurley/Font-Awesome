@@ -9,7 +9,11 @@ $form->renderGlobalErrors(),
 
 _tag('div',
     
-    $form['titreBloc']->renderRow()
+    $form['titreBloc']->renderRow().
+    $form['withImage']->renderRow().
+    $form['widthImage']->renderRow().
+    $form['heightImage']->renderRow().
+    $form['cssClass']->renderRow()
 ); 
 
 

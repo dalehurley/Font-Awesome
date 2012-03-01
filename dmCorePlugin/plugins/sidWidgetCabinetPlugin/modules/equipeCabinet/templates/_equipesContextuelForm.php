@@ -12,9 +12,11 @@ $form->renderGlobalErrors(),
 _tag('div',
  
     $form['titreBloc']->renderRow().
-    $form['titreLien']->renderRow().	
-    $form['nb']->renderRow().
-    $form['length']->renderRow()
+    $form['lien']->renderRow().	
+    $form['nbArticles']->renderRow().
+    $form['withImage']->renderRow().
+    $form['widthImage']->renderRow().
+    $form['cssClass']->renderRow()
          
   
 ); 

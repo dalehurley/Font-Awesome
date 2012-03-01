@@ -7,16 +7,22 @@ class dmWidgetFeedReaderShowView extends dmWidgetPluginView
   {
     parent::configure();
     
-    $this->addRequiredVar(array('url', 'nb_items', 'life_time', 'title'));
+    $this->addRequiredVar(array('url', 'nbArticles', 'life_time', 'title','length'));
   }
 
   protected function filterViewVars(array $vars = array())
   {
     $vars = parent::filterViewVars($vars);
+    // ajout stef le 27-02/2012 
+    if(($vars['title'] == '') || ($vars['title'] == ' ')){
+       $vars['title'] = sfContext::getInstance()->getPage()->getName();
+      }
+    ($vars['length'] == 0 ) ? $length = '' : $length = $vars['length'];
 
-    $vars['items'] = $this->getItems($vars['url'], $vars['nb_items'], $vars['life_time'], $vars['title']);
-    
+    $vars['items'] = $this->getItems($vars['url'], $vars['nbArticles'], $vars['life_time'],$vars['title'], $length);
+    // ajout stef le 27-02/2012 
     return $vars;
+    
   }
   
   protected function doRenderForIndex()
@@ -80,6 +86,7 @@ class dmWidgetFeedReaderShowView extends dmWidgetPluginView
 
   protected function feedItemToArray(sfFeedItem $item)
   {
+      
     return array(
       'title'       => $item->getTitle(),
       'link'        => $item->getLink(),

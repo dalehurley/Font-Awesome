@@ -4,7 +4,7 @@
 
     PageCabinet:
       model: SidCabinetPageCabinet
-      name: "La page du Cabinet|Les pages du Cabinet"
+      name: "Présentation du Cabinet|Présentation du Cabinet"
       page: true
       credentials: page_cabinet
 

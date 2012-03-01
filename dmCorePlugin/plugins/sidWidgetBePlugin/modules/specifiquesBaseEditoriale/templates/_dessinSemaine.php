@@ -2,8 +2,8 @@
 use_stylesheet('../../sidWidgetBePlugin/ad-gallery/jquery.ad-gallery');
 use_javascript('../sidWidgetBePlugin/ad-gallery/jquery.ad-gallery');
 
-// var $rubriqueTitle 
-echo _tag('h4.title', $rubriqueTitle);
+// var $titreBloc
+echo _tag('h4.title', $titreBloc);
 ?>
 
 <div class="ad-gallery">
@@ -43,7 +43,8 @@ echo _tag('h4.title', $rubriqueTitle);
 				echo _open('li.ad-thumb', $liOpts);
 				
                 //on vérifie que l'image existe
-                $imgExist = is_file(sfConfig::get('sf_web_dir') . $dessin['imgLinkBig']);
+                $img = sfConfig::get('sf_web_dir') . $dessin['imgLinkBig'];
+                $imgExist = is_file($img);
                 $imageDessin = "";
                 // on teste si le fichier image est présent sur le serveur avec son chemin absolu
                 if($imgExist) {
@@ -55,8 +56,12 @@ echo _tag('h4.title', $rubriqueTitle);
                             )
                     ;
                     $i++;
+                } else {
+                    echo debugTools::infoDebug(array('fichier absent' => $img),'debug');
+
                 }
-				
+
+
                 echo $imageDessin;
                 echo _close('li');
             }

@@ -75,4 +75,5 @@ class PluginDmContactForm extends BaseDmContactForm {
         
         return sfConfig::get('app_recaptcha_enabled');
     }
+    
 }

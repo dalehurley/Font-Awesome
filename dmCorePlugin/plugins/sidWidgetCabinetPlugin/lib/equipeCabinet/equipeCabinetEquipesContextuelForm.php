@@ -3,35 +3,18 @@
 class equipeCabinetEquipesContextuelForm extends dmWidgetPluginForm {
 
     public function configure() {
+        
+        parent::configure();
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Votre conseil'));
-        $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
-                    'required' => false
-                ));
+        $this->widgetSchema['titreBloc']->setDefault('Votre conseil');
 	
-        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('default' => 'Toutes nos missions'));
-        $this->validatorSchema['titreLien'] = new sfValidatorString(array(
-                    'required' => false
-                ));		
-
-        $this->widgetSchema['nb'] = new sfWidgetFormInputText();
-        $this->validatorSchema['nb'] = new sfValidatorInteger(array(
+        $this->widgetSchema['lien']->setDefault('Toute l\'équipe');
+       
+        $this->validatorSchema['nbArticles'] = new sfValidatorInteger(array(
                     'min' => 1,
                     'required' => true
                 ));
-        
-        $this->widgetSchema['length'] = new sfWidgetFormInputText(array('default' => 0, 'label' => 'Longueur du texte'));
-        $this->validatorSchema['length'] = new sfValidatorInteger(array(
-                    'required' => false
-                ));
-        
-        $this->widgetSchema->setHelps(array(
-            'titreBloc' => 'Le titre du bloc.',  
-            'titreLien' => "Le libellé du lien vers toute l'équipe.",   	    
-            'nb' => 'Le nombre maximum de membres affichés.',            
-        ));
-
-        parent::configure();
+       
     }
 
     public function getStylesheets() {

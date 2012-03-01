@@ -4,6 +4,8 @@ class lienContactBlocVersPageContactForm extends dmWidgetPluginForm {
 
     public function configure() {
         
+         parent::configure();
+         
         $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' =>'Contact'));
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => true
@@ -14,18 +16,18 @@ class lienContactBlocVersPageContactForm extends dmWidgetPluginForm {
                     'required' => true
                 ));
         
-        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('default' => 'Contactez-nous'));
-        $this->validatorSchema['titreLien'] = new sfValidatorString(array(
-                    'required' => true
-                ));
+//        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('default' => 'Contactez-nous'));
+//        $this->validatorSchema['titreLien'] = new sfValidatorString(array(
+//                    'required' => true
+//                ));
         
         $this->widgetSchema->setHelps(array(
             'message' => 'Le message qui apparaitra dans le bloc',
             'titreBloc' => 'Le titre du bloc.',
-            'titreLien' => 'Le titre du lien.',
+//            'titreLien' => 'Le titre du lien.',
         ));
 
-        parent::configure();
+       
     }
 
     public function getStylesheets() {

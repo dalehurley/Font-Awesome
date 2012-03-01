@@ -3,25 +3,19 @@
 class actusDuCabinetActuArticleShowForm extends dmWidgetPluginForm {
 
     public function configure() {
+        
+        parent::configure();
+        
+        // on rajoute ou on surcharge les éléments de dmWidgetPluginForm
+        
         $this->widgetSchema['type'] = new sfWidgetFormDoctrineChoice(array(
-                    'model' => 'SidActuType'
+                    'model' => 'SidActuType',
                 ));
         $this->validatorSchema['type'] = new sfValidatorDoctrineChoice(array(
                     'required' => true,
                     'model' => 'SidActuType'
                 ));
-
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText();
-        $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
-                    'required' => false
-                ));
-        
-        $this->widgetSchema->setHelps(array(
-            'type' => 'Le type de l\'article',
-            'titreBloc' => 'Le titre optionnel du bloc. Si vide, le traitement se fera de manière automaitique', 
-        ));
-
-        parent::configure();
+        $this->widgetSchema->setHelp('type' , 'Le type de l\'article');
     }
 
     public function getStylesheets() {

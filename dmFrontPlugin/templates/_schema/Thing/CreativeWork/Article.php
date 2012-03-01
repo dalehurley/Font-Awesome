@@ -88,7 +88,7 @@ if($isListing) {
 		$imageWrapperOpts = array(
 									'image'	=>	$image,
 									'width'	=>	'200',
-									'height'=>	''
+									'height'=>	'200'
 									);
 		//ajout du nom de l'article dans la balise Alt de l'image
 		if(isset($name) && $name != null) $imageWrapperOpts['alt'] = $name;

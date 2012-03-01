@@ -2,6 +2,8 @@
 
 class affichageArticleForm extends dmWidgetPluginForm {
     public function configure() {
+        
+        parent::configure();
         /*
          * Record id
         */
@@ -21,7 +23,7 @@ class affichageArticleForm extends dmWidgetPluginForm {
         //    {
         //      $this->setDefault('recordId', dmArray::first(array_keys($this->widgetSchema['recordId']->getChoices())));
         //    }
-        parent::configure();
+        
     }
     /*
      * return record linked to the page

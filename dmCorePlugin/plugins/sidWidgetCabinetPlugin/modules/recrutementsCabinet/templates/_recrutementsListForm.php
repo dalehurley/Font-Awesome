@@ -12,8 +12,13 @@ $form->renderGlobalErrors(),
 
 _tag('div',
     $form['titreBloc']->renderRow().	
-    $form['nbRecrutements']->renderRow().
-    $form['longueurTexte']->renderRow()
+    $form['nbArticles']->renderRow().
+    $form['length']->renderRow().
+    $form['lien']->renderRow().
+    $form['withImage']->renderRow().
+    $form['widthImage']->renderRow().
+    $form['heightImage']->renderRow().
+    $form['cssClass']->renderRow()
          
   
 ); 

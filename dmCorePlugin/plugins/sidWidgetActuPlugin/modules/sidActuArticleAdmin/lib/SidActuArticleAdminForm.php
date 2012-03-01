@@ -52,7 +52,7 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 //		));
         $this->widgetSchema->setHelps(array(
             'file_form' => 'Vous pouvez insérer des fichiers : Pdf, Word, OpenOffice ainsi que des images',
-            'title_file' => 'nouveau nom de votre fichier',
+            'title_file' => 'Nouveau nom de votre fichier',
 	    'm_sections_list' => 'Vous pouvez lier ce membre de votre equipe à une rubrique/section (Affichage contextuel).',
             'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
             'tags_list' => 'Sélectionnez les mots en rapport avec votre lien pour les faire apparaitre dans les pages les plus adéquates de votre site',
@@ -65,7 +65,14 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 		    //'add_empty' => '-- Sections --'
 		));
       
+        if(sfContext::getInstance()->getUser()->isSuperAdmin()){
         $this->widgetSchema['sid_actu_type_list'] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'SidActuType', 'expanded' => true));
+    }
+    else if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
+        $actuType = dmDb::table('SidActuType')->findOne();
+        (!is_object($actuType)) ? $actuTypeId = '':$actuTypeId = $actuType->id;
+        $this->widgetSchema['sid_actu_type_list'] = new sfWidgetFormInputHidden(array(),array('value' => $actuTypeId));
+    }
 
     }
     

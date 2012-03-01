@@ -12,9 +12,13 @@ $form->renderGlobalErrors(),
 
 _tag('div',
     $form['titreBloc']->renderRow().	
-    $form['nbMissions']->renderRow().
-    $form['longueurTexte']->renderRow()//.
-//    $form['chapo']->renderRow()
+    $form['nbArticles']->renderRow().
+    $form['length']->renderRow().
+    $form['chapo']->renderRow().
+    $form['withImage']->renderRow().
+    $form['widthImage']->renderRow().
+    $form['heightImage']->renderRow().
+    $form['cssClass']->renderRow()
          
   
 ); 

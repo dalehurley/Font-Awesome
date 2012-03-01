@@ -1,5 +1,5 @@
 <?php
-// vars : $articles, $titreBloc, $titreLien, $longueurTexte, $articles, $rubrique, $section
+// vars : $articles, $titreBloc, $lien, $length, $rubrique, $section
 
 $html = '';
 
@@ -27,7 +27,7 @@ if (count($articles)) { // si nous avons des actu articles
 												'maxCount' => $maxCount,
 												'container' => 'li.element',
 												'isListing' => true,
-												'descriptionLength' => $longueurTexte,
+												'descriptionLength' => $length,
 												'url' => $article
 												));
     }
@@ -37,7 +37,7 @@ if (count($articles)) { // si nous avons des actu articles
 	
 	//création d'un tableau de liens à afficher
 	$elements = array();
-	$elements[] = array('title' => ($titreLien ? $titreLien : $section->title . ' en ' . $rubrique->name), 'linkUrl' => 'sidActuArticle/list');
+	$elements[] = array('title' => ($lien ? $lien : $section->title . ' en ' . $rubrique->name), 'linkUrl' => 'sidActuArticle/list');
 	
 	$html.= get_partial('global/navigationWrapper', array(
 													'placement' => 'bottom',

@@ -12,6 +12,7 @@ class articleComponents extends myFrontModuleComponents
   public function executeListBySection()
   {
     $query = $this->getListQuery();
+    // si une section contient au moins un dossier alors on ne va cherhcer dans la query que les dossiers de cette section
     // récupération des données pour filtrage des dossiers
     $section_id = $this->getPage()->getRecordId();
     $articleDossier = dmDb::table('SidArticle')->findByIsDossierAndSectionId(true,$section_id);
@@ -25,15 +26,6 @@ class articleComponents extends myFrontModuleComponents
     
     //$this->articlePager->setOption('ajax', true);
   }
-
-  public function executeShow() {
-        $query = $this->getShowQuery();
-        $this->article = $this->getRecord($query);
-//        $this->route = $this->getPage()->getTitle();
-//        $ancestors = $this->context->getPage()->getNode()->getAncestors();
-//        $this->section = $ancestors[count($ancestors)-1]->getTitle();
-//        $this->rubrique = $ancestors[count($ancestors)-2]->getTitle();
-    }
 
   public function executeListArticlesAvecMemeTag()
   {
