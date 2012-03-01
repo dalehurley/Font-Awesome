@@ -19,7 +19,7 @@
 
 		//Définition hauteur bl
 		var bH = 18;
-		$('.imageWrapper, .imageFullWrapper').each(function(index){
+		$('.imageWrapper, .imageFullWrapper, .dm_widget_nivo_gallery_container').each(function(index){
 			//ciblage du wrapper
 			var wrapper = this;
 			//récupération de l'image
