@@ -308,8 +308,12 @@ class sfLESS
   {
       try
       {
-        $less = new lessc( $lessFile );
-		$less->importDir = sfLESS::getConfig()->getLessPaths();
+        if (dmConfig::get('site_theme_version') == 'v1'){
+          $less = new lesscV1( $lessFile );
+        } else {
+          $less = new lessc( $lessFile );
+        }
+		    $less->importDir = sfLESS::getConfig()->getLessPaths();
         $css  = $less->parse();
         file_put_contents( $cssFile, $css );
         return $css;
