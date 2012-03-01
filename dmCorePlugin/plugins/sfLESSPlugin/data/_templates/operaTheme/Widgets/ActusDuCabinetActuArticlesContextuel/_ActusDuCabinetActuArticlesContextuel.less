@@ -7,6 +7,18 @@
 //Config par défaut des widgets du template
 @import "_templates/operaTheme/Widgets/_Widgets.less";
 
-.dm_widget.actus_du_cabinet_actu_articles_contextuel {
-	
+#dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.actus_du_cabinet_actu_articles_contextuel {
+		//appel de la fonction de placement de la sprite
+		@widgetTitleSprite("Opera"; "cabinet"; "actualitesOver");
+		//ajout de l'arrondi en débord blanc sur la sprite
+		@widgetTitleSpriteRound();
+
+		.dm_widget_inner {
+			& > .title {
+				//complément de l'appel de la sprite sur le titre
+				&:after { @spriteBgp(@spriteFormat_M; @spriteOffX-Opera-cabinet-actualitesOver; @spriteOffY-Opera-cabinet-actualitesOver); }
+			}
+		}
+	}
 }
