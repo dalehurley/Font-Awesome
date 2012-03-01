@@ -88,7 +88,11 @@
 	.content_text {
 		.isLess & { background-color: #B6E0D1; }
 		position: relative;
-		&, .link { color: @colorCouleur3Fonce; }
+		&, .link {
+			color: @colorCouleur3Fonce;
+			text-decoration: none;
+			&:hover { text-decoration: underline; }
+		}
 		font-size: @fontSizeMicro;
 		line-height: @gridBaseline;
 		float: right;
@@ -97,24 +101,28 @@
 	.content_link {
 		.isLess & { background-color: #E0B6D1; }
 		position: relative;
-		&, .link { color: @colorCouleur3; }
+		&, .link {
+			color: @colorCouleur3;
+			text-decoration: none;
+			&:hover { text-decoration: underline; }
+		}
 		font-size: @fontSizeMicro;
 		line-height: @gridBaseline;
 		text-transform: uppercase;
 		float: left;
 		margin-right: @offM;
 		//ajout de la sprite sur l'élément
-		padding-right: @spriteFormat_M;
+		padding-right: @spriteFormat_S;
 		&:after {
 			position: absolute;
 			display: block;
 			//décalage de marge
-			@decalV: (@gridBaseline - @spriteFormat_M) / 2;
+			@decalV: (@gridBaseline - @spriteFormat_S) / 2;
 			top: @decalV;
 			right: 0;
 			content: "";
 			//appel de la sprite
-			@spriteDefinition("Default"; "navigation"; "arrowColorDown"; "M"; @spriteFormat_M; @spriteOffX-navigation-arrowColorDown; @spriteOffY-navigation-arrowColorDown);
+			@spriteDefinition("Default"; "navigation"; "arrowColorDown"; "S"; @spriteFormat_S; @spriteOffX-navigation-arrowColorDown; @spriteOffY-navigation-arrowColorDown);
 		}
 	}
 }
