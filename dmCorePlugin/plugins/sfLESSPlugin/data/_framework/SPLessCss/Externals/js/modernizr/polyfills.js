@@ -25,7 +25,7 @@
 			//récupération de l'image
 			var image = $(wrapper).find("img");
 
-			//application au chargement de l'image
+			//application au chargement de l'image (permet d'éviter d'appliquer le script sur une image absente)
 			$(image).load(function(){
 				//dimenssions de l'image
 				var imgWidth = $(image).width();
@@ -52,7 +52,7 @@
 				}
 
 				//affichage dans console de débug
-				window.console.log("#" + index + " alt : " + $(image).attr('alt')  + " | " + imgWidth + " x " + imgHeight + " | nbreBl : " + nbreBl + " | getHeight : " + getHeight + " | decalMarginTop : " + decalMarginTop);
+				//window.console.log("#" + index + " alt : " + $(image).attr('alt')  + " | " + imgWidth + " x " + imgHeight + " | nbreBl : " + nbreBl + " | getHeight : " + getHeight + " | decalMarginTop : " + decalMarginTop);
 			});
 		});
 
