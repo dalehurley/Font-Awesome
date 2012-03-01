@@ -2,14 +2,11 @@
 
 class specifiquesBaseEditorialeArticlesContextuelForm extends dmWidgetPluginForm {
 
-    public function setup() {
+    public function configure() {
         
-        
+        parent::configure();
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Actualités'));
-        $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
-                    'required' => false
-                ));
+        $this->widgetSchema['titreBloc']->setDefault('Actualités');
         
         $this->widgetSchema['m_rubriques_list_1'] = new sfWidgetFormDoctrineChoice(array(
                     'model' => 'SidSection',
@@ -75,7 +72,7 @@ class specifiquesBaseEditorialeArticlesContextuelForm extends dmWidgetPluginForm
 //            'chapo' => 'Choisir si on veut afficher le résumé de la page ou le contenu entier de la page'
         ));
 
-        parent::setup();
+        
     }
 
     public function getStylesheets() {

@@ -6,7 +6,7 @@ class equipeCabinetEquipeShowForm extends dmWidgetPluginForm {
 
         parent::configure();
                 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Notre équipe, vos conseils'));
+        $this->widgetSchema['titreBloc']->setDefault('Notre équipe, vos conseils');
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => true
                 ));

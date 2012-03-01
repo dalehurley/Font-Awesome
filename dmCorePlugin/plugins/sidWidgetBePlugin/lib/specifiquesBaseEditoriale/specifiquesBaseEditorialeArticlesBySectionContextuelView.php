@@ -7,10 +7,10 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
 
         $this->addRequiredVar(array(
             'titreBloc',
-            'titreLien',
+            'lien',
             'section',
-            'longueurTexte',
-            'nbArticle',
+            'length',
+            'nbArticles',
             'isDossier',
             'visibleInDossier'
         ));
@@ -40,7 +40,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
         $arrayArticle = array();
         $articles = array();
         $sectionNamePage = "";
-
+        $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars["nbArticles"];
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
         switch ($dmPage->module . '/' . $dmPage->action) {
@@ -66,7 +66,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                 ->leftJoin('sa.Translation b')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $sectionPages[0]->id ,false))
                                 ->orderBy('b.updated_at DESC')
-                                ->limit($vars['nbArticle'])
+                                ->limit($nbArticles)
                                 ->execute();
                         
                         }
@@ -77,7 +77,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                 ->leftJoin('sa.Translation b')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $sectionPages[0]->id, true))
                                 ->orderBy('b.updated_at DESC')
-                                ->limit($vars['nbArticle'])
+                                ->limit($nbArticles)
                                 ->execute();
                         }
                     }
@@ -115,7 +115,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                 ->leftJoin('sa.Translation b')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,false))
                                 ->orderBy('b.updated_at DESC')
-                                ->limit($vars['nbArticle'])
+                                ->limit($nbArticles)
                                 ->execute();
                     }
                     // traitement pour dossier
@@ -125,7 +125,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                 ->leftJoin('sa.Translation b')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,true))
                                 ->orderBy('b.updated_at DESC')
-                                ->limit($vars['nbArticle'])
+                                ->limit($nbArticles)
                                 ->execute();
                         } 
 
@@ -178,7 +178,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                     ->leftJoin('sa.Translation b')
                                     ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,false))
                                     ->orderBy('b.updated_at DESC')
-                                    ->limit($vars['nbArticle'])
+                                    ->limit($nbArticles)
                                     ->execute();
                             }
                             // traitement pour dossier
@@ -188,7 +188,7 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                                     ->leftJoin('sa.Translation b')
                                     ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,true))
                                     ->orderBy('b.updated_at DESC')
-                                    ->limit($vars['nbArticle'])
+                                    ->limit($nbArticles)
                                     ->execute();
                             }
                         }
@@ -211,12 +211,12 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
         if(count($articles) >0){
         $sectionNamePage = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('section','show',$articles[0]->Section->id);
         }
-
+        ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'articlesBySectionContextuel', array(
                     'articles' => $articles,
                     'titreBloc' => $vars['titreBloc'],
-                    'titreLien' => $vars['titreLien'],
-                    'longueurTexte' => $vars['longueurTexte'],
+                    'lien' => $lien,
+                    'length' => $vars['length'],
                     'rubrique' => $rubriqueName,
                     'section' => $sectionNamePage
                 ));

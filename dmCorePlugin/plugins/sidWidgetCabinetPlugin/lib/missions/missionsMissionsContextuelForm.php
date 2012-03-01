@@ -3,28 +3,19 @@
 class missionsMissionsContextuelForm extends dmWidgetPluginForm {
 
     public function configure() {
+        
+        parent::configure();
 
-        $this->widgetSchema['title_page'] = new sfWidgetFormInputText(array('label' => 'Titre du bloc'));
-        $this->validatorSchema['title_page'] = new sfValidatorString(array(
-                    'required' => false
-                ));
-
-        $this->widgetSchema['lien'] = new sfWidgetFormInputText(array('label' => 'Titre du lien','default' => 'Toutes nos missions'));
+        $this->widgetSchema['lien']->setDefault('Toutes nos missions');
         $this->validatorSchema['lien'] = new sfValidatorString(array(
                     'required' => true
                 ));
 
-        $this->widgetSchema['nbArticles'] = new sfWidgetFormInputText(array('label' => 'Nbre d\'article', 'default' => 1));
+        $this->widgetSchema['nbArticles']->setDefault(1);
         $this->validatorSchema['nbArticles'] = new sfValidatorInteger(array(
                     'required' => true,
                     'min' => 1
                 ));
-
-        $this->widgetSchema['length'] = new sfWidgetFormInputText(array('default' => 0, 'label' => 'Longueur du texte'));
-        $this->validatorSchema['length'] = new sfValidatorInteger(array(
-                    'required' => false
-                ));
-
 
         $this->widgetSchema['chapo'] = new sfWidgetFormSelectRadio(array('choices' => array('chapeau', 'texte'), 'default' => 1));
         $this->validatorSchema['chapo'] = new sfValidatorChoice(array('choices' => array(0, 1), 'multiple' => false));
@@ -40,7 +31,7 @@ class missionsMissionsContextuelForm extends dmWidgetPluginForm {
             'chapo' => 'Choisir si on veut afficher le résumé de la page ou le contenu entier de la page'
         ));
 
-        parent::configure();
+
     }
 
     public function getStylesheets() {

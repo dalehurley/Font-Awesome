@@ -11,15 +11,17 @@ class specifiquesBaseEditorialeDessinSemaineForm extends dmWidgetPluginForm {
             );
 
     public function configure() {
+        
+        parent::configure();
 
-        $this->widgetSchema['title'] = new sfWidgetFormInputText(array('default' => 'Dessin de la semaine'));
-        $this->validatorSchema['title'] = new sfValidatorString(array('required' => true));
+        $this->widgetSchema['titreBloc']->setDefault('Dessin de la semaine');
+        $this->validatorSchema['titreBloc'] = new sfValidatorString(array('required' => true));
 
         $this->widgetSchema['filDActu'] = new sfWidgetFormInputCheckbox(array('default'=> false));
         $this->validatorSchema['filDActu'] = new sfValidatorBoolean();
         
-        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('default' => 'LES AUTRES DESSINS'));
-        $this->validatorSchema['titreLien'] = new sfValidatorString(array('required' => true));
+        $this->widgetSchema['lien']->setDefault('LES AUTRES DESSINS');
+        $this->validatorSchema['lien'] = new sfValidatorString(array('required' => true));
         
         //effect: 'fade' // or 'slide-hori', 'slide-vert', 'fade', or 'resize', 'none'
         $this->widgetSchema['effect'] = new sfWidgetFormchoice(array('choices' => self::$effects)); 
@@ -31,7 +33,7 @@ class specifiquesBaseEditorialeDessinSemaineForm extends dmWidgetPluginForm {
             'filDActu' => "pour affichage sur la page central du module dessin"
         ));
         
-        parent::configure();
+        
     }
 
     public function getStylesheets() {

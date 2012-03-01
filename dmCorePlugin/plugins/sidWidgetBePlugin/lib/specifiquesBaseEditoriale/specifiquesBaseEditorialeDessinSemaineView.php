@@ -6,10 +6,10 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'title',
+            'titreBloc',
             'effect',
             'filDActu',
-            'titreLien'
+            'lien'
         ));
     }
 	
@@ -64,10 +64,10 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
         } else {
             $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
         }
-
+        ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
         if($vars['filDActu'] == false){
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'dessinSemaine', array(
-                    'rubriqueTitle' => $vars['title'], // pour avoir le TITRE de la page 
+                    'titreBloc' => $vars['titreBloc'], // pour avoir le TITRE de la page 
                     'effect' => $vars['effect'], // pour avoir le TITRE de la page 
                     'dessins' => $dessins
                 ));
@@ -75,9 +75,9 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
         else {
             reset($dessins);
             return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'blocDessinSemaine', array(
-                    'rubriqueTitle' => $vars['title'], // pour avoir le TITRE de la page 
+                    'titreBloc' => $vars['titreBloc'], // pour avoir le TITRE de la page 
                     'dessins' => current($dessins),
-                    'titreLien' => $vars['titreLien']
+                    'lien' => $lien
                 ));
         }
     }

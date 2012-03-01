@@ -84,7 +84,7 @@ if (!is_file($xml)) {
 
 	if (isset($articleList)){ // si on est dans le dataType agenda alors on a une liste d'articles de la meme section
 
-		echo '<hr>';
+		echo '<br /><h4 class="title">'.__('The other dates of the month').'</h4>';
 		//ouverture du listing
 		echo _open('ul.elements');
 

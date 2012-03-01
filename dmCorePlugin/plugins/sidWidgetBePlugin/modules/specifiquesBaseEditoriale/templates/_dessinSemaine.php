@@ -2,8 +2,8 @@
 use_stylesheet('../../sidWidgetBePlugin/ad-gallery/jquery.ad-gallery');
 use_javascript('../sidWidgetBePlugin/ad-gallery/jquery.ad-gallery');
 
-// var $rubriqueTitle 
-echo _tag('h4.title', $rubriqueTitle);
+// var $titreBloc
+echo _tag('h4.title', $titreBloc);
 ?>
 
 <div class="ad-gallery">
