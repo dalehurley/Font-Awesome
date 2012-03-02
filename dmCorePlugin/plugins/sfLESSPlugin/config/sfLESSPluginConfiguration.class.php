@@ -31,17 +31,19 @@ class sfLESSPluginConfiguration extends sfPluginConfiguration
         'context.load_factories',
         array('sfLESSListeners', 'findAndCompile')
       );
-
-      // If app_sf_less_plugin_toolbar in app.yml is set to true (by default)
-      if (sfConfig::get('sf_web_debug') && sfConfig::get('app_sf_less_plugin_toolbar', true))
-      {
-        // Add LESS toolbar to Web Debug toolbar
-        $this->dispatcher->connect('debug.web.load_panels', array(
-          'sfWebDebugPanelLESS',
-          'listenToLoadDebugWebPanelEvent'
-        ));
-      }
     }
+
+    // If app_sf_less_plugin_toolbar in app.yml is set to true (by default)
+    if (sfConfig::get('sf_web_debug') && sfConfig::get('app_sf_less_plugin_toolbar', true))
+    {
+      // Add LESS toolbar to Web Debug toolbar
+      $this->dispatcher->connect('debug.web.load_panels', array(
+        'sfWebDebugPanelLESS',
+        'listenToLoadDebugWebPanelEvent'
+      ));
+    }
+
+
 
     $this->dispatcher->connect(
       'less_js.compile',

@@ -7,11 +7,11 @@
  * - dmFrontPageHelper $helper      ( page_helper service )
  * - boolean           $isEditMode  ( whether the user is allowed to edit page )
  * 
- * Two case to use grid system of bootstrap
- * 1) <?php echo $helper->renderArea('layout.top', '#dm_header.span12') ?>
- * or
- * 2) <?php echo $helper->renderArea('layout.top', '#dm_header') ?> in that case you must define manually the span and offset of #elements
- * // layout style
+ * to use grid system of bootstrap
+ * <?php echo $helper->renderArea('layout.top', '#dm_header') ?> in that case you must define manually the span and offset of #elements
+ * ---------------
+ * theme.less
+ *  * // layout style
  * .default { // default's layout
  * 	#dm_header 			{ .span(11); .offset(1) }
  * 	#dm_custom_top		{ .span(12) }
@@ -36,11 +36,18 @@
  * 	#dm_page_content:first-child, 
  * 	#dm_sidebar_right:first-child, 
  * 	#dm_custom_bottom:first-child, 
- * 	#dm_footer:first-child { margin-left: 0; }
+ * 	#dm_footer:first-child { margin-left: 0; } // 
  * }
- * 
+ * ---------------
  * 
  */
+
+//action à effectuer uniquement en DEV
+if (sfConfig::get('sf_environment')) {
+	//affichage du widget de DEBUG 
+	echo dm_get_widget('debug', 'debug', array());
+}
+
 ?>
 
 <div id="dm_page"<?php $isEditMode && print ' class="edit"' ?>>

@@ -51,7 +51,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
    */
   public function getTitle()
   {
-    return '<img src="/sfLESSPlugin/images/css_go.png" alt="LESS helper" height="16" width="16" /> less';
+    return '<img src="/sfLESSPlugin/images/css_go.png" alt="LESS helper" height="16px"/> ';
   }
 
   /**
@@ -59,7 +59,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
    */
   public function getPanelTitle()
   {
-    return 'LESS Stylesheets';
+    return 'LESS parameters';
   }
 
   /**
@@ -67,7 +67,10 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
    */
   public function getPanelContent()
   {
-    $panel = $this->getConfigurationContent() . '<table class="sfWebDebugLogs" style="width: 300px"><tr><th>less file</th><th>css file</th><th style="text-align:center;">time (ms)</th></tr>';
+    $panel = $this->getConfigurationContent();
+/*
+    . '<table class="sfWebDebugLogs" style="width: 300px"><tr><th>less file</th><th>css file</th><th style="text-align:center;">time (ms)</th></tr>';
+    
     $errorDescriptions = sfLESS::getCompileErrors();
     foreach (sfLESS::getCompileResults() as $info)
     {
@@ -76,7 +79,34 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
     }
     $panel .= '</table>';
 
-    $this->setStatus($this->errors?sfLogger::ERR:($this->compiled?sfLogger::INFO:sfLogger::WARNING));
+    //$this->setStatus($this->errors?sfLogger::ERR:($this->compiled?sfLogger::INFO:sfLogger::WARNING));
+*/
+    TODO
+/*
+      <tr style="%s">
+        <td class="sfWebDebugLogType">%s</td>
+        <td class="sfWebDebugLogType">%s</td>
+        <td class="sfWebDebugLogNumber" style="text-align:center;">%.2f</td>
+      </tr>
+*/
+
+
+
+            // affichage de la page courante
+        $idDmPage = sfContext::getInstance()->getPage()->id;
+        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $pageCurrent =  $dmPage->module.'/'.$dmPage->action;
+        $recordId = $dmPage->record_id;
+        // récupération du Layout de la page en cours
+        $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
+
+    $panel .= 'site theme: '.dmConfig::get('site_theme').'<br/>';
+    $panel .= 'site theme version: '.dmConfig::get('site_theme_version').'<br/>';
+    $panel .= 'current page: '.$pageCurrent.'<br/>';
+    $panel .= 'layout: '.$layoutPage.'<br/>';
+    $panel .= 'recordId: '.$recordId.'<br/>';
+    $panel .= 'Grid cols: '.$recordId.'<br/>';
+    $panel .= 'Width col: '.$recordId.'<br/>';
 
     return $panel;
   }
