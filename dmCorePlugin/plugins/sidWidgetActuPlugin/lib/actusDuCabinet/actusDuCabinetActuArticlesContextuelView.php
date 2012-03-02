@@ -54,8 +54,7 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                         ->leftJoin('sas.SidRubrique s')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('s.id = ?  ', array($recordId))
-                        ->andWhere('a.is_active = ?', true)
-                        ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
+                        ->andWhere('a.is_active = ? and sata.sid_actu_type_id = ? and aTranslation.debut_date <= ? and aTranslation.fin_date >= ?', array(true,$vars['type'], date('Y-m-d'), date('Y-m-d')))
                         ->orderBy('aTranslation.updated_at DESC')
                         ->limit($nbArticles)
                         ->execute();
@@ -68,14 +67,15 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                     $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
                             ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                             ->leftJoin('a.SidActuTypeArticle sata')
-                            ->andWhere('a.is_active = ?', true)
-                            ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
+                            ->Where('a.is_active = ? and sata.sid_actu_type_id = ? and aTranslation.debut_date <= ? and aTranslation.fin_date >= ?', array(true,$vars['type'], date('Y-m-d'), date('Y-m-d')))
                             ->orderBy('aTranslation.updated_at DESC')
                             ->limit($nbArticles)
                             ->execute();
                 }
-                foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
-                    $arrayArticle[$actuArticle->id] = $actuArticle;
+                if(count($actuArticles)){
+                    foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
+                        $arrayArticle[$actuArticle->id] = $actuArticle;
+                    };
                 }
                 break;
             case 'rubrique/show':
@@ -102,7 +102,7 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                         $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
                                 ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                                 ->leftJoin('a.SidActuTypeArticle sata')
-                                ->andWhere('a.is_active = ?', true)
+                                ->where('a.is_active = ?', true)
                                 ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
                                 ->orderBy('aTranslation.updated_at DESC')
                                 ->limit($nbArticles)
@@ -120,26 +120,31 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                 $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
                         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                         ->leftJoin('a.SidActuTypeArticle sata')
-                        ->Where('a.is_active = ?', true)
-                        ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
+                        ->where('a.is_active = ? and sata.sid_actu_type_id = ?', array(true,$vars['type']))
+                        ->andWhere('(aTranslation.debut_date <= ? or aTranslation.debut_date is ?) and (aTranslation.fin_date >= ? or aTranslation.fin_date is ?)',array(date('Y-m-d'),NULL,date('Y-m-d'),NULL,))
                         ->orderBy('aTranslation.updated_at DESC')
                         ->limit($nbArticles)
                         ->execute();
-                foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
-                    $arrayArticle[$actuArticle->id] = $actuArticle;
-                };
+                
+                if(count($actuArticles)){
+                    foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
+                        $arrayArticle[$actuArticle->id] = $actuArticle;
+                    };
+                }
         }
         // je vérifie que le titre de la page n'existe pas ou est égal à un espace
         if ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") {
             // je vérifie le nbre d'article
             // si un seul , on affiche en titreBloc le titre de l'article
-            if ($vars['nbArticles'] == 1) {
-                $vars['titreBloc'] = current($arrayArticle)->getTitle();
-            } 
-            // si plusieurs articles, on affiche en titreBloc le nom de la page parente à ces articles
-            elseif ($vars['nbArticles'] > 1){
-                $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('sidActuArticle', 'list');
-                $vars['titreBloc'] = $namePage->getName();
+            if(count($actuArticles)){
+                if ($vars['nbArticles'] == 1) {
+                    $vars['titreBloc'] = current($arrayArticle)->getTitle();
+                } 
+                // si plusieurs articles, on affiche en titreBloc le nom de la page parente à ces articles
+                elseif ($vars['nbArticles'] > 1){
+                    $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('sidActuArticle', 'list');
+                    $vars['titreBloc'] = $namePage->getName();
+                }
             }
         }
        // vérification qu'il y a du texte pour le lien, sinon, on vide $lien

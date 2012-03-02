@@ -13,6 +13,7 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 	parent::configure();
     }
     
+
     protected function createMediaFormForImage() {
         $form = parent::createMediaFormForImage();
         unset($form['legend'], $form['author'], $form['license']);
@@ -52,6 +53,10 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 //		    'expanded' => true,  // pour avoir des cases à cocher
 //		    //'add_empty' => '-- Sections --'
 //		));
+
+        $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('fin_date', '>', 'debut_date',array(),array('invalid' => 'The end date ("%left_field%") must be after the start date ("%right_field%")')));
+            
+        
         $this->widgetSchema->setHelps(array(
             'file_form' => 'Vous pouvez insérer des fichiers : Pdf, Word, OpenOffice ainsi que des images',
             'title_file' => 'Nouveau nom de votre fichier',

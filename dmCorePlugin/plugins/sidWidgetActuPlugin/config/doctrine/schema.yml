@@ -47,7 +47,7 @@ SidActuArticle:
     DmBlameable:
     DmSortable:
     I18n:
-      fields: [ title, text, resume ]
+      fields: [ title, text, resume, debut_date, fin_date ]
       actAs:
         DmVersionable:
         Timestampable:
@@ -80,6 +80,8 @@ SidActuArticle:
 #      type: boolean
 #      notnull: true
 #      default: true
+    debut_date: date
+    fin_date: date
   attributes:
     export: all
     validate: true
