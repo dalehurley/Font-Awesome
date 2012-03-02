@@ -137,8 +137,8 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
             default:
                 $actuMissions = dmDb::table('SidCabinetMission')
                         ->createQuery('a')
-                    ->leftJoin('a.Translation b')
-                        ->orderBy('b.updated_at DESC')
+                        ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                        ->orderBy('aTranslation.updated_at DESC')
                         ->where('a.is_active = ?', array(true))
                         ->limit($nbArticles)
                         ->execute();

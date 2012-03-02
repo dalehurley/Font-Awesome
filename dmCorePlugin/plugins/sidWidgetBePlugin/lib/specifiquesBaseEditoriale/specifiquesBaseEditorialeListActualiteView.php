@@ -32,9 +32,9 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
                 
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidArticle a')
-                        ->leftJoin('a.Translation b')
+                        ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                         ->where('a.is_active = ? and  a.id <> ? and a.section_id = ?', array(true, $dmPage->record_id,$recordId))
-                        ->orderBy('b.updated_at DESC')
+                        ->orderBy('aTranslation.updated_at DESC')
                         ->limit($nbArticles)
                         ->execute();
 
