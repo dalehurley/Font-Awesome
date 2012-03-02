@@ -12,10 +12,10 @@
 
 	<div class="dm_layout container">
 		<div class="row">	
-	      		<?php echo $helper->renderArea('layout.top', '#dm_header.clearfix.span12') ?>
+	      		<?php echo $helper->renderArea('layout.top', '#dm_header.span12') ?>
    		</div>
 		<div class="row">
-			<?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.clearfix.span12') ?>
+			<?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.span12') ?>
           	</div>
 		<div class="row">
 			<?php echo $helper->renderArea('layout.left','#dm_sidebar_left.span2') ?>
@@ -23,10 +23,10 @@
 			<?php echo $helper->renderArea('layout.right','#dm_sidebar_right.span3') ?>
 		</div>
 		<div class="row">		
-			<?php echo $helper->renderArea('layout.customBottom', '#dm_custom_bottom.clearfix.span12') ?>      
+			<?php echo $helper->renderArea('layout.customBottom', '#dm_custom_bottom.span12') ?>      
 		</div>
 		<div class="row">
-			<?php echo $helper->renderArea('layout.bottom', '.clearfix.span12') ?>	
+			<?php echo $helper->renderArea('layout.bottom', '#dm_footer.span12') ?>	
 		</div>
 	</div>
   </div>
