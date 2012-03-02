@@ -53,24 +53,31 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 //		    'expanded' => true,  // pour avoir des cases à cocher
 //		    //'add_empty' => '-- Sections --'
 //		));
-
-        $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('fin_date', '>', 'debut_date',array(),array('invalid' => 'The end date ("%left_field%") must be after the start date ("%right_field%")')));
-            
         
+        
+        if($this->widgetSchema['debut_date']->renderTag('value') != NULL){
+            $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('fin_date', '>', 'debut_date',array(),array('invalid' => sfContext::getInstance()->getI18n()->__('The end date ("%right_field%") must be after the start date ("%left_field%")').$this->widgetSchema['debut_date']->renderTag(array('value')).'tttttt')));
+                 
+            }
+        if(($this->widgetSchema['debut_date']->renderTag('value') == null) && ($this->widgetSchema['fin_date']->renderTag('value') != null)){
+            $this->validatorSchema->setPostValidator(new sfValidatorSchemaCompare('fin_date', '>', date('Y-m-d'),array(),array('invalid' => sfContext::getInstance()->getI18n()->__('ggggggg'))));
+                 
+            }
         $this->widgetSchema->setHelps(array(
             'file_form' => 'Vous pouvez insérer des fichiers : Pdf, Word, OpenOffice ainsi que des images',
             'title_file' => 'Nouveau nom de votre fichier',
-	    'm_sections_list' => 'Vous pouvez lier ce membre de votre equipe à une rubrique/section (Affichage contextuel).',
+            'm_sections_list' => 'Vous pouvez lier ce membre de votre equipe à une rubrique/section (Affichage contextuel).',
             'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
             'tags_list' => 'Sélectionnez les mots en rapport avec votre lien pour les faire apparaitre dans les pages les plus adéquates de votre site',
-	));
+	       ));
+
         $this->widgetSchema['m_rubriques_list'] = new sfWidgetFormDoctrineChoice(array(
 		    'model' => 'SidRubrique',
 		    'method' => 'show_list_rubrique',
 		    'multiple' => true,
 		    'expanded' => true,  // pour avoir des cases à cocher
 		    //'add_empty' => '-- Sections --'
-		));
+		  ));
       
         if(sfContext::getInstance()->getUser()->isSuperAdmin()){
         $this->widgetSchema['sid_actu_type_list'] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'SidActuType', 'expanded' => true));
