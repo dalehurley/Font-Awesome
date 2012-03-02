@@ -27,7 +27,9 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 	    'application/pdf',
 	    'application/msword', // .doc
 	    'application/vnd.oasis.opendocument.text', // .odt
-	    'web_images'
+	    'web_images',
+//            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/zip'
 	));
 
 

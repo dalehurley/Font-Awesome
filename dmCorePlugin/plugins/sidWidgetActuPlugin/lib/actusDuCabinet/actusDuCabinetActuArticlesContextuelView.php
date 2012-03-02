@@ -49,12 +49,14 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                 $ancestors = $this->context->getPage()->getNode()->getAncestors();
                 $recordId = $ancestors[count($ancestors) - 1]->getRecordId();
                 $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
+                        ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                         ->leftJoin('a.SidActuArticleSidRubrique sas')
                         ->leftJoin('sas.SidRubrique s')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('s.id = ?  ', array($recordId))
                         ->andWhere('a.is_active = ?', true)
                         ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
+                        ->orderBy('aTranslation.updated_at DESC')
                         ->limit($nbArticles)
                         ->execute();
                 // Si il n'y a pas d'actus associées, on affiche la dernière actu
@@ -64,11 +66,11 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                     
                     $actuArticles = '';
                     $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
-                            ->leftJoin('a.Translation b')
+                            ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                             ->leftJoin('a.SidActuTypeArticle sata')
                             ->andWhere('a.is_active = ?', true)
                             ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
-                            ->orderBy('b.updated_at DESC')
+                            ->orderBy('aTranslation.updated_at DESC')
                             ->limit($nbArticles)
                             ->execute();
                 }
@@ -82,14 +84,14 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                 // on parcourt les sections pour extraire les articles
                 foreach ($rubriques as $rubrique) {
                     $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
-                            ->leftJoin('a.Translation b')
+                            ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                             ->leftJoin('a.SidActuArticleSidRubrique sas')
                             ->leftJoin('sas.SidRubrique s')
                             ->leftJoin('a.SidActuTypeArticle sata')
                             ->where('s.id = ? ', array($rubrique->id))
                             ->andWhere('a.is_active = ?', true)
                             ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
-                            ->orderBy('b.updated_at DESC')
+                            ->orderBy('aTranslation.updated_at DESC')
                             ->limit($nbArticles)
                             ->execute();
 
@@ -98,11 +100,11 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                     if (count($actuArticles) == 0) {
                         $actuArticles = '';
                         $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
-                            ->leftJoin('a.Translation b')
+                                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                                 ->leftJoin('a.SidActuTypeArticle sata')
                                 ->andWhere('a.is_active = ?', true)
                                 ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
-                                ->orderBy('b.updated_at DESC')
+                                ->orderBy('aTranslation.updated_at DESC')
                                 ->limit($nbArticles)
                                 ->execute();
                     }
@@ -116,11 +118,11 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
             default:
                 // hors context, on renvoie la dernière actu mise à jour
                 $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
-                        ->leftJoin('a.Translation b')
+                        ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->Where('a.is_active = ?', true)
                         ->andWhere('sata.sid_actu_type_id = ?', array($vars['type']))
-                        ->orderBy('b.updated_at DESC')
+                        ->orderBy('aTranslation.updated_at DESC')
                         ->limit($nbArticles)
                         ->execute();
                 foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
