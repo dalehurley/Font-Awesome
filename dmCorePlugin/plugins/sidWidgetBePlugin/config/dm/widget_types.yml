@@ -16,6 +16,9 @@ specifiquesBaseEditoriale:
 
   dessinSemaine:
     public_name:        Dessins de la semaine
+    
+  listActualite:
+    public_name:        (specifiquesBaseEditoriale) Liste actualité pour page des articles BE
   
 affichage:
   article:

@@ -61,3 +61,6 @@ all:
 
   # copyrightHolder des articles de la base éditoriale
   copyright-holder : Sid Presse
+  
+  # nombre d'article de la liste en bas des article BE (modif de article ListBySection)
+  nb-article-listing : 5
