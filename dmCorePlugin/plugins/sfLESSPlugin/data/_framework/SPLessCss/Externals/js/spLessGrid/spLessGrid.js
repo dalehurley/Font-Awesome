@@ -10,7 +10,7 @@
 	//Définition du plugin
 	$.fn.spLessGrid = function() {
 		//Ajout de debug
-		$.fn.spLessGrid.debug("spLessGrid | jQueryMobile : " + $.mobile);
+		// $.fn.spLessGrid.debug("spLessGrid | jQueryMobile : " + $.mobile);
 
 		//stockage du this courant dans une variable pour accès dans les sous-boucles
 		var getThis = this;
@@ -53,11 +53,8 @@
 			//combinaisons possibles : e.ctrlKey, e.altKey, e.shiftKey, e.metaKey
 			if(e.metaKey) {
 				//message de debug
-				if(gridToggle) {
-					$.fn.spLessGrid.debug("Masquage de la grille");
-				}else{
-					$.fn.spLessGrid.debug("Affichage de la grille");
-				}
+				// if(gridToggle)	$.fn.spLessGrid.debug("Masquage de la grille");
+				// else			$.fn.spLessGrid.debug("Affichage de la grille");
 
 				//on inverse l'affichage de la grille par rapport à l'état switch
 				$.fn.spLessGrid.toggleGrid(getThis, options, !gridToggle);

@@ -63,7 +63,7 @@
 					var currentRow = Math.floor(intIndex / displayNbreCol);
 					
 					//affichage en console pour debug
-					window.console.log("verif-" + intIndex + " currentRow : "+ currentRow + " displayNbreCol : " + displayNbreCol + " displayNbreRow : " + displayNbreRow);
+					// window.console.log("verif-" + intIndex + " currentRow : "+ currentRow + " displayNbreCol : " + displayNbreCol + " displayNbreRow : " + displayNbreRow);
 					
 					//on ajoute une classe CSS en fonction de la ligne courante
 					if(currentRow == 0) {
