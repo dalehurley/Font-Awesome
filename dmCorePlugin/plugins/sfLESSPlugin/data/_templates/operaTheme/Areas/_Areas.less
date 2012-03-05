@@ -10,7 +10,7 @@
 	#dm_main { background-color: #bbb; }
 	#dm_main_inner { background-color: #ccc; }
 	
-	// #dm_header > .dm_zones { background-color: fadeout(#8ccccb, 50%); }
+	#dm_header > .dm_zones { background-color: fadeout(#8ccccb, 50%); }
 	// #dm_footer > .dm_zones { background-color: #c8ccbc; }
 	#dm_sidebar_left > .dm_zones { background-color: #ccccb8; }
 	//#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
@@ -57,6 +57,8 @@
 	background-position: 50% bottom;
 
 	.dm_zones {
+		//pour le placement en absolue des socialNetwork
+		position: relative;
 		@gridSiteWidth();
 		margin-left: auto;
 		margin-right: auto;
