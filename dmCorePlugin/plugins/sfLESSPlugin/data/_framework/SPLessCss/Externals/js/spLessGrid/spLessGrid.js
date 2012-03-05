@@ -45,13 +45,15 @@
 		});
 		
 		//activation du raccourci clavier pour afficher la grille
-		$(document).keypress("g",function(e) {
+		$(document).keypress(function(e) {
 			//vérification affichage de la grille
 			var switchRel = $('#less-grid-switch').attr('rel');
 			var gridToggle = (switchRel == 'off' || switchRel == undefined) ? false : true;
 			
 			//combinaisons possibles : e.ctrlKey, e.altKey, e.shiftKey, e.metaKey
 			if(e.metaKey && e.which == 71) {
+				//$.fn.spLessGrid.debug("Key meta : " + e.which);
+
 				//message de debug
 				// if(gridToggle)	$.fn.spLessGrid.debug("Masquage de la grille");
 				// else			$.fn.spLessGrid.debug("Affichage de la grille");
