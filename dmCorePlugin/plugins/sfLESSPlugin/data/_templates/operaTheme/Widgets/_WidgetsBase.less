@@ -30,15 +30,12 @@
 		//changement taille du titre des widgets
 		& > .title {
 			position: relative;
-			
 			#dm_content & {
-				text-transform: none;
-				font-size: @fontSizeH3Px;
+				font-size: @fontSizeH4Px;
 				line-height: @gridBaseline;
 			}
 			#dm_sidebar_left &, #dm_sidebar_right & {
-				text-transform: uppercase;
-				font-size: @fontSizeH4Px;
+				font-size: @fontSizeH3Px;
 				line-height: @gridBaseline;
 			}
 		}
@@ -95,10 +92,12 @@
 
 			& > .title {
 				.isLess & { background-color: #5F8FA3; }
-				color: @colorCouleur2;
+				color: @colorCouleur1;
+				text-transform: uppercase;
+				font-family: @fontGlobalFamilySansSerif;
+				font-weight: normal;
 				margin: (@gridBaseline/-2) (@zonesOffsetPad*-1) (@gridBaseline/2) (@zonesOffsetPad*-1);
 				padding: @gridBaseline/2 0;
-
 				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
 				& + .elements { margin-top: @gridBaseline/-2; }
 			}

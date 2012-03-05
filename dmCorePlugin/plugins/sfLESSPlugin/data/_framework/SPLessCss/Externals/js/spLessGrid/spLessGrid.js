@@ -51,7 +51,7 @@
 			var gridToggle = (switchRel == 'off' || switchRel == undefined) ? false : true;
 			
 			//combinaisons possibles : e.ctrlKey, e.altKey, e.shiftKey, e.metaKey
-			if(e.metaKey) {
+			if(e.metaKey && e.which == 71) {
 				//message de debug
 				// if(gridToggle)	$.fn.spLessGrid.debug("Masquage de la grille");
 				// else			$.fn.spLessGrid.debug("Affichage de la grille");
