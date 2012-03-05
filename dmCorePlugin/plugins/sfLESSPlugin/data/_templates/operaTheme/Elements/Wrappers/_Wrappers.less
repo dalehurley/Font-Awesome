@@ -133,30 +133,34 @@
 }
 
 //listings d'éléments diverses (article, personnes, organisations, etc)
-.elements {
-	margin: 0 (@zonesOffsetPad*-1);
+#dm_sidebar_left &, #dm_sidebar_right &, #dm_content & {
+	.elements {
+		margin: 0 (@zonesOffsetPad*-1);
 
-	.element {
-		//ajout transition navigateurs modernes
-		.csstransitions & {
-			@transitionCompress(background-color; .5s);
-		}
-		
-		//couleur de fond uniquement dans les sidebars
-		#dm_sidebar_left &,
-		#dm_sidebar_right & {
-			background-color: @colorCouleur3Clair;
+		.element {
+			//ajout transition navigateurs modernes
+			.csstransitions & {
+				@transitionCompress(background-color; .5s);
+			}
+			
+			//couleur de fond uniquement dans les sidebars
+			#dm_sidebar_left &,
+			#dm_sidebar_right & {
+				background-color: @colorCouleur3Clair;
+				&:hover { background-color: @colorCouleur3ClairSup; }
+			}
 			&:hover { background-color: @colorCouleur3ClairSup; }
+
+			padding: @gridBaseline/2 @zonesOffsetPad (@gridBaseline/2 -1px) @zonesOffsetPad;
+			border-bottom: 1px dashed @zonesBorderColor;
+
+			//suppression bordure et padding pour dernier élément
+			&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }
 		}
-		&:hover { background-color: @colorCouleur3ClairSup; }
-
-		padding: @gridBaseline/2 @zonesOffsetPad (@gridBaseline/2 -1px) @zonesOffsetPad;
-		border-bottom: 1px dashed @zonesBorderColor;
-
-		//suppression bordure et padding pour dernier élément
-		&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }
 	}
 }
+
+
 
 
 
