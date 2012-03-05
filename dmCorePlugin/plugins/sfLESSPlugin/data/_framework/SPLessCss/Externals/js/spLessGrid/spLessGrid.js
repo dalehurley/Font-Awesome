@@ -1,16 +1,19 @@
 // spLessGrid.js - Pour le framework SPLessCss
-// v1.2.6
-// Last Updated : 2012-01-06 14:30
+// v1.3
+// Last Updated : 2012-03-01 14:30
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
 //permet d'isoler le code du reste de l'environnement javascript
 (function($) {
-	
+
 	//Définition du plugin
 	$.fn.spLessGrid = function() {
 		//Ajout de debug
 		$.fn.spLessGrid.debug("spLessGrid | jQueryMobile : " + $.mobile);
+
+		//stockage du this courant dans une variable pour accès dans les sous-boucles
+		var getThis = this;
 		
 		//on récupère les options passées en JSON dans le container
 		var options = $.metadata ? $(this).metadata() : new Array();
@@ -41,6 +44,39 @@
 			}
 		});
 		
+		//activation du raccourci clavier pour afficher la grille
+		$(document).keypress("g",function(e) {
+			//vérification affichage de la grille
+			var switchRel = $('#less-grid-switch').attr('rel');
+			var gridToggle = (switchRel == 'off' || switchRel == undefined) ? false : true;
+			
+			//combinaisons possibles : e.ctrlKey, e.altKey, e.shiftKey, e.metaKey
+			if(e.metaKey) {
+				//message de debug
+				if(gridToggle) {
+					$.fn.spLessGrid.debug("Masquage de la grille");
+				}else{
+					$.fn.spLessGrid.debug("Affichage de la grille");
+				}
+
+				//on inverse l'affichage de la grille par rapport à l'état switch
+				$.fn.spLessGrid.toggleGrid(getThis, options, !gridToggle);
+
+				//gestion du cmd + shift
+				if(e.shiftKey) {
+					$.fn.spLessGrid.adjustGrid();
+					if(gridToggle) {
+						$('#less-baseline').removeClass('isBl');
+					}else{
+						$('#less-baseline').addClass('isBl');
+					}
+				}
+
+				//désactivation comportement par défaut
+				e.preventDefault();
+			}
+		});
+		
 		//TEST : on vérifie la présence du jQueryMobile
 		//if($.mobile) {
 		//	$(this).live("tap taphold swipe swipeleft swiperight", function(e) {
@@ -63,6 +99,39 @@
 			$(this).find(".spriteInit").bind('click', $.fn.spLessGrid.spriteBind);
 		});
 	};
+
+	$.fn.spLessGrid.adjustGrid = function() {
+		//on vérifie dans quel mode on est
+		var isDev = $('body').hasClass('isDev');
+		var isLess = $('body').hasClass('isLess');
+		//Hauteur bl
+		var bH = 18;
+
+		//application paramètres
+		$('.imageWrapper, .imageFullWrapper, .dm_widget_nivo_gallery_container').each(function(index){
+			//ciblage des éléments
+			var wrapper = this;
+			var getImg = $(wrapper).find("img");
+			//récupération propriétés
+			var imgWidth = $(getImg).width();
+			var imgHeight = $(getImg).height();
+			//récupération approx.
+			var nbreBl = Math.floor(imgHeight / bH);
+			//modification en mode Less
+			if(isLess) nbreBl += 1;
+			//calcul paramètres de placement
+			var getHeight = nbreBl * bH;
+			var decalMarginTop = (getHeight - imgHeight) / 2;
+			//application sur les éléments
+			if(getHeight != imgHeight) {
+				$(wrapper).height(getHeight);
+				$(getImg).css('marginTop', decalMarginTop);
+			}
+			//application au chargement
+			// $(getImg).load(function(){
+			// });
+		});
+	}
 	
 	//gestion du click de génération des sprites
 	$.fn.spLessGrid.spriteBind = function(e) {
@@ -117,7 +186,7 @@
 	//gestion apparition de la zone de debug
 	$.fn.spLessGrid.toggleDisplay = function(e, active) {
 		var getWidget = $(e.target).closest('.dm_widget');
-		
+
 		if(active == true) {
 			if($(getWidget).hasClass('disabled')){
 				$(getWidget).removeClass('disabled');
@@ -188,6 +257,27 @@
 			colCount++;
 		};
 	}
+
+	//toggle général de la grille
+	$.fn.spLessGrid.toggleGrid = function(debug, options, toggle) {
+		if(toggle == true) {
+			$('#less-grid-switch').text("x").attr('rel','on');
+			$('#less-grid').show();
+			$('#less-baseline').show();
+			
+			//mise à jour de la grille
+			$.fn.spLessGrid.updateGrid(options);
+			
+			//réapparition de la zone de debug
+			var param = new Object();
+			param.target = debug;
+			$.fn.spLessGrid.toggleDisplay(param, true);
+		}else{
+			$('#less-grid-switch').text('afficher la grille').attr('rel','off');
+			$('#less-grid').hide();
+			$('#less-baseline').hide();
+		}
+	}
 	
 	//création du switch
 	$.fn.spLessGrid.createSwitch = function(debug, options) {
@@ -201,29 +291,13 @@
 
 		$('#less-grid-switch').css('right', switchPositionRight);
 		
-		
 		$('#less-grid-switch').toggle(function() {
-			$(this).text("x");
-			$('#less-grid').show();
-			$('#less-baseline').show();
-			$(this).attr('rel','on');
-			
-			//mise à jour de la grille
-			$.fn.spLessGrid.updateGrid(options);
-			
-			//réapparition de la zone de debug
-			var param = new Object;
-			param.target = debug;
-			$.fn.spLessGrid.toggleDisplay(param, true);
-			
+			$.fn.spLessGrid.toggleGrid(debug, options, true);
 		}, function() {
-			$(this).text('afficher la grille');
-			$('#less-grid').hide();
-			$('#less-baseline').hide();
-			$(this).attr('rel','off');
+			$.fn.spLessGrid.toggleGrid(debug, options, false);
 		});
 	}
-	
+		
 	//fonction d'ajout de valeur à la sortie de debug
 	$.fn.spLessGrid.debugAddValue = function(info, value) {
 		htmlOutput = '<span class="info ' + info + '">' + info + ' : <span class="value">' + value + '</span></span><br />';
@@ -262,5 +336,4 @@
 	
 	//lancement automatique de la fonction lors du chargement de la page (événement différent selon la présence de jQueryMobile)
 	$(document).bind(($.mobile ? "pageinit" : "ready"), $.fn.spLessGrid.initialize);
-	
 })(jQuery);
