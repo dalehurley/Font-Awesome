@@ -1,6 +1,6 @@
 // _SocialNetworkLogos.less
-// v1.0
-// Last Updated : 2012-02-13 16:50
+// v1.1
+// Last Updated : 2012-03-05 14:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -28,9 +28,9 @@
 	.elements {
 		.element {
 			padding: @decalV @decalH;
-			margin-right: @gridGutter;
-			//on supprime le décalage à gauche pour le dernier et pour une icone sur 5 (à adapter si changement taille sidebar-left)
-			&.last, &:nth-child(5) { margin-right: 0; }
+			margin-left: @gridGutter;
+			//on supprime le décalage à gauche pour le premier
+			&.first { margin-left: 0; }
 		}
 	}
 	

@@ -9,21 +9,12 @@
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
-@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/SocialNetworkLogos/_SocialNetworkLogos.less";
 
 .dm_widget.social_network_logos {
-	#dm_custom_top & {
-		float: left;
-		.dm_widget_inner {
-			@gridWidth(@gridCol_SidebarLeft);
-			margin-right: @gridGutter;
-		}
-	}
-	
 	#dm_header & {
 		position: absolute;
 		right: 0;
@@ -31,24 +22,22 @@
 	}
 	
 	//décalage de padding
-	@decalV: ((@gridBaseline - @spriteFormat_S)/2 -1px);
-	@decalH: ((@gridGutter - @spriteFormat_S)/2 -1px);
+	@decalV: ((@gridBaseline*2 - @spriteFormat_M)/2 - 1px);
+	@decalH: ((@gridColWidth - @spriteFormat_M)/2 - 1px);
 	
 	.elements {
 		.element {
 			padding: @decalV @decalH;
-			//décalage de marge (pour avoir un décalage d'une demi-colonne)
-			@decalHCol: (@gridColWidth/2 - @gridGutter);
-			margin-right: @decalHCol;
-			//on supprime le décalage à gauche pour le dernier et pour une icone sur 5 (à adapter si changement taille sidebar-left)
-			&.last, &:nth-child(5) { margin-right: 0; }
+			margin-left: @gridGutter;
+			//on supprime le décalage à gauche pour le premier
+			&.first { margin-left: 0; }
 		}
 	}
-	
+
 	.link {
 		//chargement thème de sprite
-		@spriteDimension(@spriteFormat_S);
-		@spriteBgi("Default"; "S");
+		@spriteDimension(@spriteFormat_M);
+		@spriteBgi("Default"; "M");
 
 		//ajout du fond blanc arrondi
 		background-color: @colorWhite;
@@ -57,19 +46,19 @@
 		
 		&.link_facebook {
 			@spriteBgiSvg("Default"; "socialnetwork"; "facebook");
-			@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-facebook; @spriteOffY-socialnetwork-facebook);
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-facebook; @spriteOffY-socialnetwork-facebook);
 		}
 		&.link_googleplus {
 			@spriteBgiSvg("Default"; "socialnetwork"; "googleplus");
-			@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-googleplus; @spriteOffY-socialnetwork-googleplus);
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-googleplus; @spriteOffY-socialnetwork-googleplus);
 		}
 		&.link_linkedin {
 			@spriteBgiSvg("Default"; "socialnetwork"; "linkedin");
-			@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-linkedin; @spriteOffY-socialnetwork-linkedin);
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-linkedin; @spriteOffY-socialnetwork-linkedin);
 		}
 		&.link_twitter {
 			@spriteBgiSvg("Default"; "socialnetwork"; "twitter");
-			@spriteBgp(@spriteFormat_S; @spriteOffX-socialnetwork-twitter; @spriteOffY-socialnetwork-twitter);
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-twitter; @spriteOffY-socialnetwork-twitter);
 		}
 	}
 }
