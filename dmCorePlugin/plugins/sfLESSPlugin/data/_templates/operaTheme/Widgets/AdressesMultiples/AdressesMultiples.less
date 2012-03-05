@@ -81,8 +81,10 @@
 			font-weight: normal;
 		}
 		//suppression sur le premier élément (cad le titre)
-		&.name {
-			color: @colorCouleur3;
+		&.name { color: @colorCouleur3; }
+
+		//masquage des tirets en trop
+		&.name, &.addressLocality {
 			&:before { display: none; visibility: hidden; }
 		}
 
