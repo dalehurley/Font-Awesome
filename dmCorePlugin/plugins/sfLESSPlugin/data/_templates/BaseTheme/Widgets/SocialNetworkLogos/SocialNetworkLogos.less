@@ -8,6 +8,7 @@
 @import "_templates/BaseTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
@@ -23,9 +24,15 @@
 		}
 	}
 	
+	#dm_header & {
+		position: absolute;
+		right: 0;
+		bottom: @gridBaseline;
+	}
+	
 	//décalage de padding
-	@decalV: (@gridBaseline - @spriteFormat_S) / 2;
-	@decalH: (@gridGutter - @spriteFormat_S) / 2;
+	@decalV: ((@gridBaseline - @spriteFormat_S)/2 -1px);
+	@decalH: ((@gridGutter - @spriteFormat_S)/2 -1px);
 	
 	.elements {
 		.element {
@@ -42,6 +49,11 @@
 		//chargement thème de sprite
 		@spriteDimension(@spriteFormat_S);
 		@spriteBgi("Default"; "S");
+
+		//ajout du fond blanc arrondi
+		background-color: @colorWhite;
+		border: 1px solid @colorWhite;
+		@borderRadiusCompress(6px);
 		
 		&.link_facebook {
 			@spriteBgiSvg("Default"; "socialnetwork"; "facebook");
