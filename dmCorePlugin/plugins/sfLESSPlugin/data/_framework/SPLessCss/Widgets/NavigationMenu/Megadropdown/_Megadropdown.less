@@ -1,6 +1,6 @@
 // _Megadropdown.less
-// v1.2
-// Last Updated : 2012-02-23 11:40
+// v1.4
+// Last Updated : 2012-03-06 18:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -14,16 +14,23 @@ ul.megadropdown {
 	//################################################
 
 	//test affichage pour stylage
-	//& > li:nth-child(6) {
-	//& > li.last {
-	//	ul, ul ul { opacity: 1 !important; visibility: visible !important; }
-	//}
-	//.isLess & { background-color: #475F63; }
-	//li { .isLess & { background-color: #6BC0D1; } }
-	//.isLess & {
-	//	ul { background-color: darkblue !important; }
-	//	.link { background-color: orange !important; }
-	//}
+	// & > li:nth-child(6) {
+	// & > li.last {
+	// 	ul, ul ul { opacity: 1 !important; visibility: visible !important; }
+	// }
+	// .isLess & {
+	// 	background-color: fadeout(#475F63, 50%);
+	// 	li {
+	// 		&:nth-of-type(odd) { background-color: fadeout(#6BC0D1, 50%); }
+	// 		&:nth-of-type(even) { background-color: fadeout(#4E8D99, 50%); }
+	// 		&.dm_dir > .link { background-color: fadeout(#ED2424, 50%) !important; }
+	// 	}
+
+	// 	ul { background-color: #2B3280 !important;
+	// 		ul { background-color: fadeout(#2B3280, 50%) !important; }
+	// 	}
+	// 	.link { background-color: fadeout(#EDA724, 50%) !important; }
+	// }
 
 	//################################################
 	//########### 1 CONFIGURATION DE BASE ############
@@ -67,6 +74,9 @@ ul.megadropdown {
 			top: 0;
 			left: 0;
 		}
+
+		//suppression du float sur les li des sous-parties
+		li li { position: relative; float: none; }
 	}
 
 	//niveau 0
@@ -80,13 +90,6 @@ ul.megadropdown {
 			z-index: 599;
 			//cursor: default;
 			left: 0;
-		}
-
-		//suppression du float sur les li des sous-parties
-		li {
-			position: relative;
-			float: none;
-			&.dm_dir { float: left; }
 		}
 
 		//gestion placement vertical
@@ -134,18 +137,29 @@ ul.megadropdown {
 			ul { right: 0; }
 		}
 		
-		//on force également la taille du lien de titrage pour éviter les débordements
-		ul, li.dm_dir .link {
-			&, #dm_sidebar_left &, #dm_sidebar_right & {
+		//définition largeur des sous parties
+		&.hasDmDir li,
+		ul, #dm_sidebar_left & ul, #dm_sidebar_right & ul {
+			@gridWidth(4);
+		}
+		&.hasDmDir li ul li {
+			&, &.first, &.firstOfRow, &.last, &.lastOfRow {
 				@gridWidth(4);
 			}
 		}
 
-		//pour les liens de niveau 1 non situé dans un dossier
-		li { @gridWidth(4; @gridGutter); }
+		//pour tous les liens de niveau 1 lorsque des dossiers sont présents dans le ul
+		&.hasDmDir li {
+			//on rajoute le padding pour compenser la largeur manquante pour les gouttières
+			padding: 0 @gridGutter/2;
+			//suppression padding pour les sous-parties
+			ul li {
+				&, &.first, &.firstOfRow, &.last, &.lastOfRow { padding: 0; }
+			}
+		}
 
 		//largeur auto pour les sous-dossiers de niveau 1 et +
-		li.dm_dir { width: auto; }
+		li li.dm_dir { width: auto; }
 	}
 
 
