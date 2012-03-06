@@ -42,12 +42,6 @@
  * 
  */
 
-//action à effectuer uniquement en DEV
-if (sfConfig::get('sf_environment')) {
-	//affichage du widget de DEBUG 
-	echo dm_get_widget('debug', 'debug', array());
-}
-
 ?>
 
 <div id="dm_page"<?php $isEditMode && print ' class="edit"' ?>>
