@@ -1,6 +1,6 @@
 // megadropdown.js
-// v0.7
-// Last Updated : 2012-02-28 11:55
+// v1.0
+// Last Updated : 2012-03-06 17:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -62,71 +62,45 @@
 				//calcul du nombre de lignes affichables
 				//si le modulo (reste de la division) n'est pas égale à zéro alors on arrondi à l'entier inférieur et on rajoute un
 				var displayNbreRow = (nbreCol % displayNbreCol == 0) ? nbreCol / displayNbreCol : Math.floor(nbreCol / displayNbreCol) + 1;
-				
+
 				//ligne courante
 				var currentRow = 0;
-				var currentCol = 0;
 
-				// //boucle sur chacune des lignes
-				// for (var i = 0; i < displayNbreRow; i++) {
+				//boucle sur chacune des lignes
+				for (var i = 0; i < displayNbreRow; i++) {
 
-				// 	//on parcourt chacun des li enfants et on cherche le plus grand en hauteur
-				// 	var highestCol = 0;
+					//on parcourt chacun des li enfants et on cherche le plus grand en hauteur
+					var highestCol = 0;
 
-				// 	//sélection dans les colonnes
-				// 	var startCol = displayNbreRow * i;
-				// 	var endCol = startCol + displayNbreRow;
+					//sélection dans les colonnes
+					var startCol = displayNbreCol * i;
+					var endCol = startCol + displayNbreCol;
 
-				// 	$(selectCol).slice(startCol, endCol).each(function(index) {
-						
+					//sélection de la tranche
+					var sliceSelect = $(selectCol).slice(startCol, endCol);
 
-				// 	});
-				// };
+					//on parcourt la tranche ainsi sélectionnée
+					$(sliceSelect).each(function(index) {
+						//récupération de la hauteur
+						var currentColHeight = $(this).height();
+						$(this).addClass('testH-'+currentColHeight);
 
+						//on actualise la plus grande hauteur détectée dans la ligne
+						if(currentColHeight > highestCol) highestCol = currentColHeight;
+					});
+
+					//application de la hauteur sur la ligne
+					$(sliceSelect).height(highestCol);
+				};
 
 				//on parcourt toutes les colonnes courantes
 				$(selectCol).each(function(index) {
-					//avant que l'on ne tombre à la fin d'une ligne (augmentation de valeur de currentRow), on applique la hauteur à toute cette dernière et on continu
-					if(Math.floor((index + 1 )/ displayNbreCol) > currentRow) {
-
-						//on sélectionne les index situé entre les deux et on applique la plus grande hauteur de la ligne
-						$(selectCol).slice(currentCol, (currentCol + displayNbreCol)).height(highestCol).addClass('testSetHeight-'+index);
-						window.console.log(index + ' highestCol : ' + highestCol + ' currentCol : ' + currentCol + " displayNbreCol : " + displayNbreCol);
-
-						//on remet à zéro la hauteur la plus haute à la fin de la ligne
-						highestCol = 0;
-
-						// //on réactualise la hauteur maximale
-						// var updateCurrentColHeight = $(this).height();
-						// if(updateCurrentColHeight > highestCol) highestCol = updateCurrentColHeight;
-
-						window.console.log(index + 'post highestCol : ' + highestCol);
-
-						//colonne suivante
-						currentCol = index + 1;
-					}
-
 					//ligne courante
 					currentRow = Math.floor(index / displayNbreCol);
-
-					//récupération de la hauteur
-					var currentColHeight = $(this).height();
-					$(this).addClass('testH-'+currentColHeight);
-
-					//on actualise la plus grande hauteur détectée dans la ligne
-					if(currentColHeight > highestCol) highestCol = currentColHeight;
-
+					
 					//on ajoute une classe CSS en fonction de la ligne courante
 					if(currentRow == 0) $(this).addClass('inFirstRow');
-					if(currentRow >= displayNbreRow - 1) {
-						$(this).addClass('inLastRow');
-
-						//dans la dernière ligne on réapplique la hauteur une dernière fois
-						if(index >= displayNbreCol -1) {
-							// $(selectCol).slice(currentCol, (currentCol + displayNbreCol)).height(highestCol);
-							// window.console.log(index + 'last currentColHeight : ' + currentColHeight);
-						}
-					}
+					if(currentRow >= displayNbreRow - 1) $(this).addClass('inLastRow');
 				});
 			}
 		});
