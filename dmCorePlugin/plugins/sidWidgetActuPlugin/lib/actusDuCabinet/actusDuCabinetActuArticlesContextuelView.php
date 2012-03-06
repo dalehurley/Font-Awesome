@@ -13,7 +13,8 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
             'chapo',
             'widthImage',
             'heightImage',
-            'withImage'
+            'withImage',
+            'type'
         ));
 
     }
@@ -43,10 +44,9 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
 //                break;
 
             case 'section/show':
-                
                 // il faut que je récupère l'id de la rubrique de la section
                 // je récupère donc l'ancestor de la page courante pour extraire le record_id de ce dernier afin de retrouver la rubrique
-                $ancestors = $this->context->getPage()->getNode()->getAncestors();
+                $ancestors = $dmPage->getNode()->getAncestors();
                 $recordId = $ancestors[count($ancestors) - 1]->getRecordId();
                 $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
                         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
@@ -54,7 +54,7 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                         ->leftJoin('sas.SidRubrique s')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('s.id = ?  ', array($recordId))
-                        ->andWhere('a.is_active = ? and sata.sid_actu_type_id = ? and aTranslation.debut_date <= ? and aTranslation.fin_date >= ?', array(true,$vars['type'], date('Y-m-d'), date('Y-m-d')))
+                        ->andWhere('a.is_active = ? and sata.sid_actu_type_id = ? and (aTranslation.debut_date <= ? or aTranslation.debut_date is ?) and (aTranslation.fin_date >= ? or aTranslation.fin_date is ?)', array(true,$vars['type'],date('Y-m-d'),NULL,date('Y-m-d'),NULL))
                         ->orderBy('aTranslation.updated_at DESC')
                         ->limit($nbArticles)
                         ->execute();
@@ -67,7 +67,7 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                     $actuArticles = Doctrine_Query::create()->from('SidActuArticle a')
                             ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                             ->leftJoin('a.SidActuTypeArticle sata')
-                            ->Where('a.is_active = ? and sata.sid_actu_type_id = ? and aTranslation.debut_date <= ? and aTranslation.fin_date >= ?', array(true,$vars['type'], date('Y-m-d'), date('Y-m-d')))
+                            ->Where('a.is_active = ? and sata.sid_actu_type_id = ? and (aTranslation.debut_date <= ? or aTranslation.debut_date is ?) and (aTranslation.fin_date >= ? or aTranslation.fin_date is ?)', array(true,$vars['type'], date('Y-m-d'),NULL,date('Y-m-d'),NULL))
                             ->orderBy('aTranslation.updated_at DESC')
                             ->limit($nbArticles)
                             ->execute();
@@ -121,7 +121,7 @@ class actusDuCabinetActuArticlesContextuelView extends dmWidgetPluginView {
                         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('a.is_active = ? and sata.sid_actu_type_id = ?', array(true,$vars['type']))
-                        ->andWhere('(aTranslation.debut_date <= ? or aTranslation.debut_date is ?) and (aTranslation.fin_date >= ? or aTranslation.fin_date is ?)',array(date('Y-m-d'),NULL,date('Y-m-d'),NULL,))
+                        ->andWhere('(aTranslation.debut_date <= ? or aTranslation.debut_date is ?) and (aTranslation.fin_date >= ? or aTranslation.fin_date is ?)',array(date('Y-m-d'),NULL,date('Y-m-d'),NULL))
                         ->orderBy('aTranslation.updated_at DESC')
                         ->limit($nbArticles)
                         ->execute();
