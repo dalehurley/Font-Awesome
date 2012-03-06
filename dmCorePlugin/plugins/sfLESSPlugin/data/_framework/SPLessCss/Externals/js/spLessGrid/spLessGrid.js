@@ -45,15 +45,17 @@
 		});
 		
 		//activation du raccourci clavier pour afficher la grille
-		$(document).keypress(function(e) {
+		$(document).keydown(function(e) {
 			//vérification affichage de la grille
 			var switchRel = $('#less-grid-switch').attr('rel');
 			var gridToggle = (switchRel == 'off' || switchRel == undefined) ? false : true;
+
+			//code permettant de trouver une combinaison
+			// $.fn.spLessGrid.debug("key : " + e.which);
+			// e.preventDefault();
 			
 			//combinaisons possibles : e.ctrlKey, e.altKey, e.shiftKey, e.metaKey
 			if(e.metaKey && e.which == 71) {
-				//$.fn.spLessGrid.debug("Key meta : " + e.which);
-
 				//message de debug
 				// if(gridToggle)	$.fn.spLessGrid.debug("Masquage de la grille");
 				// else			$.fn.spLessGrid.debug("Affichage de la grille");
@@ -62,7 +64,7 @@
 				$.fn.spLessGrid.toggleGrid(getThis, options, !gridToggle);
 
 				//gestion du cmd + shift
-				if(e.shiftKey) {
+				if(e.ctrlKey && e.shiftKey) {
 					$.fn.spLessGrid.adjustGrid();
 					if(gridToggle) {
 						$('#less-baseline').removeClass('isBl');

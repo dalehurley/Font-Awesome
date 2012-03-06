@@ -9,6 +9,8 @@
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Importation de la mise en page par défaut du widget
@@ -29,20 +31,36 @@
 		.element {
 			padding: @decalV @decalH;
 			margin-left: @gridGutter;
+			&:hover { background-color: inherit; }
 			//on supprime le décalage à gauche pour le premier
 			&.first { margin-left: 0; }
 		}
 	}
 
 	.link {
+		//ajout transition
+		@transitionCompress();
+
+		//ajout du fond blanc arrondi avec bordure
+		background-color: @colorWhite;
+		.rgba & { background-color: fadeout(@colorWhite, 25%); }
+		border: 1px solid @colorWhite;
+		overflow: hidden;
+		//on ne sépare pas le rgba pour l'ombre car si le navigateur gère cette dernière il gère également le rgba
+		@boxShadow(0 0 @offS fadeout(@colorBlack, 50%));
+		@borderRadiusCompress(7px);
+
+		&:hover {
+			.rgba & { background-color: @colorWhite; }
+			margin-top: @offS*-1;
+			margin-bottom: @offS;
+			border-color: @colorCouleur1;
+			@boxShadow(0 @offS @offM fadeout(@colorBlack, 25%));
+		}
+
 		//chargement thème de sprite
 		@spriteDimension(@spriteFormat_M);
 		@spriteBgi("Default"; "M");
-
-		//ajout du fond blanc arrondi
-		background-color: @colorWhite;
-		border: 1px solid @colorWhite;
-		@borderRadiusCompress(6px);
 		
 		&.link_facebook {
 			@spriteBgiSvg("Default"; "socialnetwork"; "facebook");
