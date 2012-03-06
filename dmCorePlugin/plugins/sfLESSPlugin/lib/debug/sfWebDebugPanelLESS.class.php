@@ -81,7 +81,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
 
     //$this->setStatus($this->errors?sfLogger::ERR:($this->compiled?sfLogger::INFO:sfLogger::WARNING));
 */
-    TODO
+
 /*
       <tr style="%s">
         <td class="sfWebDebugLogType">%s</td>
@@ -100,13 +100,34 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
         // récupération du Layout de la page en cours
         $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
 
-    $panel .= 'site theme: '.dmConfig::get('site_theme').'<br/>';
-    $panel .= 'site theme version: '.dmConfig::get('site_theme_version').'<br/>';
-    $panel .= 'current page: '.$pageCurrent.'<br/>';
-    $panel .= 'layout: '.$layoutPage.'<br/>';
-    $panel .= 'recordId: '.$recordId.'<br/>';
-    $panel .= 'Grid cols: '.$recordId.'<br/>';
-    $panel .= 'Width col: '.$recordId.'<br/>';
+        //  array of info
+        $tabInfos['Site theme'] = dmConfig::get('site_theme');
+        $tabInfos['site theme version'] = dmConfig::get('site_theme_version');
+        $tabInfos['Current page'] = $pageCurrent;
+        $tabInfos['Layout'] = $layoutPage;
+        $tabInfos['Page recordId'] = $recordId;
+        $tabInfos['Grid Columns'] = '';
+        $tabInfos['Grid Column Width'] = '';
+        $tabInfos['Grid Gutter Width'] = '';      
+        $tabInfos['Fluid Grid Column Width'] = '';
+        $tabInfos['Fluid Grid Gutter Width'] = '';  
+        $tabInfos['Base Font Size'] = '';  
+        $tabInfos['Base Font Family'] = '';  
+        $tabInfos['Base Line Height'] = '';                  
+        // les couleurs affichent une span swatch qui est colorisée en css dans import.less
+        $tabInfos['Link Color'] = '<span class="swatch"></span>';  
+        $tabInfos['Link Color Hover'] = '<span class="swatch"></span>'; 
+        $tabInfos['text Color'] = '<span class="swatch"></span>'; 
+
+        $panel .= '<dl style="" id="less_debug">';
+        foreach ($tabInfos as $lib => $value) {
+          $panel .= '<dt style="float:left; width: 200px"><strong>'.$lib.'</strong></dt><dd class="less_debug_'.dmString::slugify($lib).'">'.$value.'</dd>';
+        }
+        $panel .= '</dl>';
+
+
+
+
 
     return $panel;
   }

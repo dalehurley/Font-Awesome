@@ -107,9 +107,9 @@
   font-size: 16px;
   font-weight: bold;
   margin: 0;
-  padding: 0;
+  padding: 0 10px;
   border: 0px;
-  background-color: #eee;
+  background-color: #E7D9A8;
 }
 
 #sfWebDebug h2
@@ -141,7 +141,7 @@
   padding: 0 1%;
   margin: 0;
   z-index: 9999;
-  background-color: #efefef;
+  background-color: #ECEAD9;
   border-bottom: 1px solid #aaa;
 }
 
