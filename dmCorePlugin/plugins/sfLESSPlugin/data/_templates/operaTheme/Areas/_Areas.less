@@ -136,6 +136,11 @@
 	.dm_zones {
 		.isLess & { background-color: #8A9999; }
 		padding: 0 @zonesOffsetPad;
+		//on rajoute la bordure à droite uniquement en présence de la sidebarRight
+		.dm_sdbc_right &, .dm_sdbc_two & {
+			padding-right: (@zonesOffsetPad -1px);
+			border-right: 1px dotted @zonesBorderColor;
+		}
 	}
 }
 
@@ -144,7 +149,6 @@
 
 	.dm_zones {
 		.isLess & { background-color: #8A998A; }
-		border-left: 1px dotted @zonesBorderColor;
-		padding: 0 @zonesOffsetPad 0 (@zonesOffsetPad -1px);
+		padding: 0 @zonesOffsetPad;
 	}
 }
