@@ -7,7 +7,7 @@ class dmWidgetFeedReaderShowView extends dmWidgetPluginView
   {
     parent::configure();
     
-    $this->addRequiredVar(array('url', 'nbArticles', 'life_time', 'title','length'));
+    $this->addRequiredVar(array('url', 'nbArticles', 'life_time', 'title','length','logo_les_echos'));
   }
 
   protected function filterViewVars(array $vars = array())
@@ -19,7 +19,7 @@ class dmWidgetFeedReaderShowView extends dmWidgetPluginView
       }
     ($vars['length'] == 0 ) ? $length = '' : $length = $vars['length'];
 
-    $vars['items'] = $this->getItems($vars['url'], $vars['nbArticles'], $vars['life_time'],$vars['title'], $length);
+    $vars['items'] = $this->getItems($vars['url'], $vars['nbArticles'], $vars['life_time'],$vars['title'], $length, $vars['logo_les_echos']);
     // ajout stef le 27-02/2012 
     return $vars;
     

@@ -25,6 +25,10 @@ class dmWidgetFeedReaderShowForm extends dmWidgetPluginForm
     // ajout stef le 27-09-2011
     $this->widgetSchema['title'] = new sfWidgetFormInputText();
     $this->validatorSchema['title'] = new sfValidatorString(array('required' => false));
+    
+    $this->widgetSchema['logo_les_echos'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Affiche le logo des Echos dans le bloc du titre'));
+    $this->validatorSchema['logo_les_echos']  = new sfValidatorBoolean();
+    
     // fin ajout stef le 27-09-2011
     
     $this->widgetSchema->setHelp('life_time', 'Cache life time in seconds');

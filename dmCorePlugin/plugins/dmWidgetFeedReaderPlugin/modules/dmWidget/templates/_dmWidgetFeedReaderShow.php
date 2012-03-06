@@ -9,9 +9,13 @@
  * - author_name: author name
  * - author_link: author link
  * - author_email: author email
+ * - logo_les_echos : show logo les echos
  */
-
+if($logo_les_echos == true){
+    $title .= '<img src="/dmWidgetFeedReaderPlugin/_images/logo-lesechos-fr2.png" alt="Les Echos" height=25px" style="position:absolute; right:5px; top:5px"/>';
+}
 echo _tag('h2.title', $title);
+
 echo _open('ul'.$length);
 
 foreach($items[0] as $item)

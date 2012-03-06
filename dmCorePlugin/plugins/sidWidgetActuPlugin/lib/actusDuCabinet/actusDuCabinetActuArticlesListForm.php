@@ -36,7 +36,7 @@ class actusDuCabinetActuArticlesListForm extends dmWidgetPluginForm {
     protected function renderContent($attributes) {
         return $this->getHelper()->renderPartial('actusDuCabinet', 'actuArticlesListForm', array(
             'form' => $this,
-            'id' => 'sid_widget_actu_articles_contextuel_' . $this->dmWidget->get('id')
+            'id' => 'sid_widget_actu_articles_list_' . $this->dmWidget->get('id')
         ));
     }
 
