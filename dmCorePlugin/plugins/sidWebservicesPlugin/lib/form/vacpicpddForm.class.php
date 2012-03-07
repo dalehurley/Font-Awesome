@@ -8,8 +8,8 @@ class vacpicpddForm extends dmForm {
         2 => 'Semestres'
     );
     protected static $listeVersement = array(
-        1 => 'Versements fin',
-        0 => 'Début de péiode'
+        0 => 'Versements fin',
+        1 => 'Début de période'
     );
     public function configure() {
         $this->setWidgets(array(
@@ -53,7 +53,7 @@ class vacpicpddForm extends dmForm {
                 'required' => true
             ) , array(
                 'required' => 'Le taux proportionnel annuel est obligatoire.',
-                'invalid' => 'Le taux proportionnel annuel doit etre numérique',
+                'invalid' => 'Le taux proportionnel annuel doit être numérique',
             )) ,
         ));
     }
