@@ -1,6 +1,6 @@
 // megadropdown.js
-// v1.0
-// Last Updated : 2012-03-06 17:30
+// v1.1
+// Last Updated : 2012-03-07 10:55
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -42,6 +42,7 @@
 
 			//on rajoute une classe spécifique sur le ul de niveau 1 pour indiquer si oui ou non il contient des dossiers
 			if(hasDmDir) $(selectRow).addClass('hasDmDir');
+			else		 $(selectRow).addClass('hasNoDir');
 
 			//permet d'éviter d'ajuster la taille des éléments lorsque c'est inutile, et de lancer une division par zéro
 			if(hasDmDir && nbreCol > 0) {
