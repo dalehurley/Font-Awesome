@@ -201,7 +201,7 @@ abstract class dmFrontPageBaseHelper extends dmConfigurable
 	{
 		$html = '<div class="dm_access_links">';
 
-		$html .= '<a href="#content">'.$this->serviceContainer->getService('i18n')->__('Go to content').'</a>';
+		$html .= '<a href="#dm_page_content">'.$this->serviceContainer->getService('i18n')->__('Go to content').'</a>';
 
 		$html .= '</div>';
 
