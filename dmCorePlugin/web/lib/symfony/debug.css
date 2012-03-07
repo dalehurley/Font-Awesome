@@ -109,7 +109,7 @@
   margin: 0;
   padding: 0 10px;
   border: 0px;
-  background-color: #E7D9A8;
+  background-color: #888;
 }
 
 #sfWebDebug h2
@@ -141,7 +141,7 @@
   padding: 0 1%;
   margin: 0;
   z-index: 9999;
-  background-color: #ECEAD9;
+  background-color: #AAA;
   border-bottom: 1px solid #aaa;
 }
 
