@@ -90,7 +90,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
       </tr>
 */
 
-
+if (sfConfig::get('sf_app')=='front'){
 
             // affichage de la page courante
         $idDmPage = sfContext::getInstance()->getPage()->id;
@@ -124,7 +124,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
           $panel .= '<dt style="float:left; width: 200px"><strong>'.$lib.'</strong></dt><dd class="less_debug_'.dmString::slugify($lib).'">'.$value.'</dd>';
         }
         $panel .= '</dl>';
-
+}
 
 
 
