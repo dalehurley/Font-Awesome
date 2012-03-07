@@ -1,0 +1,9 @@
+Content:
+
+  Webservices:
+
+    vacpicpdd:
+      name:            vacpicpdd
+      credentials:     vacpicpdd
+      actions:
+        form:
