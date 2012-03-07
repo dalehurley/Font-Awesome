@@ -3,9 +3,9 @@
 class vacpicpddActions extends myFrontModuleActions {
     
     /**
-     * [executeFormWidget description]
-     * @param  dmWebRequest $request [description]
-     * @return [type]
+     * executeFormWidget description
+     * @param  dmWebRequest $request description
+     * @return type
      */
     public function executeFormWidget(dmWebRequest $request) {
 
