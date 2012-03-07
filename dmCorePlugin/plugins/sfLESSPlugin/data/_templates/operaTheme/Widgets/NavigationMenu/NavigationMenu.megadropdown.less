@@ -1,6 +1,6 @@
 // NavigationMenu.dropdown.less
-// v1.3
-// Last Updated : 2012-02-28 12:00
+// v1.4
+// Last Updated : 2012-03-07 11:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -37,15 +37,20 @@ ul.megadropdown {
 			left: 0;
 			background-color: transparent;
 		}
-		
-		//sous parties de niveau 2 et +
-		&.hasDmDir li {
-			//configuration titre des sous parties
-			& > .link {
-				#dm_custom_top .dm_widget.navigation_menu &,
-				.dm_widget.navigation_menu & { color : @colorCouleur1; }
+
+		li {
+			//sous-dossiers
+			&.dm_dir {
+				//configuration titre des sous parties
+				& > .link {
+					#dm_custom_top .dm_widget.navigation_menu &,
+					.dm_widget.navigation_menu & { color : @colorCouleur1; }
+				}
 			}
-			
+		}
+		
+		//sous parties de niveau 2 et + contenues dans un ul contenant des sous-dossiers
+		&.hasDmDir li {
 			border-right: 1px dotted @zonesBorderColor;
 			padding: 0 (@gridGutter/2 -1px) 0 (@gridGutter/2);
 			margin-bottom: @gridBaseline;
@@ -73,6 +78,11 @@ ul.megadropdown {
 			
 			//niveau 3 et +
 			ul li.dm_dir { padding-left: @gridGutter; padding-right: 0; }
+		}
+
+		//sous parties de niveau 2 et + contenues dans un ul ne contenant aucun sous-dossier
+		&.hasNoDir li {
+			@gridWidth(4; @gridGutter + @zonesOffsetPad*-1);
 		}
 	}
 
