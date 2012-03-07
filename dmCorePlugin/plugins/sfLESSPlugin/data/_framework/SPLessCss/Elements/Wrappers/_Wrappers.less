@@ -1,6 +1,6 @@
 // _Wrappers.less
-// v1.1
-// Last Updated : 2012-02-10 12:35
+// v1.2
+// Last Updated : 2012-03-07 15:45
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -74,27 +74,12 @@
 	//masquage débordements
 	overflow: hidden;
 
-	//par défaut placé à droite dans tous les contenu
+	//par défaut placé à droite dans tous les contenus
 	float: right;
-	.image, .link {
-		display: block;
-		float: left;
-		margin: 0 0 @gridBaseline @gridGutter;
-		//suppression marges dans listings et dans dernier élément
-		&.last { margin-left: 0; }
-		.elements .element & { margin-bottom: 0; }
-	}
-	.link .image { float:none; margin: 0; }
-
 	//placé à gauche dans les sidebars et dans les subwrappers
-	#dm_sidebar_left &, #dm_sidebar_right &, .supWrapper & {
-		float: left;
-		.image, .link {
-			margin-right: @gridGutter;
-			margin-left: 0;
-			&.last { margin-right: 0; }
-		}
-	}
+	#dm_sidebar_left &, #dm_sidebar_right &, .supWrapper & { float: left; }
+	//image et liens d'image par défaut en block
+	.image, .link { display: block; }
 }
 
 //container de l'image
@@ -103,11 +88,46 @@
 		background-color: fadeout(#B550A9, 50%);
 		.image { background-color: fadeout(#6150B5, 50%); }
 	}
+
+	//container d'une seule image n'ayant pas de marge
+	//donc marge externe de placement
+
+	//par défaut placé à droite dans tous les contenus, donc marge à gauche et aucune à droite
+	margin: 0 0 @gridBaseline @gridGutter
+	.elements .element & { margin-bottom: 0; }
+	//placé à gauche dans les sidebars et dans les subwrappers, donc marge à droite et aucune marge à gauche
+	#dm_sidebar_left &, #dm_sidebar_right &, .supWrapper & {
+		margin-left: 0;
+		margin-right: @gridGutter;
+	}
 }
 
-//container d'une galerie
+//container d'une galerie (à tester et débuggué lorsque implémenté dans le système)
 .imageGallery {
 	.isLess & { background-color: fadeout(#1678B5, 50%); }
+
+	//container de plusieurs images ayants des marges
+	//donc pas de marge externe
+	margin: 0;
+
+	//par défaut placé à droite dans tous les contenus, donc miniatures alignées en float
+	.image, .link {
+		float: left;
+		margin: 0 0 @gridBaseline @gridGutter;
+		//suppression marges dans listings et dans dernier élément
+		// &.last { margin-left: 0; }
+		.elements .element & { margin-bottom: 0; }
+	}
+	.link .image { float:none; margin: 0; }
+
+	//placé à gauche dans les sidebars et dans les subwrappers, donc changement sens d'alignement
+	#dm_sidebar_left &, #dm_sidebar_right &, .supWrapper & {
+		.image, .link {
+			margin-right: @gridGutter;
+			margin-left: 0;
+			&.last { margin-right: 0; }
+		}
+	}
 }
 
 //liens englobants en boite
