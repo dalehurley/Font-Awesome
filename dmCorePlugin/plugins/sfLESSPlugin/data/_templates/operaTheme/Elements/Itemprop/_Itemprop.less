@@ -37,7 +37,20 @@
 	//changement de la police spécifique à Ténor
 	font-family: @fontGlobalFamilySerif;
 	//dans un listing
-	.elements .element & { font-weight: bold; color: @colorText; }
+	.elements .element & {
+		font-weight: bold;
+		color: @colorText;
+		#dm_content & {
+			font-weight: normal;
+			font-size: @fontSizeH4Px;
+			line-height: @gridBaseline;
+		}
+		#dm_sidebar_left &, #dm_sidebar_right & {
+			font-weight: normal;
+			font-size: @fontSizeH5Px;
+			line-height: @gridBaseline;
+		}
+	}
 }
 
 .description, .teaser {
