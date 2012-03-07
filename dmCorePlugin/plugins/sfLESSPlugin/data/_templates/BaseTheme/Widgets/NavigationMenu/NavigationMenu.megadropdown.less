@@ -1,6 +1,6 @@
 // NavigationMenu.dropdown.less
-// v1.2
-// Last Updated : 2012-02-02 16:30
+// v1.4
+// Last Updated : 2012-03-07 11:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -46,41 +46,51 @@ ul.megadropdown {
 			background-color: transparent;
 		}
 		
-		//sous parties de niveau 2 et +
 		li {
+			//sous-dossiers
 			&.dm_dir {
 				//configuration titre des sous parties
 				& > .link {
 					#dm_custom_top .dm_widget.navigation_menu &,
 					.dm_widget.navigation_menu & { color : @colorCouleur1; }
 				}
-				
-				border-right: 1px dotted @zonesBorderColor;
-				padding: 0 (@gridGutter/2 -1px) 0 (@gridGutter/2);
-				margin-bottom: @gridBaseline;
-				
-				//raccourcissement des zones extrêmes (sauf .last car pas forcément en fin de ligne) (firstOfRow, lastOfRow, inFirstRow et inLastRow ajoutés en JS)
-				&.first, &.firstOfRow, &.lastOfRow {
-					//on force également la taille du lien de titrage pour éviter les débordements
-					ul, &.dm_dir > .link { @gridWidth(2; @gridGutter); }
-				}
-				//on force le redimenssionnement du dernier lorsque contenu dans une sidebar
-				#dm_sidebar_left &, #dm_sidebar_right & {
-					&.lastOfRow {
-						ul, &.dm_dir > .link { @gridWidth(2; @gridGutter); }
-					}
-				}
-
-				&.first, &.firstOfRow { padding-left: 0; }
-				&.last, &.lastOfRow { border-right: 0; }
-				&.lastOfRow { padding-right: 0; }
-				
-				//suppression marge pour la dernière ligne
-				&.inLastRow { margin-bottom: 0; }
-				
-				//niveau 3 et +
-				ul li.dm_dir { padding-left: @gridGutter; padding-right: 0; }
 			}
+		}
+		
+		//sous parties de niveau 2 et + contenues dans un ul contenant des sous-dossiers
+		&.hasDmDir li {
+			border-right: 1px dotted @zonesBorderColor;
+			padding: 0 (@gridGutter/2 -1px) 0 (@gridGutter/2);
+			margin-bottom: @gridBaseline;
+			//on suprimme les bordures et marges inférieures pour les sous parties
+			li { border-right: 0; padding-right: @gridGutter/2; margin-bottom: 0; }
+			
+			//raccourcissement des zones extrêmes (sauf .last car pas forcément en fin de ligne) (firstOfRow, lastOfRow, inFirstRow et inLastRow ajoutés en JS)
+			&.first, &.firstOfRow, &.lastOfRow {
+				ul, & { @gridWidth(4; @gridGutter); }
+			}
+			//on force le redimenssionnement du dernier lorsque contenu dans une sidebar
+			#dm_sidebar_left &, #dm_sidebar_right & {
+				&.lastOfRow {
+					ul, & { @gridWidth(4; @gridGutter); }
+				}
+			}
+
+			&.first, &.firstOfRow { padding-left: 0; }
+			&.last, &.lastOfRow { border-right: 0; }
+			&.last { padding-right: @gridGutter/2; }
+			&.lastOfRow { padding-right: 0; }
+			
+			//suppression marge pour la dernière ligne
+			&.inLastRow { margin-bottom: 0; }
+			
+			//niveau 3 et +
+			ul li.dm_dir { padding-left: @gridGutter; padding-right: 0; }
+		}
+
+		//sous parties de niveau 2 et + contenues dans un ul ne contenant aucun sous-dossier
+		&.hasNoDir li {
+			@gridWidth(4; @gridGutter);
 		}
 	}
 
@@ -149,7 +159,7 @@ ul.megadropdown {
 				//gestion décalage pour la première cellule
 				ul {
 					margin-left: 0;
-					ul { margin-left: -1px; }
+					// ul { margin-left: -1px; }
 				}
 			}
 		}
