@@ -27,7 +27,9 @@ ul.megadropdown {
 		background-color: @colorCouleur2;
 		//changement de la pleine largeur au premier sous-niveau
 		padding: @gridBaseline @gridGutter;
-		@gridWidth(@gridCol; (@gridGutter*2));
+		@gridWidth(@gridCol; (@gridGutter*2 + @zonesOffsetPad*-2));
+		//replacement à gauche
+		left: @zonesOffsetPad*-1;
 
 		#dm_sidebar_left & {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
@@ -67,12 +69,12 @@ ul.megadropdown {
 			
 			//raccourcissement des zones extrêmes (sauf .last car pas forcément en fin de ligne) (firstOfRow, lastOfRow, inFirstRow et inLastRow ajoutés en JS)
 			&.first, &.firstOfRow, &.lastOfRow {
-				ul, & { @gridWidth(4; @gridGutter); }
+				ul, & { @gridWidth(4; @gridGutter + @zonesOffsetPad*-1); }
 			}
 			//on force le redimenssionnement du dernier lorsque contenu dans une sidebar
 			#dm_sidebar_left &, #dm_sidebar_right & {
 				&.lastOfRow {
-					ul, & { @gridWidth(4; @gridGutter); }
+					ul, & { @gridWidth(4; @gridGutter + @zonesOffsetPad*-1); }
 				}
 			}
 
@@ -90,7 +92,7 @@ ul.megadropdown {
 
 		//sous parties de niveau 2 et + contenues dans un ul ne contenant aucun sous-dossier
 		&.hasNoDir li {
-			@gridWidth(4; @gridGutter);
+			@gridWidth(4; @gridGutter + @zonesOffsetPad*-1);
 		}
 	}
 
