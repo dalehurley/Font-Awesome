@@ -66,18 +66,20 @@
 
 	//ciblage des listings
 	& .elements .element {
-		// background-color: @colorCouleur3Clair;
 		&:hover { background-color: @colorCouleur3ClairSup; }
 		//ajout padding pour décalage éléments
 		padding-left: @zonesOffsetPad;
 		padding-right: @zonesOffsetPad;
-
-		//container de l'image
-		.imageWrapper {
-			//on supprime le décalage lorsque situé dans un listing
-			margin-right: (@zonesOffsetPad * -1);
-			#dm_sidebar_left &,
-			#dm_sidebar_right & { margin-left: (@zonesOffsetPad * -1); }
-		}
 	}
+
+	//container de l'image
+	//on supprime le décalage lorsque situé dans un listing
+	
+	// & .elements .element .imageWrapper { margin-right: (@zonesOffsetPad * -1); }
+	// #dm_sidebar_left & .elements .element .imageWrapper,
+	// #dm_sidebar_right & .elements .element .imageWrapper { margin-left: (@zonesOffsetPad * -1); }
+
+	//on ne redéclare pas les sidebars car on est déjà à l'intérieur de ces dernières pour l'appel de la fonction
+	.elements .element .imageWrapper { margin-left: (@zonesOffsetPad * -1); }
+	#dm_content & .elements .element .imageWrapper { margin-right: (@zonesOffsetPad * -1); }
 }
