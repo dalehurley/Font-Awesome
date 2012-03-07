@@ -1,13 +1,12 @@
 <?php
 
-require_once realpath(dirname(__FILE__).'/..').'/lib/BaseVacpicpddComponents.class.php';
-
-/**
- * Contact components
- * 
- * No redirection nor database manipulation ( insert, update, delete ) here
- */
-class vacpicpddComponents extends BaseVacpicpddComponents
+class vacpicpddComponents extends myFrontModuleComponents
 {
 
+  public function executeForm()
+  {
+    $this->form = $this->forms['vacpicpddForm'];
+
+  }
+  
 }

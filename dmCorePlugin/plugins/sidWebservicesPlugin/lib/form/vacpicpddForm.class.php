@@ -24,7 +24,7 @@ class vacpicpddForm extends dmForm {
             'taux' => new sfWidgetFormInputText() ,
         ));
         $this->widgetSchema->setLabels(array(
-            'capital' => 'Monant capital placé',
+            'capital' => 'Montant capital placé (en euros)',
             'duree' => 'Durée du placement',
             'periodicite' => 'Périodicité',
             'debut' => 'Versements',
