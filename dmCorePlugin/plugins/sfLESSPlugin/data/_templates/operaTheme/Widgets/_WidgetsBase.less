@@ -34,10 +34,6 @@
 				font-size: @fontSizeH4Px;
 				line-height: @gridBaseline;
 			}
-			#dm_sidebar_left &, #dm_sidebar_right & {
-				font-size: @fontSizeH3Px;
-				line-height: @gridBaseline;
-			}
 		}
 	}
 }
@@ -97,9 +93,21 @@
 				font-family: @fontGlobalFamilySansSerif;
 				font-weight: normal;
 				margin: (@gridBaseline/-2) (@zonesOffsetPad*-1) (@gridBaseline/2) (@zonesOffsetPad*-1);
-				padding: @gridBaseline/2 0;
+				padding: @gridBaseline/4 0;
 				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
 				& + .elements { margin-top: @gridBaseline/-2; }
+			}
+		}
+	}
+}
+
+//ajout bordure sous le titre dans les sidebars
+#dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget {
+		.dm_widget_inner {
+			& > .title {
+				padding-bottom: (@gridBaseline/4 -1px);
+				border-bottom: 1px solid @zonesBorderColor;
 			}
 		}
 	}

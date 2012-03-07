@@ -36,8 +36,12 @@
 @widgetTitleSpriteRound() {
 	//ciblage du titre du widget
 	& .dm_widget_inner > .title {
-		//changement couleur du texte
+		//changement couleur et disposition du texte
 		color: @colorCouleur2;
+		font-size: @fontSizeH3Px;
+		line-height: @gridBaseline;
+		padding: @gridBaseline/2 0;
+		border-bottom: 0;
 		
 		//que si l'élément :after est géré
 		.generatedcontent & {
