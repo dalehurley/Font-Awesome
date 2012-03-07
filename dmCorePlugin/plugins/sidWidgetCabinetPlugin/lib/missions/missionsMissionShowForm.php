@@ -6,7 +6,7 @@ class missionsMissionShowForm extends dmWidgetPluginForm {
 
         parent::configure();
         
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Nos missions'));
+        $this->widgetSchema['titreBloc']->setDefault('Nos missions');
         
     }
 

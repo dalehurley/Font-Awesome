@@ -3,9 +3,9 @@
 echo
 
 $form->renderGlobalErrors(),
- _tag('div', $form['title']->renderRow() .
+ _tag('div', $form['titreBloc']->renderRow() .
         $form['effect']->renderRow().
-        $form['titreLien']->renderRow().
+        $form['lien']->renderRow().
         $form['filDActu']->renderRow()
 );
 

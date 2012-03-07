@@ -7,9 +7,9 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'titreBloc',
-            'titreLien',
+            'lien',
             'length',
-            'nbArticle',
+            'nbArticles',
             'section',
             'withImage',
             'widthImage'
@@ -58,7 +58,7 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                         and s.section_id in ('.$listSectionId.')
                         group by s.section_id
                         ORDER BY s2.updated_at DESC
-                        LIMIT '.$vars['nbArticle'];
+                        LIMIT '.$vars['nbArticles'];
 
             $articleIds = dmDb::pdo($req, array(), dmDb::table('SidArticle')->getConnection())->fetchAll(PDO::FETCH_COLUMN);
 
@@ -67,11 +67,11 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
             }
         }
 
-
+        ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'filActualite', array(
                     'articles' => $arrayFilActus,
                     'titreBloc' => $vars['titreBloc'],
-                    'titreLien' => $vars['titreLien'],
+                    'lien' => $lien,
                     'length' => $vars['length'],
                     'section' => $vars['section'],
                     'withImage' => $vars['withImage'],

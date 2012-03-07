@@ -133,19 +133,7 @@ EOF;
                     }
                 }
             }
-            //------------------------------------------------------------------------------------------------------------
-            //    Replacement des name/slug/title et description des dmPages juste synchronisées
-            //------------------------------------------------------------------------------------------------------------            
-            $results = baseEditorialeTools::renameDmPages();
-
-            if (in_array("verbose", $arguments)) {
-                $this->logSection('### loadArticles', 'Renommage des pages automatiques.');
-                foreach ($results as $result) { 
-                    foreach ($result as $log => $desc) {
-                        $this->logSection($log, $desc,null,$log);
-                    }
-                }
-            }
+            
         } elseif (in_array("articles", $arguments)) {
            /* if (!$this->askConfirmation('Charger les articles? (y/n)')) {
                 $this->log('Annulation...');
@@ -178,6 +166,20 @@ EOF;
                         foreach ($result as $log => $desc) {
                             $this->logSection($log, $desc, null, $log);
                         }
+                    }
+                }
+            }
+            
+            //------------------------------------------------------------------------------------------------------------
+            //    Replacement des name/slug/title et description des dmPages juste synchronisées
+            //------------------------------------------------------------------------------------------------------------            
+            $results = baseEditorialeTools::renameDmPages();
+
+            if (in_array("verbose", $arguments)) {
+                $this->logSection('### loadArticles', 'Renommage des pages automatiques.');
+                foreach ($results as $result) { 
+                    foreach ($result as $log => $desc) {
+                        $this->logSection($log, $desc,null,$log);
                     }
                 }
             }

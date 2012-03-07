@@ -3,6 +3,8 @@
 class missionsMissionsListForm extends dmWidgetPluginForm {
 
     public function configure() {
+        
+        parent::configure();
 
 /*        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText();
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
@@ -29,7 +31,7 @@ class missionsMissionsListForm extends dmWidgetPluginForm {
 //            'chapo' => 'Choisir si on veut afficher le résumé de la page ou le contenu entier de la page'
         ));*/
 
-        parent::configure();
+        
     }
 
     public function getStylesheets() {

@@ -1,5 +1,5 @@
 <?php
-// vars : $titreBloc, $titreLien, $message
+// vars : $titreBloc, $lien, $message
 $html = get_partial('global/titleWidget', array('title' => $titreBloc));
 
 //texte de présentation

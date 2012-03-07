@@ -16,9 +16,9 @@ $form->renderGlobalErrors(),
 _tag('div',
     $form['titreBloc']->renderRow().
     $form['section']->renderRow().
-    $form['titreLien']->renderRow().
-    $form['nbArticle']->renderRow().
-    $form['longueurTexte']->renderRow().
+    $form['lien']->renderRow().
+    $form['nbArticles']->renderRow().
+    $form['length']->renderRow().
     $form['isDossier']->renderRow().
     $form['visibleInDossier']->renderRow()
          

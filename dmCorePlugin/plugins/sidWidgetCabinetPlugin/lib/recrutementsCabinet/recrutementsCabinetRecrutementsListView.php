@@ -32,9 +32,9 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
 
         $recrutements = Doctrine_Query::create()
                 ->from('SidCabinetRecrutement a')
-                ->leftJoin('a.Translation b')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                 ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
-                ->orderBy('b.updated_at DESC')
+                ->orderBy('aTranslation.updated_at DESC')
                 ->limit($nbArticles)
                 ->execute();
 

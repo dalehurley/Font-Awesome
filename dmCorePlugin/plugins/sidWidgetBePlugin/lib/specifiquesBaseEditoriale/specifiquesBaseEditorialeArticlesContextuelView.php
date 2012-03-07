@@ -54,9 +54,9 @@ class specifiquesBaseEditorialeArticlesContextuelView extends dmWidgetPluginView
                     if ($rubriqueList != null) {
                         $articles = Doctrine_Query::create()
                                 ->from('SidArticle sa')
-                                ->leftJoin('sa.Translation b')
+                                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'sa')
                                 ->Where('sa.is_active = ? and sa.section_id = ?', array(true, $rubriqueList))
-                                ->orderBy('b.updated_at DESC')
+                                ->orderBy('saTranslation.updated_at DESC')
                                 ->limit(1)
                                 ->execute();
 

@@ -1,5 +1,5 @@
 <?php
-// vars : $equipes, $titreBloc, $titreLien, $pageEquipe, $length, $rubrique, $nomRubrique, $linkEquipe
+// vars : $equipes, $titreBloc, $lien, $pageEquipe, $length, $rubrique, $nomRubrique, $linkEquipe
 $i = 1;
 $i_max = count($equipes);
 $class ='';
