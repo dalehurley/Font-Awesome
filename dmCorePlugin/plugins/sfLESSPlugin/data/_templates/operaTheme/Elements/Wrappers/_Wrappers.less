@@ -11,7 +11,8 @@
 	
 	//suppression bordures
 	.elements {
-		margin: 0;
+		margin-top: 0;
+		margin-bottom: 0;
 		.element {
 			font-size: @fontSizeMicro;
 			line-height: @gridBaseline;
@@ -103,15 +104,14 @@
 	#dm_content .contentHeader & { margin-bottom: @gridBaseline/2; }
 }
 
-//configuration de base des deux containers d'images
-.imageWrapper, .imageGallery {
-	//on supprime le décalage lorsque situé dans un listing
+//container de l'image
+.imageWrapper {
+	// //on supprime le décalage lorsque situé dans un listing
 	// .elements .element & { margin-right: @zonesOffsetPad * -1; }
-	
-	#dm_sidebar_left .elements .element &,
-	#dm_sidebar_right .elements .element & {
-		// margin-left: @zonesOffsetPad * -1;
-	}
+	// #dm_sidebar_left .elements .element &,
+	// #dm_sidebar_right .elements .element & {
+	// 	margin-left: @zonesOffsetPad * -1;
+	// }
 }
 
 //listings d'éléments diverses (article, personnes, organisations, etc)
@@ -132,7 +132,7 @@
 		// }
 		&:hover { background-color: @colorCouleur3ClairSup; }
 
-		padding: @gridBaseline/2 @zonesOffsetPad (@gridBaseline/2 -1px) @zonesOffsetPad;
+		padding: @gridBaseline/2 0 (@gridBaseline/2 -1px) 0;
 		border-bottom: 1px dashed @zonesBorderColor;
 
 		//suppression bordure et padding pour dernier élément

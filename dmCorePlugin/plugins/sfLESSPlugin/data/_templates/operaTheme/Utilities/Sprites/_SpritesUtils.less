@@ -13,6 +13,9 @@
 @widgetTitleSprite(@theme: "Default"; @category; @name) {
 	//ciblage du titre du widget
 	& .dm_widget_inner > .title {
+		//on rajoute du padding pour éviter le dépassement de la sprite
+		padding: @gridBaseline/2 0;
+
 		//que si l'élément :after est géré (éviter un mélange avec .svg), on rajoute de l'espace à gauche pour caler la sprite
 		.generatedcontent & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px + @offS); }
 		
@@ -35,37 +38,46 @@
 //Arrondi de la sprite avec couleur de fond blanc pour le contour
 @widgetTitleSpriteRound() {
 	//ciblage du titre du widget
-	& .dm_widget_inner > .title {
-		//changement couleur et disposition du texte
-		color: @colorCouleur2;
-		font-size: @fontSizeH3Px;
-		line-height: @gridBaseline;
-		padding: @gridBaseline/2 0;
-		border-bottom: 0;
-		
-		//que si l'élément :after est géré
-		.generatedcontent & {
-			//suppression padding inférieur pour superposition avec contenu en dessous
-			padding-bottom: 0;
-			//pour forcer le passage par devant
-			z-index: 10;
-		}
+	& .dm_widget_inner {
+		background-color: @colorCouleur3Clair;
 
-		&:after {
+		& > .title {
 			background-color: @colorWhite;
-			@borderRadiusCompress(@spriteFormat_M);
+			//changement couleur et disposition du texte
+			color: @colorCouleur2;
+			font-size: @fontSizeH3Px;
+			line-height: @gridBaseline;
+			border-bottom: 0;
+			
+			//que si l'élément :after est géré
+			.generatedcontent & {
+				//suppression padding inférieur pour superposition avec contenu en dessous
+				padding-bottom: 0;
+				//pour forcer le passage par devant
+				z-index: 10;
+			}
+
+			&:after {
+				background-color: @colorWhite;
+				@borderRadiusCompress(@spriteFormat_M);
+			}
 		}
 	}
 
 	//ciblage des listings
 	& .elements .element {
-		background-color: @colorCouleur3Clair;
+		// background-color: @colorCouleur3Clair;
 		&:hover { background-color: @colorCouleur3ClairSup; }
-	}
-	& .navigationWrapper {
-		background-color: @colorCouleur3Clair;
-		.elements .element {
-			&, &:hover { background-color: inherit; }
+		//ajout padding pour décalage éléments
+		padding-left: @zonesOffsetPad;
+		padding-right: @zonesOffsetPad;
+
+		//container de l'image
+		.imageWrapper {
+			//on supprime le décalage lorsque situé dans un listing
+			margin-right: (@zonesOffsetPad * -1);
+			#dm_sidebar_left &,
+			#dm_sidebar_right & { margin-left: (@zonesOffsetPad * -1); }
 		}
 	}
 }
