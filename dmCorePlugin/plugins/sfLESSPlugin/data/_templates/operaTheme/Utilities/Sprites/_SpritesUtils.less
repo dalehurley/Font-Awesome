@@ -56,4 +56,16 @@
 			@borderRadiusCompress(@spriteFormat_M);
 		}
 	}
+
+	//ciblage des listings
+	& .elements .element {
+		background-color: @colorCouleur3Clair;
+		&:hover { background-color: @colorCouleur3ClairSup; }
+	}
+	& .navigationWrapper {
+		background-color: @colorCouleur3Clair;
+		.elements .element {
+			&, &:hover { background-color: inherit; }
+		}
+	}
 }
