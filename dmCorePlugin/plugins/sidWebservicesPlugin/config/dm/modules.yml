@@ -3,7 +3,9 @@ Content:
   Webservices:
 
     vacpicpdd:
-      name:            vacpicpdd
-      credentials:     vacpicpdd
+      name:            webservices
+      credentials:     webservices
       actions:
         form:
+          name:  vacpicpdd
+          
