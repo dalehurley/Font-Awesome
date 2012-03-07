@@ -20,8 +20,8 @@
 			padding: 0;
 			border-bottom: 0;
 			//couleur de fond uniquement dans les sidebars
-			#dm_sidebar_left &,
-			#dm_sidebar_right & { &, &:hover { background-color: inherit; } }
+			// #dm_sidebar_left &,
+			// #dm_sidebar_right & { &, &:hover { background-color: inherit; } }
 			&:hover { background-color: inherit; }
 			&.last{ padding-bottom: 0; }
 		}
@@ -105,30 +105,12 @@
 
 //configuration de base des deux containers d'images
 .imageWrapper, .imageGallery {
-	float: right;
-
 	//on supprime le décalage lorsque situé dans un listing
-	#dm_content .elements .element & { margin-right: @zonesOffsetPad * -1; }
+	// .elements .element & { margin-right: @zonesOffsetPad * -1; }
+	
 	#dm_sidebar_left .elements .element &,
 	#dm_sidebar_right .elements .element & {
-		margin-left: @zonesOffsetPad * -1;
-		margin-right: @zonesOffsetPad * -1;
-	}
-
-	.image, .link {
-		margin-right: 0;
-		margin-left: @gridGutter;
-		&.last { margin-left: 0; }
-	}
-	
-	//on réinitialise pour le container des équipes
-	.supWrapper & {
-		float: left;
-		.image, .link {
-			margin-right: @gridGutter;
-			margin-left: 0;
-			&.last { margin-right: 0; }
-		}
+		// margin-left: @zonesOffsetPad * -1;
 	}
 }
 
@@ -143,11 +125,11 @@
 		}
 		
 		//couleur de fond uniquement dans les sidebars
-		#dm_sidebar_left &,
-		#dm_sidebar_right & {
-			background-color: @colorCouleur3Clair;
-			&:hover { background-color: @colorCouleur3ClairSup; }
-		}
+		// #dm_sidebar_left &,
+		// #dm_sidebar_right & {
+		// 	background-color: @colorCouleur3Clair;
+		// 	&:hover { background-color: @colorCouleur3ClairSup; }
+		// }
 		&:hover { background-color: @colorCouleur3ClairSup; }
 
 		padding: @gridBaseline/2 @zonesOffsetPad (@gridBaseline/2 -1px) @zonesOffsetPad;

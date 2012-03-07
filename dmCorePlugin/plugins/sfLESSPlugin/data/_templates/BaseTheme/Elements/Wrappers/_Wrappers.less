@@ -102,22 +102,6 @@
 
 //configuration de base des deux containers d'images
 .imageWrapper, .imageGallery {
-	float: right;
-	.image, .link {
-		margin-right: 0;
-		margin-left: @gridGutter;
-		&.last { margin-left: 0; }
-	}
-	
-	//on réinitialise pour le container des équipes
-	.supWrapper & {
-		float: left;
-		.image, .link {
-			margin-right: @gridGutter;
-			margin-left: 0;
-			&.last { margin-right: 0; }
-		}
-	}
 }
 
 //listings d'éléments diverses (article, personnes, organisations, etc)

@@ -71,32 +71,43 @@
 //configuration de base des deux containers d'images
 .imageWrapper, .imageGallery {
 	@getClearfix();
-	float: left;
 	//masquage débordements
 	overflow: hidden;
+
+	//par défaut placé à droite dans tous les contenu
+	float: right;
 	.image, .link {
 		display: block;
 		float: left;
-		margin-bottom: @gridBaseline;
-		margin-right: @gridGutter;
-		//suppression marge dans listings
+		margin: 0 0 @gridBaseline @gridGutter;
+		//suppression marges dans listings et dans dernier élément
+		&.last { margin-left: 0; }
 		.elements .element & { margin-bottom: 0; }
-		&.last { margin-right: 0; }
 	}
 	.link .image { float:none; margin: 0; }
+
+	//placé à gauche dans les sidebars et dans les subwrappers
+	#dm_sidebar_left &, #dm_sidebar_right &, .supWrapper & {
+		float: left;
+		.image, .link {
+			margin-right: @gridGutter;
+			margin-left: 0;
+			&.last { margin-right: 0; }
+		}
+	}
 }
 
 //container de l'image
 .imageWrapper {
 	.isLess & {
-		background-color: #B550A9;
-		.image { background-color: #6150B5; }
+		background-color: fadeout(#B550A9, 50%);
+		.image { background-color: fadeout(#6150B5, 50%); }
 	}
 }
 
 //container d'une galerie
 .imageGallery {
-	.isLess & { background-color: #1678B5; }
+	.isLess & { background-color: fadeout(#1678B5, 50%); }
 }
 
 //liens englobants en boite
