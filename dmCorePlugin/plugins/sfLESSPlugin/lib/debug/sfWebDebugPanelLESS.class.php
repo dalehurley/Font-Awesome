@@ -90,7 +90,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
       </tr>
 */
 
-if (sfConfig::get('sf_app')=='front'){
+if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2'){
 
             // affichage de la page courante
         $idDmPage = sfContext::getInstance()->getPage()->id;
