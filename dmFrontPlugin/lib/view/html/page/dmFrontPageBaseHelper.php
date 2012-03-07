@@ -255,7 +255,7 @@ abstract class dmFrontPageBaseHelper extends dmConfigurable
 		 */
 		if ('content' === $type)
 		{
-			//$html .= '</div>';
+			//$html .= '</div>';  // lioshi: Cette suppression permet d'utiliser le bootstrap row-fluid
 		}
 
 		return $html;

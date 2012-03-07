@@ -24,7 +24,7 @@
 .ie6 {
 	body{ text-align: center; }
 	#dm_page { text-align: left; }
-	#dm_content, #dm_sidebar_left, #dm_sidebar_right {
+	#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
 		display: inline;			//display inline or double your floated margin! [1]
 		overflow: hidden;			//in ie6, overflow auto is broken [2] and so is overflow visible [3]
 		overflow-y: visible;
@@ -40,15 +40,15 @@
 #dm_header { z-index: 500; }
 #dm_sidebar_right { z-index: 400; }
 #dm_sidebar_left { z-index: 300; }
-#dm_content { z-index: 200; }
+#dm_page_content { z-index: 200; }
 #dm_footer { z-index: 100; }
 
 //CONFIGURATION D'UNE AREA PAR DÉFAULT (correspond à tous les dm_layout_*)
 .dm_area { position: relative; }
 
 //CONFIGURATION ZONE DE CONTENU EN FONCTION DE LA PRÉSENCE DES SIDEBARS
-#dm_content,
-.dm_sdbc_none #dm_content { float: left; }
+#dm_page_content,
+.dm_sdbc_none #dm_page_content { float: left; }
 
 //PLACEMENT SIDEBARS
 #dm_sidebar_left, #dm_sidebar_right { float: left; padding: 0; }
