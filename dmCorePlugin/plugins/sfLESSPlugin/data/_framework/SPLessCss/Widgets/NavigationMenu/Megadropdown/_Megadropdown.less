@@ -1,6 +1,6 @@
 // _Megadropdown.less
-// v1.4
-// Last Updated : 2012-03-06 18:10
+// v1.5
+// Last Updated : 2012-03-07 11:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -25,7 +25,6 @@ ul.megadropdown {
 	// 		&:nth-of-type(even) { background-color: fadeout(#4E8D99, 50%); }
 	// 		&.dm_dir > .link { background-color: fadeout(#ED2424, 50%) !important; }
 	// 	}
-
 	// 	ul { background-color: #2B3280 !important;
 	// 		ul { background-color: fadeout(#2B3280, 50%) !important; }
 	// 	}
@@ -75,8 +74,8 @@ ul.megadropdown {
 			left: 0;
 		}
 
-		//suppression du float sur les li des sous-parties
-		li li { position: relative; float: none; }
+		//suppression du float sur les li des sous-parties et sur les sous partie ne contenant pas de sous-dossiers
+		&.hasNoDir li, li li { position: relative; float: none; }
 	}
 
 	//niveau 0
@@ -138,6 +137,7 @@ ul.megadropdown {
 		}
 		
 		//définition largeur des sous parties
+		&.hasNoDir li,
 		&.hasDmDir li,
 		ul, #dm_sidebar_left & ul, #dm_sidebar_right & ul {
 			@gridWidth(4);
