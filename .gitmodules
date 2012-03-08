@@ -15,13 +15,13 @@
 	url = git@github.com:SidPresse/symfony.git
 [submodule "dmCorePlugin/test/project/plugins/dmTagPlugin"]
 	path = dmCorePlugin/test/project/plugins/dmTagPlugin
-	url = https://github.com/diem-project/dmTagPlugin.git
+	url = git@github.com:SidPresse/dmTagPlugin.git
 [submodule "dmCorePlugin/lib/vendor/php-html-writer"]
 	path = dmCorePlugin/lib/vendor/php-html-writer
-	url = https://github.com/ornicar/php-html-writer.git
+	url = git@github.com:SidPresse/php-html-writer.git
 [submodule "dmCorePlugin/lib/vendor/php-user-agent"]
 	path = dmCorePlugin/lib/vendor/php-user-agent
-	url = https://github.com/diem-project/php-user-agent.git
+	url = git@github.com:SidPresse/php-user-agent.git
 [submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/lessphp"]
 	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/lessphp
 	url = git@github.com:SidPresse/lessphp.git
