@@ -120,7 +120,7 @@ class sfLESS
 
     if (dmConfig::get('site_theme_version') == 'v2'){
       return sfFinder::type('file')
-        ->name('style.less')
+        ->name('style.less')      // Pour les themes V2 seuls les fichiers style.less sont compilés
         ->discard('_*')
         ->follow_link()
         ->in(self::getConfig()->getLessPaths());
@@ -146,9 +146,16 @@ class sfLESS
   	}
   	$token = '_framework';
     if(strpos($lessFile, $token)){
-      //on récupère la portion se situant après themesFmk
+      //on récupère la portion se situant après _framework
       $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
     }  
+    // 
+    $token = 'bootstrap';
+    if(strpos($lessFile, $token)){
+      //on récupère la portion se situant après bootstrap
+      $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
+    } 
+
   
     $file = preg_replace('/\.less$/', '.css', $lessFile);
     $file = preg_replace(sprintf('/^%s/', preg_quote(self::getConfig()->getLessPaths(), '/')), self::getConfig()->getCssPaths(), $file);
