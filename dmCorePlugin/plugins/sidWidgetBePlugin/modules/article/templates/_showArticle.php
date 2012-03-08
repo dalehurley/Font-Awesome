@@ -81,7 +81,7 @@ if (!is_file($xml)) {
 	} else {
 		echo debugTools::infoDebug(array(__('Error : invalid xml') => $xml),'warning');
 	}
-
+/*
 	if (isset($articleList)){ // si on est dans le dataType agenda alors on a une liste d'articles de la meme section
 
 		echo '<br /><h4 class="title">'.__('The other dates of the month').'</h4>';
@@ -137,7 +137,7 @@ if (!is_file($xml)) {
 		echo _close('ul.elements');
 
 	}
-
+*/
 
 
 }
