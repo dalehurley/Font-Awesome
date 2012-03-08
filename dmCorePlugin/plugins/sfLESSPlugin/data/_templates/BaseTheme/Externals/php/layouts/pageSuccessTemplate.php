@@ -32,11 +32,11 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 						//composition des options de la Area à afficher
 						$areaType = ($area['isPage']) ? 'page' : 'layout';
 						$areaName = $area['areaName'];
-						$areaClass = ($area['clearfix']) ? 'clearfix' : null;
+						$areaClass = ($area['clearfix']) ? '.clearfix' : null;
 						$areaRole = ($area['areaName'] == "content") ? ' data-role="content"' : null;
 						
 						//affichage de la zone si active
-						if ($area['isActive']) echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . '.' . $areaClass . $areaRole);
+						if ($area['isActive']) echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
 						
 						//div vides de test pour la mise en page
 						//echo '<div id="' . (($id === 'dm_page_content') ? 'dm_content' : $id) . '" class="' . (($area['clearfix']) ? 'clearfix ' . $areaName : $areaName) .'">' . $areaName . '</div>';
