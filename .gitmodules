@@ -1,15 +1,15 @@
 [submodule "dmCorePlugin/plugins/sfImageTransformPlugin"]
 	path = dmCorePlugin/plugins/sfImageTransformPlugin
-	url = https://github.com/diem-project/sfImageTransformPlugin.git
+	url = git@github.com:SidPresse/sfImageTransformPlugin.git
 [submodule "dmCorePlugin/plugins/sfWebBrowserPlugin"]
 	path = dmCorePlugin/plugins/sfWebBrowserPlugin
-	url = https://github.com/diem-project/sfWebBrowserPlugin.git
+	url = git@github.com:SidPresse/sfWebBrowserPlugin.git
 [submodule "dmCorePlugin/plugins/sfFeed2Plugin"]
 	path = dmCorePlugin/plugins/sfFeed2Plugin
-	url = https://github.com/diem-project/sfFeed2Plugin.git
+	url = git@github.com:SidPresse/sfFeed2Plugin.git
 [submodule "dmCorePlugin/plugins/sfFormExtraPlugin"]
 	path = dmCorePlugin/plugins/sfFormExtraPlugin
-	url = https://github.com/diem-project/sfFormExtraPlugin.git
+	url = git@github.com:SidPresse/sfFormExtraPlugin.git
 [submodule "symfony"]
 	path = symfony
 	url = git@github.com:SidPresse/symfony.git
