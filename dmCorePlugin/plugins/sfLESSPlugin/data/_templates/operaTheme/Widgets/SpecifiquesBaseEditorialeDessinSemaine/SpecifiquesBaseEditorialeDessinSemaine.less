@@ -5,7 +5,7 @@
 // Author : Arnaud GAUDIN
 
 //Config par défaut des widgets du template
-@import "_templates/BaseTheme/Widgets/_Widgets.less";
+@import "_templates/operaTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
@@ -15,7 +15,18 @@
 @import "_framework/SPLessCss/Widgets/SpecifiquesBaseEditorialeDessinSemaine/_SpecifiquesBaseEditorialeDessinSemaine.less";
 
 .dm_widget.specifiques_base_editoriale_dessin_semaine {
-
+	
+	//spécifique Opéra : suppression padding horizontal et ajustemennt titre
+	#dm_content &, #dm_sidebar_left &, #dm_sidebar_right & {
+		.dm_widget_inner {
+			padding-left: 0;
+			padding-right: 0;
+			& > .title {
+				margin-right: 0;
+				margin-left: 0;
+			}
+		}
+	}
 
 	.ad-image-wrapper {
 		//application dimensions de l'image
