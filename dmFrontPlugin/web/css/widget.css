@@ -4,7 +4,7 @@
 
 */
 #dm_page.edit .dm_widgets {
-    min-height: 10px;
+    min-height: 20px;
 }
 #dm_page.edit .dm_widget, #dm_page .dm_widget.mouseOver {
      position: relative; 
