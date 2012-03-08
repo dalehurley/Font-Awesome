@@ -76,7 +76,7 @@ generator:
           Identite: [ title,statut, tel, fax, gsm, email]
 <?php     
 if(!sfContext::getInstance()->getUser()->isSuperAdmin()){ ?>
-          Photo: [image_view]
+          Photo: [image_form, image_view]
 <?php }
 else{ ?>
           Photo: [image_form, image_view]
