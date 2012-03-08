@@ -1,6 +1,6 @@
 // _Areas.less
-// v1.0
-// Last Updated : 2011-11-14 10:15
+// v1.1
+// Last Updated : 2012-03-08 12:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -9,6 +9,31 @@
 	float: left;
 	width: 100%;
 }
-.edit .dm_zone {
-	min-height: @gridBaseline;
+
+//débuggage du mode édition de la page dans l'admin (OVERRIDE widget.css)
+
+//on supprime le position:relative affecté par widget.css (ligne 31) (pose problème pour les placements en absolue)
+.dm_widgets, .dm_zones, .dm_zone { position: static; }
+
+#dm_page.edit {
+	.dm_zones, .dm_widget .dm_widget_inner { min-height: @gridBaseline; }
+
+	//suppression bordures et replacement par ombres pour éviter dépassements des éléments
+	.dm_widget .dm_widget_inner {
+	    border: 0;
+	    @boxShadow(0 0 0 2px @colorAdminZoneSup);
+	}
+	.dm_widget:hover > .dm_widget_inner {
+	    border: 0;
+	    @boxShadow(0 0 0 2px @colorAdminZone);
+	}
+
+	.dm_zone .dm_widgets {
+		border: 0;
+	    @boxShadow(0 0 0 2px @colorAdminWidgetSup);
+	}
+	.dm_zone:hover .dm_widgets {
+		border: 0;
+	    @boxShadow(0 0 0 2px @colorAdminWidget);
+	}
 }
