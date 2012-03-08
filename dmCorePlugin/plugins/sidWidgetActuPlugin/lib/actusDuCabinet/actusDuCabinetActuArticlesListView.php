@@ -7,6 +7,9 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'titreBloc',
+//            'maxPerPage',
+//            'navTop',
+//            'navBottom',
             'nbArticles',
             'length',
             'withImage',
