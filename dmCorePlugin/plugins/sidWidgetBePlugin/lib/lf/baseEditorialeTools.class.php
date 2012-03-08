@@ -571,6 +571,7 @@ class baseEditorialeTools {
             //$return[0]['OK'] = '................';
             // POUR INTERROGER SERVEUR FTP : rubriques
             $rubriques = transfertTools::scandirServeur(sfConfig::get('app_rep-local'));
+            
             $i = 1;
             
             foreach ($rubriques as $j => $rubrique) {
@@ -579,8 +580,10 @@ class baseEditorialeTools {
                 // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
                 $bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitleAndIsActive($rubrique, true);
                 if ($bdRubrique->isNew()) { // création de la rubrique en base
+                    
                     $bdRubrique->Translation[$arrayLangs[0]]->title = $rubrique; // On insère dans la langue par défaut
                     $bdRubrique->save();
+                    
                     $return[$i]['Rubrique+'] = $rubrique;
                 } else {
                     $return[$i]['Rubrique existe deja en base'] = $rubrique;
