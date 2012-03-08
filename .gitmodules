@@ -12,7 +12,7 @@
 	url = https://github.com/diem-project/sfFormExtraPlugin.git
 [submodule "symfony"]
 	path = symfony
-	url = https://github.com/diem-project/symfony.git
+	url = git@github.com:SidPresse/symfony.git
 [submodule "dmCorePlugin/test/project/plugins/dmTagPlugin"]
 	path = dmCorePlugin/test/project/plugins/dmTagPlugin
 	url = https://github.com/diem-project/dmTagPlugin.git
