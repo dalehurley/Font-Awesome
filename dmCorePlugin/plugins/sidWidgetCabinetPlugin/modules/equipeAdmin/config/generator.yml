@@ -74,13 +74,7 @@ generator:
           Visible sur le site: [is_active]
           Ville d'implentation: [coord_name_id]
           Identite: [ title,statut, tel, fax, gsm, email]
-<?php     
-if(!sfContext::getInstance()->getUser()->isSuperAdmin()){ ?>
           Photo: [image_form, image_view]
-<?php }
-else{ ?>
-          Photo: [image_form, image_view]
-<?php } ?>
           Description: [text]
 #          'Mots clés': [tags_list]
           # m_sections du nom de la relation declaree dans le schema.yml, + _list
