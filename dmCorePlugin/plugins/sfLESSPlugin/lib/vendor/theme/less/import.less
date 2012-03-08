@@ -68,14 +68,8 @@
 @import "_themes/##THEME##/theme.less";
 @import "theme.less";
 
-// debug style : style add to put infos on web debug ;
-dd .swatch {
-    border-radius: 3px 3px 3px 3px;
-    display: inline-block;
-    height: 10px;
-    margin: 0 3px 0 0;
-    width: 30px;
-}
+// debug style : style added to put infos on web debug 
+// must be here to catch LESS variables which can be overriden on core, theme or site
 dd.less_debug_grid-columns:after { content: "@{gridColumns}"; }
 dd.less_debug_grid-column-width:after { content: "@{gridColumnWidth}"; }
 dd.less_debug_grid-gutter-width:after { content: "@{gridGutterWidth}"; }

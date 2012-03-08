@@ -152,7 +152,7 @@ EOF;
             'invalid' => 'La langue n\'existe pas'
         )));
         } else {
-            $lang = 1;
+            $lang = 1; // only one? we take the 1
         }
         // sauvegarde du site_theme dans la table dmSetting
         $configSiteTheme = array(
@@ -165,15 +165,13 @@ EOF;
         );
         $setting = dmDB::table('dmSetting')->findOneByName('site_theme');
         if (is_object($setting)) {
-            $settingTranslation = dmDB::table('dmSettingTranslation')->findOneByIdAndLang($setting->id, $arrayLangs[$lang]);
-            $settingTranslation->set('value', $nomTemplateChoisi);
-            $settingTranslation->save();
-        } else {
-            $setting = new DmSetting;
-            $setting->set('name', 'site_theme');
-            $setting->fromArray($configSiteTheme);
-            $setting->save();
-        }
+            $setting->delete(); // delete entry site_theme
+        } 
+        $setting = new DmSetting;
+        $setting->set('name', 'site_theme');
+        $setting->fromArray($configSiteTheme);
+        $setting->save();
+        
         // sauvegarde du site_theme_version dans la table dmSetting
         $configSiteThemeVersion = array(
             'type' => 'text',
@@ -185,15 +183,13 @@ EOF;
         );
         $setting = dmDB::table('dmSetting')->findOneByName('site_theme_version');
         if (is_object($setting)) {
-            $settingTranslation = dmDB::table('dmSettingTranslation')->findOneByIdAndLang($setting->id, $arrayLangs[$lang]);
-            $settingTranslation->set('value', $nomVersionChoisi);
-            $settingTranslation->save();
-        } else {
-            $setting = new DmSetting;
-            $setting->set('name', 'site_theme_version');
-            $setting->fromArray($configSiteThemeVersion);
-            $setting->save();
-        }        
+            $setting->delete(); // delete entry site_theme_version
+        } 
+        $setting = new DmSetting;
+        $setting->set('name', 'site_theme_version');
+        $setting->fromArray($configSiteThemeVersion);
+        $setting->save();
+       
         $this->logBlock('Le theme : ' . $nomTemplateChoisi. ' ('.$nomVersionChoisi.')' . ' est installe.', 'INFO_LARGE');
     }
 }
