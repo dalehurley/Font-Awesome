@@ -15,6 +15,8 @@
 	& .dm_widget_inner > .title {
 		//on rajoute du padding pour éviter le dépassement de la sprite
 		padding: @gridBaseline/2 0;
+		//suppression bordure du bas
+		border-bottom: 0;
 
 		//que si l'élément :after est géré (éviter un mélange avec .svg), on rajoute de l'espace à gauche pour caler la sprite
 		.generatedcontent & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px + @offS); }
@@ -47,7 +49,6 @@
 			color: @colorCouleur2;
 			font-size: @fontSizeH3Px;
 			line-height: @gridBaseline;
-			border-bottom: 0;
 			
 			//que si l'élément :after est géré
 			.generatedcontent & {
