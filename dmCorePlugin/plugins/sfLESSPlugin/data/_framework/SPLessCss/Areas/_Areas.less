@@ -20,20 +20,32 @@
 
 	//suppression bordures et replacement par ombres pour éviter dépassements des éléments
 	.dm_widget .dm_widget_inner {
-	    border: 0;
-	    @boxShadow(0 0 0 2px @colorAdminZoneSup);
+		border-color: @colorAdminZoneSup;
+		.boxshadow & {
+			border: 0;
+	    	@boxShadow(0 0 0 2px @colorAdminZoneSup);
+		}
 	}
 	.dm_widget:hover > .dm_widget_inner {
-	    border: 0;
-	    @boxShadow(0 0 0 2px @colorAdminZone);
+		border-color: @colorAdminZone;
+		.boxshadow & {
+		    border: 0;
+		    @boxShadow(0 0 0 2px @colorAdminZone);
+		}
 	}
 
 	.dm_zone .dm_widgets {
-		border: 0;
-	    @boxShadow(0 0 0 2px @colorAdminWidgetSup);
+		border-color: @colorAdminWidgetSup;
+		.boxshadow & {
+			border: 0;
+		    @boxShadow(0 0 0 2px @colorAdminWidgetSup);
+		}
 	}
 	.dm_zone:hover .dm_widgets {
-		border: 0;
-	    @boxShadow(0 0 0 2px @colorAdminWidget);
+		border-color: @colorAdminWidget;
+		.boxshadow & {
+			border: 0;
+		    @boxShadow(0 0 0 2px @colorAdminWidget);
+		}
 	}
 }
