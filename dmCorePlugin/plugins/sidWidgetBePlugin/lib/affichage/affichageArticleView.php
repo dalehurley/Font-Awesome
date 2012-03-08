@@ -78,9 +78,13 @@ class affichageArticleView extends dmWidgetPluginView {
             $recordId = $vars['recordId'];
         }
         $article = dmDb::table('SidArticle') //->findOneBySectionId($section->id);
-        ->createQuery('a')->leftJoin('a.Translation b')->where('a.id = ? ', array(
-            $recordId
-        ))->orderBy('b.updated_at DESC')->limit(1)->execute();
+                    ->createQuery('a')
+                    ->leftJoin('a.Translation b')
+                    ->where('a.id = ? ', array($recordId))
+                    ->orderBy('b.updated_at DESC')
+                    ->limit(1)
+                    ->execute();
+        
         $indexRender = '';
         if ($article[0]) {
             $indexRender = stringTools::str_truncate($article[0]->chapeau, 200); // on indexe seulement le chapeau de l'article, on peut laisse le render() complet mais cela s'avère très lent...

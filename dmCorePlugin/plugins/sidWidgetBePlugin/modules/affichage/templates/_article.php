@@ -33,9 +33,9 @@ elseif ($dataType == 'AGENDA'){ // on affiche l'article de dataType AGENDA suivi
             'article' => $article,
             'withImage' => $withImage,
             'widthImage' => $widthImage,
-            'articleList' => $articleList
+//            'articleList' => $articleList
             ));
-    $pageSession = sfContext::getInstance()->getUser()->setAttribute('articleDataType', sfConfig::get('app_article-data-type-article'));
+    $pageSession = sfContext::getInstance()->getUser()->setAttribute('articleDataType', sfConfig::get('app_article-data-type-agenda'));
 }
 else {
     // ni DOSSIER ni ARTICLE 
