@@ -19,11 +19,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 	        if (is_file(sfConfig::get('sf_web_dir') . $cssLink1)) $stylesheets[] = $cssLink1;
 	        if (is_file(sfConfig::get('sf_web_dir') . $cssLink2)) $stylesheets[] = $cssLink2;
 		} else {
-	  //       $cssLink1 = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/NavigationMenu/NavigationMenu.css';
-			// $cssLink2 = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/NavigationMenu/NavigationMenu.' . $vars['menuType'] . '.css';
-			// //chargement des CSS si existantes
-	  //       if (is_file(sfConfig::get('sf_web_dir') . $cssLink1)) $stylesheets[] = $cssLink1;
-	  //       if (is_file(sfConfig::get('sf_web_dir') . $cssLink2)) $stylesheets[] = $cssLink2;			
+	  		// no style in specific file for menu, style of menus import in import.less
 		}
 
 		
@@ -40,7 +36,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         if (dmConfig::get('site_theme_version') == 'v1'){
         	$jsLink = '/theme/less/_framework/SPLessCss/Externals/js/navigationMenu/' . $vars['menuType'] . '.js'; 
         } else { 
-        	$jsLink = '/theme/bootstrap/js/' . $vars['menuType'] . '/menu.js'; 
+        	$jsLink = '/theme/bootstrap/js/menus/' . $vars['menuType'] . '/menu.js'; 
         }
         //chargement du JS si existant
         if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) $javascripts[] = $jsLink;
