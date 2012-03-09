@@ -42,7 +42,7 @@
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
 		//ajout dégradé shiny
-		@verticalGradientMultiPie-4(13%;50%;50%;87%;@colorCouleur1Clair;@colorCouleur1;@colorCouleur1Moyen;@colorCouleur1Fonce);
+		@verticalGradientMultiPie-4(13%;50%;50%;87%;@colorCouleur1Sup;@colorCouleur1;@colorCouleur1MoyenSup;@colorCouleur1Fonce);
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
@@ -111,7 +111,7 @@ ul.dropdown, ul.accordion {
 		&.dm_inactive { color: @colorCouleur3; }
 		//LoVe's Hurts Fade Away
 		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
-		&:active { color: @colorCouleur1Moyen; }
+		&:active { color: @colorCouleur1; }
 	}
 	
 	li {
