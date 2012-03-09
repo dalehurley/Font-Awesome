@@ -118,7 +118,7 @@ $countVille = count($arrayVilles);
                     $incrementEquipe = '';
                 // condition pour gérer les class des listings
 
-                echo _open('li', array('class' => 'element itemscope Person ' . $incrementEquipe, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope', 'id' => $equipe->id));
+                echo _open('li', array('class' => 'element itemscope Person ' . $incrementEquipe, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope', 'id' => dmString::slugify($equipe->getTitle())));
 
                     if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
                         echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->alt($equipe->getTitle())->set('.image itemprop="image"'));
