@@ -26,11 +26,11 @@ height: 10px;
 
 #dm_page.edit .dm_zone:hover  {
   border:0;
-  -webkit-box-shadow:0 0 2px #d90b00;
-  -khtml-box-shadow:0 0 2px #d90b00;
-  -moz-box-shadow:0 0 2px #d90b00;
-  -o-box-shadow:0 0 2px #d90b00;
-  box-shadow:0 0 2px #d90b00;  
+  -webkit-box-shadow:0 0 6px #d90b00;
+  -khtml-box-shadow:0 0 6px #d90b00;
+  -moz-box-shadow:0 0 6px #d90b00;
+  -o-box-shadow:0 0 6px #d90b00;
+  box-shadow:0 0 6px #d90b00;  
 }
 
 #dm_page .dm_zone .dm_zone_edit {

@@ -30,11 +30,11 @@
 
 #dm_page.edit .dm_widget:hover > .dm_widget_inner {
   border:0;
-  -webkit-box-shadow:0 0 4px #0062eb;
-  -khtml-box-shadow:0 0 4px #0062eb;
-  -moz-box-shadow:0 0 4px #0062eb;
-  -o-box-shadow:0 0 4px #0062eb;
-  box-shadow:0 0 4px #0062eb;    
+  -webkit-box-shadow:0 0 3px #0062eb;
+  -khtml-box-shadow:0 0 3px #0062eb;
+  -moz-box-shadow:0 0 3px #0062eb;
+  -o-box-shadow:0 0 3px #0062eb;
+  box-shadow:0 0 3px #0062eb;    
 }
 #dm_page.edit .dm_widget:hover > .dm_widget_edit {
     background-position: -32px -19px;

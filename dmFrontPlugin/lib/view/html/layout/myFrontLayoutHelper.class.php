@@ -57,7 +57,11 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	public function renderIeHtml5Fix()
 	{
 		if ($this->isHtml5()) {
-			$html = '<script src="/theme/less/_framework/SPLessCss/Externals/js/modernizr/modernizr-2.0.6.custom.min.js"></script>';
+			if (dmConfig::get('site_theme_version') == 'v1') {
+				$html = '<script src="/theme/less/_framework/SPLessCss/Externals/js/modernizr/modernizr-2.0.6.custom.min.js"></script>';
+			} else {
+				$html = '<script src="/theme/less/bootstrap/js/modernizr/modernizr-2.0.6.custom.min.js"></script>';
+			}
 			$html.= PHP_EOL;
 			$html.= '<!--[if (gte IE 6)&(lte IE 8)]><script src="'.sfConfig::get('sf_js_cdn_cdnjs').'/selectivizr/1.0.2/selectivizr-min.js"></script><![endif]-->';
 			//return '<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
