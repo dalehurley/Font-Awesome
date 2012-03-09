@@ -26,12 +26,7 @@ class SidCabinetEquipeAdminForm extends BaseSidCabinetEquipeForm {
                     'multiple' => false,
                     'expanded' => false,
                 ));
-        
-        if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
-        $photoEquipe = dmDb::table('SidCabinetEquipe')->findOneById($this->object->id);
-//        (!is_object($photoEquipe)) ? 
-        $this->widgetSchema['image'] = new sfWidgetFormInputHidden(array(),array('value' => $photoEquipe->image)) ;
-        }
+
         
         $this->validatorSchema['coord_name_id'] = new sfValidatorDoctrineChoice(array('model' => 'SidCoordName'));
         $this->validatorSchema['m_rubriques_list'] = new sfValidatorDoctrineChoice(array('model' => 'SidRubrique','required' => false,'multiple' =>true));
@@ -47,6 +42,9 @@ class SidCabinetEquipeAdminForm extends BaseSidCabinetEquipeForm {
         
         $form = parent::createMediaFormForImage();
         unset($form['legend'], $form['author'], $form['license']);
+        if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
+            unset($form['file']);
+        }
         return $form;
     }
 

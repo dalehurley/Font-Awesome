@@ -10,7 +10,8 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
             'lien',
             'nbArticles',
             'withImage',
-            'widthImage'
+            'widthImage',
+            'mailTo'
         ));
     }
 	
@@ -48,7 +49,8 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                         ->leftJoin('sas.SidRubrique s')
                         ->where('s.id = ? and p.is_active = ? ', array($recordId,true))
-//                        ->limit($nbArticles)
+                        ->orderBy('RANDOM()')
+                        ->limit($nbArticles)
                         ->execute();
                 
                 
@@ -73,7 +75,8 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                         ->leftJoin('sas.SidRubrique s')
                         ->where('s.id = ? and p.is_active = ?', array($recordId,true))
-//                        ->limit($nbArticles)
+                        ->orderBy('RANDOM()')
+                        ->limit($nbArticles)
                         ->execute();
                 // si il n'y a pas de contexte ou pas de collaborateur affecté à une rubrique
                 if (count($equipes) == 0) {
@@ -126,6 +129,8 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                             ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                             ->leftJoin('sas.SidRubrique s')
                             ->where('s.id = ? and p.is_active = ? ', array($rubrique->sidRubriqueId,true))
+                            ->orderBy('RANDOM()')
+                            ->limit($nbArticles)
                             ->execute();
                 
                 }
@@ -191,6 +196,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                     'lien' => $vars['lien'],
                     'withImage' => $vars['withImage'],
                     'width' => $vars['widthImage'],
+                    'mailTo' => $vars['mailTo'],
                 ));
     }
 

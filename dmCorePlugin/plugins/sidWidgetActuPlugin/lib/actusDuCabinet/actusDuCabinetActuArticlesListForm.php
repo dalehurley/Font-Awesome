@@ -6,6 +6,24 @@ class actusDuCabinetActuArticlesListForm extends dmWidgetPluginForm {
         
         parent::configure();
         
+//        // Max per page
+//        $this->widgetSchema['maxPerPage']     = new sfWidgetFormInputText(array('label' => 'Nb par page'), array(
+//          'size' => 3          
+//        ));
+//        $this->validatorSchema['maxPerPage']  = new sfValidatorInteger(array(
+//          'required' => false,
+//          'min' => 0,
+//          'max' => 99999
+//        ));
+//
+//        // Paginators top & bottom
+//        $this->widgetSchema['navTop']       = new sfWidgetFormInputCheckbox(array('label' => 'Navigation en haut'));
+//        $this->validatorSchema['navTop']    = new sfValidatorBoolean();
+//
+//        $this->widgetSchema['navBottom']    = new sfWidgetFormInputCheckbox(array('label' => 'Navigation en bas'));
+//        $this->validatorSchema['navBottom'] = new sfValidatorBoolean();
+
+
         // on rajoute ou on surcharge les éléments de dmWidgetPluginForm
         
         $this->widgetSchema['type'] = new sfWidgetFormDoctrineChoice(array(
