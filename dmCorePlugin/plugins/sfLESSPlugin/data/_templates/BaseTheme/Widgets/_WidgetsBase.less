@@ -19,7 +19,7 @@
 	.dm_widget_inner {
 		//changement taille du titre des widgets
 		& > .title {
-			#dm_content & {
+			#dm_page_content & {
 				text-transform: none;
 				font-size: @fontSizeH3Px;
 				line-height: @gridBaseline;
@@ -74,7 +74,7 @@
 }
 
 //stylage par défaut des widgets dans les zones principales
-#dm_content, #dm_sidebar_left, #dm_sidebar_right {
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
 	.dm_widget {
 		margin-bottom: @gridBaseline/2;
 		

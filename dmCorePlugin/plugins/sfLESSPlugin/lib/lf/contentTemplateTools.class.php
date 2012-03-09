@@ -221,6 +221,58 @@ class contentTemplateTools {
         return $return;
     }
 
+    /**
+     * Liste des themes graphiques disponibles
+     * Le tableau de retour est de la forme
+     * ['v1']
+     *   ['themeZ'] 
+     * ['v2']
+     *   ['themeX']
+     *   ['themeY']            
+     * @return array 
+     */
+    public static function dispoThemes($this) {
+        //---------------------------------------------------------------------------------
+        //        recuperation des differentes maquettes du coeur
+        //---------------------------------------------------------------------------------
+        // scan du dossier /data/_templates du plugin
+        $pluginDataDir = dirname(__FILE__) . '/../../data/_templates';   // les themes V1
+        $pluginLibDirTheme = dirname(__FILE__) . '/../../lib/vendor/_themes';         //les themes v2
+        $arrayTemplatesV1 = scandir($pluginDataDir);
+        $arrayTemplatesV2 = scandir($pluginLibDirTheme);
+        $dispoTemplates = array();
+        $dispoTemplatesV1 = array();
+        $dispoTemplatesV2 = array();
+        
+        foreach ($arrayTemplatesV1 as $template) {
+            // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
+            if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_' && substr($template, 0, 1) != '.') {
+                    $dispoTemplatesV1[] = $template;
+            }
+        }
+
+        foreach ($arrayTemplatesV2 as $template) {
+            // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
+            if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_' && substr($template, 0, 1) != '.') {
+                    $dispoTemplatesV2[] = $template;
+            }
+        }
+
+        // on stocke tous les themes ensemble
+        $i = 1;
+        foreach ($dispoTemplatesV1 as $templateV1) {
+            $dispoTemplates['v1'][$i] = $templateV1;
+            $i++;
+        }
+        foreach ($dispoTemplatesV2 as $templateV2) {
+            $dispoTemplates['v2'][$i] = $templateV2;
+            $i++;
+        }
+
+        return $dispoTemplates;
+
+    }
+
     // doctrine:data-dump et data-load abandonnes au profit de mysqldump
 //        /**
 //     * 

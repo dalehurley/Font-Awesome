@@ -19,7 +19,7 @@
 
 	.ad-image-wrapper {
 		//application dimensions de l'image
-		#dm_content & {
+		#dm_page_content & {
 			@gridWidth(@thumbContent_col);
 			@gridHeight(@thumbContent_bl);
 		}
@@ -102,7 +102,7 @@
 			border: 1px solid @zonesBorderColor;
 			&.ad-active { border: 2px solid @colorCouleur1; }
 
-			#dm_content & {
+			#dm_page_content & {
 				//on soustrait l'épaisseur de la bordure
 				@gridWidth(@thumbM_col; 2px);
 				@gridHeight(@thumbM_bl; 2px);

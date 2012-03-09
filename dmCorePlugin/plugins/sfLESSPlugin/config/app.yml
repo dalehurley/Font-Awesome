@@ -7,6 +7,7 @@ all:
     use_lessphp_compiler: true
     css_path: /theme/css/
     less_path: /theme/less/
+    toolbar: true
 
 dev:
   sf_less_plugin:

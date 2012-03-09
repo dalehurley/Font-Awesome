@@ -11,9 +11,12 @@
 }
 
 #dm_page.edit .dm_widget .dm_widget_inner {
-    border: 1px solid #99c3ff;
-    min-height: 20px;
-   /*  margin:  1px;      */
+  border:0;
+  -webkit-box-shadow:0 0 1px #99c3ff;
+  -khtml-box-shadow:0 0 1px #99c3ff;
+  -moz-box-shadow:0 0 1px #99c3ff;
+  -o-box-shadow:0 0 1px #99c3ff;
+  box-shadow:0 0 1px #99c3ff;
 }
 
 #dm_page.edit .dm_widget > .dm_widget_edit {
@@ -26,8 +29,18 @@
 
 
 #dm_page.edit .dm_widget:hover > .dm_widget_inner {
-    border: 1px solid #0062eb; 
+  border:0;
+  -webkit-box-shadow:0 0 3px #0062eb;
+  -khtml-box-shadow:0 0 3px #0062eb;
+  -moz-box-shadow:0 0 3px #0062eb;
+  -o-box-shadow:0 0 3px #0062eb;
+  box-shadow:0 0 3px #0062eb;    
 }
+#dm_page.edit .dm_widget:hover > .dm_widget_edit {
+    background-position: -32px -19px;
+}
+
+
 .dm_widgets, .dm_zone, .dm_zones {
     position: relative;
 }
@@ -44,9 +57,7 @@
   z-index: 1001;
 }
 
-#dm_page.edit .dm_widget:hover > .dm_widget_edit {
-    background-position: -32px -19px;
-}
+
 
 .dm_widget_placeholder {
     margin: 3px;
