@@ -37,21 +37,22 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
     
 
     // ajout lionel: ajout du champ menuType pour le menu (ajout Arnaud : choix par défaut)
-	$typeChoice = array(
-		'default' => 'default',
-		'dropdown' => 'dropdown', 
-		'megadropdown' => 'megadropdown', 
-		'accordion' => 'accordion'
-	); 
-	$this->widgetSchema['menuType'] = new sfWidgetFormChoice(array(
-		'choices' => $typeChoice,
-		'default' => $typeChoice['default']
-	));
-	$this->validatorSchema['menuType'] = new sfValidatorChoice(array(
-		'choices' => array_keys($typeChoice)
-	));
-	$this->widgetSchema['menuType']->setLabel('Type');
-	$this->widgetSchema->setHelp('menuType', 'Le type de votre menu');
+    $typeChoice = array(
+        'default'      => 'default',
+        'dropdown'     => 'dropdown', 
+        'megadropdown' => 'megadropdown', 
+        'accordion'    => 'accordion'
+    ); 
+ 
+  	$this->widgetSchema['menuType'] = new sfWidgetFormChoice(array(
+  		'choices' => $typeChoice,
+  		'default' => $typeChoice['default']
+  	));
+  	$this->validatorSchema['menuType'] = new sfValidatorChoice(array(
+  		'choices' => array_keys($typeChoice)
+  	));
+  	$this->widgetSchema['menuType']->setLabel('Type');
+  	$this->widgetSchema->setHelp('menuType', 'Le type de votre menu');
     // fin ajout lionel
 
     if($this->getService('user')->can('system'))

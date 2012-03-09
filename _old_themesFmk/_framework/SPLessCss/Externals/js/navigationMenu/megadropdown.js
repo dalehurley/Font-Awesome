@@ -15,7 +15,7 @@
 		
 		
 		//on ne s'occupe que des liens ayant des enfants (dm_dir)
-		$('ul.megadropdown > li.dm_dir').each(function() {
+		$('ul.menu-megadropdown > li.dm_dir').each(function() {
 			//sélection diverses
 			var selectRow = $(this).find('ul');
 			var selectCol = $(this).find('ul > li.dm_dir');

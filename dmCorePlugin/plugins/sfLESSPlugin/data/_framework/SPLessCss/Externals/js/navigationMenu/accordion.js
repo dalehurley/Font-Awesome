@@ -132,8 +132,8 @@
 	
 	//lancement automatique de la fonction
 	$(document).ready(function(){
-		$('ul.accordion').menuAccordion();
-		/*$('ul.accordion').menuAccordion({
+		$('ul.menu-accordion').menuAccordion();
+		/*$('ul.menu-accordion').menuAccordion({
 									duration: 500
 									});*/
 	});
