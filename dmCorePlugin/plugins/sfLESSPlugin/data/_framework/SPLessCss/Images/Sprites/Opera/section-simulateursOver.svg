@@ -14,11 +14,11 @@
 			S17.035,4.901,32.002,4.901C46.963,4.901,59.1,17.032,59.1,31.992z"/>
 		<g>
 			<radialGradient id="fondBackground" cx="56.2461" cy="-343.7988" r="41.1343" gradientTransform="matrix(1 0 0 -1 -19.7197 -325)" gradientUnits="userSpaceOnUse">
-				<stop  offset="0.489" style="stop-color:##spriteCouleur1Clair##"/>
+				<stop  offset="0.489" style="stop-color:##spriteCouleur1Sup##"/>
 				<stop  offset="0.6414" style="stop-color:##spriteCouleur1##"/>
-				<stop  offset="0.76" style="stop-color:##spriteCouleur1Moyen##"/>
+				<stop  offset="0.76" style="stop-color:##spriteCouleur1MoyenSup##"/>
 				<stop  offset="0.8437" style="stop-color:##spriteCouleur1##"/>
-				<stop  offset="0.8951" style="stop-color:##spriteCouleur1Clair##"/>
+				<stop  offset="0.8951" style="stop-color:##spriteCouleur1Sup##"/>
 			</radialGradient>
 			<path fill="url(#fondBackground)" d="M56.018,31.994c0,13.261-10.758,24.022-24.016,24.022c-13.266,0-24.02-10.763-24.02-24.022
 				S18.736,7.983,32.002,7.983C45.26,7.983,56.018,18.734,56.018,31.994z"/>
