@@ -45,24 +45,26 @@
 				font-size: @fontSizeSmall;
 				line-height: @gridBaseline;
 			}
+
+			//mise en ligne de tous les éléments
+			.subWrapper, .itemscope, .itemprop {
+				display: inline;
+				vertical-align: top;
+			}
 		}
 	}
 
 	//suppression sprites par défaut
-	.type {
-		//suppression sprites par défaut
-		@spriteDelete();
-		text-indent: inherit;
-		padding: inherit;
-		margin: inherit;
+	&, .email, .faxNumber, .telephone {
+		.type {
+			//suppression sprites par défaut
+			@spriteDelete();
+			text-indent: inherit;
+			padding: inherit;
+			margin: inherit;
+		}
 	}
-
-	//mise en ligne de tous les éléments
-	.subWrapper, .itemscope, .itemprop {
-		display: inline;
-		vertical-align: top;
-	}
-
+	
 	//masquage de tous les itemprops type et separator sauf pour l'email
 
 	.itemprop {
