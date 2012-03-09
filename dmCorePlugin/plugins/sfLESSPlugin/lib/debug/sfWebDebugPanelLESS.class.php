@@ -108,7 +108,9 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
         $tabInfos['Page recordId'] = $recordId;
         $tabInfos['Grid Columns'] = '';
         $tabInfos['Grid Column Width'] = '';
-        $tabInfos['Grid Gutter Width'] = '';      
+        $tabInfos['Grid Gutter Width'] = '';  
+        $tabInfos['Grid Row Width'] = '';  
+
         $tabInfos['Fluid Grid Column Width'] = '';
         $tabInfos['Fluid Grid Gutter Width'] = '';  
         $tabInfos['Base Font Size'] = '';  
