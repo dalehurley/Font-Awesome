@@ -10,7 +10,8 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
             'lien',
             'nbArticles',
             'withImage',
-            'widthImage'
+            'widthImage',
+            'mailTo'
         ));
     }
 	
@@ -195,6 +196,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                     'lien' => $vars['lien'],
                     'withImage' => $vars['withImage'],
                     'width' => $vars['widthImage'],
+                    'mailTo' => $vars['mailTo'],
                 ));
     }
 

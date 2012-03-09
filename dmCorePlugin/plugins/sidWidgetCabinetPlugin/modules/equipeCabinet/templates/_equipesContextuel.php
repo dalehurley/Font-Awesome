@@ -1,5 +1,5 @@
 <?php
-// vars : $equipes, $titreBloc, $lien, $pageEquipe, $length, $rubrique, $nomRubrique, $linkEquipe
+// vars : $equipes, $titreBloc, $lien, $pageEquipe, $length, $rubrique, $nomRubrique, $linkEquipe, $mailTo
 $i = 1;
 $i_max = count($equipes);
 $class ='';
@@ -32,7 +32,7 @@ foreach($equipes as $equipe) {
                         $html.= _tag('span', array('class' => 'itemprop jobTitle', 'itemprop' => 'jobTitle'), $equipe->getStatut());
                         $html.= _open('span', array('class' => 'contactPoints itemscope ContactPoint', 'itemtype' => 'http://schema.org/ContactPoint', 'itemscope' => 'itemscope', 'itemprop' => 'contactPoints'));
                             
-                            if ($equipe->email != NULL) {
+                            if ($equipe->email != NULL && $mailTo == true) {
                                 $html.= _open('span', array('class' => 'itemprop email'));
                                 $html.= _tag('span', array('class' => 'type', 'title' => __('Email')), __('Email'));
                                 $html.= _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
@@ -57,8 +57,8 @@ foreach($equipes as $equipe) {
                             };
                         $html.= _close('span');
                     $html.= _close('span');
-                    if($equipe->email == NULL){
-                        echo _link($linkEquipe)->anchor($equipe->id)->set('.link_box')->text($html);
+                    if($equipe->email == NULL || $mailTo == false){
+                        echo _link($linkEquipe)->anchor(dmString::slugify($equipe->getTitle()))->set('.link_box')->text($html);
                     }
                     else echo $html;
                 echo _close('li');

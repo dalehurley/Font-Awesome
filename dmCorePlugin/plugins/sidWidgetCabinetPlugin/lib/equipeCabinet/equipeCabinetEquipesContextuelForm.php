@@ -14,7 +14,8 @@ class equipeCabinetEquipesContextuelForm extends dmWidgetPluginForm {
                     'min' => 1,
                     'required' => true
                 ));
-       
+        $this->widgetSchema['mailTo'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Afficher lien mailTo pour le bloc'));
+        $this->validatorSchema['mailTo']  = new sfValidatorBoolean();
     }
 
     public function getStylesheets() {
