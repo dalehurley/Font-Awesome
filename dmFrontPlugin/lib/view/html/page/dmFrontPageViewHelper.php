@@ -70,10 +70,15 @@ class dmFrontPageViewHelper extends dmFrontPageBaseHelper
                 
                 $const = dmDb::table('SidConstantes')->findOneByName(strtolower($matchDB));  // les sidConstantes.name sont en minuscules
                 //ajout stef
-                if (is_object($const)) $content = $const->getContent();
+                if (is_object($const)) {
+                  $content = $const->getContent();
+                  $existContent = true;
+                } else {
+                  $existContent = false;
+                }
                 // ajout stef
-                if (isset($content)) {
-                    $infosDev .= '[' . $matchDB . ' -> '.$const->getContent().']<br>';
+                if ($existContent) {
+                    //$infosDev .= '[' . $matchDB . ' -> '.$const->getContent().']<br>';
                     if ($isMaj){  // on met la première lettre en majuscule si spécifié
                         $replaceConstante = ucfirst($const->getContent());
                     } else {
@@ -83,7 +88,7 @@ class dmFrontPageViewHelper extends dmFrontPageBaseHelper
                 } else {
                     // on affiche un message que pour l'environnement de dev
                     if (sfConfig::get('sf_environment') == 'dev') {
-                        $html .= debugTools::infoDebug(array('Constante' => $match . ' n\'existe pas. Merci de l\'ajouter dans l\'administration du site > Outils > Constantes.', 'warning'));
+                        $html .= debugTools::infoDebug(array('Constante' => $match . ' n\'existe pas. Merci de l\'ajouter dans l\'administration du site > Outils > Constantes.'), 'warning');
                     }
                 }
             }
