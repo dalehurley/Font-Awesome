@@ -547,7 +547,7 @@ class baseEditorialeTools {
             $sectionEcheanciers = scandir($dirEcEcheancier);
             foreach ($sectionEcheanciers as $j => $sectionEcheancier) { // les dossiers des sections
                 if (($sectionEcheancier != '.') && ($sectionEcheancier != '..')) {
-                    if (intval($sectionEcheancier) < intval($currentMonth)){
+                    if (intval($sectionEcheancier) < intval($currentMonth) && $sectionEcheancier != 'vacances'){
                         exec('rm -Rf '.$dirEcEcheancier.'/'.$sectionEcheancier);
                         echo '      Suppression mois echu => '. $sectionEcheancier.'
 ';
