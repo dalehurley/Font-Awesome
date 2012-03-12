@@ -34,60 +34,80 @@ EOF;
         $pluginDataDir = dirname ( __FILE__ ).'/../../data/_templates';
         $arrayTemplates = scandir($pluginDataDir);
 
-        $i = 0;
-        $dispoTemplates = array();
-        
-        foreach ($arrayTemplates as $template) {
-            // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
-            if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_') {
-                $i++;
-                $dispoTemplates[$i] = $template;
+        $dispoTemplates = contentTemplateTools::dispoThemes();
+
+        // on affiche les choix
+        $choices = array();
+        $this->logBlock('Themes disponibles :', 'INFO_LARGE');
+        foreach ($dispoTemplates as $version => $arrayDispoTemplates) {     
+            // on affiche les entètes de version
+            $this->logblock('Thèmes '.$version, 'HELP');
+            foreach ($arrayDispoTemplates as $k => $dispoTemplate) {
+                $this->logSection($k, $dispoTemplate);
+                $choices[] = $k;
             }
         }
-        // on affiche les choix
-        $this->logBlock('Themes disponibles pour duplication:', 'INFO_LARGE');
-        
-        foreach ($dispoTemplates as $k => $dispoTemplate) {
-            $this->logSection($k, $dispoTemplate);
-        }
+
         // choix de la maquette du coeur
         $numTemplate = $this->askAndValidate(array(
             '',
-            'Le numero du template a dupliquer choisi?',
+            'Le numero du theme choisi?',
             ''
         ) , new sfValidatorChoice(array(
-            'choices' => array_keys($dispoTemplates) ,
+            'choices' => $choices,
             'required' => true
         ) , array(
             'invalid' => 'Le template n\'existe pas'
         )));
-        $nomTemplateChoisi = $dispoTemplates[$numTemplate];
-        $this->logBlock('Vous avez choisi de dupliquer le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
+
+        foreach ($dispoTemplates as $version => $arrayDispoTemplates) {     
+            if (isset($arrayDispoTemplates[$numTemplate])){
+                $nomTemplateChoisi = $arrayDispoTemplates[$numTemplate];
+                $nomVersionChoisi = $version;
+            }
+        }
+
+        $this->logBlock('Vous avez choisi de dupliquer le template : ' . $nomTemplateChoisi. ' ('.$nomVersionChoisi.')', 'CHOICE_LARGE');
 
 
         // choix du nouveau nom de theme 
-        $newThemeName = $this->askAndValidate(array('', 'Le nom du nouveau thème? (en minuscule sans espace, de 3 à 15 caractères, le suffixe Theme sera ajouter automatiquement)', ''), new sfValidatorRegex(
+        $newThemeName = $this->askAndValidate(array('', 'Le nom du nouveau thème? (en minuscule sans espace, de 3 à 15 caractères)', ''), new sfValidatorRegex(
                         array('pattern' => '/^[a-z]{3,15}$/',
                         'required' => true),
                         array('invalid' => 'Le nom du thème est invalide')
         ));
-        // on suffixe par Theme
-        $newThemeName = $newThemeName . 'Theme';
-        // duplication du thème
-        $duplicateThemeDir = dirname ( __FILE__ ).'/../../data/_templates/'.$nomTemplateChoisi;
-        $newThemeDir = dirname ( __FILE__ ).'/../../data/_templates/'.$newThemeName;
 
+        switch ($nomVersionChoisi) {
+            case 'v1':
+                $newThemeName = $newThemeName . 'Theme'; // on ajoute Theme pour les v1
+                $duplicateThemeDir = dirname ( __FILE__ ).'/../../data/_templates/'.$nomTemplateChoisi;
+                $newThemeDir = dirname ( __FILE__ ).'/../../data/_templates/'.$newThemeName;
+                break;
+            case 'v2':
+                $duplicateThemeDir = dirname ( __FILE__ ).'/../../lib/vendor/_themes/'.$nomTemplateChoisi;
+                $newThemeDir = dirname ( __FILE__ ).'/../../lib/vendor/_themes/'.$newThemeName;
+                break;            
+            default:
+                # code...
+                break;
+        }
+            
         if (!is_dir($newThemeDir)){
             // duplication
             $this->logBlock('Copie du dossier ' . $duplicateThemeDir . ' en '. $newThemeDir, 'INFO');
             mkdir($newThemeDir);
             $this->getFilesystem()->execute('cp -r ' . $duplicateThemeDir .'/* ' . $newThemeDir, $out, $err);
-            // changement du nom du theme dans le code des fichiers .less
-            $this->logBlock('Renommage dans les fichiers', 'INFO');
-            $this->getFilesystem()->execute('find '. $newThemeDir .' -name "*.less" -print | xargs perl -pi -e \'s/'.$nomTemplateChoisi.'/'.$newThemeName.'/g\'');
-            // renommage du fichier racine du template qui doit avoir le nom du theme $newThemeDir.'/_'.$nomTemplateChoisi.'.less' en $newThemeDir.'/_'.$newThemeName.'.less'
-            $this->logBlock('Renommage du fichier racine', 'INFO');
-            $this->getFilesystem()->execute('mv '.$newThemeDir.'/_'.$nomTemplateChoisi.'.less ' .$newThemeDir.'/_'.$newThemeName.'.less');
+
+            if ($nomVersionChoisi == 'v1'){ // pas besoin de tout ça pour les themes v2
+                // changement du nom du theme dans le code des fichiers .less
+                $this->logBlock('Renommage dans les fichiers', 'INFO');
+                $this->getFilesystem()->execute('find '. $newThemeDir .' -name "*.less" -print | xargs perl -pi -e \'s/'.$nomTemplateChoisi.'/'.$newThemeName.'/g\'');
+
+                // renommage du fichier racine du template qui doit avoir le nom du theme $newThemeDir.'/_'.$nomTemplateChoisi.'.less' en $newThemeDir.'/_'.$newThemeName.'.less'
+                $this->logBlock('Renommage du fichier racine', 'INFO');
+                $this->getFilesystem()->execute('mv '.$newThemeDir.'/_'.$nomTemplateChoisi.'.less ' .$newThemeDir.'/_'.$newThemeName.'.less');
+            }
+
             // suppression des dumps du dossier $newThemeDir.'/Externals/db'
             $this->logBlock('Suppression des dumps existants', 'INFO');
             $this->getFilesystem()->execute('rm -rf '.$newThemeDir.'/Externals/db/*');        

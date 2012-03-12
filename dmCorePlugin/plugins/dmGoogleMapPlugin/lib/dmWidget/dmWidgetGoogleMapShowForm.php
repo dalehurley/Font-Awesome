@@ -57,11 +57,11 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
 
     if(!$this->getDefault('width'))
     {
-      $this->setDefault('width', '100%');
+      $this->setDefault('width', '350px');
     }
     if(!$this->getDefault('height'))
     {
-      $this->setDefault('height', '500px');
+      $this->setDefault('height', '250px');
     }
     if(!$this->getDefault('mapTypeId'))
     {

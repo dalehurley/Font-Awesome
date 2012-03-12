@@ -10,7 +10,6 @@
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
-@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Config du widget courant
 @import "_templates/BaseTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
@@ -18,7 +17,7 @@
 //Importation des classes de composition du menu
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Dropdown/_Dropdown.less";
 
-ul.dropdown {
+ul.menu-dropdown {
 	//rajout bordure à gauche sur les menus
 	&, & ul { border-left: 1px solid @zonesBorderColor; }
 	
@@ -108,7 +107,7 @@ ul.dropdown {
 	}
 	
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
-	#dm_custom_top .navigation_menu & {
+	#dm_custom_top .dm_widget.navigation_menu & {
 		//supression bordure à gauche sur le premier niveau
 		border-left: 0;
 		
@@ -149,15 +148,15 @@ ul.dropdown {
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
+				//uniformisation couleur de police
+				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
+				&.dm_inactive { color: @colorCouleur3Clair; }
+				
 				margin-top: floor(@gridBaseline / 4) + 1px;
 				margin-bottom: floor(@gridBaseline / 4) + 1px;
 				padding-top: floor(@gridBaseline / 4) + 0px;
 				padding-bottom: floor(@gridBaseline / 4) + 0px;
 				border-bottom: 0;
-				//ajout des transitions pour navigateurs récents
-				//.csstransitions & {
-				//	@transitionCompress(all; .2s; ease-in-out; 0);
-				//}
 			}
 			//pleine hauteur lors du rollOver
 			&:hover > .link,
@@ -204,36 +203,6 @@ ul.dropdown {
 					//suppression animation rotation
 					@transformNone();
 					@transitionNone();
-				}
-			}
-			
-			//lien vers la page d'accueil
-			&.dm_root {
-				//décalage de marge
-				@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
-				@decalH: (@gridColWidth - @spriteFormat_M) / 2;
-				
-				//ajout de la sprite sur la home
-				& > .link_root {
-					//suppression du texte
-					text-indent:-9999em;
-					//insertion de la sprite
-					@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
-					//suppression rollOver
-					&:hover, &:focus { background-color: transparent; }
-				}
-				
-				//uniformisation des marges du bouton
-				& > .link_root,
-				&:hover > .link_root,
-				& > .link_root:hover,
-				& > .link_root:focus,
-				&.first:hover > .link_root,
-				&.first > .link_root:hover,
-				&.first > .link_root:focus {
-					border: 0;
-					padding: 0;
-					margin: @decalV @decalH;
 				}
 			}
 		}

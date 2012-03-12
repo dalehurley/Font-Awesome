@@ -14,16 +14,12 @@
 @import "_templates/BaseTheme/Widgets/SpecifiquesBaseEditorialeFilActualite/_SpecifiquesBaseEditorialeFilActualite.less";
 @import "_templates/BaseTheme/Widgets/SpecifiquesBaseEditorialeListAgenda/_SpecifiquesBaseEditorialeListAgenda.less";
 
-//Importation en dur des styles des widgets (en attendant séparation dans fichiers Less séparés)
-//@import "_templates/BaseTheme/Widgets/MainHeader/_MainHeader.less";
-//@import "_templates/BaseTheme/Widgets/MainFooter/_MainFooter.less";
-
 //STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
 .dm_widget {
 	.dm_widget_inner {
 		//changement taille du titre des widgets
 		& > .title {
-			#dm_content & {
+			#dm_page_content & {
 				text-transform: none;
 				font-size: @fontSizeH3Px;
 				line-height: @gridBaseline;
@@ -42,12 +38,12 @@
 //placement des widgets dans le header
 #dm_header {
 	
-	.content_image {
+	.dm_widget.content_image {
 		.isLess & { background-color: #D6B8C4; }
 		float: left;
 	}
 	
-	.content_ck_editor {
+	.dm_widget.content_ck_editor {
 		.isLess & { background-color: #B8D6C1; }
 		float: left;
 		margin-left: @offM;
@@ -77,15 +73,15 @@
 	}
 }
 
-//styalge par défaut des widgets dans les zones principales
-#dm_content, #dm_sidebar_left, #dm_sidebar_right {
+//stylage par défaut des widgets dans les zones principales
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
 	.dm_widget {
 		margin-bottom: @gridBaseline/2;
 		
 		.dm_widget_inner {
 			padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
 			//ajout d'une bordure dont l'épaisseur a été déduite
-			border: @zonesOffsetBorder solid @zonesBorderColor;
+			border: 1px solid @zonesBorderColor;
 			//suppression bordures sous niveaux
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
 			

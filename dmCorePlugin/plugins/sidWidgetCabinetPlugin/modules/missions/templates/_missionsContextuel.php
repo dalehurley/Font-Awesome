@@ -1,11 +1,11 @@
 <?php
-// vars : $articles, $nbArticles, $titlePage, $lien, $length, $chapo, $width, $height
+// vars : $articles, $titreBloc, $lien, $length, $chapo, $width, $height
 $i = 1;
 $i_max = count($articles);
 $class='';
 if (count($articles)) { // si nous avons des actu articles
     //gestion affichage du titre
-    echo _tag('h4.title', $titlePage);
+    echo _tag('h4.title', $titreBloc);
 ?>
 <ul class="elements">
 <?php
@@ -34,7 +34,7 @@ $nbArticle = 1;
         };
         $link.= '<span class="wrapper">
                 <span class="subWrapper">';
-        if ($titlePage != $article->getTitle()) {
+        if ($titreBloc != $article->getTitle()) {
             $link.= '<span class="title itemprop name" itemprop="name">' . $article->getTitle() . '</span>';
         };
         $link.= '<meta content="' . $article->createdAt . '" itemprop="datePublished">

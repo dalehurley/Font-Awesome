@@ -81,7 +81,7 @@ if (!is_file($xml)) {
 				$linkedSidArticle = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($linkedArticle, $article->sectionId);
 				
 				//remplissage du tableau de navigation
-				$elements[] = array('title' => $linkedSidArticle->title, 'linkUrl' => $article, 'anchor' => dmString::slugify($linkedSidArticle.'-'.$linkedSidArticle->id));
+				$elements[] = array('title' => $linkedSidArticle->title, 'anchor' => dmString::slugify($linkedSidArticle.'-'.$linkedSidArticle->id));
 				
 				//ajout information de débug
 				//$articleBody.= debugTools::infoDebug(array('ID LEA' => $linkedArticle, 'Section ID' => $article->sectionId));
@@ -96,7 +96,7 @@ if (!is_file($xml)) {
 
 		// afficahge de la navigation des articles fils
 		$articleFilsNavigation = '';
-		if (count($elements)){
+		if (isset($elements) && count($elements)){
 			
 			$articleFilsNavigation =
 						'<div class="navigationWrapper navigationTop">'.
@@ -118,16 +118,13 @@ if (!is_file($xml)) {
 		            	else $position = '';
 		            	break;
 		        }
-
-        		$articleFilsNavigation .=
-								'<li class="element'.$position.'">'.
-									'<a href="'.$element['linkUrl'].'#'.$element['anchor'].'" class="link link_box">'.$element['title'].'</a>'.
-								'</li>';
+                        
+                        $articleFilsNavigation .=
+								'<li class="element'.$position.'">'._link($article)->text($element['title'])->set('.link_box')->anchor($element['anchor']).'</li>';
 			}
 			$articleFilsNavigation .=
 							'</ul>'.
 						'</div>';
-					
 			}
 		
 		//affichage du contenu
@@ -144,7 +141,7 @@ if (!is_file($xml)) {
 					echo '<h1 itemprop="name" class="title itemprop name">'.$article->title.'</h1>';
 					echo '<meta content="'.$articleSection.'" itemprop="articleSection">';
 					echo '<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>';
-					echo '<span class="date">'.__('Published on').' ';
+					echo '<span class="date">'.__('published on').' ';
 						echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'D').'</time>';
 					echo '</span>';
 					echo $articleFilsNavigation;

@@ -51,7 +51,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
    */
   public function getTitle()
   {
-    return '<img src="/sfLESSPlugin/images/css_go.png" alt="LESS helper" height="16" width="16" /> less';
+    return '<img src="/sfLESSPlugin/images/css_go.png" alt="LESS helper" height="16px"/> ';
   }
 
   /**
@@ -59,7 +59,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
    */
   public function getPanelTitle()
   {
-    return 'LESS Stylesheets';
+    return 'LESS parameters';
   }
 
   /**
@@ -67,7 +67,10 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
    */
   public function getPanelContent()
   {
-    $panel = $this->getConfigurationContent() . '<table class="sfWebDebugLogs" style="width: 300px"><tr><th>less file</th><th>css file</th><th style="text-align:center;">time (ms)</th></tr>';
+    $panel = $this->getConfigurationContent();
+/*
+    . '<table class="sfWebDebugLogs" style="width: 300px"><tr><th>less file</th><th>css file</th><th style="text-align:center;">time (ms)</th></tr>';
+    
     $errorDescriptions = sfLESS::getCompileErrors();
     foreach (sfLESS::getCompileResults() as $info)
     {
@@ -76,7 +79,57 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
     }
     $panel .= '</table>';
 
-    $this->setStatus($this->errors?sfLogger::ERR:($this->compiled?sfLogger::INFO:sfLogger::WARNING));
+    //$this->setStatus($this->errors?sfLogger::ERR:($this->compiled?sfLogger::INFO:sfLogger::WARNING));
+*/
+
+/*
+      <tr style="%s">
+        <td class="sfWebDebugLogType">%s</td>
+        <td class="sfWebDebugLogType">%s</td>
+        <td class="sfWebDebugLogNumber" style="text-align:center;">%.2f</td>
+      </tr>
+*/
+
+if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2'){
+
+            // affichage de la page courante
+        $idDmPage = sfContext::getInstance()->getPage()->id;
+        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+        $pageCurrent =  $dmPage->module.'/'.$dmPage->action;
+        $recordId = $dmPage->record_id;
+        // récupération du Layout de la page en cours
+        $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
+
+        //  array of info
+        $tabInfos['Site theme'] = dmConfig::get('site_theme');
+        $tabInfos['site theme version'] = dmConfig::get('site_theme_version');
+        $tabInfos['Current page'] = $pageCurrent;
+        $tabInfos['Layout'] = $layoutPage;
+        $tabInfos['Page recordId'] = $recordId;
+        $tabInfos['Grid Columns'] = '';
+        $tabInfos['Grid Column Width'] = '';
+        $tabInfos['Grid Gutter Width'] = '';  
+        $tabInfos['Grid Row Width'] = '';  
+
+        $tabInfos['Fluid Grid Column Width'] = '';
+        $tabInfos['Fluid Grid Gutter Width'] = '';  
+        $tabInfos['Base Font Size'] = '';  
+        $tabInfos['Base Font Family'] = '';  
+        $tabInfos['Base Line Height'] = '';                  
+        // les couleurs affichent une span swatch qui est colorisée en css dans import.less
+        $tabInfos['Link Color'] = '<span class="swatch"></span>';  
+        $tabInfos['Link Color Hover'] = '<span class="swatch"></span>'; 
+        $tabInfos['text Color'] = '<span class="swatch"></span>'; 
+
+        $panel .= '<dl style="" id="less_debug">';
+        foreach ($tabInfos as $lib => $value) {
+          $panel .= '<dt style="float:left; width: 200px"><strong>'.$lib.'</strong></dt><dd class="less_debug_'.dmString::slugify($lib).'">'.$value.'</dd>';
+        }
+        $panel .= '</dl>';
+}
+
+
+
 
     return $panel;
   }

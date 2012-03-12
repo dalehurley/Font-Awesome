@@ -7,7 +7,7 @@ class lienContactBlocVersPageContactView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'titreBloc',
-            'titreLien',
+            'lien',
             'message'
         ));
     }
@@ -36,7 +36,7 @@ class lienContactBlocVersPageContactView extends dmWidgetPluginView {
          $vars = $this->getViewVars();
 		 return $this->getHelper()->renderPartial('lienContact', 'blocVersPageContact', array(
                     'titreBloc' => $vars['titreBloc'],
-                    'titreLien' => $vars['titreLien'],
+                    'lien' => $vars['lien'],
                     'message' => $vars['message'],
             
                 ));        

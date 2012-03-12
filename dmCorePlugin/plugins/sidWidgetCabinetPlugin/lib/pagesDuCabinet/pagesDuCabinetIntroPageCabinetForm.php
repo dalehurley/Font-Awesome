@@ -15,7 +15,7 @@ class pagesDuCabinetIntroPageCabinetForm extends dmWidgetPluginForm {
                     'model' => 'SidCabinetPageCabinet'
                 ));
 
-        $this->widgetSchema['lien'] = new sfWidgetFormInputText(array('default'=>'Vers la page du cabinet'));
+        $this->widgetSchema['lien']->setDefault('Vers la page du cabinet');
         
         $this->widgetSchema->setHelp('page' ,'Choisir une page du cabinet');
           

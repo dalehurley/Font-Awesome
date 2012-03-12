@@ -4,14 +4,6 @@ class adressesSiegeSocialForm extends dmWidgetPluginForm {
 
     public function configure() {
 
-        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText();
-        $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
-                    'required' => false
-                ));
-
-        $this->widgetSchema->setHelps(array(
-            'titreBloc' => 'Le titre du bloc.'
-        ));
 
         parent::configure();
     }

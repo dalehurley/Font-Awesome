@@ -6,12 +6,24 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'title',
+            'titreBloc',
             'effect',
             'filDActu',
-            'titreLien'
+            'lien'
         ));
     }
+	
+	public function getStylesheets() {
+		//on créé un nouveau tableau car c'est un nouveau widget (si c'est une extension utiliser $stylesheets = parent::getStylesheets();)
+		$stylesheets = array();
+		
+		//lien vers le js associé au menu
+		$cssLink = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/SpecifiquesBaseEditorialeDessinSemaine/SpecifiquesBaseEditorialeDessinSemaine.css';
+		//chargement de la CSS si existante
+		if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
+		
+		return $stylesheets;
+	}
 
     protected function doRender() {
         $vars = $this->getViewVars();
@@ -52,10 +64,10 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
         } else {
             $return[$j]['ERREUR : XML invalide ' . $xmlFile] = $xmlFile . '.xml Invalide';
         }
-
+        ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
         if($vars['filDActu'] == false){
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'dessinSemaine', array(
-                    'rubriqueTitle' => $vars['title'], // pour avoir le TITRE de la page 
+                    'titreBloc' => $vars['titreBloc'], // pour avoir le TITRE de la page 
                     'effect' => $vars['effect'], // pour avoir le TITRE de la page 
                     'dessins' => $dessins
                 ));
@@ -63,9 +75,9 @@ class specifiquesBaseEditorialeDessinSemaineView extends dmWidgetPluginView {
         else {
             reset($dessins);
             return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'blocDessinSemaine', array(
-                    'rubriqueTitle' => $vars['title'], // pour avoir le TITRE de la page 
+                    'titreBloc' => $vars['titreBloc'], // pour avoir le TITRE de la page 
                     'dessins' => current($dessins),
-                    'titreLien' => $vars['titreLien']
+                    'lien' => $lien
                 ));
         }
     }

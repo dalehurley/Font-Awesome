@@ -1,7 +1,6 @@
 <?php // Vars: $articlePager, $parent, $route
 
 $html = '';
-
 $articleSection = $parent . ' - ' . $route;
 //titre du contenu
 if($articleSection) echo '<h4 class="title">'.$articleSection.'</h4>';
@@ -35,7 +34,7 @@ foreach ($articlePager as $article) {
 	if (is_file(sfConfig::get('sf_web_dir').$imageLink) && $i < 4 ){  // les 3 premiers articles ont une image
 		$imageHtml = 	
 			'<span class="imageWrapper">'.
-				'<img src="'.$imageLink.'" itemprop="image" class="image" alt="'.$article->title.'">'.
+				'<img src="'.$imageLink.'" itemprop="image" class="image" alt="'.$article->getTitle().'">'.
 			'</span>';
 	}
 
@@ -47,7 +46,7 @@ foreach ($articlePager as $article) {
 			'<span class="wrapper">'.
 				'<span class="subWrapper">'.
 					'<span itemprop="name" class="title itemprop name">'.$article->getTitle().'</span>'.
-					'<meta content="'.$article->created_at.'" itemprop="datePublished">'.
+					'<meta content="'.$article->createdAt.'" itemprop="datePublished">'.
 				'</span>'.
 				'<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>'.
 			'</span>'

@@ -36,7 +36,7 @@
 //http://schema.org/Thing
 
 .name, .title {
-	.isLess & { background-color: #DE789C; }
+	.isLess & { background-color: fadeout(#DE789C, 90%); }
 	
 	.elements .element & {
 		display: block;
@@ -45,11 +45,11 @@
 }
 
 .description, .teaser {
-	.isLess & { background-color: fadeout(#AEDCEB, 50%); }
+	.isLess & { background-color: fadeout(#AEDCEB, 90%); }
 	
 	.elements .element & { display: block; }
 	//une fois que l'article est affiché en pleine page
-	#dm_content article & { font-weight: bold; }
+	#dm_page_content article & { font-weight: bold; }
 }
 
 
@@ -66,7 +66,7 @@
 	
 	.elements .element & { display: block; }
 	//uniquement dans le contenu où on a la place horizontale
-	#dm_content .elements .element & { margin-left: @offM; }
+	#dm_page_content .elements .element & { margin-left: @offM; }
 }
 
 

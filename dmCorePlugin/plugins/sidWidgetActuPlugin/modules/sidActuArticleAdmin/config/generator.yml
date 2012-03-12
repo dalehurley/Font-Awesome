@@ -48,6 +48,10 @@ generator:
           label: 'Choisir un fichier'
         image_form:
           label: 'Choisir une image'
+        debut_date:
+          label: Date de début du message
+        fin_date:
+          label: Date de fin du message
       list:
         batch_actions:
           delete:
@@ -88,14 +92,15 @@ generator:
           - updated_by          
       form:
         display:
+         'Publication sur le site': [is_active]
 <?php     
-//if (sfContext::getInstance()->getUser()->isSuperAdmin()){ // si l'utilisateur a la permission admin_bandeau_lite et qu'il n'est pas superAdmin'?>
+if(sfContext::getInstance()->getUser()->isSuperAdmin()){ ?>
          'Type des Articles': [sid_actu_type_list]
-<?php //} else if (!sfContext::getInstance()->getUser()->isSuperAdmin()) { ?>
-#         NONE: [on_home]
-<?php //} ?>
-#         "Définition de votre article": [title, is_active, rubrique_id]
-         "Définition de votre article": [title, is_active]
+         "Titre de votre article": [title]
+<?php }
+else if(!sfContext::getInstance()->getUser()->isSuperAdmin()){?>
+         "Titre de votre article": [sid_actu_type_list,title]
+<?php } ?>
          'Chapeau de votre article': [resume]
          Text: [text]
          Image: [image_form, image_view]
@@ -104,6 +109,7 @@ generator:
 #         'Mots clés': [tags_list] 
          # m_sections du nom de la relation declaree dans le schema.yml, + _list
 #         'Section liées': [m_sections_list]   
+         Date du message (Cliquez sur le champ de la date pour faire apparaître le calendrier): [debut_date, fin_date]
          'Rubriques liées': [m_rubriques_list]
         class: SidActuArticleAdminForm
 

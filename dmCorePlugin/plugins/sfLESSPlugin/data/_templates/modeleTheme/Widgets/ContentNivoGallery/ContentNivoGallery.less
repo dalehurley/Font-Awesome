@@ -12,21 +12,21 @@
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/ContentNivoGallery/_ContentNivoGallery.less";
 
-.content_nivo_gallery {
-	background-color: #C2EDD4;
+.dm_widget.content_nivo_gallery {
+	.isLess & { background-color: #C2EDD4; }
 	
 	//placement sélecteurs de navigation
 	.nivo-controlNav {
-		background-color: #92D1AD;
+		.isLess & { background-color: #92D1AD; }
 	}
 	
 	//placement flêches directionnelles
 	.nivo-directionNav {
-		background-color: #5AE694;
+		.isLess & { background-color: #5AE694; }
 	}
 	
 	//placement des légendes (à améliorer dès implémentation de la balise title dans nivoSlider)
 	.nivo-caption {
-		background-color: #548066;
+		.isLess & { background-color: #548066; }
 	}
 }

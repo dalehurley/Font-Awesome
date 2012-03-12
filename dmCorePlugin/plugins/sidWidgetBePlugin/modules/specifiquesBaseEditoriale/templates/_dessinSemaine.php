@@ -2,14 +2,11 @@
 use_stylesheet('../../sidWidgetBePlugin/ad-gallery/jquery.ad-gallery');
 use_javascript('../sidWidgetBePlugin/ad-gallery/jquery.ad-gallery');
 
-// var $rubriqueTitle 
-echo _tag('h4.title', $rubriqueTitle);
+// var $titreBloc
+echo _tag('h4.title', $titreBloc);
 ?>
 
 <div class="ad-gallery">
-    <div class="ad-image-wrapper"></div>
-    <div class="ad-controls"></div>
-    <div class="ad-descriptions"></div>
     <div class="ad-nav">
         <div class="ad-thumbs">
 
@@ -30,21 +27,32 @@ echo _tag('h4.title', $rubriqueTitle);
 
             <?php
             echo _open('ul.ad-thumb-list');
-
+			
+			//compteur
             $i = 0;
+			$maxCount = count($dessins);
+			
             foreach ($dessins as $dessin) {
-                echo _open('li');
+				
+				//ajout des options au li
+				$liOpts = array();
+				if($i == 0)				$liOpts['class'][] = 'first';
+				if($i >= $maxCount-1)	$liOpts['class'][] = 'last';
+				
+				//ouverture du li
+				echo _open('li.ad-thumb', $liOpts);
+				
                 //on vérifie que l'image existe
                 $img = sfConfig::get('sf_web_dir') . $dessin['imgLinkBig'];
                 $imgExist = is_file($img);
                 $imageDessin = "";
                 // on teste si le fichier image est présent sur le serveur avec son chemin absolu
-                if ($imgExist) {
+                if($imgExist) {
                     $imageDessin = _link($dessin['imgLinkBig'])->text(
                             _media($dessin['imgLinkSmall'])
-                                    ->set('.image' . $i . ' title="' . $dessin['titre'] . ' ('.$dessin['dateArticle'].')"')
+                                    ->set('.image title="' . $dessin['titre'] . ' ('.$dessin['dateArticle'].')"')
                                     ->alt($dessin['chapeau'])
-                                    ->height(60)
+                                    ->height(72)
                             )
                     ;
                     $i++;
@@ -63,6 +71,9 @@ echo _tag('h4.title', $rubriqueTitle);
 
         </div>
     </div>
+    <div class="ad-image-wrapper"></div>
+    <div class="ad-controls"></div>
+    <div class="ad-descriptions"></div>
 </div>
 
 

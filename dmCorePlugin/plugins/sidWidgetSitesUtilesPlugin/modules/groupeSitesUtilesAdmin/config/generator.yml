@@ -62,7 +62,8 @@ generator:
 #          - description
       form:
         display:
-          NONE: [title, is_active]
+          'Publication sur le site': [is_active]
+          'Titre du groupe': [title]
           Description: [description]
           'Les sites utiles': [sid_sites_utiles_list]
         class: SidGroupeSitesUtilesAdminForm

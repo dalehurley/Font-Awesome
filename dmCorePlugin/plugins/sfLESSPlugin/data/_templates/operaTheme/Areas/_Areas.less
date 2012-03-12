@@ -1,0 +1,98 @@
+// _Areas.less
+// v1.1
+// Last Updated : 2012-01-18 11:00
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//COULEURS DE DEBUG (affichée en mode /less.php)
+.isLess {
+	#dm_page { background-color: #aaa; }
+	#dm_main { background-color: #bbb; }
+	#dm_main_inner { background-color: #ccc; }
+	
+	#dm_header > .dm_zones { background-color: fadeout(#8ccccb, 50%); }
+	#dm_footer > .dm_zones { background-color: #c8ccbc; }
+	#dm_sidebar_left > .dm_zones { background-color: #ccccb8; }
+	//#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
+	//#dm_content > .dm_zones { background-color: #b8cccc; }
+	//#dm_custom_top > .dm_zones { background-color: #ccccb8; }
+	#dm_custom_bottom > .dm_zones { background-color: #ccb8cc; }
+}
+
+//couleur de fond de la page
+#dm_main, #dm_main_inner { background-color: @colorWhite; }
+
+//couleur de la zone située sous le header jusqu'en bas
+#dm_main {
+	z-index: 1;
+	&:before {
+		position: relative;
+		display: block;
+		z-index: -10;
+		content: "";
+		@gridSiteWidth();
+		@gridHeight(30);
+		//on force la hauteur de l'élément et on la soustrait en margin-bottom négatif par la suite
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: (@gridBaseline * -30);
+		//ombre répétée dans WidgetBase sur le dm_zones:before de dm_layout_centerTopTop
+		@boxShadow(0 0 (@gridGutter*4) @colorCouleur3Fonce);
+	}
+}
+
+//débordement externes des différentes zones de la page
+#dm_content, #dm_sidebar_left, #dm_sidebar_right, #dm_custom_top, #dm_custom_bottom {
+	//meilleure gestion uniformisée des bordures
+	.dm_zones { margin: 0 (@zonesOffsetPad * -1) 0 (@zonesOffsetPad * -1); }
+}
+
+//stylage du header
+#dm_header {
+	//hauteur minimale pour l'image par défaut du header (à désactiver au besoin dans les sites clients)
+	@gridHeight(@headerHeight_bl);
+	background-color: @headerBgColor;
+	background-image: url(@{headerBgImageUrl});
+	background-repeat: no-repeat;
+	background-position: 50% bottom;
+
+	.dm_zones {
+		@gridSiteWidth();
+		margin-left: auto;
+		margin-right: auto;
+		padding: @gridBaseline 0;
+	}
+}
+
+//stylage de la zone sous le header
+#dm_custom_top {
+	.dm_zones {
+		background-color: @colorCouleur2;
+		padding-top: @gridBaseline/2;
+		min-height: @gridBaseline;
+	}
+}
+
+//stylage du footer
+#dm_footer {
+	.dm_zones { }
+}
+
+//gestion des paddings et des marges des sidebars et du contenu
+#dm_content {
+	.isLess & { background-color: #b8cccc; }
+
+	.dm_zones {
+		.isLess & { background-color: #8A9999; }
+		//lorsque uniquement sidebar-right est présente
+	}
+}
+
+#dm_sidebar_right {
+	.isLess & { background-color: #b8ccb8; }
+
+	.dm_zones {
+		.isLess & { background-color: #8A998A; }
+		border-left: 1px solid red;
+	}
+}

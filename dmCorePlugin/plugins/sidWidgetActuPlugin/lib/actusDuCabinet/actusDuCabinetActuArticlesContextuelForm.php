@@ -15,11 +15,7 @@ class actusDuCabinetActuArticlesContextuelForm extends dmWidgetPluginForm {
                     'required' => true,
                     'model' => 'SidActuType'
                 ));
-	
-        $this->widgetSchema['lien'] = new sfWidgetFormInputText(array('default' => 'TOUTES LES ACTUALITES DU CABINET'));
-        $this->validatorSchema['lien'] = new sfValidatorString(array(
-                    'required' => true
-                ));
+
         
         $this->widgetSchema->setHelp('type' , 'Le type de l\'article');
 

@@ -1,6 +1,6 @@
 // megadropdown.js
-// v0.1
-// Last Updated : 2011-10-07 09:30
+// v0.6
+// Last Updated : 2012-02-23 15:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -15,7 +15,7 @@
 		
 		
 		//on ne s'occupe que des liens ayant des enfants (dm_dir)
-		$('ul.megadropdown > li.dm_dir').each(function() {
+		$('ul.menu-megadropdown > li.dm_dir').each(function() {
 			//sélection diverses
 			var selectRow = $(this).find('ul');
 			var selectCol = $(this).find('ul > li.dm_dir');
@@ -31,7 +31,7 @@
 				if(currentColHeight > highestCol) {
 					highestCol = currentColHeight;
 				}
-				
+				//on récupère la plus grande largeur
 				var currentColWidth = $(this).width();
 				if(currentColWidth > colWidth) {
 					colWidth = currentColWidth;
@@ -55,16 +55,21 @@
 				$(this).find('ul > li.dm_dir:nth-child('+displayNbreCol+') + li.dm_dir').addClass('firstOfRow');
 				
 				//calcul du nombre de lignes affichables
-				var displayNbreRow = Math.floor(nbreCol / displayNbreCol);
+				//si le modulo (reste de la division) n'est pas égale à zéro alors on arrondi à l'entier inférieur et on rajoute un
+				var displayNbreRow = (nbreCol % displayNbreCol == 0) ? nbreCol / displayNbreCol : Math.floor(nbreCol / displayNbreCol) + 1;
 				
 				$(this).find('ul > li.dm_dir').each(function(intIndex) {
 					//ligne courante
 					var currentRow = Math.floor(intIndex / displayNbreCol);
+					
+					//affichage en console pour debug
+					//window.console.log("verif-" + intIndex + " currentRow : "+ currentRow + " displayNbreCol : " + displayNbreCol + " displayNbreRow : " + displayNbreRow);
+					
 					//on ajoute une classe CSS en fonction de la ligne courante
 					if(currentRow == 0) {
 						$(this).addClass('inFirstRow');
 					}
-					if(currentRow == displayNbreRow) {
+					if(currentRow >= displayNbreRow - 1) {
 						$(this).addClass('inLastRow');
 					}
 				});

@@ -1,0 +1,64 @@
+// _NavigationBreadCrumb.less
+// v1.5
+// Last Updated : 2012-01-18 09:50
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/operaTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+
+//Importation de la mise en page par défaut du widget
+@import "_framework/SPLessCss/Widgets/NavigationBreadCrumb/_NavigationBreadCrumb.less";
+
+.dm_widget.navigation_bread_crumb {
+	background-color: @colorWhite;
+	//définitions de la largeur
+	width: 100%;
+	padding-bottom: @gridBaseline/2;
+
+	//apparrence des liens
+	.link {
+		color: @colorCouleur3Moyen;
+		text-decoration: none;
+		text-transform: uppercase;
+		&:hover {
+			color: @colorCouleur3MoyenSup;
+			text-decoration: underline;
+		}
+		&.dm_current {
+			color: @colorCouleur3;
+			&, &:hover { text-decoration: none; }
+		}
+	}
+
+	ol {
+		display: block;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		font-size: @fontSizeMicro;
+		line-height: @gridBaseline;
+
+		li{
+			display: block;
+			float: left;
+			list-style: none;
+			margin: 0;
+			margin-left: @offM;
+			//flèche de séparation
+			&.bread_crumb_separator {
+				display: block;
+				color: @colorCouleur3Moyen;
+				//font-size: @fontSizeMicro;
+				height: @fontSizeMicro;
+				line-height: @fontSizeMicro;
+				//centrage vertical du séparateur
+				@padV: (@gridBaseline - @fontSizeMicro) / 2;
+				padding-top: @padV;
+				padding-bottom: @padV;
+			}
+		}
+	}
+}

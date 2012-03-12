@@ -6,7 +6,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'title_page',
+            'titreBloc',
             'lien',
             'nbArticles',
             'length',
@@ -137,8 +137,8 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
             default:
                 $actuMissions = dmDb::table('SidCabinetMission')
                         ->createQuery('a')
-                    ->leftJoin('a.Translation b')
-                        ->orderBy('b.updated_at DESC')
+                        ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                        ->orderBy('aTranslation.updated_at DESC')
                         ->where('a.is_active = ?', array(true))
                         ->limit($nbArticles)
                         ->execute();
@@ -150,16 +150,16 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
         
         
 // je vérifie que le titre de la page n'esxiste pas ou est égal à un espace
-        if ($vars['title_page'] == NULL || $vars['title_page'] == " ") {
+        if ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") {
             // je vérifie le nbre d'article
             // si un seul , on affiche en titre le titre de l'article
             if ($vars['nbArticles'] == 1) {
-                $vars['title_page'] = current($arrayMission)->getTitle();
+                $vars['titreBloc'] = current($arrayMission)->getTitle();
             } 
             // si plusieurs articles, on affiche en titre le nom de la page parente à ces articles
             elseif ($vars['nbArticles'] > 1){
                 $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('sidActuArticle', 'list');
-                $vars['title_page'] = $namePage->getName();
+                $vars['titreBloc'] = $namePage->getName();
             }
         }
        
@@ -167,7 +167,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
         return $this->getHelper()->renderPartial('missions', 'missionsContextuel', array(
                     'articles' => $arrayMission,
                     'nbArticles' => $vars['nbArticles'],
-                    'titlePage' => $vars['title_page'],
+                    'titreBloc' => $vars['titreBloc'],
                     'lien' => $lien,
                     'length' => $vars['length'],
                     'chapo' => $vars['chapo'],

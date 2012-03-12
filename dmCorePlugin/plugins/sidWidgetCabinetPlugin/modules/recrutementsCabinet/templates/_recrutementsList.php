@@ -65,7 +65,7 @@ foreach ($recrutements as $recrutement) {
             }
         };
         $link .= _open('span' , array('class' => 'wrapper'));
-                    _open('span' , array('class' => 'subWrapper'));
+           $link .= _open('span' , array('class' => 'subWrapper'));
 
                        if ($titreBloc != $recrutement->getTitle()) {
                            $link .= _tag('span', array('class' => 'title itemprop name', 'itemprop' => 'name') , $recrutement->getTitle());
@@ -82,6 +82,15 @@ foreach ($recrutements as $recrutement) {
      echo _close('li');
     } 
 echo _close('ul');
+if ((isset($lien)) AND ($lien != '')) { 
+        echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
+            echo _open('ul', array('class' => 'elements'));
+                echo _tag('li', array('class' => 'element first last'), 
+                     _link('recrutement/list')->text($lien)
+                        );
+            echo _close('ul');
+        echo _close('div');
+    }
 }
 else{
 	echo '{{recrutement}}';

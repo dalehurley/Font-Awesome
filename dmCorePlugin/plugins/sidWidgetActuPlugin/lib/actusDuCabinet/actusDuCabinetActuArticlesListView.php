@@ -7,6 +7,9 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'titreBloc',
+//            'maxPerPage',
+//            'navTop',
+//            'navBottom',
             'nbArticles',
             'length',
             'withImage',
@@ -36,10 +39,10 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
                 
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidActuArticle a')
-                            ->leftJoin('a.Translation b')
+                        ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('a.is_active = ? and sata.sid_actu_type_id = ? and a.id <> ?', array(true, $vars['type'], $dmPage->record_id))
-                        ->orderBy('b.updated_at DESC')
+                        ->orderBy('aTranslation.updated_at DESC')
                         ->limit($nbArticles)
                         ->execute();
 
@@ -52,10 +55,10 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
                 
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidActuArticle a')
-                            ->leftJoin('a.Translation b')
+                        ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('a.is_active = ? and sata.sid_actu_type_id = ?', array(true, $vars['type']))
-                        ->orderBy('b.updated_at DESC')
+                        ->orderBy('aTranslation.updated_at DESC')
                         ->limit($nbArticles)
                         ->execute();
 

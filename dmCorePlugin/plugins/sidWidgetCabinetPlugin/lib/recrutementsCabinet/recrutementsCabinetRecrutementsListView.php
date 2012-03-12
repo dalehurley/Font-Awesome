@@ -9,6 +9,7 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
             'titreBloc',
             'nbArticles',
             'length',
+            'lien',
             'withImage',
             'widthImage',
             'heightImage',
@@ -31,11 +32,17 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
 
         $recrutements = Doctrine_Query::create()
                 ->from('SidCabinetRecrutement a')
-                ->leftJoin('a.Translation b')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                 ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
-                ->orderBy('b.updated_at DESC')
+                ->orderBy('aTranslation.updated_at DESC')
                 ->limit($nbArticles)
                 ->execute();
+
+        if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
+        $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('recrutement','list');
+        $vars['titreBloc'] = $namePage->getName();
+        }
+        ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
 
         return $this->getHelper()->renderPartial('recrutementsCabinet', 'recrutementsList', array(
                     'recrutements' => $recrutements,
@@ -43,7 +50,8 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
                     'length' => $vars['length'],
                     'withImage' => $vars['withImage'],
                     'width' => $vars['widthImage'],
-                    'withImage' => $vars['withImage']
+                    'withImage' => $vars['withImage'],
+                    'lien' => $lien
             
                 ));
     }

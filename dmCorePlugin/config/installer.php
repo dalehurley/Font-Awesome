@@ -101,8 +101,7 @@ if ('Doctrine' != $this->options['orm']) {
     throw new Exception('We are sorry, but Diem ' . DIEM_VERSION . ' supports only Doctrine for ORM.');
 }
 
-// le nom du dossier du site
-$projectKey = dmProject::getKey();
+$projectKey = dmProject::getKey();  // le nom du dossier du site
 
 $ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com)', ''), new sfValidatorRegex(
                         array('pattern' => '/^([a-z0-9-]+\.)+[a-z]{2,6}$/',
@@ -111,24 +110,15 @@ $ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com)
         ));
 $settings['ndd'] = $ndd;
 
-/*
-$ip = $this->askAndValidate(array('', 'L\'ip du serveur pour la configuration du virtualhost? (par defaut: '.$ipDefault.')', ''), new sfValidatorRegex(
-                        array('pattern' => '/^[0-9]{1,3}+\.+[0-9]{1,3}+\.+[0-9]{1,3}+\.+[0-9]{1,3}$/',
-                        'required' => false),
-                        array('invalid' => 'Ip invalide')
-        ));
-$settings['ip'] = $ip;
-$settings['ip'] = empty($settings['ip']) ? $ipDefault : $settings['ip']; 
-*/
-
-//// le nom du projet
-//$projectName = $ndd;
-//$projectName = substr($projectName, strrpos($projectName, '//'));
-//$projectName = dmString::slugify($projectName);
-//
-//$projectNameAsk = $this->askAndValidate(array('', 'Le nom du site? (par defaut: '.$projectName.')', ''), new sfValidatorString());
-//// par dÃ©faut $projectName
-//$projectName = empty($projectNameAsk) ? $projectName : $projectNameAsk;
+// le nom du site
+$projectName = $ndd;
+$projectName = substr($projectName, strrpos($projectName, '//'));
+$projectName = dmString::slugify($projectName);
+$projectNameAsk = $this->askAndValidate(array('', 'Le nom du site qui apparaitra dans l\'administration? (par defaut: '.$projectName.')', ''), new sfValidatorString(
+                        array('required' => false)
+    ));
+// par défaut $projectName
+$projectName = empty($projectNameAsk) ? $projectName : $projectNameAsk;
 
 /*
  * QUESTIONS
@@ -279,8 +269,6 @@ do {
  * APPLY
  */
 
-//  $this->logBlock('Votre configuration est valide', 'INFO_LARGE');
-
 usleep(1000000);
 
 //$sendReports = $this->askConfirmation(array('Send anonymous reports about plugins used to improve http://diem-project.org/plugins (Y/n)'), 'QUESTION_LARGE', true);
@@ -328,46 +316,9 @@ $this->runTask('configure:database', array(
     'password' => $db['password']
 ));
 
-//-------------------------------------------------------------------------------------
-//    creation dossier des sessions
-//-------------------------------------------------------------------------------------
-//    $sessionDir = sfConfig::get('sf_root_dir').'/sessions';
-//    if (!is_dir($sessionDir)) mkdir ($sessionDir, 0777); 
-//    ini_set('session.save_path',$sessionDir); 
-
-
-
-
-/*
- * Mise en cron de la gÃ©nÃ©ration :
- *  - du fichier sitemap.xml
- *  - l'index de recherche
- */
-//$crontabFile = fopen('/etc/crontab', 'a');
-//if ($crontabFile) {
-//    $this->logBlock('Mise en cron @daily de la generation du fichier sitemap.xml.', 'INFO_LARGE');
-//    fputs($crontabFile, '@daily /usr/bin/php ' . sfConfig::get('sf_root_dir') . '/symfony dm:sitemap-update ' . $settings['ndd'] . '
-//');
-//    $this->logBlock('Mise en cron @daily de la generation de l\'index de recherche.', 'INFO_LARGE');
-//    fputs($crontabFile, '@daily /usr/bin/php ' . sfConfig::get('sf_root_dir') . '/symfony dm:search-update
-//');
-//    fclose($crontabFile);
-//}
-
-// sitemap.xml
-//chmod(sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/sitemap.xml', 0666);
-
-
 //-----------------------------------------------------------------------------------------------
 //      Generation du fichier de conf
 //-----------------------------------------------------------------------------------------------
-
-//$this->logBlock('APACHE : Creation du fichier '.sfConfig::get('sf_root_dir').'/conf/httpd.conf', 'INFO_LARGE');
-//$ip = $this->ask(array('', 'IP du serveur? (par defaut : '.$ipDefault.')', ''));
-//$port = $this->ask(array('', 'Port du serveur? (par defaut :'.$portDefault.')', ''));
-//
-//$ip = empty($ip) ? $ipDefault : $ip;
-//$port = empty($port) ? $portDefault : $port;
 
 $confFileContent = '<VirtualHost *:80>
   ServerName    ' . $settings['ndd'] . '
@@ -445,7 +396,7 @@ fclose($confFile);
 $this->logBlock('APACHE : Le fichier "'.$fileConf.'" a inclure dans la configuration d\'Apache est cree.', 'INFO_LARGE');
 
 //------------------------------------------------------------------------------------
-// pour le serveur de dev, ou si votre apache va scanner le repertoire /data/conf 
+// pour le serveur de dev, ou, si votre apache va scanner le repertoire /data/conf 
 // pour y trouver les httpd.conf de chaque site
 // -----------------------------------------------------------------------------------
 if (is_dir('/data/conf')){ 
@@ -466,80 +417,9 @@ $out = $err = null;
 $this->getFilesystem()->execute('ln -s '.$beDirImages. ' '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/_images', $out, $err);
  
 
-/*   plus de themeFmk, installation du theme dans controls 
-//-------------------------------------------------------------------------------------
-//    inclusion theme thmFmk
-//-------------------------------------------------------------------------------------
-
-// recuperation des differentes maquettes du coeur
-//scan du dossier _templates
-$arrayTemplates = scandir($diemLibConfigDir . '/../../themesFmk/_templates');
-$i = 0;
-$dispoTemplates = array();
-foreach ($arrayTemplates as $template) {
-    // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
-    if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_') {
-        $i++;
-        $dispoTemplates[$i] = $template;
-    }
-}
-// on affiche les choix
-$this->logBlock('Themes disponibles :', 'INFO_LARGE');
-foreach ($dispoTemplates as $k => $dispoTemplate) {
-    $this->logSection($k,$dispoTemplate);
-}
-
-// choix de la maquette du coeur
-$numTemplate = $this->askAndValidate(array('', 'Le numero du template choisi?', ''), new sfValidatorChoice(
-                        array('choices' => array_keys($dispoTemplates), 'required' => true),
-                        array('invalid' => 'Le template n\'existe pas')
-        ));
-$settings['numTemplate'] = $numTemplate;
-$nomTemplateChoisi = $dispoTemplates[$settings['numTemplate']];
-
-//-----------------------------------------------------------------------
-//               TENORLIGHT
-//----------------------------------------------------------------------- 
-if($nomTemplateChoisi == 'tenorlight'){
-    //$this->runTask('theme:install');  tache non chargée encore, incluse dans un plugin...
-    $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi . '. Theme à installer via php symfony controls', 'CHOICE_LARGE');//
-} else {
-    $this->logBlock('Vous avez choisi le template : ' . $nomTemplateChoisi, 'CHOICE_LARGE');
-//-----------------------------------------------------------------------
-//               on integre tout le framework
-//----------------------------------------------------------------------- 
-
-    // Copie du dossier diem/themesFmk/theme 
-    $dirTheme = sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme';
-    if (!is_dir($dirTheme)) mkdir ($dirTheme);
-
-    $this->getFilesystem()->execute('cp -r ' . $diemLibConfigDir . '/../../themesFmk/theme/* '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme', $out, $err);
-    // on remplace dans le dossier    sfConfig::get('sf_root_dir').'/$settings['web_dir_name']/theme  les ##THEME## par le $nomTemplateChoisi
-    //MACOSX : modifs syntaxe
-    $this->getFilesystem()->execute('find '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/'.$nomTemplateChoisi.'/g\'');
-    // on cree les liens symboliques
-    //MACOSX : modifs syntaxe
-    $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_framework/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_framework', $out, $err);
-    $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../themesFmk/_templates/ '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/theme/less/_templates', $out, $err);
-
-    // recherche des templates -> XXXSuccess.php
-    $dirPageSuccessFile = $diemLibConfigDir . '/../../themesFmk/_templates/'.$nomTemplateChoisi.'/Externals/php/layouts';
-
-    // on créé les répertoires s'ils n'existent pas
-    $dirDmFront = sfConfig::get('sf_root_dir').'/apps/front/modules/dmFront';
-    $dirDmFrontTemplate = $dirDmFront.'/templates';
-    if (!is_dir($dirDmFront)) mkdir($dirDmFront);
-    if (!is_dir($dirDmFrontTemplate)) mkdir($dirDmFrontTemplate);
-    // Copie des xxxSuccess.php du theme sur le site 
-    $this->getFilesystem()->execute('cp ' . $dirPageSuccessFile .'/*Success.php '.$dirDmFrontTemplate, $out, $err);
-}
-*/
-
-
 //-------------------------------------------------------------------------------------
 //    liaison vers le dossier templates contenant les partials du coeur
 //-------------------------------------------------------------------------------------
-
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../dmFrontPlugin/templates/ '.sfConfig::get('sf_root_dir').'/apps/front/templates', $out, $err);
 
 //-------------------------------------------------------------------------------------
@@ -560,27 +440,6 @@ try {
 } catch (Exception $e) {
     $this->logBlock('Un soucis...  Lancez "php symfony dm:setup"', 'ERROR_LARGE');
 }
-
-//-------------------------------------------------------------------------------------
-//    Les permissions
-//-------------------------------------------------------------------------------------
-/*   Plus besoin, effectué dans le dm:setup au dessus
-
-$this->logBlock('Les permissions (dm:permissions)', 'INFO_LARGE');
-// pour laisser php ecrire via lessPlugin et sprite_init
-$out = $err = null;
-$this->getFilesystem()->execute('chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/theme', $out, $err);
-
-$out = $err = null;
-$this->getFilesystem()->execute(sprintf(
-                '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'dm:permissions'
-        ), $out, $err);
-
-//$this->logBlock('Chmod 777 sur le dossier "'.sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads" pour laisser php ecrire via dmMedia', 'INFO_LARGE');
-$out = $err = null;
-$this->getFilesystem()->execute('chmod -R 777 ' . sfConfig::get('sf_root_dir') . '/' . $settings['web_dir_name'] . '/uploads', $out, $err);
-
-*/
 
 //-------------------------------------------------------------------------------------
 //    Redemarrage Apache
@@ -614,16 +473,6 @@ $this->getFilesystem()->execute(sprintf(
   ), $out, $err);
 
 //-------------------------------------------------------------------------------------
-//    Génération 
-//    Creation des sprites + compilation LESS (plus besoin au dessus)
-//-------------------------------------------------------------------------------------
-//$this->logBlock('Generation des sprites + compilation LESS.', 'INFO');
-//$out = $err = null;
-//$this->getFilesystem()->execute(sprintf(
-//    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'less:sprite'
-//  ), $out, $err);
-
-//-------------------------------------------------------------------------------------
 //    Lecture de la page $settings['ndd'] afin de creer l'entrée base_url dans la table dmSettings
 //    Utile pour la task create-pages-cache
 //-------------------------------------------------------------------------------------
@@ -636,10 +485,17 @@ if ($site==''){
 }
 
 //-------------------------------------------------------------------------------------
+//    Update the dmSetting site_name
+//-------------------------------------------------------------------------------------
+// sauvegarde du site_name dans la table dmSetting
+$queryMajSiteName = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$projectName.'\' WHERE s.name = \'site_name\';';
+$dbh->query($queryMajSiteName);
+
+//-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
 $this->logBlock('
-  Le site '.$projectKey.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php. 
+  Le site '.$projectName.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php. 
   Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'". 
   Lancer maintenant la commande "php symfony controls" afin de :
   - charger un dump de contenu

@@ -6,13 +6,17 @@
 
 //COULEURS DE DEBUG (affichée en mode /less.php)
 .isLess {
-	#dm_page{ background-color: #eee; }
-	#dm_sidebar_left .dm_zones { background-color: #ccccb8; }
-	#dm_sidebar_right .dm_zones { background-color: #b8ccb8; }
-	#dm_content .dm_zones { background-color: #b8cccc; }
-	#dm_custom_top .dm_zones { background-color: #ccccb8; }
-	#dm_custom_bottom .dm_zones { background-color: #ccb8cc; }
-	#dm_main_inner .dm_zones { background-color: #ccc; }
+	#dm_page { background-color: #aaa; }
+	#dm_main { background-color: #bbb; }
+	#dm_main_inner { background-color: #ccc; }
+	
+	#dm_header > .dm_zones { background-color: #8ccccb; }
+	#dm_footer > .dm_zones { background-color: #c8ccbc; }
+	#dm_sidebar_left > .dm_zones { background-color: #ccccb8; }
+	#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
+	#dm_content > .dm_zones { background-color: #b8cccc; }
+	#dm_custom_top > .dm_zones { background-color: #ccccb8; }
+	#dm_custom_bottom > .dm_zones { background-color: #ccb8cc; }
 }
 
 //couleur de la zone située sous le header jusqu'en bas
@@ -34,11 +38,6 @@
 		margin-left: auto;
 		margin-right: auto;
 		padding-bottom: (@gridBaseline -1px);
-		/*background-color: transparent;
-		background-image: url(@{urlImagesTemplate}/Page/header.png);
-		background-repeat: no-repeat;
-		background-position: 50% bottom;
-		@gridMinHeight(11);*/
 	}
 }
 
@@ -77,7 +76,7 @@
 	min-height: @gridBaseline;
 }
 
-#dm_content, #dm_sidebar_left, #dm_sidebar_right {
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
 	//meilleure gestion uniformisée des bordures
 	.dm_zones { margin: 0 (@zonesOffsetPad * -1) @gridBaseline (@zonesOffsetPad * -1); }
 }

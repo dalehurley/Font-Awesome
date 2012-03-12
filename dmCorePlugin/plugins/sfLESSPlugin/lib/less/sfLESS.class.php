@@ -110,11 +110,21 @@ class sfLESS
    */
   public function findLessFiles()
   {
-    return sfFinder::type('file')
-      ->name('*.less')
-      ->discard('_*')
-      ->follow_link()
-      ->in(self::getConfig()->getLessPaths());
+    if (dmConfig::get('site_theme_version') == 'v1'){
+      return sfFinder::type('file')
+        ->name('*.less')
+        ->discard('_*')
+        ->follow_link()
+        ->in(self::getConfig()->getLessPaths());
+    }
+
+    if (dmConfig::get('site_theme_version') == 'v2'){
+      return sfFinder::type('file')
+        ->name('style.less')      // Pour les themes V2 seuls les fichiers style.less sont compilés et peuvent se retrouver dans le dossier css du site
+        ->discard('_*')
+        ->follow_link()
+        ->in(self::getConfig()->getLessPaths());
+    }
   }
 
   /**
@@ -126,19 +136,30 @@ class sfLESS
    */
   public function getCssPathOfLess($lessFile)
   {
-	//Changement du chemin absolu pour les fichiers issus du dossier _templates qui est inclu en lien symbolique
-  // en chemin relatif au site
-  // afin que ces fichiers less se retrouvent dans le dossier css du site
-	$token = '_templates';
-	if(strpos($lessFile, $token)){
-	  //on récupère la portion se situant après themesFmk
-	  $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
-	}
-	$token = '_framework';
-  if(strpos($lessFile, $token)){
-    //on récupère la portion se situant après themesFmk
-    $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
-  }  
+  	//Changement du chemin absolu pour les fichiers issus de certains dossier inclus en lien symbolique
+    // en chemin relatif au site
+    // afin que ces fichiers less se retrouvent dans le dossier css du site
+    // v1 : on ajoute les dossiers _templates et _framework
+  	$token = '_templates';
+  	if(strpos($lessFile, $token)){
+  	  $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
+  	}
+  	$token = '_framework';
+    if(strpos($lessFile, $token)){
+      $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
+    }  
+    // v2 : on ajoute les dossiers bootstrap et _themes
+    $token = 'bootstrap';
+    if(strpos($lessFile, $token)){
+      //on récupère la portion se situant après bootstrap
+      $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
+    } 
+    $token = '_themes';
+    if(strpos($lessFile, $token)){
+      //on récupère la portion se situant après bootstrap
+      $lessFile = self::getConfig()->getLessPaths() . $token . '/' . substr($lessFile, strrpos($lessFile, $token) + strlen($token) + 1);
+    } 
+
   
     $file = preg_replace('/\.less$/', '.css', $lessFile);
     $file = preg_replace(sprintf('/^%s/', preg_quote(self::getConfig()->getLessPaths(), '/')), self::getConfig()->getCssPaths(), $file);
@@ -298,8 +319,12 @@ class sfLESS
   {
       try
       {
-        $less = new lessc( $lessFile );
-		$less->importDir = sfLESS::getConfig()->getLessPaths();
+        if (dmConfig::get('site_theme_version') == 'v1'){
+          $less = new lesscV1( $lessFile );
+        } else {
+          $less = new lessc( $lessFile );
+        }
+		    $less->importDir = sfLESS::getConfig()->getLessPaths();
         $css  = $less->parse();
         file_put_contents( $cssFile, $css );
         return $css;

@@ -45,16 +45,16 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
             $arrayFilActus = dmDb::table('SidArticle')            
                 ->createQuery('a')
                 ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
-                ->where('a.section_id = ? and a.is_active=?', array($sectionId, true))
-                ->orderBy('aTranslation.created_at')
+                ->where('a.section_id = ? and a.is_active=? and aTranslation.created_at>=?', array($sectionId, true,date('Y-m-d')))
+                ->orderBy('aTranslation.created_at DESC')
                 ->limit($vars['nbArticles'])
                 ->execute();
         }
-
+        ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'listAgenda', array(
                     'articles' => $arrayFilActus,
                     'titreBloc' => $vars['titreBloc'],
-                    'titreLien' => $vars['lien'],
+                    'lien' => $lien,
                     'length' => $vars['length']
                 ));
     

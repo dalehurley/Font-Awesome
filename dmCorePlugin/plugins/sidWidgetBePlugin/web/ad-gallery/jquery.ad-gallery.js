@@ -9,16 +9,16 @@
  */
 (function($) {
   $.fn.adGallery = function(options) {
-    var defaults = { loader_image: 'loader.gif',
+    var defaults = { loader_image: '/theme/less/_framework/SPLessCss/Images/Loaders/loader-circle1.gif',
                      start_at_index: 0,
                      description_wrapper: $('.ad-descriptions'),
                      thumb_opacity: 0.5,
                      animate_first_image: false,
-                     animation_speed: 400,
+                     animation_speed: 500,
                      width: false,
                      height: false,
                      display_next_and_prev: true,
-                     display_back_and_forward: true,
+                     display_back_and_forward: false,
                      scroll_jump: 0, // If 0, it jumps the width of the container
                      slideshow: {
                        enable: true,

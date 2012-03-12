@@ -32,9 +32,10 @@ class PluginSidRubriqueTable extends myDoctrineTable {
      */
 
     public function isRubrique($title) {
-        $a = $this->createQuery('c')
-                ->leftJoin('c.Translation rt')
-                ->where('rt.title = ? and is_active = ?', array($title, true));
+        $a = $this->createQuery('a')
+//                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                ->leftJoin('a.Translation at')
+                ->where('at.title = ? and a.is_active = ?', array($title, true));
 
         return $a->execute()->count();
     }
@@ -57,17 +58,19 @@ class PluginSidRubriqueTable extends myDoctrineTable {
      */
 
     public function getIdRubriqueByNameRubrique($nameRubrique) {
-        $a = $this->createQuery('c')
-                ->leftJoin('c.Translation rt')
-                ->where('rt.title = ? and is_active = ?', array($nameRubrique, true));
+        $a = $this->createQuery('a')
+//                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                ->leftJoin('a.Translation at')
+                ->where('at.title = ? and a.is_active = ?', array($nameRubrique, true));
 
         return $a->fetchOne();
     }
 
     public function findOneByTitleAndIsActive($title) {
         $a = $this->createQuery('r')
+//                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'r')
                 ->leftJoin('r.Translation rt')
-                ->where('rt.title = ? and is_active = ?', array($title, true));
+                ->where('rt.title = ? and r.is_active = ?', array($title, true));
 
         if ($a->execute()->count() < 1) {
             $rubrique = new SidRubrique();
@@ -79,6 +82,7 @@ class PluginSidRubriqueTable extends myDoctrineTable {
 
     public function findOneByTitle($title) {
         $a = $this->createQuery('r')
+//                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'r')
                 ->leftJoin('r.Translation rt')
                 ->where('rt.title = ? ', array($title));
 

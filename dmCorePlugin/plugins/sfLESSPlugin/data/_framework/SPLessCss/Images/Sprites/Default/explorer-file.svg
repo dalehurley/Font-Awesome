@@ -8,8 +8,8 @@
 	</linearGradient>
 	<path fill="url(#SVGID_1_)" d="M24.553,17.647v-7.326L14.644,21.01h6.546C23.048,21.01,24.553,19.505,24.553,17.647z"/>
 		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-282.0049" y1="-6393.5698" x2="-282.0049" y2="-6349.2495" gradientTransform="matrix(1 0 0 1 314.0049 6403.4102)">
-			<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-			<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+			<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+			<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 		</linearGradient>
 	<path fill="url(#SVGID_2_)" d="M46.474,9.84H26.955v10.209c0,1.857-1.506,3.362-3.363,3.362h-9.428v27.385
 		c0,1.855,1.506,3.363,3.363,3.363h28.946c1.856,0,3.362-1.506,3.362-3.363V13.203C49.836,11.346,48.331,9.84,46.474,9.84z

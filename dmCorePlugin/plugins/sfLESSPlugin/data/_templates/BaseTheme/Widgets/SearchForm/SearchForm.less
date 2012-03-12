@@ -17,7 +17,7 @@
 @import "_framework/SPLessCss/Widgets/SearchForm/_SearchForm.less";
 
 #dm_header {
-	.search_form {
+	.dm_widget.search_form {
 		//permet d'étendre la zone en débordement de la page
 		margin-left: -100%;
 		margin-right: -100%;
@@ -109,7 +109,7 @@
 
 //hack webkit (Safari et Chrome)
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-	#dm_header .search_form {
+	#dm_header .dm_widget.search_form {
 		//correction du bug sur le champ de saisi
 		input.query { padding-bottom: 4px; }
 		input.submit { padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 9px; }
@@ -119,7 +119,7 @@
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletLandscape() {
 	#dm_header {
-		.search_form {
+		.dm_widget.search_form {
 			//correction du bug sur le champ de saisi
 			input.query { padding-bottom: 3px; }
 			input.submit { padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 8px; }
@@ -129,7 +129,7 @@
 
 @templateMedia_TabletPortrait(){
 	#dm_header {
-		.search_form {
+		.dm_widget.search_form {
 			.dm_widget_inner {
 				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
 			}

@@ -59,7 +59,8 @@ generator:
 #          - description
       form:
         display:
-          NONE: [title, is_active]
+          'Publication sur le site': [is_active]
+          'Titre de la page': [title]
           Description: [description]
         class: SidIndexSitesUtilesAdminForm
         fields: {  }

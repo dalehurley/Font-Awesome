@@ -12,8 +12,8 @@
 		"/>
 	
 		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-461.0044" y1="6726.1104" x2="-461.0044" y2="6695.2246" gradientTransform="matrix(1 0 0 -1 493.0049 6743.9102)">
-		<stop  offset="0" style="stop-color:##spriteCouleur2##"/>
-		<stop  offset="1" style="stop-color:##spriteCouleur2Fonce##"/>
+		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
+		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>
 	<path fill="url(#SVGID_2_)" d="M43.579,35.188c0.205-0.26,0.584-0.305,0.845-0.098L59.417,46.97
 		c0.342-0.549,0.539-1.197,0.539-1.894V21.061c0-0.002,0-0.004,0-0.004v-0.022c0-1.299-0.413-2.271-1.562-3.234L34.547,34.328
