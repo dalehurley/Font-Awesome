@@ -16,12 +16,12 @@ if($logo_les_echos == true){
 }
 echo _tag('h2.title', $title);
 
-echo _open('ul'.$length);
+echo _open('ul.elements');
 
 foreach($items[0] as $item)
 {
   
-    echo _tag('li',
+    echo _tag('li.element',
 
     // link to the feed page
     _link($item['link'])->text($item['title'])->set('.feed_item_link').
