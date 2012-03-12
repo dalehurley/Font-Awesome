@@ -89,16 +89,16 @@ $countVille = count($arrayVilles);
     foreach ($arrayVilles as $key => $arrayVille) {
         // condition pour gérer les class des listings
         if ($ville == 1){
-            $incrementVille = 'first';
-            if($ville == $countVille) $incrementVille = 'first last';
+            $incrementVille = ' first';
+            if($ville == $countVille) $incrementVille = ' first last';
             }
         elseif ($ville == $countVille)
-            $incrementVille = 'last';
+            $incrementVille = ' last';
         else
             $incrementVille = '';
         // condition pour gérer les class des listings
         
-        echo _open('section', array('class' => 'supWrapper clearfix ' . $incrementVille));
+        echo _open('section', array('class' => 'supWrapper clearfix' . $incrementVille));
             echo _tag('h3', array('class' => 'title'), __('Implantation') . '&nbsp;:&nbsp;' . $key);
             echo _open('ul', array('class' => 'elements'));
         
@@ -109,11 +109,11 @@ $countVille = count($arrayVilles);
             foreach ($arrayVille as $key=>$equipe) {
                 // condition pour gérer les class des listings
                 if ($nbEquipe == 1){
-                    $incrementEquipe = 'first';
-                    if($nbEquipe == $countEquipe) $incrementEquipe = 'first last';
+                    $incrementEquipe = ' first';
+                    if($nbEquipe == $countEquipe) $incrementEquipe = ' first last';
                     }
                 elseif ($nbEquipe == $countEquipe)
-                    $incrementEquipe = 'last';
+                    $incrementEquipe = ' last';
                 else
                     $incrementEquipe = '';
                 // condition pour gérer les class des listings
@@ -121,7 +121,7 @@ $countVille = count($arrayVilles);
                 echo _open('li', array('class' => 'element itemscope Person ' . $incrementEquipe, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope', 'id' => dmString::slugify($equipe->getTitle())));
 
                     if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
-                        echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->alt($equipe->getTitle())->set('.image itemprop="image"'));
+                        echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getTitle())->set('.image itemprop="image"'));
                     };
                     echo _open('span', array('class' => 'wrapper'));
                         echo _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), $equipe->getTitle());

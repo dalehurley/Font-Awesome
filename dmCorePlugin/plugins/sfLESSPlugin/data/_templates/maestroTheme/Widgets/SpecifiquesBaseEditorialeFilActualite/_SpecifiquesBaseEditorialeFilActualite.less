@@ -7,16 +7,9 @@
 //Config par défaut des widgets du template
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
-#dm_sidebar_left, #dm_sidebar_right {
-	.specifiques_base_editoriale_fil_actualite {
-		//appel de la fonction de placement de la sprite
-		@widgetTitleSprite("Default"; "section"; "actualites");
-	
-		.dm_widget_inner {
-			& > .title {
-				//complément de l'appel de la sprite sur le titre
-				&:after { @spriteBgp(@spriteFormat_M; @spriteOffX-section-actualites; @spriteOffY-section-actualites); }
-			}
-		}
+.dm_widget.specifiques_base_editoriale_fil_actualite {
+	.isLess & { background-color: #CAEBD5; }
+	.dm_widget_inner {
+		.isLess & { background-color: #97BFA5; }
 	}
 }

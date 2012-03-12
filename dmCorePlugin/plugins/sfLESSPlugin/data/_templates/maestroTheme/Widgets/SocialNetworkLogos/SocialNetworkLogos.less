@@ -8,26 +8,13 @@
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
-@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/SocialNetworkLogos/_SocialNetworkLogos.less";
 
-.social_network_logos {
-	float: left;
+.dm_widget.social_network_logos {
+	.isLess & { background-color: #2C96AB; }
 	.dm_widget_inner {
 		.isLess & { background-color: #28C0DE; }
-		
-		#dm_custom_top & {
-			@gridWidth(@gridCol_SidebarLeft);
-			margin-right: @gridGutter;
-		}
-	}
-	
-	.elements {
-		.element {
-			//on supprime le décalage à gauche pour une icone sur 5 (à adapter si changement taille sidebar-left)
-			&:nth-child(5) { margin-right: 0; }
-		}
 	}
 }
