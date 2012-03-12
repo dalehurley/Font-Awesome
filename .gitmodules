@@ -25,3 +25,6 @@
 [submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/bootstrap"]
 	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/bootstrap
 	url = git@github.com:SidPresse/bootstrap.git
+[submodule "symfony"]
+	path = symfony
+	url = git@github.com:SidPresse/symfony.git
