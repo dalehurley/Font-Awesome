@@ -14,7 +14,7 @@
 	// #dm_footer > .dm_zones { background-color: #c8ccbc; }
 	#dm_sidebar_left > .dm_zones { background-color: #ccccb8; }
 	//#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
-	//#dm_content > .dm_zones { background-color: #b8cccc; }
+	//#dm_page_content > .dm_zones { background-color: #b8cccc; }
 	//#dm_custom_top > .dm_zones { background-color: #ccccb8; }
 	#dm_custom_bottom > .dm_zones { background-color: #ccb8cc; }
 }
@@ -42,7 +42,7 @@
 }
 
 //débordement externes des différentes zones de la page
-#dm_content, #dm_sidebar_left, #dm_sidebar_right, #dm_custom_top, #dm_custom_bottom {
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right, #dm_custom_top, #dm_custom_bottom {
 	//meilleure gestion uniformisée des bordures
 	.dm_zones { margin: 0 (@zonesOffsetPad * -1) 0 (@zonesOffsetPad * -1); }
 }
@@ -130,7 +130,7 @@
 }
 
 //gestion des paddings et des marges des sidebars et du contenu
-#dm_content {
+#dm_page_content {
 	.isLess & { background-color: #b8cccc; }
 
 	.dm_zones {
