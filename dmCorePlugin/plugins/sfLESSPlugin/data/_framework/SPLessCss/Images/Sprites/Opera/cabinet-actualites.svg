@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" xml:space="preserve">
+<g>
+	<!-- Fond neutre -->
+	<g>
+		<radialGradient id="fondBordure" cx="297.5" cy="-357" r="27.0991" gradientTransform="matrix(1 0 0 -1 -265.5 -325)" gradientUnits="userSpaceOnUse">
+			<stop  offset="0.60" style="stop-color:##spriteCouleurBlack##"/>
+			<stop  offset="0.85" style="stop-color:##spriteCouleur2Fonce##"/>
+			<stop  offset="0.92" style="stop-color:##spriteCouleur2##"/>
+			<stop  offset="0.98" style="stop-color:##spriteCouleur2Moyen##"/>
+		</radialGradient>
+		<path fill="url(#fondBordure)" d="M59.1,31.992c0,14.96-12.137,27.106-27.098,27.106C17.035,59.101,4.9,46.952,4.9,31.992
+			S17.035,4.901,32.002,4.901C46.963,4.901,59.1,17.032,59.1,31.992z"/>
+		<g>
+			<radialGradient id="fondBackground" cx="56.2461" cy="-343.7988" r="41.1343" gradientTransform="matrix(1 0 0 -1 -19.7197 -325)" gradientUnits="userSpaceOnUse">
+				<stop  offset="0.2802" style="stop-color:##spriteCouleur3Sup##"/>
+				<stop  offset="0.76" style="stop-color:##spriteCouleur3##"/>
+				<stop  offset="0.8046" style="stop-color:##spriteCouleur3Sup##"/>
+				<stop  offset="0.8774" style="stop-color:##spriteCouleur3Moyen##"/>
+				<stop  offset="0.98" style="stop-color:##spriteCouleur3Clair##"/>
+			</radialGradient>
+			<path fill="url(#fondBackground)" d="M56.018,31.994c0,13.261-10.758,24.022-24.016,24.022c-13.266,0-24.02-10.763-24.02-24.022
+				S18.736,7.983,32.002,7.983C45.26,7.983,56.018,18.734,56.018,31.994z"/>
+			<linearGradient id="fondHalo" gradientUnits="userSpaceOnUse" x1="-792.7246" y1="41.832" x2="-792.5552" y2="42.464" gradientTransform="matrix(37.3965 0 0 37.3965 29672.7188 -1554.1572)">
+				<stop  offset="0" style="stop-color:##spriteCouleurWhite##"/>
+				<stop  offset="0.1787" style="stop-color:##spriteCouleur3ClairSup##"/>
+				<stop  offset="0.5358" style="stop-color:##spriteCouleur3Clair##"/>
+				<stop  offset="0.7363" style="stop-color:##spriteCouleur3MoyenSup##"/>
+				<stop  offset="0.8273" style="stop-color:##spriteCouleur3Moyen##"/>
+				<stop  offset="0.9656" style="stop-color:##spriteCouleur3Sup##"/>
+				<stop  offset="1" style="stop-color:##spriteCouleur3##"/>
+			</linearGradient>
+			<path fill="url(#fondHalo)" d="M32.834,9.622c-1.404,0-2.857,0.132-4.326,0.404c-9.264,1.733-15.768,8.522-14.531,15.157
+				c1.041,5.581,7.242,9.278,14.701,9.278c1.408,0,2.859-0.133,4.326-0.406c9.27-1.733,15.771-8.517,14.533-15.146
+				C46.496,13.326,40.299,9.622,32.834,9.622z"/>
+		</g>
+	</g>
+
+	<!-- Icône en superposition avec dégradé (recopier icône standard à l'intérieur du groupe redimensionné) -->
+	<g transform="translate(32, 32) scale(0.62, 0.62) translate(-32, -32)">
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-452.1836" y1="6729.3926" x2="-452.1836" y2="6688.1514" gradientTransform="matrix(1 0 0 -1 493.0049 6743.9102)">
+			<stop  offset="0" style="stop-color:##spriteCouleur3Fonce##"/>
+			<stop  offset="1" style="stop-color:##spriteCouleurBlack##"/>
+		</linearGradient>
+		<path fill="url(#SVGID_1_)" d="M51.521,14.518h-0.523c0.258,0.633,0.404,1.324,0.404,2.05v20.107c0,2.97-2.408,5.38-5.377,5.38
+			H26.139c0.598,1.954,2.019,3.33,3.681,3.33h12.225l8.342,10.374l-1.043-10.374h2.18c2.197,0,3.98-2.408,3.98-5.38V19.896
+			C55.502,16.927,53.721,14.518,51.521,14.518z"/>
+		
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-464.4648" y1="6735.6699" x2="-464.4648" y2="6694.4268" gradientTransform="matrix(1 0 0 -1 493.0049 6743.9102)">
+			<stop  offset="0" style="stop-color:##spriteCouleur3Fonce##"/>
+			<stop  offset="1" style="stop-color:##spriteCouleurBlack##"/>
+		</linearGradient>
+		<path fill="url(#SVGID_2_)" d="M43.207,8.241H13.876c-2.971,0-5.38,2.408-5.38,5.379v20.108c0,2.971,2.408,5.38,5.38,5.38h2.944
+			l-1.408,10.375l11.271-10.375h16.522c2.973,0,5.379-2.408,5.379-5.38V13.62C48.586,10.65,46.178,8.241,43.207,8.241z
+			 M40.822,24.003c0,0.316-0.258,0.574-0.574,0.574H16.837c-0.315,0-0.574-0.257-0.574-0.574v-0.957c0-0.317,0.258-0.575,0.574-0.575
+			h23.411c0.316,0,0.574,0.258,0.574,0.575V24.003z M40.822,16.822c0,0.317-0.258,0.574-0.574,0.574H16.837
+			c-0.315,0-0.574-0.257-0.574-0.574v-0.957c0-0.316,0.258-0.574,0.574-0.574h23.411c0.316,0,0.574,0.258,0.574,0.574V16.822z"/>
+	</g>
+</g>
+</svg>

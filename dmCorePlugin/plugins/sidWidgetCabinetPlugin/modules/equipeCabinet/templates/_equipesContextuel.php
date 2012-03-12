@@ -11,21 +11,21 @@ foreach($equipes as $equipe) {
         $html ='';
         // condition pour gérer les class des listings
         if ($i == 1) {
-            $class = 'first';
+            $class = ' first';
             if ($i == $i_max)
-                $class = 'first last';
+                $class = ' first last';
         }
         elseif ($i == $i_max)
-            $class = 'last';
+            $class = ' last';
         else
             $class = '';
                 // condition pour gérer les class des listings
 
-                echo _open('li', array('class' => 'element itemscope Person ' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
+                echo _open('li', array('class' => 'element itemscope Person' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
                 
                     if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
                         
-                        $html.= _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->alt($equipe->getTitle())->set('.image itemprop="image"'));
+                        $html.= _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getTitle())->set('.image itemprop="image"'));
                     };
                     $html.= _open('span', array('class' => 'wrapper'));
                         $html.= _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), $equipe->getTitle());

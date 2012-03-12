@@ -6,8 +6,14 @@
 
 //Structure généraled de la base éditoriale
 
-.contentHeader { padding-bottom: @gridBaseline/2; }
+.contentHeader {
+	.isLess & { background-color: #F2D8E4; }
+}
 
-.contentBody { padding-top: @gridBaseline/2; padding-bottom: @gridBaseline/2; }
+.contentBody {
+	.isLess & { background-color: #E6CCD8; }
+}
 
-.contentFooter { padding-top: @gridBaseline/2; }
+.contentFooter {
+	.isLess & { background-color: #D9C1CC; }
+}
