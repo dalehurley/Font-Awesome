@@ -10,9 +10,6 @@
 [submodule "dmCorePlugin/plugins/sfFormExtraPlugin"]
 	path = dmCorePlugin/plugins/sfFormExtraPlugin
 	url = git@github.com:SidPresse/sfFormExtraPlugin.git
-[submodule "symfony"]
-	path = symfony
-	url = git@github.com:SidPresse/symfony.git
 [submodule "dmCorePlugin/test/project/plugins/dmTagPlugin"]
 	path = dmCorePlugin/test/project/plugins/dmTagPlugin
 	url = git@github.com:SidPresse/dmTagPlugin.git
