@@ -27,7 +27,14 @@
 //STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
 .dm_widget {
 	.dm_widget_inner {
-
+		//changement taille du titre des widgets
+		& > .title {
+			position: relative;
+			#dm_content & {
+				font-size: @fontSizeH4Px;
+				line-height: @gridBaseline;
+			}
+		}
 	}
 }
 
@@ -72,17 +79,36 @@
 //stylage par défaut des widgets dans les zones principales
 #dm_content, #dm_sidebar_left, #dm_sidebar_right {
 	.dm_widget {
-		margin-bottom: @gridBaseline/2;
+		margin-bottom: @gridBaseline;
 		
 		.dm_widget_inner {
 			padding: (@gridBaseline/2) @zonesOffsetPad;
 			//suppression bordures sous niveaux
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; } }
+
+			& > .title {
+				.isLess & { background-color: #5F8FA3; }
+				color: @colorCouleur1;
+				text-transform: uppercase;
+				font-family: @fontGlobalFamilySansSerif;
+				font-weight: normal;
+				margin: (@gridBaseline/-2) (@zonesOffsetPad*-1) (@gridBaseline/2) (@zonesOffsetPad*-1);
+				padding: @gridBaseline/4 0;
+				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
+				& + .elements { margin-top: @gridBaseline/-2; }
+			}
 		}
 	}
 }
-#dm_sidebar_right {
+
+//ajout bordure sous le titre dans les sidebars
+#dm_sidebar_left, #dm_sidebar_right {
 	.dm_widget {
-		.dm_widget_inner { padding-left: (@zonesOffsetPad -1px); }
+		.dm_widget_inner {
+			& > .title {
+				padding-bottom: (@gridBaseline/4 -1px);
+				border-bottom: 1px solid @zonesBorderColor;
+			}
+		}
 	}
 }

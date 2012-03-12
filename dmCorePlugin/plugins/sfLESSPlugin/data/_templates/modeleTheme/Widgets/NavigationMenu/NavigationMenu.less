@@ -74,10 +74,16 @@ ul.dropdown, ul.megadropdown, ul.accordion {
 		word-spacing: -0.05em;
 		letter-spacing: -0.05em;
 	}
-	ul li {
-		font-weight: normal;
-		text-transform: none;
-	}
+}
+
+//mise en minuscule des liens de toutes les sous parties, dossiers compris (sauf pour megadropdown)
+ul.dropdown ul li, ul.dropdown ul li.dm_dir,
+ul.accordion ul li, ul.accordion ul li.dm_dir,
+ul.megadropdown ul li {
+	font-weight: normal;
+	text-transform: none;
+	word-spacing: 0;
+	letter-spacing: 0;
 }
 
 //configuration de base des liens pour les menus dropdown et accordion
@@ -99,7 +105,7 @@ ul.dropdown, ul.accordion {
 		&.dm_inactive { color: @colorCouleur3; }
 		//LoVe's Hurts Fade Away
 		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
-		&:active { color: @colorCouleur1Moyen; }
+		&:active { color: @colorCouleur1; }
 	}
 	
 	li {

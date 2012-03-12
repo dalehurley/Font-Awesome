@@ -20,8 +20,13 @@
 	.ad-image-wrapper {
 		//application dimensions de l'image
 		#dm_page_content & {
-			@gridWidth(@thumbContent_col);
+			@gridMinHeight(@thumbContent_bl);
 			@gridHeight(@thumbContent_bl);
+			//application de la largeur en fonction des différentes configuration de la grille
+			.dm_sdbc_none & { @gridWidth(@gridCol); }
+			.dm_sdbc_left & { @gridWidth((@gridCol - @gridCol_SidebarLeft)); }
+			.dm_sdbc_right & { @gridWidth((@gridCol - @gridCol_SidebarRight)); }
+			.dm_sdbc_two & { @gridWidth(@thumbContent_col); }
 		}
 
 		//replacement en hauteur des icônes de navigation

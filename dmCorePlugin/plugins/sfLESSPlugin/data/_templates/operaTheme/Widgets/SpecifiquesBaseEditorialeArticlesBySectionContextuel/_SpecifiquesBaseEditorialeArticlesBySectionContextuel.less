@@ -7,9 +7,40 @@
 //Config par défaut des widgets du template
 @import "_templates/operaTheme/Widgets/_Widgets.less";
 
-.dm_widget.specifiques_base_editoriale_articles_by_section_contextuel {
-	.isLess & { background-color: #DFD1E8; }
-	.dm_widget_inner {
-		.isLess & { background-color: #BEADC9; }
+#dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.specifiques_base_editoriale_articles_by_section_contextuel {
+		
+		//ajout de l'arrondi en débord blanc sur la sprite
+		&.actualites, &.agenda, &.chiffres, &.dossiers {
+			@widgetTitleSpriteRound();
+		}
+	
+		&.actualites {
+			//appel de la fonction de placement de la sprite
+			@widgetTitleSprite("Opera"; "section"; "actualitesOver");
+			//complément de l'appel de la sprite sur le titre
+			.dm_widget_inner > .title:after { @spriteBgp(@spriteFormat_M; @spriteOffX-Opera-section-actualitesOver; @spriteOffY-Opera-section-actualitesOver); }
+		}
+	
+		&.agenda {
+			//appel de la fonction de placement de la sprite
+			@widgetTitleSprite("Opera"; "section"; "agendaOver");
+			//complément de l'appel de la sprite sur le titre
+			.dm_widget_inner > .title:after { @spriteBgp(@spriteFormat_M; @spriteOffX-Opera-section-agendaOver; @spriteOffY-Opera-section-agendaOver); }
+		}
+	
+		&.chiffres {
+			//appel de la fonction de placement de la sprite
+			@widgetTitleSprite("Opera"; "section"; "chiffresOver");
+			//complément de l'appel de la sprite sur le titre
+			.dm_widget_inner > .title:after { @spriteBgp(@spriteFormat_M; @spriteOffX-Opera-section-chiffresOver; @spriteOffY-Opera-section-chiffresOver); }
+		}
+	
+		&.dossiers {
+			//appel de la fonction de placement de la sprite
+			@widgetTitleSprite("Opera"; "section"; "dossiersOver");
+			//complément de l'appel de la sprite sur le titre
+			.dm_widget_inner > .title:after { @spriteBgp(@spriteFormat_M; @spriteOffX-Opera-section-dossiersOver; @spriteOffY-Opera-section-dossiersOver); }
+		}
 	}
 }
