@@ -70,7 +70,7 @@ class dmFrontPageViewHelper extends dmFrontPageBaseHelper
                 
                 $const = dmDb::table('SidConstantes')->findOneByName(strtolower($matchDB));  // les sidConstantes.name sont en minuscules
                 //ajout stef
-                $content = $const->getContent();
+                if (is_object($const)) $content = $const->getContent();
                 // ajout stef
                 if (isset($content)) {
                     $infosDev .= '[' . $matchDB . ' -> '.$const->getContent().']<br>';
