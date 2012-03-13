@@ -44,7 +44,7 @@
 	//dans un listing
 	.elements .element & { font-size: @fontSizeSmall; }
 	//dans du contenu
-	#dm_content .contentHeader & { margin-top: @gridBaseline/2; }
+	#dm_page_content .contentHeader & { margin-top: @gridBaseline/2; }
 }
 
 
@@ -128,7 +128,7 @@
 }
 
 .email {
-	.isLess & { background-color: #D773FF; }
+	.isLess & { background-color: fadeout(#D773FF, 50%); }
 	.type {
 		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-email; @spriteOffY-communication-email);
 		@spriteBgiSvg("Default"; "communication"; "email");
@@ -136,7 +136,7 @@
 }
 
 .faxNumber {
-	.isLess & { background-color: #FF73BB; }
+	.isLess & { background-color: fadeout(#FF73BB, 50%); }
 	.type {
 		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-faxNumber; @spriteOffY-communication-faxNumber);
 		@spriteBgiSvg("Default"; "communication"; "faxNumber");
@@ -144,7 +144,7 @@
 }
 
 .telephone {
-	.isLess & { background-color: #FF7393; }
+	.isLess & { background-color: fadeout(#FF7393, 50%); }
 	.type {
 		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-telephone; @spriteOffY-communication-telephone);
 		@spriteBgiSvg("Default"; "communication"; "telephone");
@@ -153,21 +153,19 @@
 
 
 
-
-
 //POSTALADDRESS
 //http://schema.org/PostalAddress
 
 .streetAddress {
-	.isLess & { background-color: #7398FF; }
+	.isLess & { background-color: fadeout(#7398FF, 50%); }
 }
 
 .postalCode {
-	.isLess & { background-color: #73E5FF; }
+	.isLess & { background-color: fadeout(#73E5FF, 50%); }
 }
 
 .addressLocality {
-	.isLess & { background-color: #73FFCC; }
+	.isLess & { background-color: fadeout(#73FFCC, 50%); }
 }
 
 .addressRegion {

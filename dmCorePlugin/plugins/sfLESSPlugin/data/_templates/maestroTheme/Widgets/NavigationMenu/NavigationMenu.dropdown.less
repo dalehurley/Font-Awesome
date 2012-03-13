@@ -17,7 +17,7 @@
 //Importation des classes de composition du menu
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Dropdown/_Dropdown.less";
 
-ul.dropdown {
+ul.menu-dropdown {
 	//rajout bordure à gauche sur les menus
 	&, & ul { border-left: 1px solid @zonesBorderColor; }
 	
@@ -126,11 +126,11 @@ ul.dropdown {
 			padding-right: @menuDropdownPadHCustomTop;
 			padding-left: @menuDropdownPadHCustomTop + 1px;
 			
-			&.dm_current { &, &:hover { color: @colorCouleur1MoyenSup; } }
+			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
 			&.dm_inactive { color: @colorCouleur3Moyen; }
 			//LoVe's Hurts Fade Away
 			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Sup; }
-			&:active { color: @colorCouleur1Moyen; }
+			&:active { color: @colorCouleur1; }
 		}
 		
 		//modification de la couleur de la flèche

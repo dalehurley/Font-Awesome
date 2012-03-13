@@ -11,10 +11,10 @@
 	#dm_main_inner { background-color: #ccc; }
 	
 	#dm_header > .dm_zones { background-color: fadeout(#8ccccb, 50%); }
-	#dm_footer > .dm_zones { background-color: #c8ccbc; }
+	// #dm_footer > .dm_zones { background-color: #c8ccbc; }
 	#dm_sidebar_left > .dm_zones { background-color: #ccccb8; }
 	//#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
-	//#dm_content > .dm_zones { background-color: #b8cccc; }
+	//#dm_page_content > .dm_zones { background-color: #b8cccc; }
 	//#dm_custom_top > .dm_zones { background-color: #ccccb8; }
 	#dm_custom_bottom > .dm_zones { background-color: #ccb8cc; }
 }
@@ -42,7 +42,7 @@
 }
 
 //débordement externes des différentes zones de la page
-#dm_content, #dm_sidebar_left, #dm_sidebar_right, #dm_custom_top, #dm_custom_bottom {
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right, #dm_custom_top, #dm_custom_bottom {
 	//meilleure gestion uniformisée des bordures
 	.dm_zones { margin: 0 (@zonesOffsetPad * -1) 0 (@zonesOffsetPad * -1); }
 }
@@ -57,10 +57,13 @@
 	background-position: 50% bottom;
 
 	.dm_zones {
+		position: relative;
 		@gridSiteWidth();
 		margin-left: auto;
 		margin-right: auto;
 		padding: @gridBaseline 0;
+		//on réapplique la hauteur minimale pour le placement des icônes en bas à droite (on soustrait le padding)
+		&, #dm_page.edit & { @gridMinHeight(@headerHeight_bl; (@gridBaseline*2)); }
 	}
 }
 
@@ -75,16 +78,69 @@
 
 //stylage du footer
 #dm_footer {
-	.dm_zones { }
+	background-color: @colorCouleur3Clair;
+	padding: 0;
+
+	.dm_zones {
+		@gridSiteWidth();
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	//widgets situés dans le footer
+	.content_text {
+		.isLess & { background-color: #B6E0D1; }
+		position: relative;
+		&, .link { color: @colorCouleur3Fonce; }
+		.link { text-decoration: none; &:hover { text-decoration: underline; } }
+		float: right;
+		&, .text_content p {
+			font-size: @fontSizeMicro;
+			line-height: @gridBaseline;
+			margin: 0;
+		}
+	}
+	.content_link {
+		.isLess & { background-color: #E0B6D1; }
+		position: relative;
+		&, .link {
+			color: @colorCouleur3;
+			text-decoration: none;
+			&:hover { text-decoration: underline; }
+		}
+		font-size: @fontSizeMicro;
+		line-height: @gridBaseline;
+		text-transform: uppercase;
+		float: left;
+		margin-right: @offM;
+		//ajout de la sprite sur l'élément
+		padding-right: @spriteFormat_S;
+		&:after {
+			position: absolute;
+			display: block;
+			//décalage de marge
+			@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+			top: @decalV;
+			right: 0;
+			content: "";
+			//appel de la sprite
+			@spriteDefinition("Default"; "navigation"; "arrowColorDown"; "S"; @spriteFormat_S; @spriteOffX-navigation-arrowColorDown; @spriteOffY-navigation-arrowColorDown);
+		}
+	}
 }
 
 //gestion des paddings et des marges des sidebars et du contenu
-#dm_content {
+#dm_page_content {
 	.isLess & { background-color: #b8cccc; }
 
 	.dm_zones {
 		.isLess & { background-color: #8A9999; }
-		//lorsque uniquement sidebar-right est présente
+		padding: 0 @zonesOffsetPad;
+		//on rajoute la bordure à droite uniquement en présence de la sidebarRight
+		.dm_sdbc_right &, .dm_sdbc_two & {
+			padding-right: (@zonesOffsetPad -1px);
+			border-right: 1px dotted @zonesBorderColor;
+		}
 	}
 }
 
@@ -93,6 +149,6 @@
 
 	.dm_zones {
 		.isLess & { background-color: #8A998A; }
-		border-left: 1px solid red;
+		padding: 0 @zonesOffsetPad;
 	}
 }

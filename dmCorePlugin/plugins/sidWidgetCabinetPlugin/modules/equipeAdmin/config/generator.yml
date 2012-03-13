@@ -39,7 +39,7 @@ generator:
         sortable:
           label: 'trier les pages'
         coord_name_id:
-          label: 'implentation'
+          label: 'implantation'
         
       list:
         batch_actions:
@@ -72,7 +72,7 @@ generator:
       form:
         display:
           Visible sur le site: [is_active]
-          Ville d'implentation: [coord_name_id]
+          Ville d'implantation: [coord_name_id]
           Identite: [ title,statut, tel, fax, gsm, email]
           Photo: [image_form, image_view]
           Description: [text]

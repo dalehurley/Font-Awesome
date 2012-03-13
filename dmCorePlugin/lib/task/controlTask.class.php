@@ -124,7 +124,14 @@ EOF;
               'libelle' => 'Setup du site',
               'arguments' => array(),
               'options' => array()                
-              ),                               
+              ), 
+            array(
+              'separator' => 'Moteur de recherche (Lucene)', 
+              'command' => 'dm:search-update',
+              'libelle' => 'Mise à jour index de recherche',
+              'arguments' => array(),
+              'options' => array()                
+              ),                                              
         );
 
         // on supprime l'entrée de key = 0 car le zéro est interprété comme null en cli

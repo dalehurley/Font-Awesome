@@ -15,8 +15,8 @@
 @calculMarginVertical: (@pubHeight - @pubHauteur) / 2;
 
 //suppression bordure et compensation padding
-#dm_content, #dm_sidebar_left, #dm_sidebar_right {
-	.content_bloc_de_pub_en_flash {
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.content_bloc_de_pub_en_flash {
 		.dm_widget_inner {
 			padding: 0 @zonesOffsetPad;
 			border: 0;
@@ -25,7 +25,7 @@
 }
 
 #dm_sidebar_left, #dm_sidebar_right {
-	.content_bloc_de_pub_en_flash {
+	.dm_widget.content_bloc_de_pub_en_flash {
 		.dm_widget_inner {
 			.dm_flow_player {
 				margin-top: @calculMarginVertical;
@@ -36,7 +36,7 @@
 }
 
 #dm_sidebar_left {
-	.content_bloc_de_pub_en_flash {
+	.dm_widget.content_bloc_de_pub_en_flash {
 		.dm_widget_inner{
 			.dm_flow_player {
 				@calculMarginHorizontal: (@gridWidth_SidebarLeft - @pubLargeur) / 2;
@@ -48,7 +48,7 @@
 }
 
 #dm_sidebar_right {
-	.content_bloc_de_pub_en_flash {
+	.dm_widget.content_bloc_de_pub_en_flash {
 		.dm_widget_inner{
 			.dm_flow_player {
 				@calculMarginHorizontal: (@gridWidth_SidebarRight - @pubLargeur) / 2;

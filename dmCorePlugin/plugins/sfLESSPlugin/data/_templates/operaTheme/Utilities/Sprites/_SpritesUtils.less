@@ -13,6 +13,11 @@
 @widgetTitleSprite(@theme: "Default"; @category; @name) {
 	//ciblage du titre du widget
 	& .dm_widget_inner > .title {
+		//on rajoute du padding pour éviter le dépassement de la sprite
+		padding: @gridBaseline/2 0;
+		//suppression bordure du bas
+		border-bottom: 0;
+
 		//que si l'élément :after est géré (éviter un mélange avec .svg), on rajoute de l'espace à gauche pour caler la sprite
 		.generatedcontent & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px + @offS); }
 		
@@ -20,7 +25,7 @@
 			position: absolute;
 			display: block;
 			//décalage de marge
-			@decalV: (@gridBaseline + (@gridBaseline/2 - 1px) * 2 - @spriteFormat_M) / 2;
+			@decalV: (@gridBaseline + (@gridBaseline/2) * 2 - @spriteFormat_M) / 2;
 			top: @decalV;
 			left: @offS;
 			content: "";
@@ -30,4 +35,52 @@
 			@spriteBgiSvg(@theme; @category; @name);
 		}
 	}
+}
+
+//Arrondi de la sprite avec couleur de fond blanc pour le contour
+@widgetTitleSpriteRound() {
+	//ciblage du titre du widget
+	& .dm_widget_inner {
+		background-color: @colorCouleur3Clair;
+
+		& > .title {
+			background-color: @colorWhite;
+			//changement couleur et disposition du texte
+			color: @colorCouleur2;
+			font-size: @fontSizeH3Px;
+			line-height: @gridBaseline;
+			
+			//que si l'élément :after est géré
+			.generatedcontent & {
+				//suppression padding inférieur pour superposition avec contenu en dessous
+				padding-bottom: 0;
+				//pour forcer le passage par devant
+				z-index: 10;
+			}
+
+			&:after {
+				background-color: @colorWhite;
+				@borderRadiusCompress(@spriteFormat_M);
+			}
+		}
+	}
+
+	//ciblage des listings
+	& .elements .element {
+		&:hover { background-color: @colorCouleur3ClairSup; }
+		//ajout padding pour décalage éléments
+		padding-left: @zonesOffsetPad;
+		padding-right: @zonesOffsetPad;
+	}
+
+	//container de l'image
+	//on supprime le décalage lorsque situé dans un listing
+	
+	// & .elements .element .imageWrapper { margin-right: (@zonesOffsetPad * -1); }
+	// #dm_sidebar_left & .elements .element .imageWrapper,
+	// #dm_sidebar_right & .elements .element .imageWrapper { margin-left: (@zonesOffsetPad * -1); }
+
+	//on ne redéclare pas les sidebars car on est déjà à l'intérieur de ces dernières pour l'appel de la fonction
+	.elements .element .imageWrapper { margin-left: (@zonesOffsetPad * -1); }
+	#dm_page_content & .elements .element .imageWrapper { margin-right: (@zonesOffsetPad * -1); }
 }
