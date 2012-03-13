@@ -722,7 +722,8 @@ class dmDataLoad
                     'equipe',
                     'recrutement',
                     'mission',
-                    'actualite_contenu'
+                    'actualite_contenu',
+                    'contact_me'
                 )
             ),
         );
