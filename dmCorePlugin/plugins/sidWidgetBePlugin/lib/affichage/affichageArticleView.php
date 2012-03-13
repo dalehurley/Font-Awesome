@@ -91,6 +91,6 @@ class affichageArticleView extends dmWidgetPluginView {
             
         }
         
-        return $indRender;
+        return $indexRender;
     }
 }
