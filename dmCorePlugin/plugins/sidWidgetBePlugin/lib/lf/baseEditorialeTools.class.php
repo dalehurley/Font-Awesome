@@ -28,7 +28,6 @@ class baseEditorialeTools {
         exec('rm -R ' . $repBaseEditoriale);
         // création du dossier d'export
         exec('mkdir ' . $repBaseEditoriale);
-        
         foreach ($rubriques as $rubrique) {
             $rubriqueDir = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title;
             if (!$rubrique->isActive) {
@@ -36,7 +35,6 @@ class baseEditorialeTools {
                 $return[$k]['(' . $k . ') KO : Rubrique non active'] = $rubrique;
             } else {
                 $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueIdAndIsActive($rubrique->id,true);
-                
                 foreach ($sidSections as $sidSection) {
                     // le fichier json de la section en cours
                     $fileRubriqueName = $rubriqueDir . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
@@ -46,12 +44,15 @@ class baseEditorialeTools {
                         $k++;
                         $return[$k]['(' . $k . ') KO : Section non active'] = $sidSection;
                     } else {
+                        
                         // on récupère les articles de cette section
                         $articles = Doctrine_Core::getTable('SidArticle')->findBySectionIdAndIsActive($sidSection->id,true);
+
                         $arrayJson = array();
                         $j = 0;
                         
                         foreach ($articles as $article) {
+
                             //echo '----'.$article->filename;
                             $arrayJson[$j]['filename'] = $article->filename;
                             $arrayJson[$j]['isActive'] = $article->getIsActive();
