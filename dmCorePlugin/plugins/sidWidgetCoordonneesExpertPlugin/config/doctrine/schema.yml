@@ -43,3 +43,11 @@ SidCoordName:
       type: boolean
       notnull: true
       default: true
+    resume_town:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    resume_team:
+      type: clob
+      extra: ckeditor
+      notnull: false
