@@ -86,6 +86,8 @@ class dmFrontPageViewHelper extends dmFrontPageBaseHelper
                     }
                     $html = str_replace($match, $replaceConstante , $html);
                 } else {
+                    // on n'affiche pas la constante inconnue
+                    $html = str_replace($match, '' , $html);
                     // on affiche un message que pour l'environnement de dev
                     if (sfConfig::get('sf_environment') == 'dev') {
                         $html .= debugTools::infoDebug(array('Constante' => $match . ' n\'existe pas. Merci de l\'ajouter dans l\'administration du site > Outils > Constantes.'), 'warning');
