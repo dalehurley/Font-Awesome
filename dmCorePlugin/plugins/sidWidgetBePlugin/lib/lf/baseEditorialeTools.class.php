@@ -680,6 +680,7 @@ class baseEditorialeTools {
      * Section : Actualités
     */
     public static function recupArticlesLEA() {
+
         if (sfConfig::get('app_ftp-password') == '' || sfConfig::get('app_ftp-image-password') == '') {
             $return[0]['ERROR'] = 'Seule la base éditoriale peut récupérer les articles de LEA. Vérifier que le apps/front/config/app.yml ait les bonnes variables.';
             
@@ -708,7 +709,7 @@ class baseEditorialeTools {
             $dossiersSections = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title);
             
             foreach ($dossiersSections as $dossiersSection) {
-                $section = Doctrine_Core::getTable('SidSection')->findOneByTitleAndIsActiveAndRubriqueId($dossiersSection, $bdRubrique->id);
+                $section = Doctrine_Core::getTable('SidSection')->findOneByTitleAndIsActiveAndRubriqueId($dossiersSection,true, $bdRubrique->id);
                 if ($section->isNew()) {
                     $return[$j]['Section en base introuvable ou inactive pour le dossier'] = $dossiersSection;
                 } else {
