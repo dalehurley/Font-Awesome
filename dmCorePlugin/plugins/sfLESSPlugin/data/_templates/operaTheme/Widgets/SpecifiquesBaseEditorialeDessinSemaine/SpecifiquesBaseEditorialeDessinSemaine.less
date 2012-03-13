@@ -17,7 +17,7 @@
 .dm_widget.specifiques_base_editoriale_dessin_semaine {
 	
 	//spécifique Opéra : suppression padding horizontal et ajustemennt titre
-	#dm_content &, #dm_sidebar_left &, #dm_sidebar_right & {
+	#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
 		.dm_widget_inner {
 			padding-left: 0;
 			padding-right: 0;
@@ -30,7 +30,7 @@
 
 	.ad-image-wrapper {
 		//application dimensions de l'image
-		#dm_content & {
+		#dm_page_content & {
 			@gridMinHeight(@thumbContent_bl);
 			@gridHeight(@thumbContent_bl);
 			//application de la largeur en fonction des différentes configuration de la grille
@@ -118,7 +118,7 @@
 			border: 1px solid @zonesBorderColor;
 			&.ad-active { border: 2px solid @colorCouleur1; }
 
-			#dm_content & {
+			#dm_page_content & {
 				//on soustrait l'épaisseur de la bordure
 				@gridWidth(@thumbM_col; 2px);
 				@gridHeight(@thumbM_bl; 2px);
