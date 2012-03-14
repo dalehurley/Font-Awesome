@@ -421,3 +421,8 @@ div.sf_admin_form div.sf_admin_form_row_inner ul.radio_list li{
 div.sf_admin_form div.sf_admin_form_row_inner ul.radio_list li input {
     width: auto
 }
+/* ajout stef pour aligner les boutons radios pour l'équipe */
+div.sf_admin_form div.sf_admin_form_row_inner ul.radio_list li.civilite{
+    width:auto;
+    margin: 10px 0 10px 15px
+}
