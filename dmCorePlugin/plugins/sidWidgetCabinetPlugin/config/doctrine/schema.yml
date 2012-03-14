@@ -71,14 +71,20 @@ SidCabinetEquipe:
 #    DmTaggable:
     DmSortable:
     I18n:
-      fields: [ title, statut, tel, fax, gsm, email, text ]
+      fields: [ title, name, first_name, statut, tel, fax, mobile, email, text ]
       actAs:
         DmVersionable:
         Timestampable:
   columns:
     title:
+      type: string(10)
+      notnull: true
+    name:
       type: string(255)
       notnull: true
+    first_name:
+      type: string(255)
+      notnull: false
     statut:
       type: string(255)
       notnull: false
@@ -88,7 +94,7 @@ SidCabinetEquipe:
     fax:
       type: string(255)
       notnull: false
-    gsm:
+    mobile:
       type: string(255)
       notnull: false
     email:

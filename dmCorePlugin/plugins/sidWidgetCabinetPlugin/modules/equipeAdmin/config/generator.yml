@@ -31,7 +31,9 @@ generator:
         is_active:
           label: Active
         title:
-          label: Nom
+          label: Civilité
+        first_name:
+          label: Prénom
         image: 
           label: Photo
 #        tags_list:
@@ -50,13 +52,14 @@ generator:
           deactivate:
             credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
         display:
-          - '=title'
+          - '=name'
+          - first_name
           - image
           - is_active
           - statut
           - tel
           - fax
-          - gsm
+          - mobile
           - email
           - _coord_name_id
         sort:
@@ -73,7 +76,7 @@ generator:
         display:
           Visible sur le site: [is_active]
           Ville d'implantation: [coord_name_id]
-          Identite: [ title,statut, tel, fax, gsm, email]
+          Identite: [ title, name, first_name, statut, tel, fax, mobile, email]
           Photo: [image_form, image_view]
           Description: [text]
 #          'Mots clés': [tags_list]

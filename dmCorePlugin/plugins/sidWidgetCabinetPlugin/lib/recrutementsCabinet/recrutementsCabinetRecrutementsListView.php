@@ -29,7 +29,7 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
         $dmPage = sfContext::getInstance()->getPage();
         
         $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars["nbArticles"];
-
+        if($dmPage->module.'/'.$dmPage->action == 'recrutement/show'){
         $recrutements = Doctrine_Query::create()
                 ->from('SidCabinetRecrutement a')
                 ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
@@ -37,6 +37,16 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
                 ->orderBy('aTranslation.updated_at DESC')
                 ->limit($nbArticles)
                 ->execute();
+        }
+        else{
+            $recrutements = Doctrine_Query::create()
+                ->from('SidCabinetRecrutement a')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                ->where('a.is_active = ?', array(true))
+                ->orderBy('aTranslation.updated_at DESC')
+                ->limit($nbArticles)
+                ->execute();
+        }
 
         if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
         $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('recrutement','list');
