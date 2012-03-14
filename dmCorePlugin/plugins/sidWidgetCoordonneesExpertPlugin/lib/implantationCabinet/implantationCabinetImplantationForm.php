@@ -1,11 +1,13 @@
 <?php
 
-class googleMapCabinetListGoogleMapCabinetForm extends dmWidgetPluginForm {
+class implantationCabinetImplantationForm extends dmWidgetPluginForm {
 
     public function configure() {
 
-
         parent::configure();
+        
+        $this->widgetSchema['civ'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Affiche la civililté du collaborateur'));
+        $this->validatorSchema['civ']  = new sfValidatorBoolean();
     }
 
     public function getStylesheets() {
@@ -23,9 +25,9 @@ class googleMapCabinetListGoogleMapCabinetForm extends dmWidgetPluginForm {
     }
 
     protected function renderContent($attributes) {
-        return $this->getHelper()->renderPartial('googleMapCabinet', 'listGoogleMapCabinetForm', array(
+        return $this->getHelper()->renderPartial('implantationCabinet', 'implantationForm', array(
                     'form' => $this,
-                    'id' => 'sid_widget_coordonnees_expert_list_google_map' . $this->dmWidget->get('id')
+                    'id' => 'sid_widget_coordonnees_expert_implantation_cabinet_' . $this->dmWidget->get('id')
                 ));
     }
 

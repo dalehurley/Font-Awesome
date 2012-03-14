@@ -7,13 +7,13 @@ adresses:
   multiples:
     cache:               true
     public_name:         (adresses) Toutes les adresse du cabinet
+    
+implantationCabinet:
 
-googleMapCabinet:
+  implantation:
+    cache: true
+    public_name: (implantationCabinet) Page de l'implantation du cabinet
 
-  googleMapCabinet:
-  	cache: true
-  	public_name:	(adresses) Page de l'implantation du cabinet
-
-  listGoogleMapCabinet:
-  	cache: true
-  	public_name:	(adresses) listing des implantations du cabinet
+  listImplantation:
+    cache: true
+    public_name:	(implantationCabinet) listing des implantations du cabinet

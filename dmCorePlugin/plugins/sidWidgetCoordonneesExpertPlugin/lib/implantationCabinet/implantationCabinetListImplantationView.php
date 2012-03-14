@@ -1,6 +1,6 @@
 <?php
 
-class googleMapCabinetListGoogleMapCabinetView extends dmWidgetPluginView {
+class implantationCabinetListImplantationView extends dmWidgetPluginView {
 
     public function configure() {
         parent::configure();
@@ -14,10 +14,10 @@ class googleMapCabinetListGoogleMapCabinetView extends dmWidgetPluginView {
         $vars = $this->getViewVars();
         $dmPage = sfContext::getInstance()->getPage();
                 
-        $adresse = dmDb::table('SidCoordName')->createQuery('a')->where('is_active = ?',true)->orderBy('siege_social DESC')->execute();
+        $adresses = dmDb::table('SidCoordName')->createQuery('a')->where('a.is_active = ?',true)->orderBy('a.siege_social DESC')->execute();
         ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $dmPage->getName() :'';
         return $this->getHelper()->renderPartial('googleMapCabinet', 'listGoogleMapCabinet', array(
-                    'adresse' => $adresse,
+                    'adresses' => $adresses,
                     'titreBloc' => $vars['titreBloc']
                 ));
     }

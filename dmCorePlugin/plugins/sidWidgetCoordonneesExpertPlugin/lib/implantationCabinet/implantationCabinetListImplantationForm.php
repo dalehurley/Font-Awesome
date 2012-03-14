@@ -1,8 +1,9 @@
 <?php
 
-class googleMapCabinetGoogleMapCabinetForm extends dmWidgetPluginForm {
+class implantationCabinetListImplantationForm extends dmWidgetPluginForm {
 
     public function configure() {
+
 
         parent::configure();
     }
@@ -22,9 +23,9 @@ class googleMapCabinetGoogleMapCabinetForm extends dmWidgetPluginForm {
     }
 
     protected function renderContent($attributes) {
-        return $this->getHelper()->renderPartial('googleMapCabinet', 'googleMapCabinetForm', array(
+        return $this->getHelper()->renderPartial('implantationCabinet', 'listImplantationForm', array(
                     'form' => $this,
-                    'id' => 'sid_widget_coordonnees_expert_google_map' . $this->dmWidget->get('id')
+                    'id' => 'sid_widget_coordonnees_expert_list_implantation_cabinet_' . $this->dmWidget->get('id')
                 ));
     }
 
