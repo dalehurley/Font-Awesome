@@ -763,7 +763,7 @@ class baseEditorialeTools {
                                 switch ($dataType) {
                                     case 'AGENDA':
                                         $date_publication =  $xml->getElementsByTagName('Info1')->item(0)->nodeValue;
-                                        $return[]['debug AGENDA : '.$filename] = $date_publication;
+                                        //$return[]['debug AGENDA : '.$filename] = $date_publication;
                                         break;
 
                                     default:
