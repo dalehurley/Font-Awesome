@@ -15,7 +15,10 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
       'mapTypeControl',
       'scaleControl',
       'width',
-      'height'
+      'height',
+      'titreBloc',
+      'withResume',
+      'length'
     ));
   }
   public function getStylesheets() {
@@ -32,30 +35,37 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
   protected function doRender()
   {
     $vars = $this->getViewVars();
+    $dmPage = $dmPage = sfContext::getInstance()->getPage();
+    if($vars['address'] == '' || $vars['address'] == ' '){
     // requète pour construire l'adresse du cabinet
     $adresseRequest = Doctrine_Query::create()->from('SidCoordName a')
-          ->where('a.id = ?', $vars['address'] )
+          ->where('a.id = ?', $dmPage->record_id )
           ->fetchOne();
     $adresseCabinet = $adresseRequest->getAdresse();
     if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
     $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
-
+    }
+    else $adresseCabinet = $vars['address'];
     
-    $map = $this->getService('google_map_helper')->map()
-    ->address($adresseCabinet)
-    // passage d'une valeur supplémentaire au fichier dmGoogleMapTag.php
-    ->idCabinet($vars['address'])
-    ->mapTypeId($vars['mapTypeId'])
-    ->zoom($vars['zoom'])
-    ->style(sprintf(
-      'width: %s; height: %s;',
-      dmArray::get($vars, 'width', '100%'),
-      dmArray::get($vars, 'height', '300px')
-    ))
-    ->navigationControl($vars['navigationControl'])
-    ->mapTypeControl($vars['mapTypeControl'])
-    ->scaleControl($vars['scaleControl'])
-    ->splash($vars['splash']);
+    $map = $this->getService('google_map_helper')
+        ->map()
+        ->address($adresseCabinet)
+        // passage d'une valeur supplémentaire au fichier dmGoogleMapTag.php
+        ->idCabinet($dmPage->record_id)
+        ->titreBloc($vars['titreBloc'])
+        ->length($vars['length'])
+        ->withResume($vars['withResume'])
+        ->mapTypeId($vars['mapTypeId'])
+        ->zoom($vars['zoom'])
+        ->style(sprintf(
+          'width: %s; height: %s;',
+          dmArray::get($vars, 'width', '350px'),
+          dmArray::get($vars, 'height', '250px')
+        ))
+        ->navigationControl($vars['navigationControl'])
+        ->mapTypeControl($vars['mapTypeControl'])
+        ->scaleControl($vars['scaleControl'])
+        ->splash($vars['splash']);
 
     $this
     ->addJavascript($map->getJavascripts())
@@ -64,10 +74,10 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
     return $map;
   }
   
-  protected function doRenderForIndex()
-  {
-    $vars = $this->getViewVars();
-    return $vars['address'];
-  }
+//  protected function doRenderForIndex()
+//  {
+//    $vars = $this->getViewVars();
+//    return $vars['address'];
+//  }
 
 }
