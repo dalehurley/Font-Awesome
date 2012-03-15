@@ -9,7 +9,8 @@ $form->renderGlobalErrors(),
 
 _tag('div',
  
-    $form['titreBloc']->renderRow()
+    $form['titreBloc']->renderRow().
+    $form['resume_town']->renderRow()
           
 ); 
 

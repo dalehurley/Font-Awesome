@@ -8,6 +8,9 @@ class implantationCabinetImplantationForm extends dmWidgetPluginForm {
         
         $this->widgetSchema['civ'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Affiche la civililté du collaborateur'));
         $this->validatorSchema['civ']  = new sfValidatorBoolean();
+        
+        $this->widgetSchema['resume_team'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Affiche la présentation de l\'équipe'));
+        $this->validatorSchema['resume_team']  = new sfValidatorBoolean();
     }
 
     public function getStylesheets() {

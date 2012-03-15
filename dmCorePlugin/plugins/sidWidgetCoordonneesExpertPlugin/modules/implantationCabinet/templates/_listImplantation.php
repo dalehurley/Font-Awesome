@@ -1,5 +1,5 @@
 <?php
-// $vars : $adresses, $titreBloc
+// $vars : $adresses, $titreBloc, $visible_resume_town
 //echo dm_get_widget('dmWidgetGoogleMap','show', array('$adress' => 2));
 echo _tag('h2.title', $titreBloc);
 $i = 1;
@@ -20,11 +20,16 @@ echo _open('ul.elements');
     else
         $class = '';
     // condition pour gérer les class des listings
+    if($visible_resume_town == TRUE && $adresse->getResumeTown() != NULL){
+        $resume_town = _tag('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'), $adresse->getResumeTown());
+    }
+    else $resume_town = '';
+    
     $html = _tag('span.wrapper', 
                 _tag('span', array('class' => 'subWrapper'), 
                     _tag('span', array('class' => 'title itemprop name', 'itemprop' => 'name'),$adresse->getTitle())
-                        ).
-                _tag('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'), $adresse->getResumeTown())
+                        ).$resume_town
+                
                 );
     
     echo _open('li', array('class' => 'element '.$class));

@@ -10,7 +10,8 @@ class implantationCabinetImplantationView extends dmWidgetPluginView {
             'withImage',
             'widthImage',
             'heightImage',
-            'civ'
+            'civ',
+            'resume_team'
         ));
     }
 	
@@ -63,6 +64,7 @@ class implantationCabinetImplantationView extends dmWidgetPluginView {
                     'withImage' => $vars['withImage'],
                     'width' => $vars['widthImage'],
                     'nomRubrique' => $arrayNomRubrique,
+                    'visible_resume_team' => $vars['resume_team']
                 ));
     }
 
