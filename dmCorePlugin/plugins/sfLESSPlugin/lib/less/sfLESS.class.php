@@ -281,38 +281,19 @@ class sfLESS
     // Setting current file. We will output this var if compiler throws error
     $this->currentFile = $lessFile;
 
-    // Compile with lessc
-    // lioshi: wont work in command line in a task : no context for $fs
-    // $fs = new sfFilesystem;
-    // $command = sprintf('lessc "%s" "%s"', $lessFile, $cssFile);
+    if (exec('command -v lessc') !=''){
 
-    // if ('1.3.0' <= SYMFONY_VERSION)
-    // {
-    //   try
-    //   {
-    //     $fs->execute($command, null, array($this, 'throwCompilerError'));
-    //   }
-    //   catch (RuntimeException $e)
-    //   {
-    //     return false;
-    //   }
-    // }
-    // else
-    // {
-    //   $fs->sh($command);
-    // }
+      $command = sprintf('lessc "%s" "%s"', $lessFile, $cssFile);
 
-    // // Setting current file to null
-    // $this->currentFile = null;
-    
-    // return file_get_contents($cssFile);
+      exec($command,&$output,&$var);
 
-    $command = sprintf('lessc "%s" "%s"', $lessFile, $cssFile);
+      // Setting current file to null
+      $this->currentFile = null;
 
-    exec($command);
-
-    // Setting current file to null
-    $this->currentFile = null;
+    } else {
+      echo "  >> ERROR : need to install lessc command (install node.js first on server and npm install -g less)\n";
+      return false;
+    }
     
     return file_get_contents($cssFile);
   }

@@ -111,6 +111,17 @@ EOF;
 
     // Compiles LESS files
     $timerTotal = new sfTimer;
+
+    if (!count($less->findLessFiles())) {
+        $this->logSection(
+              'Compilation Less ERROR',
+              'No less file compiled...',
+              null,
+              'ERROR'
+            );      
+    }
+
+
     foreach ($less->findLessFiles() as $lessFile)
     {
       if (!isset($arguments['file']) || (false !== strpos($lessFile, $arguments['file'] . '.less')))
@@ -135,6 +146,13 @@ EOF;
               'COMMAND'
             );
           }
+        } else {
+          $this->logSection(
+              'Compilation Less ERROR',
+              $lessFile,
+              null,
+              'ERROR'
+            );                
         }
       }
     }
