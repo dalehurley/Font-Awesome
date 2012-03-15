@@ -282,24 +282,34 @@ class sfLESS
     $this->currentFile = $lessFile;
 
     // Compile with lessc
-    $fs = new sfFilesystem;
+    // lioshi: wont work in command line in a task : no context for $fs
+    // $fs = new sfFilesystem;
+    // $command = sprintf('lessc "%s" "%s"', $lessFile, $cssFile);
+
+    // if ('1.3.0' <= SYMFONY_VERSION)
+    // {
+    //   try
+    //   {
+    //     $fs->execute($command, null, array($this, 'throwCompilerError'));
+    //   }
+    //   catch (RuntimeException $e)
+    //   {
+    //     return false;
+    //   }
+    // }
+    // else
+    // {
+    //   $fs->sh($command);
+    // }
+
+    // // Setting current file to null
+    // $this->currentFile = null;
+    
+    // return file_get_contents($cssFile);
+
     $command = sprintf('lessc "%s" "%s"', $lessFile, $cssFile);
 
-    if ('1.3.0' <= SYMFONY_VERSION)
-    {
-      try
-      {
-        $fs->execute($command, null, array($this, 'throwCompilerError'));
-      }
-      catch (RuntimeException $e)
-      {
-        return false;
-      }
-    }
-    else
-    {
-      $fs->sh($command);
-    }
+    exec($command);
 
     // Setting current file to null
     $this->currentFile = null;
