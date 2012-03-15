@@ -285,7 +285,7 @@ class sfLESS
 
       $command = sprintf('lessc "%s" "%s"', $lessFile, $cssFile);
 
-      exec($command,&$output,&$var);
+      exec($command);
 
       // Setting current file to null
       $this->currentFile = null;
