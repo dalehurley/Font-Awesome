@@ -206,7 +206,7 @@ class sfLESS
 
     if ($shouldCompile)
     {
-      if(sfConfig::get('app_sf_less_plugin_use_lessphp_compiler' ))
+      if(dmConfig::get('site_theme_version')=='v1')
       {
         // use lessphp parser
         $buffer = $this->callLessPhpCompiler($lessFile, $cssFile);
@@ -269,7 +269,7 @@ class sfLESS
   }
 
   /**
-   * Calls lessc compiler for LESS file
+   * Calls lessc compiler for LESS file use on graphical system v2
    *
    * @param   string  $lessFile a LESS file
    * @param   string  $cssFile  a CSS file
@@ -318,7 +318,7 @@ class sfLESS
   }
 
   /**
-   * Calls lessphp compiler for LESS file
+   * Calls lessphp compiler for LESS file use on graphical system v1
    * @author  djacquel
    * @param   string  $lessFile a LESS file
    * @param   string  $cssFile  a CSS file
@@ -329,11 +329,8 @@ class sfLESS
   {
       try
       {
-        if (dmConfig::get('site_theme_version') == 'v1'){
-          $less = new lesscV1( $lessFile );
-        } else {
-          $less = new lessc( $lessFile );
-        }
+        $less = new lesscV1( $lessFile ); // version figée de lessphp pour fonctionner avec les themes v1 seulement
+
 		    $less->importDir = sfLESS::getConfig()->getLessPaths();
         $css  = $less->parse();
         file_put_contents( $cssFile, $css );
