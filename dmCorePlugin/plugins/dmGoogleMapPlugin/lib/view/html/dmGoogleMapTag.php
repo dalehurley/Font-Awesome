@@ -151,6 +151,7 @@ class dmGoogleMapTag extends dmHtmlTag {
           $length = ($preparedAttributes['length'] == 0) ? '': $preparedAttributes['length'];
           $resumeTown = '<div>'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '', true, true).'</div>';
           }
+      else $resumeTown='';
       // construction de la chaîne html
       
       $tag = '<h2 class="title">'.$titreBloc.'</h2>'.$resumeTown.'<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>'.$cabinet;
