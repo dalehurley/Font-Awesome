@@ -28,3 +28,6 @@
 [submodule "symfony"]
 	path = symfony
 	url = git@github.com:SidPresse/symfony.git
+[submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/Font-Awesome"]
+	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/Font-Awesome
+	url = git@github.com:SidPresse/Font-Awesome.git

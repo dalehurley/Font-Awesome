@@ -206,7 +206,7 @@ class sfLESS
 
     if ($shouldCompile)
     {
-      if(sfConfig::get('app_sf_less_plugin_use_lessphp_compiler' ))
+      if(dmConfig::get('site_theme_version')=='v1')
       {
         // use lessphp parser
         $buffer = $this->callLessPhpCompiler($lessFile, $cssFile);
@@ -269,7 +269,7 @@ class sfLESS
   }
 
   /**
-   * Calls lessc compiler for LESS file
+   * Calls lessc compiler for LESS file use on graphical system v2
    *
    * @param   string  $lessFile a LESS file
    * @param   string  $cssFile  a CSS file
@@ -281,34 +281,25 @@ class sfLESS
     // Setting current file. We will output this var if compiler throws error
     $this->currentFile = $lessFile;
 
-    // Compile with lessc
-    $fs = new sfFilesystem;
-    $command = sprintf('lessc "%s" "%s"', $lessFile, $cssFile);
+    if (exec('command -v lessc') !=''){
 
-    if ('1.3.0' <= SYMFONY_VERSION)
-    {
-      try
-      {
-        $fs->execute($command, null, array($this, 'throwCompilerError'));
-      }
-      catch (RuntimeException $e)
-      {
-        return false;
-      }
-    }
-    else
-    {
-      $fs->sh($command);
-    }
+      $command = sprintf('lessc "%s" "%s"', $lessFile, $cssFile);
 
-    // Setting current file to null
-    $this->currentFile = null;
+      exec($command);
+
+      // Setting current file to null
+      $this->currentFile = null;
+
+    } else {
+      echo "  >> ERROR : need to install lessc command (install node.js first on server and npm install -g less)\n";
+      return false;
+    }
     
     return file_get_contents($cssFile);
   }
 
   /**
-   * Calls lessphp compiler for LESS file
+   * Calls lessphp compiler for LESS file use on graphical system v1
    * @author  djacquel
    * @param   string  $lessFile a LESS file
    * @param   string  $cssFile  a CSS file
@@ -319,11 +310,8 @@ class sfLESS
   {
       try
       {
-        if (dmConfig::get('site_theme_version') == 'v1'){
-          $less = new lesscV1( $lessFile );
-        } else {
-          $less = new lessc( $lessFile );
-        }
+        $less = new lesscV1( $lessFile ); // version figée de lessphp pour fonctionner avec les themes v1 seulement
+
 		    $less->importDir = sfLESS::getConfig()->getLessPaths();
         $css  = $less->parse();
         file_put_contents( $cssFile, $css );

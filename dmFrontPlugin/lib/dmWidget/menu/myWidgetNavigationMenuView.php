@@ -36,7 +36,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         if (dmConfig::get('site_theme_version') == 'v1'){
         	$jsLink = '/theme/less/_framework/SPLessCss/Externals/js/navigationMenu/' . $vars['menuType'] . '.js'; 
         } else { 
-        	$jsLink = '/theme/bootstrap/js/menus/' . $vars['menuType'] . '/menu.js'; 
+        	$jsLink = '/theme/less/bootstrap/js/menus/' . $vars['menuType'] . '/menu.js'; 
         }
         //chargement du JS si existant
         if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) $javascripts[] = $jsLink;

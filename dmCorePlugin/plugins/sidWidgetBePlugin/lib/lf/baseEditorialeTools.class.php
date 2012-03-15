@@ -550,7 +550,7 @@ class baseEditorialeTools {
                 if (($sectionEcheancier != '.') && ($sectionEcheancier != '..')) {
                     if (intval($sectionEcheancier) < intval($currentMonth) && $sectionEcheancier != 'vacances'){
                         exec('rm -Rf '.$dirEcEcheancier.'/'.$sectionEcheancier);
-                        echo '      Suppression mois echu => '. $sectionEcheancier.'
+                        echo '  Echeancier: Suppression mois echu => '. $sectionEcheancier.'
 ';
                     }
                 }
@@ -710,9 +710,19 @@ class baseEditorialeTools {
             $dossiersSections = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title);
             
             foreach ($dossiersSections as $dossiersSection) {
-                $section = Doctrine_Core::getTable('SidSection')->findOneByTitleAndIsActiveAndRubriqueId($dossiersSection,true, $bdRubrique->id);
+                //$section = dmDb::table('SidSection')->findOneByTitleAndIsActiveAndRubriqueIdWithI18n($dossiersSection,true, $bdRubrique->id);
+                $section = Doctrine_Query::create()->from('SidSection s')
+                        ->withI18n($arrayLangs[0], null, 's')
+                        ->where('sTranslation.title = ? and s.is_active = ? and s.rubrique_id = ?', array($dossiersSection,true, $bdRubrique->id))
+                        ->fetchOne();
+
+
+
+//echo '>>'.$dossiersSection.'   '.$bdRubrique->id;
+
                 if ($section->isNew()) {
-                    $return[$j]['Section en base introuvable ou inactive pour le dossier'] = $dossiersSection;
+                    $return[$j]['Section en base introuvable ou inactive pour le dossier'] = $bdRubrique->Translation[$arrayLangs[0]]->title.'/'.$dossiersSection. ' [rubriqueId:'.$bdRubrique->id.']';
+                    $j++;
                 } else {
                     // récupération des fichiers du dossier de section
                     $fichierArticles = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection);
@@ -753,7 +763,7 @@ class baseEditorialeTools {
                                 switch ($dataType) {
                                     case 'AGENDA':
                                         $date_publication =  $xml->getElementsByTagName('Info1')->item(0)->nodeValue;
-                                        $return[]['debug AGENDA : '.$filename] = $date_publication;
+                                        //$return[]['debug AGENDA : '.$filename] = $date_publication;
                                         break;
 
                                     default:
@@ -827,7 +837,7 @@ class baseEditorialeTools {
                             } else {
                                 exec('rm ' . $xmlFile);
                                 $return[$j]['ERREUR XML invalide supprimé : '] = $xmlFile;
-                                
+                                $j++;
                             }
                             $j++;
                             //if ($j > 10) return $return;
