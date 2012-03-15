@@ -26,6 +26,9 @@ use_helper('Date');
 
 echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));  
     echo _open('header', array('class' => 'contentHeader'));
+        if ($titreBloc != '') {
+            echo _tag('h2.title',$titreBloc);
+        }
         if ($pageCabinet->getImage()->checkFileExists() == true) {
             echo _open('div', array('class' => 'imageFullWrapper'));
                 if($width != null) {echo  _media($pageCabinet->getImage())->width($width)->set('.image itemprop="image"')->alt($pageCabinet->getTitle());}
