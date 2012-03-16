@@ -7,7 +7,7 @@ $class = '';
 
 if (count($adresses)) {
     echo _tag('h2', array('class' => 'title'), $titreBloc);
-    echo _open('ul', array('class' => 'elements'));
+    echo _open('ul', array('class' => 'elements multi_map'));
     foreach ($adresses as $adresse) {
         if ($i == 1) {
             $class = 'first';
@@ -19,7 +19,7 @@ if (count($adresses)) {
         else
             $class = '';
         
-        echo _open('li', array('class' => 'element'.$class));
+        echo _open('li', array('class' => 'element '.$class));
             $adresseCabinet = $adresse->getAdresse();
             if($adresse->getAdresse2() != NULL) {
                 $adresseCabinet .='-'.$adresse->getAdresse2();
