@@ -90,20 +90,21 @@ class dmGoogleMapTag extends dmHtmlTag {
       // initialisation des variables
       $adresseCabinet = '';
       $titreBloc ='';
+      $cabinet='';
       //$adresseCabinet est l'adresse du cabinet récupéré en base
 
       $adresseRequest = DmDb::table('SidCoordName')->findOneByIdAndIsActive($preparedAttributes['idCabinet'],true);
-      $addressOpts = array(
-            'name' => $adresseRequest->getTitle(),
-            'addressLocality' => $adresseRequest->getVille(),
-            'postalCode' => $adresseRequest->getCodePostal(),
-            'faxNumber' => $adresseRequest->getFax(),
-            'telephone' => $adresseRequest->getTel(),
-            'container' => 'div.mapAddress'
-          );
+      if(is_object($adresseRequest)){
+//      $addressOpts = array(
+//            'name' => $adresseRequest->getTitle(),
+//            'addressLocality' => $adresseRequest->getVille(),
+//            'postalCode' => $adresseRequest->getCodePostal(),
+//            'faxNumber' => $adresseRequest->getFax(),
+//            'telephone' => $adresseRequest->getTel(),
+//            'container' => 'div.mapAddress'
+//          );
     
       //insertion du partial d'organization
-      $cabinet = '';
       $cabinet .= '<div xmlns="http://www.w3.org/1999/xhtml" itemtype="http://schema.org/Organization" itemscope="itemscope" class="mapAddress itemscope Organization">
                       <span itemprop="name" class="itemprop name">'.$adresseRequest->getTitle().'</span>';
       // fabrication de l'adresse
@@ -145,12 +146,14 @@ class dmGoogleMapTag extends dmHtmlTag {
                                                       </span>' : $cabinet .= '';
       
       $cabinet .= '</div>'; 
+      }
       ($preparedAttributes['titreBloc'] == '' ) ? $titreBloc =   sfContext::getInstance()->getI18N()->__('Map') : $titreBloc = $preparedAttributes['titreBloc'] ;
       if($preparedAttributes['withResume'] == TRUE && $adresseRequest->getResumeTown() != NULL){
          
           $length = ($preparedAttributes['length'] == 0) ? '': $preparedAttributes['length'];
           $resumeTown = '<div>'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '', true, true).'</div>';
           }
+      else $resumeTown='';
       // construction de la chaîne html
       
       $tag = '<h2 class="title">'.$titreBloc.'</h2>'.$resumeTown.'<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>'.$cabinet;

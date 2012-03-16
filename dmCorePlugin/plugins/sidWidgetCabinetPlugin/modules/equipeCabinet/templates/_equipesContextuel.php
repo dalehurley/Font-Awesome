@@ -28,7 +28,7 @@ foreach($equipes as $equipe) {
                         $html.= _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName().'-'.$equipe->getName())->set('.image itemprop="image"'));
                     };
                     $html.= _open('span', array('class' => 'wrapper'));
-                        $html.= _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), $equipe->getTitle().' '.$equipe->getFirstName().' '.$equipe->getName());
+                        $html.= _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), __($equipe->getTitle()).' '.$equipe->getFirstName().' '.$equipe->getName());
                         $html.= _tag('span', array('class' => 'itemprop jobTitle', 'itemprop' => 'jobTitle'), $equipe->getStatut());
                         $html.= _open('span', array('class' => 'contactPoints itemscope ContactPoint', 'itemtype' => 'http://schema.org/ContactPoint', 'itemscope' => 'itemscope', 'itemprop' => 'contactPoints'));
                             

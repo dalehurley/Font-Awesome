@@ -6,6 +6,8 @@ class implantationCabinetListImplantationForm extends dmWidgetPluginForm {
 
 
         parent::configure();
+        $this->widgetSchema['resume_town'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Affiche la présentation de l\'implantation'));
+        $this->validatorSchema['resume_town']  = new sfValidatorBoolean();
     }
 
     public function getStylesheets() {

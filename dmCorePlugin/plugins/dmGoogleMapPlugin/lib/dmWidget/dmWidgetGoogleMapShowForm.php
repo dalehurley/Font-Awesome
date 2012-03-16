@@ -56,6 +56,11 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
     $this->validatorSchema['splash'] = new sfValidatorString(array(
       'required' => false
     ));
+    $this->widgetSchema['idCabinet'] = new sfWidgetFormInput();
+    $this->validatorSchema['idCabinet'] = new sfValidatorDoctrineChoice(array(
+      'required' => false,
+      'model' => 'SidCoordName'
+    ));
     $this->widgetSchema->setHelp('splash', 'Display a message while the map is loading');
     
     $this->widgetSchema['withResume'] = new sfWidgetFormInputCheckbox();

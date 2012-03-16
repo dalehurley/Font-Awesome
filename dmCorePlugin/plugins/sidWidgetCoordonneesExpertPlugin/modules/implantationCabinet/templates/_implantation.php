@@ -1,6 +1,6 @@
 <?php
 
-// vars : $equipes, $titreBloc, $civ, $withImage, $adresse
+// vars : $equipes, $titreBloc, $civ, $withImage, $adresse, $visible_resume_team
 $html = '';
 $i = 1;
 $i_max = count($equipes);
@@ -13,7 +13,7 @@ if (count($i_max)) { // si nous avons des actu articles
     
 echo _open('section', array('class' => 'supWrapper clearfix first last'));
     echo _open('ul.elements');
-    if($adresse->resume_team != ''){
+    if($visible_resume_team == TRUE && $adresse->resume_team != ''){
         echo _open('li', array('class' => 'element'));
             echo _open('span', array('class' => 'wrapper'));
                 echo _tag('span', array('class' => 'itemprop description', 'itemprop' => 'description'), $adresse->resume_team);
@@ -37,8 +37,9 @@ echo _open('section', array('class' => 'supWrapper clearfix first last'));
         if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
             echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
         };
+        if($civ == TRUE) $civ = $equipe->getTitle();
         echo _open('span', array('class' => 'wrapper'));
-        echo _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), __($equipe->getTitle()) . ' ' . $equipe->getFirstName() . ' ' . $equipe->getName());
+        echo _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), __($civ) . ' ' . $equipe->getFirstName() . ' ' . $equipe->getName());
         echo _tag('span', array('class' => 'itemprop jobTitle', 'itemprop' => 'jobTitle'), $equipe->getStatut());
         echo _open('span', array('class' => 'contactPoints itemscope ContactPoint', 'itemtype' => 'http://schema.org/ContactPoint', 'itemscope' => 'itemscope', 'itemprop' => 'contactPoints'));
         if (isset($nomRubrique[$equipe->id])) {

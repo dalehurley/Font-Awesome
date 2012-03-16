@@ -11,6 +11,7 @@ _tag('div',
  
     $form['titreBloc']->renderRow() .
     $form['civ']->renderRow().
+    $form['resume_team']->renderRow().
     $form['withImage']->renderRow() .
     $form['widthImage']->renderRow() .
     $form['heightImage']->renderRow() .
