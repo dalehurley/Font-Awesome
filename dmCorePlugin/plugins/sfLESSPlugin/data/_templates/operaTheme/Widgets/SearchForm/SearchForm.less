@@ -8,7 +8,9 @@
 @import "_templates/operaTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Importation de la mise en page par défaut du widget
@@ -24,11 +26,19 @@
 		#dm_custom_top & {
 			//placement formulaire
 			form {
+				background-color: @colorCouleur2Clair;
 				position: relative;
 				display: block;
+				//application largeur
+				@gridWidth(@gridCol_SidebarRight);
 				z-index: 1;
 				margin: 0;
 				padding: 0;
+
+				//Ajout transition sur la couleur de fond
+				.csstransitions & {
+					@transition(background-color; .2s; ease-out; 0);
+				}
 
 				//ajout de la sprite avec l'icône de recherche
 				&:after {
@@ -41,14 +51,18 @@
 					//placement
 					top: @decalV;
 					left: @offS;
-
-					background-color: green;
 					//chargement sprite entière avec dimension et SVG
 					@spriteDefinition("DefaultLight"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
 				}
 
-				&:focus:after{
-					@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
+				//classe CSS focus ajoutée en JS
+				&.focus {
+					background-color: @colorWhite;
+					
+					//changement sprite au focus
+					&:after{
+						@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
+					}
 				}
 			}
 
@@ -57,21 +71,25 @@
 			
 			//champ de saisie de la recherche		
 			.query {
+				&, &:focus, &:disabled, &:hover { background-color: transparent; }
 				position: relative;
 				display: block;
-				background-color: fadeout(@colorCouleur2Clair, 50%);
 				color: @colorCouleur3ClairSup;
+				&:focus{ color: @colorText; }
 				//suppression des bordures
 				border: 0;
 
+				//padding horizontal soustrait à la largeur
+				@padHSub: (@icoOffset + 1px) * 2 + (@spriteFormat_S + @offM / 2 + 1px);
+
 				//ajustement du padding sans les bordures
 				padding: 2px @icoOffset 2px @icoOffset;
+				//application largeur
+				@gridWidth(@gridCol_SidebarRight; @icoOffset*2);
 				//ajout du décalage à gauche si pseudo élément affiché
-				.generatedcontent & { padding-left: (@icoOffset*2 + @spriteFormat_S); }
-
-				&:focus{
-					background-color: fadeout(@colorWhite, 50%);
-					color: @colorText;
+				.generatedcontent & {
+					padding-left: (@icoOffset*2 + @spriteFormat_S);
+					@gridWidth(@gridCol_SidebarRight; (@icoOffset*3 + @spriteFormat_S));
 				}
 
 				//suppression des ombres
@@ -80,10 +98,10 @@
 				}
 
 				//couleur des placeHolders
-				// &::-webkit-input-placeholder { color: @colorCouleur3ClairSup; }
-				// &:disabled::-webkit-input-placeholder { color: @colorCouleur3MoyenSup; }
-				// &:-moz-placeholder { color: @colorCouleur3ClairSup; }
-				// &:disabled:-moz-placeholder { color: @colorCouleur3MoyenSup; }
+				&::-webkit-input-placeholder { color: @colorCouleur3ClairSup; }
+				&:disabled::-webkit-input-placeholder { color: @colorCouleur3MoyenSup; }
+				&:-moz-placeholder { color: @colorCouleur3ClairSup; }
+				&:disabled:-moz-placeholder { color: @colorCouleur3MoyenSup; }
 			}
 		}
 	}
