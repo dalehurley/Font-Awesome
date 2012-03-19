@@ -42,17 +42,18 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	/*
 	 * Ancien lien : //ajax.cdnjs.com/ajax/libs/modernizr/1.7/modernizr-1.7.min.js
 	 *
-	 * Configuration de la version 2 de Modernizr
-	 * CSS3 : tout activer sauf : Flexible Box Model (flexbox)
+	 * Configuration de la version 2.5.3 de Modernizr
+	 * CSS3 : tout activer
 	 * HTML5 : activer les paramètres suivant : Canvas, Canvas Text, HTML5 Audio, HTML5 Video, Input Attributes, Input Types
 	 * Misc : activer Inline SVG, SVG, SVG clip path, Touch Events
-	 * Extra : HTML5 Shim/IEPP, Modernizr.load, MQ Polyfill, Media Queries, Add CSS Classes, Modernizr.testStyles(), Modernizr.testProp(), Modernizr.testAllProps(), Modernizr._prefixes, Modernizr._domPrefixes
-	 * Community add-ons : tout activer en attendant filtrage nécessaire
+	 * Extra : html5shiv v3.4 w/ printshiv, Modernizr.load, Media Queries, Add CSS Classes
+	 * Extensibility : Modernizr.testStyles(), Modernizr.testProp(), Modernizr.testAllProps(), Modernizr._prefixes, Modernizr._domPrefixes
+	 * Community add-ons : forms-placeholder, forms-validation
 	 */
 	public function renderIeHtml5Fix()
 	{
 		if ($this->isHtml5()) {
-			$html = '<script src="/theme/less/_framework/SPLessCss/Externals/js/modernizr/modernizr-2.0.6.custom.min.js"></script>';
+			$html = '<script src="/theme/less/_framework/SPLessCss/Externals/js/modernizr/modernizr-2.5.3.custom.min.js"></script>';
 			$html.= PHP_EOL;
 			$html.= '<!--[if (gte IE 6)&(lte IE 8)]><script src="'.sfConfig::get('sf_js_cdn_cdnjs').'/selectivizr/1.0.2/selectivizr-min.js"></script><![endif]-->';
 			//return '<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';
