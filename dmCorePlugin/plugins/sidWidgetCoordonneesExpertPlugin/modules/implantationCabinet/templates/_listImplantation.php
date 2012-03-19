@@ -1,6 +1,7 @@
 <?php
 // $vars : $adresses, $titreBloc, $visible_resume_town
 //echo dm_get_widget('dmWidgetGoogleMap','show', array('$adress' => 2));
+if(count($adresses)){
 echo _tag('h2.title', $titreBloc);
 $i = 1;
 $i_max = count($adresses);
@@ -39,4 +40,5 @@ echo _open('ul.elements');
     $html='';
     }
 
-echo _close('ul');    
+echo _close('ul');   
+}
