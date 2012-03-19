@@ -54,7 +54,8 @@ all:
       ec_faq: questions/réponses
       ec_paie: paie
       ec_aides: aides
-      ec_guidecreation: "Guide création"      
+      ec_guidecreation: "Guide création" 
+      vacances_scolaires: "vacances scolaires"
 
   # nom des sessions pour le bloc articleBySectionContextuel
   article-data-type-article : Article
