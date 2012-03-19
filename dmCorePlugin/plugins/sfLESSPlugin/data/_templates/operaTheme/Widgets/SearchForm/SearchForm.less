@@ -8,13 +8,83 @@
 @import "_templates/operaTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/SearchForm/_SearchForm.less";
 
 .dm_widget.search_form {
-	.isLess & { background-color: #BBF2F2; }
+	.isLess & { background-color: fadeout(#BBF2F2, 75%); }
+
 	.dm_widget_inner {
-		.isLess & { background-color: #8ED4D4; }
+		.isLess & { background-color: fadeout(#8ED4D4, 75%); }
+		
+		//stylage lorsque placé dans la zone située sous le header
+		#dm_custom_top & {
+			//placement formulaire
+			form {
+				position: relative;
+				display: block;
+				z-index: 1;
+				margin: 0;
+				padding: 0;
+
+				//ajout de la sprite avec l'icône de recherche
+				&:after {
+					position: absolute;
+					display: block;
+					z-index: 10;
+					content: "";
+					//décalage de marge
+					@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+					//placement
+					top: @decalV;
+					left: @offS;
+
+					background-color: green;
+					//chargement sprite entière avec dimension et SVG
+					@spriteDefinition("DefaultLight"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
+				}
+
+				&:focus:after{
+					@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
+				}
+			}
+
+			//masquage du label et du bouton de validation
+			.label, .submit { display: none; visibility: hidden; }
+			
+			//champ de saisie de la recherche		
+			.query {
+				position: relative;
+				display: block;
+				background-color: fadeout(@colorCouleur2Clair, 50%);
+				color: @colorCouleur3ClairSup;
+				//suppression des bordures
+				border: 0;
+
+				//ajustement du padding sans les bordures
+				padding: 2px @icoOffset 2px @icoOffset;
+				//ajout du décalage à gauche si pseudo élément affiché
+				.generatedcontent & { padding-left: (@icoOffset*2 + @spriteFormat_S); }
+
+				&:focus{
+					background-color: fadeout(@colorWhite, 50%);
+					color: @colorText;
+				}
+
+				//suppression des ombres
+				.boxshadow & {
+					&, &:focus, &:disabled { @boxShadowNone(); }
+				}
+
+				//couleur des placeHolders
+				// &::-webkit-input-placeholder { color: @colorCouleur3ClairSup; }
+				// &:disabled::-webkit-input-placeholder { color: @colorCouleur3MoyenSup; }
+				// &:-moz-placeholder { color: @colorCouleur3ClairSup; }
+				// &:disabled:-moz-placeholder { color: @colorCouleur3MoyenSup; }
+			}
+		}
 	}
 }
