@@ -211,12 +211,13 @@ class contentTemplateTools {
         // load du dossier uploads
         // le dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
-        $output = exec("cp -R " . $dirINassets ."/* ". $webDirName . "/;");
-        $return[]['COMMENT'] = 'copie des assets : '.$output;
+        //echo "cp -R " . $dirINassets ."/* ". $webDirName . "/;";
+        exec("cp -R " . $dirINassets ."/* ". $webDirName . "/;");
+        $return[]['COMMENT'] = 'copie des assets ';
         
         // load du dossier apps/front/modules/main
-        $output = exec("cp -R " . $dirINmodule ."/* apps/front/modules/;");
-        $return[]['COMMENT'] = 'copie du module main du front : '.$output;        
+        exec("cp -R " . $dirINmodule ."/* apps/front/modules/;");
+        $return[]['COMMENT'] = 'copie du module main du front ';        
 
         return $return;
     }
