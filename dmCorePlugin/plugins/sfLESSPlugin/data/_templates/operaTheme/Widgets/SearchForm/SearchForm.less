@@ -9,6 +9,7 @@
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
@@ -27,13 +28,15 @@
 			//placement formulaire
 			form {
 				background-color: @colorCouleur2Clair;
-				position: relative;
-				display: block;
+				// position: relative;
+				// display: block;
 				//application largeur
 				@gridWidth(@gridCol_SidebarRight);
-				z-index: 1;
+				// z-index: 1;
 				margin: 0;
-				padding: 0;
+				padding: @gridBaseline/4 0;
+				//ajout de la bordure arrondie
+				@borderRadiusCompress(@offL);
 
 				//Ajout transition sur la couleur de fond
 				.csstransitions & {
@@ -41,16 +44,19 @@
 				}
 
 				//ajout de la sprite avec l'icône de recherche
-				&:after {
-					position: absolute;
+				&:before {
+					background-color: red;
+					position: relative;
 					display: block;
-					z-index: 10;
+					// z-index: 10;
 					content: "";
+					float: left;
 					//décalage de marge
 					@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+					margin: @decalV 0 @decalV @icoOffset;
 					//placement
-					top: @decalV;
-					left: @offS;
+					// top: @decalV;
+					// left: @offS;
 					//chargement sprite entière avec dimension et SVG
 					@spriteDefinition("DefaultLight"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
 				}
@@ -60,7 +66,7 @@
 					background-color: @colorWhite;
 					
 					//changement sprite au focus
-					&:after{
+					&:before{
 						@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
 					}
 				}
@@ -69,26 +75,28 @@
 			//masquage du label et du bouton de validation
 			.label, .submit { display: none; visibility: hidden; }
 			
-			//champ de saisie de la recherche		
+			//champ de saisie de la recherche
 			.query {
-				&, &:focus, &:disabled, &:hover { background-color: transparent; }
-				position: relative;
+				&, &:focus, &:disabled, &:hover { background-color: fadeout(lime, 50%); }
+				// position: relative;
 				display: block;
+				float: left;
 				color: @colorCouleur3ClairSup;
 				&:focus{ color: @colorText; }
 				//suppression des bordures
 				border: 0;
-
+				
 				//padding horizontal soustrait à la largeur
 				@padHSub: (@icoOffset + 1px) * 2 + (@spriteFormat_S + @offM / 2 + 1px);
 
 				//ajustement du padding sans les bordures
 				padding: 2px @icoOffset 2px @icoOffset;
+				
 				//application largeur
 				@gridWidth(@gridCol_SidebarRight; @icoOffset*2);
 				//ajout du décalage à gauche si pseudo élément affiché
 				.generatedcontent & {
-					padding-left: (@icoOffset*2 + @spriteFormat_S);
+					// padding-left: (@icoOffset*2 + @spriteFormat_S);
 					@gridWidth(@gridCol_SidebarRight; (@icoOffset*3 + @spriteFormat_S));
 				}
 
