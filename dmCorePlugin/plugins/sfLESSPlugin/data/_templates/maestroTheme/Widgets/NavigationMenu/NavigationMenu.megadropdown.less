@@ -25,6 +25,7 @@ ul.megadropdown {
 	//configuration des dimensions à différents sous-niveaux
 	ul {
 		background-color: @colorCouleur2;
+		.rgba & { background-color: fadeout(@colorCouleur2, 20%); }
 		//changement de la pleine largeur au premier sous-niveau
 		padding: @gridBaseline @gridGutter;
 		@gridWidth(@gridCol; (@gridGutter*2));
@@ -33,7 +34,7 @@ ul.megadropdown {
 		ul {
 			padding: 0;
 			left: 0;
-			background-color: transparent;
+			&, .rgba & { background-color: transparent; }
 		}
 		
 		li {
@@ -88,13 +89,19 @@ ul.megadropdown {
 	#dm_custom_top .dm_widget.navigation_menu & {
 		//modification de couleurs du menu
 		.link {
-			background-color: @colorCouleur2;
+			// background-color: @colorCouleur2;
+			//Maestro : suppression fond transparent
+			.rgba & { background-color: transparent; }
 			color: @colorCouleur3Clair;
 			
 			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
 			&.dm_inactive { color: @colorCouleur3Moyen; }
 			//LoVe's Hurts Fade Away
-			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Sup; }
+			&:hover, &:focus {
+				color: @colorCouleur3ClairSup;
+				background-color: @colorCouleur2Sup;
+				.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
+			}
 			&:active { color: @colorCouleur1; }
 		}
 
