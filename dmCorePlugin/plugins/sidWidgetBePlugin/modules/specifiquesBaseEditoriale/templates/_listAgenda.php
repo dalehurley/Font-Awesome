@@ -54,6 +54,7 @@ echo $html;
 // vars : $section, $titreBloc, $lien, $longueurTexte, $articles, $arrayRubrique, $photo
 
 if (count($articles)) { // si nous avons des actu articles
+    
 	
 	if($titreBloc) echo '<h4 class="title">'.$titreBloc.'</h4>';
 		
@@ -121,6 +122,7 @@ if (count($articles)) { // si nous avons des actu articles
 	
     //fermeture du listing
     echo _close('ul.elements');
+    
 } else {
 	echo debugTools::infoDebug(array(__('Agenda') => __('No entries for current month')),'warning');
 }

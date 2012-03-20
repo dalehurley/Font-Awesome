@@ -1,7 +1,14 @@
-<?php // Vars: $articlePager, $parent, $route
+<?php // Vars: $articlePager, $parent, $route, $header
 
 $html = '';
 $articleSection = $parent . ' - ' . $route;
+if(count($articlePager)){
+    
+   if(count($articlePager) == 1){
+    header("Location: ".$header);
+    exit;
+    }
+    else {
 //titre du contenu
 if($articleSection) echo '<h4 class="title">'.$articleSection.'</h4>';
 
@@ -59,4 +66,5 @@ foreach ($articlePager as $article) {
 echo _close('ul.elements');
 
 echo _tag('div.navigation.navigationBottom', $articlePager->renderNavigationBottom());
-
+    }
+}
