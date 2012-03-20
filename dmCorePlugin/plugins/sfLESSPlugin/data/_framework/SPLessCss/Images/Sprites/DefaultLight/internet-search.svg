@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" xml:space="preserve">
-<g>
+<g transform="translate(32, 32) scale(-1,1) translate(-32, -32)">
 	<path fill="##spriteCouleur3ClairSup##" d="M39.087,7.791c-9.435,0-17.083,7.648-17.083,17.084c0,3.956,1.345,7.598,3.602,10.494l3.42,3.314
 		c2.823,2.061,6.3,3.275,10.062,3.275c9.437,0,17.085-7.648,17.085-17.083C56.172,15.439,48.522,7.791,39.087,7.791z M39.087,36.504
 		c-6.514,0-11.793-5.28-11.793-11.795c0-6.512,5.279-11.793,11.793-11.793s11.795,5.281,11.795,11.793
