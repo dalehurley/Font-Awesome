@@ -20,6 +20,12 @@
 .dm_widget.search_form {
 	.isLess & { background-color: fadeout(#BBF2F2, 75%); }
 
+	//placement dans la zone
+	#dm_custom_top & {
+		float: right;
+		margin-right: @gridPadding;
+	}
+
 	.dm_widget_inner {
 		.isLess & { background-color: fadeout(#8ED4D4, 75%); }
 		
@@ -27,12 +33,9 @@
 		#dm_custom_top & {
 			//placement formulaire
 			form {
-				background-color: @colorCouleur2Clair;
-				// position: relative;
-				// display: block;
+				background-color: @colorCouleur2Moyen;
 				//application largeur
 				@gridWidth(@gridCol_SidebarRight);
-				// z-index: 1;
 				margin: 0;
 				padding: @gridBaseline/4 0;
 				//ajout de la bordure arrondie
@@ -45,18 +48,13 @@
 
 				//ajout de la sprite avec l'icône de recherche
 				&:before {
-					background-color: red;
 					position: relative;
 					display: block;
-					// z-index: 10;
 					content: "";
 					float: left;
 					//décalage de marge
 					@decalV: (@gridBaseline - @spriteFormat_S) / 2;
 					margin: @decalV 0 @decalV @offS;
-					//placement
-					// top: @decalV;
-					// left: @offS;
 					//chargement sprite entière avec dimension et SVG
 					@spriteDefinition("DefaultLight"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
 				}
@@ -77,32 +75,25 @@
 			
 			//champ de saisie de la recherche
 			.query {
-				&, &:focus, &:disabled, &:hover { background-color: fadeout(lime, 50%); }
-				// position: relative;
+				//suppression styles par défaut du champ
+				&, &:focus, &:disabled, &:hover { background-color: transparent; }
+				border: 0;
+				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
+
+				//placement et stylage de l'élément
 				display: block;
 				float: left;
 				color: @colorCouleur3ClairSup;
 				&:focus{ color: @colorText; }
-				//suppression des bordures
-				border: 0;
-				
-				//padding horizontal soustrait à la largeur
-				@padHSub: (@offS + 1px) * 2 + (@spriteFormat_S + @offM / 2 + 1px);
 
 				//ajustement du padding sans les bordures
 				padding: 2px @offS 2px @offS;
-				
+
 				//application largeur
 				@gridWidth(@gridCol_SidebarRight; @offS*2);
 				//ajout du décalage à gauche si pseudo élément affiché
 				.generatedcontent & {
-					// padding-left: (@offS*2 + @spriteFormat_S);
 					@gridWidth(@gridCol_SidebarRight; (@offS*3 + @spriteFormat_S));
-				}
-
-				//suppression des ombres
-				.boxshadow & {
-					&, &:focus, &:disabled { @boxShadowNone(); }
 				}
 
 				//couleur des placeHolders
