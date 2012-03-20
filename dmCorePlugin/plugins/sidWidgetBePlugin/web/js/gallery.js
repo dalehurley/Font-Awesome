@@ -60,7 +60,7 @@ $(function() {
 			// index of the current item
 		var current			= 0, 
 			// mode : carousel || fullview
-			mode 			= 'carousel',
+			mode 			= 'fullview',
 			// control if one image is being loaded
 			anim			= false,
 			init			= function() {
