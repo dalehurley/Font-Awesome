@@ -27,7 +27,7 @@ class SidCabinetEquipeAdminForm extends BaseSidCabinetEquipeForm {
                     'expanded' => false,
                 ));
 
-        
+        $this->widgetSchema['title'] = new sfWidgetFormChoice(array( 'expanded' => true, 'choices' => array('Mr' => 'Monsieur', 'Mrs' => 'Madame', 'Miss' => 'Mademoiselle' ), 'default' => 'Mr'), array('class' => 'civilite'));
         $this->validatorSchema['coord_name_id'] = new sfValidatorDoctrineChoice(array('model' => 'SidCoordName'));
         $this->validatorSchema['m_rubriques_list'] = new sfValidatorDoctrineChoice(array('model' => 'SidRubrique','required' => false,'multiple' =>true));
 

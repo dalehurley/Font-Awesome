@@ -548,7 +548,7 @@ class baseEditorialeTools {
             $sectionEcheanciers = scandir($dirEcEcheancier);
             foreach ($sectionEcheanciers as $j => $sectionEcheancier) { // les dossiers des sections
                 if (($sectionEcheancier != '.') && ($sectionEcheancier != '..')) {
-                    if (intval($sectionEcheancier) < intval($currentMonth) && $sectionEcheancier != 'vacances'){
+                    if (intval($sectionEcheancier) < intval($currentMonth) && $sectionEcheancier != 'vacances_scolaires'){
                         exec('rm -Rf '.$dirEcEcheancier.'/'.$sectionEcheancier);
                         echo '  Echeancier: Suppression mois echu => '. $sectionEcheancier.'
 ';
@@ -749,7 +749,7 @@ class baseEditorialeTools {
                                 $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue; //titre
                                 $chapo = $xml->getElementsByTagName('Head')->item(0)->nodeValue; // chapo
                                 // cas particulier de l'agenda
-                                if ($chapo == '') {
+                                if ($chapo == '' && $dataType == 'AGENDA') {
                                     $chapo = $xml->getElementsByTagName('Section')->item(0)->nodeValue;
                                     // on supprime le premier saut de ligne
                                     if (substr($chapo, 0, 1) == CHR(10)) {

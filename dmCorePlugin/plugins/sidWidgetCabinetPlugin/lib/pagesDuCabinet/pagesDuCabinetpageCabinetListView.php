@@ -24,12 +24,27 @@ class pagesDuCabinetpageCabinetListView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayArticle = array();
+        $dmPage = sfContext::getInstance()->getPage();
 
-        $pageCabinets = dmDb::table('SidCabinetPageCabinet')->findByIsActive(true);
-//        ($vars['withImage'] == true) ? (($pageCabinet->getImage()->checkFileExists() == true) ? $image = $pageCabinet->getImage() : $image = ''): $image = '';
-        ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = sfContext::getInstance()->getPage()->getName() :'';
+        switch ($dmPage->module . '/' . $dmPage->action) {
+            // si on est dans la page d'un article su cabinet, on enlève de la liste des articles en bas de page l'article qui est affiché ($dmPage->record_id)
+            case 'pageCabinet/show':
+                
+                $pageCabinets = Doctrine_Query::create()
+                        ->from('SidCabinetPageCabinet a')
+                        ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
+                        ->execute();
+                break;
+            // pour affichage du listing des articles du cabinet quand on est sur la page "Actualités du cabinet"
+            default:
+
+                $pageCabinets = dmDb::table('SidCabinetPageCabinet')->findByIsActive(true);
+//              ($vars['withImage'] == true) ? (($pageCabinet->getImage()->checkFileExists() == true) ? $image = $pageCabinet->getImage() : $image = ''): $image = '';
+		}
+
+        ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $dmPage->getName() :'';
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
-		
+
         return $this->getHelper()->renderPartial('pagesDuCabinet', 'pageCabinetList', array(
                     'pageCabinets' => $pageCabinets,
                     'length' => $vars['length'],

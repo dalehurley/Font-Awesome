@@ -8,7 +8,8 @@ class equipeCabinetEquipeShowView extends dmWidgetPluginView {
         $this->addRequiredVar(array(
             'titreBloc',
             'withImage',
-            'widthImage'
+            'widthImage',
+            'heightImage'
             ));
     }
 
