@@ -341,7 +341,9 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                 // ATTENTION : les enfants d'une page inactive ne seront pas visible dans le site
                 ->where('pTranslation.is_active = ? ', true)
                 // ajout stef pour rendre visible ou pas les pages inactive
-                ->orderBy('p.rgt') // tri par ordre alphabétique sur le name de la page : ->orderBy('pTranslation.name')
+                ->orderBy('p.rgt') 
+                // tri par ordre alphabétique sur le name de la page : 
+                //->orderBy('pTranslation.name')
         );
         if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
              
