@@ -41,6 +41,7 @@
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
 		background-color: @colorCouleur2;
+		.rgba & { background-color: fadeout(@colorCouleur2, 20%); }
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
@@ -106,7 +107,7 @@ ul.dropdown, ul.accordion {
 	//gestion des liens
 	.link {
 		background-color: @colorCouleur3ClairSup;
-		.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 25%); }
+		.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 20%); }
 		// padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
 		border-style: solid;
 		// border-width: 0 1px 1px 0;
@@ -122,7 +123,7 @@ ul.dropdown, ul.accordion {
 		&:hover, &:focus {
 			color: @colorCouleur3FonceSup;
 			background-color: @colorCouleur3Clair;
-			.rgba & { background-color: fadeout(@colorCouleur3Clair, 25%); }
+			.rgba & { background-color: fadeout(@colorCouleur3Clair, 20%); }
 		}
 		&:active { color: @colorCouleur1; }
 	}
@@ -239,7 +240,7 @@ ul.dropdown li.dm_dir:hover > .link,
 ul.accordion li.dm_parent > .link,
 ul.accordion li.dm_parent li.dm_parent > .link {
 	background-color: @colorCouleur1;
-	.rgba & { background-color: fadeout(@colorCouleur1, 25%); }
+	.rgba & { background-color: fadeout(@colorCouleur1, 20%); }
 	color: @colorCouleur3Clair;
 	&:hover { color: @colorCouleur3ClairSup; }
 }
