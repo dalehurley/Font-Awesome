@@ -1,5 +1,5 @@
 <?php
-if (dmConfig::get('site_name_version')=='v1'){
+if (dmConfig::get('site_theme_version')=='v1XXXXXXXXXXXXXXXX'){
     use_stylesheet('../../sidWidgetBePlugin/ad-gallery/jquery.ad-gallery');
     use_javascript('../sidWidgetBePlugin/ad-gallery/jquery.ad-gallery');
 
@@ -121,6 +121,10 @@ if (dmConfig::get('site_name_version')=='v1'){
     </div>
 </script>
 
+<?php
+// var $titreBloc
+    echo _tag('h4.title', $titreBloc);
+?>
 <div id="rg-gallery" class="rg-gallery">
     <div class="rg-thumbs">
         <!-- Elastislide Carousel Thumbnail Viewer -->
@@ -144,7 +148,7 @@ if (dmConfig::get('site_name_version')=='v1'){
                         // on teste si le fichier image est présent sur le serveur avec son chemin absolu
                         if($imgExist && $imgSmallExist) {
                             $i++;
-                            echo '<li><a href="#"><img src="'.$dessin['imgLinkSmall'].'" data-large="'.$dessin['imgLinkBig'].'" alt="'.$dessin['titre'].'" data-description="'.$dessin['chapeau'].' - '.$dessin['dateArticle'].'" /></a></li>';
+                            echo '<li><a href="#"><img src="'.$dessin['imgLinkSmall'].'" data-large="'.$dessin['imgLinkBig'].'" alt="'.$dessin['titre'].'" data-description="'.' ('.$dessin['dateArticle'].') '.$dessin['titre'].': '.$dessin['chapeau'].'" /></a></li>';
                         } 
                     }
                 ?>                                    
