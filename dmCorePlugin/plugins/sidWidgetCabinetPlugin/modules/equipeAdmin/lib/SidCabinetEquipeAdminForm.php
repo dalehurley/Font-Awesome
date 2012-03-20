@@ -50,6 +50,10 @@ class SidCabinetEquipeAdminForm extends BaseSidCabinetEquipeForm {
 
     public function setup() {
         parent::setup();
+        // pour rendre l'image non requise
+        if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
+           $this->validatorSchema['image_form']->setOption('required',false);
+        }
 //        $this->widgetSchema['m_sections_list'] = new sfWidgetFormDoctrineChoice(array(
 //                    'model' => 'SidSection',
 //                    'method' => 'show_rubrique_section',
