@@ -43,7 +43,7 @@
 
 				//Ajout transition sur la couleur de fond
 				.csstransitions & {
-					@transition(background-color; .2s; ease-out; 0);
+					@transitionCompress(background-color, color; .2s; ease-out; 0);
 				}
 
 				//ajout de la sprite avec l'icône de recherche
@@ -53,8 +53,8 @@
 					content: "";
 					float: left;
 					//décalage de marge
-					@decalV: (@gridBaseline - @spriteFormat_S) / 2;
-					margin: @decalV 0 @decalV @offS;
+					@decalV: @gridBaseline - @spriteFormat_S;
+					margin: @decalV 0 0 @offS;
 					//chargement sprite entière avec dimension et SVG
 					@spriteDefinition("DefaultLight"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
 				}
