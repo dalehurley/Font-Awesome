@@ -7,9 +7,10 @@
 //permet de gérer plus facilement l'affichage du widget de recherche
 (function($) {
 
+	//Définition du plugin
 	$.fn.dmWidgetSearchForm = function() {
 		//test ajout de debug
-		$.fn.dmWidgetSearchForm.debug("dmWidgetSearchForm : initialisation");
+		$.fn.dmWidgetSearchForm.debug("dmWidgetSearchForm : initialisation : " + $(this).attr("class"));
 
 		// iterate and reformat each matched element
 		return this.each(function() {

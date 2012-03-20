@@ -7,9 +7,10 @@
 //permet d'isoler le code du reste de l'environnement javascript
 (function($){
 	
+	//Définition du plugin
 	$.fn.menuDropdown = function(options) {
 		//test ajout de debug
-		$.fn.menuDropdown.debug("Activation du menu : " + $(this).attr("class"));
+		$.fn.menuDropdown.debug("menuDropdown | initialisation : " + $(this).attr("class"));
 		
 		
 		// build main options before element iteration
