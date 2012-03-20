@@ -120,6 +120,7 @@ ul.dropdown {
 		//modification de couleurs du menu
 		.link {
 			background-color: @colorCouleur2;
+			.rgba & { background-color: fadeout(@colorCouleur2, 20%); }
 			color: @colorCouleur3Clair;
 			
 			//personnalisation padding pour menu horizontal
@@ -129,7 +130,11 @@ ul.dropdown {
 			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
 			&.dm_inactive { color: @colorCouleur3Moyen; }
 			//LoVe's Hurts Fade Away
-			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Sup; }
+			&:hover, &:focus {
+				color: @colorCouleur3ClairSup;
+				background-color: @colorCouleur2Sup;
+				.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
+			}
 			&:active { color: @colorCouleur1; }
 		}
 		
@@ -143,11 +148,19 @@ ul.dropdown {
 				border-color: @colorCouleur3Clair transparent transparent transparent;
 				.csstransitions.csstransforms & { border-color: transparent transparent transparent @colorCouleur3Clair; }
 			}
+
+			//Maestro : la transparence implique un mix de couleur pour garder la même teinte que le niveau 0 dans les sous parties
+			li.dm_dir:hover > .link {
+				.rgba & { background-color: fadeout(mix(@colorCouleur2, @colorCouleur1, 20%), 20%); }
+			}
 		}
 		
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
+				//Maestro : suppression fond transparent
+				.rgba & { background-color: transparent; }
+
 				//uniformisation couleur de police
 				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
 				&.dm_inactive { color: @colorCouleur3Clair; }
