@@ -29,22 +29,22 @@ ul.accordion {
 		//couleur de fond des autres liens
 		& > ul > li > .link {
 			background-color: @colorCouleur3Clair;
-			background-color: fadeout(@colorCouleur3Clair, 25%);
+			background-color: fadeout(@colorCouleur3Clair, 20%);
 			color: @colorCouleur3;
 			&:hover {
 				background-color: @interCouleur;
-				.rgba & { background-color: fadeout(@interCouleur, 25%); }
+				.rgba & { background-color: fadeout(@interCouleur, 20%); }
 				color: @colorCouleur3Sup;
 			}
 		}
 		//couleurs de fond des sous parents
 		li.dm_parent > .link {
 			background-color: mix(@colorCouleur3Clair, @colorCouleur1, 80%);
-			.rgba & { background-color: fadeout(mix(@colorCouleur3Clair, @colorCouleur1, 80%), 25%); }
+			.rgba & { background-color: fadeout(mix(@colorCouleur3Clair, @colorCouleur1, 80%), 20%); }
 			color: @colorCouleur3;
 			&:hover {
 				background-color: mix(@interCouleur, @colorCouleur1, 80%);
-				.rgba & { background-color: fadeout(mix(@interCouleur, @colorCouleur1, 80%), 25%); }
+				.rgba & { background-color: fadeout(mix(@interCouleur, @colorCouleur1, 80%), 20%); }
 				color: @colorCouleur3Sup;
 			}
 		}
