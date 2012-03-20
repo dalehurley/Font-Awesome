@@ -41,8 +41,9 @@ class SidCabinetRecrutementAdminForm extends BaseSidCabinetRecrutementForm
         $this->widgetSchema['title_file']->setAttributes(array('class' => 'input_short'));
         $this->widgetSchema->setHelps(array(
 //            'title_entete_page' => '<b>Cet intitulé sera le titre de la page (100 caractères MAXI)</b>',
-            'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',));
-        
+            'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
+            'file_form' => 'Vous pouvez insérer un fichier des formats suivants : Pdf, Word, OpenOffice.',
+            'title_file' => 'Nouveau nom de votre fichier',));
         
         }
 }
