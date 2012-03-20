@@ -17,14 +17,13 @@
 
 		// iterate and reformat each matched element
 		return this.each(function() {
+			
 			//on ne s'occupe que des liens ayant des enfants (dm_dir)
-			$(this).find('> li').each(function(index) {
+			$(this).children('li').each(function(index) {
 				//sélection diverses
 				var selectRow = $(this).children('ul');
 				var selectCol = $(this).children('ul').children('li');
 
-				window.console.log(index + ' selectCol : ' + selectCol.length);
-				
 				//calcul du nombre de colonnes par rangée
 				var nbreCol = selectCol.length;
 				
@@ -48,7 +47,7 @@
 				else		 $(selectRow).addClass('hasNoDir');
 
 				//permet d'éviter d'ajuster la taille des éléments lorsque c'est inutile, et de lancer une division par zéro
-				if(hasDmDir && nbreCol > 0) {
+				if(hasDmDir && nbreCol > 0 && colWidth > 0) {
 					
 					//calcul largeur de la zone
 					var rowWidth = $(selectRow).width();
@@ -84,7 +83,7 @@
 						var sliceSelect = $(selectCol).slice(startCol, endCol);
 
 						//on parcourt la tranche ainsi sélectionnée
-						$(sliceSelect).each(function(index) {
+						$(sliceSelect).each(function() {
 							//récupération de la hauteur
 							var currentColHeight = $(this).height();
 							// $(this).addClass('testH-'+currentColHeight);
