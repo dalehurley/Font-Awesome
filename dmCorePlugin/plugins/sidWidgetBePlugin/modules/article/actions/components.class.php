@@ -19,10 +19,24 @@ class articleComponents extends myFrontModuleComponents
     if(count($articleDossier)>0){
         $query->addWhere('is_dossier = true');
     }
-    $this->articlePager = $this->getPager($query);
+    
+    $articlePager = $this->getPager($query);
+    if(count($articlePager) == 1){
+        foreach($articlePager as $article){
+            $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('article','show', $article->id );
+            $header = '/'.$page->getSlug();
+            $this->header = $header;
+            
+        }
+        
+    }
+//    else{
+        $this->articlePager = $this->getPager($query);
     $this->route = $this->getPage()->getTitle();
     $ancestors = $this->context->getPage()->getNode()->getAncestors();
     $this->parent = $ancestors[count($ancestors)-1]->getTitle();
+    
+//    }
     
     //$this->articlePager->setOption('ajax', true);
   }
