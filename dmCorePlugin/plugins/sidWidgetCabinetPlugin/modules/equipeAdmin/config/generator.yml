@@ -10,7 +10,7 @@ generator:
     config:
       actions:
         _new:
-          credentials: [[super_admin, admin]]
+          credentials: [super_admin]
         _delete:
           credentials: [super_admin]
         _save:
@@ -27,6 +27,8 @@ generator:
           credentials: [ super_admin ]
         _save_and_add:
           credentials: [ super_admin ]
+        _add:
+          credentials: [super_admin]
       fields:
         is_active:
           label: Active

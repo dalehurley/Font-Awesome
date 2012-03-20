@@ -40,7 +40,7 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
     }
     
     $this->widgetSchema->setHelps(array(
-            'file_form' => 'Vous pouvez insérer un fichier des formats suivants : Pdf, Word, OpenOffice ainsi que des images',
+            'file_form' => 'Vous pouvez insérer un fichier des formats suivants : Pdf, Word, OpenOffice.',
             'title_file' => 'Nouveau nom de votre fichier',
             'm_sections_list' => 'Vous pouvez lier ce membre de votre equipe à une rubrique/section (Affichage contextuel).',
             'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
