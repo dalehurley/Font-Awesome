@@ -21,7 +21,7 @@ select, input, textarea, button {
 	//réduction taille pour maintien baseline
 	font-size: @fontSizeSmall;
 	line-height: (@gridBaseline - 4px);			//on soustrait la différence de padding et de bordure (2*1 + 2)
-	padding: 1px @icoOffset 1px @icoOffset;
+	padding: 1px @offS 1px @offS;
 	border-width: 1px;
 	border-style: solid;
 }
@@ -39,11 +39,7 @@ input[type=submit], input.submit, input[type=button], button {
 	height: @gridBaseline;
 	text-align: center;
 	
-	&:active {
-		padding-top: 2px;
-		//padding-right: (@icoOffset - 1);
-		//padding-left: (@icoOffset + 1);
-	}
+	&:active { padding-top: 2px; }
 }
 
 textarea {

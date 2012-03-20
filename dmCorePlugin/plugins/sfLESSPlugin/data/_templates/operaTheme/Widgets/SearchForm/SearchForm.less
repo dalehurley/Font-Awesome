@@ -53,7 +53,7 @@
 					float: left;
 					//décalage de marge
 					@decalV: (@gridBaseline - @spriteFormat_S) / 2;
-					margin: @decalV 0 @decalV @icoOffset;
+					margin: @decalV 0 @decalV @offS;
 					//placement
 					// top: @decalV;
 					// left: @offS;
@@ -87,17 +87,17 @@
 				border: 0;
 				
 				//padding horizontal soustrait à la largeur
-				@padHSub: (@icoOffset + 1px) * 2 + (@spriteFormat_S + @offM / 2 + 1px);
+				@padHSub: (@offS + 1px) * 2 + (@spriteFormat_S + @offM / 2 + 1px);
 
 				//ajustement du padding sans les bordures
-				padding: 2px @icoOffset 2px @icoOffset;
+				padding: 2px @offS 2px @offS;
 				
 				//application largeur
-				@gridWidth(@gridCol_SidebarRight; @icoOffset*2);
+				@gridWidth(@gridCol_SidebarRight; @offS*2);
 				//ajout du décalage à gauche si pseudo élément affiché
 				.generatedcontent & {
-					// padding-left: (@icoOffset*2 + @spriteFormat_S);
-					@gridWidth(@gridCol_SidebarRight; (@icoOffset*3 + @spriteFormat_S));
+					// padding-left: (@offS*2 + @spriteFormat_S);
+					@gridWidth(@gridCol_SidebarRight; (@offS*3 + @spriteFormat_S));
 				}
 
 				//suppression des ombres
