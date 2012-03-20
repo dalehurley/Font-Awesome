@@ -46,6 +46,7 @@ generator:
           - created_at
           - updated_at
 #          - text
+          - image
         sort:
           - position
           - asc

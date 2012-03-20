@@ -16,7 +16,9 @@ class dmGoogleMapTag extends dmHtmlTag {
         return array_merge(parent::getDefaultOptions() , array(
             'address' => null,
             'center' => null,
-            'idCabinet' => null
+            'idCabinet' => null,
+            'length' => null,
+            'withResume' => null
         ));
     }
     /*
@@ -54,6 +56,18 @@ class dmGoogleMapTag extends dmHtmlTag {
         
         return $this->setOption('idCabinet', (int)$idCabinet);
     }
+    public function titreBloc($titreBloc) {
+        
+        return $this->setOption('titreBloc', (string)$titreBloc);
+    }
+    public function length($length) {
+        
+        return $this->setOption('length', (int)$length);
+    }
+    public function withResume($withResume) {
+        
+        return $this->setOption('withResume', (bool)$withResume);
+    }
     // fin rajout
     public function navigationControl($bool) {
         
@@ -76,25 +90,28 @@ class dmGoogleMapTag extends dmHtmlTag {
       // initialisation des variables
       $adresseCabinet = '';
       $titreBloc ='';
+      $cabinet='';
       //$adresseCabinet est l'adresse du cabinet récupéré en base
 
       $adresseRequest = DmDb::table('SidCoordName')->findOneByIdAndIsActive($preparedAttributes['idCabinet'],true);
-      $addressOpts = array(
-            'name' => $adresseRequest->getTitle(),
-            'addressLocality' => $adresseRequest->getVille(),
-            'postalCode' => $adresseRequest->getCodePostal(),
-            'faxNumber' => $adresseRequest->getFax(),
-            'telephone' => $adresseRequest->getTel(),
-            'container' => 'div.mapAddress'
-          );
+      if(is_object($adresseRequest)){
+//      $addressOpts = array(
+//            'name' => $adresseRequest->getTitle(),
+//            'addressLocality' => $adresseRequest->getVille(),
+//            'postalCode' => $adresseRequest->getCodePostal(),
+//            'faxNumber' => $adresseRequest->getFax(),
+//            'telephone' => $adresseRequest->getTel(),
+//            'container' => 'div.mapAddress'
+//          );
     
       //insertion du partial d'organization
-      $cabinet = '';
       $cabinet .= '<div xmlns="http://www.w3.org/1999/xhtml" itemtype="http://schema.org/Organization" itemscope="itemscope" class="mapAddress itemscope Organization">
                       <span itemprop="name" class="itemprop name">'.$adresseRequest->getTitle().'</span>';
+      // fabrication de l'adresse
       $adresseCabinet = $adresseRequest->getAdresse();
       //vérification de adresse2
       ($adresseRequest->getAdresse2() != NULL) ? $adresseCabinet .='-'.$adresseRequest->getAdresse2() : $adresseCabinet .='';
+      // fin de la fabrication de l'adresse
       $cabinet .= '   <div itemtype="http://schema.org/PostalAddress" itemscope="itemscope" class="address itemscope PostalAddress" itemprop="address">
                           <span class="itemprop streetAddress">
                               <span title="Rue" class="type">'.sfContext::getInstance()->getI18N()->__("Street").'</span>
@@ -127,13 +144,19 @@ class dmGoogleMapTag extends dmHtmlTag {
                                                           <span class="separator">&nbsp;:&nbsp;</span>
                                                           <span class="value" itemprop="faxNumber">'.$adresseRequest->getFax().'</span>
                                                       </span>' : $cabinet .= '';
-      // si l'adresse à afficher est le siège social, alors on affiche le titreBloc, 
+      
       $cabinet .= '</div>'; 
-      //sinon on n'affiche rien dans le titreBloc car normalement la première adresse est tjrs celle du siège social
-      ($adresseRequest->siege_social == true ) ? $titreBloc = '<h2 class="title">'.  sfContext::getInstance()->getI18N()->__('Map').'</h2>' : $titreBloc ='' ;
+      }
+      ($preparedAttributes['titreBloc'] == '' ) ? $titreBloc =   sfContext::getInstance()->getI18N()->__('Map') : $titreBloc = $preparedAttributes['titreBloc'] ;
+      if($preparedAttributes['withResume'] == TRUE && $adresseRequest->getResumeTown() != NULL){
+         
+          $length = ($preparedAttributes['length'] == 0) ? '': $preparedAttributes['length'];
+          $resumeTown = '<div>'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '', true, true).'</div>';
+          }
+      else $resumeTown='';
       // construction de la chaîne html
       
-      $tag = $titreBloc.'<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>'.$cabinet;
+      $tag = '<h2 class="title">'.$titreBloc.'</h2>'.$resumeTown.'<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>'.$cabinet;
       
       return $tag;
     }

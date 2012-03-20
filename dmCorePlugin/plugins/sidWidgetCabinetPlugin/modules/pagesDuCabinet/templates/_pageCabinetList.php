@@ -46,6 +46,7 @@ if (count($pageCabinets)) { // si nous avons des actu articles
             echo _link($pageCabinet)->set('.link_box')->text($link); 
 
         echo _close('li');
+        $i++;
     } 
 echo _close('ul');
 

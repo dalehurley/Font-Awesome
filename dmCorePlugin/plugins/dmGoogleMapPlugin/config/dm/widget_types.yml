@@ -3,3 +3,7 @@ dmWidgetGoogleMap:
   show:
     cache:              false
     public_name:        Google Map
+    
+  smartGoogleMap:
+    cache:              false
+    public_name:        Automatic Google Map

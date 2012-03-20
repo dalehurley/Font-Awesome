@@ -1,7 +1,7 @@
 <?php
 //$vars =  $articles, $nbArticles, $titreBloc, $lien, $length, $chapo, $width, $height, $withImage
 $html = '';
-
+if(count($articles)){
 //titre du contenu
 echo '<h4 class="title">'.$titreBloc.'</h4>';
 
@@ -57,3 +57,4 @@ foreach ($articles as $article) {
 
 //fermeture du listing
 echo _close('ul.elements');
+}

@@ -5,10 +5,13 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
 
   public function configure()
   {
+      parent::configure();
     //création d'une liste déroulante comportant les adresses du cabinet
 
-    $this->widgetSchema['address'] = new sfWidgetFormDoctrineChoice(array('multiple'=> false, 'model'=>'SidCoordName', 'method'=>'cabinet_ville'));
-    $this->validatorSchema['address'] = new sfValidatorDoctrineChoice(array('required'=> true, 'model'=>'SidCoordName'));
+//    $this->widgetSchema['address'] = new sfWidgetFormDoctrineChoice(array('multiple'=> false, 'model'=>'SidCoordName', 'method'=>'cabinet_ville'));
+//    $this->validatorSchema['address'] = new sfValidatorDoctrineChoice(array('required'=> true, 'model'=>'SidCoordName'));
+    $this->widgetSchema['address'] = new sfWidgetFormInputText();
+    $this->validatorSchema['address'] = new sfValidatorString(array('required'=> false));
     $this->widgetSchema['address']->setLabel('Search a place');
     
 
@@ -53,8 +56,17 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
     $this->validatorSchema['splash'] = new sfValidatorString(array(
       'required' => false
     ));
+    $this->widgetSchema['idCabinet'] = new sfWidgetFormInput();
+    $this->validatorSchema['idCabinet'] = new sfValidatorDoctrineChoice(array(
+      'required' => false,
+      'model' => 'SidCoordName'
+    ));
     $this->widgetSchema->setHelp('splash', 'Display a message while the map is loading');
-
+    
+    $this->widgetSchema['withResume'] = new sfWidgetFormInputCheckbox();
+    $this->validatorSchema['withResume'] = new sfValidatorBoolean();
+    $this->widgetSchema['withResume']->setLabel('Afficher le résumé de l\'implantation');
+    $this->widgetSchema->setHelp('length','Longueur du texte avant de le tronquer, 0 pour voir tout le texte');
     if(!$this->getDefault('width'))
     {
       $this->setDefault('width', '350px');
@@ -73,7 +85,7 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
     }
 
 
-    parent::configure();
+    
   }
 
   protected function getMapTypeIds()
