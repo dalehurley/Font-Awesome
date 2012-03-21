@@ -1,6 +1,6 @@
 // megadropdown.js
-// v1.2
-// Last Updated : 2012-03-20 16:00
+// v1.3
+// Last Updated : 2012-03-21 16:25
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -17,7 +17,35 @@
 
 		// iterate and reformat each matched element
 		return this.each(function() {
-			
+
+			//récupération du plus fort z-index de zone
+			var highestZindex = 0;
+			$('.dm_area').each(function() {
+				//récupération z-index courant
+				var currentZindex = $(this).css('zIndex');
+				//on exclue les z-index non définis
+				if(currentZindex == 'auto') currentZindex = 0;
+				//on convertie la valeur en integer
+				currentZindex = parseInt(currentZindex);
+				//on récupère le plus grand z-index
+				if(currentZindex > highestZindex) highestZindex = currentZindex;
+			});
+
+			//on vérifie dans quel zone se situe le menu
+			var dmArea = $(this).closest('.dm_area');
+			var dmAreaIndex = dmArea.css('zIndex');
+			if(dmAreaIndex == 'auto') dmAreaIndex = 0;
+			dmAreaIndex = parseInt(dmAreaIndex);
+
+			//on fait passer devant le menu lors du rollOver de ce dernier
+			if(dmAreaIndex < highestZindex) {
+				$(this).bind('mouseover', function(){
+					$(dmArea).css('zIndex', highestZindex + 1);
+				}).bind('mouseout', function(){
+					$(dmArea).css('zIndex', dmAreaIndex);
+				});;
+			}
+
 			//on ne s'occupe que des liens ayant des enfants (dm_dir)
 			$(this).children('li').each(function(index) {
 				//sélection diverses
