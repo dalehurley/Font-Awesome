@@ -24,6 +24,8 @@ class pagesDuCabinetpageCabinetListView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayArticle = array();
+        $redirect = false;
+        $header = '';
         $dmPage = sfContext::getInstance()->getPage();
 
         switch ($dmPage->module . '/' . $dmPage->action) {
@@ -44,7 +46,28 @@ class pagesDuCabinetpageCabinetListView extends dmWidgetPluginView {
 
         ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $dmPage->getName() :'';
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
+        
+        if(count($pageCabinets) == 1 && ($dmPage->module . '/' . $dmPage->action == 'pageCabinet/list')){
+            foreach($pageCabinets as $page){
+                $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('pageCabinet','show', $page->id );
+                $header = '/'.$page->getSlug();
+                $redirect = true;
+            }
+                return $this->getHelper()->renderPartial('pagesDuCabinet', 'pageCabinetList', array(
+                    'pageCabinets' => $pageCabinets,
+                    'length' => '',
+                    'lien' => '',
+                    'titreBloc' => '',
+                    'width' => '',
+                    'height' => '',
+                    'withImage' => '',
+                    'header' => $header,
+                    'redirect' => $redirect
+                ));
 
+        }
+        else {
+    
         return $this->getHelper()->renderPartial('pagesDuCabinet', 'pageCabinetList', array(
                     'pageCabinets' => $pageCabinets,
                     'length' => $vars['length'],
@@ -53,7 +76,9 @@ class pagesDuCabinetpageCabinetListView extends dmWidgetPluginView {
                     'width' => $vars['widthImage'],
                     'height' => $vars['heightImage'],
                     'withImage' => $vars['withImage'],
+                    'redirect' => $redirect
                 ));
+        }
     }
 
 }

@@ -20,6 +20,7 @@ class articleComponents extends myFrontModuleComponents
         $query->addWhere('is_dossier = true');
     }
     
+    // construction du header pour envoyer DIRECTEMENT sur la page si il n'y a q'un article
     $articlePager = $this->getPager($query);
     if(count($articlePager) == 1){
         foreach($articlePager as $article){
@@ -30,13 +31,13 @@ class articleComponents extends myFrontModuleComponents
         }
         
     }
-//    else{
+    else{
         $this->articlePager = $this->getPager($query);
     $this->route = $this->getPage()->getTitle();
     $ancestors = $this->context->getPage()->getNode()->getAncestors();
     $this->parent = $ancestors[count($ancestors)-1]->getTitle();
     
-//    }
+    }
     
     //$this->articlePager->setOption('ajax', true);
   }
