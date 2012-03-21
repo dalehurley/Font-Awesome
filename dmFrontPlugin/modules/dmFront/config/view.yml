@@ -6,5 +6,5 @@ all:
     #X-UA-Compatible: IE=edge,chrome=1
     
   javascripts:
-    - /theme/less/_framework/SPLessCss/Externals/js/modernizr/polyfills.js
+    - /theme/less/_framework/SPLessCss/Externals/js/polyfills/polyfills.js
     - /theme/less/_framework/SPLessCss/Externals/js/spLessGrid/spLessGrid.js

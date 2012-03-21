@@ -21,7 +21,7 @@ class myWidgetSearchFormView extends dmWidgetSearchFormView {
 		$javascripts = parent::getJavascripts();
 
 		//lien vers le js associé au menu
-        $jsLink = '/theme/less/_framework/SPLessCss/Externals/js/modernizr/polyfills/dmWidgetSearchForm.js';        
+        $jsLink = '/theme/less/_framework/SPLessCss/Externals/js/polyfills/dmWidgetSearchForm.js';        
         //chargement du JS si existant
         if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) $javascripts[] = $jsLink;
 		
