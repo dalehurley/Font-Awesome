@@ -63,6 +63,21 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		return $html;
 	}
 
+	//Rajout de nouvelles variables Javascript en sortie
+	public function renderJavascriptConfig()
+	{
+		//ouverture balise script
+		$html = PHP_EOL . '<script' . ($this->isHtml5() ? '' : ' type="text/javascript"') . '>';
+		//on récupère les variables passées par défaut
+		$html.= 'var dm_configuration = ' . json_encode($this->getJavascriptConfig()) . ', ';
+		//rajout des options de la page
+		$html.= 'pageOptions = ' . json_encode(sfConfig::get('pageOptions')) . ';';
+		//fermeture balise script
+		$html.= '</script>';
+		
+		return $html;
+	}
+
 	//Rajout fonction personnalisée pour avoir l'icone Apple
 	protected function getTouchIcon($size = '')
 	{
