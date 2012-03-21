@@ -59,10 +59,14 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
         }
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
 
-        if(count($recrutements) == 1 && ($dmPage->module . '/' . $dmPage->action == 'recrutement/list')){
-            foreach($recrutements as $page){
-                $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('recrutement','show', $page->id );
-                $header = '/'.$page->getSlug();
+        if (count($recrutements) == 1 && ($dmPage->module . '/' . $dmPage->action == 'recrutement/list')) {
+            foreach ($recrutements as $page) {
+                $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('recrutement', 'show', $page->id);
+                // add current's controler for header() redirection
+                $controlers = json_decode(dmConfig::get('base_urls'), true); // all controlers Url
+                $contextEnv = sfConfig::get('dm_context_type') . '-' . sfConfig::get('sf_environment'); // i.e. "front-dev"
+                $controlerUrl = (array_key_exists($contextEnv, $controlers)) ? $controlers[$contextEnv] : '';
+                $header = $controlerUrl . '/' . $page->getSlug();
                 $redirect = true;
             }
                 return $this->getHelper()->renderPartial('recrutementsCabinet', 'recrutementsList', array(
