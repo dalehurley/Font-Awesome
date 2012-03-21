@@ -6,9 +6,33 @@
 
 //permet d'isoler le code du reste de l'environnement javascript
 (function($){
-		
+
+	//options de la page en JSON : pageOptions
+
+	//permet le chargement des versions compressées
+	var getMin = pageOptions.isDev ? '' : '.min';
+
+	//chargement des polyfills lorsque nécessaires
+	Modernizr.load([
+		{
+	    	test : Modernizr.placeholder,
+	    	nope : {
+	    		'jqueryPlaceholder' : '/theme/less/_framework/SPLessCss/Externals/js/polyfills/jquery-placeholder/jquery.placeholder'+getMin+'.js'
+	    	},
+	    	callback : {
+	    		'jqueryPlaceholder' : function (url, result, key) {
+	    			if(result) $('input, textarea').placeholder();
+				}
+			}
+ 		}
+	]);
+	
 	//lancement lorsque le document est chargé
 	$(document).ready(function(){
+
+		//on teste les variables
+
+
 		
 		//on vérifie dans quel mode on est
 		var isDev = $('body').hasClass('isDev');
