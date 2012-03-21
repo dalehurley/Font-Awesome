@@ -3,32 +3,55 @@
 class sfWidgetFormSchemaFormatterDmList extends sfWidgetFormSchemaFormatter {
 
     protected
-    $rowFormat = "<li class=\"dm_form_element clearfix %required_class%\">\n  %error%%formated_label%\n  %field%%help%\n%hidden_fields%</li>\n",
-    $errorRowFormat = "<li>\n%errors%</li>\n",
+    $rowFormat = "<li class=\"dm_form_element clearfix\">\n  %error%%label%\n  %field%%help%\n%hidden_fields%</li>\n",
+    $errorRowFormat = "<li class=\"clearfix\">\n%errors%</li>\n",
     $helpFormat = '<div class="dm_help_wrap">%help%</div>',
     $decoratorFormat = "<ul class=\"dm_form_elements\">\n  %content%</ul>";
 
-    public function formatRow($label, $field, $errors = array(), $help = '', $hiddenFields = null) {
-        
-        $row = parent::formatRow(
-                        $label, $field, $errors, $help, $hiddenFields
-        );
-
-        // Dans dmCorePlugin/lib/form/dmFormDoctrine.php on ajoute un * au label required
-        // Ici on analyse le label, s'il a une étoile on ajoute la class required au li le contenant
-        $requiredClass = '';
-        $pos = strpos($label, ' *'); 
-        if ($pos === false) {
-        } else {
-            $requiredClass = 'required';
-            $label = str_replace(' *', '', $label); // on retire l'étoile
+    protected $validatorSchema = null;
+     
+    protected $params = array();
+     
+      /**
+       * Constructor
+       * @param sfWidgetFormSchema $widgetSchema
+       * @param sfValidatorSchema $validatorSchema
+       * @param array $params
+       */
+      public function __construct(sfWidgetFormSchema $widgetSchema, sfValidatorSchema $validatorSchema, $params = array())
+      {
+        $this->validatorSchema = $validatorSchema;
+        $this->params = $params;
+        parent::__construct($widgetSchema);
+      }
+     
+      /**
+       * Generates a label for the given field name.
+       *
+       * @param  string $name        The field name
+       * @param  array  $attributes  Optional html attributes for the label tag
+       *
+       * @return string The label tag
+       */
+      public function generateLabel($name, $attributes = array())
+      {
+        $is_required = false;
+        if ( $this->validatorSchema and isset($this->validatorSchema[$name]) )
+        {
+          $validator = $this->validatorSchema[$name];
+     
+          if ( $validator->getOption('required') )
+          {
+            $class_name = 'required';
+            if (isset($attributes['class'])) $attributes['class'] .= ' '.$class_name; else $attributes['class'] = $class_name;
+          }
         }
+     
+        $s = parent::generateLabel($name, $attributes);
+     
+        return $s;
+      }
 
-        
-        return strtr($row, array(
-                    '%required_class%' => $requiredClass,
-                    '%formated_label%' => $label
-                ));
-    }
+
 
 }

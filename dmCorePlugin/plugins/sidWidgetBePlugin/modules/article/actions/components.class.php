@@ -25,9 +25,13 @@ class articleComponents extends myFrontModuleComponents
     if(count($articlePager) == 1){
         foreach($articlePager as $article){
             $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('article','show', $article->id );
-            $header = '/'.$page->getSlug();
+
+            // add current's controler for header() redirection
+            $controlers = json_decode(dmConfig::get('base_urls'),true); // all controlers Url
+            $contextEnv = sfConfig::get('dm_context_type').'-'.sfConfig::get('sf_environment'); // i.e. "front-dev"
+            $controlerUrl = (array_key_exists($contextEnv,$controlers))?$controlers[$contextEnv]:''; 
+            $header = $controlerUrl.'/'.$page->getSlug();
             $this->header = $header;
-            
         }
         
     }

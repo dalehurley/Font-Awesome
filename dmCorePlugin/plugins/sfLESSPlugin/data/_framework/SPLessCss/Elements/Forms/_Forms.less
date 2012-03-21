@@ -28,6 +28,9 @@ form {
 		}
 		margin-bottom: @gridBaseline;
 	}
+	.dm_form_element > label.required:after {
+		content: " *";
+	}
 	.dm_help_wrap {
 		.isLess & { background-color: #8AFFD8; }
 		line-height: @gridBaseline;
@@ -43,6 +46,7 @@ form {
 		padding: 0;
 		margin-left: 0;
 		margin-bottom: 0;
+		color: red;
 		li { margin: 0; padding: 0; }
 	}
 }
