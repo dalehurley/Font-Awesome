@@ -8,10 +8,14 @@
 
 //couleur par défaut pour les placeHolders
 input, textarea {
+	//ciblage natif
 	&::-webkit-input-placeholder { color: @colorCouleur3Sup; }
 	&:disabled::-webkit-input-placeholder { color: @colorCouleur3Moyen; }
 	&:-moz-placeholder { color: @colorCouleur3Sup; }
 	&:disabled:-moz-placeholder { color: @colorCouleur3Moyen; }
+	//utilisé avec jQuery-placeholder
+	&.placeholder { color: @colorCouleur3Sup; }
+	&.placeholder:disabled { color: @colorCouleur3Moyen; }
 }
 
 //champs textes d'entrée
