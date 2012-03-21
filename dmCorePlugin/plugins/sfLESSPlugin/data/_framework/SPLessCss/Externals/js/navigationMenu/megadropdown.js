@@ -1,6 +1,6 @@
 // megadropdown.js
-// v1.3
-// Last Updated : 2012-03-21 16:25
+// v1.4
+// Last Updated : 2012-03-21 17:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -39,6 +39,7 @@
 
 			//on fait passer devant le menu lors du rollOver de ce dernier
 			if(dmAreaIndex < highestZindex) {
+				// $(dmArea).css('zIndex', highestZindex + 1);
 				$(this).bind('mouseover', function(){
 					$(dmArea).css('zIndex', highestZindex + 1);
 				}).bind('mouseout', function(){
@@ -61,18 +62,21 @@
 				var hasDmDir = false;
 
 				//on parcourt toutes les colonnes courantes
-				$(selectCol).each(function(index) {
+				$(selectCol).each(function() {
 					//on détecte la présence d'un sous-dossier
 					if(!hasDmDir && $(this).hasClass('dm_dir')) hasDmDir = true;
-
-					//on récupère la plus grande largeur
-					var currentColWidth = $(this).width();
-					if(currentColWidth > colWidth) colWidth = currentColWidth;
 				});
 
 				//on rajoute une classe spécifique sur le ul de niveau 1 pour indiquer si oui ou non il contient des dossiers
 				if(hasDmDir) $(selectRow).addClass('hasDmDir');
 				else		 $(selectRow).addClass('hasNoDir');
+
+				//on parcourt toutes les colonnes courantes
+				$(selectCol).each(function() {
+					//on récupère la plus grande largeur
+					var currentColWidth = $(this).width();
+					if(currentColWidth > colWidth) colWidth = currentColWidth;
+				});
 
 				//permet d'éviter d'ajuster la taille des éléments lorsque c'est inutile, et de lancer une division par zéro
 				if(hasDmDir && nbreCol > 0 && colWidth > 0) {
@@ -82,6 +86,7 @@
 					
 					//calcul du nombre de colonnes affichable en largeur
 					var displayNbreCol = Math.floor(rowWidth / colWidth);
+					// $.fn.menuMegaDropdown.debug(index + ' rowWidth : ' + rowWidth + ' colWidth : ' + colWidth + ' displayNbreCol : ' + displayNbreCol);
 
 					//on ajoute une classe CSS spécifique à chaque début et fin de ligne
 					//(on cible les enfants avec find car children fait bugger modernizr avec le sélecteur nth-of-type)
