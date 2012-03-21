@@ -48,6 +48,12 @@ EOF;
               'options' => array()                
               ),
             array(
+              'command' => 'db:dump',
+              'libelle' => 'DB: Sauvegarde du contenu avec SETTINGS.',
+              'arguments' => array(),
+              'options' => array('settings' => 'true')                
+              ),            
+            array(
               'separator' => 'Style',
               'command' => 'less:compile-all', 
               'libelle' => 'Compilation des .less en .css',
@@ -181,7 +187,16 @@ EOF;
         );
 
         // traitement de la commande
-        $messageCommande = $dispoTasks[$numTask]['libelle'].'  ['.$dispoTasks[$numTask]['command'].']';
+        $argumentsLib = '';
+        foreach ($dispoTasks[$numTask]['arguments'] as $key => $value) {
+          $argumentsLib .= $value.' ';
+        }
+        $optionsLib = '';
+        foreach ($dispoTasks[$numTask]['options'] as $key => $value) {
+          $optionsLib .= '--'.$key.'='.$value.' ';
+        }
+
+        $messageCommande = $dispoTasks[$numTask]['libelle'].'  >> '.$dispoTasks[$numTask]['command'].' '.$argumentsLib.' '.$optionsLib.' ';
         $this->logBlock($messageCommande, 'INFO_LARGE');
 
         $timerTask = new sfTimer();        
