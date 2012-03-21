@@ -73,10 +73,14 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
         }
         $vars['titreBloc'] = ($vars['titreBloc'] == NULL || $vars['titreBloc'] == ' ') ? $dmPage->getName() : $vars['titreBloc'];
         
-        if(count($actuArticles) == 1 && ($dmPage->module . '/' . $dmPage->action == 'sidActuArticle/list')){
-            foreach($actuArticles as $page){
-                $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('sidActuArticle','show', $page->id );
-                $header = '/'.$page->getSlug();
+        if (count($actuArticles) == 1 && ($dmPage->module . '/' . $dmPage->action == 'sidActuArticle/list')) {
+            foreach ($actuArticles as $page) {
+                $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('sidActuArticle', 'show', $page->id);
+                // add current's controler for header() redirection
+                $controlers = json_decode(dmConfig::get('base_urls'), true); // all controlers Url
+                $contextEnv = sfConfig::get('dm_context_type') . '-' . sfConfig::get('sf_environment'); // i.e. "front-dev"
+                $controlerUrl = (array_key_exists($contextEnv, $controlers)) ? $controlers[$contextEnv] : '';
+                $header = $controlerUrl . '/' . $page->getSlug();
                 $redirect = true;
             }
                 return $this->getHelper()->renderPartial('actusDuCabinet', 'actuArticlesList', array(

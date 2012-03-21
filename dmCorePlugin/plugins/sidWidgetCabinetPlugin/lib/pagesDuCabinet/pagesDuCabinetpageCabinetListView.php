@@ -47,10 +47,14 @@ class pagesDuCabinetpageCabinetListView extends dmWidgetPluginView {
         ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $dmPage->getName() :'';
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
         
-        if(count($pageCabinets) == 1 && ($dmPage->module . '/' . $dmPage->action == 'pageCabinet/list')){
-            foreach($pageCabinets as $page){
-                $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('pageCabinet','show', $page->id );
-                $header = '/'.$page->getSlug();
+        if (count($pageCabinets) == 1 && ($dmPage->module . '/' . $dmPage->action == 'pageCabinet/list')) {
+            foreach ($pageCabinets as $page) {
+                $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('pageCabinet', 'show', $page->id);
+                // add current's controler for header() redirection
+                $controlers = json_decode(dmConfig::get('base_urls'), true); // all controlers Url
+                $contextEnv = sfConfig::get('dm_context_type') . '-' . sfConfig::get('sf_environment'); // i.e. "front-dev"
+                $controlerUrl = (array_key_exists($contextEnv, $controlers)) ? $controlers[$contextEnv] : '';
+                $header = $controlerUrl . '/' . $page->getSlug();
                 $redirect = true;
             }
                 return $this->getHelper()->renderPartial('pagesDuCabinet', 'pageCabinetList', array(
