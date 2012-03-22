@@ -1,11 +1,11 @@
 <?php
 
-class vacpicpddComponents extends myFrontModuleComponents
+class ctrComponents extends myFrontModuleComponents
 {
 
   public function executeForm()
   {
-    $this->form = $this->forms['vacpicpddForm'];
+    $this->form = $this->forms['ctrForm'];
     $this->form->removeCsrfProtection();
 
   }

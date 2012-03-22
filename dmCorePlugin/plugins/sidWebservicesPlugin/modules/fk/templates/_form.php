@@ -1,8 +1,8 @@
 <?php
 
-echo _tag('h4.title','Valeur acquise par un capital placé à intérêts composés pendant une durée déterminée');
+echo _tag('h4.title','Calcul des frais kilométriques : véhicules automobiles');
 
-echo $form;
+echo $form.'<hr style="clear:both; visibility:hidden;">';
 
 if ($sf_user->hasFlash('results')) {
 

@@ -1,39 +1,39 @@
 <?php
 
-/**
- * hs actions.
- *
- * @package    serveurws
- * @subpackage hs
- * @author     SID Presse
- * @version    SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
- */
- public function executeIndex($request)
-  {
-    $this->form = new HsForm();
-    $this->viewResultat=false;
-   
-    if ($request->isMethod('POST'))
-    {
-     $this->form->bind($request->getParameter($this->form->getName()));
-    if ($this->form->isValid())
-      {
-       
-        $this->viewResultat=true;
-        $client=new SoapClient(sfConfig::get('app_soapService_adr').sfConfig::get('app_soapService_wsdl'));
-        $authData=new AuthData();
-        $authData->username=sfConfig::get('app_identification_login');
-        $authData->password=sfConfig::get('app_identification_password');
+class hsActions extends myFrontModuleActions {
+    
+    /**
+     * executeFormWidget description
+     * @param  dmWebRequest $request description
+     * @return type
+     */
+    public function executeFormWidget(dmWebRequest $request) {
 
-        $authHeader=new SoapHeader(sfConfig::get('app_soapService_adr'),'AuthHeaderElement',$authData);
+        $form = new hsForm();
+        $form->removeCsrfProtection();
 
-        
+        if ($request->isMethod('POST')) {
 
-        return sfView::SUCCESS;
+            $form->bind($request->getParameter($form->getName()));
 
-      }
+            if ($form->isValid()) {
 
+                // instanciation soap / connexion
+                $client = new SoapClient(sfConfig::get('app_soapService_adr') . sfConfig::get('app_soapService_wsdl'));
+                $authData = new AuthData();
+                $authData->username = sfConfig::get('app_identification_login');
+                $authData->password = sfConfig::get('app_identification_password');
+                $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
+
+                // les valeurs postees
+
+
+                // envoi soap
+                
+
+                $this->getUser()->setFlash('results', $results);
+            }
+        }
+        $this->forms['hsForm'] = $form; // pass the form to the component using the form manager  
     }
-  
-  } //fin executeIndex
 }

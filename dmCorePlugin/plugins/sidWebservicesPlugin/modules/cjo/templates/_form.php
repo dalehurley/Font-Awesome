@@ -1,8 +1,23 @@
 <?php
 
-echo _tag('h4.title','Valeur acquise par un capital placé à intérêts composés pendant une durée déterminée');
+echo _tag('h4.title','Correspondance jours ouvrés/jours ouvrables');
 
-echo $form;
+echo '<table>
+	    <tr>
+	    	<td colspan="2">
+	    		Calcul en jours ouvrables ou en jours ouvrés ?<br/>
+
+				En général, le nombre de jours de congés payés se comptabilise en jours ouvrables, soit tous les jours de la semaine à l\'exception des dimanches et des jours fériés chômés.<br/>
+				Attention<br/>
+				votre convention collective peut prévoir un calcul en jours ouvrés.<br/>
+
+				Vous pouvez obtenir, ci dessous, l\'équivalence de jours ouvrables en jours ouvrés et inversement. <br/>Cette table de concordance est calculée sur la base de 5 jours ouvrés pour 6 jours ouvrables.
+				Concordance<br/>
+	    	</td>
+	    </tr>
+    </table>';
+
+echo $form.'<hr style="clear:both; visibility:hidden;">';
 
 if ($sf_user->hasFlash('results')) {
 
