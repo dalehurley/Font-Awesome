@@ -20,7 +20,7 @@
 
 			//récupération du plus fort z-index de zone
 			var highestZindex = 0;
-			$('.dm_area').each(function() {
+			$('.dm_area:not(#dm_header, #dm_footer)').each(function() {
 				//récupération z-index courant
 				var currentZindex = $(this).css('zIndex');
 				//on exclue les z-index non définis
