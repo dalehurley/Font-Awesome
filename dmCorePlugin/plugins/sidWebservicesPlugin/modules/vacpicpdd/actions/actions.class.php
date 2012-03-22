@@ -10,7 +10,7 @@ class vacpicpddActions extends myFrontModuleActions {
     public function executeFormWidget(dmWebRequest $request) {
 
         $form = new vacpicpddForm();
-        //$form->removeCsrfProtection();
+        $form->removeCsrfProtection();
 
         if ($request->isMethod('POST')) {
 

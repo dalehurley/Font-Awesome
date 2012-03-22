@@ -1,9 +1,9 @@
 <?php
 
-class SrtbForm extends BaseForm
+class SrtbForm extends dmForm
 {
 	
-	 public function configure()
+	 public function setup()
 	{
 
 		$this->setWidgets(array(
@@ -44,6 +44,8 @@ class SrtbForm extends BaseForm
 		    'ca'    => new sfValidatorNumber(array('required' => false)),
 		   
     )); 
+
+	     parent::setup(); // call setup of dmForm to have html templating dm_form_element li and ul...
    
 	}
 }

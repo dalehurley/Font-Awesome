@@ -1,9 +1,9 @@
 <?php
 
-class VtForm extends BaseForm
+class VtForm extends dmForm
 {
 	
-	 public function configure()
+	 public function setup()
 	{
 
 		$this->setWidgets(array(
@@ -26,6 +26,8 @@ class VtForm extends BaseForm
 
 	     
     )); 
+
+	     parent::setup(); // call setup of dmForm to have html templating dm_form_element li and ul...
    
 	}
 

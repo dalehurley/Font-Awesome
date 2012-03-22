@@ -1,6 +1,6 @@
 <?php
 
-class VaForm extends BaseForm
+class VaForm extends dmForm
 {
 	protected static $listeGenre = array(1=>'Personnel (VP)'
 									,0=>'Utilitaire (VU)'
@@ -11,7 +11,7 @@ class VaForm extends BaseForm
 
 
 
-	 public function configure()
+	 public function setup()
 	{
 
        	$this->setWidgets(array(
@@ -48,6 +48,8 @@ class VaForm extends BaseForm
 		  'genre' => new sfValidatorChoice(array('choices' => array_keys(self::$listeGenre))),
 		  'fonctionnement' => new sfValidatorChoice(array('choices' => array_keys(self::$listeFonctionnement))),
     )); 
+
+        parent::setup(); // call setup of dmForm to have html templating dm_form_element li and ul...
    
 	}
 

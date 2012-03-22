@@ -13,6 +13,7 @@ class acsActions extends sfActions
  public function executeIndex($request)
   {
     $this->form = new AcsForm();
+    $form->removeCsrfProtection();
     $this->viewResultat=false;
    
     if ($request->isMethod('POST'))

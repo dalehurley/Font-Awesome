@@ -1,11 +1,11 @@
 <?php
 
-class CtForm extends BaseForm
+class CtForm extends dmForm
 {
 	protected static $listePeriodicite = array(12=>'Mois',1=>'Ans', 4=>'Trimestre', 2=>'Semestres');
 	protected static $listeVersement = array(1=>' D&eacute;but de p&eacute;riode', 0=>'Fin de p&eacute;riode');
 
-	 public function configure()
+	 public function setup()
 	{
 
 		$this->setWidgets(array(
@@ -45,6 +45,7 @@ class CtForm extends BaseForm
 	      		'invalid'=>'Le nombre de versements doit etre numérique',
 		      )),
     )); 
+	     parent::setup(); // call setup of dmForm to have html templating dm_form_element li and ul...
    
 	}
 

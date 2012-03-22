@@ -1,11 +1,11 @@
 <?php
 
-class CvpForm extends BaseForm
+class CvpForm extends dmForm
 {
 	protected static $listePeriodicite = array(12=>'Mois',1=>'Ans', 4=>'Trimestre', 2=>'Semestres');
 	protected static $listeVersement = array(1=>'Versements fin', 0=>'Début de péiode');
 
-	 public function configure()
+	 public function setup()
 	{
 
 		$this->setWidgets(array(
@@ -44,6 +44,8 @@ class CvpForm extends BaseForm
 	      		'invalid'=>'Le taux proportionnel annuel doit etre numérique',
 		      )),
     )); 
+
+	    parent::setup(); // call setup of dmForm to have html templating dm_form_element li and ul...
    
 	}
 

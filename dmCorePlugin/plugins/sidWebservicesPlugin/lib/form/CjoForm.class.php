@@ -1,9 +1,9 @@
 <?php
 
-class CjoForm extends BaseForm
+class CjoForm extends dmForm
 {
 	
-	 public function configure()
+	 public function setup()
 	{
 
 		$this->setWidgets(array(
@@ -30,6 +30,8 @@ class CjoForm extends BaseForm
 	      		'invalid'=>'Le Jours ouvr&eacute;s doit etre numérique et 25 jours maxi',
 		      )),
     )); 
+
+	     parent::setup(); // call setup of dmForm to have html templating dm_form_element li and ul...
    
 	}
 

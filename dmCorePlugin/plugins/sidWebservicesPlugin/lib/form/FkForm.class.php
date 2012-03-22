@@ -1,6 +1,6 @@
 <?php
 
-class FkForm extends BaseForm
+class FkForm extends dmForm
 {
 	protected static $listePuissance = array(3=>'3 CV et moins'
 									,4=>'4 CV'
@@ -16,7 +16,7 @@ class FkForm extends BaseForm
 
 
 
-	 public function configure()
+	 public function setup()
 	{
 
 		$this->setWidgets(array(
@@ -39,6 +39,8 @@ class FkForm extends BaseForm
 	      		'invalid'=>'La distance parcourue  doit etre numérique',
 		      )),
     )); 
+
+        parent::setup(); // call setup of dmForm to have html templating dm_form_element li and ul...
    
 	}
 

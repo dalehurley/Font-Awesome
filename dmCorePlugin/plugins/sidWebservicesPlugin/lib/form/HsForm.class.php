@@ -1,9 +1,9 @@
 <?php
 
-class HsForm extends BaseForm
+class HsForm extends dmForm
 {
 	
-	 public function configure()
+	 public function setup()
 	{
 
 		$this->setWidgets(array(
@@ -29,6 +29,8 @@ class HsForm extends BaseForm
 	      		'invalid'=>'Le salaire brut mensuel (base 151,67 heures) doit etre numérique ',
 		      )),
     )); 
+
+	     parent::setup(); // call setup of dmForm to have html templating dm_form_element li and ul...
    
 	}
 
