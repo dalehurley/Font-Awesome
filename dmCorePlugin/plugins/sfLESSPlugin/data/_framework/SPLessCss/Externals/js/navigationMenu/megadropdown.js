@@ -1,6 +1,6 @@
 // megadropdown.js
-// v1.4
-// Last Updated : 2012-03-21 17:40
+// v1.5
+// Last Updated : 2012-03-22 11:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -74,9 +74,13 @@
 				//on parcourt toutes les colonnes courantes
 				$(selectCol).each(function() {
 					//on récupère la plus grande largeur
-					var currentColWidth = $(this).width();
-					if(currentColWidth > colWidth) colWidth = currentColWidth;
+					// var currentColWidth = $(this).width();
+					// if(currentColWidth > colWidth) colWidth = currentColWidth;
+					//on additionne toutes les largeurs
+					colWidth += $(this).width();
 				});
+				//on fait la moyenne des largeurs
+				colWidth = colWidth / selectCol.length;
 
 				//permet d'éviter d'ajuster la taille des éléments lorsque c'est inutile, et de lancer une division par zéro
 				if(hasDmDir && nbreCol > 0 && colWidth > 0) {
