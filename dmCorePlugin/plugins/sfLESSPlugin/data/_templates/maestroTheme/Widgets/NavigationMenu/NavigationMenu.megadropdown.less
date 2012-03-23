@@ -22,15 +22,15 @@
 
 ul.megadropdown {
 	//rajout bordure à gauche sur le premier niveau
-	& { border-left: 1px solid @zonesBorderColor; }
+	// & { border-left: 1px solid @zonesBorderColor; }
 
 	#dm_sidebar_left & {
 		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarLeft; 1px);
+		@gridWidth(@gridCol_SidebarLeft);
 	}
 	#dm_sidebar_right & {
 		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarRight; 1px);
+		@gridWidth(@gridCol_SidebarRight);
 	}
 
 	//rajout bordure en haut sur les menus et gestion décalage
@@ -40,6 +40,17 @@ ul.megadropdown {
 		& > li.first {
 			& > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @zonesBorderColor; }
 			& > ul { top: 0; padding-top: (@gridBaseline -1px); }
+		}
+	}
+
+	//Maestro : gestion des cellules de premier niveau dans les sidebars
+	#dm_sidebar_left & > li.dm_dir:hover,
+	#dm_sidebar_right & > li.dm_dir:hover {
+		& > .link {
+			background-color: @colorCouleur2Fonce;
+			.rgba & { background-color: fadeout(@colorCouleur2Fonce, 20%); }
+			color: @colorCouleur1;
+			&:hover { color: @colorCouleur1Sup; }
 		}
 	}
 
@@ -78,7 +89,7 @@ ul.megadropdown {
 		#dm_sidebar_left & {
 			@gridWidth(@gridCol - @gridCol_SidebarLeft; @gridGutter);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
-			@gridAbsoluteLeft(@gridCol_SidebarLeft; 2px);
+			@gridAbsoluteLeft(@gridCol_SidebarLeft; 1px);
 			top: -1px;
 			margin-top: 0;
 			padding-left: @gridGutter;
@@ -88,7 +99,7 @@ ul.megadropdown {
 		#dm_sidebar_right & {
 			@gridWidth(@gridCol - @gridCol_SidebarRight; @gridGutter);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
-			@gridAbsoluteRight(@gridCol_SidebarRight; 1px);
+			@gridAbsoluteRight(@gridCol_SidebarRight);
 			top: -1px;
 			margin-top: 0;
 			padding-right: @gridGutter;

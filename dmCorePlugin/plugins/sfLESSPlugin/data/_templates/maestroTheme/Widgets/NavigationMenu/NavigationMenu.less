@@ -87,19 +87,17 @@ ul.megadropdown ul li {
 	letter-spacing: 0;
 }
 
-//Maestro : différenciation des paddings et bordures en dropdown et accordion
-ul.dropdown, ul.megadropdown {
-	.link {
-		padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
-		border-width: 0 1px 1px 0;
-	}
+//Maestro : différenciation des affichages de liens entres les types des menus
+ul.dropdown .link {
+	padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
+	border-width: 0 1px 1px 0;
 }
 
-ul.accordion {
-	.link {
-		padding: (@menuDropdownPadV + 1px) (@menuDropdownPadH + 1px) @menuDropdownPadV (@menuDropdownPadH + 1px);
-		border-width: 0 0 1px 0;
-	}
+#dm_sidebar_left ul.megadropdown > li > .link,
+#dm_sidebar_right ul.megadropdown > li > .link,
+ul.accordion .link {
+	padding: (@menuDropdownPadV + 1px) (@menuDropdownPadH + 1px) @menuDropdownPadV (@menuDropdownPadH + 1px);
+	border-width: 0 0 1px 0;
 }
 
 //configuration de base des liens pour les types de menus
