@@ -47,8 +47,8 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	 * HTML5 : activer les paramètres suivant : Canvas, Canvas Text, HTML5 Audio, HTML5 Video, Input Attributes, Input Types
 	 * Misc : activer Inline SVG, SVG, SVG clip path, Touch Events
 	 * Extra : html5shiv v3.4 w/ printshiv, Modernizr.load, Media Queries, Add CSS Classes
-	 * Extensibility : Modernizr.testStyles(), Modernizr.testProp(), Modernizr.testAllProps(), Modernizr._prefixes, Modernizr._domPrefixes
-	 * Community add-ons : forms-placeholder, forms-validation
+	 * Extensibility : Modernizr.addTest, Modernizr.testStyles(), Modernizr.testProp(), Modernizr.testAllProps(), Modernizr._prefixes, Modernizr._domPrefixes
+	 * Community add-ons : forms-placeholder, forms-validation, img-apng
 	 */
 	public function renderIeHtml5Fix()
 	{
