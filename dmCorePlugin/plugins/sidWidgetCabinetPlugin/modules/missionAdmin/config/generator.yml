@@ -34,6 +34,12 @@ generator:
           label: Active
 #        tags_list:
 #          label: 'Mots clés'
+        title_file:
+          label: 'Nom du fichier'
+        file_form:
+          label: 'Choisir un fichier'
+        image_form:
+          label: 'Choisir une image'
       list:
         batch_actions:
           delete:
@@ -69,6 +75,7 @@ generator:
           Résumé de la mission: [resume]
           Text: [text]
           Image: [image_form, image_view]
+          Fichier : [ file_form, file_view, title_file]
 #          'Mots clés': [tags_list]
           # m_sections du nom de la relation declaree dans le schema.yml, + _list
 #          'Section liées': [m_sections_list]         

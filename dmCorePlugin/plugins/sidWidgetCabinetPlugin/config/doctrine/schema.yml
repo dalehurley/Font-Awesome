@@ -1,35 +1,3 @@
-#SidCabinetAccueil:
-#  actAs:
-#    Timestampable:
-#    DmSortable:
-#    I18n:
-#      fields: [ title, title_entete_page, text  ]
-#      actAs:
-#        DmVersionable:
-#  columns:
-#    title:
-#      type: string(255)
-#      notnull: true
-#    title_entete_page:
-#      type: string(255)
-#      notnull: true
-#    text:
-#      type: clob
-#      extra: ckeditor
-#      notnull: false
-#    is_active:
-#      type: boolean
-#      notnull: true
-#      default: true
-#    image:
-#      type: integer
-#  relations:
-#    Image:
-#      class: DmMedia
-#      local: image
-#      foreignAlias: Photos
-#      onDelete: Cascade
-
 SidCabinetPageCabinet:
   actAs:
     DmSortable:
@@ -59,11 +27,20 @@ SidCabinetPageCabinet:
       default: true
     image:
       type: integer
+    file:
+      type: integer
+    title_file:
+      type: string(255)
   relations:
     Image:
       class: DmMedia
       local: image
       foreignAlias: Photos
+      onDelete: Cascade
+    Files:
+      class:          DmMedia
+      local:          file
+      foreignAlias:   SidCabinetPageCabinet
       onDelete: Cascade
 
 SidCabinetEquipe:
@@ -178,6 +155,10 @@ SidCabinetMission:
       default: true
     image:
       type: integer
+    file:
+      type: integer
+    title_file:
+      type: string(255)
   attributes:
     export: all
     validate: true
@@ -191,6 +172,11 @@ SidCabinetMission:
       class: DmMedia
       local: image
       foreignAlias: Photos
+      onDelete: Cascade
+    Files:
+      class:          DmMedia
+      local:          file
+      foreignAlias:   SidCabinetMission
       onDelete: Cascade
       
 SidCabinetMissionSidRubrique:
@@ -244,5 +230,5 @@ SidCabinetRecrutement:
     Files:
       class:          DmMedia
       local:          file
-      foreignAlias:   SidActuArticles
+      foreignAlias:   SidCabinetRecrutement
       onDelete: Cascade
