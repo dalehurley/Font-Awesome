@@ -492,6 +492,33 @@ $queryMajSiteName = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s
 $dbh->query($queryMajSiteName);
 
 //-------------------------------------------------------------------------------------
+//    Create the dmSetting type_client
+//-------------------------------------------------------------------------------------
+// on affiche les choix d'environnemnts pour les valeurs par defaut
+$dispoTypes = array (
+  1 => 'ec',
+  2 => 'cgp',
+  3 => 'aga'  
+);
+$this->logBlock('Types de client disponibles:', 'INFO_LARGE');
+foreach ($dispoTypes as $k => $dispoType) {
+    $this->logSection($k,$dispoType);
+}
+// choix du dump
+$numType = $this->askAndValidate(array('', 'Le numero du type de client choisi?', ''), new sfValidatorChoice(
+                        array(
+                          'choices' => array_keys($dispoTypes), 
+                          'required' => true),
+                        array(
+                          'invalid' => 'Le type de client n\'existe pas'
+                          )
+        ));
+
+// sauvegarde du site_name dans la table dmSetting
+$queryMajclientType = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$dispoTypes[$numType].'\' WHERE s.name = \'client_type\';';
+$dbh->query($queryMajclientType);
+
+//-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
 $this->logBlock('
