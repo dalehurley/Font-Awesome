@@ -177,6 +177,7 @@ ul.megadropdown {
 		//ajout ombre et couleur de fond
 		ul {
 			background-color: @colorCouleur2;
+			.rgba & { background-color: fadeout(@colorCouleur2, 20%); }
 			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
 			//suppression bordure du haut
 			border-top: 0;
