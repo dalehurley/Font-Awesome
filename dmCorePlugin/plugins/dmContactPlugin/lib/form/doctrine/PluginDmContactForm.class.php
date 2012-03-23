@@ -54,12 +54,15 @@ class PluginDmContactForm extends BaseDmContactForm {
             'Madame' => 'Madame',
             'Mademoiselle' => 'Mademoiselle'
         );
+        
         $this->widgetSchema['title'] = new sfWidgetFormSelect(array(
-            'choices' => $titles
+            'choices' => array('' => 'Choose') + $titles
         ));
         $this->validatorSchema['title'] = new sfValidatorChoice(array(
             'choices' => array_keys($titles),
-            'required' => false
+            'required' => true),
+             array(   
+            'required' => 'Choose civility',
         ));
         if ($this->isCaptchaEnabled()) {
             $this->addCaptcha();
