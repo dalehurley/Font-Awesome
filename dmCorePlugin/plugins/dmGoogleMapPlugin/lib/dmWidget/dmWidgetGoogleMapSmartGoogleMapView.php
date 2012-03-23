@@ -9,6 +9,8 @@ class dmWidgetGoogleMapSmartGoogleMapView extends dmWidgetPluginView
     
     $this->addRequiredVar(array(
       'titreBloc',
+//      'smartGoogleMap',
+//      'withResume'
     ));
   }
   public function getStylesheets() {
@@ -32,9 +34,16 @@ class dmWidgetGoogleMapSmartGoogleMapView extends dmWidgetPluginView
           ->where('a.is_active = ?', true)
           ->orderBy('a.siege_social DESC')
           ->execute();
+    
+    // pour le passage dans le get_widget, il faut donner une valeur 'false' si le boolean est à zéro, sinon l'argument dans le get_widget est incomplet
+    $withResume = ($vars['withResume'] == false) ? 'false' : $vars['withResume'];
+    $length = ($vars['length'] == 0) ? '': $vars['length'];
     return $this->getHelper()->renderPartial('dmWidgetGoogleMap', 'smartGoogleMap', array(
                     'adresses' => $adresses,
                     'titreBloc' => $titreBloc,
+                    'smartGoogleMap' => $vars['smartGoogleMap'],
+                    'length' => $vars['length'],
+                    'withResume' => $withResume
                 ));
   }
   

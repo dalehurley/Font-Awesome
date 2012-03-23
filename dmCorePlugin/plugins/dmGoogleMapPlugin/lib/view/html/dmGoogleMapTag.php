@@ -18,7 +18,8 @@ class dmGoogleMapTag extends dmHtmlTag {
             'center' => null,
             'idCabinet' => null,
             'length' => null,
-            'withResume' => null
+            'withResume' => null,
+//            'smartGoogleMap' => false
         ));
     }
     /*
@@ -67,6 +68,10 @@ class dmGoogleMapTag extends dmHtmlTag {
     public function withResume($withResume) {
         
         return $this->setOption('withResume', (bool)$withResume);
+    }
+    public function smartGoogleMap($smartGoogleMap) {
+        
+        return $this->setOption('smartGoogleMap', (bool)$smartGoogleMap);
     }
     // fin rajout
     public function navigationControl($bool) {
@@ -145,17 +150,29 @@ class dmGoogleMapTag extends dmHtmlTag {
                                                           <span class="value" itemprop="faxNumber">'.$adresseRequest->getFax().'</span>
                                                       </span>' : $cabinet .= '';
       
-      $cabinet .= '</div>'; 
+      // pour afficher ResumeTown sous l'adresse si on est sur la page plan d'accès
+      if(($preparedAttributes['withResume'] == TRUE) && ($adresseRequest->getResumeTown() != NULL) && ($preparedAttributes['smartGoogleMap'] == TRUE)){
+          $length = ($preparedAttributes['length'] == 0) ? '': $preparedAttributes['length'];
+          $resumeTownInMap = '<span class="itemprop implantation">'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '(...)', true, true).'</span>' ;
+          $resumeTown='';
       }
+      else $resumeTownInMap = '';
+      
+      $cabinet .= $resumeTownInMap.'</div>'; 
+      }
+      
       ($preparedAttributes['titreBloc'] == '' ) ? $titreBloc =   sfContext::getInstance()->getI18N()->__('Map') : $titreBloc = $preparedAttributes['titreBloc'] ;
-      if($preparedAttributes['withResume'] == TRUE && $adresseRequest->getResumeTown() != NULL){
+      
+      
+      
+      // pour afficher ResumeTown en haut si on est sur une page implantation
+      if($preparedAttributes['withResume'] == TRUE && $adresseRequest->getResumeTown() != NULL && $preparedAttributes['smartGoogleMap'] == FALSE){
          
           $length = ($preparedAttributes['length'] == 0) ? '': $preparedAttributes['length'];
           $resumeTown = '<div>'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '', true, true).'</div>';
           }
       else $resumeTown='';
       // construction de la chaîne html
-      
       $tag = '<h2 class="title">'.$titreBloc.'</h2>'.$resumeTown.'<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>'.$cabinet;
       
       return $tag;

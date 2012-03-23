@@ -79,6 +79,7 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
         ->titreBloc($vars['titreBloc'])
         ->length($vars['length'])
         ->withResume($vars['withResume'])
+        ->smartGoogleMap($vars['smartGoogleMap'])
         ->mapTypeId($vars['mapTypeId'])
         ->zoom($vars['zoom'])
         ->style(sprintf(
