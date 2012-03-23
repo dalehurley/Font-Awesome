@@ -36,72 +36,95 @@ class baseEditorialeTools {
             } else {
                 $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueIdAndIsActive($rubrique->id,true);
                 foreach ($sidSections as $sidSection) {
-                    // le fichier json de la section en cours
-                    $fileRubriqueName = $rubriqueDir . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
-                    // on supprime le fichier .json
-                    if (is_file($fileRubriqueName)) unlink($fileRubriqueName);
-                    if (!$sidSection->isActive) {
-                        $k++;
-                        $return[$k]['(' . $k . ') KO : Section non active'] = $sidSection;
-                    } else {
-                        
-                        // on récupère les articles de cette section
-                        $articles = Doctrine_Core::getTable('SidArticle')->findBySectionIdAndIsActive($sidSection->id,true);
-
-                        $arrayJson = array();
-                        $j = 0;
-                        
-                        foreach ($articles as $article) {
-
-                            //echo '----'.$article->filename;
-                            $arrayJson[$j]['filename'] = $article->filename;
-                            $arrayJson[$j]['isActive'] = $article->getIsActive();
-                            $arrayJson[$j]['isDossier'] = $article->getIsDossier();
-                            //                            $arrayJson[$j]['createdAt'] = $article->createdAt;
-                            //                            $arrayJson[$j]['updatedAt'] = $article->updatedAt;
-                            
-                            foreach ($arrayLangs as $lang) {
-                                $arrayJson[$j]['title'][$lang] = $article->getTranslation()->$lang->title;
-                                $arrayJson[$j]['chapeau'][$lang] = $article->getTranslation()->$lang->chapeau;
-                                $arrayJson[$j]['createdAt'][$lang] = $article->getTranslation()->$lang->created_at;
-                                $arrayJson[$j]['updatedAt'][$lang] = $article->getTranslation()->$lang->updated_at;
-                            }
-                            // récup des tags
-                            $listTags = '';
-                            
-                            foreach ($article->getTags() as $tag) {
-                                $listTags.= $tag . ',';
-                            }
-                            $arrayJson[$j]['tags'] = $listTags;
-                            //$return[$j]['tags >'] = $listTags;
-                            $j++;
-                        }
-                        /*
-                         * Ecrire dans un fichier json
-                        */
-                        try {
-                            if (sfConfig::get('app_rep-local-json') != '') {
-                                if (count($arrayJson)) { // s'il y'a des articles
-                                    $k++;
-                                    if (!is_dir($rubriqueDir)) {
-                                        mkdir($rubriqueDir);
-                                        $return[$k]['DIR+'] = $rubriqueDir;
-                                    }
-                                    $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
-                                    fputs($fileRubrique, json_encode($arrayJson));
-                                    fclose($fileRubrique);
-                                    $return[$k]['(' . $k . ') OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
-                                    $nbArticleTotal+= count($arrayJson);
-                                }
-                                
-                            } else {
-                                $k++;
-                                $return[$k]['KO : Merci de spécifier la variable app_rep-local'] = '';
-                            }
-                        }
-                        catch(Exception $e) {
+                    foreach ($arrayLangs as $lang) {
+                        // le fichier json de la section en cours
+                        $fileRubriqueName = $rubriqueDir . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
+                        // on supprime le fichier .json
+                        if (is_file($fileRubriqueName)) unlink($fileRubriqueName);
+                        if (!$sidSection->isActive) {
                             $k++;
-                            $return[$k]['ERROR : Exception reçue pour le fichier ' . $fileRubriqueName] = $e->getMessage();
+                            $return[$k]['(' . $k . ') KO : Section non active'] = $sidSection;
+                        } else {
+                            
+                            // on récupère les articles de cette section
+                            if ($sidSection->getTranslation()->$lang->title == 'ec_actualites'){
+                                // on ne prend que les 6 derniers mois ou les 30 derniers
+                                $articles = dmDb::query('SidArticle a')
+                                    ->withI18n($lang)
+                                    ->where("DATEDIFF(CURRENT_DATE, aTranslation.updated_at) < ".sfConfig::get('app_nb-jours-max-date-article',100))   // age max pour un article
+                                    ->addWhere('section_id='.$sidSection->id)
+                                    ->execute();
+                                if (count($articles) < sfConfig::get('app_nb-articles-min-par-section',10)){ // on prend les X derniers articles
+                                    $articles = dmDb::query('SidArticle a')
+                                    ->withI18n($lang)
+                                    ->orderBy("aTranslation.updated_at desc")
+                                    ->where('section_id='.$sidSection->id)
+                                    ->limit(sfConfig::get('app_nb-articles-min-par-section',10))
+                                    ->execute();
+                                    $return[]['Section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = '30 derniers articles';
+                                } else {
+                                    $return[]['Section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = '6 derniers mois';
+                                }
+                  
+                            } else { // on prend tous les articles
+                                $articles = Doctrine_Core::getTable('SidArticle')->findBySectionIdAndIsActive($sidSection->id,true);
+                            }
+
+                            $arrayJson = array();
+                            $j = 0;
+                            
+                            foreach ($articles as $article) {
+
+                                //echo '----'.$article->filename;
+                                $arrayJson[$j]['filename'] = $article->filename;
+                                $arrayJson[$j]['isActive'] = $article->getIsActive();
+                                $arrayJson[$j]['isDossier'] = $article->getIsDossier();
+                                //                            $arrayJson[$j]['createdAt'] = $article->createdAt;
+                                //                            $arrayJson[$j]['updatedAt'] = $article->updatedAt;
+                                
+                                foreach ($arrayLangs as $lang) {
+                                    $arrayJson[$j]['title'][$lang] = $article->getTranslation()->$lang->title;
+                                    $arrayJson[$j]['chapeau'][$lang] = $article->getTranslation()->$lang->chapeau;
+                                    $arrayJson[$j]['createdAt'][$lang] = $article->getTranslation()->$lang->created_at;
+                                    $arrayJson[$j]['updatedAt'][$lang] = $article->getTranslation()->$lang->updated_at;
+                                }
+                                // récup des tags
+                                $listTags = '';
+                                
+                                foreach ($article->getTags() as $tag) {
+                                    $listTags.= $tag . ',';
+                                }
+                                $arrayJson[$j]['tags'] = $listTags;
+                                //$return[$j]['tags >'] = $listTags;
+                                $j++;
+                            }
+                            /*
+                             * Ecrire dans un fichier json
+                            */
+                            try {
+                                if (sfConfig::get('app_rep-local-json') != '') {
+                                    if (count($arrayJson)) { // s'il y'a des articles
+                                        $k++;
+                                        if (!is_dir($rubriqueDir)) {
+                                            mkdir($rubriqueDir);
+                                            $return[$k]['DIR+'] = $rubriqueDir;
+                                        }
+                                        $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
+                                        fputs($fileRubrique, json_encode($arrayJson));
+                                        fclose($fileRubrique);
+                                        $return[$k]['(' . $k . ') OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
+                                        $nbArticleTotal+= count($arrayJson);
+                                    }
+                                    
+                                } else {
+                                    $k++;
+                                    $return[$k]['KO : Merci de spécifier la variable app_rep-local'] = '';
+                                }
+                            }
+                            catch(Exception $e) {
+                                $k++;
+                                $return[$k]['ERROR : Exception reçue pour le fichier ' . $fileRubriqueName] = $e->getMessage();
+                            }
                         }
                     }
                 }
