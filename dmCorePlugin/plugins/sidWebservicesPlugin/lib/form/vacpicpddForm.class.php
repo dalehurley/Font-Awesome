@@ -1,6 +1,6 @@
 <?php
 
-class vacpicpddForm extends dmForm {
+class vacpicpddForm extends baseForm {
 
     protected static $listePeriodicite = array(
         12 => 'Mois',
