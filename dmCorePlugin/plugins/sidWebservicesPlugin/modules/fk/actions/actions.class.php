@@ -26,8 +26,8 @@ class fkActions extends myFrontModuleActions {
                 $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
 
                 // les valeurs postees
-                $results['puissance'] =$this->form->getValue('puissance'); 
-                $results['distance']  =$this->form->getValue('distance');
+                $results['puissance'] =$form->getValue('puissance'); 
+                $results['distance']  =$form->getValue('distance');
 
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculFK',array($results['puissance'], $results['distance']) ,null,array($authHeader));

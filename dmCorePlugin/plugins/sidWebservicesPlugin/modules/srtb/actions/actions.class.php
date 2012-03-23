@@ -26,11 +26,11 @@ class srtbActions extends myFrontModuleActions {
                 $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
 
                 // les valeurs postees
-                $results['marge'] =$this->form->getValue('marge'); 
-                $results['chargevar']  =$this->form->getValue('chargevar');  
-                $results['chargestruct']=$this->form->getValue('chargestruct');  
-                $results['remuneration'] =$this->form->getValue('remuneration');  
-                $results['ca'] =$this->form->getValue('ca');  
+                $results['marge'] =$form->getValue('marge'); 
+                $results['chargevar']  =$form->getValue('chargevar');  
+                $results['chargestruct']=$form->getValue('chargestruct');  
+                $results['remuneration'] =$form->getValue('remuneration');  
+                $results['ca'] =$form->getValue('ca');  
 
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculSRTB',array($results['marge'], $results['chargevar'], $results['chargestruct'], $results['remuneration'], $results['ca']),null,array($authHeader));

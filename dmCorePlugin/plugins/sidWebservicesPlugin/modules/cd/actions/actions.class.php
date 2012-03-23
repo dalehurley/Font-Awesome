@@ -26,11 +26,11 @@ class cdActions extends myFrontModuleActions {
                 $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
 
                 // les valeurs postees
-                $results['capital'] =$this->form->getValue('capital'); 
-                $results['remboursements']  =$this->form->getValue('remboursements');  
-                $results['periodicite']=$this->form->getValue('periodicite');  
-                $results['debut'] =$this->form->getValue('debut');  
-                $results['taux'] =$this->form->getValue('taux');  
+                $results['capital'] =$form->getValue('capital'); 
+                $results['remboursements']  =$form->getValue('remboursements');  
+                $results['periodicite']=$form->getValue('periodicite');  
+                $results['debut'] =$form->getValue('debut');  
+                $results['taux'] =$form->getValue('taux');  
 
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculCD',array($results['capital'], $results['remboursements'], $results['periodicite'], $results['debut'], $results['taux']) ,null,array($authHeader));

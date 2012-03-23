@@ -26,13 +26,13 @@ class clActions extends myFrontModuleActions {
                 $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
 
                 // les valeurs postees
-                $results['montant'] =$this->form->getValue('montant'); 
-                $results['depot'] =$this->form->getValue('depot'); 
-                $results['nbloyers']  =$this->form->getValue('nbloyers');
-                $results['valeur']  =$this->form->getValue('valeur');
-                $results['periodicite']=$this->form->getValue('periodicite');  
-                $results['debut'] =$this->form->getValue('debut');  
-                $results['taux'] =$this->form->getValue('taux');  
+                $results['montant'] =$form->getValue('montant'); 
+                $results['depot'] =$form->getValue('depot'); 
+                $results['nbloyers']  =$form->getValue('nbloyers');
+                $results['valeur']  =$form->getValue('valeur');
+                $results['periodicite']=$form->getValue('periodicite');  
+                $results['debut'] =$form->getValue('debut');  
+                $results['taux'] =$form->getValue('taux');  
 
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculCL',array($results['montant'], $results['depot'], $results['nbloyers'], $results['periodicite'], $results['debut'], $results['valeur'], $results['taux']),null,array($authHeader));

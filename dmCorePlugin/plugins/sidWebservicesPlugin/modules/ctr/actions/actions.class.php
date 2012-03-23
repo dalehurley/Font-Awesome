@@ -26,13 +26,13 @@ class ctrActions extends myFrontModuleActions {
                 $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
 
                 // les valeurs postees
-                $results['montant'] =$this->form->getValue('montant'); 
-                $results['depot']  =$this->form->getValue('depot'); 
-                $results['remboursements']  =$this->form->getValue('remboursements'); 
-                $results['nbloyers']  =$this->form->getValue('nbloyers');
-                $results['periodicite']=$this->form->getValue('periodicite');  
-                $results['debut'] =$this->form->getValue('debut');  
-                $results['valeur'] =$this->form->getValue('valeur');  
+                $results['montant'] =$form->getValue('montant'); 
+                $results['depot']  =$form->getValue('depot'); 
+                $results['remboursements']  =$form->getValue('remboursements'); 
+                $results['nbloyers']  =$form->getValue('nbloyers');
+                $results['periodicite']=$form->getValue('periodicite');  
+                $results['debut'] =$form->getValue('debut');  
+                $results['valeur'] =$form->getValue('valeur');  
 
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculVACPICPDD',array($results['montant'], $results['depot'], $results['remboursements'], $results['nbloyers'], $results['periodicite'], $results['debut'], $results['valeur']),null,array($authHeader));

@@ -26,11 +26,11 @@ class trsvcActions extends myFrontModuleActions {
                 $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
 
                 // les valeurs postees
-                $results['versements'] =$this->form->getValue('versements'); 
-                $results['nbversements']  =$this->form->getValue('nbversements');  
-                $results['periodicite']=$this->form->getValue('periodicite');  
-                $results['debut'] =$this->form->getValue('debut');  
-                $results['capital'] =$this->form->getValue('capital');  
+                $results['versements'] =$form->getValue('versements'); 
+                $results['nbversements']  =$form->getValue('nbversements');  
+                $results['periodicite']=$form->getValue('periodicite');  
+                $results['debut'] =$form->getValue('debut');  
+                $results['capital'] =$form->getValue('capital');  
 
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculTRSVC',array($results['versements'], $results['nbversements'], $results['periodicite'], $results['debut'], $results['capital']),null,array($authHeader));

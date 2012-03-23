@@ -26,7 +26,7 @@ class acsActions extends myFrontModuleActions {
                 $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
 
                 // les valeurs postees
-                $results['nbjours'] =$this->form->getValue('nbjours'); 
+                $results['nbjours'] =$form->getValue('nbjours'); 
 
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculACS',array($results['nbjours']),null,array($authHeader));

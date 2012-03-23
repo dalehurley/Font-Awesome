@@ -26,7 +26,7 @@ class vtActions extends myFrontModuleActions {
                 $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
 
                 // les valeurs postees
-                $results['departement'] =$this->form->getValue('departement'); 
+                $results['departement'] =$form->getValue('departement'); 
 
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculVT',array($results['departement']) ,null,array($authHeader));

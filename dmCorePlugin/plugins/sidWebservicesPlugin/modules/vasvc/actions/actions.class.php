@@ -26,11 +26,11 @@ class vasvcActions extends myFrontModuleActions {
                 $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
 
                 // les valeurs postees
-                $results['versements'] =$this->form->getValue('versements'); 
-                $results['nbversements']  =$this->form->getValue('nbversements');  
-                $results['periodicite']=$this->form->getValue('periodicite');  
-                $results['debut'] =$this->form->getValue('debut');  
-                $results['taux'] =$this->form->getValue('taux');  
+                $results['versements'] =$form->getValue('versements'); 
+                $results['nbversements']  =$form->getValue('nbversements');  
+                $results['periodicite']=$form->getValue('periodicite');  
+                $results['debut'] =$form->getValue('debut');  
+                $results['taux'] =$form->getValue('taux');  
 
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculVASVC',array($results['versements'], $results['nbversements'], $results['periodicite'], $results['debut'], $results['taux']) ,null,array($authHeader));

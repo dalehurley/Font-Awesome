@@ -26,11 +26,11 @@ class trcActions extends myFrontModuleActions {
                 $authHeader = new SoapHeader(sfConfig::get('app_soapService_adr') , 'AuthHeaderElement', $authData);
 
                 // les valeurs postees
-                $results['capital'] =$this->form->getValue('capital'); 
-                $results['duree']  =$this->form->getValue('duree');  
-                $results['periodicite']=$this->form->getValue('periodicite');  
-                $results['debut'] =$this->form->getValue('debut');  
-                $results['capitalacquis'] =$this->form->getValue('capitalacquis'); 
+                $results['capital'] =$form->getValue('capital'); 
+                $results['duree']  =$form->getValue('duree');  
+                $results['periodicite']=$form->getValue('periodicite');  
+                $results['debut'] =$form->getValue('debut');  
+                $results['capitalacquis'] =$form->getValue('capitalacquis'); 
 
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculTRC',array($results['capital'], $results['periodicite'], $results['duree'], $results['debut'], $results['capitalacquis']) ,null,array($authHeader));
