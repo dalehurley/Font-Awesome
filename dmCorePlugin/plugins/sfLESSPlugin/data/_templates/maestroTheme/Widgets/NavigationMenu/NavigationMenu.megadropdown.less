@@ -45,8 +45,8 @@ ul.megadropdown {
 
 	//configuration des dimensions à différents sous-niveaux
 	ul {
-		background-color: @colorCouleur3ClairSup;
-		.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 20%); }
+		background-color: @colorCouleur2;
+		.rgba & { background-color: fadeout(@colorCouleur2, 20%); }
 		//ajout bordure
 		border: 1px solid @zonesBorderColor;
 		//changement de la pleine largeur au premier sous-niveau
@@ -61,6 +61,18 @@ ul.megadropdown {
 			padding: 0;
 			border: 0;
 			&, .rgba & { background-color: transparent; }
+
+			//Maestro : personnalisation générale des liens de sous-niveaux
+			color: @colorCouleur3Clair;
+			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
+			&.dm_inactive { color: @colorCouleur3Moyen; }
+			//LoVe's Hurts Fade Away
+			&:hover, &:focus {
+				color: @colorCouleur3ClairSup;
+				background-color: @colorCouleur2Sup;
+				.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
+			}
+			&:active { color: @colorCouleur1; }
 		}
 
 		#dm_sidebar_left & {
@@ -176,8 +188,8 @@ ul.megadropdown {
 
 		//ajout ombre et couleur de fond
 		ul {
-			background-color: @colorCouleur2;
-			.rgba & { background-color: fadeout(@colorCouleur2, 20%); }
+			// background-color: @colorCouleur2;
+			// .rgba & { background-color: fadeout(@colorCouleur2, 20%); }
 			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
 			//suppression bordure du haut
 			border-top: 0;
@@ -190,22 +202,22 @@ ul.megadropdown {
 
 		//modification de couleurs du menu
 		.link {
-			color: @colorCouleur3Clair;
+			// color: @colorCouleur3Clair;
 
 			//reset apparence du lien
-			&, .rgba & { background-color: transparent; }
-			padding: 0;
-			border: 0;
+			// &, .rgba & { background-color: transparent; }
+			// padding: 0;
+			// border: 0;
 			
-			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
-			&.dm_inactive { color: @colorCouleur3Moyen; }
-			//LoVe's Hurts Fade Away
-			&:hover, &:focus {
-				color: @colorCouleur3ClairSup;
-				background-color: @colorCouleur2Sup;
-				.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
-			}
-			&:active { color: @colorCouleur1; }
+			// &.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
+			// &.dm_inactive { color: @colorCouleur3Moyen; }
+			// //LoVe's Hurts Fade Away
+			// &:hover, &:focus {
+			// 	color: @colorCouleur3ClairSup;
+			// 	background-color: @colorCouleur2Sup;
+			// 	.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
+			// }
+			// &:active { color: @colorCouleur1; }
 		}
 
 		//gestion des cellules de premier niveau
