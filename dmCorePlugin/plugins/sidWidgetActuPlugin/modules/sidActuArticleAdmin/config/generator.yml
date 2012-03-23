@@ -51,9 +51,9 @@ generator:
         image_form:
           label: 'Choisir une image'
         debut_date:
-          label: Date de début du message
+          label: Début du message
         fin_date:
-          label: Date de fin du message
+          label: Fin du message
       list:
         batch_actions:
           delete:
@@ -65,12 +65,12 @@ generator:
         display:
           - '=title'
 #          - rubrique_id
-          - resume
+#          - resume
 #          - tags_list
 #          - on_home
           - is_active
-          - created_at
-          - updated_at
+          - _debut_date
+          - _fin_date
 #          - created_by
 #          - updated_by            
           - image
@@ -87,11 +87,7 @@ generator:
           - is_active
 #          - rubrique_id
           - image
-          - resume
-          - created_at
-          - updated_at
-          - created_by
-          - updated_by          
+#          - resume      
       form:
         display:
          'Publication sur le site': [is_active]
