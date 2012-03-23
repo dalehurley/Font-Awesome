@@ -182,7 +182,11 @@ ul.megadropdown {
 	& > li.dm_dir {
 		& > .link:after {
 			border-color: transparent transparent transparent @menuMaestroColor;
-			#dm_sidebar_right & { border-color: transparent @menuMaestroColor transparent transparent; }
+			.rgba & { border-left-color: fadeout(@menuMaestroColor, 20%); }
+			#dm_sidebar_right & {
+				border-color: transparent @menuMaestroColor transparent transparent;
+				.rgba & { border-right-color: fadeout(@menuMaestroColor, 20%); }
+			}
 		}
 		// & > .link:hover:after,
 		// &:hover > .link:after {
