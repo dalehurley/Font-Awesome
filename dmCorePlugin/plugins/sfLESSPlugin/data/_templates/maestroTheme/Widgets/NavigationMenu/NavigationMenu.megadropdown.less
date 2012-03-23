@@ -39,7 +39,7 @@ ul.megadropdown {
 		//pour toutes les premières cellules
 		& > li.first {
 			& > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @zonesBorderColor; }
-			& > ul { top: 0; padding-top: (@gridBaseline -1px); }
+			& > ul { top: 0; padding-top: @gridBaseline; }
 		}
 	}
 
@@ -59,12 +59,12 @@ ul.megadropdown {
 		background-color: @colorCouleur2;
 		.rgba & { background-color: fadeout(@colorCouleur2, 5%); }
 		//ajout bordure
-		border: 1px solid @zonesBorderColor;
+		// border: 1px solid @zonesBorderColor;
 		//changement de la pleine largeur au premier sous-niveau
-		padding: @gridBaseline (@gridGutter -1px) (@gridBaseline -1px) (@gridGutter -1px);
-		@gridWidth(@gridCol; (@gridGutter*2 + @zonesOffsetPad*-2));
+		padding: @gridBaseline @gridGutter;
+		@gridWidth(@gridCol; @gridGutter*2);
 		//replacement à gauche
-		left: @zonesOffsetPad*-1;
+		// left: @zonesOffsetPad*-1;
 		
 		//liens des sous niveaux
 		li .link {
@@ -92,8 +92,9 @@ ul.megadropdown {
 			@gridAbsoluteLeft(@gridCol_SidebarLeft; 1px);
 			top: -1px;
 			margin-top: 0;
-			padding-left: @gridGutter;
-			ul{ padding-left: 0; }
+			padding-top: (@gridBaseline +1px);
+			padding-left: (@gridGutter +1px);
+			ul{ padding-top: 0; padding-left: 0; }
 		}
 		
 		#dm_sidebar_right & {
@@ -102,8 +103,9 @@ ul.megadropdown {
 			@gridAbsoluteRight(@gridCol_SidebarRight);
 			top: -1px;
 			margin-top: 0;
-			padding-right: @gridGutter;
-			ul{ padding-right: 0; }
+			padding-top: (@gridBaseline +1px);
+			padding-right: (@gridGutter +1px);
+			ul{ padding-top: 0; padding-right: 0; }
 		}
 		
 		//niveau 2 et +
@@ -134,7 +136,7 @@ ul.megadropdown {
 			&.first, &.firstOfRow, &.lastOfRow {
 				ul, & {
 					//configuration par défaut avec la pleine largeur de la page
-					@gridWidth(4; @gridGutter + @zonesOffsetPad*-1);
+					@gridWidth(4; @gridGutter);
 				}
 			}
 
