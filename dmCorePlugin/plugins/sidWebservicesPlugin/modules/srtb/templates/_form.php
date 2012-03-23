@@ -10,7 +10,7 @@ echo '  	<p>
 		<br/>
 		<br/>La marge de sécurité s\'élève à 10 750 €, votre chiffre d\'affaire peut baisser de 10 750 € avant que vous ne soyez en perte.
 		<br/>
-		<br/>Pour effectuer ce calcul, vous devez connaître le taux de marge brute dégagé par votre exploitation, le pourcentage de charges variables généré par l\'exploitation, le volume de charges de structure (celles qui sont fixes, quel que soit le niveau du chiffre d'affaires) et le chiffre d'affaires annuel réalisé.
+		<br/>Pour effectuer ce calcul, vous devez connaître le taux de marge brute dégagé par votre exploitation, le pourcentage de charges variables généré par l\'exploitation, le volume de charges de structure (celles qui sont fixes, quel que soit le niveau du chiffre d\'affaires) et le chiffre d\'affaires annuel réalisé.
 		<br/>
 		<br/>Si vous êtes en entreprise individuelle, vous devez évaluer votre niveau de rémunération.
 	</p>

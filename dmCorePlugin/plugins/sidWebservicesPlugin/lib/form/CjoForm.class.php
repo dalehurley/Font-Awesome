@@ -1,6 +1,6 @@
 <?php
 
-class CjoForm extends dmForm
+class cjoForm extends dmForm
 {
 	
 	 public function setup()

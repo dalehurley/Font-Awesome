@@ -14,7 +14,7 @@ if ($sf_user->hasFlash('results')) {
     
 } else { ?>
 
-	<h6 >Exemple </h6>
+	<h6 class="title">Exemple </h6>
 	<em >
 		vous devez emprunter 38 000 € à un taux de 10.1 %, mais vous ne pouvez rembourser que 1 800 € par mois, alors quelle sera la durée de votre emprunt ?
 	</em>

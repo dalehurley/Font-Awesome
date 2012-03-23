@@ -14,7 +14,7 @@ if ($sf_user->hasFlash('results')) {
     
 } else { ?>
 
-		<h6 >Exemple </h6>
+		<h6 class="title">Exemple </h6>
 	<em >
 		au 1<sup>er</sup> janvier 2002, votre emprunt s'élève à 76 225 €, vous espérez pouvoir avoir fini de le rembourser dans 5 ans par périodes trimestrielles, sachant que votre banquier vous prête le capital au taux de 11.5 %. Quel sera le montant du versement trimestriel ?
 	</em>

@@ -14,7 +14,7 @@ if ($sf_user->hasFlash('results')) {
     
 } else { ?>
 
-	<h6 >Exemple </h6>
+	<h6 class="title">Exemple </h6>
 
 	<em >
 		votre placement s'est fait par versements de 2 250 € sur un compte bloqué pendant 24 mois et votre capital s'élève aujourd'hui à 60 000 €, quel a été le rendement de votre placement ?

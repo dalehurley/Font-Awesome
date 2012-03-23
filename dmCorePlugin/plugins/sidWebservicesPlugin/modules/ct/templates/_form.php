@@ -14,7 +14,7 @@ if ($sf_user->hasFlash('results')) {
     
 } else { ?>
 
-	<h6 >Exemple </h6>
+	<h6 class="title">Exemple </h6>
 	<em >
 		votre banquier vous propose un tableau d'emprunt et vous voulez vérifier que le taux qu'il vous annonce est bien le taux réel de votre emprunt. Vous empruntez 76 225 €, le montant de chacun des 20 versements trimestriels s'élève à 5 030 €. Quel est le taux de votre emprunt ?
 	</em>

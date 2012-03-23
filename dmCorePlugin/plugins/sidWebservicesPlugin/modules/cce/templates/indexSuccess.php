@@ -15,7 +15,7 @@
 <?php if (!$viewResultat)
 	{ 
 	?>
-		<h6 >Exemple </h6>
+		<h6 class="title">Exemple </h6>
 	<em class="annotation">
 		vous voulez connaître le capital que vous pouvez emprunter, sachant que vous pouvez rembourser 2 250 € par semestre sur 10 ans et que le taux proposé par l'organisme financier avoisinera 10 %.
 	</em>
