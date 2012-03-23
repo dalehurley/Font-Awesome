@@ -134,7 +134,7 @@ ul.megadropdown > li {
 	&.dm_dir > .link {
 		&:after {
 			position: absolute;
-			z-index: 250;
+			z-index: 600;
 			display: block;
 			content:"";
 			width: 0;
@@ -171,7 +171,7 @@ ul.dropdown li, ul.accordion li {
 	&.dm_dir > .link {
 		&:after {
 			position: absolute;
-			z-index: 250;
+			z-index: 600;
 			display: block;
 			content:"";
 			width: 0;
@@ -277,7 +277,7 @@ ul.megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuMaestroArrowOffsetX - @menuMaestroArrowDim*2;
 	//inversion de style automatique en fonction du conteneur
 	#dm_sidebar_right & {
-		left: @menuMaestroArrowOffsetY - @menuMaestroArrowDim*2;
+		left: @menuMaestroArrowOffsetX - @menuMaestroArrowDim*2;
 	}
 }
 
