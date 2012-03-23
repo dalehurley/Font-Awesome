@@ -91,8 +91,8 @@ generator:
         display:
           - title
           - is_active
-          - debut_date
-          - fin_date
+          - _debut_date
+          - _fin_date
 #          - created_at
 #          - updated_at
       form:
