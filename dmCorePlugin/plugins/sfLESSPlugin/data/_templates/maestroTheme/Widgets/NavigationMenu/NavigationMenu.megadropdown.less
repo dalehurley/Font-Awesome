@@ -64,7 +64,7 @@ ul.megadropdown {
 		}
 
 		#dm_sidebar_left & {
-			@gridWidth(@gridCol - @gridCol_SidebarLeft; @gridGutter - @zonesOffsetPad);
+			@gridWidth(@gridCol - @gridCol_SidebarLeft; @gridGutter);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteLeft(@gridCol_SidebarLeft; 2px);
 			top: -1px;
@@ -74,7 +74,7 @@ ul.megadropdown {
 		}
 		
 		#dm_sidebar_right & {
-			@gridWidth(@gridCol - @gridCol_SidebarRight; @gridGutter - @zonesOffsetPad);
+			@gridWidth(@gridCol - @gridCol_SidebarRight; @gridGutter);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteRight(@gridCol_SidebarRight; 1px);
 			top: -1px;
@@ -122,14 +122,14 @@ ul.megadropdown {
 						@gridWidth(5);
 					}
 					#dm_sidebar_right & {
-						@gridWidth(5; @gridGutter + @zonesOffsetPad*-1);
+						@gridWidth(5; @gridGutter);
 					}
 				}
 			}
 			&.lastOfRow {
 				ul, & {
 					#dm_sidebar_left & {
-						@gridWidth(5; @gridGutter + @zonesOffsetPad*-1);
+						@gridWidth(5; @gridGutter);
 					}
 					#dm_sidebar_right & {
 						@gridWidth(5);
