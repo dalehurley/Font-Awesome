@@ -40,7 +40,7 @@ class dmFrontAddMenu extends dmMenu
     
     $widgets = $this->serviceContainer->get('widget_type_manager')->getWidgetTypes();
 
-    ksort($widgets); // tri par spacename
+    //ksort($widgets); // tri par spacename
     $spaceNamesAff = array();
     //var_dump($widgets);
 
