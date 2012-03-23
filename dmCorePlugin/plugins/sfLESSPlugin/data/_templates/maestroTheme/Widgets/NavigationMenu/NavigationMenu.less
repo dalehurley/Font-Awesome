@@ -64,7 +64,7 @@ ul.dropdown, ul.megadropdown, ul.accordion {
 		
 		//ajout des transitions pour navigateurs récents
 		.csstransitions & {
-			@transitionCompress(background-color, color; .2s; ease-in-out; 0);
+			@transitionCompress(background-color, color, border-color; .2s; ease-in-out; 0);
 		}
 	}
 
@@ -145,10 +145,11 @@ ul.megadropdown > li {
 			border-color: transparent;
 			border-style: solid;
 			border-width: @menuMaestroArrowDim 0;
+			opacity: 0;
 
 			//ajout des transitions pour navigateurs récents
 			.csstransitions & {
-				@transitionCompress(all; .15s; ease-in; 0);
+				@transitionCompress(all; .15s; ease-in; .2s);
 			}
 			
 			//inversion de style automatique en fonction du conteneur
@@ -274,10 +275,15 @@ ul.accordion li.dm_parent > .link:after {
 ul.megadropdown > li.dm_dir > .link:hover:after,
 ul.megadropdown > li.dm_dir:hover > .link:after {
 	border-width: @menuMaestroArrowDim;
-	right: @menuMaestroArrowOffsetX - @menuMaestroArrowDim*2;
+	right: (@menuMaestroArrowOffsetX - @menuMaestroArrowDim*2 +1px);
+	opacity: 1;
 	//inversion de style automatique en fonction du conteneur
 	#dm_sidebar_right & {
 		left: @menuMaestroArrowOffsetX - @menuMaestroArrowDim*2;
+	}
+	//changement délai de transition
+	.csstransitions & {
+		@transitionDelay(0);
 	}
 }
 
