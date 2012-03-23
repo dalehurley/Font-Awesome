@@ -27,7 +27,7 @@ SidBandeau:
   actAs:
     DmSortable:
     I18n:
-      fields: [ title ]
+      fields: [ title, debut_date, fin_date ]
       actAs:
         DmVersionable:
         Timestampable:
