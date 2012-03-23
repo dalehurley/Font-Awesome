@@ -202,22 +202,21 @@ ul.megadropdown {
 
 		//modification de couleurs du menu
 		.link {
-			// color: @colorCouleur3Clair;
-
 			//reset apparence du lien
-			// &, .rgba & { background-color: transparent; }
-			// padding: 0;
-			// border: 0;
+			&, .rgba & { background-color: transparent; }
+			padding: 0;
+			border: 0;
 			
-			// &.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
-			// &.dm_inactive { color: @colorCouleur3Moyen; }
-			// //LoVe's Hurts Fade Away
-			// &:hover, &:focus {
-			// 	color: @colorCouleur3ClairSup;
-			// 	background-color: @colorCouleur2Sup;
-			// 	.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
-			// }
-			// &:active { color: @colorCouleur1; }
+			color: @colorCouleur3Clair;
+			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
+			&.dm_inactive { color: @colorCouleur3Moyen; }
+			//LoVe's Hurts Fade Away
+			&:hover, &:focus {
+				color: @colorCouleur3ClairSup;
+				background-color: @colorCouleur2Sup;
+				.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
+			}
+			&:active { color: @colorCouleur1; }
 		}
 
 		//gestion des cellules de premier niveau
