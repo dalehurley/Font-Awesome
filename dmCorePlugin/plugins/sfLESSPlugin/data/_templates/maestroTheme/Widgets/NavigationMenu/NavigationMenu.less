@@ -127,8 +127,46 @@ ul.dropdown, ul.accordion, ul.megadropdown {
 		&:active { color: @colorCouleur1; }
 	}
 }
+
+//Maestro : personnalisation de la flèche
+ul.megadropdown > li {
+	//création de la flèche avec des bordures
+	&.dm_dir > .link {
+		&:after {
+			position: absolute;
+			z-index: 250;
+			display: block;
+			content:"";
+			width: 0;
+			height: 0;
+			right: @menuMaestroArrowOffsetX;
+			top: @menuMaestroArrowOffsetY;
+			//border-color: transparent transparent transparent @menuDropdownArrowColor;
+			border-color: transparent;
+			border-style: solid;
+			border-width: @menuMaestroArrowDim 0;
+
+			//ajout des transitions pour navigateurs récents
+			.csstransitions & {
+				@transitionCompress(all; .15s; ease-in; 0);
+			}
+			
+			//inversion de style automatique en fonction du conteneur
+			#dm_sidebar_right & {
+				right: auto !important;
+				left: @menuMaestroArrowOffsetY;
+				//border-color: transparent @menuDropdownArrowColor transparent transparent;
+			}
+		}
+	}
+
+	//on décale de 1px pour le premier car il a une border-top qui décale la flèche
+	&.dm_dir.first > .link:after {
+		top: (@menuMaestroArrowOffsetY -1px);
+	}
+}
 	
-ul.dropdown li, ul.accordion li, ul.megadropdown > li {
+ul.dropdown li, ul.accordion li {
 	//création de la flèche avec des bordures
 	&.dm_dir > .link {
 		&:after {
@@ -206,9 +244,7 @@ ul.dropdown, ul.megadropdown {
 //comportement flèche différents selon les types de menu
 ul.dropdown li.dm_dir > .link:hover:after,
 ul.dropdown li.dm_dir:hover > .link:after,
-ul.accordion li.dm_parent > .link:after,
-ul.megadropdown > li.dm_dir > .link:hover:after,
-ul.megadropdown > li.dm_dir:hover > .link:after {
+ul.accordion li.dm_parent > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
 	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
@@ -231,6 +267,17 @@ ul.megadropdown > li.dm_dir:hover > .link:after {
 			//border-color: transparent @menuDropdownArrowColorSup transparent transparent;
 			@rotate(-90deg);
 		}
+	}
+}
+
+//Maestro : personnalisation de la flèche
+ul.megadropdown > li.dm_dir > .link:hover:after,
+ul.megadropdown > li.dm_dir:hover > .link:after {
+	border-width: @menuMaestroArrowDim;
+	right: @menuMaestroArrowOffsetX - @menuMaestroArrowDim*2;
+	//inversion de style automatique en fonction du conteneur
+	#dm_sidebar_right & {
+		left: @menuMaestroArrowOffsetY - @menuMaestroArrowDim*2;
 	}
 }
 
