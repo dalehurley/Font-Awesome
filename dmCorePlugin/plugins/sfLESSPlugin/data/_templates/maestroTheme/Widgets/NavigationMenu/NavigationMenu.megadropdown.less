@@ -46,7 +46,7 @@ ul.megadropdown {
 	//configuration des dimensions à différents sous-niveaux
 	ul {
 		background-color: @colorCouleur2;
-		.rgba & { background-color: fadeout(@colorCouleur2, 20%); }
+		.rgba & { background-color: fadeout(@colorCouleur2, 5%); }
 		//ajout bordure
 		border: 1px solid @zonesBorderColor;
 		//changement de la pleine largeur au premier sous-niveau
@@ -189,7 +189,7 @@ ul.megadropdown {
 		//ajout ombre et couleur de fond
 		ul {
 			// background-color: @colorCouleur2;
-			// .rgba & { background-color: fadeout(@colorCouleur2, 20%); }
+			// .rgba & { background-color: fadeout(@colorCouleur2, 5%); }
 			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
 			//suppression bordure du haut
 			border-top: 0;
@@ -206,7 +206,7 @@ ul.megadropdown {
 			&, .rgba & { background-color: transparent; }
 			padding: 0;
 			border: 0;
-			
+
 			color: @colorCouleur3Clair;
 			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
 			&.dm_inactive { color: @colorCouleur3Moyen; }
