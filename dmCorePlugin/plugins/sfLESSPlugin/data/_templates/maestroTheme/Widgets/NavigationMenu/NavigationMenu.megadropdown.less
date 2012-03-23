@@ -26,7 +26,10 @@ ul.megadropdown {
 
 	#dm_sidebar_left & {
 		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarLeft);
+		// @gridWidth(@gridCol_SidebarLeft);
+		@gridWidth(3);
+		@gridMarginLeft(@gridCol_SidebarLeft - 3);
+		ul { margin-left: 0; }
 	}
 	#dm_sidebar_right & {
 		//largeur en fonction de la zone
@@ -100,7 +103,8 @@ ul.megadropdown {
 		#dm_sidebar_left & {
 			@gridWidth(@gridCol - @gridCol_SidebarLeft; @gridGutter);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
-			@gridAbsoluteLeft(@gridCol_SidebarLeft; 1px);
+			// @gridAbsoluteLeft(@gridCol_SidebarLeft; 1px);
+			@gridAbsoluteLeft(3; 1px);
 			margin-top: 0;
 			padding-top: (@gridBaseline +1px);
 			padding-left: (@gridGutter +1px);
