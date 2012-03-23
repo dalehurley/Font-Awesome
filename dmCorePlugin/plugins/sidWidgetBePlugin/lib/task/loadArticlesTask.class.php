@@ -5,7 +5,7 @@ class loadArticlesTask extends lioshiBaseTask {
     protected function configure() {
         // add your own arguments here
         $this->addArguments(array(
-            new sfCommandArgument('verbose', sfCommandArgument::OPTIONAL, 'Verbose task'),
+            new sfCommandArgument('quiet', sfCommandArgument::OPTIONAL, 'Quiet task'),
             new sfCommandArgument('rubriques', sfCommandArgument::OPTIONAL, 'Loading rubriques(for first time launch)'),
             new sfCommandArgument('sections', sfCommandArgument::OPTIONAL, 'Loading sections & articles (for update news)'),            
             new sfCommandArgument('articles', sfCommandArgument::OPTIONAL, 'Loading articles (incremental mode)'),
@@ -62,7 +62,7 @@ EOF;
             $answers = baseEditorialeTools::answerRubriqueJson();
             $verif = array();
             $arrayValids = array();
-            if (in_array("verbose", $arguments)) {
+            if (!in_array("quiet", $arguments)) {
                 $this->logBlock('Rubriques disponibles :', 'INFO_LARGE');
                 foreach ($answers as $i=>$answer) {
                     // mise en tableau des valeurs pour vérification avant validation des rubriques
@@ -110,7 +110,7 @@ EOF;
                     // importer rubriques sélectionnées
                     $results = baseEditorialeTools::loadRubriqueJson($arrayValids);
 
-                    if (in_array("verbose", $arguments)) {
+                    if (!in_array("quiet", $arguments)) {
                         $this->logSection('### loadArticles', 'Chargement des rubriques de la base editoriale.');
                        foreach ($results as $result) {
                             foreach ($result as $log => $desc) {
@@ -125,7 +125,7 @@ EOF;
         }elseif  (in_array("sections", $arguments)) {
             $results = baseEditorialeTools::loadSectionJson();
 
-            if (in_array("verbose", $arguments)) {
+            if (!in_array("quiet", $arguments)) {
                 $this->logSection('### loadArticles', 'Chargement des sections des rubriques du site.');
                 foreach ($results as $result) {
                     foreach ($result as $log => $desc) {
@@ -145,7 +145,7 @@ EOF;
                 $results = baseEditorialeTools::loadArticlesJson('incremental');
             }
             
-            if (in_array("verbose", $arguments)) {
+            if (!in_array("quiet", $arguments)) {
                 $this->logSection('### loadArticles', 'Chargements des articles.');
                 foreach ($results as $result) {
                     foreach ($result as $log => $desc) {
@@ -160,7 +160,7 @@ EOF;
             if (in_array("deactivation", $arguments)) {
                 $results = baseEditorialeTools::RubriquesSectionsDeactivation();
 
-                if (in_array("verbose", $arguments)) {
+                if (!in_array("quiet", $arguments)) {
                     $this->logSection('### loadArticles', 'Désactivation des rubriques et sections n\'ayant pas d\'enfants.');
                     foreach ($results as $result) {
                         foreach ($result as $log => $desc) {
@@ -175,7 +175,7 @@ EOF;
             //------------------------------------------------------------------------------------------------------------            
             $results = baseEditorialeTools::renameDmPages();
 
-            if (in_array("verbose", $arguments)) {
+            if (!in_array("quiet", $arguments)) {
                 $this->logSection('### loadArticles', 'Renommage des pages automatiques.');
                 foreach ($results as $result) { 
                     foreach ($result as $log => $desc) {
@@ -188,7 +188,7 @@ EOF;
             //------------------------------------------------------------------------------------------------------------            
             $results = baseEditorialeTools::syncPages();
 
-            if (in_array("verbose", $arguments)) {
+            if (!in_array("quiet", $arguments)) {
                 $this->logSection('### loadArticles', 'Synchronisation des pages automatiques.');
                 foreach ($results as $result) { 
                     foreach ($result as $log => $desc) {
