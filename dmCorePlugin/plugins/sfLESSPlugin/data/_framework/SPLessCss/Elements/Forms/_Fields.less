@@ -10,7 +10,7 @@
 
 //STYLAGE DE BASE
 label {
-	//modif Lionel : désactivation position et display
+	.isLess & { background-color: #F0D8E9; }
 	position: relative;
 	display: block;
 	text-align: right;
@@ -35,8 +35,7 @@ select {
 }
 
 input[type=submit], input.submit, input[type=button], button {
-	padding-top: 1px;
-	padding-bottom: 0;
+	padding: 1px 0 0 0;
 	height: @gridBaseline;
 	text-align: center;
 	
@@ -55,4 +54,63 @@ textarea {
 	select, input, textarea, button { padding-bottom: 2px; }
 	input[type=submit], input.submit, input[type=button], button { padding-top: 0; }
 	textarea { padding-top: 2px; }
+}
+
+//stylage par défaut du captcha
+#recaptcha_area {
+	position: relative !important;
+	display: block !important;
+	clear: both !important;
+	float: right;
+
+	#recaptcha_table.recaptchatable {
+		.isLess & { background-color: #F0D8EF; }
+
+		//réinitialisation hauteur de ligne
+		line-height: @gridBaseline !important;
+
+		&, #recaptcha_image, tbody tr td, .recaptcha_input_area {
+			border: 0 !important;
+			padding: 0 !important;
+			margin: 0 !important;
+			width: auto !important;
+			height: auto !important;
+		}
+
+		.recaptcha_image_cell {
+			.isLess & { background-color: #F0D8EF; }
+			//on soustrait la largueur qui dépasse de 302
+			padding: 0 (@gridGutter +2px) 0 0 !important;
+			margin: 0 !important;
+			width: auto !important;
+			height: auto !important;
+		}
+
+		#recaptcha_logo {
+			//on rajoute ce qui manque pour combler le vide
+			margin-left: 14px !important;
+		}
+
+		// #recaptcha_image { }
+		// #recaptcha_reload_btn { }
+		// #recaptcha_switch_audio_btn { }
+		// #recaptcha_switch_img_btn { }
+		// #recaptcha_whatsthis_btn { }
+		// #recaptcha_challenge_field_holder { }
+		// #recaptcha_tagline { }
+
+		#recaptcha_challenge_field, #recaptcha_response_field {
+			//on recopie le style par défaut des champs
+			position: relative !important;
+			display: block !important;
+			//réduction taille pour maintien baseline
+			font-size: @fontSizeSmall !important;
+			line-height: (@gridBaseline - 4px) !important;			//on soustrait la différence de padding et de bordure (2*1 + 2)
+			padding: 1px @offS 1px @offS !important;
+			border-width: 1px !important;
+			border-style: solid !important;
+		}
+
+		
+	}
 }

@@ -28,13 +28,11 @@ form {
 			background-color: fadeout(#3B85AD, 50%);
 			input, textarea, select { border-color: green; }
 		}
+
+		//pour forcer le clearfix sur le dernier élément n'ayant pas la classe apposée par défaut
+		@getClearfix();
 		margin-bottom: @gridBaseline;
 	}
-
-	//modif Lionel à tester
-	// .dm_form_element > label.required:after {
-	// 	content: " *";
-	// }
 
 	.dm_help_wrap {
 		.isLess & { background-color: fadeout(#8AFFD8, 50%); }
@@ -43,16 +41,13 @@ form {
 		font-size: @fontSizeSmall;
 	}
 	.error_list {
-		.isLess & { background-color: fadeout(#FF8A9F, 50%); }
+		.isLess & { background-color: fadeout(#8AFF9F, 50%); }
 		line-height: @gridBaseline;
 		vertical-align: top;
 		font-size: @fontSizeSmall;
 		list-style-type: none;
 		padding: 0;
-		margin-left: 0;
-		margin-bottom: 0;
-		//modif Lionel à tester (attention ! pas de couleur dans le coeur, à déplacer dans les thèmes avec @colorRequired)
-		// color: red;
+		margin: 0;
 		li { margin: 0; padding: 0; }
 	}
 }
