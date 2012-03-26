@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.2
-// Last Updated : 2012-01-18 11:10
+// v1.3
+// Last Updated : 2012-03-22 11:50
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -28,7 +28,7 @@
 	#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
 		.dm_widget_inner {
 			border: 0;
-			padding: 0 0 @zonesOffsetPad 0;
+			padding: 0 0 @gridBaseline/2 0;
 			background-color: transparent;
 		}
 	}
@@ -41,6 +41,7 @@
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
 		background-color: @colorCouleur2;
+		.rgba & { background-color: fadeout(@colorCouleur2, 20%); }
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
@@ -63,7 +64,7 @@ ul.menu-dropdown, ul.menu-megadropdown, ul.menu-accordion {
 		
 		//ajout des transitions pour navigateurs récents
 		.csstransitions & {
-			@transitionCompress(background-color, color; .2s; ease-in-out; 0);
+			@transitionCompress(background-color, color, border-color; .2s; ease-in-out; 0);
 		}
 	}
 
@@ -86,17 +87,31 @@ ul.menu-megadropdown ul li {
 	letter-spacing: 0;
 }
 
-//configuration de base des liens pour les menus dropdown et accordion
-ul.menu-dropdown, ul.menu-accordion {
+//Maestro : différenciation des affichages de liens entres les types des menus
+ul.menu-dropdown .link {
+	padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
+	border-width: 0 1px 1px 0;
+}
+
+#dm_sidebar_left ul.menu-megadropdown > li > .link,
+#dm_sidebar_right ul.menu-megadropdown > li > .link,
+ul.menu-accordion .link {
+	padding: (@menuDropdownPadV + 1px) (@menuDropdownPadH + 1px) @menuDropdownPadV (@menuDropdownPadH + 1px);
+	border-width: 0 0 1px 0;
+}
+
+//configuration de base des liens pour les types de menus
+ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	//gestion des liens
 	.link {
 		background-color: @colorCouleur3ClairSup;
-		padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
+		.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 20%); }
+		// padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
 		border-style: solid;
-		border-width: 0 1px 1px 0;
+		// border-width: 0 1px 1px 0;
 		border-color: @zonesBorderColor;
 		color: @colorCouleur3Fonce;
-		
+
 		//changement taille selon zone
 		#dm_custom_top & { font-size: @fontGlobalSizePx; }
 		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
@@ -104,42 +119,85 @@ ul.menu-dropdown, ul.menu-accordion {
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
 		&.dm_inactive { color: @colorCouleur3; }
 		//LoVe's Hurts Fade Away
-		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
+		&:hover, &:focus {
+			color: @colorCouleur3FonceSup;
+			background-color: @colorCouleur3Clair;
+			.rgba & { background-color: fadeout(@colorCouleur3Clair, 20%); }
+		}
 		&:active { color: @colorCouleur1; }
 	}
+}
+
+//Maestro : personnalisation de la flèche
+ul.menu-megadropdown > li {
+	//création de la flèche avec des bordures
+	&.dm_dir > .link {
+		&:after {
+			position: absolute;
+			z-index: 600;
+			display: block;
+			content:"";
+			width: 0;
+			height: 0;
+			right: @menuMaestroArrowOffsetX;
+			top: @menuMaestroArrowOffsetY;
+			//border-color: transparent transparent transparent @menuDropdownArrowColor;
+			border-color: transparent;
+			border-style: solid;
+			border-width: @menuMaestroArrowDim 0;
+			opacity: 0;
+
+			//ajout des transitions pour navigateurs récents
+			.csstransitions & {
+				@transitionCompress(all; .15s; ease-in; .2s);
+			}
+			
+			//inversion de style automatique en fonction du conteneur
+			#dm_sidebar_right & {
+				right: auto !important;
+				left: @menuMaestroArrowOffsetY;
+				//border-color: transparent @menuDropdownArrowColor transparent transparent;
+			}
+		}
+	}
+
+	//on décale de 1px pour le premier car il a une border-top qui décale la flèche
+	&.dm_dir.first > .link:after {
+		top: (@menuMaestroArrowOffsetY -1px);
+	}
+}
 	
-	li {
-		//création de la flèche avec des bordures
-		&.dm_dir > .link {
-			&:after {
-				position: absolute;
-				z-index: 250;
-				display: block;
-				content:"";
-				width: 0;
-				height: 0;
-				right: @menuArrowOffsetX;
-				top: @menuArrowOffsetY;
-				//border-color: transparent transparent transparent @menuDropdownArrowColor;
-				border-color: transparent;
-				border-style: solid;
-				border-width: @menuArrowDim;
+ul.menu-dropdown li, ul.menu-accordion li {
+	//création de la flèche avec des bordures
+	&.dm_dir > .link {
+		&:after {
+			position: absolute;
+			z-index: 600;
+			display: block;
+			content:"";
+			width: 0;
+			height: 0;
+			right: @menuArrowOffsetX;
+			top: @menuArrowOffsetY;
+			//border-color: transparent transparent transparent @menuDropdownArrowColor;
+			border-color: transparent;
+			border-style: solid;
+			border-width: @menuArrowDim;
+			
+			//ajout des transitions pour navigateurs récents
+			.csstransitions.csstransforms & {
+				@transitionCompress(all; .15s; ease-in; 0);
+				@origin(25%; 50%);
+			}
+			
+			//inversion de style automatique en fonction du conteneur
+			#dm_sidebar_right & {
+				right: auto !important;
+				left: @menuArrowOffsetX;
+				//border-color: transparent @menuDropdownArrowColor transparent transparent;
 				
-				//ajout des transitions pour navigateurs récents
 				.csstransitions.csstransforms & {
-					@transitionCompress(all; .15s; ease-in; 0);
-					@origin(25%; 50%);
-				}
-				
-				//inversion de style automatique en fonction du conteneur
-				#dm_sidebar_right & {
-					right: auto !important;
-					left: @menuArrowOffsetX;
-					//border-color: transparent @menuDropdownArrowColor transparent transparent;
-					
-					.csstransitions.csstransforms & {
-						@origin(75%; 50%);
-					}
+					@origin(75%; 50%);
 				}
 			}
 		}
@@ -213,13 +271,31 @@ ul.menu-accordion li.dm_parent > .link:after {
 	}
 }
 
+//Maestro : personnalisation de la flèche
+ul.menu-megadropdown > li.dm_dir > .link:hover:after,
+ul.menu-megadropdown > li.dm_dir:hover > .link:after {
+	border-width: @menuMaestroArrowDim;
+	right: (@menuMaestroArrowOffsetX - @menuMaestroArrowDim*2 +1px);
+	opacity: 1;
+	//inversion de style automatique en fonction du conteneur
+	#dm_sidebar_right & {
+		left: @menuMaestroArrowOffsetX - @menuMaestroArrowDim*2;
+	}
+	//changement délai de transition
+	.csstransitions & {
+		@transitionDelay(0);
+	}
+}
+
 //mise en couleur des cellules ouvertes
 ul.menu-dropdown li.dm_dir:hover > .link,
 #dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
 #dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
+ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-accordion li.dm_parent > .link,
 ul.menu-accordion li.dm_parent li.dm_parent > .link {
 	background-color: @colorCouleur1;
+	.rgba & { background-color: fadeout(@colorCouleur1, 20%); }
 	color: @colorCouleur3Clair;
 	&:hover { color: @colorCouleur3ClairSup; }
 }

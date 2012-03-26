@@ -1,6 +1,6 @@
 // _Megadropdown.less
-// v1.5
-// Last Updated : 2012-03-07 11:00
+// v1.6
+// Last Updated : 2012-03-22 11:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -14,7 +14,9 @@ ul.menu-megadropdown {
 	//################################################
 
 	//test affichage pour stylage
-	// & > li:nth-child(6) {
+	// #dm_sidebar_left & > li:nth-child(1) {
+	// #dm_sidebar_right & > li:nth-child(1) {
+	// #dm_custom_top & > li:nth-child(6) {
 	// & > li.last {
 	// 	ul, ul ul { opacity: 1 !important; visibility: visible !important; }
 	// }
@@ -75,12 +77,18 @@ ul.menu-megadropdown {
 		}
 
 		//suppression du float sur les li des sous-parties et sur les sous partie ne contenant pas de sous-dossiers
-		&.hasNoDir li, li li { position: relative; float: none; }
+		&.hasNoDir li, li li {
+			position: relative;
+			float: none;
+			//on remet le float pour les sous-partie située à droite
+			#dm_sidebar_right & { float: right; clear: right; }
+		}
 	}
 
 	//niveau 0
 	li {
 		float: left;
+		// #dm_sidebar_right & { float: right; }
 		line-height: @gridBaseline;
 		vertical-align: middle;
 		zoom: 1;
@@ -95,7 +103,7 @@ ul.menu-megadropdown {
 		#dm_sidebar_left &, #dm_sidebar_right & {
 			position: relative;
 			float: none;
-			& li.dm_dir { float: left; }
+			& li.dm_dir, .hasDmDir li { float: left; }
 		}
 		#dm_sidebar_left & { text-align: left; }
 		#dm_sidebar_right & { text-align: right; }
@@ -111,28 +119,32 @@ ul.menu-megadropdown {
 	//NIVEAU 0 : largeur automatique
 	li { width: auto; }
 
+	//gestion placement vertical
+	#dm_sidebar_left & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarLeft; 0);
+	}
+	#dm_sidebar_right & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarRight; 0);
+	}
+
 	//NIVEAU 1 : pleine largeur
 	ul {
-		//affectation de la pleine largeur au premier sous-niveau
+		//affectation de la pleine largeur par défaut
 		@gridSiteWidth();
-		
-		//largeur du contenu pour le premier sous-niveau quand situé dans une sidebar
-		#dm_sidebar_left &, #dm_sidebar_right & {
-			//on rajoute la gouttière pour avoir une zone continue
-			@gridWidth(@gridCol_Content; @gridGutter);
-		}
-		
+
 		#dm_sidebar_left & {
+			@gridWidth(@gridCol - @gridCol_SidebarLeft; @gridGutter);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteLeft(@gridCol_SidebarLeft; 0);
-			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			ul { left: 0; }
 		}
 		
 		#dm_sidebar_right & {
+			@gridWidth(@gridCol - @gridCol_SidebarRight; @gridGutter);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteRight(@gridCol_SidebarRight; 0);
-			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			ul { right: 0; }
 		}
 		
@@ -144,7 +156,7 @@ ul.menu-megadropdown {
 		}
 		&.hasDmDir li ul li {
 			&, &.first, &.firstOfRow, &.last, &.lastOfRow {
-				@gridWidth(4);
+				&, #dm_sidebar_left &, #dm_sidebar_right & { width: 100%; }
 			}
 		}
 
