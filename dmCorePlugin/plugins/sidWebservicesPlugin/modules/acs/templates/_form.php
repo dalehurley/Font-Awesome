@@ -11,7 +11,7 @@ echo '<p><i>(Cas général : à préciser avec votre Convention Collective)</i><
 		Afin de déterminer rapidement le nombre de jours ouvrables du congé de votre salarié, veuillez indiquer le nombre de jours d\'absence de celui-ci.
 	</p>';
 
-echo $form.'<hr style="clear:both; visibility:hidden;">';
+echo $form;
 
 if ($sf_user->hasFlash('results')) {
 
