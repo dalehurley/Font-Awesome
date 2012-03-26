@@ -1,49 +1,139 @@
-// NavigationMenu.dropdown.less
-// v1.4
-// Last Updated : 2012-03-07 11:00
+// NavigationMenu.megadropdown.less
+// v1.5
+// Last Updated : 2012-03-22 12:05
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //Config par défaut des widgets du template
-@import "_templates/BaseTheme/Widgets/_Widgets.less";
+@import "_templates/maestroTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 
 //Config du widget courant
-@import "_templates/BaseTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
+@import "_templates/maestroTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
 
 //Importation des classes de composition du menu
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Megadropdown/_Megadropdown.less";
 
 ul.menu-megadropdown {
+	//rajout bordure à gauche sur le premier niveau
+	// & { border-left: 1px solid @zonesBorderColor; }
 
-	//TODO : configuration standardisé des liens de premiers niveau dans sidebars
+	#dm_sidebar_left & {
+		//largeur en fonction de la zone
+		// @gridWidth(@gridCol_SidebarLeft);
+		@gridWidth(3);
+		@gridMarginLeft(@gridCol_SidebarLeft - 3);
+		ul { margin-left: 0; }
+	}
+	#dm_sidebar_right & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarRight);
+	}
+
+	//rajout bordure en haut sur les menus et gestion décalage
+	#dm_sidebar_left &,
+	#dm_sidebar_right & {
+		//pour toutes les premières cellules
+		& > li.first {
+			& > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @zonesBorderColor; }
+			& > ul { top: 0; padding-top: @gridBaseline; }
+		}
+	}
+
+	//Maestro : gestion des cellules de premier niveau dans les sidebars
+	#dm_sidebar_left & > li.dm_dir,
+	#dm_sidebar_right & > li.dm_dir {
+		& > .link {
+			border-top-width: 1px;
+			border-top-color: @zonesBorderColor;
+			margin-top: -1px;
+		}
+		&.first > .link { margin-top: 0; }
+	}
+
+	#dm_sidebar_left & > li.dm_dir:hover,
+	#dm_sidebar_right & > li.dm_dir:hover {
+		& > .link {
+			background-color: @colorCouleur2Fonce;
+			// .rgba & { background-color: fadeout(@colorCouleur2Fonce, 20%); }
+			color: @colorCouleur1;
+			&:hover { color: @colorCouleur1Sup; }
+			border-color: @colorCouleur2Fonce;
+		}
+	}
 
 	//configuration des dimensions à différents sous-niveaux
 	ul {
 		background-color: @colorCouleur2;
+		.rgba & { background-color: fadeout(@colorCouleur2, 5%); }
+		//ajout bordure
+		// border: 1px solid @zonesBorderColor;
 		//changement de la pleine largeur au premier sous-niveau
 		padding: @gridBaseline @gridGutter;
-		@gridWidth(@gridCol; (@gridGutter*2));
+		@gridWidth(@gridCol; @gridGutter*2);
+		//replacement à gauche
+		// left: @zonesOffsetPad*-1;
+		
+		//liens des sous niveaux
+		li .link {
+			//reset apparence du lien
+			padding: 0;
+			border: 0;
+			&, .rgba & { background-color: transparent; }
+
+			//Maestro : personnalisation générale des liens de sous-niveaux
+			color: @colorCouleur3Clair;
+			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
+			&.dm_inactive { color: @colorCouleur3Moyen; }
+			//LoVe's Hurts Fade Away
+			&:hover, &:focus {
+				color: @colorCouleur3ClairSup;
+				background-color: @colorCouleur2Sup;
+				.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
+			}
+			&:active { color: @colorCouleur1; }
+		}
+
+		#dm_sidebar_left & {
+			@gridWidth(@gridCol - @gridCol_SidebarLeft; @gridGutter);
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			// @gridAbsoluteLeft(@gridCol_SidebarLeft; 1px);
+			@gridAbsoluteLeft(3; 1px);
+			margin-top: 0;
+			padding-top: (@gridBaseline +1px);
+			padding-left: (@gridGutter +1px);
+			ul{ padding-top: 0; padding-left: 0; }
+		}
+		
+		#dm_sidebar_right & {
+			@gridWidth(@gridCol - @gridCol_SidebarRight; @gridGutter);
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteRight(@gridCol_SidebarRight);
+			margin-top: 0;
+			padding-top: (@gridBaseline +1px);
+			padding-right: (@gridGutter +1px);
+			ul{ padding-top: 0; padding-right: 0; }
+		}
 		
 		//niveau 2 et +
 		ul {
 			padding: 0;
 			left: 0;
-			background-color: transparent;
+			border: 0;
+			&, .rgba & { background-color: transparent; }
 		}
 		
 		li {
 			//sous-dossiers
 			&.dm_dir {
 				//configuration titre des sous parties
-				& > .link {
-					#dm_custom_top .dm_widget.navigation_menu &,
-					.dm_widget.navigation_menu & { color : @colorCouleur1; }
-				}
+				& > .link { color: @colorCouleur1; }
 			}
 		}
 		
@@ -57,12 +147,31 @@ ul.menu-megadropdown {
 			
 			//raccourcissement des zones extrêmes (sauf .last car pas forcément en fin de ligne) (firstOfRow, lastOfRow, inFirstRow et inLastRow ajoutés en JS)
 			&.first, &.firstOfRow, &.lastOfRow {
-				ul, & { @gridWidth(4; @gridGutter); }
+				ul, & {
+					//configuration par défaut avec la pleine largeur de la page
+					@gridWidth(4; @gridGutter);
+				}
 			}
-			//on force le redimenssionnement du dernier lorsque contenu dans une sidebar
-			#dm_sidebar_left &, #dm_sidebar_right & {
-				&.lastOfRow {
-					ul, & { @gridWidth(4; @gridGutter); }
+
+			//paramètres à adapter en fonction de la configuration de grille du template
+			&.first, &.firstOfRow {
+				ul, & {
+					#dm_sidebar_left & {
+						@gridWidth(5);
+					}
+					#dm_sidebar_right & {
+						@gridWidth(5; @gridGutter);
+					}
+				}
+			}
+			&.lastOfRow {
+				ul, & {
+					#dm_sidebar_left & {
+						@gridWidth(5; @gridGutter);
+					}
+					#dm_sidebar_right & {
+						@gridWidth(5);
+					}
 				}
 			}
 
@@ -84,27 +193,60 @@ ul.menu-megadropdown {
 		}
 	}
 
+	//couleur de la flèche
+	& > li.dm_dir {
+		& > .link:after {
+			border-color: transparent transparent transparent @menuMaestroColor;
+			// .rgba & { border-left-color: fadeout(@menuMaestroColor, 20%); }
+			#dm_sidebar_right & {
+				border-color: transparent @menuMaestroColor transparent transparent;
+				// .rgba & { border-right-color: fadeout(@menuMaestroColor, 20%); }
+			}
+		}
+		// & > .link:hover:after,
+		// &:hover > .link:after {
+		// 	border-color: @menuMaestroColorSup transparent transparent transparent;
+		// 	.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuMaestroColorSup; }
+		// 	.csstransitions.csstransforms #dm_sidebar_right & { border-color: transparent @menuMaestroColorSup transparent transparent; }
+		// }
+	}
+
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
 	#dm_custom_top .dm_widget.navigation_menu & {
+		//supression bordure à gauche sur le premier niveau
+		border-left: 0;
+
+		//ajout ombre et couleur de fond
+		ul {
+			// background-color: @colorCouleur2;
+			// .rgba & { background-color: fadeout(@colorCouleur2, 5%); }
+			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
+			//suppression bordure du haut
+			border-top: 0;
+			//niveau 2 et +
+			ul {
+				&, .rgba & { background-color: transparent; }
+				@boxShadow(none);
+			}
+		}
+
 		//modification de couleurs du menu
 		.link {
-			background-color: @colorCouleur2;
+			//reset apparence du lien
+			&, .rgba & { background-color: transparent; }
+			padding: 0;
+			border: 0;
+
 			color: @colorCouleur3Clair;
-			
 			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
 			&.dm_inactive { color: @colorCouleur3Moyen; }
 			//LoVe's Hurts Fade Away
-			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Sup; }
-			&:active { color: @colorCouleur1; }
-		}
-
-		//ajout ombre
-		ul {
-			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
-			//niveau 2 et +
-			ul {
-				@boxShadow(none);
+			&:hover, &:focus {
+				color: @colorCouleur3ClairSup;
+				background-color: @colorCouleur2Sup;
+				.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
 			}
+			&:active { color: @colorCouleur1; }
 		}
 
 		//gestion des cellules de premier niveau
@@ -150,6 +292,17 @@ ul.menu-megadropdown {
 				ul {
 					margin-left: 0;
 					// ul { margin-left: -1px; }
+				}
+			}
+
+			&.dm_dir {
+				//masquage de la flèche
+				& > .link:after {
+					display: none;
+					visibility: hidden;
+					//suppression animation rotation
+					@transformNone();
+					@transitionNone();
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" xml:space="preserve">
-<g>
+<g transform="translate(32, 32) scale(-1,1) translate(-32, -32)">
 	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-719.417" y1="-7061.1191" x2="-719.417" y2="-7026.9507" gradientTransform="matrix(1 0 0 1 758.5049 7068.9102)">
 		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
 		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
@@ -10,8 +10,7 @@
 		c2.823,2.061,6.3,3.275,10.062,3.275c9.437,0,17.085-7.648,17.085-17.083C56.172,15.439,48.522,7.791,39.087,7.791z M39.087,36.504
 		c-6.514,0-11.793-5.28-11.793-11.795c0-6.512,5.279-11.793,11.793-11.793s11.795,5.281,11.795,11.793
 		C50.882,31.224,45.601,36.504,39.087,36.504z"/>
-	
-		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-740.9189" y1="-7032.2168" x2="-740.9189" y2="-7012.7007" gradientTransform="matrix(1 0 0 1 758.5049 7068.9102)">
+	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-740.9189" y1="-7032.2168" x2="-740.9189" y2="-7012.7007" gradientTransform="matrix(1 0 0 1 758.5049 7068.9102)">
 		<stop  offset="0" style="stop-color:##spriteCouleur1##"/>
 		<stop  offset="1" style="stop-color:##spriteCouleur1Moyen##"/>
 	</linearGradient>
@@ -19,8 +18,7 @@
 		c2.1,2.1,5.501,2.1,7.6,0l8.769-8.769c1.513-1.511,1.935-3.7,1.269-5.589L23.575,36.938z M23.159,43.845l-3.594,3.595
 		c-0.861,0.859-2.255,0.861-3.115,0c-0.861-0.859-0.86-2.254,0-3.115l3.594-3.594c0.6-0.6,1.459-0.781,2.215-0.545l1.42,1.368
 		C23.952,42.329,23.779,43.226,23.159,43.845z"/>
-	
-		<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-714.9233" y1="-7043.043" x2="-714.9233" y2="-7034.3765" gradientTransform="matrix(1 0 0 1 758.5049 7068.9102)">
+	<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-714.9233" y1="-7043.043" x2="-714.9233" y2="-7034.3765" gradientTransform="matrix(1 0 0 1 758.5049 7068.9102)">
 		<stop  offset="0" style="stop-color:##spriteCouleur3##"/>
 		<stop  offset="1" style="stop-color:##spriteCouleur3Fonce##"/>
 	</linearGradient>

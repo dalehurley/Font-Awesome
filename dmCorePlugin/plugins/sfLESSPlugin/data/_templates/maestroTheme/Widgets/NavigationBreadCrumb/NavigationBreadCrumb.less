@@ -8,13 +8,65 @@
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/NavigationBreadCrumb/_NavigationBreadCrumb.less";
 
 .dm_widget.navigation_bread_crumb {
 	.isLess & { background-color: #F0E9B9; }
+
+	float: right;
+
 	.dm_widget_inner {
 		.isLess & { background-color: #C9C287; }
+		padding: @gridBaseline/2 0;
+		//définitions de la largeur
+		@gridWidth((@gridCol - @gridCol_SidebarLeft));
+	}
+
+	//apparrence des liens
+	.link {
+		color: @colorCouleur3Moyen;
+		text-decoration: none;
+		text-transform: uppercase;
+		&:hover {
+			color: @colorCouleur3MoyenSup;
+			text-decoration: underline;
+		}
+		&.dm_current {
+			color: @colorCouleur3;
+			&, &:hover { text-decoration: none; }
+		}
+	}
+	
+	ol {
+		display: block;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		font-size: @fontSizeMicro;
+		line-height: @gridBaseline;
+
+		li{
+			display: block;
+			float: left;
+			list-style: none;
+			margin: 0;
+			margin-left: @offM;
+			&:first-child{ margin-left: 0; }
+			//flèche de séparation
+			&.bread_crumb_separator {
+				display: block;
+				color: @colorCouleur3Moyen;
+				//font-size: @fontSizeMicro;
+				height: @fontSizeMicro;
+				line-height: @fontSizeMicro;
+				//centrage vertical du séparateur
+				@padV: (@gridBaseline - @fontSizeMicro) / 2;
+				padding-top: @padV;
+				padding-bottom: @padV;
+			}
+		}
 	}
 }

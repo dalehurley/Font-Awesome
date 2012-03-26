@@ -1,6 +1,6 @@
 // _Css3Shadow.less
-// v1.1
-// Last Updated : 2011-05-10 12:00
+// v1.2
+// Last Updated : 2012-03-19 14:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -9,6 +9,15 @@
 //À tester : Konqueror
 //Safari (webkit) ne gère pas le inset et le spread, donc désactivation pour ces derniers
 //Bug corrigé : https://github.com/leafo/lessphp/issues/#issue/56
+
+//suppression de toute ombre
+@boxShadowNone(){
+	-webkit-box-shadow: none;
+	-khtml-box-shadow: none;
+	-moz-box-shadow: none;
+	-o-box-shadow: none;
+	box-shadow: none;
+}
 
 @boxShadow(@shadow) {
 	-webkit-box-shadow: @shadow;
