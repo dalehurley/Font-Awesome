@@ -9,8 +9,8 @@ class dmWidgetGoogleMapSmartGoogleMapView extends dmWidgetPluginView
     
     $this->addRequiredVar(array(
       'titreBloc',
-//      'smartGoogleMap',
-//      'withResume'
+      'smartGoogleMap',
+      'withResume'
     ));
   }
   public function getStylesheets() {
