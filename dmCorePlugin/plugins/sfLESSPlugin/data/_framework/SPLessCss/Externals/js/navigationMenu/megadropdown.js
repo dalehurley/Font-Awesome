@@ -155,6 +155,6 @@
 
 	//lancement automatique de la fonction
 	$(document).ready(function(){
-		$('ul.megadropdown').menuMegaDropdown();
+		$('ul.menu-megadropdown').menuMegaDropdown();
 	});
 })(jQuery);
