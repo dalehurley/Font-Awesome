@@ -58,13 +58,15 @@ $html.= $form['title']->renderRow().
 //if($form->isCaptchaEnabled()) $html.= $form['captcha']->label('Captcha', 'for=false')->field()->error();
 if($form->isCaptchaEnabled()) $html.= $form['captcha']->renderRow();
 
+//insertion du bouton de validation
+// $html.= _tag('div.submit_wrap', $form->submit(__('Send')));
+$html.= _tag('li.dm_form_element.clearfix', $form->submit(__('Send')));
+
 //fermeture du listing
 $html.= _close('ul.dm_form_elements');
 
+//affichage des champs cachés
 $html.= $form->renderHiddenFields();
-
-// change the submit button text
-$html.= _tag('div.submit_wrap', $form->submit(__('Send')));
 
 // close the form tag
 $html.= $form->close();
