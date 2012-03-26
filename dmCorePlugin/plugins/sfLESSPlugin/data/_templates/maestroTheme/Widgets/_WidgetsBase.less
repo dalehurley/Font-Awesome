@@ -21,3 +21,41 @@
 		.isLess & { background-color: #D2CFE6; }
 	}
 }
+
+//placement des widgets dans le header
+#dm_header {
+	
+	.dm_widget.content_image {
+		.isLess & { background-color: #D6B8C4; }
+		float: left;
+	}
+	
+	.dm_widget.content_ck_editor {
+		.isLess & { background-color: #B8D6C1; }
+		float: left;
+		margin-left: @offM;
+		
+		.dm_widget_inner {
+			color: @colorCouleur3Fonce;
+			font-family: @fontGlobalFamilyWebFont;
+			text-transform: uppercase;
+			word-spacing: 0.125em;
+			letter-spacing: 0.125em;
+			padding-top: @gridBaseline/2;
+			padding-bottom: @gridBaseline/2;
+			
+			//stylage des élements de titrage
+			.dm_site_title, .dm_site_slogan { margin: 0; padding: 0; }
+			.dm_site_title {
+				.isLess & { background-color: #B6BFB9; }
+				font-weight: bold;
+				padding-bottom: @gridBaseline/2;
+			}
+			.dm_site_slogan {
+				.isLess & { background-color: #ACBFB2; }
+				padding-top: (@gridBaseline/2 -1px);
+				border-top: 1px solid @colorCouleur3Fonce;
+			}
+		}
+	}
+}

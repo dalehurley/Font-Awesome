@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.2
-// Last Updated : 2012-01-18 11:10
+// v1.3
+// Last Updated : 2012-03-22 11:50
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -28,7 +28,7 @@
 	#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
 		.dm_widget_inner {
 			border: 0;
-			padding: 0 0 @zonesOffsetPad 0;
+			padding: 0 0 @gridBaseline/2 0;
 			background-color: transparent;
 		}
 	}
@@ -86,8 +86,8 @@ ul.menu-megadropdown ul li {
 	letter-spacing: 0;
 }
 
-//configuration de base des liens pour les menus dropdown et accordion
-ul.menu-dropdown, ul.menu-accordion {
+//configuration de base des liens pour les types de menus
+ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	//gestion des liens
 	.link {
 		background-color: @colorCouleur3ClairSup;
@@ -107,39 +107,39 @@ ul.menu-dropdown, ul.menu-accordion {
 		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
 		&:active { color: @colorCouleur1; }
 	}
-	
-	li {
-		//création de la flèche avec des bordures
-		&.dm_dir > .link {
-			&:after {
-				position: absolute;
-				z-index: 250;
-				display: block;
-				content:"";
-				width: 0;
-				height: 0;
-				right: @menuArrowOffsetX;
-				top: @menuArrowOffsetY;
-				//border-color: transparent transparent transparent @menuDropdownArrowColor;
-				border-color: transparent;
-				border-style: solid;
-				border-width: @menuArrowDim;
+}
+
+ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
+	//création de la flèche avec des bordures
+	&.dm_dir > .link {
+		&:after {
+			position: absolute;
+			z-index: 600;
+			display: block;
+			content:"";
+			width: 0;
+			height: 0;
+			right: @menuArrowOffsetX;
+			top: @menuArrowOffsetY;
+			//border-color: transparent transparent transparent @menuDropdownArrowColor;
+			border-color: transparent;
+			border-style: solid;
+			border-width: @menuArrowDim;
+			
+			//ajout des transitions pour navigateurs récents
+			.csstransitions.csstransforms & {
+				@transitionCompress(all; .15s; ease-in; 0);
+				@origin(25%; 50%);
+			}
+			
+			//inversion de style automatique en fonction du conteneur
+			#dm_sidebar_right & {
+				right: auto !important;
+				left: @menuArrowOffsetX;
+				//border-color: transparent @menuDropdownArrowColor transparent transparent;
 				
-				//ajout des transitions pour navigateurs récents
 				.csstransitions.csstransforms & {
-					@transitionCompress(all; .15s; ease-in; 0);
-					@origin(25%; 50%);
-				}
-				
-				//inversion de style automatique en fonction du conteneur
-				#dm_sidebar_right & {
-					right: auto !important;
-					left: @menuArrowOffsetX;
-					//border-color: transparent @menuDropdownArrowColor transparent transparent;
-					
-					.csstransitions.csstransforms & {
-						@origin(75%; 50%);
-					}
+					@origin(75%; 50%);
 				}
 			}
 		}
@@ -187,7 +187,9 @@ ul.menu-dropdown, ul.menu-megadropdown {
 //comportement flèche différents selon les types de menu
 ul.menu-dropdown li.dm_dir > .link:hover:after,
 ul.menu-dropdown li.dm_dir:hover > .link:after,
-ul.menu-accordion li.dm_parent > .link:after {
+ul.menu-accordion li.dm_parent > .link:after,
+ul.menu-megadropdown > li.dm_dir > .link:hover:after,
+ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
 	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
@@ -217,6 +219,7 @@ ul.menu-accordion li.dm_parent > .link:after {
 ul.menu-dropdown li.dm_dir:hover > .link,
 #dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
 #dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
+ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-accordion li.dm_parent > .link,
 ul.menu-accordion li.dm_parent li.dm_parent > .link {
 	background-color: @colorCouleur1;
