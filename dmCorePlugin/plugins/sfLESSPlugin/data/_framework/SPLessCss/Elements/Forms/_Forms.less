@@ -14,7 +14,9 @@ form {
 		.isLess & { background-color: fadeout(#A4D3ED, 50%); }
 		margin-left: 0;
 		margin-bottom: @gridBaseline;
-		padding: 10px 5px;;
+		//modif Lionel à tester
+		// padding: 10px 5px;
+		padding: 0;
 		list-style-type: none;
 	}
 	.dm_form_element {
@@ -28,9 +30,12 @@ form {
 		}
 		margin-bottom: @gridBaseline;
 	}
-	.dm_form_element > label.required:after {
-		content: " *";
-	}
+
+	//modif Lionel à tester
+	// .dm_form_element > label.required:after {
+	// 	content: " *";
+	// }
+
 	.dm_help_wrap {
 		.isLess & { background-color: fadeout(#8AFFD8, 50%); }
 		line-height: @gridBaseline;
@@ -46,7 +51,8 @@ form {
 		padding: 0;
 		margin-left: 0;
 		margin-bottom: 0;
-		color: red;
+		//modif Lionel à tester (attention ! pas de couleur dans le coeur, à déplacer dans les thèmes avec @colorRequired)
+		// color: red;
 		li { margin: 0; padding: 0; }
 	}
 }
