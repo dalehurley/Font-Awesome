@@ -33,7 +33,7 @@ if(count($articles)){
             echo _open('header', array('class' => 'contentHeader'));
                 if (($withImage == true) && ($article->getImage()->checkFileExists() == true)) {
                     echo _open('div', array('class' => 'imageFullWrapper'));
-                        if($width != null) {echo  _media($article->getImage())->width($width)->set('.image itemprop="image"')->alt($article->getTitle());}
+                        if($height != null) {echo  _media($article->getImage())->height($height)->method('scale')->set('.image itemprop="image"')->alt($article->getTitle());}
                     echo _close('div');
                 }
                 echo _tag('h1', array('class' => 'title itemprop name', 'itemprop' => "name"), $article->getTitle());

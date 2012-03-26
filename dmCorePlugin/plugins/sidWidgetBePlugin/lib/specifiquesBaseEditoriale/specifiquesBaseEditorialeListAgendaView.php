@@ -51,10 +51,21 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
                 ->execute();
         }
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
+        // je cherche la page vers le calendrier des vacances
+        $recordIdPage = dmDb::table('SidArticle')->createQuery('a')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                ->leftJoin('a.Section b ')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'b')
+                ->leftJoin('b.Rubrique c ')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'c')
+                ->where('cTranslation.title like ? and bTranslation.title like ? ', array( 'ec_echeancier', 'vacances_scolaires'))
+                ->fetchOne();
+        $vacances = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('article', 'show',$recordIdPage->id);
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'listAgenda', array(
                     'articles' => $arrayFilActus,
                     'titreBloc' => $vars['titreBloc'],
                     'lien' => $lien,
+                    'vacances' => $vacances,
                     'length' => $vars['length']
                 ));
     

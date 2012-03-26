@@ -29,42 +29,46 @@ EOF;
      * @see sfTask
      */
     protected function execute($arguments = array() , $options = array()) {
+
         // initialize the database connection
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-                
-        if (in_array("verbose", $arguments)) {
-                $verbose = true;
-            } else {
-                $verbose = false;
+
+        if (dmConfig::get('site_theme_version')=='v1'){
+            if (in_array("verbose", $arguments)) {
+                    $verbose = true;
+                } else {
+                    $verbose = false;
+                }
+
+            $timerTask = new sfTimer;
+
+            // génération des fichiers less et du fichier des variables less
+            $arguments = array();
+            $options = array ();
+            $this->runTask('less:compile-all', $arguments, $options);
+
+            // sprite init
+            ($verbose)?  $this->logBlock('Generation des sprites', 'COMMENT_LARGE'): '';
+            $timerTotal = new sfTimer;
+            $return['hashMd5'] = null;
+            $return['spriteFormat'] = null;
+            
+            while ($return) {
+                $timer = new sfTimer;
+                $return = spLessCss::spriteInit($return['hashMd5'], $return['spriteFormat']);
+                if ($return){
+                    ($verbose)? $this->logSection(' Sprite init ', $return['hashMd5'] . ' ' . $return['spriteFormat'] . ' ' . $return['prct'].'% (' . round($timer->getElapsedTime() , 3) . ' s)'): '';
+                }
             }
 
-        $timerTask = new sfTimer;
+            // génération des fichiers less et du fichier des variables less
+            $arguments = array();
+            $options = array ();
+            $this->runTask('less:compile-all', $arguments, $options);
 
-        // génération des fichiers less et du fichier des variables less
-        $arguments = array();
-        $options = array ();
-        $this->runTask('less:compile-all', $arguments, $options);
-
-        // sprite init
-        ($verbose)?  $this->logBlock('Generation des sprites', 'COMMENT_LARGE'): '';
-        $timerTotal = new sfTimer;
-        $return['hashMd5'] = null;
-        $return['spriteFormat'] = null;
-        
-        while ($return) {
-            $timer = new sfTimer;
-            $return = spLessCss::spriteInit($return['hashMd5'], $return['spriteFormat']);
-            if ($return){
-                ($verbose)? $this->logSection(' Sprite init ', $return['hashMd5'] . ' ' . $return['spriteFormat'] . ' ' . $return['prct'].'% (' . round($timer->getElapsedTime() , 3) . ' s)'): '';
-            }
+        } else {
+            $this->logBlock('Generation des sprites seulement disponible pour les themes v1, vous avez un theme '.dmConfig::get('site_theme_version'), 'ERROR_LARGE');
         }
-
-        // génération des fichiers less et du fichier des variables less
-        $arguments = array();
-        $options = array ();
-        $this->runTask('less:compile-all', $arguments, $options);
-
-        
     }
 }

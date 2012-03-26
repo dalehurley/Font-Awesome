@@ -16,7 +16,7 @@
 
 //couleurs de débug dans les zones de contenu uniquement
 .isLess {
-	#dm_sidebar_left, #dm_sidebar_right, #dm_content {
+	#dm_sidebar_left, #dm_sidebar_right, #dm_page_content {
 		.dm_widget {
 			background-color: fadeout(#DCDAE6, 50%);
 			.dm_widget_inner { background-color: fadeout(#D2CFE6, 50%); }
@@ -30,7 +30,7 @@
 		//changement taille du titre des widgets
 		& > .title {
 			position: relative;
-			#dm_content & {
+			#dm_page_content & {
 				font-size: @fontSizeH4Px;
 				line-height: @gridBaseline;
 			}
@@ -77,7 +77,7 @@
 }
 
 //stylage par défaut des widgets dans les zones principales
-#dm_content, #dm_sidebar_left, #dm_sidebar_right {
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
 	.dm_widget {
 		margin-bottom: @gridBaseline;
 		

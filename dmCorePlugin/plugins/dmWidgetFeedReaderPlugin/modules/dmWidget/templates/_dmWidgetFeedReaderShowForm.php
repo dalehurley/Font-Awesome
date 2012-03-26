@@ -16,6 +16,7 @@ _tag('div',
     $form['nbArticles']->renderRow().
     $form['length']->renderRow().
     $form['life_time']->renderRow().
+    $form['logo_les_echos']->renderRow().
     $form['cssClass']->renderRow()
          
   

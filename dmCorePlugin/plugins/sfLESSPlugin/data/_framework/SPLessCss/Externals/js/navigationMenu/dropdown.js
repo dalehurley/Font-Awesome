@@ -72,7 +72,7 @@
 	
 	//lancement lorsque le document est chargé
 	$(document).ready(function(){
-		$('ul.dropdown').menuDropdown();
+		$('ul.menu-dropdown').menuDropdown();
 	});
 	
 })(jQuery);

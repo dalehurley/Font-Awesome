@@ -40,7 +40,7 @@
 	.elements .element & {
 		font-weight: bold;
 		color: @colorText;
-		#dm_content & {
+		#dm_page_content & {
 			font-weight: normal;
 			font-size: @fontSizeH4Px;
 			line-height: @gridBaseline;
@@ -57,7 +57,7 @@
 	//dans un listing
 	.elements .element & { font-size: @fontSizeSmall; }
 	//dans du contenu
-	#dm_content .contentHeader & { margin-top: @gridBaseline/2; }
+	#dm_page_content .contentHeader & { margin-top: @gridBaseline/2; }
 }
 
 
@@ -73,7 +73,7 @@
 		#dm_sidebar_left &, #dm_sidebar_right & { display: none; visibility: hidden; }
 	}
 	//dans du contenu
-	#dm_content .contentHeader & { margin-top: @gridBaseline/2; }
+	#dm_page_content .contentHeader & { margin-top: @gridBaseline/2; }
 }
 
 

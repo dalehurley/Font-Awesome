@@ -27,13 +27,18 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	public function renderBodyTag($options = array()) {
         $options = dmString::toArray($options);
 				
-		//récupération des options de la page
-		$pageOptions = sfConfig::get('pageOptions');
+		if (dmConfig::get('site_theme_version')=='v1'){
+			//récupération des options de la page
+			$pageOptions = sfConfig::get('pageOptions');
 
-        //ajout des classes personnalisée sur le body
-		$options['class'][] = $pageOptions['sdbConfig'];
-		if($pageOptions['isDev']) $options['class'][] = 'isDev';
-		if($pageOptions['isLess']) $options['class'][] = 'isLess';
+	        //ajout des classes personnalisée sur le body
+			$options['class'][] = $pageOptions['sdbConfig'];
+			if($pageOptions['isDev']) $options['class'][] = 'isDev';
+			if($pageOptions['isLess']) $options['class'][] = 'isLess';
+		}
+		// lioshi : on ajout la class correspondant au nom du layout en cours
+        $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
+		$options['class'][] = $layoutPage;
 
         return parent::renderBodyTag($options);
     }
@@ -53,7 +58,11 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	public function renderIeHtml5Fix()
 	{
 		if ($this->isHtml5()) {
-			$html = '<script src="/theme/less/_framework/SPLessCss/Externals/js/modernizr/modernizr-2.5.3.custom.min.js"></script>';
+			if (dmConfig::get('site_theme_version') == 'v1') {
+				$html = '<script src="/theme/less/_framework/SPLessCss/Externals/js/modernizr/modernizr-2.5.3.custom.min.js"></script>';
+			} else {
+				$html = '<script src="/theme/less/bootstrap/js/modernizr/modernizr-2.5.3.custom.min.js"></script>';
+			}
 			$html.= PHP_EOL;
 			$html.= '<!--[if (gte IE 6)&(lte IE 8)]><script src="'.sfConfig::get('sf_js_cdn_cdnjs').'/selectivizr/1.0.2/selectivizr-min.js"></script><![endif]-->';
 			//return '<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->';

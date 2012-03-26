@@ -66,6 +66,19 @@ EOF;
    */
   protected function execute($arguments = array(), $options = array())
   {
+
+    if(dmConfig::get('site_theme_version')=='v1' ){ // lessphp only for graphical system v1
+          $this->logSection(
+            'compilation mode',
+            'lessphp', null, 'INFO'
+          );
+    } else {
+          $this->logSection(
+            'compilation mode',
+            'less.js on server side', null, 'INFO'
+          );      
+    }
+
     // Inits sfLESS instance for compilation help
     $less = new sfLESS(new sfLESSConfig(
       false, isset($options['compress']) && $options['compress']
@@ -98,6 +111,17 @@ EOF;
 
     // Compiles LESS files
     $timerTotal = new sfTimer;
+
+    if (!count($less->findLessFiles())) {
+        $this->logSection(
+              'Compilation Less ERROR',
+              'No less file compiled...',
+              null,
+              'ERROR'
+            );      
+    }
+
+
     foreach ($less->findLessFiles() as $lessFile)
     {
       if (!isset($arguments['file']) || (false !== strpos($lessFile, $arguments['file'] . '.less')))
@@ -122,6 +146,13 @@ EOF;
               'COMMAND'
             );
           }
+        } else {
+          $this->logSection(
+              'Compilation Less ERROR',
+              $lessFile,
+              null,
+              'ERROR'
+            );                
         }
       }
     }

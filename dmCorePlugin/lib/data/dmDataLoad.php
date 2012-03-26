@@ -218,7 +218,12 @@ class dmDataLoad
         'description' => 'When a page is not found, user is redirect to a similar page. The internal search index is used to find the best page for requested url.',
         'group_name' => 'seo',
         'credentials' => 'url_redirection'
-      )
+      ),
+      'client_type' => array(
+        'default_value' => '',
+        'description' => 'The client type',
+        'group_name' =>'site'
+      )     
     );
 
     $existingSettings = dmDb::query('DmSetting s INDEXBY s.name')
@@ -722,7 +727,8 @@ class dmDataLoad
                     'equipe',
                     'recrutement',
                     'mission',
-                    'actualite_contenu'
+                    'actualite_contenu',
+                    'contact_me'
                 )
             ),
         );

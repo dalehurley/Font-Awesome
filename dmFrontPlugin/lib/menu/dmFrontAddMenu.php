@@ -38,11 +38,24 @@ class dmFrontAddMenu extends dmMenu
   {
     $moduleManager = $this->serviceContainer->getService('module_manager');
     
-    foreach($this->serviceContainer->get('widget_type_manager')->getWidgetTypes() as $space => $widgetTypes)
+    $widgets = $this->serviceContainer->get('widget_type_manager')->getWidgetTypes();
+
+    //ksort($widgets); // tri par spacename
+    $spaceNamesAff = array();
+    //var_dump($widgets);
+
+    foreach($widgets as $space => $widgetTypes)
     {
       $spaceName = ($module = $moduleManager->getModuleOrNull($space))
       ? $module->getName()
       : dmString::humanize(str_replace('dmWidget', '', $space));
+
+      // lioshi: afficher une seule fois un spacename
+      if (in_array($spaceName, $spaceNamesAff)) {
+        $spaceName = '';
+      } else {
+        $spaceNamesAff[] = $spaceName;
+      }
       
       $spaceMenu = $this->addChild($space)
       ->label($this->getI18n()->__($spaceName))

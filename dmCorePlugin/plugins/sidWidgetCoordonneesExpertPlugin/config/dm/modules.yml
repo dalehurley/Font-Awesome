@@ -3,7 +3,7 @@
   "Mes Coordonnées":
     Renseignements:
       model: SidCoordName
-      page: false
+      page: true
       front: false
       credentials: renseignements
       components:

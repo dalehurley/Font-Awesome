@@ -2,7 +2,6 @@
 
 echo $form->renderGlobalErrors();
 // modif faite par Stéphane le 21/09/2011   
-// echo _tag('h3', 'toto'.$form['titleWidget']);
 // modif faite par Stéphane le 21/09/2011   
 echo _open('ul.dm_form_elements');
 

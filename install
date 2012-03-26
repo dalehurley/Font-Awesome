@@ -20,8 +20,8 @@ $dir = getcwd();
 if (is_dir($dir)) {
     if ($Pointeur = opendir($dir)) {
         while (($file = readdir($Pointeur)) !== false) {
-            if ($file != "." && $file != ".." && $file != "git-lib") {
-                die("\n Le dossier n'est pas vide. Seul un dossier nommé 'git-lib' peut être accepté.\n");
+            if ($file != "." && $file != ".." && $file != "core") {
+                die("\n Le dossier n'est pas vide. Seul un dossier nommé 'core' peut être accepté.\n");
             }
         }
         closedir($Pointeur);

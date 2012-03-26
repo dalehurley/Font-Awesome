@@ -101,7 +101,7 @@
 
 //container de l'image en pleine largeur (utilisé dans l'affichage d'un article)
 .imageFullWrapper {
-	#dm_content .contentHeader & { margin-bottom: @gridBaseline/2; }
+	#dm_page_content .contentHeader & { margin-bottom: @gridBaseline/2; }
 }
 
 //container de l'image
@@ -158,14 +158,14 @@
 // 		}
 		
 // 		//débug de dimensions sur certains widgets biens précis de la base éditoriale
-// 		.isLess #dm_content & {
+// 		.isLess #dm_page_content & {
 // 			@gridWidth(@thumbContent_col);
 // 			@gridHeight(@thumbContent_bl);
 // 		}
 // 	}
 
 // 	//application dimensions en dur
-// 	.isLess #dm_content & {
+// 	.isLess #dm_page_content & {
 // 		@gridWidth(@thumbContent_col);
 // 		@gridHeight(@thumbContent_bl);
 // 	}
@@ -181,7 +181,7 @@
 // 		}
 
 // 		//application dimensions en dur
-// 		.isLess #dm_content & {
+// 		.isLess #dm_page_content & {
 // 			@gridWidth(@thumbL_col);
 // 			@gridHeight(@thumbL_bl);
 // 		}
@@ -192,7 +192,7 @@
 // 		}
 
 // 		//partie équipe
-// 		.isLess #dm_content .equipe_cabinet_equipe_show & {
+// 		.isLess #dm_page_content .equipe_cabinet_equipe_show & {
 // 			@gridWidth(@thumbM_col);
 // 			@gridHeight(@thumbM_bl*2);
 // 			margin-left: 0;
@@ -214,10 +214,10 @@
 // 			}
 			
 // 			//valeur arbitraire de replacement car on ne connait par forcément la hauteur de l'image
-// 			//#dm_content &, #dm_sidebar_right & { top: 50%; margin-top: -50%; }
+// 			//#dm_page_content &, #dm_sidebar_right & { top: 50%; margin-top: -50%; }
 
 // 			//débug de dimensions sur certains widgets biens précis de la base éditoriale
-// 			.isLess #dm_content .article_list_by_section &,
+// 			.isLess #dm_page_content .article_list_by_section &,
 // 			.isLess #dm_sidebar_right .specifiques_base_editoriale_fil_actualite & {
 // 				@gridWidth(@thumbSidebarRight_col);
 // 				@gridHeight(@thumbSidebarRight_bl);

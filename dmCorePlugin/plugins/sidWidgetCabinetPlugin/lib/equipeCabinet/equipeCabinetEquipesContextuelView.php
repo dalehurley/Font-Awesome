@@ -10,7 +10,8 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
             'lien',
             'nbArticles',
             'withImage',
-            'widthImage'
+            'widthImage',
+            'mailTo'
         ));
     }
 	
@@ -48,8 +49,10 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                         ->leftJoin('sas.SidRubrique s')
                         ->where('s.id = ? and p.is_active = ? ', array($recordId,true))
+                        ->orderBy('RANDOM()')
                         ->limit($nbArticles)
                         ->execute();
+                
                 
                 // si il n'y a pas de contexte ou pas de collaborateur affecté à une rubrique
                 if (count($equipes) == 0) {
@@ -72,6 +75,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                         ->leftJoin('sas.SidRubrique s')
                         ->where('s.id = ? and p.is_active = ?', array($recordId,true))
+                        ->orderBy('RANDOM()')
                         ->limit($nbArticles)
                         ->execute();
                 // si il n'y a pas de contexte ou pas de collaborateur affecté à une rubrique
@@ -83,6 +87,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                             ->orderBy('RANDOM()')
                             ->limit($nbArticles)
                             ->execute();
+                    
                 };
                 break;
 //            case 'rubrique/show':
@@ -124,6 +129,8 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                             ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
                             ->leftJoin('sas.SidRubrique s')
                             ->where('s.id = ? and p.is_active = ? ', array($rubrique->sidRubriqueId,true))
+                            ->orderBy('RANDOM()')
+                            ->limit($nbArticles)
                             ->execute();
                 
                 }
@@ -168,7 +175,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->createQuery('p')
                         ->where('p.is_active = ? ', array(true))
                         ->orderBy('p.position')
-                        ->limit($nbArticles)
+//                        ->limit($nbArticles)
                         ->execute();
             break;
             default:
@@ -179,15 +186,17 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->limit($nbArticles)
                         ->execute();
                 
-            }    
-            $linkEquipe = dmDb::table('dmPage')->findOneByModuleAndAction('main', 'notreEquipe');
+            }  
+            
+            $linkEquipe = dmDb::table('dmPage')->findOneByModuleAndAction('pageCabinet', 'equipe');
         return $this->getHelper()->renderPartial('equipeCabinet', 'equipesContextuel', array(
                     'equipes' => $equipes,
                     'titreBloc' => $vars['titreBloc'],
                     'linkEquipe' => $linkEquipe,
                     'lien' => $vars['lien'],
                     'withImage' => $vars['withImage'],
-                    'width' => $vars['widthImage']
+                    'width' => $vars['widthImage'],
+                    'mailTo' => $vars['mailTo'],
                 ));
     }
 

@@ -15,7 +15,11 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
       'mapTypeControl',
       'scaleControl',
       'width',
-      'height'
+      'height',
+      'titreBloc',
+      'withResume',
+//      'length',
+//        'idCabinet'
     ));
   }
   public function getStylesheets() {
@@ -32,30 +36,60 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
   protected function doRender()
   {
     $vars = $this->getViewVars();
-    // requète pour construire l'adresse du cabinet
-    $adresseRequest = Doctrine_Query::create()->from('SidCoordName a')
-          ->where('a.id = ?', $vars['address'] )
-          ->fetchOne();
-    $adresseCabinet = $adresseRequest->getAdresse();
-    if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
-    $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
-
+    $adresseCabinet='';
+    $idCabinet='';
+    $adresseRequest='';
+    $dmPage = $dmPage = sfContext::getInstance()->getPage();
     
-    $map = $this->getService('google_map_helper')->map()
-    ->address($adresseCabinet)
-    // passage d'une valeur supplémentaire au fichier dmGoogleMapTag.php
-    ->idCabinet($vars['address'])
-    ->mapTypeId($vars['mapTypeId'])
-    ->zoom($vars['zoom'])
-    ->style(sprintf(
-      'width: %s; height: %s;',
-      dmArray::get($vars, 'width', '100%'),
-      dmArray::get($vars, 'height', '300px')
-    ))
-    ->navigationControl($vars['navigationControl'])
-    ->mapTypeControl($vars['mapTypeControl'])
-    ->scaleControl($vars['scaleControl'])
-    ->splash($vars['splash']);
+    // si il n'y a rien dans le champ address, on récupère le recordId de la page en cours (UNIQUEMENT EN CONTEXTUEL)
+    if($vars['address'] == '' || $vars['address'] == ' '){
+        // requète pour construire l'adresse du cabinet
+        $adresseRequest = Doctrine_Query::create()->from('SidCoordName a')
+              ->where('a.id = ?', $dmPage->record_id )
+              ->fetchOne();
+        // si on trouve un cabinet avec le même id que la page en cours, on construit l'adresse
+        // sinon on affiche un debugTools d'erreur
+        
+        if(is_object($adresseRequest)){
+            $adresseCabinet = $adresseRequest->getAdresse();
+            if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
+            $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
+        }
+        else {
+            return debugTools::infoDebug(array('Error : no address' => 'recordId: '.$dmPage->record_id.' in Table SidCoordName doesn\'t exist'), 'warning');
+        }
+        
+    }
+    // si il y a quelque chose dans le champ texte on le transmet pour construire la map
+    else $adresseCabinet = $vars['address'];
+    
+    // récupération de l'id du cabinet pour afficher l'adresse sur le coté
+    if($dmPage->module.'/'.$dmPage->action == 'renseignements/show'){
+        $idCabinet = $dmPage->record_id;
+    }
+    else{
+        $idCabinet = $vars['idCabinet'];
+    }
+    
+    $map = $this->getService('google_map_helper')
+        ->map()
+        ->address($adresseCabinet)
+        // passage d'une valeur supplémentaire au fichier dmGoogleMapTag.php
+        ->idCabinet($idCabinet)
+        ->titreBloc($vars['titreBloc'])
+        ->length($vars['length'])
+        ->withResume($vars['withResume'])
+        ->mapTypeId($vars['mapTypeId'])
+        ->zoom($vars['zoom'])
+        ->style(sprintf(
+          'width: %s; height: %s;',
+          dmArray::get($vars, 'width', '350px'),
+          dmArray::get($vars, 'height', '250px')
+        ))
+        ->navigationControl($vars['navigationControl'])
+        ->mapTypeControl($vars['mapTypeControl'])
+        ->scaleControl($vars['scaleControl'])
+        ->splash($vars['splash']);
 
     $this
     ->addJavascript($map->getJavascripts())
@@ -64,10 +98,10 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
     return $map;
   }
   
-  protected function doRenderForIndex()
-  {
-    $vars = $this->getViewVars();
-    return $vars['address'];
-  }
+//  protected function doRenderForIndex()
+//  {
+//    $vars = $this->getViewVars();
+//    return $vars['address'];
+//  }
 
 }

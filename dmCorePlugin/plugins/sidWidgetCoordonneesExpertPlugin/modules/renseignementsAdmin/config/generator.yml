@@ -19,9 +19,36 @@ generator:
           credentials: [super_admin]
         _list:
           credentials: [super_admin]
+        _sort:
+          credentials: [super_admin]
       fields:
         is_active:
           label: Active
+        adresse2:
+          label: Adresse Complémentaire
+        adresse_google:
+          label: Adresse pour Google (facultative)
+        rcs:
+          label: N° de RCS
+        rcs_locality:
+          label: Ville d'enregistrement du RCS
+        region_ec:
+          label: Région d'enregistrement à l'ordre des experts-comptables
+        region_cc:
+          label: Région d'inscription pour commissaires aux comptes
+        orias:
+          label: N° ORIAS
+        cif:
+          label: N° CIF
+        carte_pro:
+          label: N° Carte Professionnelle
+        carte_pro_locality:
+          label: Ville d'inscription de la carte professionnelle
+        resume_town:
+          label: Présentation du cabinet (pour plan)
+        resume_team:
+          label: Présentation de l'implantation (pour page équipe)
+        
       list:
         display:
           - '=title'
@@ -62,8 +89,13 @@ generator:
           - updated_at
       form:
         display:
-          NONE: [title, is_active, siege_social]
-          Others: [adresse, adresse2, code_postal, ville, tel, fax, email, region_ec, region_cc]
+          Nom du cabinet: [title, is_active, siege_social]
+          Coordonnées: [adresse, adresse2, code_postal, ville, tel, fax, email, adresse_google]
+          Renseignement supplémentaires : [rcs, rcs_locality]
+          Renseignement supplémentaires pour EC: [region_ec, region_cc]
+          Renseignement supplémentaires pour CGP : [orias, cif, carte_pro, carte_pro_locality]
+          'Résumé du cabinet': [resume_town]
+          "Résumé de l'équipe": [resume_team]
         class: SidCoordNameAdminForm
         fields: {  }
       edit: ~

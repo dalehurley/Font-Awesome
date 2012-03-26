@@ -118,13 +118,13 @@ $countVille = count($arrayVilles);
                     $incrementEquipe = '';
                 // condition pour gérer les class des listings
 
-                echo _open('li', array('class' => 'element itemscope Person' . $incrementEquipe, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope', 'id' => $equipe->id));
+                echo _open('li', array('class' => 'element itemscope Person ' . $incrementEquipe, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope', 'id' => dmString::slugify($equipe->getFirstName().'-'.$equipe->getName())));
 
                     if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
-                        echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getTitle())->set('.image itemprop="image"'));
+                        echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName().'-'.$equipe->getName())->set('.image itemprop="image"'));
                     };
                     echo _open('span', array('class' => 'wrapper'));
-                        echo _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), $equipe->getTitle());
+                        echo _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), __($equipe->getTitle()).' '.$equipe->getFirstName().' '.$equipe->getName());
                         echo _tag('span', array('class' => 'itemprop jobTitle', 'itemprop' => 'jobTitle'), $equipe->getStatut());
                         echo _open('span', array('class' => 'contactPoints itemscope ContactPoint', 'itemtype' => 'http://schema.org/ContactPoint', 'itemscope' => 'itemscope', 'itemprop' => 'contactPoints'));
                             if (isset($nomRubrique[$equipe->id])) {
@@ -150,11 +150,11 @@ $countVille = count($arrayVilles);
                                 echo _tag('span', array('class' => 'value', 'itemprop' => 'telephone'), $equipe->tel);
                                 echo _close('span');
                             };
-                            if ($equipe->gsm != NULL) {
+                            if ($equipe->mobile != NULL) {
                                 echo _open('span', array('class' => 'itemprop cellphone'));
                                 echo _tag('span', array('class' => 'type', 'title' => __('Cellphone')), __('Cellphone'));
                                 echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
-                                echo _tag('span', array('class' => 'value', 'itemprop' => 'cellphone'), $equipe->gsm);
+                                echo _tag('span', array('class' => 'value', 'itemprop' => 'cellphone'), $equipe->mobile);
                                 echo _close('span');
                             };
                         echo _close('span');

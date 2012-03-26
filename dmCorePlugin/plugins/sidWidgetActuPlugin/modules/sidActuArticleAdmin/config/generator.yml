@@ -29,6 +29,8 @@ generator:
           credentials: [ super_admin ]
         _delete:
           credentials: [ super_admin ]
+        _sort:
+          credentials: [super_admin]
       fields:
 #        sid_actu_type_list:
 #          label: 'Type des Articles'
@@ -48,6 +50,10 @@ generator:
           label: 'Choisir un fichier'
         image_form:
           label: 'Choisir une image'
+        debut_date:
+          label: Date de début du message
+        fin_date:
+          label: Date de fin du message
       list:
         batch_actions:
           delete:
@@ -105,6 +111,7 @@ else if(!sfContext::getInstance()->getUser()->isSuperAdmin()){?>
 #         'Mots clés': [tags_list] 
          # m_sections du nom de la relation declaree dans le schema.yml, + _list
 #         'Section liées': [m_sections_list]   
+         Date du message (Cliquez sur le champ de la date pour faire apparaître le calendrier): [debut_date, fin_date]
          'Rubriques liées': [m_rubriques_list]
         class: SidActuArticleAdminForm
 

@@ -9,15 +9,17 @@ generator:
     with_doctrine_route: false
     config:
       actions:
-        new:
+        _new:
           credentials: [super_admin]
-        delete:
+        _delete:
           credentials: [super_admin]
-        save:
+        _save:
           credentials: [super_admin]
-        history:
+        _history:
           credentials: [super_admin]
-        list:
+        _list:
+          credentials: [super_admin]
+        _sort:
           credentials: [super_admin]
       fields:
         sid_actu_articles_list:

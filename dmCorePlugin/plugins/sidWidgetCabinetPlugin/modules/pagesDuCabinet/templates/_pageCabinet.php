@@ -23,9 +23,13 @@ use_helper('Date');
 //													'placement' => 'bottom',
 //													'elements' => $elements
 //													));
-
+if ($titreBloc != '') {
+            echo _tag('h2.title',$titreBloc);
+        }
 echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));  
+    
     echo _open('header', array('class' => 'contentHeader'));
+        
         if ($pageCabinet->getImage()->checkFileExists() == true) {
             echo _open('div', array('class' => 'imageFullWrapper'));
                 if($width != null) {echo  _media($pageCabinet->getImage())->width($width)->set('.image itemprop="image"')->alt($pageCabinet->getTitle());}

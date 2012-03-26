@@ -38,7 +38,10 @@ _tag('div#'.$baseTabId.'_presentation',
       $form['height']->render()
     ).
     $form['splash']->renderRow().
-    $form['cssClass']->renderRow()
+    $form['cssClass']->renderRow().
+    $form['titreBloc']->renderRow().
+    $form['length']->renderRow().
+    $form['withResume']->renderRow()
   )
 ),
 

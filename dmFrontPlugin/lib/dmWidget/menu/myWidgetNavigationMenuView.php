@@ -12,12 +12,16 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		//récupération des variables de la vue
 		$vars = $this->getViewVars();
 		//lien vers les css associées au menu
-        $cssLink1 = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/NavigationMenu/NavigationMenu.css';
-		$cssLink2 = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/NavigationMenu/NavigationMenu.' . $vars['menuType'] . '.css';
-		
-		//chargement des CSS si existantes
-        if (is_file(sfConfig::get('sf_web_dir') . $cssLink1)) $stylesheets[] = $cssLink1;
-        if (is_file(sfConfig::get('sf_web_dir') . $cssLink2)) $stylesheets[] = $cssLink2;
+		if (dmConfig::get('site_theme_version') == 'v1'){
+	        $cssLink1 = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/NavigationMenu/NavigationMenu.css';
+			$cssLink2 = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/NavigationMenu/NavigationMenu.' . $vars['menuType'] . '.css';
+			//chargement des CSS si existantes
+	        if (is_file(sfConfig::get('sf_web_dir') . $cssLink1)) $stylesheets[] = $cssLink1;
+	        if (is_file(sfConfig::get('sf_web_dir') . $cssLink2)) $stylesheets[] = $cssLink2;
+		} else {
+	  		// no style in specific file for menu, style of menus import in import.less
+		}
+
 		
 		return $stylesheets;
 	}
@@ -29,7 +33,11 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         $vars = $this->getViewVars();
 		//lien vers le js associé au menu
         //$jsLink = '/theme/less/_templates/'.dmConfig::get('site_theme').'/Externals/js/navigationMenu/' . $vars['menuType'] . '.js';
-        $jsLink = '/theme/less/_framework/SPLessCss/Externals/js/navigationMenu/' . $vars['menuType'] . '.js';        
+        if (dmConfig::get('site_theme_version') == 'v1'){
+        	$jsLink = '/theme/less/_framework/SPLessCss/Externals/js/navigationMenu/' . $vars['menuType'] . '.js'; 
+        } else { 
+        	$jsLink = '/theme/less/bootstrap/js/menus/' . $vars['menuType'] . '/menu.js'; 
+        }
         //chargement du JS si existant
         if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) $javascripts[] = $jsLink;
 		
@@ -44,7 +52,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		if(!isset($vars['menuType'])) $vars['menuType'] = "default";
 		
         //on ajoute la classe du type de menu provenant du paramètre du widget
-        $vars['menu']->ulClass($vars['menuType']);
+        $vars['menu']->ulClass('menu-'.$vars['menuType']);
 		
 		//ajout des classes CSS de dossier
         $vars['menu'] = $this->menuAddDir($vars['menu']);

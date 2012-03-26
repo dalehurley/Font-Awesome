@@ -28,7 +28,6 @@ class baseEditorialeTools {
         exec('rm -R ' . $repBaseEditoriale);
         // création du dossier d'export
         exec('mkdir ' . $repBaseEditoriale);
-        
         foreach ($rubriques as $rubrique) {
             $rubriqueDir = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title;
             if (!$rubrique->isActive) {
@@ -36,71 +35,96 @@ class baseEditorialeTools {
                 $return[$k]['(' . $k . ') KO : Rubrique non active'] = $rubrique;
             } else {
                 $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueIdAndIsActive($rubrique->id,true);
-                
                 foreach ($sidSections as $sidSection) {
-                    // le fichier json de la section en cours
-                    $fileRubriqueName = $rubriqueDir . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
-                    // on supprime le fichier .json
-                    if (is_file($fileRubriqueName)) unlink($fileRubriqueName);
-                    if (!$sidSection->isActive) {
-                        $k++;
-                        $return[$k]['(' . $k . ') KO : Section non active'] = $sidSection;
-                    } else {
-                        // on récupère les articles de cette section
-                        $articles = Doctrine_Core::getTable('SidArticle')->findBySectionIdAndIsActive($sidSection->id,true);
-                        $arrayJson = array();
-                        $j = 0;
-                        
-                        foreach ($articles as $article) {
-                            //echo '----'.$article->filename;
-                            $arrayJson[$j]['filename'] = $article->filename;
-                            $arrayJson[$j]['isActive'] = $article->getIsActive();
-                            $arrayJson[$j]['isDossier'] = $article->getIsDossier();
-                            //                            $arrayJson[$j]['createdAt'] = $article->createdAt;
-                            //                            $arrayJson[$j]['updatedAt'] = $article->updatedAt;
-                            
-                            foreach ($arrayLangs as $lang) {
-                                $arrayJson[$j]['title'][$lang] = $article->getTranslation()->$lang->title;
-                                $arrayJson[$j]['chapeau'][$lang] = $article->getTranslation()->$lang->chapeau;
-                                $arrayJson[$j]['createdAt'][$lang] = $article->getTranslation()->$lang->created_at;
-                                $arrayJson[$j]['updatedAt'][$lang] = $article->getTranslation()->$lang->updated_at;
-                            }
-                            // récup des tags
-                            $listTags = '';
-                            
-                            foreach ($article->getTags() as $tag) {
-                                $listTags.= $tag . ',';
-                            }
-                            $arrayJson[$j]['tags'] = $listTags;
-                            //$return[$j]['tags >'] = $listTags;
-                            $j++;
-                        }
-                        /*
-                         * Ecrire dans un fichier json
-                        */
-                        try {
-                            if (sfConfig::get('app_rep-local-json') != '') {
-                                if (count($arrayJson)) { // s'il y'a des articles
-                                    $k++;
-                                    if (!is_dir($rubriqueDir)) {
-                                        mkdir($rubriqueDir);
-                                        $return[$k]['DIR+'] = $rubriqueDir;
-                                    }
-                                    $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
-                                    fputs($fileRubrique, json_encode($arrayJson));
-                                    fclose($fileRubrique);
-                                    $return[$k]['(' . $k . ') OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
-                                    $nbArticleTotal+= count($arrayJson);
-                                }
-                                
-                            } else {
-                                $k++;
-                                $return[$k]['KO : Merci de spécifier la variable app_rep-local'] = '';
-                            }
-                        }
-                        catch(Exception $e) {
+                    foreach ($arrayLangs as $lang) {
+                        // le fichier json de la section en cours
+                        $fileRubriqueName = $rubriqueDir . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
+                        // on supprime le fichier .json
+                        if (is_file($fileRubriqueName)) unlink($fileRubriqueName);
+                        if (!$sidSection->isActive) {
                             $k++;
-                            $return[$k]['ERROR : Exception reçue pour le fichier ' . $fileRubriqueName] = $e->getMessage();
+                            $return[$k]['(' . $k . ') KO : Section non active'] = $sidSection;
+                        } else {
+                            
+                            // on récupère les articles de cette section
+                            if ($sidSection->getTranslation()->$lang->title == 'ec_actualites'){
+                                // on ne prend que les 6 derniers mois ou les 30 derniers
+                                $articles = dmDb::query('SidArticle a')
+                                    ->withI18n($lang)
+                                    ->where("DATEDIFF(CURRENT_DATE, aTranslation.updated_at) < ".sfConfig::get('app_nb-jours-max-date-article',100))   // age max pour un article
+                                    ->addWhere('section_id='.$sidSection->id)
+                                    ->execute();
+                                if (count($articles) < sfConfig::get('app_nb-articles-min-par-section',10)){ // on prend les X derniers articles
+                                    $articles = dmDb::query('SidArticle a')
+                                    ->withI18n($lang)
+                                    ->orderBy("aTranslation.updated_at desc")
+                                    ->where('section_id='.$sidSection->id)
+                                    ->limit(sfConfig::get('app_nb-articles-min-par-section',10))
+                                    ->execute();
+                                    $return[]['Section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = '30 derniers articles';
+                                } else {
+                                    $return[]['Section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = '6 derniers mois';
+                                }
+                  
+                            } else { // on prend tous les articles
+                                $articles = Doctrine_Core::getTable('SidArticle')->findBySectionIdAndIsActive($sidSection->id,true);
+                            }
+
+                            $arrayJson = array();
+                            $j = 0;
+                            
+                            foreach ($articles as $article) {
+
+                                //echo '----'.$article->filename;
+                                $arrayJson[$j]['filename'] = $article->filename;
+                                $arrayJson[$j]['isActive'] = $article->getIsActive();
+                                $arrayJson[$j]['isDossier'] = $article->getIsDossier();
+                                //                            $arrayJson[$j]['createdAt'] = $article->createdAt;
+                                //                            $arrayJson[$j]['updatedAt'] = $article->updatedAt;
+                                
+                                foreach ($arrayLangs as $lang) {
+                                    $arrayJson[$j]['title'][$lang] = $article->getTranslation()->$lang->title;
+                                    $arrayJson[$j]['chapeau'][$lang] = $article->getTranslation()->$lang->chapeau;
+                                    $arrayJson[$j]['createdAt'][$lang] = $article->getTranslation()->$lang->created_at;
+                                    $arrayJson[$j]['updatedAt'][$lang] = $article->getTranslation()->$lang->updated_at;
+                                }
+                                // récup des tags
+                                $listTags = '';
+                                
+                                foreach ($article->getTags() as $tag) {
+                                    $listTags.= $tag . ',';
+                                }
+                                $arrayJson[$j]['tags'] = $listTags;
+                                //$return[$j]['tags >'] = $listTags;
+                                $j++;
+                            }
+                            /*
+                             * Ecrire dans un fichier json
+                            */
+                            try {
+                                if (sfConfig::get('app_rep-local-json') != '') {
+                                    if (count($arrayJson)) { // s'il y'a des articles
+                                        $k++;
+                                        if (!is_dir($rubriqueDir)) {
+                                            mkdir($rubriqueDir);
+                                            $return[$k]['DIR+'] = $rubriqueDir;
+                                        }
+                                        $fileRubrique = fopen($fileRubriqueName, 'a'); // création et ouverture en écriture seule
+                                        fputs($fileRubrique, json_encode($arrayJson));
+                                        fclose($fileRubrique);
+                                        $return[$k]['(' . $k . ') OK : Fichier généré'] = $fileRubriqueName . ' (' . count($arrayJson) . ')';
+                                        $nbArticleTotal+= count($arrayJson);
+                                    }
+                                    
+                                } else {
+                                    $k++;
+                                    $return[$k]['KO : Merci de spécifier la variable app_rep-local'] = '';
+                                }
+                            }
+                            catch(Exception $e) {
+                                $k++;
+                                $return[$k]['ERROR : Exception reçue pour le fichier ' . $fileRubriqueName] = $e->getMessage();
+                            }
                         }
                     }
                 }
@@ -547,9 +571,9 @@ class baseEditorialeTools {
             $sectionEcheanciers = scandir($dirEcEcheancier);
             foreach ($sectionEcheanciers as $j => $sectionEcheancier) { // les dossiers des sections
                 if (($sectionEcheancier != '.') && ($sectionEcheancier != '..')) {
-                    if (intval($sectionEcheancier) < intval($currentMonth)){
+                    if (intval($sectionEcheancier) < intval($currentMonth) && $sectionEcheancier != 'vacances_scolaires'){
                         exec('rm -Rf '.$dirEcEcheancier.'/'.$sectionEcheancier);
-                        echo '      Suppression mois echu => '. $sectionEcheancier.'
+                        echo '  Echeancier: Suppression mois echu => '. $sectionEcheancier.'
 ';
                     }
                 }
@@ -571,6 +595,7 @@ class baseEditorialeTools {
             //$return[0]['OK'] = '................';
             // POUR INTERROGER SERVEUR FTP : rubriques
             $rubriques = transfertTools::scandirServeur(sfConfig::get('app_rep-local'));
+            
             $i = 1;
             
             foreach ($rubriques as $j => $rubrique) {
@@ -579,8 +604,10 @@ class baseEditorialeTools {
                 // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
                 $bdRubrique = Doctrine_Core::getTable('SidRubrique')->findOneByTitleAndIsActive($rubrique, true);
                 if ($bdRubrique->isNew()) { // création de la rubrique en base
+                    
                     $bdRubrique->Translation[$arrayLangs[0]]->title = $rubrique; // On insère dans la langue par défaut
                     $bdRubrique->save();
+                    
                     $return[$i]['Rubrique+'] = $rubrique;
                 } else {
                     $return[$i]['Rubrique existe deja en base'] = $rubrique;
@@ -677,6 +704,7 @@ class baseEditorialeTools {
      * Section : Actualités
     */
     public static function recupArticlesLEA() {
+
         if (sfConfig::get('app_ftp-password') == '' || sfConfig::get('app_ftp-image-password') == '') {
             $return[0]['ERROR'] = 'Seule la base éditoriale peut récupérer les articles de LEA. Vérifier que le apps/front/config/app.yml ait les bonnes variables.';
             
@@ -705,9 +733,19 @@ class baseEditorialeTools {
             $dossiersSections = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title);
             
             foreach ($dossiersSections as $dossiersSection) {
-                $section = Doctrine_Core::getTable('SidSection')->findOneByTitleAndIsActiveAndRubriqueId($dossiersSection, $bdRubrique->id);
+                //$section = dmDb::table('SidSection')->findOneByTitleAndIsActiveAndRubriqueIdWithI18n($dossiersSection,true, $bdRubrique->id);
+                $section = Doctrine_Query::create()->from('SidSection s')
+                        ->withI18n($arrayLangs[0], null, 's')
+                        ->where('sTranslation.title = ? and s.is_active = ? and s.rubrique_id = ?', array($dossiersSection,true, $bdRubrique->id))
+                        ->fetchOne();
+
+
+
+//echo '>>'.$dossiersSection.'   '.$bdRubrique->id;
+
                 if ($section->isNew()) {
-                    $return[$j]['Section en base introuvable ou inactive pour le dossier'] = $dossiersSection;
+                    $return[$j]['Section en base introuvable ou inactive pour le dossier'] = $bdRubrique->Translation[$arrayLangs[0]]->title.'/'.$dossiersSection. ' [rubriqueId:'.$bdRubrique->id.']';
+                    $j++;
                 } else {
                     // récupération des fichiers du dossier de section
                     $fichierArticles = transfertTools::scandirServeur(sfConfig::get('app_rep-local') . $bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $dossiersSection);
@@ -734,7 +772,7 @@ class baseEditorialeTools {
                                 $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue; //titre
                                 $chapo = $xml->getElementsByTagName('Head')->item(0)->nodeValue; // chapo
                                 // cas particulier de l'agenda
-                                if ($chapo == '') {
+                                if ($chapo == '' && $dataType == 'AGENDA') {
                                     $chapo = $xml->getElementsByTagName('Section')->item(0)->nodeValue;
                                     // on supprime le premier saut de ligne
                                     if (substr($chapo, 0, 1) == CHR(10)) {
@@ -748,7 +786,7 @@ class baseEditorialeTools {
                                 switch ($dataType) {
                                     case 'AGENDA':
                                         $date_publication =  $xml->getElementsByTagName('Info1')->item(0)->nodeValue;
-                                        $return[]['debug AGENDA : '.$filename] = $date_publication;
+                                        //$return[]['debug AGENDA : '.$filename] = $date_publication;
                                         break;
 
                                     default:
@@ -822,7 +860,7 @@ class baseEditorialeTools {
                             } else {
                                 exec('rm ' . $xmlFile);
                                 $return[$j]['ERREUR XML invalide supprimé : '] = $xmlFile;
-                                
+                                $j++;
                             }
                             $j++;
                             //if ($j > 10) return $return;

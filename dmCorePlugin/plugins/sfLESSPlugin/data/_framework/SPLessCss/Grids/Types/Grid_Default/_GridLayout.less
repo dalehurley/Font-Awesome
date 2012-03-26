@@ -15,34 +15,34 @@
 	@getGridPadding: (@resolution - @getGridWidth_Site) / 2;
 	
 	//CONFIGURATION ZONE DE CONTENU EN FONCTION DE LA PRÉSENCE DES SIDEBARS
-	#dm_content,
-	.dm_sdbc_none #dm_content {
+	#dm_page_content,
+	.dm_sdbc_none #dm_page_content {
 		float: left;
 		width: @getGridWidth_Site;
 		margin-left: 0;
 		margin-right: @getGridWidth_Site * -1;
 	}
 	
-	.dm_sdbc_left #dm_content {
+	.dm_sdbc_left #dm_page_content {
 		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
 		margin-right: @getGridWidth_Site * -1;
 	}
 	
-	.dm_sdbc_right #dm_content {
+	.dm_sdbc_right #dm_page_content {
 		width: @getGridWidth_Site - @getGridWidth_SidebarRight - @gridGutter;
 		margin-left: 0;
 		margin-right: (@getGridWidth_Site - @getGridWidth_SidebarRight - @gridGutter) * -1;
 	}
 	
-	.dm_sdbc_two #dm_content {
+	.dm_sdbc_two #dm_page_content {
 		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @getGridWidth_SidebarRight - @gridGutter * 2;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
 		margin-right: (@getGridWidth_Site - @getGridWidth_SidebarRight - @gridGutter) * -1;
 	}
 
 	/*//Placement avec toutes les sidebars présentes dans la scène
-	#dm_content{
+	#dm_page_content{
 		float: left;
 		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @getGridWidth_SidebarRight - @gridGutter * 2;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
@@ -72,20 +72,20 @@
 	@getGridPadding: (@resolution - @getGridWidth_Site) / 2;
 
 	//on ne déplace que la dm_sdbc_right donc on réorganise le contenu que si celle-ci est présente dans la page
-	.dm_sdbc_right #dm_content {
+	.dm_sdbc_right #dm_page_content {
 		width: @getGridWidth_Site;
 		margin-left: 0;
 		margin-right: @getGridWidth_Site * -1;
 	}
 
-	.dm_sdbc_two #dm_content {
+	.dm_sdbc_two #dm_page_content {
 		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
 		margin-right: @getGridWidth_Site * -1;
 	}
 
 	/*//Placement avec toutes les sidebars présentes dans la scène
-	#dm_content {
+	#dm_page_content {
 		width: @getGridWidth_Site - @getGridWidth_SidebarLeft - @gridGutter;
 		margin-left: @getGridWidth_SidebarLeft + @gridGutter;
 		margin-right: @getGridWidth_Site * -1;

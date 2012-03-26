@@ -26,17 +26,32 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayRecrutements = array();
+        $redirect = false;
+        $header ='';
+        $constanteRecrutement = '';
         $dmPage = sfContext::getInstance()->getPage();
         
         $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars["nbArticles"];
-
+        if($dmPage->module.'/'.$dmPage->action == 'recrutement/show'){
         $recrutements = Doctrine_Query::create()
                 ->from('SidCabinetRecrutement a')
-                ->leftJoin('a.Translation b')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                 ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
-                ->orderBy('b.updated_at DESC')
+                ->orderBy('aTranslation.updated_at DESC')
                 ->limit($nbArticles)
                 ->execute();
+            $constanteRecrutement = '';
+        }
+        else{
+            $recrutements = Doctrine_Query::create()
+                ->from('SidCabinetRecrutement a')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                ->where('a.is_active = ?', array(true))
+                ->orderBy('aTranslation.updated_at DESC')
+                ->limit($nbArticles)
+                ->execute();
+            $constanteRecrutement = '{{recrutement}}';
+        }
 
         if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
         $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('recrutement','list');
@@ -44,6 +59,30 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
         }
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
 
+        if (count($recrutements) == 1 && ($dmPage->module . '/' . $dmPage->action == 'recrutement/list')) {
+            foreach ($recrutements as $page) {
+                $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('recrutement', 'show', $page->id);
+                // add current's controler for header() redirection
+                $controlers = json_decode(dmConfig::get('base_urls'), true); // all controlers Url
+                $contextEnv = sfConfig::get('dm_context_type') . '-' . sfConfig::get('sf_environment'); // i.e. "front-dev"
+                $controlerUrl = (array_key_exists($contextEnv, $controlers)) ? $controlers[$contextEnv] : '';
+                $header = $controlerUrl . '/' . $page->getSlug();
+                $redirect = true;
+            }
+                return $this->getHelper()->renderPartial('recrutementsCabinet', 'recrutementsList', array(
+                    'recrutements' => '',
+                    'titreBloc' => '',
+                    'length' => '',
+                    'width' => '',
+                    'withImage' => '',
+                    'header' => $header,
+                    'redirect' => $redirect,
+                    'constanteRecrutement' => $constanteRecrutement
+                ));
+
+        }
+        else {
+        
         return $this->getHelper()->renderPartial('recrutementsCabinet', 'recrutementsList', array(
                     'recrutements' => $recrutements,
                     'titreBloc' => $vars['titreBloc'],
@@ -51,9 +90,12 @@ class recrutementsCabinetRecrutementsListView extends dmWidgetPluginView {
                     'withImage' => $vars['withImage'],
                     'width' => $vars['widthImage'],
                     'withImage' => $vars['withImage'],
-                    'lien' => $lien
+                    'lien' => $lien,
+                    'redirect' => $redirect,
+                    'constanteRecrutement' => $constanteRecrutement
             
                 ));
+        }
     }
 
 }

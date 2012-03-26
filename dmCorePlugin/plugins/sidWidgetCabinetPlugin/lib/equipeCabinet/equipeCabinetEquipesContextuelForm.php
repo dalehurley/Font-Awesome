@@ -9,12 +9,13 @@ class equipeCabinetEquipesContextuelForm extends dmWidgetPluginForm {
         $this->widgetSchema['titreBloc']->setDefault('Votre conseil');
 	
         $this->widgetSchema['lien']->setDefault('Toute l\'équipe');
-       
+        $this->widgetSchema['nbArticles']->setLabel('Nbre de collaborateurs');
         $this->validatorSchema['nbArticles'] = new sfValidatorInteger(array(
                     'min' => 1,
                     'required' => true
                 ));
-       
+        $this->widgetSchema['mailTo'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Afficher lien mailTo pour le bloc'));
+        $this->validatorSchema['mailTo']  = new sfValidatorBoolean();
     }
 
     public function getStylesheets() {

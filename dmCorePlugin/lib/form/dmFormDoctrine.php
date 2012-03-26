@@ -140,15 +140,6 @@ abstract class dmFormDoctrine extends sfFormDoctrine {
     public function setup() {
         parent::setup();
 
-        // Code pour ajouter * au label des widgets ayant required=true dans leur validateur                
-        foreach ($this->getFormFieldSchema()->getWidget()->getFields() as $key => $object) {
-            $label = $this->getFormFieldSchema()->offsetGet($key)->renderLabelName();
-            if (isset($this->validatorSchema[$key]) and $this->validatorSchema[$key]->getOption('required') == true) {
-                $label = $label . ' *';
-            }
-            $this->widgetSchema->setLabel($key, $label);
-        }
-
         $this->embeddedFormsSaveTime = array(self::EMBEDDED_FORM_SAVE_BEFORE => array(), self::EMBEDDED_FORM_SAVE_AFTER => array());
         $this->setupNestedSet();
     }

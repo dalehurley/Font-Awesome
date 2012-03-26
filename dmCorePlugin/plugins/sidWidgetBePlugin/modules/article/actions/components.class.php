@@ -19,10 +19,29 @@ class articleComponents extends myFrontModuleComponents
     if(count($articleDossier)>0){
         $query->addWhere('is_dossier = true');
     }
-    $this->articlePager = $this->getPager($query);
+    
+    // construction du header pour envoyer DIRECTEMENT sur la page si il n'y a q'un article
+    $articlePager = $this->getPager($query);
+    if(count($articlePager) == 1){
+        foreach($articlePager as $article){
+            $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('article','show', $article->id );
+
+            // add current's controler for header() redirection
+            $controlers = json_decode(dmConfig::get('base_urls'),true); // all controlers Url
+            $contextEnv = sfConfig::get('dm_context_type').'-'.sfConfig::get('sf_environment'); // i.e. "front-dev"
+            $controlerUrl = (array_key_exists($contextEnv,$controlers))?$controlers[$contextEnv]:''; 
+            $header = $controlerUrl.'/'.$page->getSlug();
+            $this->header = $header;
+        }
+        
+    }
+    else{
+        $this->articlePager = $this->getPager($query);
     $this->route = $this->getPage()->getTitle();
     $ancestors = $this->context->getPage()->getNode()->getAncestors();
     $this->parent = $ancestors[count($ancestors)-1]->getTitle();
+    
+    }
     
     //$this->articlePager->setOption('ajax', true);
   }

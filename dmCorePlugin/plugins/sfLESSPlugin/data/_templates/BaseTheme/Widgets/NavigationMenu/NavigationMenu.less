@@ -25,7 +25,7 @@
 	margin: 0;
 	
 	//suppression bordure et padding
-	#dm_content &, #dm_sidebar_left &, #dm_sidebar_right & {
+	#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
 		.dm_widget_inner {
 			border: 0;
 			padding: 0 0 @gridBaseline/2 0;
@@ -53,7 +53,7 @@
 }
 
 //configuration de base des textes pour tous les types de menus
-ul.dropdown, ul.megadropdown, ul.accordion {
+ul.menu-dropdown, ul.menu-megadropdown, ul.menu-accordion {
 	//stylage minimale du lien
 	.link {
 		text-decoration: none;
@@ -77,9 +77,9 @@ ul.dropdown, ul.megadropdown, ul.accordion {
 }
 
 //mise en minuscule des liens de toutes les sous parties, dossiers compris (sauf pour megadropdown)
-ul.dropdown ul li, ul.dropdown ul li.dm_dir,
-ul.accordion ul li, ul.accordion ul li.dm_dir,
-ul.megadropdown ul li {
+ul.menu-dropdown ul li, ul.menu-dropdown ul li.dm_dir,
+ul.menu-accordion ul li, ul.menu-accordion ul li.dm_dir,
+ul.menu-megadropdown ul li {
 	font-weight: normal;
 	text-transform: none;
 	word-spacing: 0;
@@ -87,7 +87,7 @@ ul.megadropdown ul li {
 }
 
 //configuration de base des liens pour les types de menus
-ul.dropdown, ul.accordion, ul.megadropdown {
+ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	//gestion des liens
 	.link {
 		background-color: @colorCouleur3ClairSup;
@@ -109,7 +109,7 @@ ul.dropdown, ul.accordion, ul.megadropdown {
 	}
 }
 
-ul.dropdown li, ul.accordion li, ul.megadropdown > li {
+ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
 	//création de la flèche avec des bordures
 	&.dm_dir > .link {
 		&:after {
@@ -147,7 +147,7 @@ ul.dropdown li, ul.accordion li, ul.megadropdown > li {
 }
 
 //ajout de l'icône sur le lien vers la page d'accueil pour les menus dropdown et megadropdown situé dans la zone dm_custom_top
-ul.dropdown, ul.megadropdown {
+ul.menu-dropdown, ul.menu-megadropdown {
 	#dm_custom_top .dm_widget.navigation_menu & {
 		//décalage de marge
 		@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
@@ -185,11 +185,11 @@ ul.dropdown, ul.megadropdown {
 }
 
 //comportement flèche différents selon les types de menu
-ul.dropdown li.dm_dir > .link:hover:after,
-ul.dropdown li.dm_dir:hover > .link:after,
-ul.accordion li.dm_parent > .link:after,
-ul.megadropdown > li.dm_dir > .link:hover:after,
-ul.megadropdown > li.dm_dir:hover > .link:after {
+ul.menu-dropdown li.dm_dir > .link:hover:after,
+ul.menu-dropdown li.dm_dir:hover > .link:after,
+ul.menu-accordion li.dm_parent > .link:after,
+ul.menu-megadropdown > li.dm_dir > .link:hover:after,
+ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
 	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
@@ -216,12 +216,12 @@ ul.megadropdown > li.dm_dir:hover > .link:after {
 }
 
 //mise en couleur des cellules ouvertes
-ul.dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.megadropdown li.dm_dir:hover > .link,
-ul.megadropdown li.dm_dir:hover > .link,
-ul.accordion li.dm_parent > .link,
-ul.accordion li.dm_parent li.dm_parent > .link {
+ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
+ul.menu-megadropdown li.dm_dir:hover > .link,
+ul.menu-accordion li.dm_parent > .link,
+ul.menu-accordion li.dm_parent li.dm_parent > .link {
 	background-color: @colorCouleur1;
 	color: @colorCouleur3Clair;
 	&:hover { color: @colorCouleur3ClairSup; }

@@ -1,8 +1,0 @@
-Pourcentage de réduction à respecter pour les icônes Fotolia afin de garder une bonne échelle générale :
-
-Largeur max : 222,725
-Hauteur max : 224,241
-
-
-Pour obtenir une réduction à 64px de côté :
-28,54 % de réduction en hauteur

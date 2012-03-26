@@ -26,9 +26,7 @@ class pagesDuCabinetPageCabinetView extends dmWidgetPluginView {
         $dmPage = sfContext::getInstance()->getPage();
 
         $pageCabinet = dmDb::table('SidCabinetPageCabinet')->findOneByIdAndIsActive($dmPage->record_id, true);
-        if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
-        $vars['titreBloc'] = $pageCabinet->getTitle();
-        }
+
         if($vars['lien'] == NULL || $vars['lien'] == " "){
         $vars['lien'] = sfContext::getInstance()->getI18N()->__('Contact');
         }

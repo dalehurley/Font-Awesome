@@ -24,7 +24,6 @@ class missionsMissionsContextuelForm extends dmWidgetPluginForm {
 //        $this->validatorSchema['titreMission']  = new sfValidatorBoolean();
 
         $this->widgetSchema->setHelps(array(
-            'title_page' => 'Le titre optionnel du bloc. Si null, le titre de la mission s\'affichera dans le titre du bloc',
             'lien' => 'Le libellé du lien vers toutes les missions.',
             'nbArticles' => 'Le nombre maximum de missions affichées. mini 1',
             'length' => 'Longueur du texte à afficher (si 0 : texte en entier)',

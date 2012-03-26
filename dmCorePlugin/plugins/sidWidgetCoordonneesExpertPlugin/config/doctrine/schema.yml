@@ -1,8 +1,11 @@
 SidCoordName:
   actAs:
-    Timestampable:
     DmSortable:
-    DmVersionable:
+    I18n:
+      fields: [ title, adresse, adresse2, code_postal, ville, tel, fax, email, region_ec, region_cc, resume_town, resume_team, adresse_google, rcs, rcs_locality, orias, cif, carte_pro, carte_pro_locality ]
+      actAs:
+        DmVersionable:
+        Timestampable:
   columns:
     title:
       type: string(255)
@@ -21,13 +24,13 @@ SidCoordName:
       notnull: true
     tel:
       type: string(255)
-      notnull: true
+      notnull: false
     fax:
       type: string(255)
       notnull: false
     email:
       type: string(255)
-      notnull: true
+      notnull: false
       email: true
     region_ec:
       type: string(255)
@@ -43,3 +46,32 @@ SidCoordName:
       type: boolean
       notnull: true
       default: true
+    resume_town:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    resume_team:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    adresse_google:
+      type: string(255)
+      notnull: false
+    rcs:
+      type: string(20)
+      notnull: false
+    rcs_locality:
+      type: string(50)
+      notnull: false
+    orias:
+      type: string(20)
+      notnull: false
+    cif:
+      type: string(20)
+      notnull: false
+    carte_pro:
+      type: string(20)
+      notnull: false
+    carte_pro_locality:
+      type: string(50)
+      notnull: false

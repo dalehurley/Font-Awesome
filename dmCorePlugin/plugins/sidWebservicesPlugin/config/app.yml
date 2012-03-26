@@ -1,3 +1,9 @@
 #all:
-
+all:
+ identification:
+  login: test
+  password: secret
+ soapService:
+  wsdl: applicatifs.wsdl
+  adr: http://applicatifs.expert-infos.com/
     

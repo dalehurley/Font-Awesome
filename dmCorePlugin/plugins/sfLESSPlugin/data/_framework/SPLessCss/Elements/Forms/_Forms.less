@@ -14,7 +14,7 @@ form {
 		.isLess & { background-color: fadeout(#A4D3ED, 50%); }
 		margin-left: 0;
 		margin-bottom: @gridBaseline;
-		padding: 0;
+		padding: 10px 5px;;
 		list-style-type: none;
 	}
 	.dm_form_element {
@@ -27,6 +27,9 @@ form {
 			input, textarea, select { border-color: green; }
 		}
 		margin-bottom: @gridBaseline;
+	}
+	.dm_form_element > label.required:after {
+		content: " *";
 	}
 	.dm_help_wrap {
 		.isLess & { background-color: fadeout(#8AFFD8, 50%); }
@@ -43,6 +46,7 @@ form {
 		padding: 0;
 		margin-left: 0;
 		margin-bottom: 0;
+		color: red;
 		li { margin: 0; padding: 0; }
 	}
 }

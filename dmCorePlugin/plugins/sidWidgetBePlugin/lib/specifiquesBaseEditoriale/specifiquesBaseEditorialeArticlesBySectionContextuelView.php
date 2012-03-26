@@ -52,9 +52,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                     // je récupère l'objet Section via l'integer $section qui est l'id de la Section
                     $sectionPages = Doctrine_Query::create()
                             ->from('SidSection sa')
-                            ->leftJoin('sa.Translation b')
+                            ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'sa')
                             ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
-                            ->orderBy('b.updated_at DESC')
+                            ->orderBy('saTranslation.updated_at DESC')
                             ->limit(1)
                             ->execute();
                     // je vérifie que le champ de la section->rubrique_id est le même que le record_id de la page en cours
@@ -63,9 +63,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                         if($vars['isDossier'] == false){
                         $articles = Doctrine_Query::create()
                                 ->from('SidArticle sa')
-                                ->leftJoin('sa.Translation b')
+                                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'sa')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $sectionPages[0]->id ,false))
-                                ->orderBy('b.updated_at DESC')
+                                ->orderBy('saTranslation.updated_at DESC')
                                 ->limit($nbArticles)
                                 ->execute();
                         
@@ -74,9 +74,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                         elseif($vars['isDossier'] == true){
                             $articles = Doctrine_Query::create()
                                 ->from('SidArticle sa')
-                                ->leftJoin('sa.Translation b')
+                                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'sa')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $sectionPages[0]->id, true))
-                                ->orderBy('b.updated_at DESC')
+                                ->orderBy('saTranslation.updated_at DESC')
                                 ->limit($nbArticles)
                                 ->execute();
                         }
@@ -101,9 +101,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                     // je récupère l'objet Section via l'integer $section qui est l'id de la Section
                     $sectionPages = Doctrine_Query::create()
                             ->from('SidSection sa')
-                            ->leftJoin('sa.Translation b')
+                            ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'sa')
                             ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
-                            ->orderBy('b.updated_at DESC')
+                            ->orderBy('saTranslation.updated_at DESC')
                             ->limit(1)
                             ->execute();
                     // je vérifie que le champ de la section->rubrique_id est le même que le record_id de la page en cours
@@ -112,9 +112,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                         if($vars['isDossier'] == false){
                         $articles = Doctrine_Query::create()
                                 ->from('SidArticle sa')
-                                ->leftJoin('sa.Translation b')
+                                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'sa')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,false))
-                                ->orderBy('b.updated_at DESC')
+                                ->orderBy('saTranslation.updated_at DESC')
                                 ->limit($nbArticles)
                                 ->execute();
                     }
@@ -122,9 +122,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                         elseif($vars['isDossier'] == true){   
                             $articles = Doctrine_Query::create()
                                 ->from('SidArticle sa')
-                                ->leftJoin('sa.Translation b')
+                                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'sa')
                                 ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,true))
-                                ->orderBy('b.updated_at DESC')
+                                ->orderBy('saTranslation.updated_at DESC')
                                 ->limit($nbArticles)
                                 ->execute();
                         } 
@@ -164,9 +164,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                         // je récupère l'objet Section via l'integer $section qui est l'id de la Section
                         $sectionPages = Doctrine_Query::create()
                                 ->from('SidSection sa')
-                                ->leftJoin('sa.Translation b')
+                                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'sa')
                                 ->Where('sa.is_active = ? and sa.id = ?', array(true, $section))
-                                ->orderBy('b.updated_at DESC')
+                                ->orderBy('saTranslation.updated_at DESC')
                                 ->limit(1)
                                 ->execute();
 
@@ -175,9 +175,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                             if($vars['isDossier'] == false){
                             $articles = Doctrine_Query::create()
                                     ->from('SidArticle sa')
-                                    ->leftJoin('sa.Translation b')
+                                    ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'sa')
                                     ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,false))
-                                    ->orderBy('b.updated_at DESC')
+                                    ->orderBy('saTranslation.updated_at DESC')
                                     ->limit($nbArticles)
                                     ->execute();
                             }
@@ -185,9 +185,9 @@ class specifiquesBaseEditorialeArticlesBySectionContextuelView extends dmWidgetP
                             elseif($vars['isDossier'] == true){ 
                                 $articles = Doctrine_Query::create()
                                     ->from('SidArticle sa')
-                                    ->leftJoin('sa.Translation b')
+                                    ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'sa')
                                     ->Where('sa.is_active = ? and sa.section_id = ? and sa.is_dossier = ?', array(true, $section,true))
-                                    ->orderBy('b.updated_at DESC')
+                                    ->orderBy('saTranslation.updated_at DESC')
                                     ->limit($nbArticles)
                                     ->execute();
                             }

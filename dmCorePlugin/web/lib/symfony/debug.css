@@ -7,6 +7,7 @@
   color: #333;
   text-align: left;
   line-height: 12px;
+  /*opacity: 0.90;*/
 }
 
 #sfWebDebug a,
@@ -107,9 +108,9 @@
   font-size: 16px;
   font-weight: bold;
   margin: 0;
-  padding: 0;
+  padding: 0 10px;
   border: 0px;
-  background-color: #eee;
+  background-color: #888;
 }
 
 #sfWebDebug h2
@@ -141,7 +142,7 @@
   padding: 0 1%;
   margin: 0;
   z-index: 9999;
-  background-color: #efefef;
+  background-color: #AAA;
   border-bottom: 1px solid #aaa;
 }
 
@@ -377,4 +378,56 @@
 .sfWebDebugHighlight
 {
   background: #FFC;
+}
+#less_debug dd .swatch {
+    border-radius: 3px 3px 3px 3px;
+    display: inline-block;
+    height: 10px;
+    margin: 0 3px 0 0;
+    width: 30px;
+}
+
+/* style for opp up debug used by debugTools */
+.debug, .warning {
+    content: "";
+    padding: 2px 15px;
+    position: absolute;
+    z-index: 100000;
+}
+.debug:after, .warning:after {
+    content: "X";
+    font-size: 11px;
+    font-weight: bold;
+    position: absolute;
+    right: 1px;
+    top: 0;
+}
+.debugInfo .info, .debug .info, .warning .info {
+    font-weight: bold;
+}
+.debugInfo .value, .debug .value, .warning .value {
+    font-weight: normal;
+}
+.debugInfo .info, .debug .info {
+    color: #5E5E5E;
+}
+.debugInfo .value, .debug .value {
+    color: #919191;
+}
+.warning .info {
+    color: #610E0E;
+}
+.warning .value {
+    color: #8E1414;
+}
+.debug {
+    background-color: #EBEBEB;
+    border: 1px solid #C4C4C4;
+}
+.warning {
+    background-color: #F5E0E0;
+    border: 1px solid #FF5555;
+}
+.debug, .warning {
+    right: 0;
 }

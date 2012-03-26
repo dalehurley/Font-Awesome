@@ -1,0 +1,112 @@
+Content:
+
+  Webservices:
+
+    vacpicpdd:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  vacpicpdd
+    acs:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  acs
+    cce:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  cce
+    cd:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  cd
+    cjo:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  cjo
+    cl:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  cl
+    cld:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  cld
+    ct:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  ct
+    ctr:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  ctr
+    cvp:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  cvp
+    fk:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  fk
+    hs:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  hs
+    srtb:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  srtb
+    trc:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  trc
+    trsvc:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  trsvc
+    va:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  va
+    vasvc:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  vasvc
+    vt:
+      name:            webservices
+      credentials:     webservices
+      actions:
+        form:
+          name:  vt

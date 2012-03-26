@@ -62,3 +62,21 @@ all:
       - dmCoreTranslator
       - sidWebservices
       - debug
+      - vacpicpdd  # webservices
+      - acs
+      - cce
+      - cd
+      - cjo
+      - cl
+      - cld
+      - ct
+      - ctr
+      - cvp
+      - fk
+      - hs
+      - srtb
+      - trc
+      - trsvc
+      - va
+      - vasvc
+      - vt

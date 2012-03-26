@@ -15,7 +15,7 @@ _tag('div',
     $form['titreBloc']->renderRow().
     $form['cssClass']->renderRow().
     $form['withImage']->renderRow().
-    $form['widthImage']->renderRow().
+    //$form['widthImage']->renderRow(). on prend pour l'instant que la hauteur en paramètre
     $form['heightImage']->renderRow()
   
 ); 

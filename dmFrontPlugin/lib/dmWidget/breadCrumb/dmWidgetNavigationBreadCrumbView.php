@@ -101,26 +101,32 @@ class dmWidgetNavigationBreadCrumbView extends dmWidgetPluginView
     $vars = $this->getViewVars();
     $helper = $this->getHelper();
     
-    $html = '<ol>';
+    if (dmconfig::get('site_theme_version')=='v1'){
+      $html = '<ol>';
 
-    $it = 0;
-    foreach($vars['links'] as $link)
-    {
-      $html .= $helper->tag('li', $link);
-    
-      if ($vars['separator'] && (++$it < $vars['nbLinks']))
+      $it = 0;
+      foreach($vars['links'] as $link)
       {
-        $html .= $helper->tag('li.bread_crumb_separator', $vars['separator']);
+        $html .= $helper->tag('li', $link);
+      
+        if ($vars['separator'] && (++$it < $vars['nbLinks']))
+        {
+          $html .= $helper->tag('li.bread_crumb_separator', $vars['separator']);
+        }
       }
-    }
-    
-    $html .= '</ol>';
+      
+      $html .= '</ol>';
 
-    if ($this->isCachable())
-    {
-      $this->setCache($html);
+      if ($this->isCachable())
+      {
+        $this->setCache($html);
+      }
+    } else {
+
+      $html = 'XXXXXXXXXX TODO : V2 version of breadcrumb with: http://twitter.github.com/bootstrap/components.html#breadcrumbs XXXXXXXXXXXX';
+
+
     }
-    
     return $html;
   }
 

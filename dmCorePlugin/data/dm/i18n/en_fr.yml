@@ -554,3 +554,7 @@
 "See selected": "Voir les éléments sélectionnés"
 "See unselected": "Voir les éléments non sélectionnés"
 "See all": "Voir tous les éléments"
+'The end date ("%right_field%") must be after the start date ("%left_field%")' : 'La date de fin ("%left_field%") doit être postérieure à la date de début ("%right_field%").'
+"Invalid mime type (%mime_type%)." : "Tipe MIME invalide (%mime_type%)."
+'"%value%" is too long (%max_length% characters max).' : '"%value%" est trop long (%max_length% caractères maximum).'
+"The end date must be before today." : "La date de fin doit être postérieure à celle de ce jour."

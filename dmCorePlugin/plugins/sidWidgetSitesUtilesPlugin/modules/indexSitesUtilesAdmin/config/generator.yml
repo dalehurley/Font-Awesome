@@ -26,6 +26,8 @@ generator:
           credentials: [ super_admin ]
         _view_page:
           credentials: [ super_admin ]
+        _sort:
+          credentials: [super_admin]
             
       fields:
         is_active:

@@ -1,0 +1,108 @@
+/*!
+ *
+ * NOT TO EDIT - DON't TOUCH IT
+ *
+ * Importation of all bootstrap less.
+ * 
+ * Add variables.less from ##THEME## theme and local of site (to override)
+ * Add theme.less from ##THEME## theme and local of site (to override)
+ * 
+ */
+
+// CSS Reset
+@import "bootstrap/less/reset.less";
+
+// Core variables and mixins
+@import "bootstrap/less/variables.less"; // Modify this for custom colors, font-sizes, etc
+@import "_themes/##THEME##/variables.less";
+@import "variables.less";
+@import "bootstrap/less/mixins.less";
+@import "bootstrap/less/custom-mixins.less"; // additionnal custom mixins
+
+// Grid system and page structure
+@import "bootstrap/less/scaffolding.less";
+@import "bootstrap/less/grid.less";
+@import "bootstrap/less/layouts.less";
+
+// Base CSS
+@import "bootstrap/less/type.less";
+@import "bootstrap/less/code.less";
+@import "bootstrap/less/forms.less";
+@import "bootstrap/less/tables.less";
+
+// Components: common
+//@import "bootstrap/less/sprites.less";   comment cause integration of font-awesome
+@import "bootstrap/less/font-awesome.less";
+@import "bootstrap/less/dropdowns.less";
+@import "bootstrap/less/wells.less";
+@import "bootstrap/less/component-animations.less";
+@import "bootstrap/less/close.less";
+
+// Components: Buttons & Alerts
+@import "bootstrap/less/buttons.less";
+@import "bootstrap/less/button-groups.less";
+@import "bootstrap/less/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+
+// Components: Nav
+@import "bootstrap/less/navs.less";
+@import "bootstrap/less/navbar.less";
+@import "bootstrap/less/breadcrumbs.less";
+@import "bootstrap/less/pagination.less";
+@import "bootstrap/less/pager.less";
+
+// Components: Popovers
+@import "bootstrap/less/modals.less";
+@import "bootstrap/less/tooltip.less";
+@import "bootstrap/less/popovers.less";
+
+// Components: Misc
+@import "bootstrap/less/thumbnails.less";
+@import "bootstrap/less/labels.less";
+@import "bootstrap/less/progress-bars.less";
+@import "bootstrap/less/accordion.less";
+@import "bootstrap/less/carousel.less";
+@import "bootstrap/less/hero-unit.less";
+
+// Menu dropdown
+@import "bootstrap/less/menus/dropdown/menu.less"; // Modify this for custom colors, font-sizes, etc
+@import "_themes/##THEME##/menus/dropdown/menu.less";
+@import "menus/dropdown/menu.less"; 
+
+// Menu megadropdown
+@import "bootstrap/less/menus/megadropdown/menu.less"; // Modify this for custom colors, font-sizes, etc
+@import "_themes/##THEME##/menus/megadropdown/menu.less";
+@import "menus/megadropdown/menu.less"; 
+
+// Menu accordion
+@import "bootstrap/less/menus/accordion/menu.less"; // Modify this for custom colors, font-sizes, etc
+@import "_themes/##THEME##/menus/accordion/menu.less";
+@import "menus/accordion/menu.less"; 
+
+// Utility classes
+@import "bootstrap/less/utilities.less"; // Has to be last to override when necessary
+
+@import "_themes/##THEME##/theme.less";
+@import "theme.less";
+
+// debug style : style added to put infos on web debug 
+// must be here to catch LESS variables which can be overriden on core, theme or site
+dd.less_debug_grid-columns:after { content: "@{gridColumns}"; }
+dd.less_debug_grid-column-width:after { content: "@{gridColumnWidth}"; }
+dd.less_debug_grid-gutter-width:after { content: "@{gridGutterWidth}"; }
+dd.less_debug_grid-row-width:after { content: "@{gridRowWidth}"; }
+dd.less_debug_fluid-grid-column-width:after { content: "@{fluidGridColumnWidth}"; }
+dd.less_debug_fluid-grid-gutter-width:after { content: "@{fluidGridGutterWidth}"; }
+
+dd.less_debug_base-font-size:after { content: "@{baseFontSize}"; }
+dd.less_debug_base-font-family:after { content: '@{baseFontFamily}'; }
+dd.less_debug_base-line-height:after { content: "@{baseLineHeight}"; }
+
+dd.less_debug_link-color span.swatch { background-color: @linkColor; } 
+dd.less_debug_link-color:after { content: "@{linkColor}";  }
+dd.less_debug_link-color-hover span.swatch { background-color: @linkColorHover; } 
+dd.less_debug_link-color-hover:after { content: "@{linkColorHover}";  }
+dd.less_debug_text-color span.swatch { background-color: @textColor; } 
+dd.less_debug_text-color:after { content: "@{textColor}";  }
+
+
+

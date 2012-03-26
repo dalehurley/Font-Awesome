@@ -12,6 +12,9 @@ $form->renderGlobalErrors(),
 
 _tag('div',
     $form['type']->renderRow().
+//    $form['maxPerPage']->renderRow().
+//    $form['navTop']->renderRow().
+//    $form['navBottom']->renderRow().
     $form['titreBloc']->renderRow().	
     $form['nbArticles']->renderRow().
     $form['length']->renderRow().

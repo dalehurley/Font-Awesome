@@ -22,7 +22,7 @@ class loadDBTask extends lioshiBaseTask {
 The [loadDB|INFO] load a dump file into local diem Database.
 Call it with:
 
-  [php symfony loadDB [file] |INFO]
+  [php symfony loadDB [file] --settings=false |INFO]
 EOF;
     }
 
@@ -42,39 +42,53 @@ EOF;
 
         if (!isset($arguments['file'])) {
             // recuperation des differentes maquettes du coeur
-            // scan du dossier _templates
-            $arrayTemplates = scandir(dirname(__FILE__).'/../../data/_templates');
-            $i = 0;
-            $dispoTemplates = array();
-            
-            foreach ($arrayTemplates as $template) {
-                // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
-                if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_') {
-                    $i++;
-                    $dispoTemplates[$i] = $template;
+            $dispoTemplates = contentTemplateTools::dispoThemes();
+
+            // on affiche les choix
+            $choices = array();
+            $this->logBlock('Themes disponibles :', 'INFO_LARGE');
+            foreach ($dispoTemplates as $version => $arrayDispoTemplates) {     
+                // on affiche les entètes de version
+                $this->logblock('Thèmes '.$version, 'HELP');
+                foreach ($arrayDispoTemplates as $k => $dispoTemplate) {
+                    $this->logSection($k, $dispoTemplate);
+                    $choices[] = $k;
                 }
             }
-            // on affiche les choix
-            $this->logBlock('Themes disponibles :', 'INFO_LARGE');
-            
-            foreach ($dispoTemplates as $k => $dispoTemplate) {
-                $this->logSection($k , $dispoTemplate);
-            }
+
             // choix de la maquette du coeur
             $numTemplate = $this->askAndValidate(array(
                 '',
-                'Le numero du template choisi?',
+                'Le numero du theme choisi?',
                 ''
             ) , new sfValidatorChoice(array(
-                'choices' => array_keys($dispoTemplates) ,
+                'choices' => $choices,
                 'required' => true
             ) , array(
                 'invalid' => 'Le template n\'existe pas'
             )));
 
+            foreach ($dispoTemplates as $version => $arrayDispoTemplates) {     
+                if (isset($arrayDispoTemplates[$numTemplate])){
+                    $nomTemplateChoisi = $arrayDispoTemplates[$numTemplate];
+                    $nomVersionChoisi = $version;
+                }
+            }
+
             // Affichages des dump existants pour ce template
-            // scan du dossier _templates/themechoisi/Externals/db
-            $dirDbDump = dirname(__FILE__).'/../../data/_templates/' . $dispoTemplates[$numTemplate] . '/Externals/db';
+           // scan du dossier Externals/db
+            switch ($nomVersionChoisi) {
+                case 'v1':
+                    $dirDbDump = dirname(__FILE__).'/../../data/_templates/' . $nomTemplateChoisi . '/Externals/db';
+                    break;
+                case 'v2':
+                    $dirDbDump = dirname(__FILE__).'/../../lib/vendor/_themes/' . $nomTemplateChoisi . '/Externals/db';
+                    break;                
+                default:
+                    # code...
+                    break;
+            }
+
             if (is_dir($dirDbDump)) {
                 $arrayTemplateDumps = scandir($dirDbDump);
             } else {
@@ -92,7 +106,7 @@ EOF;
                 }
             }
             // on affiche les dumps existants
-            $this->logBlock('Dump existants du theme ' . $dispoTemplates[$numTemplate] . ' :', 'INFO_LARGE');
+            $this->logBlock('Dump existants du theme ' . $nomTemplateChoisi . ' :', 'INFO_LARGE');
             
             foreach ($dispoTemplateDumps as $k => $dispoTemplateDump) {
                 $this->logSection($k, $dispoTemplateDump);
@@ -115,9 +129,10 @@ EOF;
             $file = $arguments['file'];
         }
 
+
         $results = contentTemplateTools::loadDB($file);
         // on purge le cache
-        $this->runTask('cc');
+        $this->runTask('ccc');
         // on remet les permissions
         $this->runTask('dm:permissions');
 

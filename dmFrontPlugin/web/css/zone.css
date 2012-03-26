@@ -5,14 +5,16 @@ d90b00    hover
 */
 
 #dm_page.edit .dm_zones {
-  min-height: 40px;
+  min-height: 20px;
 }
+
 #dm_page.edit .dm_zone {
-
-}
-
-#dm_page.edit .dm_zone .dm_widgets {
-  border: 1px solid #f08984;
+  border:0;
+  -webkit-box-shadow:0 0 1px #f08984;
+  -khtml-box-shadow:0 0 1px #f08984;
+  -moz-box-shadow:0 0 1px #f08984;
+  -o-box-shadow:0 0 1px #f08984;
+  box-shadow:0 0 1px #f08984;
 }
 #dm_page.edit .dm_zone .dm_zone_edit {
   display: block;
@@ -22,8 +24,13 @@ line-height: 10px;
 height: 10px;  
 }
 
-#dm_page.edit .dm_zone:hover .dm_widgets {
-  border-color: #d90b00;
+#dm_page.edit .dm_zone:hover  {
+  border:0;
+  -webkit-box-shadow:0 0 6px #d90b00;
+  -khtml-box-shadow:0 0 6px #d90b00;
+  -moz-box-shadow:0 0 6px #d90b00;
+  -o-box-shadow:0 0 6px #d90b00;
+  box-shadow:0 0 6px #d90b00;  
 }
 
 #dm_page .dm_zone .dm_zone_edit {

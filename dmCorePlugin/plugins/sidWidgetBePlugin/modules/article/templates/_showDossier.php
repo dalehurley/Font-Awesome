@@ -81,7 +81,7 @@ if (!is_file($xml)) {
 				$linkedSidArticle = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($linkedArticle, $article->sectionId);
 				
 				//remplissage du tableau de navigation
-				$elements[] = array('title' => $linkedSidArticle->title, 'linkUrl' => $article, 'anchor' => dmString::slugify($linkedSidArticle.'-'.$linkedSidArticle->id));
+				$elements[] = array('title' => $linkedSidArticle->title, 'anchor' => dmString::slugify($linkedSidArticle.'-'.$linkedSidArticle->id));
 				
 				//ajout information de débug
 				//$articleBody.= debugTools::infoDebug(array('ID LEA' => $linkedArticle, 'Section ID' => $article->sectionId));
@@ -118,16 +118,13 @@ if (!is_file($xml)) {
 		            	else $position = '';
 		            	break;
 		        }
-
-        		$articleFilsNavigation .=
-								'<li class="element'.$position.'">'.
-									'<a href="'.$element['linkUrl'].'#'.$element['anchor'].'" class="link link_box">'.$element['title'].'</a>'.
-								'</li>';
+                        
+                        $articleFilsNavigation .=
+								'<li class="element'.$position.'">'._link($article)->text($element['title'])->set('.link_box')->anchor($element['anchor']).'</li>';
 			}
 			$articleFilsNavigation .=
 							'</ul>'.
 						'</div>';
-					
 			}
 		
 		//affichage du contenu

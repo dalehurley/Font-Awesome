@@ -4,9 +4,10 @@ all:
     use_js:   false
     check_dates: true 
     # IMPORTANT : allow use of lessphp parser
-    use_lessphp_compiler: true
+    # use_lessphp_compiler: true    # useless parameter -> graphical system v1 uses lessphp & v2 uses less.js with node and npm installation of less to have lessc commande line
     css_path: /theme/css/
     less_path: /theme/less/
+    toolbar: true
 
 dev:
   sf_less_plugin:

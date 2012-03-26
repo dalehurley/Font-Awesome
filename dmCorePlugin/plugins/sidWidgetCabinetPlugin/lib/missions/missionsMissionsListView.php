@@ -36,9 +36,9 @@ class missionsMissionsListView extends dmWidgetPluginView {
 
                 $missions = Doctrine_Query::create()
                     ->from('SidCabinetMission a')
-                    ->leftJoin('a.Translation b')
+                    ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                     ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
-                    ->orderBy('b.updated_at DESC')
+                    ->orderBy('aTranslation.updated_at DESC')
                     ->limit($nbArticles)
                     ->execute();
         
@@ -50,9 +50,9 @@ class missionsMissionsListView extends dmWidgetPluginView {
 
                 $missions = Doctrine_Query::create()
                     ->from('SidCabinetMission a')
-                    ->leftJoin('a.Translation b')
+                    ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                     ->where('a.is_active = ? ', array(true))
-                    ->orderBy('b.updated_at DESC')
+                    ->orderBy('aTranslation.updated_at DESC')
                     ->limit($nbArticles)
                     ->execute();
         

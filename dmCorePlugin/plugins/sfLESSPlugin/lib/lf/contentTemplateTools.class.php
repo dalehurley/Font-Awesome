@@ -22,6 +22,19 @@ class contentTemplateTools {
         'migration_version'
     );
 
+    public static $undesiredTablesWithoutSettings = array(// les tables non desirees dans le dump pour le template de contenu
+        'dm_catalogue',
+        'dm_contact_me', 
+        'dm_error',
+        'dm_group',
+        'dm_group_permission',
+        'dm_permission',
+        'dm_remember_key',
+        'dm_sent_mail',
+        'dm_trans_unit',
+        'migration_version'
+    );    
+
     /**
      * 
      *   Retourne la config de la base de donnees dans un tableau avec les entrees:
@@ -59,9 +72,19 @@ class contentTemplateTools {
 
     /**
      * 
+     *   Retourne la config de la base de donnees dans un tableau avec les entrees:
+     *  - user
+     *  - pwd
+     *  - dbname
+     */
+    public static function ndd() {
+        return dmConfig::get('site_name','xxx');
+    }
+    /**
+     * 
      * Effectue une sauvegarde des donnees de contenu d'un site, au format sql
      */
-    public static function dumpDB($file) {
+    public static function dumpDB($file,$settings=false) {
 
         $listTables = '';   // les tables à extraire
         // config base
@@ -75,9 +98,15 @@ class contentTemplateTools {
         $dbTables = dmDb::pdo('SHOW TABLES')->fetchAll();  // toutes les tables
         
         // on enleve les tables undesired
+        if ($settings){ // si l'argument "settings" est présent alors on sauvegarde en plus les tables de settings
+            $undesiredTables = self::$undesiredTablesWithoutSettings;
+        } else {
+            $undesiredTables = self::$undesiredTables;
+        }
+        
         $i = 1;
         foreach ($dbTables as $dbTable) {
-            if (!in_array($dbTable[0], self::$undesiredTables)) {
+            if (!in_array($dbTable[0], $undesiredTables)) {
                 $listTables .= $dbTable[0] . ' ';
                 //echo $dbTable[0] . " ajoutee au dump \n";
                 $i++;
@@ -86,13 +115,22 @@ class contentTemplateTools {
 
         //$return[]['dumpDB'] = $listTables;
         // dump de la base
-        $fileOUT = $file . "." . self::dumpExtension;
+        if ($settings){
+            $fileOUT = $file . ".". self::ndd() .".settings." . self::dumpExtension; // on ajoute un prefixe à l'extension pour reconnaitre lors du loadDB les dump avec settings
+            $dirOUTassets = $file . "." . self::ndd() .".settings." . self::dumpExtension . ".assets";
+            $dirOUTmodules = $file . "." . self::ndd() .".settings." .self::dumpExtension . ".modules";
+        } else {
+            $fileOUT = $file . "." . self::dumpExtension;
+            $dirOUTassets = $file . "." . self::dumpExtension . ".assets";
+            $dirOUTmodules = $file . "." . self::dumpExtension . ".modules";
+        }
+        
         // option -c pour ajouter les champs dans la requete INSERT
         $output = exec("mysqldump -t -c --host=" . $dbhost . " --user=" . $user . " --password=" . $pwd . " " . $dbname . " " . $listTables . "> " . $fileOUT);
         $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUT . '(' . filesize($fileOUT) . ' o)';
 
         // save du dossier uploads
-        $dirOUTassets = $file . "." . self::dumpExtension . ".assets";
+        
         // le nom du dossier web
         $webDirName = sfConfig::get('sf_web_dir');
         
@@ -110,7 +148,6 @@ class contentTemplateTools {
         $return[]['dumpDB'] = 'copie des assets';
 
         // save du dossier apps/front/modules/main
-        $dirOUTmodules = $file . "." . self::dumpExtension . ".modules";
         if (is_dir($dirOUTmodules)) {
             $command = "cp -R apps/front/modules/main " . $dirOUTmodules . "/;";
         } else {
@@ -160,11 +197,19 @@ class contentTemplateTools {
         $dbTables = dmDb::pdo('SHOW TABLES')->fetchAll();  // toutes les tables
         
         // on vide les toutes les tables sauf les tables undesired
+        $ext = substr($file, strlen($file) - strlen(".settings.".self::dumpExtension), strlen(".settings.".self::dumpExtension));
+
+        if ($ext == ".settings.".self::dumpExtension){ // si l'extension du fichier contient ".settings" alors on charge en plus les tables de settings
+            $undesiredTables = self::$undesiredTablesWithoutSettings;
+        } else {
+            $undesiredTables = self::$undesiredTables;
+        }         
+        
         $i = 1;
         foreach ($dbTables as $dbTable) {
-            if (!in_array($dbTable[0], self::$undesiredTables)) {
+            if (!in_array($dbTable[0], $undesiredTables)) {
                 dmDb::pdo('TRUNCATE TABLE ' . $dbTable[0]);
-                //$return[$i]['dumpDB'] = $dbTable[0] . ' videe ';                
+                //$return[]['COMMENT'] = $dbTable[0] . ' videe ';                
                 $i++;
             }
         }        
@@ -211,14 +256,67 @@ class contentTemplateTools {
         // load du dossier uploads
         // le dossier web
         $webDirName = substr(sfConfig::get('sf_web_dir'), strrpos(sfConfig::get('sf_web_dir'), '/') + 1);
-        $output = exec("cp -R " . $dirINassets ."/* ". $webDirName . "/;");
-        $return[]['COMMENT'] = 'copie des assets : '.$output;
+        //echo "cp -R " . $dirINassets ."/* ". $webDirName . "/;";
+        exec("cp -R " . $dirINassets ."/* ". $webDirName . "/;");
+        $return[]['COMMENT'] = 'copie des assets ';
         
         // load du dossier apps/front/modules/main
-        $output = exec("cp -R " . $dirINmodule ."/* apps/front/modules/;");
-        $return[]['COMMENT'] = 'copie du module main du front : '.$output;        
+        exec("cp -R " . $dirINmodule ."/* apps/front/modules/;");
+        $return[]['COMMENT'] = 'copie du module main du front ';        
 
         return $return;
+    }
+
+    /**
+     * Liste des themes graphiques disponibles
+     * Le tableau de retour est de la forme
+     * ['v1']
+     *   ['themeZ'] 
+     * ['v2']
+     *   ['themeX']
+     *   ['themeY']            
+     * @return array 
+     */
+    public static function dispoThemes() {
+        //---------------------------------------------------------------------------------
+        //        recuperation des differentes maquettes du coeur
+        //---------------------------------------------------------------------------------
+        // scan du dossier /data/_templates du plugin
+        $pluginDataDir = dirname(__FILE__) . '/../../data/_templates';   // les themes V1
+        $pluginLibDirTheme = dirname(__FILE__) . '/../../lib/vendor/_themes';         //les themes v2
+        $arrayTemplatesV1 = scandir($pluginDataDir);
+        $arrayTemplatesV2 = scandir($pluginLibDirTheme);
+        $dispoTemplates = array();
+        $dispoTemplatesV1 = array();
+        $dispoTemplatesV2 = array();
+        
+        foreach ($arrayTemplatesV1 as $template) {
+            // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
+            if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_' && substr($template, 0, 1) != '.') {
+                    $dispoTemplatesV1[] = $template;
+            }
+        }
+
+        foreach ($arrayTemplatesV2 as $template) {
+            // on affiche les themes non precedes par un "_" qui correspondent aux themes de test ou obsoletes
+            if ($template != '.' && $template != '..' && substr($template, 0, 1) != '_' && substr($template, 0, 1) != '.') {
+                    $dispoTemplatesV2[] = $template;
+            }
+        }
+
+        // on stocke tous les themes ensemble
+        $i = 1;
+        foreach ($dispoTemplatesV1 as $templateV1) {
+            $dispoTemplates['v1'][$i] = $templateV1;
+            $i++;
+        }
+        foreach ($dispoTemplatesV2 as $templateV2) {
+            $dispoTemplates['v2'][$i] = $templateV2;
+            $i++;
+        }
+
+        return $dispoTemplates;
+
     }
 
     // doctrine:data-dump et data-load abandonnes au profit de mysqldump

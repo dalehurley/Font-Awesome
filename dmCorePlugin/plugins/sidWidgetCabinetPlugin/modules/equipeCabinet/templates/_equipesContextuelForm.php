@@ -14,6 +14,7 @@ _tag('div',
     $form['titreBloc']->renderRow().
     $form['lien']->renderRow().	
     $form['nbArticles']->renderRow().
+    $form['mailTo']->renderRow().
     $form['withImage']->renderRow().
     $form['widthImage']->renderRow().
     $form['cssClass']->renderRow()

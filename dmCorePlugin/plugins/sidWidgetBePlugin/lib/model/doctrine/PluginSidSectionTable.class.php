@@ -24,8 +24,9 @@ class PluginSidSectionTable extends myDoctrineTable {
  */
     public function getSectionByTitleAndRubriqueId($title, $idRubrique) {
         $a = $this->createQuery('c')
-                        ->leftJoin('c.Translation rt')
-                        ->where('rt.title = ? and is_active = ? and rubrique_id = ?', array($title, true, $idRubrique));
+//                        ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'c')
+                        ->leftJoin('c.Translation ct')  
+                        ->where('ct.title = ? and c.is_active = ? and c.rubrique_id = ?', array($title, true, $idRubrique));
 
         if ($a->execute()->count() == 0) {
             return new SidSection();
@@ -36,8 +37,9 @@ class PluginSidSectionTable extends myDoctrineTable {
     
     public function findOneByTitleAndIsActiveAndRubriqueId($title, $rubriqueId) {
         $a = $this->createQuery('s')
+//                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 's')
                 ->leftJoin('s.Translation st')
-                ->where('st.title = ? and is_active = ? and rubrique_id = ?', array($title, true, $rubriqueId));
+                ->where('st.title = ? and s.is_active = ? and s.rubrique_id = ?', array($title, true, $rubriqueId));
 
         if ($a->execute()->count() < 1) {
             $section = new SidSection();
@@ -49,8 +51,9 @@ class PluginSidSectionTable extends myDoctrineTable {
     
     public function findOneByTitleAndRubriqueId($title, $rubriqueId) {
         $a = $this->createQuery('s')
+//                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 's')
                 ->leftJoin('s.Translation st')
-                ->where('st.title = ? and rubrique_id = ?', array($title, $rubriqueId));
+                ->where('st.title = ? and s.rubrique_id = ?', array($title, $rubriqueId));
 
         if ($a->execute()->count() < 1) {
             $section = new SidSection();
@@ -63,6 +66,7 @@ class PluginSidSectionTable extends myDoctrineTable {
     public function order_by_title() {
 
         $a = $this->createQuery('s')
+//                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 's')
                 ->leftJoin('s.Translation st')
                 ->orderBy('st.title');
         return $a->execute();

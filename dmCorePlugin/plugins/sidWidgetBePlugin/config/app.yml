@@ -26,7 +26,9 @@ all:
   dtd-article: lepechos.dtd
 
   nb-min-articles-slide: 3     # nombre minimum d'article pour afficher le slide Nivo slider
- 
+  nb-jours-max-date-article: 180  # nombre de jours maxi pour l'age d'un article qui sera exporté dans le fichier json
+  nb-articles-min-par-section: 30   # nombre minimum d'articles pour une section donnée 
+
   dm-pages:     
     # les renommages de pages (nom/slug/title/desc)
     # ancien : nouveau
@@ -54,10 +56,16 @@ all:
       ec_faq: questions/réponses
       ec_paie: paie
       ec_aides: aides
+      ec_guidecreation: "Guide création" 
+      vacances_scolaires: "vacances scolaires"
 
   # nom des sessions pour le bloc articleBySectionContextuel
   article-data-type-article : Article
   article-data-type-dossier : Dossier
+  article-data-type-agenda : Agenda
 
   # copyrightHolder des articles de la base éditoriale
   copyright-holder : Sid Presse
+  
+  # nombre d'article de la liste en bas des article BE (modif de article ListBySection)
+  nb-article-listing : 5
