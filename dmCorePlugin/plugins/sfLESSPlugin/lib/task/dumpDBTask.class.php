@@ -10,6 +10,7 @@ class dumpDBTask extends lioshiBaseTask {
             new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name') ,
             new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev') ,
             new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine') ,
+            new sfCommandOption('settings', null, sfCommandOption::PARAMETER_REQUIRED, 'Save settings?', false) ,            
             // add your own options here
             
         ));
@@ -125,7 +126,13 @@ EOF;
             $file = $arguments['file'];
         }
         
-        $results = contentTemplateTools::dumpDB($file);
+        // on sauvegarde en plus les tables settins (dmSettings et dmSettingsTranslation)
+        if ($options['settings']) {
+            $settings = true;
+        } else {
+            $settings = false;
+        }
+        $results = contentTemplateTools::dumpDB($file,$settings);
         $this->logSection('### dumpDB', 'Dump de la base locale');
         
         foreach ($results as $result) {

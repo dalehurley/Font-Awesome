@@ -40,8 +40,23 @@ class dmForm extends sfFormSymfony
   public function setup()
   {
     parent::setup();
+
+    // Code pour ajouter * au label des widgets ayant required=true dans leur validateur                
+    // le formatter appeller plus bas : dmList traite cette info lors de l'affichage en ajoutant une class css "required" au li contenant
+    // foreach ($this->getFormFieldSchema()->getWidget()->getFields() as $key => $object) {
+    //     $label = $this->getFormFieldSchema()->offsetGet($key)->renderLabelName();
+    //     if (isset($this->validatorSchema[$key]) and $this->validatorSchema[$key]->getOption('required') == true) {
+    //         $label = $label . ' *';
+    //     }
+    //     $this->widgetSchema->setLabel($key, $label);
+    // }
     
-    $this->widgetSchema->setFormFormatterName('dmList');
+    $decorator = new sfWidgetFormSchemaFormatterDmList($this->widgetSchema, $this->validatorSchema);
+    $this->widgetSchema->addFormFormatter('custom', $decorator);
+    $this->widgetSchema->setFormFormatterName('custom');   
+    
+    
+    //$this->widgetSchema->setFormFormatterName('dmList');
 
     $this->key = 'dm_form_'.self::$counter++;
 

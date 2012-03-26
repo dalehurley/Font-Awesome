@@ -23,10 +23,10 @@ abstract
 class PluginDmContactForm extends BaseDmContactForm {
     public function setup() {
         parent::setup();
-        $this->validatorSchema['body']->setOption('required', true)->setMessage('required', 'Please enter a message');
+
         $this->changeToEmail('email');
         $this->widgetSchema->setHelp('email', 'Your email will never be published');
-        $this->widgetSchema['body']->setLabel('Message');
+        $this->widgetSchema['body']->setLabel('Message');   
         $this->widgetSchema['name']->setLabel('Name');
         $this->widgetSchema['adresse']->setLabel('Adresse');
         $this->widgetSchema['fax']->setLabel('Fax');
@@ -37,17 +37,18 @@ class PluginDmContactForm extends BaseDmContactForm {
         $this->widgetSchema['postalcode']->setLabel('Postal code');
         $this->widgetSchema['phone']->setLabel('Phone number');
 
+        $this->validatorSchema['email']->setOption('required', true);
+        $this->validatorSchema['body']->setOption('required', true)->setMessage('required', 'Please enter a message');
+        $this->validatorSchema['name']->setOption('required', true);
         $this->validatorSchema['adresse']->setOption('required', false);
         $this->validatorSchema['fax']->setOption('required', false);   
-        $this->validatorSchema['title']->setOption('required', false);
         $this->validatorSchema['firstname']->setOption('required', false);
         $this->validatorSchema['function']->setOption('required', false);
         $this->validatorSchema['ville']->setOption('required', false);        
         $this->validatorSchema['postalcode']->setOption('required', false);
         $this->validatorSchema['phone']->setOption('required', false);
-      
 
-
+  
         $titles = array(
             'Monsieur' => 'Monsieur',
             'Madame' => 'Madame',
@@ -57,11 +58,13 @@ class PluginDmContactForm extends BaseDmContactForm {
             'choices' => $titles
         ));
         $this->validatorSchema['title'] = new sfValidatorChoice(array(
-            'choices' => array_keys($titles)
+            'choices' => array_keys($titles),
+            'required' => false
         ));
         if ($this->isCaptchaEnabled()) {
             $this->addCaptcha();
         }
+
     }
     public function addCaptcha() {
         $this->widgetSchema['captcha'] = new sfWidgetFormReCaptcha(array(

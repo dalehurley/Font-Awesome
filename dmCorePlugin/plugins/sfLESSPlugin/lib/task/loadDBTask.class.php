@@ -22,7 +22,7 @@ class loadDBTask extends lioshiBaseTask {
 The [loadDB|INFO] load a dump file into local diem Database.
 Call it with:
 
-  [php symfony loadDB [file] |INFO]
+  [php symfony loadDB [file] --settings=false |INFO]
 EOF;
     }
 
@@ -128,6 +128,7 @@ EOF;
         } else {
             $file = $arguments['file'];
         }
+
 
         $results = contentTemplateTools::loadDB($file);
         // on purge le cache

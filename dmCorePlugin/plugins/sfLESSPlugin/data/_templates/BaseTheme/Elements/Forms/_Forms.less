@@ -12,7 +12,8 @@
 //gestion des formulaires pour la grille courante
 form {
 	//suppression des marges et padddings
-	&, .dm_form_elements { margin: 0; padding: 0; }
+	&, 
+	.dm_form_elements { margin: 0; padding: 0; }
 	
 	.dm_form_element {
 		
@@ -25,14 +26,14 @@ form {
 		
 		input {
 			//padding horizontal soustrait à la largeur
-			@padHSub: (@icoOffset + 1px) * 2;
+			@padHSub: (@offS + 1px) * 2;
 			//application largeur
 			@gridWidth(3; @padHSub);
 		}
 		
 		textarea {
 			//padding horizontal soustrait à la largeur
-			@padHSub: (@icoOffset + 1px) * 2;
+			@padHSub: (@offS + 1px) * 2;
 			//application largeur
 			@gridWidth((@gridCol_Content - 3); @padHSub);
 			//padding vertical soustrait à la hauteur

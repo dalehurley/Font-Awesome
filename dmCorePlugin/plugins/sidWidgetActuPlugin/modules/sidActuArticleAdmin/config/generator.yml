@@ -29,6 +29,8 @@ generator:
           credentials: [ super_admin ]
         _delete:
           credentials: [ super_admin ]
+        _sort:
+          credentials: [super_admin]
       fields:
 #        sid_actu_type_list:
 #          label: 'Type des Articles'

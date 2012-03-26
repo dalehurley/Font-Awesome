@@ -1,6 +1,6 @@
 // _Fields.less
-// v1.0
-// Last Updated : 2011-03-29 10:20
+// v1.1
+// Last Updated : 2012-03-20 10:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -10,8 +10,8 @@
 
 //STYLAGE DE BASE
 label {
-	position: relative;
-	display: block;
+	//position: relative;
+	//display: block;
 	text-align: right;
 }
 
@@ -21,7 +21,7 @@ select, input, textarea, button {
 	//réduction taille pour maintien baseline
 	font-size: @fontSizeSmall;
 	line-height: (@gridBaseline - 4px);			//on soustrait la différence de padding et de bordure (2*1 + 2)
-	padding: 1px @icoOffset 1px @icoOffset;
+	padding: 1px @offS 1px @offS;
 	border-width: 1px;
 	border-style: solid;
 }
@@ -39,11 +39,7 @@ input[type=submit], input.submit, input[type=button], button {
 	height: @gridBaseline;
 	text-align: center;
 	
-	&:active {
-		padding-top: 2px;
-		//padding-right: (@icoOffset - 1);
-		//padding-left: (@icoOffset + 1);
-	}
+	&:active { padding-top: 2px; }
 }
 
 textarea {
@@ -59,128 +55,3 @@ textarea {
 	input[type=submit], input.submit, input[type=button], button { padding-top: 0; }
 	textarea { padding-top: 2px; }
 }
-
-/*
-//apparence des champs textes d'entrée
-input, textarea, select {
-	background-color: @colorCouleur3ClairSup;
-	
-	
-	margin: (@gridBaseline/2 -2px) 2px;
-	
-	
-	border: 0;
-	//margin: 0 2px @gridBaseline 2px;
-	//padding: 0;
-	//border: 1px solid @colorCouleur3Moyen;
-	//
-	//margin:2px;
-}
-
-input, textarea {
-	&:focus {
-		background-color: @colorWhite;
-		border-color: @colorCouleur3MoyenSup;
-	}
-	&:disabled { background-color: @colorCouleur3Clair; }
-}
-//complément de style pour navigateurs modernes
-.csstransitions {
-	input, textarea, select { @transition(background-color, border-color, box-shadow, text-shadow; .2s; ease-out; 0); }
-}
-.borderradius {
-	input, textarea, select { @borderRadiusCompress(.5em); }
-}
-.boxshadow {
-	input, textarea, select { @boxShadow(none); }
-}
-
-input {
-	background-image: url(/images/ico_validation.png);
-	background-position: 98% @icoIconHeight*2;
-	background-repeat: no-repeat;
-}
-//couleur par défaut pour les placeHolders
-input::-webkit-input-placeholder { color: @colorCouleur3Sup; }
-input:-moz-placeholder { color: @colorCouleur3Sup; }
-
-//input.error, input:focus:invalid, input.invalid:focus,
-//textarea.error, textarea:focus:invalid, textarea.invalid:focus
-input.error,
-textarea.error {
-	border-color: @colorRequired;
-	background-color: lighten(@colorRequired,30%);
-}
-//complément de style pour navigateurs modernes
-.boxshadow.rgba {
-	input.error, textarea.error { @dropShadow(0;0;@offS;0;fadeout(@colorRequired,50%)); }
-}
-//input.error, input:focus:invalid, input.invalid:focus
-input.error {
-	background-position: 98% @icoValidTopPos;
-}
-input.error::-webkit-input-placeholder { color: @colorRequired; }
-input.error:-moz-placeholder { color: @colorRequired; }
-
-//input:required, input.required,
-//textarea:required, textarea.required
-//input.required,
-//textarea.required { }
-
-input.required {
-	background-position: 98% @icoValidMidPos;
-}
-
-input:required:valid, input.required.valid,
-textarea:required:valid, textarea.required.valid {
-	border-color: @colorValidate;
-	//background-color: lighten(@colorValidate,30%);
-}
-input:required:valid, input.required.valid {
-	background-position: 98% @icoValidTBotPos;
-}
-//complément de style pour navigateurs modernes
-.boxshadow.rgba {
-	input:required:valid, input.required.valid,
-	textarea:required:valid, textarea.required.valid {
-		@dropShadow(0;0;@offS;0;fadeout(@colorValidate,50%));
-	}
-}
-
-input[type="submit"], input[type="button"] {
-	text-align: center;
-	padding-right: @offM;
-	padding-left: @offM;
-	background-color: @colorCouleur3Fonce;
-	border-color: @colorCouleur3Fonce;
-	color: @colorCouleur3ClairSup;
-	
-	&:hover {
-		background-color: @colorCouleur3Moyen;
-		color: @colorWhite;
-		border-color: @colorCouleur3FonceSup;
-	}
-}
-//complément de style pour navigateurs modernes (Merci Modernizr !)
-.cssgradients {
-	input[type="submit"], input[type="button"] {
-		@verticalGradient(@colorCouleur3Moyen; @colorCouleur3Fonce);
-		//&:hover { @verticalGradient(@colorCouleur3Fonce; @colorCouleur3Moyen); }
-	}
-}
-.borderradius {
-	input[type="submit"], input[type="button"] { @borderRadiusCompress(1em); }
-}
-.textshadow{
-	input[type="submit"], input[type="button"] {
-		text-shadow: 1px 1px 1px @colorText;
-		//&:hover { text-shadow: -1px -1px -1px @colorText; }
-	}
-}
-.boxshadow {
-	input[type="submit"], input[type="button"] {
-		@insetShadow(0; 0; 0; 0; transparent);
-		&:hover { @insetShadow(0; 0; 1em; .5em; @colorText); }
-	}
-}
-*/

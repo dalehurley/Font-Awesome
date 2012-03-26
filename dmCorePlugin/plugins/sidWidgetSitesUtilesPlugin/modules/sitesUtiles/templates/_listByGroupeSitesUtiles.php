@@ -6,44 +6,84 @@ foreach ($sitesUtilesPager as $sitesUtiles) {
     $firstSitesUtilesGroup = $sitesUtiles->getGroupeSitesUtiles()->title;
     break;
 }
-$html = get_partial('global/titleWidget', array('title' => $firstSitesUtilesGroup));
+echo get_partial('global/titleWidget', array('title' => $firstSitesUtilesGroup));
 
 //affichage du pager du haut
-$html.= get_partial('global/navigationWrapper', array('placement' => 'top', 'pager' => $sitesUtilesPager));
+echo get_partial('global/navigationWrapper', array('placement' => 'top', 'pager' => $sitesUtilesPager));
 
 //ouverture du listing
-$html.= _open('ul.elements');
+echo _open('ul.elements');
 
 //compteur
-$count = 0;
-$maxCount = count($sitesUtilesPager);
+// $count = 0;
+// $maxCount = count($sitesUtilesPager);
+$i = 0;
+$i_max = count($sitesUtilesPager); // il faut compter le nombre de resultats pour la page en cours, count($articlePager) renvoie la taille complète du pager	
 
-foreach ($sitesUtilesPager as $sitesUtiles) {
+foreach ($sitesUtilesPager as $article) {
 	//incrémentation compteur
-	$count++;
+	// $count++;
 	
 	//options de l'article
-	$articleOpt = array(
-					'name' => $sitesUtiles,
-					'description' => $sitesUtiles->description,
-					'image' => $sitesUtiles->getImage(),
-					'url' => $sitesUtiles->url,
-					'isUrlBlank' => true,
-					'count' => $count,
-					'maxCount' => $maxCount,
-					'container' => 'li.element',
-					'isListing' => true
-				);
+	// $articleOpt = array(
+	// 				'name' => $sitesUtiles,
+	// 				'description' => $sitesUtiles->description,
+	// 				'image' => $sitesUtiles->getImage(),
+	// 				'url' => $sitesUtiles->url,
+	// 				'isUrlBlank' => true,
+	// 				'count' => $count,
+	// 				'maxCount' => $maxCount,
+	// 				'container' => 'li.element',
+	// 				'isListing' => true
+	// 			);
 	
+	// //ajout de l'article
+	// $html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
+
+	$i++;
+	$position = '';
+	switch ($i){
+	    case '1' : 
+	      	if ($i_max == 1) $position = ' first last';
+	       	else $position = ' first';
+	        break;
+	    default : 
+	       	if ($i == $i_max) $position = ' last';
+	       	else $position = '';
+	       	break;
+	}
+
+
+	$media = $article->getImage();
+	$imageHtml = '';
+	if (is_object($media)){  
+		$imageHtml = 	
+			'<span class="imageWrapper">'.
+				//_media($media)->height('35px')->method('scale').
+				_media($media)->size(80,80)->method('left').
+			'</span>';
+	}
+
 	//ajout de l'article
-	$html.= get_partial('global/schema/Thing/CreativeWork/Article', $articleOpt);
+	echo 
+	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">';
+	echo 
+			$imageHtml.
+			'<span class="wrapper">'.
+				'<span class="subWrapper">'.
+					'<span itemprop="name" class="title itemprop name">'.$article->getTitle().'</span>'.
+					'<meta content="'.$article->createdAt.'" itemprop="datePublished">'.
+				'</span>'.
+				'<span itemprop="description" class="teaser itemprop description">'.$article->description.'</span>'.
+			'</span>'
+	;
+	echo '</li>';
+
 }
 	
 //fermeture du listing
-$html.= _close('ul.elements');
+echo _close('ul.elements');
 
 //affichage du pager du bas
-$html.= get_partial('global/navigationWrapper', array('placement' => 'bottom', 'pager' => $sitesUtilesPager));
+echo get_partial('global/navigationWrapper', array('placement' => 'bottom', 'pager' => $sitesUtilesPager));
 
-//affichage html en sortie
-echo $html;

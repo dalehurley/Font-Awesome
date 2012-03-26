@@ -1,17 +1,21 @@
 // _Fields.less
-// v1.0
-// Last Updated : 2011-06-29 16:20
+// v1.1
+// Last Updated : 2012-03-19 14:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //STYLAGE DES DIFFÉRENTS CHAMPS POUR LE TEMPLATE
 
 //couleur par défaut pour les placeHolders
-input {
+input, textarea {
+	//ciblage natif
 	&::-webkit-input-placeholder { color: @colorCouleur3Sup; }
 	&:disabled::-webkit-input-placeholder { color: @colorCouleur3Moyen; }
 	&:-moz-placeholder { color: @colorCouleur3Sup; }
 	&:disabled:-moz-placeholder { color: @colorCouleur3Moyen; }
+	//utilisé avec jQuery-placeholder
+	&.placeholder { color: @colorCouleur3Sup; }
+	&.placeholder:disabled { color: @colorCouleur3Moyen; }
 }
 
 //champs textes d'entrée

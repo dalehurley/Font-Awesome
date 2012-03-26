@@ -68,7 +68,7 @@ class DmMediaForRecordForm extends DmMediaForm
       unset($this->widgetSchema['remove'], $this->validatorSchema['remove']);
     }
     // rajout stef pour indiquer comment supprimer une image
-    $this->widgetSchema->setHelps(array('remove' => 'Cochez la case pour supprimer l\'image puis "Enregistrer"'));
+    $this->widgetSchema->setHelps(array('remove' => 'Cochez la case pour ci-dessus pour supprimer l\'image puis "Enregistrer"'));
     // fin rajout stef
   }
   

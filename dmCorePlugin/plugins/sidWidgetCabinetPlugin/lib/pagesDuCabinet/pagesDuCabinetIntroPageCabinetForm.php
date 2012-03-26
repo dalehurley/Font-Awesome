@@ -3,17 +3,24 @@
 class pagesDuCabinetIntroPageCabinetForm extends dmWidgetPluginForm {
 
 
+    protected static $dmPageList = array();
     public function configure() {
 
         parent::configure();
         
-        $this->widgetSchema['page'] = new sfWidgetFormDoctrineChoice(array(
-                    'model' => 'SidCabinetPageCabinet'
-                ));
-        $this->validatorSchema['page'] = new sfValidatorDoctrineChoice(array(
-                    'required' => true,
-                    'model' => 'SidCabinetPageCabinet'
-                ));
+        $pageCabinets = dmDb::table('SidCabinetPageCabinet') //->findAllBySectionId($vars['section']);
+                ->createQuery('p')
+                ->where('p.is_active = ?',true)
+                ->orderBy('position')
+                ->execute();
+        
+       foreach($pageCabinets as $pageCabinet){
+           self::$dmPageList[$pageCabinet->id] = $pageCabinet->getTitle();
+           
+       }
+        
+        $this->widgetSchema['page'] = new sfWidgetFormChoice(array('choices' => self::$dmPageList)); 
+        $this->validatorSchema['page'] = new sfValidatorChoice(array('choices' => array_keys(self::$dmPageList)));
 
         $this->widgetSchema['lien']->setDefault('Vers la page du cabinet');
         

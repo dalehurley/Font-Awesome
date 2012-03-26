@@ -12,7 +12,7 @@
 	//Définition du plugin
 	$.fn.menuAccordion = function(options) {
 		//test ajout de debug
-		$.fn.menuAccordion.debug("Activation du menu : " + $(this).attr("class"));
+		$.fn.menuAccordion.debug("menuAccordion | initialisation : " + $(this).attr("class"));
 		
 		// build main options before element iteration
 		var opts = $.extend({}, $.fn.menuAccordion.defaults, options);

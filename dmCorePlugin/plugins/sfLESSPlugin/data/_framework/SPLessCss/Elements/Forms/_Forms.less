@@ -6,36 +6,39 @@
 
 //STYLAGE DE BASE
 form {
-	.isLess & { background-color: #D1E3ED; }
+	.isLess & { background-color: fadeout(#D1E3ED, 50%); }
 	margin-top: 0;
 	margin-bottom: @gridBaseline;
 	
 	.dm_form_elements {
-		.isLess & { background-color: #A4D3ED; }
+		.isLess & { background-color: fadeout(#A4D3ED, 50%); }
 		margin-left: 0;
 		margin-bottom: @gridBaseline;
-		padding: 0;
+		padding: 10px 5px;;
 		list-style-type: none;
 	}
 	.dm_form_element {
 		.isLess &:nth-of-type(odd) {
-			background-color: #45A5D9;
+			background-color: fadeout(#45A5D9, 50%);
 			input, textarea, select { border-color: red; }
 		}
 		.isLess &:nth-of-type(even) {
-			background-color: #3B85AD;
+			background-color: fadeout(#3B85AD, 50%);
 			input, textarea, select { border-color: green; }
 		}
 		margin-bottom: @gridBaseline;
 	}
+	.dm_form_element > label.required:after {
+		content: " *";
+	}
 	.dm_help_wrap {
-		.isLess & { background-color: #8AFFD8; }
+		.isLess & { background-color: fadeout(#8AFFD8, 50%); }
 		line-height: @gridBaseline;
 		vertical-align: top;
 		font-size: @fontSizeSmall;
 	}
 	.error_list {
-		.isLess & { background-color: #FF8A9F; }
+		.isLess & { background-color: fadeout(#FF8A9F, 50%); }
 		line-height: @gridBaseline;
 		vertical-align: top;
 		font-size: @fontSizeSmall;
@@ -43,6 +46,7 @@ form {
 		padding: 0;
 		margin-left: 0;
 		margin-bottom: 0;
+		color: red;
 		li { margin: 0; padding: 0; }
 	}
 }

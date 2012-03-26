@@ -1,6 +1,7 @@
 <?php
 
-class vacpicpddForm extends dmForm {
+class vacpicpddForm extends baseForm {
+
     protected static $listePeriodicite = array(
         12 => 'Mois',
         1 => 'Ans',
@@ -11,7 +12,8 @@ class vacpicpddForm extends dmForm {
         0 => 'Versements fin',
         1 => 'Début de période'
     );
-    public function configure() {
+    public function setup() {
+
         $this->setWidgets(array(
             'capital' => new sfWidgetFormInputText() ,
             'duree' => new sfWidgetFormInputText() ,
@@ -56,5 +58,8 @@ class vacpicpddForm extends dmForm {
                 'invalid' => 'Le taux proportionnel annuel doit être numérique',
             )) ,
         ));
+
+        parent::setup(); // call setup of dmForm to have html templating dm_form_element li and ul...
+
     }
 }
