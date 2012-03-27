@@ -48,6 +48,10 @@ generator:
           label: Présentation du cabinet (pour plan)
         resume_team:
           label: Présentation de l'implantation (pour page équipe)
+        file_form:
+          label: 'Choisir un fichier'
+        image_form:
+          label: 'Choisir une image'
         
       list:
         display:
@@ -59,12 +63,9 @@ generator:
           - tel
           - fax
           - email
-          - region_ec
-          - region_cc
           - is_active
           - siege_social
-          - created_at
-          - updated_at
+          - image
         sort:
           - position
           - asc
@@ -96,6 +97,8 @@ generator:
           Renseignement supplémentaires pour CGP : [orias, cif, carte_pro, carte_pro_locality]
           'Résumé du cabinet': [resume_town]
           "Résumé de l'équipe": [resume_team]
+          Image: [image_form, image_view]
+          Fichier : [ file_form, file_view, title_file]
         class: SidCoordNameAdminForm
         fields: {  }
       edit: ~

@@ -34,8 +34,14 @@ echo _open('section', array('class' => 'supWrapper clearfix first last'));
 
         echo _open('li', array('class' => 'element itemscope Person ' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope', 'id' => dmString::slugify($equipe->getFirstName() . '-' . $equipe->getName())));
 
-        if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
-            echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
+        if ($withImage == TRUE){
+            if($equipe->getImage()->checkFileExists() == true) {
+                $trombi = $equipe->getImage();
+            }
+            else {
+                $trombi = ($equipe->getTitle() == 'Mr') ? '/sidWidgetCabinetPlugin/_images/silhouette-homme.png' : '/sidWidgetCabinetPlugin/_images/silhouette-femme.png';
+            }
+            echo _tag('span', array('class' => 'imageWrapper'), _media($trombi)->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
         };
         if($civ == TRUE) $civ = $equipe->getTitle();
         echo _open('span', array('class' => 'wrapper'));

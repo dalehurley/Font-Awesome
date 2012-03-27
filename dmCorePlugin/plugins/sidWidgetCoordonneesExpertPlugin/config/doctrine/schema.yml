@@ -75,3 +75,20 @@ SidCoordName:
     carte_pro_locality:
       type: string(50)
       notnull: false
+    image:
+      type: integer
+    file:
+      type: integer
+    title_file:
+      type: string(255)
+  relations:
+    Image:
+      class: DmMedia
+      local: image
+      foreignAlias: Photos
+      onDelete: Cascade
+    Files:
+      class:          DmMedia
+      local:          file
+      foreignAlias:   SidCoordName
+      onDelete: Cascade

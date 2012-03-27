@@ -66,6 +66,10 @@ class dmWidgetGoogleMapShowForm extends dmWidgetPluginForm
     $this->widgetSchema['withResume'] = new sfWidgetFormInputCheckbox();
     $this->validatorSchema['withResume'] = new sfValidatorBoolean();
     $this->widgetSchema['withResume']->setLabel('Afficher le résumé de l\'implantation');
+    
+    $this->widgetSchema['smartGoogleMap'] = new sfWidgetFormInputHidden(array(),array('value' => 'false'));
+    $this->validatorSchema['smartGoogleMap'] = new sfValidatorBoolean(array('required' => false));
+    
     $this->widgetSchema->setHelp('length','Longueur du texte avant de le tronquer, 0 pour voir tout le texte');
     if(!$this->getDefault('width'))
     {

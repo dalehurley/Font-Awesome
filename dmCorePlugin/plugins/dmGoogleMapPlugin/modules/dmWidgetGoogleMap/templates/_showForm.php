@@ -41,7 +41,8 @@ _tag('div#'.$baseTabId.'_presentation',
     $form['cssClass']->renderRow().
     $form['titreBloc']->renderRow().
     $form['length']->renderRow().
-    $form['withResume']->renderRow()
+    $form['withResume']->renderRow().
+    $form['smartGoogleMap']->render()
   )
 ),
 

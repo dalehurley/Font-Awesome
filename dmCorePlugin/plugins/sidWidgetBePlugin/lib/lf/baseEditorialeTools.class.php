@@ -861,9 +861,9 @@ class baseEditorialeTools {
                                     // }
                                     // Si le xml est plus récent que celui de la bdd, alors j'update le titre, le chapeau et la rubrique
                                     if ($date_update > $article->Translation[$arrayLangs[0]]->updated_at) {
-                                        $filename = $update->getElementsByTagName('Code')->item(0)->nodeValue;
-                                        $titre = $update->getElementsByTagName('Headline')->item(0)->nodeValue;
-                                        $chapo = $update->getElementsByTagName('Head')->item(0)->nodeValue;
+                                        $filename = $xml->getElementsByTagName('Code')->item(0)->nodeValue;
+                                        $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue;
+                                        $chapo = $xml->getElementsByTagName('Head')->item(0)->nodeValue;
                                         $article->Translation[$arrayLangs[0]]->title = $titre;
                                         $article->Translation[$arrayLangs[0]]->chapeau = $chapo;
                                         $article->setSectionId($section->id);
