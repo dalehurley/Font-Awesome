@@ -15,7 +15,7 @@ SidCabinetPageCabinet:
 #      notnull: true
     resume:
       type: clob
-#      extra: ckeditor
+      extra: ckeditor
       notnull: false
     text:
       type: clob
