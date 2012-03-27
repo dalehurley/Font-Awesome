@@ -42,7 +42,7 @@ class SidCabinetPageCabinetAdminForm extends BaseSidCabinetPageCabinetForm
   public function setup() {
         parent::setup();
         $this->widgetSchema->setHelps(array(
-            'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
+//            'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
             'title' => '<b>Ce libellé apparaitra dans le menu et dans le fil d\'ariane</b>',
             'image_form' => 'Illustrez votre actualité avec une photo',
             'file_form' => 'Vous pouvez insérer un fichier des formats suivants : .pdf, doc, .docx, .xls, .xlsx, .odt, .ods, .zip.',
