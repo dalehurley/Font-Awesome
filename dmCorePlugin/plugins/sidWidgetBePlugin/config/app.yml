@@ -60,8 +60,8 @@ all:
       ec_faq: questions/réponses
       ec_paie: paie
       ec_aides: aides
-      ec_guidecreation: Guide création 
-      ec_idees_business: Idées business 
+      ec_guidecreation: guide création 
+      ec_idees_business: idées business 
       vacances_scolaires: vacances scolaires
       ec_e_commerce : e-commerce
       ec_services_personne : services à la personne
@@ -74,6 +74,19 @@ all:
       ec_economie_sociale : economie sociale
       ec_batiment : bâtiment
       ec_artisanat : artisant
+      ec_01_idee_projet: projet
+      ec_02_analyse_secteur_activite: secteur d'activité
+      ec_03_choix_forme_juridique: forme juridique
+      ec_04_place_immobilier: local
+      ec_05_regime_fiscal: régime fiscal
+      ec_06_regime_social: régime social
+      ec_07_viabilite_economique: business plan
+      ec_08_mode_financement: financement
+      ec_09_partenaires_conseils: partenaires
+      ec_10_aides_creation: aides
+      ec_11_formalites: formalités
+
+
 
   # nom des sessions pour le bloc articleBySectionContextuel
   article-data-type-article : Article
