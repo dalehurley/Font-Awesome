@@ -53,6 +53,18 @@ form {
 			//application largeur
 			@gridWidth(2);
 		}
+
+		//stylage par défaut du captcha
+		#recaptcha_widget_div, #recaptcha_area #recaptcha_table.recaptchatable {
+			//application largeur (largeur contenu moins largeur label)
+			@gridWidth((@gridCol_Content - 3));
+		}
+
+		#recaptcha_widget_div {
+			float: right !important;
+			//on replace l'élément lorsque précédé d'une liste d'erreur
+			.error_list ~ textarea { clear: right !important; }
+		}
 	}
 	
 	.dm_help_wrap {
