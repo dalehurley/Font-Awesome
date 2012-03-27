@@ -2,7 +2,7 @@
 
 echo _tag('h4.title','Valeur acquise par un capital placé à intérêts composés pendant une durée déterminée');
 
-echo $form.'<hr style="clear:both; visibility:hidden;">';
+echo $form;
 
 if ($sf_user->hasFlash('results')) {
 
@@ -46,8 +46,8 @@ if ($sf_user->hasFlash('results')) {
 		</tr>
 	</tbody></table>
 	
-	<h2 >Résultat </h2>
-	<em >
+	<h2>Résultat</h2>
+	<em>
 		un capital de 34 000 € placé en fin de période pendant 5 ans au taux proportionnel annuel de 9 % s'élève à <b>52 313,21 €</b>.
 	</em>
 

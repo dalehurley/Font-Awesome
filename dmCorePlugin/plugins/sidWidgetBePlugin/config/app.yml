@@ -26,8 +26,12 @@ all:
   dtd-article: lepechos.dtd
 
   nb-min-articles-slide: 3     # nombre minimum d'article pour afficher le slide Nivo slider
-  nb-jours-max-date-article: 180  # nombre de jours maxi pour l'age d'un article qui sera exporté dans le fichier json
-  nb-articles-min-par-section: 30   # nombre minimum d'articles pour une section donnée 
+
+  sections:                    # les sections à tronquer
+    truncated: 
+      - ec_actualites
+  nb-jours-max-date-article: 180  # nombre de jours maxi pour l'age d'un article qui sera exporté dans le fichier json pour les sections à tronquer
+  nb-articles-min-par-section: 30   # nombre minimum d'articles pour une section donnée pour les sections à tronquer
 
   dm-pages:     
     # les renommages de pages (nom/slug/title/desc)
@@ -46,7 +50,7 @@ all:
       ec_juridique: juridique   
       ec_social: social
       ec_fiscal: fiscal      
-      ec_creation_entreprise: "création d'entreprise"
+      ec_creation_entreprise: création d'entreprise
       ec_gestion: gestion     
       ec_patrimoine: patrimoine
       ec_chiffres: chiffres
@@ -56,8 +60,20 @@ all:
       ec_faq: questions/réponses
       ec_paie: paie
       ec_aides: aides
-      ec_guidecreation: "Guide création" 
-      vacances_scolaires: "vacances scolaires"
+      ec_guidecreation: Guide création 
+      ec_idees_business: Idées business 
+      vacances_scolaires: vacances scolaires
+      ec_e_commerce : e-commerce
+      ec_services_personne : services à la personne
+      ec_services_entreprises : services aux entreprises
+      ec_restauration : restauration
+      ec_nouvelles_techno : nouvelles technologies
+      ec_loisirs : loisirs
+      ec_idees_etranger : idées de l'étranger
+      ec_green_business : green business
+      ec_economie_sociale : economie sociale
+      ec_batiment : bâtiment
+      ec_artisanat : artisant
 
   # nom des sessions pour le bloc articleBySectionContextuel
   article-data-type-article : Article
@@ -69,3 +85,19 @@ all:
   
   # nombre d'article de la liste en bas des article BE (modif de article ListBySection)
   nb-article-listing : 5
+
+  traductions-module:     
+    # changement des noms des rubriques en fonction du client_type (ec ou cgp)
+    # ancien : nouveau
+    cgp-fr:
+      "Les Missions": Les Services
+      "Description des missions": Description des services
+      "Mission|Les Missions": Service|Les Services
+
+    aga-fr:
+      "Les Missions": Les Prestations
+      "Description des missions": Description des prestations
+      "Mission|Les Missions": Prestation|Les Prestations
+      "Description du Cabinet": "Description de l'association"
+      "Présentation du Cabinet": "Présentation de l'Association"
+      "Le Cabinet": "L'Association"

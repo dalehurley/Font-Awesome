@@ -55,7 +55,8 @@
                         // on teste si le fichier image est présent sur le serveur avec son chemin absolu
                         if($imgExist && $imgSmallExist) {
                             $i++;
-                            echo '<li><a href="#"><img src="'.$dessin['imgLinkSmall'].'" data-large="'.$dessin['imgLinkBig'].'" alt="'.$dessin['titre'].'" data-description="'.' ('.$dessin['dateArticle'].') '.$dessin['titre'].': '.$dessin['chapeau'].'" /></a></li>';
+                            $chapo = ($dessin['chapeau']=='')? '' : ' : '.$dessin['chapeau'];
+                            echo '<li><a href="#"><img src="'.$dessin['imgLinkSmall'].'" data-large="'.$dessin['imgLinkBig'].'" alt="'.$dessin['titre'].'" data-description="'.' ('.$dessin['dateArticle'].') '.$dessin['titre'].$chapo.'" /></a></li>';
                         } 
                     }
                 ?>                                    

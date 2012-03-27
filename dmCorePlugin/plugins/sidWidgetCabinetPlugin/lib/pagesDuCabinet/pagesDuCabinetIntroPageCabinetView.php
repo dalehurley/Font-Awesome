@@ -29,7 +29,7 @@ class pagesDuCabinetIntroPageCabinetView extends dmWidgetPluginView {
 
         $pageCabinets = dmDb::table('SidCabinetPageCabinet')->findById($vars['page']);
 //        $pageCabinets = dmDb::table('SidCabinetPageCabinet')->createQuery('a')->where('a.id = ? and a.is_active = ?',array($vars['page'],true))->execute();
-        echo count($pageCabinets);
+        //echo count($pageCabinets);
 //        ($vars['withImage'] == true) ? (($pageCabinet->getImage()->checkFileExists() == true) ? $image = $pageCabinet->getImage() : $image = ''): $image = '';
         ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $pageCabinets[0]->getTitle():'';
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';

@@ -37,10 +37,9 @@ class articleComponents extends myFrontModuleComponents
     }
     else{
         $this->articlePager = $this->getPager($query);
-    $this->route = $this->getPage()->getTitle();
-    $ancestors = $this->context->getPage()->getNode()->getAncestors();
-    $this->parent = $ancestors[count($ancestors)-1]->getTitle();
-    
+        $this->route = $this->getPage()->getTitle();
+        $ancestors = $this->context->getPage()->getNode()->getAncestors();
+        $this->parent = $ancestors[count($ancestors)-1]->getTitle();
     }
     
     //$this->articlePager->setOption('ajax', true);

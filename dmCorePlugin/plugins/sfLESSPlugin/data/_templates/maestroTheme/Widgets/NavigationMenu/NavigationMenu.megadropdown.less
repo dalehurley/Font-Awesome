@@ -27,8 +27,14 @@ ul.menu-megadropdown {
 	#dm_sidebar_left & {
 		//largeur en fonction de la zone
 		// @gridWidth(@gridCol_SidebarLeft);
-		@gridWidth(3);
-		@gridMarginLeft(@gridCol_SidebarLeft - 3);
+
+		//calcul du nombre de colonnes
+		@midCol: floor(@gridCol_SidebarLeft/2);
+
+		//application dimensions et marge
+		@gridWidth(@midCol);
+		@gridMarginLeft(@gridCol_SidebarLeft - @midCol);
+		
 		ul { margin-left: 0; }
 	}
 	#dm_sidebar_right & {

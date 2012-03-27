@@ -32,6 +32,12 @@ generator:
       fields:
         is_active:
           label: Active
+        image_form:
+          label: 'Choisir une image'
+        title_file:
+          label: 'Nom du fichier'
+        file_form:
+          label: 'Choisir un fichier'
       list:
         batch_actions:
           delete:
@@ -45,6 +51,7 @@ generator:
           - is_active
           - created_at
           - updated_at
+          - image
 #          - description
         sort:
           - position
@@ -64,6 +71,8 @@ generator:
           'Publication sur le site': [is_active]
           'Titre de la page': [title]
           Description: [description]
+          Image: [image_form, image_view]
+          Fichier : [ file_form, file_view, title_file]
         class: SidIndexSitesUtilesAdminForm
         fields: {  }
       edit: ~

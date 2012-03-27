@@ -42,18 +42,18 @@ class SidCabinetEquipeAdminForm extends BaseSidCabinetEquipeForm {
         
         $form = parent::createMediaFormForImage();
         unset($form['legend'], $form['author'], $form['license']);
-        if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
-            unset($form['file']);
-        }
+//        if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
+//            unset($form['file']);
+//        }
         return $form;
     }
 
     public function setup() {
         parent::setup();
         // pour rendre l'image non requise
-        if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
-           $this->validatorSchema['image_form']->setOption('required',false);
-        }
+//        if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
+//           $this->validatorSchema['image_form']->setOption('required',false);
+//        }
 //        $this->widgetSchema['m_sections_list'] = new sfWidgetFormDoctrineChoice(array(
 //                    'model' => 'SidSection',
 //                    'method' => 'show_rubrique_section',

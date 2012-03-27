@@ -2,7 +2,7 @@
 
 echo _tag('h4.title','Calcul de la durée');
 
-echo $form.'<hr style="clear:both; visibility:hidden;">';
+echo $form;
 
 if ($sf_user->hasFlash('results')) {
 

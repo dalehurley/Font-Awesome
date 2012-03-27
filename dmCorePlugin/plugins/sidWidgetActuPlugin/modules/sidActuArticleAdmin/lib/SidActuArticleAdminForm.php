@@ -40,7 +40,7 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
     }
     
     $this->widgetSchema->setHelps(array(
-            'file_form' => 'Vous pouvez insérer un fichier des formats suivants : Pdf, Word, OpenOffice.',
+            'file_form' => 'Vous pouvez insérer un fichier des formats suivants : .pdf, doc, .docx, .xls, .xlsx, .odt, .ods, .zip.',
             'title_file' => 'Nouveau nom de votre fichier',
             'm_sections_list' => 'Vous pouvez lier ce membre de votre equipe à une rubrique/section (Affichage contextuel).',
             'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
@@ -61,12 +61,16 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
 
 	// choose mime types allowed
 	$form->setMimeTypeWhiteList(array(
-	    'application/pdf',
+	    'application/pdf', // .pdf
 	    'application/msword', // .doc
 	    'application/vnd.oasis.opendocument.text', // .odt
 	    'web_images',
-//            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'application/zip'
+            'application/zip', // .zip
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+            'application/vnd.ms-excel', // .xls
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+            'application/vnd.oasis.opendocument.spreadsheet', // .ods
+            
 	));
         return $form;
     }

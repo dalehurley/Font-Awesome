@@ -492,7 +492,7 @@ $queryMajSiteName = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s
 $dbh->query($queryMajSiteName);
 
 //-------------------------------------------------------------------------------------
-//    Create the dmSetting type_client
+//    Create the dmSetting client_type
 //-------------------------------------------------------------------------------------
 // on affiche les choix d'environnemnts pour les valeurs par defaut
 $dispoTypes = array (
@@ -517,6 +517,32 @@ $numType = $this->askAndValidate(array('', 'Le numero du type de client choisi?'
 // sauvegarde du site_name dans la table dmSetting
 $queryMajclientType = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$dispoTypes[$numType].'\' WHERE s.name = \'client_type\';';
 $dbh->query($queryMajclientType);
+
+//-------------------------------------------------------------------------------------
+//    Create the dmSetting site_type
+//-------------------------------------------------------------------------------------
+// on affiche les choix d'environnemnts pour les valeurs par defaut
+$dispoTypes = array (
+  1 => 'site',
+  2 => 'basedoc'
+);
+$this->logBlock('Types de site disponibles:', 'INFO_LARGE');
+foreach ($dispoTypes as $k => $dispoType) {
+    $this->logSection($k,$dispoType);
+}
+// choix du dump
+$numType = $this->askAndValidate(array('', 'Le numero du type de site choisi?', ''), new sfValidatorChoice(
+                        array(
+                          'choices' => array_keys($dispoTypes), 
+                          'required' => true),
+                        array(
+                          'invalid' => 'Le type de site n\'existe pas'
+                          )
+        ));
+
+// sauvegarde du site_name dans la table dmSetting
+$queryMajSiteType = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$dispoTypes[$numType].'\' WHERE s.name = \'site_type\';';
+$dbh->query($queryMajSiteType);
 
 //-------------------------------------------------------------------------------------
 //    The END.
