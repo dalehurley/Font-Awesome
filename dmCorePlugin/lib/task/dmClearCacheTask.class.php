@@ -46,24 +46,26 @@ EOF;
         // récupération du nom de domaine du site via la table dmSetting
         $settings = dmDb::query('DmSetting s')->withI18n($options['lang'])->where('s.name = ?', 'base_urls')->limit(1)->fetchRecords();
         
-        foreach ($settings as $setting) {
-            // une liste json des url (les controleurs) utilisées dans le site, pour chaque app et environnement accédés via un navigateur
-            $siteEnvsUrl = json_decode($setting->Translation[$options['lang']]->value);
-        }
-        $envsIndex = get_object_vars($siteEnvsUrl);
-        // on récupère le premier controleur disponible
-        
-        foreach ($envsIndex as $key => $value) {
-            $fileDeleteUrl = $value;
-            break;
-        }
-        // url du fichier delete.php
-        $fileDeleteUrl = substr($fileDeleteUrl, 0, strrpos($fileDeleteUrl, '/')) . '/ccApc.php';
+        // si value dans la table dmsetting pour base_urls
+        if (count($settings)!=0){
+            foreach ($settings as $setting) {
+                // une liste json des url (les controleurs) utilisées dans le site, pour chaque app et environnement accédés via un navigateur
+                $siteEnvsUrl = json_decode($setting->Translation[$options['lang']]->value);
+            }
+            $envsIndex = get_object_vars($siteEnvsUrl);
+            // on récupère le premier controleur disponible
+            
+            foreach ($envsIndex as $key => $value) {
+                $fileDeleteUrl = $value;
+                break;
+            }
+            // url du fichier delete.php
+            $fileDeleteUrl = substr($fileDeleteUrl, 0, strrpos($fileDeleteUrl, '/')) . '/ccApc.php';
 
-        // création d'un fichier /htdocs/delete.php contenant la routine de suppression des fichiers créé par apache via appel du navigateur
-        $fileCcApc = getcwd() . "/htdocs/ccApc.php";
-        $f = fopen($fileCcApc, "w");
-        $fileDeleteContent = <<<EOF
+            // création d'un fichier /htdocs/delete.php contenant la routine de suppression des fichiers créé par apache via appel du navigateur
+            $fileCcApc = getcwd() . "/htdocs/ccApc.php";
+            $f = fopen($fileCcApc, "w");
+            $fileDeleteContent = <<<EOF
 <?php
 require_once(dirname(__FILE__).'/../config/ProjectConfiguration.class.php');
 ProjectConfiguration::getApplicationConfiguration('front', 'prod', false);
@@ -74,15 +76,18 @@ if (dmAPCCache::isEnabled()){
   }  
 }
 EOF;
-        fputs($f, $fileDeleteContent . "\n");
-        fclose($f);
-        // appel de la page delete.php via wget pour simuler une utilisation d'un navigateur
-        $result = json_decode(file_get_contents($fileDeleteUrl),true);
-        if (isset($result['success']) && $result['success']){
-          $this->logBlock('-- Clear APC cache from apache user via wget successed', 'INFO');
-        } else {
-          $this->logBlock('-- Clear APC cache from apache user via wget failed', 'ERROR');          
+            fputs($f, $fileDeleteContent . "\n");
+            fclose($f);
+            // appel de la page delete.php via wget pour simuler une utilisation d'un navigateur
+            $result = json_decode(file_get_contents($fileDeleteUrl),true);
+            if (isset($result['success']) && $result['success']){
+              $this->logBlock('-- Clear APC cache from apache user via wget successed', 'INFO');
+            } else {
+              $this->logBlock('-- Clear APC cache from apache user via wget failed', 'ERROR');          
+            }
+            unlink($fileCcApc);
+        } else { // no base_urls fields
+            $this->logBlock('-- Clear APC cache from apache user via wget failed - no base_urls field in dm_setting_translation table', 'ERROR'); 
         }
-        unlink($fileCcApc);
     }
 }

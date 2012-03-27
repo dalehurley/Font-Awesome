@@ -66,7 +66,9 @@ foreach ($sitesUtilesPager as $article) {
 
 	//ajout de l'article
 	echo 
-	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">';
+	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">
+<a class="link link_box" href="'.$article->getUrl().'" title="'.$article->getTitle().'">
+	';
 	echo 
 			$imageHtml.
 			'<span class="wrapper">'.
@@ -77,7 +79,9 @@ foreach ($sitesUtilesPager as $article) {
 				'<span itemprop="description" class="teaser itemprop description">'.$article->description.'</span>'.
 			'</span>'
 	;
-	echo '</li>';
+	echo '
+</a>
+	</li>';
 
 }
 	
