@@ -89,3 +89,11 @@ all:
       "Les Missions": Les Services
       "Description des missions": Description des services
       "Mission|Les Missions": Service|Les Services
+
+    aga-fr:
+      "Les Missions": Les Prestations
+      "Description des missions": Description des prestations
+      "Mission|Les Missions": Prestation|Les Prestations
+      "Description du Cabinet": "Description de l'association"
+      "Présentation du Cabinet": "Présentation de l'Association"
+      "Le Cabinet": "L'Association"
