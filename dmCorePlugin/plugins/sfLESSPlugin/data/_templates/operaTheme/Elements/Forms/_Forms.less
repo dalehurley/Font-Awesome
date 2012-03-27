@@ -1,6 +1,6 @@
 // _Forms.less
-// v1.0
-// Last Updated : 2011-06-27 16:20
+// v1.1
+// Last Updated : 2012-03-27 10:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -19,7 +19,7 @@ form {
 		//placement des éléments
 		label, select, input, textarea, button { float: left; }
 		label {
-			@gridWidth(2; 0);
+			@gridWidth(3; 0);
 			margin-right: @gridGutter;
 		}
 		
@@ -33,12 +33,15 @@ form {
 		textarea {
 			//padding horizontal soustrait à la largeur
 			@padHSub: (@offS + 1px) * 2;
-			//application largeur
+			//application largeur (largeur contenu moins largeur label)
 			@gridWidth((@gridCol_Content - 3); @padHSub);
 			//padding vertical soustrait à la hauteur
 			@padVSub: (2px + 1px) * 2;
 			min-height: @gridBaseline * 5 - @padVSub;
 		}
+		
+		//on replace l'élément lorsque précédé d'une liste d'erreur
+		.error_list ~ textarea { clear: right; float: right; }
 		
 		select {
 			@padHSub: 0;
@@ -47,20 +50,35 @@ form {
 		}
 		
 		input[type=submit], input.submit, input[type=button], button {
-			@gridWidth(1; 0);
-			@gridMarginLeft(4);
+			//application largeur
+			@gridWidth(2);
+		}
+
+		//stylage par défaut du captcha
+		#recaptcha_widget_div, #recaptcha_area #recaptcha_table.recaptchatable {
+			//application largeur (largeur contenu moins largeur label)
+			@gridWidth((@gridCol_Content - 3));
+		}
+
+		#recaptcha_widget_div {
+			float: right !important;
+			//on replace l'élément lorsque précédé d'une liste d'erreur
+			.error_list ~ textarea { clear: right !important; }
 		}
 	}
 	
 	.dm_help_wrap {
 		float: right;
 		//on soustrait de la largeur totale les dimensions du label et de l'input
-		@gridWidth((@gridCol_Content - 2 - 3); 0);
-		//@gridMarginLeft(5);
+		@gridWidth((@gridCol_Content - 6); 0);
 	}
+
 	.error_list {
 		float: right;
 		//addition de la largeur du label et de l'input
-		@gridWidth(5; 0);
+		// @gridWidth(5; 0);
+		@gridWidth((@gridCol_Content - 6); 0);
+		//mise en couleur du texte
+		color: @colorRequired;
 	}
 }
