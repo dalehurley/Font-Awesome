@@ -223,7 +223,12 @@ class dmDataLoad
         'default_value' => '',
         'description' => 'The client type',
         'group_name' =>'site'
-      )     
+      ),
+      'site_type' => array(
+        'default_value' => '',
+        'description' => 'The site type',
+        'group_name' =>'site'
+      )            
     );
 
     $existingSettings = dmDb::query('DmSetting s INDEXBY s.name')
