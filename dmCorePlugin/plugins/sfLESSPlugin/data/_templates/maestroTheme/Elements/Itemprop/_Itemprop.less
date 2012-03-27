@@ -9,7 +9,6 @@
 
 //CIBLEURS GÉNÉRAUX DES ITEMSCOPE ET ITEMPROP
 .itemscope, .itemprop {
-	
 }
 
 //débuggage alignements des différents éléments constitutifs des itemprops
@@ -35,9 +34,30 @@
 //http://schema.org/Thing
 
 .name, .title {
+	//changement de la police spécifique à Ténor
+	font-family: @fontGlobalFamilySerif;
+	//dans un listing
+	.elements .element & {
+		font-weight: bold;
+		color: @colorText;
+		#dm_page_content & {
+			font-weight: normal;
+			font-size: @fontSizeH4Px;
+			line-height: @gridBaseline;
+		}
+		#dm_sidebar_left &, #dm_sidebar_right & {
+			font-weight: normal;
+			font-size: @fontSizeH5Px;
+			line-height: @gridBaseline;
+		}
+	}
 }
 
 .description, .teaser {
+	//dans un listing
+	.elements .element & { font-size: @fontSizeSmall; }
+	//dans du contenu
+	#dm_page_content .contentHeader & { margin-top: @gridBaseline/2; }
 }
 
 
@@ -47,6 +67,13 @@
 
 //stylage minimal de la date
 .date {
+	//dans un listing
+	.elements .element & {
+		//désactivation date dans certaines zones
+		#dm_sidebar_left &, #dm_sidebar_right & { display: none; visibility: hidden; }
+	}
+	//dans du contenu
+	#dm_page_content .contentHeader & { margin-top: @gridBaseline/2; }
 }
 
 
@@ -76,14 +103,65 @@
 .contactType {
 }
 
-//styalge minimal de l'email
+//ajout sprites pour certains éléments
+.email, .faxNumber, .telephone {
+	//masquage separateur
+	.separator { display: none; visibility: hidden; }
+	
+	//dimension de l'icone
+	.type {
+		position: relative;
+		display: inline-block;
+		text-indent:-9999em;
+		@spriteDimension(@spriteFormat_S);
+		//appel différenciées des fonctions de sprite
+		@spriteBgi("Default"; "S");
+		//décalage de marge
+		@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+		@decalH: (@gridGutter - @spriteFormat_S) / 2;
+		padding-top: @decalV;
+		padding-bottom: @decalV;
+		margin-right: @decalH + @offS;
+		margin-left: @decalH;
+		/*
+		//test ajout toolTip à partir de la balise Title
+		&:after {
+			background-color: teal;
+			position: absolute;
+			white-space: nowrap;
+			content: attr(title);
+			color: #fff;
+			//white-space: nowrap;
+			//opacity: 0;
+		}
+		&:hover:after {
+			//opacity: 1;
+		}*/
+	}
+}
+
 .email {
+	.isLess & { background-color: fadeout(#D773FF, 50%); }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-email; @spriteOffY-communication-email);
+		@spriteBgiSvg("Default"; "communication"; "email");
+	}
 }
 
 .faxNumber {
+	.isLess & { background-color: fadeout(#FF73BB, 50%); }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-faxNumber; @spriteOffY-communication-faxNumber);
+		@spriteBgiSvg("Default"; "communication"; "faxNumber");
+	}
 }
 
 .telephone {
+	.isLess & { background-color: fadeout(#FF7393, 50%); }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-telephone; @spriteOffY-communication-telephone);
+		@spriteBgiSvg("Default"; "communication"; "telephone");
+	}
 }
 
 
@@ -92,12 +170,15 @@
 //http://schema.org/PostalAddress
 
 .streetAddress {
+	.isLess & { background-color: fadeout(#7398FF, 50%); }
 }
 
 .postalCode {
+	.isLess & { background-color: fadeout(#73E5FF, 50%); }
 }
 
 .addressLocality {
+	.isLess & { background-color: fadeout(#73FFCC, 50%); }
 }
 
 .addressRegion {

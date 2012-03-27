@@ -39,7 +39,7 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 						if ($area['isActive']) echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
 						
 						//div vides de test pour la mise en page
-						//echo '<div id="' . (($id === 'dm_page_content') ? 'dm_content' : $id) . '" class="' . (($area['clearfix']) ? 'clearfix ' . $areaName : $areaName) .'">' . $areaName . '</div>';
+						// echo '<div id="' . $id . '" class="' . (($area['clearfix']) ? 'clearfix ' . $areaName : $areaName) .'">' . $areaName . '</div>';
 					}
 				?>
 			</div>

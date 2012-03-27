@@ -2,7 +2,7 @@
 
 echo _tag('h4.title','Valeur acquise par une suite de versements constants');
 
-echo $form.'<hr style="clear:both; visibility:hidden;">';
+echo $form;
 
 if ($sf_user->hasFlash('results')) {
 
@@ -14,7 +14,7 @@ if ($sf_user->hasFlash('results')) {
     
 } else { ?>
 
-<h6 class="title">Exemple </h6>
+<h6 class="title">Exemple</h6>
 
 	<em class="annotation">
 		vous pouvez épargner 700 € par trimestre que vous voulez placer au taux de 10 %. Quel sera votre capital dans 6 ans ?
@@ -46,7 +46,7 @@ if ($sf_user->hasFlash('results')) {
 		</tr>
 	</tbody></table>
 	
-	<h6 class="title">Résultat </h6>
+	<h6 class="title">Résultat</h6>
 	<em class="annotation">
 		le capital acquis au terme de 24 versements trimestriels de 700 € placés en fin de période au taux proportionnel annuel de 10 % est de <b>22 644,33 €</b>.
 	</em>

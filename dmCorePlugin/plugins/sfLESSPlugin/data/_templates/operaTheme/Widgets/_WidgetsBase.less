@@ -82,7 +82,8 @@
 		margin-bottom: @gridBaseline;
 		
 		.dm_widget_inner {
-			padding: (@gridBaseline/2) @zonesOffsetPad;
+			// padding: (@gridBaseline/2) @zonesOffsetPad;
+			padding: (@gridBaseline/2) 0;
 			//suppression bordures sous niveaux
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; } }
 
@@ -92,7 +93,8 @@
 				text-transform: uppercase;
 				font-family: @fontGlobalFamilySansSerif;
 				font-weight: normal;
-				margin: (@gridBaseline/-2) (@zonesOffsetPad*-1) (@gridBaseline/2) (@zonesOffsetPad*-1);
+				// margin: (@gridBaseline/-2) (@zonesOffsetPad*-1) (@gridBaseline/2) (@zonesOffsetPad*-1);
+				margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0;
 				padding: @gridBaseline/4 0;
 				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
 				& + .elements { margin-top: @gridBaseline/-2; }
