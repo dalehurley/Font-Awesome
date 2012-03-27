@@ -29,7 +29,7 @@ class dmModuleType
 
   public function getPublicName()
   {
-    $arrayTraductionModule = sfConfig::get('app_traductionsModule_'. dmConfig::get('client_type').'-'.$this->user->getCulture());
+    $arrayTraductionModule = sfConfig::get('app_traductions-module_cgp-fr');
     if (array_key_exists($this->name, $arrayTraductionModule)){
         $name = $arrayTraductionModule[$this->name];
     }

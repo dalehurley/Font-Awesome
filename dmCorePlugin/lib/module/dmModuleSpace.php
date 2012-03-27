@@ -29,7 +29,15 @@ class dmModuleSpace
 
   public function getPublicName()
   {
-    return $this->name;
+     $arrayTraductionModule = sfConfig::get('app_traductions-module_cgp-fr');
+    if (array_key_exists($this->name, $arrayTraductionModule)){
+        $name = $arrayTraductionModule[$this->name];
+    }
+    else{
+        $name = $this->name;
+    }
+      
+      return $name;
   }
 
   public function getModules()

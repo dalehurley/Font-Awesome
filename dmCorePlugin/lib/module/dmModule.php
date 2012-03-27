@@ -167,10 +167,19 @@ class dmModule extends dmMicroCache
 	/**
 	 * @return string
 	 */
-	public function getPlural()
-	{
-		return $this->options['plural'];
-	}
+	public function getPlural() 
+        {
+            
+            $arrayTraductionModule = sfConfig::get('app_traductions-module_cgp-fr');
+            if (array_key_exists($this->options['plural'], $arrayTraductionModule)) {
+                $name = $arrayTraductionModule[$this->options['plural']];
+            } else {
+                $name = $this->options['plural'];
+            }
+
+
+            return $name;
+        }
 
 	/**
 	 * @return mixed array | string
