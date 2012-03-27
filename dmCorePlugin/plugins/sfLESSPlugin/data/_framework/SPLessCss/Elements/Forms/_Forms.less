@@ -29,6 +29,9 @@ form {
 			input, textarea, select { border-color: green; }
 		}
 
+		//suppression des outlines parasite sous webkit
+		input, textarea { outline: 0; }
+
 		//pour forcer le clearfix sur le dernier élément n'ayant pas la classe apposée par défaut
 		@getClearfix();
 		margin-bottom: @gridBaseline;

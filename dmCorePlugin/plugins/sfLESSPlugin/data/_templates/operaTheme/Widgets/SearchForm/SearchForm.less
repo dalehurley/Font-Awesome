@@ -43,7 +43,7 @@
 
 				//Ajout transition sur la couleur de fond
 				.csstransitions & {
-					@transitionCompress(background-color, color; .2s; ease-out; 0);
+					@transitionCompress(all; .2s; ease-out; 0);
 				}
 
 				//ajout de la sprite avec l'icône de recherche
@@ -78,6 +78,9 @@
 				//suppression styles par défaut du champ
 				&, &:focus, &:disabled, &:hover { background-color: transparent; }
 				border: 0;
+				//suppression outline parasite sous webkit
+				outline: 0;
+
 				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
 
 				//placement et stylage de l'élément
