@@ -73,7 +73,7 @@ all:
       ec_green_business : green business
       ec_economie_sociale : economie sociale
       ec_batiment : bâtiment
-      ec_artisanat : artisant
+      ec_artisanat : artisanat
       ec_01_idee_projet: projet
       ec_02_analyse_secteur_activite: secteur d'activité
       ec_03_choix_forme_juridique: forme juridique
