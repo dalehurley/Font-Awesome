@@ -12,14 +12,11 @@ if (count($i_max)) { // si nous avons des actu articles
     echo _tag('h2', array('class' => 'title'), $titreBloc);
     
 echo _open('section', array('class' => 'supWrapper clearfix first last'));
-    echo _open('ul.elements');
     if($visible_resume_team == TRUE && $adresse->resume_team != ''){
-        echo _open('li', array('class' => 'element'));
-            echo _open('span', array('class' => 'wrapper'));
-                echo _tag('span', array('class' => 'itemprop description', 'itemprop' => 'description'), $adresse->resume_team);
-            echo _close('span');
-        echo _close('li');
+        echo _tag('div.wrapper', $adresse->resume_team);
     }
+
+    echo _open('ul.elements');
     foreach ($equipes as $equipe) {
         // condition pour gérer les class des listings
         if ($i == 1) {
@@ -79,7 +76,7 @@ echo _open('section', array('class' => 'supWrapper clearfix first last'));
             echo _close('span');
         };
         echo _close('span');
-        echo _tag('span', array('class' => 'itemprop description', 'itemprop' => 'description'), $equipe->getText());
+        echo _tag('span', array('class' => 'itemprop description', 'itemprop' => 'description'), strip_tags($equipe->getText(), '<sup><sub><b><i>'));
         echo _close('span');
         echo _close('li');
         $i++;

@@ -10,8 +10,9 @@
 
 //STYLAGE DE BASE
 label {
-	//position: relative;
-	//display: block;
+	.isLess & { background-color: #F0D8E9; }
+	position: relative;
+	display: block;
 	text-align: right;
 }
 
@@ -34,8 +35,7 @@ select {
 }
 
 input[type=submit], input.submit, input[type=button], button {
-	padding-top: 1px;
-	padding-bottom: 0;
+	padding: 1px 0 0 0;
 	height: @gridBaseline;
 	text-align: center;
 	
@@ -54,4 +54,61 @@ textarea {
 	select, input, textarea, button { padding-bottom: 2px; }
 	input[type=submit], input.submit, input[type=button], button { padding-top: 0; }
 	textarea { padding-top: 2px; }
+}
+
+//stylage par défaut du captcha
+#recaptcha_area {
+	position: relative !important;
+	display: block !important;
+
+	#recaptcha_table.recaptchatable {
+
+		//réinitialisation hauteur de ligne
+		line-height: @gridBaseline !important;
+
+		&, #recaptcha_image, tbody tr td { padding: 0 !important; }
+
+		// &, #recaptcha_image, tbody tr td, .recaptcha_input_area {
+		// 	border: 0 !important;
+		// 	margin: 0 !important;
+		// 	width: auto !important;
+		// 	height: auto !important;
+		// }
+		
+		.recaptcha_input_area {
+			@getClearfix();
+			padding: (@gridBaseline/2 -2px) 0 (@gridBaseline/2 -1px) 0 !important;
+		}
+
+		.recaptcha_image_cell {
+			//on soustrait la largueur qui dépasse de 302
+			padding: 0 (@gridGutter/2 -1px) 0 (@gridGutter/2 -1px) !important;
+			margin: 0 !important;
+			width: auto !important;
+			height: auto !important;
+		}
+
+		//on rajoute ce qui manque pour combler le vide
+		#recaptcha_logo { padding-left: 7px !important; }
+
+		#recaptcha_reload_btn,
+		#recaptcha_switch_audio_btn,
+		#recaptcha_switch_img_btn,
+		#recaptcha_whatsthis_btn {
+			//on rajoute ce qui manque pour combler le vide
+			img { margin: 0 0 0 7px !important; }
+		}
+
+		#recaptcha_challenge_field, #recaptcha_response_field {
+			//on recopie le style par défaut des champs
+			position: relative !important;
+			display: block !important;
+			//réduction taille pour maintien baseline
+			font-size: @fontSizeSmall !important;
+			line-height: (@gridBaseline - 4px) !important;			//on soustrait la différence de padding et de bordure (2*1 + 2)
+			padding: 1px @offS 1px @offS !important;
+			border-width: 1px !important;
+			border-style: solid !important;
+		}
+	}
 }

@@ -2,7 +2,7 @@
 
 echo _tag('h4.title','Calcul du taux réel (coût réel du crédit-bail)');
 
-echo $form.'<hr style="clear:both; visibility:hidden;">';
+echo $form;
 
 if ($sf_user->hasFlash('results')) {
 

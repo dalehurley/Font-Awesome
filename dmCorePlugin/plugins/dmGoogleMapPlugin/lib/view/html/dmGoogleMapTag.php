@@ -169,7 +169,7 @@ class dmGoogleMapTag extends dmHtmlTag {
       if($preparedAttributes['withResume'] == TRUE && $adresseRequest->getResumeTown() != NULL && $preparedAttributes['smartGoogleMap'] == FALSE){
          
           $length = ($preparedAttributes['length'] == 0) ? '': $preparedAttributes['length'];
-          $resumeTown = '<div>'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '', true, true).'</div>';
+          $resumeTown = '<div class="wrapper">'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '', true, true).'</div>';
           }
       else $resumeTown='';
       // construction de la chaîne html

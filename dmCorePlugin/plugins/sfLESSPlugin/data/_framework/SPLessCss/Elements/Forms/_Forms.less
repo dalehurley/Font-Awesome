@@ -14,7 +14,9 @@ form {
 		.isLess & { background-color: fadeout(#A4D3ED, 50%); }
 		margin-left: 0;
 		margin-bottom: @gridBaseline;
-		padding: 10px 5px;;
+		//modif Lionel à tester
+		// padding: 10px 5px;
+		padding: 0;
 		list-style-type: none;
 	}
 	.dm_form_element {
@@ -26,11 +28,15 @@ form {
 			background-color: fadeout(#3B85AD, 50%);
 			input, textarea, select { border-color: green; }
 		}
+
+		//suppression des outlines parasite sous webkit
+		input, textarea { outline: 0; }
+
+		//pour forcer le clearfix sur le dernier élément n'ayant pas la classe apposée par défaut
+		@getClearfix();
 		margin-bottom: @gridBaseline;
 	}
-	.dm_form_element > label.required:after {
-		content: " *";
-	}
+
 	.dm_help_wrap {
 		.isLess & { background-color: fadeout(#8AFFD8, 50%); }
 		line-height: @gridBaseline;
@@ -38,15 +44,13 @@ form {
 		font-size: @fontSizeSmall;
 	}
 	.error_list {
-		.isLess & { background-color: fadeout(#FF8A9F, 50%); }
+		.isLess & { background-color: fadeout(#8AFF9F, 50%); }
 		line-height: @gridBaseline;
 		vertical-align: top;
 		font-size: @fontSizeSmall;
 		list-style-type: none;
 		padding: 0;
-		margin-left: 0;
-		margin-bottom: 0;
-		color: red;
+		margin: 0;
 		li { margin: 0; padding: 0; }
 	}
 }

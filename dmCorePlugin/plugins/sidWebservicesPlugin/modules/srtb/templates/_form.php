@@ -16,7 +16,7 @@ echo '  	<p>
 	</p>
 ';
 
-echo $form.'<hr style="clear:both; visibility:hidden;">';
+echo $form;
 
 if ($sf_user->hasFlash('results')) {
 
