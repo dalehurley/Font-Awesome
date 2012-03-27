@@ -45,7 +45,6 @@ echo _tag('h4', array('class' => 'title'), __('Different groups of useful sites'
 echo _open('ul', array('class' => 'elements'));
 
 
-
 foreach ($groupeSitesUtilesPager as $groupeSitesUtile) {
 	$link = '';
 	if ($i == 1) {
