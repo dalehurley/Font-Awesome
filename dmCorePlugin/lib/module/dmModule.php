@@ -167,10 +167,28 @@ class dmModule extends dmMicroCache
 	/**
 	 * @return string
 	 */
-	public function getPlural()
-	{
-		return $this->options['plural'];
-	}
+	public function getPlural() 
+        {
+            // modif stef pour modifier les noms des menus de l'admin en fonction des client_type (ec -aga -cgp) et de la lang du site 
+            if (is_object(sfContext::getInstance()->getUser())) {
+                if (sfConfig::get('app_traductions-module_' . dmConfig::get('client_type') . '-' . sfContext::getInstance()->getUser()->getCulture())) {
+                    $arrayTraductionModule = sfConfig::get('app_traductions-module_' . dmConfig::get('client_type') . '-' . sfContext::getInstance()->getUser()->getCulture());
+                    if (array_key_exists($this->options['plural'], $arrayTraductionModule)) {
+                        $name = $arrayTraductionModule[$this->options['plural']];
+                    } else {
+                        $name = $this->options['plural'];
+                    }
+                }
+                else
+                    $name = $this->options['plural'];
+            }
+            else
+                $name = $this->options['plural'];
+
+            return $name;
+            // fin modif
+            //return  $this->options['plural'];
+        }
 
 	/**
 	 * @return mixed array | string

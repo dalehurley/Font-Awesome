@@ -72,7 +72,7 @@ generator:
         display:
           'Publication sur le site': [is_active]
           'Titre de la page': [title]
-          Résumé de la mission: [resume]
+          Résumé: [resume]
           Text: [text]
           Image: [image_form, image_view]
           Fichier : [ file_form, file_view, title_file]
