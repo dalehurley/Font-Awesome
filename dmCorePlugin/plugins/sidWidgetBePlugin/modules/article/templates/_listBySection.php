@@ -1,7 +1,7 @@
 <?php // Vars: $articlePager, $parent, $route, $header
 
 $html = '';
-$articleSection = $parent . ' - ' . $route;
+
 if(count($articlePager)){
     
    if(count($articlePager) == 1){
@@ -9,6 +9,7 @@ if(count($articlePager)){
     exit;
     }
     else {
+$articleSection = $parent . ' - ' . $route;
 //titre du contenu
 if($articleSection) echo '<h4 class="title">'.$articleSection.'</h4>';
 
