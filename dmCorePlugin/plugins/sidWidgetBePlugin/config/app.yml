@@ -81,3 +81,11 @@ all:
   
   # nombre d'article de la liste en bas des article BE (modif de article ListBySection)
   nb-article-listing : 5
+
+  traductionsModule:     
+    # changement des noms des rubriques en fonction du client_type (ec ou cgp)
+    # ancien : nouveau
+    cgp-fr:
+      Les Missions: Les Services
+      Description des missions: Description des services
+      Mission|Les Missions: Service|Les Services

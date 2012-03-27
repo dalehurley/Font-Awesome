@@ -20,12 +20,12 @@
       page: true
       credentials: recrutement
 
-"Les Missions ou Services":
-  "Description des missions ou services":
+"Les Missions":
+  "Description des missions":
     Mission:
       model: SidCabinetMission
       page: true
-      name: "Mission/Services|Les Missions/Services"
+      name: "Mission|Les Missions"
       credentials: mission
 
 
