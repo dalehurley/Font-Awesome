@@ -14,11 +14,27 @@
 @import "_templates/maestroTheme/Widgets/SpecifiquesBaseEditorialeFilActualite/_SpecifiquesBaseEditorialeFilActualite.less";
 @import "_templates/maestroTheme/Widgets/SpecifiquesBaseEditorialeListAgenda/_SpecifiquesBaseEditorialeListAgenda.less";
 
+//couleurs de débug dans les zones de contenu uniquement
+.isLess {
+	#dm_sidebar_left, #dm_sidebar_right, #dm_page_content {
+		.dm_widget {
+			background-color: fadeout(#DCDAE6, 50%);
+			.dm_widget_inner { background-color: fadeout(#D2CFE6, 50%); }
+		}
+	}
+}
+
 //STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
 .dm_widget {
-	.isLess & { background-color: #DCDAE6; }
 	.dm_widget_inner {
-		.isLess & { background-color: #D2CFE6; }
+		//changement taille du titre des widgets
+		& > .title {
+			position: relative;
+			#dm_page_content & {
+				font-size: @fontSizeH4Px;
+				line-height: @gridBaseline;
+			}
+		}
 	}
 }
 
@@ -26,17 +42,17 @@
 #dm_header {
 	
 	.dm_widget.content_image {
-		.isLess & { background-color: #D6B8C4; }
+		.isLess & { background-color: fadeout(#D6B8C4, 50%); }
 		float: left;
 	}
 	
 	.dm_widget.content_ck_editor {
-		.isLess & { background-color: #B8D6C1; }
+		.isLess & { background-color: fadeout(#B8D6C1, 50%); }
 		float: left;
 		margin-left: @offM;
 		
 		.dm_widget_inner {
-			color: @colorCouleur3Fonce;
+			color: @headerTextColor;
 			font-family: @fontGlobalFamilyWebFont;
 			text-transform: uppercase;
 			word-spacing: 0.125em;
@@ -47,14 +63,41 @@
 			//stylage des élements de titrage
 			.dm_site_title, .dm_site_slogan { margin: 0; padding: 0; }
 			.dm_site_title {
-				.isLess & { background-color: #B6BFB9; }
+				.isLess & { background-color: fadeout(#B6BFB9, 50%); }
 				font-weight: bold;
 				padding-bottom: @gridBaseline/2;
 			}
 			.dm_site_slogan {
-				.isLess & { background-color: #ACBFB2; }
+				.isLess & { background-color: fadeout(#ACBFB2, 50%); }
 				padding-top: (@gridBaseline/2 -1px);
-				border-top: 1px solid @colorCouleur3Fonce;
+				border-top: 1px solid @headerTextColor;
+			}
+		}
+	}
+}
+
+//stylage par défaut des widgets dans les zones principales
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget {
+		margin-bottom: @gridBaseline;
+		
+		.dm_widget_inner {
+			// padding: (@gridBaseline/2) @zonesOffsetPad;
+			padding: (@gridBaseline/2) 0;
+			//suppression bordures sous niveaux
+			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; } }
+
+			& > .title {
+				.isLess & { background-color: #5F8FA3; }
+				color: @colorCouleur1;
+				text-transform: uppercase;
+				font-family: @fontGlobalFamilySansSerif;
+				font-weight: normal;
+				// margin: (@gridBaseline/-2) (@zonesOffsetPad*-1) (@gridBaseline/2) (@zonesOffsetPad*-1);
+				margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0;
+				padding: @gridBaseline/4 0;
+				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
+				& + .elements { margin-top: @gridBaseline/-2; }
 			}
 		}
 	}
