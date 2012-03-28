@@ -404,7 +404,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_bandeau` WRITE;
 /*!40000 ALTER TABLE `sid_bandeau` DISABLE KEYS */;
-INSERT INTO `sid_bandeau` (`id`, `groupe_bandeau_id`, `is_active`, `category`, `scrollamount`, `scrolldelay`, `boucle`, `behavior`, `direction`, `height`, `width`, `debut_date`, `fin_date`, `position`) VALUES (8,1,1,'perso',2,0,0,'scroll','left',0,0,NULL,NULL,-1),(10,3,1,'perso',2,0,0,'scroll','left',0,0,NULL,NULL,-2);
+INSERT INTO `sid_bandeau` (`id`, `groupe_bandeau_id`, `is_active`, `category`, `scrollamount`, `scrolldelay`, `boucle`, `behavior`, `direction`, `height`, `width`,  `position`) VALUES (8,1,1,'perso',2,0,0,'scroll','left',0,0,-1),(10,3,1,'perso',2,0,0,'scroll','left',0,0,-2);
 /*!40000 ALTER TABLE `sid_bandeau` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -414,7 +414,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_bandeau_translation` WRITE;
 /*!40000 ALTER TABLE `sid_bandeau_translation` DISABLE KEYS */;
-INSERT INTO `sid_bandeau_translation` (`id`, `title`, `lang`, `version`, `created_at`, `updated_at`) VALUES (8,'bandeau page accueil','fr',2,'2012-01-03 16:40:19','2012-01-11 11:27:42'),(10,'les pages du cabinet','fr',2,'2012-01-03 16:40:19','2012-01-11 11:27:42');
+INSERT INTO `sid_bandeau_translation` (`id`, `title`, `lang`, `version`, `created_at`, `updated_at`,`fin_date`, `debut_date`) VALUES (8,'bandeau page accueil','fr',2,'2012-01-03 16:40:19','2012-01-11 11:27:42',NULL,NULL),(10,'les pages du cabinet','fr',2,'2012-01-03 16:40:19','2012-01-11 11:27:42',NULL,NULL);
 /*!40000 ALTER TABLE `sid_bandeau_translation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -424,7 +424,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `sid_bandeau_translation_version` WRITE;
 /*!40000 ALTER TABLE `sid_bandeau_translation_version` DISABLE KEYS */;
-INSERT INTO `sid_bandeau_translation_version` (`id`, `lang`, `title`, `version`) VALUES (8,'fr','test',1),(8,'fr','bandeau page accueil',2),(10,'fr','actu cabinet',1),(10,'fr','les pages du cabinet',2);
+INSERT INTO `sid_bandeau_translation_version` (`id`, `lang`, `title`, `version`,`fin_date`, `debut_date`) VALUES (8,'fr','test',1,NULL,NULL),(8,'fr','bandeau page accueil',2,NULL,NULL),(10,'fr','actu cabinet',1,NULL,NULL),(10,'fr','les pages du cabinet',2,NULL,NULL);
 /*!40000 ALTER TABLE `sid_bandeau_translation_version` ENABLE KEYS */;
 UNLOCK TABLES;
 
