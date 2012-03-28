@@ -17,8 +17,8 @@
 .navigationWrapper {
 	.isLess & { background-color: #FCD80A; }
 	clear: both;
-	//suppression marge de la navigation
-	.elements .element & { margin: 0; }
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & { margin: 0; }
 }
 .navigationTop { margin-bottom: @gridBaseline; }
 .navigationBottom { margin-top: @gridBaseline; }
@@ -49,7 +49,8 @@
 .subWrapper {
 	.isLess & { background-color: fadeout(#E432ED, 90%); }
 	
-	.elements .element & {
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & {
 		line-height: @gridBaseline;
 		//on modifie le comportement des éléments dans un subWrapper
 		//cf http://blog.mozilla.com/webdev/2009/02/20/cross-browser-inline-block/ pour hack vertical-align
@@ -94,7 +95,10 @@
 
 	//par défaut placé à droite dans tous les contenus, donc marge à gauche et aucune à droite
 	margin: 0 0 @gridBaseline @gridGutter;
-	.elements .element & { margin-bottom: 0; }
+
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & { margin-bottom: 0; }
+
 	//placé à gauche dans les sidebars et dans les subwrappers, donc marge à droite et aucune marge à gauche
 	#dm_sidebar_left &, #dm_sidebar_right &, .supWrapper & {
 		margin-left: 0;
@@ -116,7 +120,8 @@
 		margin: 0 0 @gridBaseline @gridGutter;
 		//suppression marges dans listings et dans dernier élément
 		// &.last { margin-left: 0; }
-		.elements .element & { margin-bottom: 0; }
+		//dans un listing ou un résultat de recherche
+		.elements .element &, .search_results .search_result & { margin-bottom: 0; }
 	}
 	.link .image { float:none; margin: 0; }
 
@@ -139,7 +144,8 @@
 	text-decoration: none;
 	&:hover { text-decoration: underline; }
 	
-	.elements .element & {
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & {
 		//suppression soulignement des liens englobants en boite
 		&, &:hover { text-decoration: none; }
 	}
@@ -148,7 +154,7 @@
 //listings d'éléments diverses (article, personnes, organisations, etc)
 .elements {
 	.isLess & { background-color: fadeout(#999, 75%); }
-	//suppression de toute marge et puce (à tester avec un article (vérifier si balisage identique)
+	//suppression de toute marge et puce
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -157,5 +163,45 @@
 		.isLess & { background-color: fadeout(#bbb, 75%); }
 		//force l'agrandissement en cas de présence de contenu flottant
 		@getClearfix();
+	}
+}
+
+//résultats de recherche
+.search_results {
+	.isLess & { background-color: fadeout(#999, 75%); }
+	//suppression de toute marge
+	margin: 0;
+
+	//lorsque les pseudo éléments sont gérés on replace différemment la numérotation
+	.generatedcontent & {
+
+	}
+
+	.search_result {
+		.isLess & { background-color: fadeout(#bbb, 75%); }
+		//on force l'agrandissement en cas de présence de contenu flottant
+		@getClearfixDebugBefore();
+
+		&:before {
+			.isLess & { background-color: fadeout(#D66969, 25%); }
+			display: block;
+			float: left;
+		}
+
+		//probabilité de correspondance
+		.score {
+			.isLess & { background-color: fadeout(#97B3E6, 25%); }
+			display: block;
+			float: left;
+		}
+
+		//lien vers la page
+		.link {
+			//nom de la page
+			// .page_name { }
+
+			//description de la page
+			// .page_desc { }
+		}
 	}
 }

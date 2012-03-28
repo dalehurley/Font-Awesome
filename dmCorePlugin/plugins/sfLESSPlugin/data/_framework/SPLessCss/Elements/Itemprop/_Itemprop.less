@@ -1,6 +1,6 @@
 // _Itemprop.less
-// v1.0
-// Last Updated : 2012-02-09 14:15
+// v1.1
+// Last Updated : 2012-03-28 14:50
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -9,8 +9,8 @@
 
 //CIBLEURS GÉNÉRAUX DES ITEMSCOPE ET ITEMPROP
 .itemscope, .itemprop {
-	//affiché en block dans les listings
-	.elements .element & { display: block; }
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & { display: block; }
 }
 
 //débuggage alignements des différents éléments constitutifs des itemprops
@@ -38,7 +38,8 @@
 .name, .title {
 	.isLess & { background-color: fadeout(#DE789C, 90%); }
 	
-	.elements .element & {
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & {
 		display: block;
 		font-size: @fontSizeH6Px;
 	}
@@ -47,7 +48,8 @@
 .description, .teaser {
 	.isLess & { background-color: fadeout(#AEDCEB, 90%); }
 	
-	.elements .element & { display: block; }
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & { display: block; }
 	//une fois que l'article est affiché en pleine page
 	#dm_page_content article & { font-weight: bold; }
 }
@@ -64,7 +66,8 @@
 	line-height: @gridBaseline;
 	vertical-align: top;
 	
-	.elements .element & { display: block; }
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & { display: block; }
 	//uniquement dans le contenu où on a la place horizontale
 	#dm_page_content .elements .element & { margin-left: @offM; }
 }
