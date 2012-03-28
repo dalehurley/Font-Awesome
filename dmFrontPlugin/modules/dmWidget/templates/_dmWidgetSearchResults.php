@@ -19,10 +19,11 @@ echo _tag('h2.title', __('Results %1% to %2% of %3%', array(
 )));
 
 if ($pager->getOption('navigation_top')){
-  echo _tag('div.navigation.navigationTop',
+  echo _tag('div.navigationWrapper.navigationTop',
       $pager->renderNavigationTop()
     );
 } else {
+  //TODO : pourquoi l'afficher ? c'est censé être vide
   echo $pager->renderNavigationTop();
 }
 
@@ -71,9 +72,10 @@ foreach($pager as $result)
 echo _close('ol');
 
 if ($pager->getOption('navigation_bottom')){
-  echo _tag('div.navigation.navigationBottom',
+  echo _tag('div.navigationWrapper.navigationBottom',
       $pager->renderNavigationBottom()
     );
 } else {
+  //TODO : pourquoi l'afficher ? c'est censé être vide
   echo $pager->renderNavigationBottom();
 }
