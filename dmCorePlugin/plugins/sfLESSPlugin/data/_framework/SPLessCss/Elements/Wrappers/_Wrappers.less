@@ -1,6 +1,6 @@
 // _Wrappers.less
-// v1.2
-// Last Updated : 2012-03-07 15:45
+// v1.3
+// Last Updated : 2012-03-28 17:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -15,13 +15,50 @@
 
 //container utilisé pour contenir les éléments de navigation de la page ou du widget
 .navigationWrapper {
-	.isLess & { background-color: #FCD80A; }
+	.isLess & { background-color: fadeout(#FCD80A, 50%); }
 	clear: both;
 	//dans un listing ou un résultat de recherche
 	.elements .element &, .search_results .search_result & { margin: 0; }
 }
 .navigationTop { margin-bottom: @gridBaseline; }
 .navigationBottom { margin-top: @gridBaseline; }
+
+//pager (numéroration des pages)
+.pager {
+	ul {
+		.isLess & { background-color: #BCB5E6; }
+
+		position: relative;
+		//suppression de toute marge et puce
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		text-align: center;
+
+		.page {
+			.isLess & { background-color: #DDC1DE; }
+
+			//placement du lien
+			.link { }
+
+			//cf : http://css-tricks.com/snippets/css/cross-browser-inline-block
+			display: -moz-inline-stack;
+			display: inline-block;
+			vertical-align: top;
+			zoom: 1;
+			line-height: @gridBaseline;
+			//correction sous IE
+			.ie6 &, .ie7 & { display: inline; }
+
+			// &.current { }
+			// &.prev { }
+			// &.next { }
+			// &.first { }
+			// &.last { }
+		}
+	}
+
+}
 
 //container utitlisé pour contenir les fichiers liés à un article
 .fileWrapper {
