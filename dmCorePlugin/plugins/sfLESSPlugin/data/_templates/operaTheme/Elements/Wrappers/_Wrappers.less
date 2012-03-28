@@ -1,6 +1,6 @@
 // _Wrappers.less
-// v1.1
-// Last Updated : 2012-01-18 11:00
+// v1.2
+// Last Updated : 2012-03-28 15:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -114,35 +114,56 @@
 	// }
 }
 
-//listings d'éléments diverses (article, personnes, organisations, etc)
-.elements {
+//listings d'éléments diverses (article, personnes, organisations, etc) et résultats de recherche
+.elements, .search_results {
 	// margin: 0 (@zonesOffsetPad*-1);
 	margin: 0;
-
-	.element {
-		//ajout transition navigateurs modernes
-		.csstransitions & {
-			@transitionCompress(background-color; .5s);
-		}
-		
-		//couleur de fond uniquement dans les sidebars
-		// #dm_sidebar_left &,
-		// #dm_sidebar_right & {
-		// 	background-color: @colorCouleur3Clair;
-		// 	&:hover { background-color: @colorCouleur3ClairSup; }
-		// }
-		&:hover { background-color: @colorCouleur3ClairSup; }
-
-		padding: @gridBaseline/2 0 (@gridBaseline/2 -1px) 0;
-		border-bottom: 1px dashed @zonesBorderColor;
-
-		//suppression bordure et padding pour dernier élément
-		&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }
-	}
 }
 
+.elements .element,
+.search_results .search_result {
+	//ajout transition navigateurs modernes
+	.csstransitions & {
+		@transitionCompress(background-color; .5s);
+	}
+	
+	//couleur de fond uniquement dans les sidebars
+	// #dm_sidebar_left &,
+	// #dm_sidebar_right & {
+	// 	background-color: @colorCouleur3Clair;
+	// 	&:hover { background-color: @colorCouleur3ClairSup; }
+	// }
+	&:hover { background-color: @colorCouleur3ClairSup; }
 
+	padding: @gridBaseline/2 0 (@gridBaseline/2 -1px) 0;
+	border-bottom: 1px dashed @zonesBorderColor;
 
+	//suppression bordure et padding pour dernier élément
+	&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }
+}
+
+//résultats de recherche
+.search_results {
+
+	.search_result {
+
+		//stylage par défaut du compteur
+		&:before {
+			color: @colorCouleur1;
+			font-weight: bold;
+		}
+
+		//probabilité de correspondance
+		.score {
+			font-size: @fontSizeMicro;
+			color: @colorCouleur3;
+			//on impose une largeur fixe pour garder un alignement des titres de résultats
+			width: 3em;
+			margin-right: @offM;
+			text-align: right;
+		}
+	}
+}
 
 
 
