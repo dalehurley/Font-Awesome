@@ -8,10 +8,10 @@
 @import "_templates/operaTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
-@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Importation de la mise en page par défaut du widget
@@ -20,7 +20,7 @@
 .dm_widget.search_form {
 	.isLess & { background-color: fadeout(#BBF2F2, 75%); }
 
-	//placement dans la zone
+	//placement dans la zone située sous le header
 	#dm_custom_top & {
 		float: left;
 		margin-bottom: @gridBaseline/2;

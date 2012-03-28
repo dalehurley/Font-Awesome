@@ -8,10 +8,10 @@
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
-@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Importation de la mise en page par défaut du widget
@@ -20,7 +20,7 @@
 .dm_widget.search_form {
 	.isLess & { background-color: fadeout(#BBF2F2, 75%); }
 
-	//placement dans la zone
+	//placement dans la zone située sous le header
 	#dm_custom_top & {
 		float: left;
 		margin-bottom: @gridBaseline/2;
@@ -33,9 +33,9 @@
 		#dm_custom_top & {
 			//placement formulaire
 			form {
-				background-color: @colorCouleur3Moyen;
-				.rgba & { background-color: fadeout(@colorCouleur3Moyen, 20%); }
-				border: 1px solid @colorCouleur3Fonce;
+				background-color: @colorCouleur2ClairSup;
+				.rgba & { background-color: fadeout(@colorCouleur2ClairSup, 20%); }
+				border: 1px solid @colorCouleur2Fonce;
 				//application largeur (soustraction bordure)
 				@gridWidth(@gridCol_SidebarLeft; 2px);
 				margin: 0;
@@ -65,6 +65,7 @@
 				&.focus {
 					background-color: @colorWhite;
 					.rgba & { background-color: fadeout(@colorWhite, 20%); }
+					border-color: @colorCouleur2Clair;
 					
 					//changement sprite au focus
 					&:before{
@@ -96,10 +97,10 @@
 				padding: 2px @offS 2px @offS;
 
 				//application largeur
-				@gridWidth(@gridCol_SidebarRight; @offS*2);
+				@gridWidth(@gridCol_SidebarLeft; (@offS*2 + 2px));
 				//ajout du décalage à gauche si pseudo élément affiché
 				.generatedcontent & {
-					@gridWidth(@gridCol_SidebarRight; (@offS*3 + @spriteFormat_S));
+					@gridWidth(@gridCol_SidebarLeft; (@offS*3 + @spriteFormat_S + 2px));
 				}
 
 				//couleur des placeHolders
