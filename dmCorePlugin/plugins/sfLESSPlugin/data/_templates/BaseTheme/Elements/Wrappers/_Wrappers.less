@@ -227,7 +227,12 @@
 
 //résultats de recherche
 .search_results {
-
+	//débuggage car classe appliquée également à un widget
+	&.dm_widget {
+		margin-left: inherit;
+		margin-right: inherit;
+	}
+	
 	.search_result {
 
 		//stylage par défaut du compteur
