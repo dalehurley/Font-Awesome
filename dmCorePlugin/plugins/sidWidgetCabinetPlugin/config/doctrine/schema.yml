@@ -140,6 +140,7 @@ SidCabinetMission:
       notnull: true
     resume:
       type: clob
+      extra: ckeditor
       notnull: true
     text:
       type: clob
@@ -231,4 +232,46 @@ SidCabinetRecrutement:
       class:          DmMedia
       local:          file
       foreignAlias:   SidCabinetRecrutement
+      onDelete: Cascade
+      
+SidCabinetSelectionPlacement:
+  actAs:
+    DmSortable:
+    I18n:
+      fields: [ title, text ]
+      actAs:
+        DmVersionable:
+        Timestampable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+#    on_home:
+#      type: boolean
+#      notnull: true
+#      default: false
+    image:
+      type: integer
+    file:
+      type: integer
+    title_file:
+      type: string(255)
+  relations:
+    Image:
+      class: DmMedia
+      local: image
+      foreignAlias: Photos
+      onDelete: Cascade
+    Files:
+      class:          DmMedia
+      local:          file
+      foreignAlias:   SidCabinetSelectionPlacement
       onDelete: Cascade

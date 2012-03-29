@@ -1,0 +1,52 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidCabinetSelectionPlacement
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: selection_placement
+    with_doctrine_route: false
+    i18n_catalogue: dm
+    config:
+      actions: ~
+      fields:
+        is_active:
+          label: Active
+      list:
+        display:
+          - '=title'
+          - image
+          - file
+          - is_active
+          - title_file
+          - text
+          - created_at
+          - updated_at
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - is_active
+          - image
+          - file
+          - title_file
+          - text
+          - created_at
+          - updated_at
+      form:
+        display:
+          NONE: [title, is_active]
+          Image: [image_form, image_view]
+          File: [file_form, file_view]
+          Text: [text]
+          Others: [title_file]
+        class: SidCabinetSelectionPlacementAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

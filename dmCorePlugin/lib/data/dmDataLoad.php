@@ -484,6 +484,7 @@ class dmDataLoad
       'page_cabinet' => "Le cabinet => Description du cabinet => Les pages du cabinet",
       'equipe' => "Le cabinet => Description du cabinet => Equipes",
       'recrutement' => "Le cabinet => Description du cabinet => Recrutements",
+      'selection_placement' => "Le cabinet => Description du cabinet => Selection de placement",
         // Sous-menu Actualité du cabinet
       'type_actu' => "Le cabinet => Actualité du cabinet => Type de mes articles",
       'actualite_contenu' => "Le cabinet => Actualité du cabinet => Actualités du cabinet",  
@@ -733,7 +734,8 @@ class dmDataLoad
                     'recrutement',
                     'mission',
                     'actualite_contenu',
-                    'contact_me'
+                    'contact_me',
+                    'selection_placement'
                 )
             ),
         );
