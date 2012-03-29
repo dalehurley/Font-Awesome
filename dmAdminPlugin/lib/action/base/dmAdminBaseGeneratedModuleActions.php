@@ -136,7 +136,12 @@ class dmAdminBaseGeneratedModuleActions extends dmAdminBaseActions
 	 */
 	protected function tryToSortWithForeignColumn(Doctrine_Query $query, array $sort)
 	{
+		
+//return;
+
 		$table = $this->getDmModule()->getTable();
+
+		//var_dump($sort);
 
 		if('integer' === dmArray::get($table->getColumnDefinition($sort[0]), 'type'))
 		{
@@ -186,7 +191,10 @@ class dmAdminBaseGeneratedModuleActions extends dmAdminBaseActions
 		}
 		elseif($table->isI18nColumn($sort[0]))
 		{
-			$query->addOrderBy(sprintf('%s.%s %s', $query->getJoinAliasForRelationAlias($table->getComponentName(), 'Translation'), $sort[0], $sort[1]));
+			// lioshi : correction of addOrderBy -> orderBy to don't have "order by position, sort_field" but "order by sort_field"
+			$query->orderBy(sprintf('%s.%s %s', $query->getJoinAliasForRelationAlias($table->getComponentName(), 'Translation'), $sort[0], $sort[1]));
+
+			//echo $query->getSQLQuery();
 			// Success, skip default sorting by local column
 			return;
 		}
