@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.5.20, for Linux (x86_64)
 --
--- Host: localhost    Database: sitev3_ec_tenor
+-- Host: localhost    Database: sitev3_sitediem
 -- ------------------------------------------------------
 -- Server version	5.5.20
 
@@ -234,7 +234,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `dm_user` WRITE;
 /*!40000 ALTER TABLE `dm_user` DISABLE KEYS */;
-INSERT INTO `dm_user` (`id`, `username`, `email`, `algorithm`, `salt`, `password`, `is_active`, `is_super_admin`, `last_login`, `forgot_password_code`, `created_at`, `updated_at`) VALUES (1,'admin','admin@ec-tenor.com','sha1','4ab292490127f2d1a435cc6caf6c78ed','fb4af507a508a1057ca4cc136c618d6f550d0feb',1,1,'2012-03-27 17:13:43',NULL,'2011-11-16 14:23:09','2011-11-16 14:23:09'),(2,'client','client@client.fr','sha1','1ecbcc7d51d509c40c13c00a9a62ee14','9c4e226396030f4e6674335b7274dc210483d7e8',1,0,'2012-03-21 11:04:48',NULL,'2011-11-16 14:45:56','2011-11-16 14:45:56');
+INSERT INTO `dm_user` (`id`, `username`, `email`, `algorithm`, `salt`, `password`, `is_active`, `is_super_admin`, `last_login`, `forgot_password_code`, `created_at`, `updated_at`) VALUES (1,'admin','admin@sitediem.com','sha1','cc0d51d48f2c257994177457c443702c','a740f035596ffd7a943bcd881b6c528209eb0111',1,1,'2012-03-27 17:13:43',NULL,'2011-11-16 14:23:09','2011-11-16 14:23:09'),(2,'client','client@client.fr','sha1','1ecbcc7d51d509c40c13c00a9a62ee14','9c4e226396030f4e6674335b7274dc210483d7e8',1,0,'2012-03-21 11:04:48',NULL,'2011-11-16 14:45:56','2011-11-16 14:45:56');
 /*!40000 ALTER TABLE `dm_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -766,4 +766,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-27 17:21:07
+-- Dump completed on 2012-03-29 10:06:38
