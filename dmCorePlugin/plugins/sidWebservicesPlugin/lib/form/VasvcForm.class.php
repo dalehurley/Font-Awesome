@@ -2,8 +2,8 @@
 
 class VasvcForm extends dmForm
 {
-	protected static $listePeriodicite = array(12=>'Mois',1=>'Ans', 4=>'Trimestre', 2=>'Semestres');
-	protected static $listeVersement = array(1=>'Versements fin', 0=>'Début de péiode');
+	protected static $listePeriodicite = array(12=>'Mois',1=>'An(s)', 4=>'Trimestre(s)', 2=>'Semestre(s)');
+	protected static $listeVersement = array(1=>'Fin de période', 0=>'Début de période');
 
 	 public function setup()
 	{
@@ -25,23 +25,21 @@ class VasvcForm extends dmForm
 		  'taux' => 'Taux proportionnel annuel',
 		));
 
-		$this->widgetSchema->setNameFormat('maform[%s]');
-
 	     $this->setValidators(array(
 	      'versements'    => new sfValidatorNumber(array('required' => true),array(
-	      		'required'=>'Le montant capital placé est obligatoire.',
-	      		'invalid'=>'Le montant capital doit etre numérique',
+	      		'required'=>'Le montant des versements est obligatoire.',
+	      		'invalid'=>'Le montant des versements doit être numérique (exemple: 12.5)',
 		      )),
 
 	      'nbversements'    => new sfValidatorNumber(array('required' => true),array(
-	      		'required'=>'La durée du placement est obligatoire.',
-	      		'invalid'=>'La durée du placement doit etre numérique',
+	      		'required'=>'Le nombre de versements est obligatoire.',
+	      		'invalid'=>'Le nombre de versements doit être numérique (exemple: 12.5)',
 		      )),
 	      'periodicite' => new sfValidatorChoice(array('choices' => array_keys(self::$listePeriodicite))),
 	      'debut' => new sfValidatorChoice(array('choices' => array_keys(self::$listeVersement))),
 	      'taux' => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'Le taux proportionnel annuel est obligatoire.',
-	      		'invalid'=>'Le taux proportionnel annuel doit etre numérique',
+	      		'invalid'=>'Le taux proportionnel annuel doit être numérique (exemple: 12.5)',
 		      )),
     )); 
 

@@ -36,8 +36,8 @@ if ($sf_user->hasFlash('results')) {
 
 		</tr>
 		<tr>
-			<td >Versements Fin ou Début de période</td>
-			<td >Versements Fin</td>
+			<td >Fin de période ou Début de période</td>
+			<td >Fin de période</td>
 		</tr>
 		<tr>
 			<td >Taux proportionnel annuel</td>

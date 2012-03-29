@@ -13,21 +13,21 @@ class cjoForm extends dmForm
 	    ));
 
 	    $this->widgetSchema->setLabels(array(
-		  'nbjours1'    => 'Jours ouvrables (30 jours maxi)',
-		  'nbjours2'   => 'Jours ouvr&eacute;s (25 jours maxi)',
+		  'nbjours1'    => 'Nombre de jours ouvrables (30 jours maxi)',
+		  'nbjours2'   => 'Nombre de jours ouvrés (25 jours maxi)',
 		 
 		));
 
 	     $this->widgetSchema->setNameFormat('maform[%s]');
 	     $this->setValidators(array(
 	      'nbjours1'    => new sfValidatorNumber(array('required' => true),array(
-	      		'required'=>'Le Jours ouvrables est obligatoire.',
-	      		'invalid'=>'Le Jours ouvrables doit être numérique et 30 jours maxi',
+	      		'required'=>'Le nombre de jours ouvrables est obligatoire.',
+	      		'invalid'=>'Le nombre de jours ouvrables doit être numérique et 30 jours maxi',
 		      )),
 
 	      'nbjours2'    => new sfValidatorNumber(array('required' => true),array(
-	      		'required'=>'Le montant des remboursements est obligatoire.',
-	      		'invalid'=>'Le Jours ouvr&eacute;s doit etre numérique et 25 jours maxi',
+	      		'required'=>'Le nombre de jours ouvrés est obligatoire.',
+	      		'invalid'=>'Le nombre de jours ouvrés doit être numérique (exemple: 12.5) et 25 jours maxi',
 		      )),
     )); 
 

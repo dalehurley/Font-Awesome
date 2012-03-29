@@ -35,8 +35,8 @@ if ($sf_user->hasFlash('results')) {
 			<td align="left">Mois</td>
 		</tr>
 		<tr>
-			<td align="right">Versements Fin ou Début de période </td>
-			<td align="left">Versements Fin</td>
+			<td align="right">Fin de période ou Début de période </td>
+			<td align="left">Fin de période</td>
 		</tr>
 
 		<tr>
