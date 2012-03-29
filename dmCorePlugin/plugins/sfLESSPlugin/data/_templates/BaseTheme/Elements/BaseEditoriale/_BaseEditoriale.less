@@ -1,13 +1,44 @@
 // _BaseEditoriale.less
-// v1.1
-// Last Updated : 2012-02-08 16:35
+// v1.2
+// Last Updated : 2012-03-29 11:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
-//Structure généraled de la base éditoriale
+//Structure générale de la base éditoriale
 
-.contentHeader { padding-bottom: @gridBaseline/2; }
+.contentHeader {
+	padding-bottom: @gridBaseline/2;
 
-.contentBody { padding-top: @gridBaseline/2; padding-bottom: @gridBaseline/2; }
+	.title {
+		font-weight: normal;
+		color: @colorCouleur3Fonce;
+	}
+	
+	.date {
+		font-style: italic;
+		color: @colorCouleur3;
+	}
 
-.contentFooter { padding-top: @gridBaseline/2; }
+	.description {
+		font-style: italic;
+		color: @colorCouleur3Fonce;
+	}
+}
+
+.contentBody {
+	padding-top: @gridBaseline/2;
+	padding-bottom: @gridBaseline/2;
+}
+
+.contentFooter {
+	//débord de la zone pour faire touche la bordure, compensation avec padding
+	margin: 0 (@zonesOffsetPad * -1 +1px);
+	padding: (@gridBaseline/2 -1px) (@zonesOffsetPad -1px) 0 (@zonesOffsetPad -1px);
+	border-top: 1px dotted @zonesBorderColor;
+
+	//Métadonnées de l'article
+	.meta {
+		font-style: italic;
+		color: @colorCouleur3;
+	}
+}
