@@ -11,12 +11,13 @@
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 
 .dm_widget.bandeau_smart_bandeau {
+	.isLess & { background-color: #6A8581; }
 	//définitions de la largeur
 	@gridWidth((@gridCol - @gridCol_SidebarRight); (@gridPadding + @gridGutter)*-1);
 	float: left;
 	margin-bottom: @gridBaseline/2;
 	overflow: hidden;
-
+	
 	.dm_widget_inner {
 		margin: 0;
 		height: @gridBaseline;

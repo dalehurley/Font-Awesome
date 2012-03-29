@@ -19,15 +19,15 @@ echo _tag('h2.title', __('Results %1% to %2% of %3%', array(
 )));
 
 if ($pager->getOption('navigation_top')){
-  echo _tag('div.navigation.navigationTop',
+  echo _tag('div.navigationWrapper.navigationTop',
       $pager->renderNavigationTop()
     );
 } else {
+  //TODO : pourquoi l'afficher ? c'est censé être vide
   echo $pager->renderNavigationTop();
 }
 
-echo _open('ol.search_results start='.$pager->getFirstIndice());
-
+echo _open('ol.search_results style="counter-reset:start-from ' . ($pager->getFirstIndice() - 1)  . '" start=' . $pager->getFirstIndice());
 
   //compteur
   $i = 1;
@@ -55,14 +55,16 @@ foreach($pager as $result)
   
     _tag('span.score', ceil(100*$result->getScore()).'%').
     
-    _link($page)->text(
-      _tag('span.page_name', escape($page->name)).
-      // ajout lionel
-      //dmString::truncate('['.$page->record_id.']', 200)  
-      // INFOS : il faut regarder ce que renvoi la fonction getPageContent, il semble qu'elle renvoie filename, et divers id      
-      // fin ajout lionel      
-      //dmString::truncate($result->getPageContent(), 200)
-      _tag('span.page_desc', dmString::truncate($result->getPageContent(), 200))
+    _link($page)->set('.link.link_box')->text(
+      _open('span.wrapper').
+        _tag('span.page_name.title', escape($page->name)).
+        // ajout lionel
+        //dmString::truncate('['.$page->record_id.']', 200)  
+        // INFOS : il faut regarder ce que renvoi la fonction getPageContent, il semble qu'elle renvoie filename, et divers id      
+        // fin ajout lionel      
+        //dmString::truncate($result->getPageContent(), 200)
+      _close('span.wrapper').
+      _tag('span.page_desc.description', dmString::truncate($result->getPageContent(), 200))
     )
   );
 }
@@ -70,9 +72,10 @@ foreach($pager as $result)
 echo _close('ol');
 
 if ($pager->getOption('navigation_bottom')){
-  echo _tag('div.navigation.navigationBottom',
+  echo _tag('div.navigationWrapper.navigationBottom',
       $pager->renderNavigationBottom()
     );
 } else {
+  //TODO : pourquoi l'afficher ? c'est censé être vide
   echo $pager->renderNavigationBottom();
 }

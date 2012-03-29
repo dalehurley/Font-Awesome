@@ -15,6 +15,7 @@
 
 //Configuration des zones du template
 $pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' => 'customTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
+$pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 $pageOptionsCustom['areas']['dm_sidebar_right']['isActive'] = false;
 
 //Initialisation de la page et récupération des options de la page (avec fusion des options personnalisées)

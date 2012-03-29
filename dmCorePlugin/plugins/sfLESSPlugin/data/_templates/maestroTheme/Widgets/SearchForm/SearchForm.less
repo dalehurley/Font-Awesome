@@ -1,6 +1,6 @@
 // _SearchForm.less
-// v1.0
-// Last Updated : 2011-09-05 12:00
+// v1.5
+// Last Updated : 2012-03-27 16:45
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -8,13 +8,151 @@
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/SearchForm/_SearchForm.less";
 
 .dm_widget.search_form {
-	.isLess & { background-color: #BBF2F2; }
+	.isLess & { background-color: fadeout(#BBF2F2, 75%); }
+
+	//placement dans le header
+	#dm_header & {
+		position: absolute;
+		right: 0;
+		bottom: @gridBaseline;
+	}
+
+	//placement dans la zone située sous le header
+	#dm_custom_top & {
+		float: left;
+		margin-bottom: @gridBaseline/2;
+	}
+	
 	.dm_widget_inner {
-		.isLess & { background-color: #8ED4D4; }
+		.isLess & { background-color: fadeout(#8ED4D4, 75%); }
+
+		//stylage lorsque placé dans le header
+		#dm_header & {
+			//calcul dimension en colonnes du formulaire
+			@formCol: floor((@gridCol - @gridCol_SidebarLeft)/2);
+
+			//placement formulaire
+			form {
+				//application largeur (soustraction bordure)
+				@gridWidth(@formCol; 2px);
+			}
+
+			//champ de saisie de la recherche
+			.query {
+				//application largeur
+				@gridWidth(@formCol; (@offS*2 + 2px));
+				//ajout du décalage à gauche si pseudo élément affiché
+				.generatedcontent & {
+					@gridWidth(@formCol; (@offS*3 + @spriteFormat_S + 2px));
+				}
+			}
+		}
+
+		//stylage lorsque placé dans la zone située sous le header
+		#dm_custom_top & {
+			//placement formulaire
+			form {
+				//application largeur (soustraction bordure)
+				@gridWidth(@gridCol_SidebarLeft; 2px);
+			}
+
+			//champ de saisie de la recherche
+			.query {
+				//application largeur
+				@gridWidth(@gridCol_SidebarLeft; (@offS*2 + 2px));
+				//ajout du décalage à gauche si pseudo élément affiché
+				.generatedcontent & {
+					@gridWidth(@gridCol_SidebarLeft; (@offS*3 + @spriteFormat_S + 2px));
+				}
+			}
+		}
+		
+		//stylage lorsque placé dans le header ou dans la zone située sous ce dernier
+		#dm_header &, #dm_custom_top &  {
+			//placement formulaire
+			form {
+				background-color: @colorCouleur2ClairSup;
+				.rgba & { background-color: fadeout(@colorCouleur2ClairSup, 20%); }
+				border: 1px solid @colorCouleur2Fonce;
+				
+				margin: 0;
+				padding: (@gridBaseline/4 -1px) 0;
+				//ajout de la bordure arrondie
+				@borderRadiusCompress(@offL);
+
+				//Ajout transition sur la couleur de fond
+				.csstransitions & {
+					@transitionCompress(all; .2s; ease-out; 0);
+				}
+
+				//ajout de la sprite avec l'icône de recherche
+				&:before {
+					position: relative;
+					display: block;
+					content: "";
+					float: left;
+					//décalage de marge
+					@decalV: @gridBaseline - @spriteFormat_S;
+					margin: @decalV 0 0 @offS;
+					//chargement sprite entière avec dimension et SVG
+					@spriteDefinition("DefaultLight"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
+				}
+
+				//classe CSS focus ajoutée en JS
+				&.focus {
+					background-color: @colorWhite;
+					.rgba & { background-color: fadeout(@colorWhite, 20%); }
+					border-color: @colorCouleur2Clair;
+					
+					//changement sprite au focus
+					&:before{
+						@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
+					}
+				}
+			}
+
+			//masquage du label et du bouton de validation
+			.label, .submit { display: none; visibility: hidden; }
+			
+			//champ de saisie de la recherche
+			.query {
+				//suppression styles par défaut du champ
+				&, &:focus, &:disabled, &:hover { background-color: transparent; }
+				border: 0;
+				//suppression outline parasite sous webkit
+				outline: 0;
+
+				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
+
+				//placement et stylage de l'élément
+				display: block;
+				float: left;
+				color: @colorCouleur3ClairSup;
+				&:focus{ color: @colorText; }
+
+				//ajustement du padding sans les bordures
+				padding: 2px @offS 2px @offS;
+
+				//couleur des placeHolders
+				//ciblage natif
+				&::-webkit-input-placeholder { color: @colorCouleur3ClairSup; }
+				&:disabled::-webkit-input-placeholder { color: @colorCouleur3MoyenSup; }
+				&:-moz-placeholder { color: @colorCouleur3ClairSup; }
+				&:disabled:-moz-placeholder { color: @colorCouleur3MoyenSup; }
+				//utilisé avec jQuery-placeholder
+				&.placeholder { color: @colorCouleur3ClairSup; }
+				&.placeholder:disabled { color: @colorCouleur3MoyenSup; }
+			}
+		}
 	}
 }

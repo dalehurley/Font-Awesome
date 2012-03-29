@@ -40,10 +40,13 @@ echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http:
         echo _tag('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'), $pageCabinet->getResume());
     echo _close('header');
     echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $pageCabinet->getText());
-    echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
-        echo _open('ul', array('class' => 'elements'));
-            echo _tag('li', array('class' => 'element first last'), 
-                    _link('main/contact')->text($lien)
-                    );
-        echo _close('ul');
-    echo _close('div');
+    echo _open('footer', array('class' => 'contentFooter'));
+        echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
+            echo _open('ul', array('class' => 'elements'));
+                echo _tag('li', array('class' => 'element first last'), 
+                        _link('main/contact')->text($lien)
+                        );
+            echo _close('ul');
+        echo _close('div');
+    echo _close('footer');
+echo _close('article');

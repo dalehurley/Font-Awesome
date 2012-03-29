@@ -1,6 +1,6 @@
 // _General.less
-// v1.0
-// Last Updated : 2012-02-01 15:00
+// v1.1
+// Last Updated : 2012-03-28 14:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -17,5 +17,18 @@
 @getClearfix(){
 	&:before, &:after { content: ""; display: table; }
 	&:after { clear: both; }
+	zoom: 1;
+}
+
+//gestion du clearfix avec conservation du contenu des pseudo éléments
+@getClearfixDebugBefore() {
+	&:before { display: table; }
+	&:after { content: ""; display: table; clear: both; }
+	zoom: 1;
+}
+
+@getClearfixDebugAfter() {
+	&:before { content: ""; display: table; }
+	&:after { display: table; clear: both; }
 	zoom: 1;
 }
