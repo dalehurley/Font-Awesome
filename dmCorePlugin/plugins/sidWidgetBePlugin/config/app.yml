@@ -26,6 +26,7 @@ all:
   dtd-article: lepechos.dtd
 
   nb-min-articles-slide: 3     # nombre minimum d'article pour afficher le slide Nivo slider
+  nb-image: 3  # nombre de photo pour les listings des articles BE ou du Cabinet
 
   sections:                    # les sections à tronquer
     truncated: 
