@@ -77,8 +77,8 @@ class debugComponents extends myFrontModuleComponents {
 								'value'	=>	$layoutPage
 							),
 							array(
-								'info'	=>	'recordId',
-								'value'	=>	$recordId
+								'info'	=>	'Page recordId',
+								'value'	=>	($recordId==0)?'No auto page' : $recordId
 							),
 						);
 		

@@ -71,6 +71,8 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
         $idCabinet = $vars['idCabinet'];
     }
     
+    $smartGoogleMap = (!$vars['smartGoogleMap']) ? false : $vars['smartGoogleMap'];
+    
     $map = $this->getService('google_map_helper')
         ->map()
         ->address($adresseCabinet)
@@ -79,7 +81,7 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
         ->titreBloc($vars['titreBloc'])
         ->length($vars['length'])
         ->withResume($vars['withResume'])
-        ->smartGoogleMap($vars['smartGoogleMap'])
+        ->smartGoogleMap($smartGoogleMap)
         ->mapTypeId($vars['mapTypeId'])
         ->zoom($vars['zoom'])
         ->style(sprintf(

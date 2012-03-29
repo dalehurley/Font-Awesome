@@ -17,7 +17,7 @@ class SidGroupeSitesUtilesAdminForm extends BaseSidGroupeSitesUtilesForm
           public function setup() {
         parent::setup();
         
-        $this->widgetSchema->setHelps(array(
-            'description' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE') );
+//        $this->widgetSchema->setHelps(array(
+//            'description' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE') );
         }
 }

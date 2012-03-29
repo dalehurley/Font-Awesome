@@ -24,7 +24,7 @@ class SidSitesUtilesAdminForm extends BaseSidSitesUtilesForm {
 
         $this->widgetSchema->setHelps(array(
             'groupe_sites_utiles_id' => 'Sélectionnez un groupe afin d\'affiner votre classement de sites utiles',
-            'description' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
+//            'description' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
             'tags_list' => 'Sélectionnez les mots en rapport avec votre lien pour les faire apparaitre dans les pages les plus adéquates de votre site',
             'url' => 'Noter "http://" avant l\'adresse internet de votre lien'));
     }

@@ -105,7 +105,7 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
         $tabInfos['site theme version'] = dmConfig::get('site_theme_version');
         $tabInfos['Current page'] = $pageCurrent;
         $tabInfos['Layout'] = $layoutPage;
-        $tabInfos['Page recordId'] = $recordId;
+        $tabInfos['Page recordId'] = ($recordId==0)?'No auto page' : $recordId;
         $tabInfos['Grid Columns'] = '';
         $tabInfos['Grid Column Width'] = '';
         $tabInfos['Grid Gutter Width'] = '';  

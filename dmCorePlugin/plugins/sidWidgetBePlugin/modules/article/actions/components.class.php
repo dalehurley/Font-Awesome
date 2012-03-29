@@ -32,6 +32,7 @@ class articleComponents extends myFrontModuleComponents
             $controlerUrl = (array_key_exists($contextEnv,$controlers))?$controlers[$contextEnv]:''; 
             $header = $controlerUrl.'/'.$page->getSlug();
             $this->header = $header;
+            $this->articlePager = $this->getPager($query);
         }
         
     }

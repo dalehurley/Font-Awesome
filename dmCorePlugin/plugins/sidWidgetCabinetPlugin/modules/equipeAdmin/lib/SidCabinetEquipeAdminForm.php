@@ -33,7 +33,7 @@ class SidCabinetEquipeAdminForm extends BaseSidCabinetEquipeForm {
 
         $this->widgetSchema->setHelps(array(
             'm_rubriques_list' => 'Vous pouvez lier ce membre de votre equipe à une rubrique (Affichage contextuel).',
-            'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
+//            'text' => '<u>Information</u>: <br /> - pour un retour à la ligne : faire Maj + ENTREE en même temps <br /> - pour un nouveau paragraphe : faire ENTREE',
             'tags_list' => 'Sélectionnez les mots en rapport avec votre lien pour les faire apparaitre dans les pages les plus adéquates de votre site',
         ));
     }
