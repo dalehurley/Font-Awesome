@@ -20,6 +20,13 @@
 .dm_widget.search_form {
 	.isLess & { background-color: fadeout(#BBF2F2, 75%); }
 
+	//placement dans le header
+	#dm_header & {
+		position: absolute;
+		right: 0;
+		bottom: @gridBaseline;
+	}
+
 	//placement dans la zone située sous le header
 	#dm_custom_top & {
 		float: left;
@@ -28,16 +35,56 @@
 	
 	.dm_widget_inner {
 		.isLess & { background-color: fadeout(#8ED4D4, 75%); }
-		
+
+		//stylage lorsque placé dans le header
+		#dm_header & {
+			//calcul dimension en colonnes du formulaire
+			@formCol: floor((@gridCol - @gridCol_SidebarLeft)/2);
+
+			//placement formulaire
+			form {
+				//application largeur (soustraction bordure)
+				@gridWidth(@formCol; 2px);
+			}
+
+			//champ de saisie de la recherche
+			.query {
+				//application largeur
+				@gridWidth(@formCol; (@offS*2 + 2px));
+				//ajout du décalage à gauche si pseudo élément affiché
+				.generatedcontent & {
+					@gridWidth(@formCol; (@offS*3 + @spriteFormat_S + 2px));
+				}
+			}
+		}
+
 		//stylage lorsque placé dans la zone située sous le header
 		#dm_custom_top & {
+			//placement formulaire
+			form {
+				//application largeur (soustraction bordure)
+				@gridWidth(@gridCol_SidebarLeft; 2px);
+			}
+
+			//champ de saisie de la recherche
+			.query {
+				//application largeur
+				@gridWidth(@gridCol_SidebarLeft; (@offS*2 + 2px));
+				//ajout du décalage à gauche si pseudo élément affiché
+				.generatedcontent & {
+					@gridWidth(@gridCol_SidebarLeft; (@offS*3 + @spriteFormat_S + 2px));
+				}
+			}
+		}
+		
+		//stylage lorsque placé dans le header ou dans la zone située sous ce dernier
+		#dm_header &, #dm_custom_top &  {
 			//placement formulaire
 			form {
 				background-color: @colorCouleur2ClairSup;
 				.rgba & { background-color: fadeout(@colorCouleur2ClairSup, 20%); }
 				border: 1px solid @colorCouleur2Fonce;
-				//application largeur (soustraction bordure)
-				@gridWidth(@gridCol_SidebarLeft; 2px);
+				
 				margin: 0;
 				padding: (@gridBaseline/4 -1px) 0;
 				//ajout de la bordure arrondie
@@ -95,13 +142,6 @@
 
 				//ajustement du padding sans les bordures
 				padding: 2px @offS 2px @offS;
-
-				//application largeur
-				@gridWidth(@gridCol_SidebarLeft; (@offS*2 + 2px));
-				//ajout du décalage à gauche si pseudo élément affiché
-				.generatedcontent & {
-					@gridWidth(@gridCol_SidebarLeft; (@offS*3 + @spriteFormat_S + 2px));
-				}
 
 				//couleur des placeHolders
 				//ciblage natif

@@ -12,9 +12,13 @@
 
 .dm_widget.bandeau_smart_bandeau {
 	.isLess & { background-color: #C7EDE8; }
-	//définitions de la largeur
-	@gridWidth((@gridCol - @gridCol_SidebarLeft); @gridGutter*-1);
-	float: left;
+	
+	//définitions de la largeur lorsque précédé par le formulaire de recherche et contenu dans la zone située sous le header
+	#dm_custom_top .dm_widget.search_form ~ & {
+		@gridWidth((@gridCol - @gridCol_SidebarLeft); @gridGutter*-1);
+		float: left;
+	}
+	
 	margin-bottom: @gridBaseline/2;
 	overflow: hidden;
 
