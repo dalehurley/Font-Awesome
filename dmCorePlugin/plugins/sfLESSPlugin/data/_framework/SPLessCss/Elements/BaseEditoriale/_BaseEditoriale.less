@@ -1,28 +1,44 @@
 // _BaseEditoriale.less
-// v1.1
-// Last Updated : 2012-02-08 16:35
+// v1.2
+// Last Updated : 2012-03-29 11:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //Structure générale de la base éditoriale
 
 .contentHeader {
-	.isLess & { background-color: #E3CAE6; }
+	.isLess & { background-color: fadeout(#F2D8E4, 50%); }
 	.title {
-		.isLess & { background-color: #DE9CE6; }
+		.isLess & { background-color: fadeout(#DE9CE6, 50%); }
 	}
 	.date, .description { display: block; }
 }
 
 .contentBody {
-	.isLess & { background-color: #CAE6DF; }
+	.isLess & { background-color: fadeout(#E6CCD8, 50%); }
 	p {
 		.isLess & { background-color: #7ED6C0; }
 	}
 }
 
 .contentFooter {
-	.isLess & { background-color: #E6DBCA; }
+	.isLess & { background-color: fadeout(#D9C1CC, 50%); }
+
+	//Métadonnées de l'article
+	.meta {
+		.date {
+			
+		}
+		
+		.copyright {
+			.copyrightHolder {
+				
+			}
+			.copyrightYear {
+				
+			}
+		}
+	}
 }
 
 .annotation {
@@ -39,22 +55,6 @@
 	.encadreTitre {
 	}
 	.encadreTexte {
-	}
-}
-
-//Métadonnées de l'article
-.meta {
-	.date {
-		
-	}
-	
-	.copyright {
-		.copyrightHolder {
-			
-		}
-		.copyrightYear {
-			
-		}
 	}
 }
 
