@@ -33,11 +33,12 @@ if (count($adresses)) {
 
 
             $link = '';
-
+            if($visible_resume_town == true){
             if (($withImage == true) && ($adresse->getImage()->checkFileExists() == true)) {
                 $link .= _open('span', array('class' => 'imageWrapper'));
                 $link .= _media($adresse->getImage())->width($width)->set('.image itemprop="image"')->alt($adresse->getTitle());
                 $link .= _close('span');
+            };
             };
             $link .= _open('span', array('class' => 'wrapper'));
             $link .= _open('span', array('class' => 'subWrapper'));
@@ -46,9 +47,11 @@ if (count($adresses)) {
             };
             $link .= _tag('meta', array('content' => $adresse->createdAt, 'itemprop' => 'datePublished'));
             $link .= _close('span');
+            if($visible_resume_town == true){
             $link .= _open('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'));
             $link .= stringTools::str_truncate($adresse->getResumeTown(), $length, '(...)', true);
             $link .= _close('span');
+            };
             $link .= _close('span');
             echo _link($adresse)->set('.link_box')->text($link);
 

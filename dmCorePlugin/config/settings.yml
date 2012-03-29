@@ -80,3 +80,5 @@ all:
       - va
       - vasvc
       - vt
+      - selectionPlacement
+      - selectionPlacementAdmin
