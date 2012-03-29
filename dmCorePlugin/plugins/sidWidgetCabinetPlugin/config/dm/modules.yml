@@ -21,8 +21,8 @@
       credentials: recrutement
       
 <?php
-if (is_object(sfContext::getInstance()->getUser())) {
-                if (dmConfig::get('client_type') == 'cgp'){
+//if (is_object(sfContext::getInstance()->getUser())) {
+//            if (dmConfig::get('client_type') == 'cgp'){
 ?>    
     SelectionPlacement:
       model: SidCabinetSelectionPlacement
@@ -30,8 +30,8 @@ if (is_object(sfContext::getInstance()->getUser())) {
       page: true
       credentials: selection_placement
 <?php
-}
-}
+//}
+//}
 ?>
 
 "Les Missions":

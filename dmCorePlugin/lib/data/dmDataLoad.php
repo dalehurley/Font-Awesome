@@ -713,9 +713,10 @@ class dmDataLoad
         )
       ),
  * 
- * Ajout SID : les groupes d'autorisations à l'installation
+ * Ajout SID : les groupes d'autorisations à l'installation pour le client
  */
-      "web_client" => array(
+        // droit pour les sites
+        "web_client" => array(
                 'description' => "Accès pour le client Web",
                 'permissions' => array(
                     'bandeau',
@@ -736,6 +737,16 @@ class dmDataLoad
                     'actualite_contenu',
                     'contact_me',
                     'selection_placement'
+                )
+            ),
+        // droit pour les bases doc
+        "basedoc_client" => array(
+                'description' => "Accès pour le client Base Doc",
+                'permissions' => array(
+                    'see_accueil',
+                    'see_chart',
+                    'tool_bar_admin',
+                    'admin',
                 )
             ),
         );
