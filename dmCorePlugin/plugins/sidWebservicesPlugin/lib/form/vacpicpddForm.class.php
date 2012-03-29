@@ -4,12 +4,12 @@ class vacpicpddForm extends baseForm {
 
     protected static $listePeriodicite = array(
         12 => 'Mois',
-        1 => 'Ans',
-        4 => 'Trimestre',
-        2 => 'Semestres'
+        1 => 'An(s)',
+        4 => 'Trimestre(s)',
+        2 => 'Semestre(s)'
     );
     protected static $listeVersement = array(
-        0 => 'Versements fin',
+        0 => 'Fin de période',
         1 => 'Début de période'
     );
     public function setup() {
@@ -37,13 +37,13 @@ class vacpicpddForm extends baseForm {
                 'required' => true
             ) , array(
                 'required' => 'Le montant capital placé est obligatoire.',
-                'invalid' => 'Le montant capital doit etre numérique',
+                'invalid' => 'Le montant capital doit être numérique (exemple: 12.5)',
             )) ,
             'duree' => new sfValidatorNumber(array(
                 'required' => true
             ) , array(
                 'required' => 'La durée du placement est obligatoire.',
-                'invalid' => 'La durée du placement doit etre numérique',
+                'invalid' => 'La durée du placement doit être numérique (exemple: 12.5)',
             )) ,
             'periodicite' => new sfValidatorChoice(array(
                 'choices' => array_keys(self::$listePeriodicite)

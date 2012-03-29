@@ -14,15 +14,15 @@
     </xsl:template>
     
     <xsl:template match="Document">
-    	
+        
         <!-- Contenu de l'article -->
-    	<xsl:for-each select = "Data/Sections/Section">
-    		<xsl:apply-templates select="*[not(self::MultimediaInserts) and not(self::LinkMetadata) and not(self::Files) and not(self::Signature) and not(self::titretable) and not(self::renvoistable) and not(self::Reference)]"/>
-    	</xsl:for-each>
-    	
-    	<xsl:if test = "Data/Sections/Section/Reference">
-    		<xsl:apply-templates select="Data/Sections/Section/Reference"/>
-    	</xsl:if>
+        <xsl:for-each select = "Data/Sections/Section">
+            <xsl:apply-templates select="*[not(self::MultimediaInserts) and not(self::LinkMetadata) and not(self::Files) and not(self::Signature) and not(self::titretable) and not(self::renvoistable) and not(self::Reference)]"/>
+        </xsl:for-each>
+        
+        <xsl:if test = "Data/Sections/Section/Reference">
+            <xsl:apply-templates select="Data/Sections/Section/Reference"/>
+        </xsl:if>
         
     </xsl:template>
     
@@ -58,6 +58,10 @@
         </xsl:if>
     </xsl:template>
     
+        <xsl:template match = "SubTitle"> 
+        <h3><xsl:value-of select="."/></h3>
+        </xsl:template>
+
     <!-- TEMPLATES DES ANNOTATIONS -->
     
     <xsl:template match="Annotation">
@@ -183,7 +187,7 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="table">	
+    <xsl:template match="table">    
         <xsl:if test="/">
             <xsl:element name="table">
                 <xsl:if test="../titretable">
@@ -267,10 +271,6 @@
     </xsl:template>
     -->
     
-    <!--
-        <xsl:template match = "SubTitle"> 
-        <h3><xsl:value-of select="."/></h3>
-        </xsl:template>
-    -->
+
     
 </xsl:stylesheet>

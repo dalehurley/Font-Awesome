@@ -2,8 +2,8 @@
 
 class TrcForm extends dmForm
 {
-	protected static $listePeriodicite = array(12=>'Mois',1=>'Ans', 4=>'Trimestre', 2=>'Semestres');
-	protected static $listeVersement = array(1=>'Versements fin', 0=>'Début de péiode');
+	protected static $listePeriodicite = array(12=>'Mois',1=>'An(s)', 4=>'Trimestre(s)', 2=>'Semestre(s)');
+	protected static $listeVersement = array(1=>'Fin de période', 0=>'Début de période');
 
 	 public function setup()
 	{
@@ -18,29 +18,28 @@ class TrcForm extends dmForm
 	    ));
 
 	    $this->widgetSchema->setLabels(array(
-		  'capital'    => 'Monant capital placé',
-		  'duree'   => 'Dur&eacute;e du placement (en nombre de p&eacute;riodes)',
+		  'capital'    => 'Montant capital placé',
+		  'duree'   => 'Durée du placement (en nombre de périodes)',
 		  'periodicite' => 'Périodicité',
 		  'debut' => 'Versements',
 		  'capitalacquis' => 'Capital acquis',
 		));
 
-		$this->widgetSchema->setNameFormat('maform[%s]');
-	     $this->setValidators(array(
+	    $this->setValidators(array(
 	      'capital'    => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'Le montant capital placé est obligatoire.',
-	      		'invalid'=>'Le montant capital doit etre numérique',
+	      		'invalid'=>'Le montant capital doit être numérique (exemple: 12.5)',
 		      )),
 
 	      'duree'    => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'La durée du placement est obligatoire.',
-	      		'invalid'=>'La durée du placement doit etre numérique',
+	      		'invalid'=>'La durée du placement doit être numérique (exemple: 12.5)',
 		      )),
 	      'periodicite' => new sfValidatorChoice(array('choices' => array_keys(self::$listePeriodicite))),
 	      'debut' => new sfValidatorChoice(array('choices' => array_keys(self::$listeVersement))),
 	      'capitalacquis' => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'Le capital acquis est obligatoire.',
-	      		'invalid'=>'Le capital acquis doit etre numérique',
+	      		'invalid'=>'Le capital acquis doit être numérique (exemple: 12.5)',
 		      )),
     ));
 

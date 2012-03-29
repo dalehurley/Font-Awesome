@@ -31,12 +31,12 @@ if ($sf_user->hasFlash('results')) {
 			<td align="left">24</td>
 		</tr>
 		<tr>
-			<td align="right">Périodicité (M : mois, A : ans, T : trimestres, S : semestres)</td>
+			<td align="right">Périodicité</td>
 			<td align="left">M</td>
 
 		</tr>
 		<tr>
-			<td align="right">Versements Fin ou Début de période (F ou D)</td>
+			<td align="right">Fin de période ou Début de période </td>
 			<td align="left">F</td>
 		</tr>
 		<tr>

@@ -36,7 +36,7 @@ class FkForm extends dmForm
 	      'puissance' => new sfValidatorChoice(array('choices' => array_keys(self::$listePuissance))),
 	      'distance' => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'La distance parcourue est obligatoire.',
-	      		'invalid'=>'La distance parcourue  doit etre numérique',
+	      		'invalid'=>'La distance parcourue  doit être numérique (exemple: 12.5)',
 		      )),
     )); 
 

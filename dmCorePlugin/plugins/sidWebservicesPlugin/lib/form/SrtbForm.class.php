@@ -18,9 +18,9 @@ class SrtbForm extends dmForm
 	    $this->widgetSchema->setLabels(array(
 		  'marge'    => 'Taux de marge brute (en % du CA HT)',
 		  'chargevar'   => 'Charges variables (en % du CA HT)',
-		  'chargestruct'   => 'Salaire brut mensuel (base 151,67 heures)',
-		  'remuneration'   => 'R&eacute;mun&eacute;ration annuelle de l\'exploitant (en euros)(seulement pour les entreprises individuelles)',
-		  'ca'   => 'Chiffre d\'Affaires annuel r&eacute;alis&eacute; actuellement',
+		  'chargestruct'   => 'Les charges de structures annuelles (en % du CA HT)',
+		  'remuneration'   => 'Rémunération annuelle de l\'exploitant (en euros)(seulement pour les entreprises individuelles)',
+		  'ca'   => 'Chiffre d\'Affaires annuel réalisé actuellement',
 		 
 		));
 
@@ -33,11 +33,11 @@ class SrtbForm extends dmForm
 
 	      'chargevar'    => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'Les charges variables (en % du CA HT) est obligatoire.',
-	      		'invalid'=>'Les charges variables (en % du CA HT) doit etre numérique ',
+	      		'invalid'=>'Les charges variables (en % du CA HT) doit être numérique (exemple: 12.5) ',
 		      )),
 		   'chargestruct'    => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'Les charges de structures annuelles (en euros HT) est obligatoire.',
-	      		'invalid'=>'Les charges de structures annuelles (en euros HT) doit etre numérique ',
+	      		'invalid'=>'Les charges de structures annuelles (en euros HT) doit être numérique (exemple: 12.5) ',
 		      )),
 
 		    'remuneration'    => new sfValidatorNumber(array('required' => false)),
