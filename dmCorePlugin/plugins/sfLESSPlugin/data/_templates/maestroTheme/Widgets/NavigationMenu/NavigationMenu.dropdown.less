@@ -34,11 +34,18 @@ ul.menu-dropdown {
 	
 	#dm_sidebar_left & {
 		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarLeft; 1px);
+		// @gridWidth(@gridCol_SidebarLeft; 1px);
+
+		//Maestro : pplication dimensions spécifique et placement à droite
+		@gridWidth(@menuMaestroColSidebarLeft; 1px);
+		float: right;
+		margin-right: -1px;
+		ul { float: none; margin-right: 0; }
+
 		//on décale de 2px car les menus de gauche ont une bordure de superposition dès le premier niveau
 		ul {
 			margin-left: -2px;
-			@gridAbsoluteLeft(@gridCol_SidebarLeft);
+			@gridAbsoluteLeft(@menuMaestroColSidebarLeft);
 			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
 		}
 		ul ul {
