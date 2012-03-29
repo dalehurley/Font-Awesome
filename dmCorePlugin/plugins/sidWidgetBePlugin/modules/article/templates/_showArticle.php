@@ -72,7 +72,7 @@ if (!is_file($xml)) {
 						echo '<span class="copyright">&copy;&nbsp;';
 							echo '<span itemprop="copyrightHolder" class="itemprop copyrightHolder">'.sfConfig::get('app_copyright-holder').'</span>';
 							echo '<span class="dash">&nbsp;-&nbsp;</span>';
-							echo '<span itemprop="copyrightYear" class="itemprop copyrightYear">'.format_date($article->created_at, 'y ').'</span>';
+							echo '<span itemprop="copyrightYear" class="itemprop copyrightYear">'.substr(format_date($article->created_at, 'y '), 0, 4).'</span>';
 						echo '</span>';
 					echo '</span>';
 				echo '</footer>';
