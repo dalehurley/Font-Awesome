@@ -12,8 +12,12 @@
 	.title {
 		text-transform: uppercase;
 		font-weight: normal;
-		font-family: @fontGlobalFamilyWebFontLight;
 		color: @colorCouleur3Fonce;
+		font-family: @fontGlobalFamilyWebFontLight;
+		//la police choisie impose un changement d'espacement et d'interlignage
+		word-spacing: 0.05em;
+		letter-spacing: -0.05em;
+		line-height: @gridBaseline*1.5;
 	}
 
 	.date {
