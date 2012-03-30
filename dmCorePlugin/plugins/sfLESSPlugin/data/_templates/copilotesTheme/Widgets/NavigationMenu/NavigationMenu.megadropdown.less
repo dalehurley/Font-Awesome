@@ -1,0 +1,260 @@
+// NavigationMenu.megadropdown.less
+// v1.5
+// Last Updated : 2012-03-22 12:05
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+
+//Config du widget courant
+@import "_templates/copilotesTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
+
+//Importation des classes de composition du menu
+@import "_framework/SPLessCss/Widgets/NavigationMenu/Megadropdown/_Megadropdown.less";
+
+ul.menu-megadropdown {
+	//rajout bordure à gauche sur le premier niveau
+	& { border-left: 1px solid @zonesBorderColor; }
+
+	#dm_sidebar_left & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad * -2 + 1px));
+	}
+	#dm_sidebar_right & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad * -2 + 1px));
+	}
+
+	//rajout bordure en haut sur les menus et gestion décalage
+	#dm_sidebar_left &,
+	#dm_sidebar_right & {
+		//pour toutes les premières cellules
+		& > li.first {
+			& > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @zonesBorderColor; }
+			& > ul { top: 0; padding-top: (@gridBaseline -1px); }
+		}
+	}
+
+	//configuration des dimensions à différents sous-niveaux
+	ul {
+		background-color: @colorCouleur3ClairSup;
+		//ajout bordure
+		border: 1px solid @zonesBorderColor;
+		//changement de la pleine largeur au premier sous-niveau
+		padding: @gridBaseline (@gridGutter -1px) (@gridBaseline -1px) (@gridGutter -1px);
+		@gridWidth(@gridCol; (@gridGutter*2 + @zonesOffsetPad*-2));
+		//replacement à gauche
+		left: @zonesOffsetPad*-1;
+
+		//liens des sous niveaux
+		li .link {
+			//reset apparence du lien
+			padding: 0;
+			border: 0;
+			&, .rgba & { background-color: transparent; }
+		}
+
+		#dm_sidebar_left & {
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteLeft(@gridCol_SidebarLeft; (@zonesOffsetPad * -2 + 2px));
+			top: -1px;
+			margin-top: 0;
+			padding-left: @gridGutter;
+			ul{ padding-left: 0; }
+		}
+		
+		#dm_sidebar_right & {
+			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
+			@gridAbsoluteRight(@gridCol_SidebarRight; (@zonesOffsetPad * -2 + 1px));
+			top: -1px;
+			margin-top: 0;
+			padding-right: @gridGutter;
+			ul{ padding-right: 0; }
+		}
+		
+		//niveau 2 et +
+		ul {
+			padding: 0;
+			left: 0;
+			border: 0;
+			&, .rgba & { background-color: transparent; }
+		}
+		
+		li {
+			//sous-dossiers
+			&.dm_dir {
+				//configuration titre des sous parties
+				& > .link { color: @colorCouleur1; }
+			}
+		}
+		
+		//sous parties de niveau 2 et + contenues dans un ul contenant des sous-dossiers
+		&.hasDmDir li {
+			border-right: 1px dotted @zonesBorderColor;
+			padding: 0 (@gridGutter/2 -1px) 0 (@gridGutter/2);
+			margin-bottom: @gridBaseline;
+			//on suprimme les bordures et marges inférieures pour les sous parties
+			li { border-right: 0; padding-right: @gridGutter/2; margin-bottom: 0; }
+			
+			//raccourcissement des zones extrêmes (sauf .last car pas forcément en fin de ligne) (firstOfRow, lastOfRow, inFirstRow et inLastRow ajoutés en JS)
+			&.first, &.firstOfRow, &.lastOfRow {
+				ul, & {
+					//configuration par défaut avec la pleine largeur de la page
+					@gridWidth(4; @gridGutter + @zonesOffsetPad*-1);
+				}
+			}
+
+			//paramètres à adapter en fonction de la configuration de grille du template
+			&.first, &.firstOfRow {
+				ul, & {
+					#dm_sidebar_left & {
+						@gridWidth(5; @gridGutter + @zonesOffsetPad*-2);
+					}
+					#dm_sidebar_right & {
+						@gridWidth(4; @gridGutter + @zonesOffsetPad*-1);
+					}
+				}
+			}
+			&.lastOfRow {
+				ul, & {
+					#dm_sidebar_left & {
+						@gridWidth(5; @gridGutter + @zonesOffsetPad*-1);
+					}
+					#dm_sidebar_right & {
+						@gridWidth(4; @gridGutter + @zonesOffsetPad*-2);
+					}
+				}
+			}
+
+			&.first, &.firstOfRow { padding-left: 0; }
+			&.last, &.lastOfRow { border-right: 0; }
+			&.last { padding-right: @gridGutter/2; }
+			&.lastOfRow { padding-right: 0; }
+			
+			//suppression marge pour la dernière ligne
+			&.inLastRow { margin-bottom: 0; }
+			
+			//niveau 3 et +
+			ul li.dm_dir { padding-left: @gridGutter; padding-right: 0; }
+		}
+
+		//sous parties de niveau 2 et + contenues dans un ul ne contenant aucun sous-dossier
+		&.hasNoDir li {
+			@gridWidth(4; @gridGutter + @zonesOffsetPad*-1);
+		}
+	}
+
+	//couleur de la flèche
+	& > li.dm_dir {
+		& > .link:after {
+			border-color: transparent transparent transparent @menuArrowColor;
+			#dm_sidebar_right & { border-color: transparent @menuArrowColor transparent transparent; }
+		}
+		& > .link:hover:after,
+		&:hover > .link:after {
+			border-color: @menuArrowColorSup transparent transparent transparent;
+			.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
+			.csstransitions.csstransforms #dm_sidebar_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
+		}
+	}
+
+	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
+	#dm_custom_top .dm_widget.navigation_menu & {
+		//supression bordure à gauche sur le premier niveau
+		border-left: 0;
+
+		//ajout ombre et couleur de fond
+		ul {
+			background-color: @colorCouleur2;
+			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
+			//suppression bordure du haut
+			border-top: 0;
+			//niveau 2 et +
+			ul {
+				&, .rgba & { background-color: transparent; }
+				@boxShadow(none);
+			}
+		}
+
+		//modification de couleurs du menu
+		.link {
+			//reset apparence du lien
+			&, .rgba & { background-color: transparent; }
+			padding: 0;
+			border: 0;
+			
+			color: @colorCouleur3Clair;
+			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
+			&.dm_inactive { color: @colorCouleur3Moyen; }
+			//LoVe's Hurts Fade Away
+			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Sup; }
+			&:active { color: @colorCouleur1; }
+		}
+
+		//gestion des cellules de premier niveau
+		& > li {
+			& > .link {
+				//uniformisation couleur de police
+				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
+				&.dm_inactive { color: @colorCouleur3Clair; }
+				
+				margin-top: floor(@gridBaseline / 4) + 1px;
+				margin-bottom: floor(@gridBaseline / 4) + 1px;
+				//ajout bordure à droite
+				border-right: 1px solid @zonesBorderColor;
+
+				//personnalisation padding pour menu horizontal
+				@padV: floor(@gridBaseline / 4) + 0px;
+				@padH: @menuDropdownPadHCustomTop;
+				padding: @padV @padH @padV (@padH +1px);
+			}
+			//pleine hauteur lors du rollOver
+			&:hover > .link,
+			& > .link:hover,
+			& > .link:focus {
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: @gridBaseline/2;
+				padding-bottom: @gridBaseline/2;
+				margin-left: -1px;
+				border-left: 1px solid @zonesBorderColor;
+			}
+
+			//rajout bordure à gauche sur la première cellule
+			//et correction de la cellule suivant dm_root (qui contient une icône link_root)
+			&.first,
+			&.dm_root + li {
+				& > .link { border-left: 1px solid @zonesBorderColor; }
+				//suppression décalage lors du rollOver
+				&:hover > .link,
+				& > .link:hover,
+				& > .link:focus { margin-left: 0; }
+				
+				//gestion décalage pour la première cellule
+				ul {
+					margin-left: 0;
+					// ul { margin-left: -1px; }
+				}
+			}
+
+			&.dm_dir {
+				//masquage de la flèche
+				& > .link:after {
+					display: none;
+					visibility: hidden;
+					//suppression animation rotation
+					@transformNone();
+					@transitionNone();
+				}
+			}
+		}
+	}
+}

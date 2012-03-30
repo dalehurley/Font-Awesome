@@ -1,0 +1,92 @@
+// _Areas.less
+// v1.1
+// Last Updated : 2012-01-18 11:00
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//COULEURS DE DEBUG (affichée en mode /less.php)
+.isLess {
+	#dm_page { background-color: #aaa; }
+	#dm_main { background-color: #bbb; }
+	#dm_main_inner { background-color: #ccc; }
+	
+	#dm_header > .dm_zones { background-color: #8ccccb; }
+	#dm_footer > .dm_zones { background-color: #c8ccbc; }
+	#dm_sidebar_left > .dm_zones { background-color: #ccccb8; }
+	#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
+	#dm_page_content > .dm_zones { background-color: #b8cccc; }
+	#dm_custom_top > .dm_zones { background-color: #ccccb8; }
+	#dm_custom_bottom > .dm_zones { background-color: #ccb8cc; }
+}
+
+//couleur de la zone située sous le header jusqu'en bas
+#dm_page {
+	// background-color: @colorWhite;
+	@verticalGradient(@colorCouleur2MoyenSup; @colorCouleur2ClairSup);
+}
+
+#dm_main {
+	background-image: url("@{urlImagesTemplate}/DemoRef/copilotes-coccinelle.png");
+	background-repeat: no-repeat;
+	background-position: -180px 430px;
+}
+
+#dm_main_inner {
+	background-image: url("@{urlImagesTemplate}/DemoRef/copilotes-coquelicot.png");
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
+}
+
+//stylage du header
+#dm_header {
+	// background-color: @colorCouleur2MoyenSup;
+	.dm_zones {
+		position: relative;
+		@gridSiteWidth();
+		margin-left: auto;
+		margin-right: auto;
+		padding-bottom: @gridBaseline;
+	}
+}
+
+//stylage du footer
+#dm_footer {
+	background-color: @colorCouleur2Fonce;
+	&, .link { color: @colorCouleur3ClairSup; }
+	padding: 0;
+	
+	.dm_zones {
+		@gridSiteWidth();
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	//widgets situés dans le footer
+	.content_text {
+		font-size: @fontSizeSmall;
+		line-height: @gridBaseline;
+		float: left;
+		.text_content p { margin: 0; }
+	}
+	.content_link {
+		font-size: @fontSizeSmall;
+		line-height: @gridBaseline;
+		float: right;
+		margin-left: @offM;
+	}
+}
+
+
+//stylage de la zone sous le header
+#dm_custom_top {
+	min-height: @gridBaseline;
+}
+
+//stylage de la zone de bas de page
+#dm_custom_bottom {
+}
+
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
+	//meilleure gestion uniformisée des bordures
+	.dm_zones { margin: 0 (@zonesOffsetPad * -1) @gridBaseline (@zonesOffsetPad * -1); }
+}

@@ -1,0 +1,41 @@
+// SpecifiquesBaseEditorialeFilActualite.less
+// v1.0
+// Last Updated : 2012-01-26 13:55
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+#dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.specifiques_base_editoriale_articles_by_section_contextuel {
+	
+		&.actualites {
+			//appel de la fonction de placement de la sprite
+			@widgetTitleSprite("Default"; "section"; "actualites");
+			//complément de l'appel de la sprite sur le titre
+			.dm_widget_inner > .title:after { @spriteBgp(@spriteFormat_M; @spriteOffX-section-actualites; @spriteOffY-section-actualites); }
+		}
+	
+		&.agenda {
+			//appel de la fonction de placement de la sprite
+			@widgetTitleSprite("Default"; "section"; "agenda");
+			//complément de l'appel de la sprite sur le titre
+			.dm_widget_inner > .title:after { @spriteBgp(@spriteFormat_M; @spriteOffX-section-agenda; @spriteOffY-section-agenda); }
+		}
+	
+		&.chiffres {
+			//appel de la fonction de placement de la sprite
+			@widgetTitleSprite("Default"; "section"; "chiffres");
+			//complément de l'appel de la sprite sur le titre
+			.dm_widget_inner > .title:after { @spriteBgp(@spriteFormat_M; @spriteOffX-section-chiffres; @spriteOffY-section-chiffres); }
+		}
+	
+		&.dossiers {
+			//appel de la fonction de placement de la sprite
+			@widgetTitleSprite("Default"; "section"; "dossiers");
+			//complément de l'appel de la sprite sur le titre
+			.dm_widget_inner > .title:after { @spriteBgp(@spriteFormat_M; @spriteOffX-section-dossiers; @spriteOffY-section-dossiers); }
+		}
+	}
+}

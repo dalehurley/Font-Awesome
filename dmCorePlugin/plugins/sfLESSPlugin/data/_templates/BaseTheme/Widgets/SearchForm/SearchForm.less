@@ -18,12 +18,13 @@
 @import "_framework/SPLessCss/Widgets/SearchForm/_SearchForm.less";
 
 .dm_widget.search_form {
-	.isLess & { background-color: fadeout(#BBF2F2, 75%); }
+	.isLess & { background-color: fadeout(#BBF2F2, 25%); }
 
 	//placement dans la zone située sous le header
 	#dm_custom_top & {
 		float: left;
-		margin-bottom: @gridBaseline/2;
+		margin-left: @zonesOffsetPad*-1;
+		margin-right: (@gridGutter - @zonesOffsetPad);
 	}
 
 	//placement et stylage lorsque placé dans le header
@@ -41,65 +42,6 @@
 		background-color: @colorCouleur2Fonce;
 		//bordure de séparation
 		border-bottom: 1px solid @colorCouleur3Clair;
-
-		//placement formulaire
-		form {
-			position: relative;
-			display: block;
-			float: right;
-			margin: 0;
-		}
-		
-		//stylage du formulaire spécifique à la zone (refaire un style spécifique pour intégration dans contenu)
-		label.label {
-			display: none;
-			visibility: hidden;
-		}
-		input.query {
-			position: absolute;
-			display: block;
-			right: (@spriteFormat_S + @offM / 2 + 1px);
-			border-color: @colorCouleur2FonceSup;
-			background-color: @colorWhite;
-			//padding horizontal soustrait à la largeur
-			@padHSub: (@offS + 1px) * 2 + (@spriteFormat_S + @offM / 2 + 1px);
-			//application largeur
-			@gridWidth(@gridCol_SidebarRight; @padHSub);
-			//réduction taille pour maintien baseline
-			line-height: (@gridBaseline - 10px);		//on soustrait la différence de padding et de bordure (4*2 + 2)
-			//placement sur deux lignes
-			padding-top: 4px;
-			padding-bottom: 3px;
-			margin-top: (@gridBaseline - @gridBaseline/2 - 2px - 1px);
-			margin-bottom: (@gridBaseline - @gridBaseline/2 - 2px);			//on enlève 1px à cause de la border-bottom de search_form
-			//arrondissement des coins
-			@borderRadiusCompress(@gridBaseline 0 0 @gridBaseline);
-		}
-		
-		input.submit {
-			position: absolute;
-			display: block;
-			right: 0;
-			//suppression du dégradé
-			&, .cssgradients & { background-color: @colorCouleur3Clair; }
-			//changement couleur d'appui
-			.boxshadow &:active { @insetShadow(0; 0; @offM; @offS; @colorCouleur3Sup); }
-			//suppression texte
-			text-indent: -9999em;
-			//suppression bordure de gauche
-			border-left: 0;
-			//bordure sur le côté droit
-			@borderRadiusCompress(0 @gridBaseline @gridBaseline 0);
-			//ajout sprite de recherche
-			@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
-			//ajout différence d'épaisseur
-			padding-top: (@gridBaseline - @spriteFormat_S) / 2 + 10px;
-			padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 8px;
-			padding-left: @offM;
-			padding-right: @offM + 2px;
-			margin-top: (@gridBaseline - @gridBaseline/2 - 2px - 1px);
-			margin-bottom: (@gridBaseline - @gridBaseline/2 - 2px);			//on enlève 1px à cause de la border-bottom de search_form
-		}
 	}
 
 	.dm_widget_inner {
@@ -107,13 +49,15 @@
 
 		//stylage lorsque placé dans la zone située sous le header
 		#dm_custom_top & {
+			padding-bottom: @gridBaseline/2;
+
 			//placement formulaire
 			form {
 				background-color: @colorCouleur3Moyen;
 				.rgba & { background-color: fadeout(@colorCouleur3Moyen, 20%); }
 				border: 1px solid @colorCouleur3Fonce;
 				//application largeur (soustraction bordure)
-				@gridWidth(@gridCol_SidebarRight; 2px);
+				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + 2px));
 				margin: 0;
 				padding: (@gridBaseline/4 -1px) 0;
 				//ajout de la bordure arrondie
@@ -173,10 +117,10 @@
 				padding: 2px @offS 2px @offS;
 
 				//application largeur
-				@gridWidth(@gridCol_SidebarRight; (@offS*2 + 2px));
+				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 2px));
 				//ajout du décalage à gauche si pseudo élément affiché
 				.generatedcontent & {
-					@gridWidth(@gridCol_SidebarRight; (@offS*3 + @spriteFormat_S + 2px));
+					@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 2px));
 				}
 
 				//couleur des placeHolders
@@ -193,10 +137,70 @@
 
 		//stylage lorsque placé dans le header
 		#dm_header & {
+			//centrage au centre du site
 			position: relative;
 			@gridSiteWidth();
 			margin-left: auto;
 			margin-right: auto;
+
+			//placement formulaire
+			form {
+				position: relative;
+				display: block;
+				float: right;
+				margin: 0;
+			}
+			
+			//stylage du formulaire spécifique à la zone (refaire un style spécifique pour intégration dans contenu)
+			label.label {
+				display: none;
+				visibility: hidden;
+			}
+			input.query {
+				position: absolute;
+				display: block;
+				right: (@spriteFormat_S + @offM / 2 + 1px);
+				border-color: @colorCouleur2FonceSup;
+				background-color: @colorWhite;
+				//padding horizontal soustrait à la largeur
+				@padHSub: (@offS + 1px) * 2 + (@spriteFormat_S + @offM / 2 + 1px);
+				//application largeur
+				@gridWidth(@gridCol_SidebarRight; @padHSub);
+				//réduction taille pour maintien baseline
+				line-height: (@gridBaseline - 10px);		//on soustrait la différence de padding et de bordure (4*2 + 2)
+				//placement sur deux lignes
+				padding-top: 4px;
+				padding-bottom: 3px;
+				margin-top: (@gridBaseline - @gridBaseline/2 - 2px - 1px);
+				margin-bottom: (@gridBaseline - @gridBaseline/2 - 2px);			//on enlève 1px à cause de la border-bottom de search_form
+				//arrondissement des coins
+				@borderRadiusCompress(@gridBaseline 0 0 @gridBaseline);
+			}
+			
+			input.submit {
+				position: absolute;
+				display: block;
+				right: 0;
+				//suppression du dégradé
+				&, .cssgradients & { background-color: @colorCouleur3Clair; }
+				//changement couleur d'appui
+				.boxshadow &:active { @insetShadow(0; 0; @offM; @offS; @colorCouleur3Sup); }
+				//suppression texte
+				text-indent: -9999em;
+				//suppression bordure de gauche
+				border-left: 0;
+				//bordure sur le côté droit
+				@borderRadiusCompress(0 @gridBaseline @gridBaseline 0);
+				//ajout sprite de recherche
+				@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
+				//ajout différence d'épaisseur
+				padding-top: (@gridBaseline - @spriteFormat_S) / 2 + 10px;
+				padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 8px;
+				padding-left: @offM;
+				padding-right: @offM + 2px;
+				margin-top: (@gridBaseline - @gridBaseline/2 - 2px - 1px);
+				margin-bottom: (@gridBaseline - @gridBaseline/2 - 2px);			//on enlève 1px à cause de la border-bottom de search_form
+			}
 		}
 	}
 }
