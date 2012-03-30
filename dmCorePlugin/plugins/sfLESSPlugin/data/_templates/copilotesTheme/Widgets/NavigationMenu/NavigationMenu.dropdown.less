@@ -115,7 +115,7 @@ ul.menu-dropdown {
 		//ajout ombre
 		ul {
 			border-right: 0;
-			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
+			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 fadeout(@colorBlack, 50%));
 		}
 		
 		//modification de couleurs du menu
@@ -137,7 +137,7 @@ ul.menu-dropdown {
 		//modification de la couleur de la flèche
 		li.dm_dir {
 			& > .link:after {
-				border-color: transparent transparent transparent @colorCouleur3Moyen;
+				border-color: transparent transparent transparent @colorCouleur3Fonce;
 			}
 			& > .link:hover:after,
 			&:hover > .link:after {
@@ -151,6 +151,7 @@ ul.menu-dropdown {
 			& > .link {
 				//Co-pilotes : couleurs spécifiques
 				color: @colorCouleur1;
+				&:hover, &:focus { color: @colorCouleur1Moyen; background-color: @colorCouleur2ClairSup; }
 				
 				//uniformisation couleur de police
 				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
