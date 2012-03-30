@@ -915,9 +915,8 @@ class baseEditorialeTools {
                 foreach ($sidArticles as $sidArticle) {
                     if (!in_array($sidArticle->filename . '.xml', $repArticle)) {
                         if ($sidArticle->isActive) {
-                            $sidArticle->setIsActive(false);
-                            $sidArticle->save();
-                            $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article désactivé'] = $sidArticle->filename;
+                            $sidArticle->delete();
+                            $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article supprimé'] = $sidArticle->filename;
                             $j++;
                         }
                     } elseif (!$sidArticle->getIsActive()) {
