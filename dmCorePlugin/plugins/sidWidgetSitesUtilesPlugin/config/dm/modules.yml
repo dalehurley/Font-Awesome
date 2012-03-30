@@ -23,7 +23,7 @@
       parent: GroupeSitesUtiles
       name: "Le site utile|Les sites utiles"
       model: SidSitesUtiles
-#      page: true
+      page: true
       components:
         list:
           cache: true
