@@ -40,7 +40,7 @@
 		margin-right: -100%;
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
-		background-color: @colorCouleur2;
+		background-color: transparent;
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
@@ -48,6 +48,7 @@
 			@gridSiteWidth();
 			margin-left: auto;
 			margin-right: auto;
+			background-color: @colorCouleur2Clair;
 		}
 	}
 }
@@ -160,7 +161,7 @@ ul.menu-dropdown, ul.menu-megadropdown {
 				//suppression du texte
 				text-indent:-9999em;
 				//insertion de la sprite
-				@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
+				@spriteDefinition("DefaultDark"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultDark-internet-home; @spriteOffY-DefaultDark-internet-home);
 				//suppression rollOver
 				&, .rgba & {
 					&, &:hover, &:focus { background-color: transparent; }
@@ -217,14 +218,22 @@ ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 
 //mise en couleur des cellules ouvertes
 ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
+// #dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
+// #dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-accordion li.dm_parent > .link,
 ul.menu-accordion li.dm_parent li.dm_parent > .link {
 	background-color: @colorCouleur1;
 	color: @colorCouleur3Clair;
 	&:hover { color: @colorCouleur3ClairSup; }
+}
+
+//Co-pilotes : couleurs spécifiques
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown > li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown > li.dm_dir:hover > .link {
+	background-color: @colorCouleur2ClairSup;
+	color: @colorCouleur1Moyen;
+	&:hover { color: @colorCouleur1MoyenSup; }
 }
 
 //création des fonctions localisées de déclinaisons média
