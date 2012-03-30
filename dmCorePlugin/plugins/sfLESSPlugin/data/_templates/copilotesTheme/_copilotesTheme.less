@@ -26,63 +26,63 @@
 //----------------------------------------------------------------------------------------------------------------------------------------//
 
 //TESTS DIVERSES DE CALCULS DE COULEURS
-// .testOrig, .testComp {
-// 	position: relative;
-// 	@getClearfix();
-// 	.testColor {
-// 		float: left;
-// 		width: @gridGutter*2;
-// 		height: @gridBaseline*2;
-// 		text-indent: -9999em;
-// 		background-color: @colorCouleur3Clair;
-// 	}
-// }
-// .testOrig {
-// 	.colorCouleur1 { background-color: @colorCouleur1; }
-// 	.colorCouleur1Clair { background-color: @colorCouleur1Clair; }
-// 	.colorCouleur1ClairSup { background-color: @colorCouleur1ClairSup; }
-// 	.colorCouleur1Moyen { background-color: @colorCouleur1Moyen; }
-// 	.colorCouleur1MoyenSup { background-color: @colorCouleur1MoyenSup; }
-// 	.colorCouleur1Sup { background-color: @colorCouleur1Sup; }
-// 	.colorCouleur1Fonce { background-color: @colorCouleur1Fonce; }
-// 	.colorCouleur1FonceSup { background-color: @colorCouleur1FonceSup; }
-// }
-// .testComp {
-// 	@colorCouleur1_hue: hue(@colorCouleur1);
-// 	@colorCouleur1_saturation: saturation(@colorCouleur1);
-// 	@colorCouleur1_lightness: lightness(@colorCouleur1);
-// 	@colorCouleur1_value: value(@colorCouleur1);
+.testOrig, .testComp {
+	position: relative;
+	@getClearfix();
+	.testColor {
+		float: left;
+		width: @gridGutter*2;
+		height: @gridBaseline*2;
+		text-indent: -9999em;
+		background-color: @colorCouleur3Clair;
+	}
+}
+.testOrig {
+	.colorCouleur1 { background-color: @colorCouleur1; }
+	.colorCouleur1Clair { background-color: @colorCouleur1Clair; }
+	.colorCouleur1ClairSup { background-color: @colorCouleur1ClairSup; }
+	.colorCouleur1Moyen { background-color: @colorCouleur1Moyen; }
+	.colorCouleur1MoyenSup { background-color: @colorCouleur1MoyenSup; }
+	.colorCouleur1Sup { background-color: @colorCouleur1Sup; }
+	.colorCouleur1Fonce { background-color: @colorCouleur1Fonce; }
+	.colorCouleur1FonceSup { background-color: @colorCouleur1FonceSup; }
+}
+.testComp {
+	@colorCouleur1_hue: hue(@colorCouleur1);
+	@colorCouleur1_saturation: saturation(@colorCouleur1);
+	@colorCouleur1_lightness: lightness(@colorCouleur1);
+	@colorCouleur1_value: value(@colorCouleur1);
 
-// 	colorCouleur2_hue: hue(@colorCouleur2);
-// 	colorCouleur2_saturation: saturation(@colorCouleur2);
-// 	colorCouleur2_lightness: lightness(@colorCouleur2);
+	colorCouleur2_hue: hue(@colorCouleur2);
+	colorCouleur2_saturation: saturation(@colorCouleur2);
+	colorCouleur2_lightness: lightness(@colorCouleur2);
 
-// 	colorCouleur2Clair_hue: hue(@colorCouleur2Clair);
-// 	colorCouleur2Clair_saturation: saturation(@colorCouleur2Clair);
-// 	colorCouleur2Clair_lightness: lightness(@colorCouleur2Clair);
+	colorCouleur2Clair_hue: hue(@colorCouleur2Clair);
+	colorCouleur2Clair_saturation: saturation(@colorCouleur2Clair);
+	colorCouleur2Clair_lightness: lightness(@colorCouleur2Clair);
 
-// 	colorCouleur2Moyen_hue: hue(@colorCouleur2Moyen);
-// 	colorCouleur2Moyen_saturation: saturation(@colorCouleur2Moyen);
-// 	colorCouleur2Moyen_lightness: lightness(@colorCouleur2Moyen);
+	colorCouleur2Moyen_hue: hue(@colorCouleur2Moyen);
+	colorCouleur2Moyen_saturation: saturation(@colorCouleur2Moyen);
+	colorCouleur2Moyen_lightness: lightness(@colorCouleur2Moyen);
 
-// 	colorCouleur2Fonce_hue: hue(@colorCouleur2Fonce);
-// 	colorCouleur2Fonce_saturation: saturation(@colorCouleur2Fonce);
-// 	colorCouleur2Fonce_lightness: lightness(@colorCouleur2Fonce);
+	colorCouleur2Fonce_hue: hue(@colorCouleur2Fonce);
+	colorCouleur2Fonce_saturation: saturation(@colorCouleur2Fonce);
+	colorCouleur2Fonce_lightness: lightness(@colorCouleur2Fonce);
 
-// 	@comp_colorCouleur1Clair: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation - 40), (@colorCouleur1_lightness + 5));		// S-40 V+5
-// 	@comp_colorCouleur1ClairSup: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation - 40), (@colorCouleur1_lightness + 10));	// S-40 V+10
-// 	@comp_colorCouleur1Moyen: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation + 30), (@colorCouleur1_lightness -20));		// S+30 V-20
-// 	@comp_colorCouleur1MoyenSup: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation + 30), (@colorCouleur1_lightness - 5));		// S+30 V-5
-// 	@comp_colorCouleur1Sup: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation - 5), (@colorCouleur1_lightness + 15));			// S-5 V+15
-// 	@comp_colorCouleur1Fonce: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation + 30), (@colorCouleur1_lightness - 30));		// S+30 V-30
-// 	@comp_colorCouleur1FonceSup: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation + 30), (@colorCouleur1_lightness - 25));	// S+30 V-25
+	@comp_colorCouleur1Clair: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation - 35), (@colorCouleur1_lightness + 20));		// S-40 V+5		S-35 B+20
+	@comp_colorCouleur1ClairSup: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation - 25), (@colorCouleur1_lightness + 25));	// S-40 V+10	S-25 B+25
+	@comp_colorCouleur1Moyen: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation + 25), (@colorCouleur1_lightness -15));		// S+30 V-20	S+25 B-15
+	@comp_colorCouleur1MoyenSup: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation + 35), (@colorCouleur1_lightness - 5));		// S+30 V-5		S+35 B-5
+	@comp_colorCouleur1Sup: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation - 5), (@colorCouleur1_lightness + 10));			// S-5 V+15		S-5 B+10
+	@comp_colorCouleur1Fonce: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation + 25), (@colorCouleur1_lightness - 20));		// S+30 V-30	S+25 B-20
+	@comp_colorCouleur1FonceSup: hsl(@colorCouleur1_hue, (@colorCouleur1_saturation + 35), (@colorCouleur1_lightness - 15));	// S+30 V-25	S+35 B-15
 
-// 	.colorCouleur1 { background-color: @comp_colorCouleur1; }
-// 	.colorCouleur1Clair { background-color: @comp_colorCouleur1Clair; }
-// 	.colorCouleur1ClairSup { background-color: @comp_colorCouleur1ClairSup; }
-// 	.colorCouleur1Moyen { background-color: @comp_colorCouleur1Moyen; }
-// 	.colorCouleur1MoyenSup { background-color: @comp_colorCouleur1MoyenSup; }
-// 	.colorCouleur1Sup { background-color: @comp_colorCouleur1Sup; }
-// 	.colorCouleur1Fonce { background-color: @comp_colorCouleur1Fonce; }
-// 	.colorCouleur1FonceSup { background-color: @comp_colorCouleur1FonceSup; }
-// }
+	.colorCouleur1 { background-color: @colorCouleur1; }
+	.colorCouleur1Clair { background-color: @comp_colorCouleur1Clair; }
+	.colorCouleur1ClairSup { background-color: @comp_colorCouleur1ClairSup; }
+	.colorCouleur1Moyen { background-color: @comp_colorCouleur1Moyen; }
+	.colorCouleur1MoyenSup { background-color: @comp_colorCouleur1MoyenSup; }
+	.colorCouleur1Sup { background-color: @comp_colorCouleur1Sup; }
+	.colorCouleur1Fonce { background-color: @comp_colorCouleur1Fonce; }
+	.colorCouleur1FonceSup { background-color: @comp_colorCouleur1FonceSup; }
+}
