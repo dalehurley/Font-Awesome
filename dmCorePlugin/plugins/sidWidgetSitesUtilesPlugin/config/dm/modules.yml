@@ -32,7 +32,7 @@
           cache: true
 #        listParTags:
 #            filters: [ dmTag ]
-        show:
-          cache: true
+#        show:
+#          cache: true
 #        miseEnAvantSitesUtiles:
 #          cache: true

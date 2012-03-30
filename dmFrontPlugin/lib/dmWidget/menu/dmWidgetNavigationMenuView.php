@@ -33,7 +33,7 @@ class dmWidgetNavigationMenuView extends dmWidgetPluginView {
                     ->secure(!empty($item['secure']))
                     ->liClass($vars['liClass'])
                     ->addRecursiveChildren(dmArray::get($item, 'depth', 0));
-
+            
             if (!empty($item['nofollow']) && $menuItem->getLink()) {
                 $menuItem->getLink()->set('rel', 'nofollow');
             }
