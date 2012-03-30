@@ -28,14 +28,10 @@ ul.menu-megadropdown {
 		//largeur en fonction de la zone
 		// @gridWidth(@gridCol_SidebarLeft);
 
-		//calcul du nombre de colonnes
-		@midCol: floor(@gridCol_SidebarLeft/2);
-
-		//application dimensions et marge
-		@gridWidth(@midCol);
-		@gridMarginLeft(@gridCol_SidebarLeft - @midCol);
-		
-		ul { margin-left: 0; }
+		//Maestro : pplication dimensions spécifique et placement à droite
+		@gridWidth(@menuMaestroColSidebarLeft);
+		float: right;
+		ul { float: none; }
 	}
 	#dm_sidebar_right & {
 		//largeur en fonction de la zone
@@ -110,7 +106,7 @@ ul.menu-megadropdown {
 			@gridWidth(@gridCol - @gridCol_SidebarLeft; @gridGutter);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			// @gridAbsoluteLeft(@gridCol_SidebarLeft; 1px);
-			@gridAbsoluteLeft(3; 1px);
+			@gridAbsoluteLeft(@menuMaestroColSidebarLeft; 1px);
 			margin-top: 0;
 			padding-top: (@gridBaseline +1px);
 			padding-left: (@gridGutter +1px);
@@ -163,7 +159,7 @@ ul.menu-megadropdown {
 			&.first, &.firstOfRow {
 				ul, & {
 					#dm_sidebar_left & {
-						@gridWidth(5);
+						@gridWidth(4);
 					}
 					#dm_sidebar_right & {
 						@gridWidth(5; @gridGutter);
@@ -173,7 +169,7 @@ ul.menu-megadropdown {
 			&.lastOfRow {
 				ul, & {
 					#dm_sidebar_left & {
-						@gridWidth(5; @gridGutter);
+						@gridWidth(4; @gridGutter);
 					}
 					#dm_sidebar_right & {
 						@gridWidth(5);

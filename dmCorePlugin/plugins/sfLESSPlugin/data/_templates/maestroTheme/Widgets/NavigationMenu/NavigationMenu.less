@@ -28,7 +28,7 @@
 	#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
 		.dm_widget_inner {
 			border: 0;
-			padding: 0 0 @gridBaseline/2 0;
+			padding: 0;
 			background-color: transparent;
 		}
 	}
@@ -274,8 +274,10 @@ ul.menu-accordion li.dm_parent > .link:after {
 //Maestro : personnalisation de la flèche
 ul.menu-megadropdown > li.dm_dir > .link:hover:after,
 ul.menu-megadropdown > li.dm_dir:hover > .link:after {
-	border-width: @menuMaestroArrowDim;
-	right: (@menuMaestroArrowOffsetX - @menuMaestroArrowDim*2 +1px);
+	// border-width: @menuMaestroArrowDim;
+	border-width: @menuMaestroArrowDim @menuMaestroArrowDim/2;
+	// right: (@menuMaestroArrowOffsetX - @menuMaestroArrowDim*2 +1px);
+	right: (@menuMaestroArrowOffsetX - @menuMaestroArrowDim +1px);
 	opacity: 1;
 	//inversion de style automatique en fonction du conteneur
 	#dm_sidebar_right & {

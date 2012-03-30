@@ -7,6 +7,9 @@
 //Config par défaut des widgets du template
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+
 //Config du widget courant
 @import "_templates/maestroTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
 
@@ -17,6 +20,17 @@
 ul.menu-accordion {
 	//rajout bordure à gauche sur le menu principal
 	// border-left: 1px solid @zonesBorderColor;
+
+	//Maestro : configuration de la largeur du menu spécifique
+	#dm_sidebar_left & {
+		//largeur en fonction de la zone
+		// @gridWidth(@gridCol_SidebarLeft);
+		
+		//Maestro : pplication dimensions spécifique et placement à droite
+		@gridWidth(@menuMaestroColSidebarLeft);
+		float: right;
+		ul { width: auto; float: none; }
+	}
 	
 	//rajout bordure en haut sur le menu principal et gestion décalage
 	& > li.first > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @zonesBorderColor; }

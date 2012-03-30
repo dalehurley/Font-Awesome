@@ -15,7 +15,7 @@ all:
       - 217.108.240.217
       - 217.108.240.225
       - 192.168.81.220
-  
+
   #variable utilisées dans les différents partials du site
   vars-partial:
     separator: '&#160;:&#160;'
@@ -23,6 +23,4 @@ all:
     ellipsis: '&#160;(...)'
     #longueur de texte de description par défaut
     defaultValueLength: 200
-    
-  # nombre de photo pour les listings des articles BE ou du Cabinet
-  nb-image: 3
+

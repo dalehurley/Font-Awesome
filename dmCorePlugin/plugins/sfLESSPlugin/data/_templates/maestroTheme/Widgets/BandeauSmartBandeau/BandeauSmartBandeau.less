@@ -11,5 +11,40 @@
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 
 .dm_widget.bandeau_smart_bandeau {
+	.isLess & { background-color: #C7EDE8; }
 	
+	//définitions de la largeur lorsque précédé par le formulaire de recherche et contenu dans la zone située sous le header
+	#dm_custom_top .dm_widget.search_form ~ & {
+		@gridWidth((@gridCol - @gridCol_SidebarLeft); @gridGutter*-1);
+		float: left;
+	}
+	
+	margin-bottom: @gridBaseline/2;
+	overflow: hidden;
+
+	.dm_widget_inner {
+		margin: 0;
+		height: @gridBaseline;
+		padding: @gridBaseline/4 0;
+		.dm_widget_inner { padding: 0; height: auto; }
+	}
+
+	.bandeau_show {
+		color: @colorCouleur1;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
 }
+
+//TODO : revoir replacement élément en mode portrait car le JS impose la taille du bandeau au chargement !
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletPortrait(){
+	.dm_widget.bandeau_smart_bandeau {
+		display: none;
+		visibility: hidden;
+	}
+}
+
+//importation des requêtes média
+@import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";

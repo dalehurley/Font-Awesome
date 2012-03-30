@@ -50,7 +50,7 @@ class selectionPlacementsSelectionsListView extends dmWidgetPluginView {
                 ->orderBy('aTranslation.updated_at DESC')
                 ->limit($nbArticles)
                 ->execute();
-            $constanteSelection = '{{selectionPlacements}}';
+            $constanteSelection = '{{selection_placement}}';
         }
 
         if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
