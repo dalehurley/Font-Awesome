@@ -1,6 +1,6 @@
 // _Itemprop.less
-// v1.0
-// Last Updated : 2012-02-09 14:15
+// v1.1
+// Last Updated : 2012-03-28 14:50
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -36,13 +36,13 @@
 .name, .title {
 	//changement de la police spécifique à Ténor
 	font-family: @fontGlobalFamilySerif;
-	//dans un listing
-	.elements .element & { font-weight: bold; color: @colorText; }
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & { font-weight: bold; color: @colorText; }
 }
 
 .description, .teaser {
-	//dans un listing
-	.elements .element & { font-size: @fontSizeSmall; }
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & { font-size: @fontSizeSmall; }
 	//dans du contenu
 	#dm_page_content .contentHeader & { margin-top: @gridBaseline/2; }
 }
@@ -54,8 +54,8 @@
 
 //stylage minimal de la date
 .date {
-	//dans un listing
-	.elements .element & {
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & {
 		//désactivation date dans certaines zones
 		#dm_sidebar_left &, #dm_sidebar_right & { display: none; visibility: hidden; }
 	}

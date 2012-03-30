@@ -1,6 +1,6 @@
 // _DebugLists.less
-// v1.0
-// Last Updated : 2011-11-14 15:00
+// v1.2
+// Last Updated : 2012-03-28 14:30
 // Copyright : SID Presse | http://github.com/necolas | http://html5boilerplate.com | http://www.cssplay.co.uk
 // Author : Arnaud GAUDIN | Nicolas Gallagher | Paul Irish | Stuart Nicholls
 
@@ -9,6 +9,41 @@
 //	Lists
 //=============================================================================
 
-ul, ol { margin: @gridBaseline 0; padding: 0 0 0 @offL; }
+ul, ol { margin: @gridBaseline 0; }
+ul { padding: 0 0 0 @offL; }
+ol { padding: 0 0 0 @offX; }
 dd { margin: 0 0 0 @offX; }
-nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+nav ul, nav ol {
+	list-style: none;
+	list-style-image: none;
+	margin: 0;
+	padding: 0;
+}
+//suppression du pseudo element compteur
+nav ol li:before { content: ""; margin: 0; }
+
+//configuration par défaut des liste ordonnées
+ol {
+	//on rajoute par défaut un zéro devant les chiffres
+	list-style-type: decimal-leading-zero;
+
+	//suppression numérotation par défaut lorsque géré par pseudo élément
+	.generatedcontent & {
+		list-style: none;
+		padding-left: 0;
+	}
+
+	//initialisation du compteur
+	counter-reset: start-from;
+
+	li{
+		//on incrémente le compteur
+		counter-increment: start-from;
+
+		//affection de la valeur du compteur au pseudo-element
+		&:before{
+			content: counter(start-from, decimal-leading-zero);
+			margin-right: @offS;
+		}
+	}
+}

@@ -11,10 +11,19 @@
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 
 .dm_widget.bandeau_smart_bandeau {
-	.isLess & { background-color: MediumAquamarine; }
-	@gridWidth(@gridCol);
-	height: @gridBaseline;
+	.isLess & { background-color: #6A8581; }
+	//définitions de la largeur
+	@gridWidth((@gridCol - @gridCol_SidebarRight); @gridGutter*-1);
+	float: left;
+	margin-bottom: @gridBaseline/2;
 	overflow: hidden;
+
+	.dm_widget_inner {
+		margin: 0;
+		height: @gridBaseline;
+		padding: @gridBaseline/4 0;
+		.dm_widget_inner { padding: 0; height: auto; }
+	}
 	
 	.bandeau_show {
 		color: @colorCouleur3Fonce;
@@ -29,8 +38,6 @@
 	.dm_widget.bandeau_smart_bandeau {
 		display: none;
 		visibility: hidden;
-		//@gridWidth(@gridCol_TabletPortrait);
-		//@gridWidth(@gridCol - @gridCol_SidebarLeft - @gridCol_SidebarRight);
 	}
 }
 

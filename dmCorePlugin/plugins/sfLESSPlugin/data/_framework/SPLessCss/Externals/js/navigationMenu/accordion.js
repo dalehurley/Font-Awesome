@@ -1,6 +1,6 @@
 // accordion.js
-// v1.0
-// Last Updated : 2011-12-06 12:00
+// v1.1
+// Last Updated : 2012-03-29 15:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -51,8 +51,10 @@
 			//(car l'absence de dm_parent masque le ul dès le début et le fait apparaitre brutalement)
 			$(li).addClass('dm_parent');
 			$(li).find('> ul').hide();
-			//désactivation écouteur
-			$.fn.menuAccordion.removeEvent(li);
+			//désactivation écouteur si configuré dans les options
+			if(options.disableClose) {
+				$.fn.menuAccordion.removeEvent(li);
+			}
 			
 			$(li).find('> ul').animate(
 				{ height: 'show', opacity: 'show' },
@@ -127,15 +129,20 @@
 	//Paramètres par défaut
 	$.fn.menuAccordion.defaults = {
 		duration: 250,
-		easing: 'swing'
+		easing: 'swing',
+		disableClose: false
 	};
 	
 	//lancement automatique de la fonction
 	$(document).ready(function(){
 		$('ul.menu-accordion').menuAccordion();
-		/*$('ul.menu-accordion').menuAccordion({
-									duration: 500
-									});*/
+
+		//test passage d'options
+		// $('ul.menu-accordion').menuAccordion({
+		// 							duration: 1000,
+		// 							easing: 'swing',
+		// 							disableClose: true
+		// 							});
 	});
 	
 })(jQuery);
