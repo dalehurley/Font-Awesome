@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.1.44, for apple-darwin8.11.1 (i386)
 --
--- Host: localhost    Database: sitev3_dev_test2
+-- Host: localhost    Database: sitev3_dev_test5
 -- ------------------------------------------------------
 -- Server version	5.1.44
 
@@ -234,7 +234,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `dm_user` WRITE;
 /*!40000 ALTER TABLE `dm_user` DISABLE KEYS */;
-INSERT INTO `dm_user` (`id`, `username`, `email`, `algorithm`, `salt`, `password`, `is_active`, `is_super_admin`, `last_login`, `forgot_password_code`, `created_at`, `updated_at`) VALUES (1,'admin','admin@dev-test2.com','sha1','8993df5be19d99ad88613c2c6b697059','37598e0f1fe50ebd02cd4ae50acd81626beefd82',1,1,'2012-03-28 12:46:00',NULL,'2011-11-16 14:23:09','2011-11-16 14:23:09'),(2,'client','client@client.fr','sha1','1ecbcc7d51d509c40c13c00a9a62ee14','9c4e226396030f4e6674335b7274dc210483d7e8',1,0,'2012-03-21 11:04:48',NULL,'2011-11-16 14:45:56','2011-11-16 14:45:56');
+INSERT INTO `dm_user` (`id`, `username`, `email`, `algorithm`, `salt`, `password`, `is_active`, `is_super_admin`, `last_login`, `forgot_password_code`, `created_at`, `updated_at`) VALUES (1,'admin','admin@dev-test5.com','sha1','5d8a1b5fd5c298a89966363507ad6e27','a156454256b58835a0a104df0a79e15f3f1ccb22',1,1,'2012-03-28 12:46:00',NULL,'2011-11-16 14:23:09','2011-11-16 14:23:09'),(2,'client','client@client.fr','sha1','1ecbcc7d51d509c40c13c00a9a62ee14','9c4e226396030f4e6674335b7274dc210483d7e8',1,0,'2012-03-21 11:04:48',NULL,'2011-11-16 14:45:56','2011-11-16 14:45:56');
 /*!40000 ALTER TABLE `dm_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -767,4 +767,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-03-30 11:17:50
+-- Dump completed on 2012-03-30 16:18:34
