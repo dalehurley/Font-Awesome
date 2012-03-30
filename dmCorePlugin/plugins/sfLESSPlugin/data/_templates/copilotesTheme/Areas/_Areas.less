@@ -21,30 +21,26 @@
 
 //couleur de la zone située sous le header jusqu'en bas
 #dm_main {
-	background-color: @colorWhite;
-	//@verticalGradient(@colorCouleur3Clair; @colorWhite);
+	// background-color: @colorWhite;
+	@verticalGradient(@colorCouleur2MoyenSup; @colorCouleur2ClairSup);
 }
 
 //stylage du header
 #dm_header {
-	@verticalGradient(@colorCouleur1; @colorCouleur1Fonce);
-	@boxShadowPie(0 @gridBaseline/4 @gridBaseline/4 @colorCouleur2Fonce);
-	//bordure ici pour prendre toute la largeur du site
-	border-bottom: 1px solid @colorCouleur1Clair;
-	
+	background-color: @colorCouleur2MoyenSup;
 	.dm_zones {
 		position: relative;
 		@gridSiteWidth();
 		margin-left: auto;
 		margin-right: auto;
-		padding-bottom: (@gridBaseline -1px);
+		padding-bottom: @gridBaseline;
 	}
 }
 
 //stylage du footer
 #dm_footer {
-	background-color: @colorCouleur2Moyen;
-	&, .link { color: @colorCouleur3ClairSup; }
+	background-color: @colorCouleur2Fonce;
+	&, .link { color: @colorCouleur3Sup; }
 	padding: 0;
 	
 	.dm_zones {
