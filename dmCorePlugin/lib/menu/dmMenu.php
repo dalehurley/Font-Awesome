@@ -401,6 +401,9 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         return $html;
     }
     protected function renderLiOpenTag() {
+
+        $moduleAction = $this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action;
+
         $classes = array();
         $id = $this->getOption('show_id') ? dmString::slugify('menu-' . $this->getRoot()->getName() . '-' . $this->getName()) : null;
         $link = $this->getLink();
@@ -415,13 +418,16 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         }
         if ($link && $link->isCurrent()) {
             $classes[] = $link->getOption('current_class');
-        } elseif ($link && $link->isParent()) {
+        } elseif ($link 
+                && $link->isParent() 
+                && $moduleAction != 'main_root'
+               ) { 
             $classes[] = $link->getOption('parent_class');
         }
 
         // lioshi : ajout classe dm_root au li
         if ($this->getLink() instanceof dmFrontLinkTagPage) {
-            if ($this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action == 'main_root' 
+            if ($moduleAction == 'main_root' 
                 && $this->parent->getOption('ul_class') != 'menu-accordion' )  {  // ajout lioshi : pas de class dm_root en plus pour le menu de type accordion
                 $classes[] = 'dm_root';
             }
