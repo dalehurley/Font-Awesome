@@ -1,0 +1,97 @@
+// _Forms.less
+// v1.1
+// Last Updated : 2012-03-27 10:40
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//STYLAGE DES FORMULAIRES POUR LE TEMPLATE
+
+//IMPORTATION DES STYLES PAR DÉFAUT DES DIFFÉRENTS CHAMPS
+@import "_templates/copilotesTheme/Elements/Forms/_Fields.less";
+
+//gestion des formulaires pour la grille courante
+form {
+	//suppression des marges et padddings
+	&, .dm_form_elements { margin: 0; padding: 0; }
+	
+	.dm_form_element {
+		
+		//placement des éléments
+		label, select, input, textarea, button { float: left; }
+		label {
+			@gridWidth(3; 0);
+			margin-right: @gridGutter;
+		}
+		
+		input {
+			//padding horizontal soustrait à la largeur
+			@padHSub: (@offS + 1px) * 2;
+			//application largeur
+			@gridWidth(3; @padHSub);
+		}
+		
+		textarea {
+			//padding horizontal soustrait à la largeur
+			@padHSub: (@offS + 1px) * 2;
+			
+			//application largeur (largeur contenu moins largeur label)
+			.dm_sdbc_none &	{ @gridWidth((@gridCol - 3); @padHSub); }
+			.dm_sdbc_left &	{ @gridWidth((@gridCol - @gridCol_SidebarLeft - 3); @padHSub); }
+			.dm_sdbc_right & { @gridWidth((@gridCol - @gridCol_SidebarRight - 3); @padHSub); }
+			.dm_sdbc_two & { @gridWidth((@gridCol_Content - 3); @padHSub); }
+			
+			//padding vertical soustrait à la hauteur
+			@padVSub: (2px + 1px) * 2;
+			min-height: @gridBaseline * 5 - @padVSub;
+		}
+
+		//on replace l'élément lorsque précédé d'une liste d'erreur
+		.error_list ~ textarea { clear: right; float: right; }
+		
+		select {
+			@padHSub: 0;
+			//application largeur
+			@gridWidth(3; @padHSub);
+		}
+		
+		input[type=submit], input.submit, input[type=button], button {
+			//application largeur
+			@gridWidth(2);
+		}
+
+		//stylage par défaut du captcha
+		#recaptcha_widget_div, #recaptcha_area #recaptcha_table.recaptchatable {
+			//application largeur (largeur contenu moins largeur label)
+			.dm_sdbc_none &	{ @gridWidth((@gridCol - 3)); }
+			.dm_sdbc_left &	{ @gridWidth((@gridCol - @gridCol_SidebarLeft - 3)); }
+			.dm_sdbc_right & { @gridWidth((@gridCol - @gridCol_SidebarRight - 3)); }
+			.dm_sdbc_two & { @gridWidth((@gridCol_Content - 3)); }
+		}
+
+		#recaptcha_widget_div {
+			float: right !important;
+			//on replace l'élément lorsque précédé d'une liste d'erreur
+			.error_list ~ textarea { clear: right !important; }
+		}
+	}
+	
+	.dm_help_wrap {
+		float: right;
+		//on soustrait de la largeur totale les dimensions du label et de l'input
+		.dm_sdbc_none &	{ @gridWidth((@gridCol - 6)); }
+		.dm_sdbc_left &	{ @gridWidth((@gridCol - @gridCol_SidebarLeft - 6)); }
+		.dm_sdbc_right & { @gridWidth((@gridCol - @gridCol_SidebarRight - 6)); }
+		.dm_sdbc_two & { @gridWidth((@gridCol_Content - 6)); }
+	}
+
+	.error_list {
+		float: right;
+		//addition de la largeur du label et de l'input
+		.dm_sdbc_none &	{ @gridWidth((@gridCol - 6)); }
+		.dm_sdbc_left &	{ @gridWidth((@gridCol - @gridCol_SidebarLeft - 6)); }
+		.dm_sdbc_right & { @gridWidth((@gridCol - @gridCol_SidebarRight - 6)); }
+		.dm_sdbc_two & { @gridWidth((@gridCol_Content - 6)); }
+		//mise en couleur du texte
+		color: @colorRequired;
+	}
+}

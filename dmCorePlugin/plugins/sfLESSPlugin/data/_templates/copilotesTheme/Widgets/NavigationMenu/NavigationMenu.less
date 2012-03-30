@@ -1,0 +1,242 @@
+// NavigationMenu.less
+// v1.3
+// Last Updated : 2012-03-22 11:50
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
+
+//Config du widget courant
+@import "_templates/copilotesTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
+
+//Importation de la mise en page par défaut du widget
+@import "_framework/SPLessCss/Widgets/NavigationMenu/_NavigationMenu.less";
+
+//personnalisation du widget par rapport à la zone contenante
+.dm_widget.navigation_menu {
+	margin: 0;
+	
+	//suppression bordure et padding
+	#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
+		.dm_widget_inner {
+			border: 0;
+			padding: 0 0 @gridBaseline/2 0;
+			background-color: transparent;
+		}
+	}
+	
+	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
+	#dm_custom_top & {
+		//permet d'étendre la zone en débordement de la page
+		margin-left: -100%;
+		margin-right: -100%;
+		//rajout décalage en dessous
+		margin-bottom: @gridBaseline/2;
+		background-color: @colorCouleur2;
+		
+		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
+		.dm_widget_inner {
+			position: relative;
+			@gridSiteWidth();
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}
+
+//configuration de base des textes pour tous les types de menus
+ul.menu-dropdown, ul.menu-megadropdown, ul.menu-accordion {
+	//stylage minimale du lien
+	.link {
+		text-decoration: none;
+		outline: 0;
+		cursor: pointer;
+		//word-wrap: break-word;
+		
+		//ajout des transitions pour navigateurs récents
+		.csstransitions & {
+			@transitionCompress(background-color, color; .2s; ease-in-out; 0);
+		}
+	}
+
+	//gestion grosseur texte
+	li, ul li.dm_dir {
+		font-weight: bold;
+		text-transform: uppercase;
+		word-spacing: -0.05em;
+		letter-spacing: -0.05em;
+	}
+}
+
+//mise en minuscule des liens de toutes les sous parties, dossiers compris (sauf pour megadropdown)
+ul.menu-dropdown ul li, ul.menu-dropdown ul li.dm_dir,
+ul.menu-accordion ul li, ul.menu-accordion ul li.dm_dir,
+ul.menu-megadropdown ul li {
+	font-weight: normal;
+	text-transform: none;
+	word-spacing: 0;
+	letter-spacing: 0;
+}
+
+//configuration de base des liens pour les types de menus
+ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
+	//gestion des liens
+	.link {
+		background-color: @colorCouleur3ClairSup;
+		padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
+		border-style: solid;
+		border-width: 0 1px 1px 0;
+		border-color: @zonesBorderColor;
+		color: @colorCouleur3Fonce;
+		
+		//changement taille selon zone
+		#dm_custom_top & { font-size: @fontGlobalSizePx; }
+		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
+		
+		&.dm_current { &, &:hover { color: @colorCouleur1; } }
+		&.dm_inactive { color: @colorCouleur3; }
+		//LoVe's Hurts Fade Away
+		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
+		&:active { color: @colorCouleur1; }
+	}
+}
+
+ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
+	//création de la flèche avec des bordures
+	&.dm_dir > .link {
+		&:after {
+			position: absolute;
+			z-index: 600;
+			display: block;
+			content:"";
+			width: 0;
+			height: 0;
+			right: @menuArrowOffsetX;
+			top: @menuArrowOffsetY;
+			//border-color: transparent transparent transparent @menuDropdownArrowColor;
+			border-color: transparent;
+			border-style: solid;
+			border-width: @menuArrowDim;
+			
+			//ajout des transitions pour navigateurs récents
+			.csstransitions.csstransforms & {
+				@transitionCompress(all; .15s; ease-in; 0);
+				@origin(25%; 50%);
+			}
+			
+			//inversion de style automatique en fonction du conteneur
+			#dm_sidebar_right & {
+				right: auto !important;
+				left: @menuArrowOffsetX;
+				//border-color: transparent @menuDropdownArrowColor transparent transparent;
+				
+				.csstransitions.csstransforms & {
+					@origin(75%; 50%);
+				}
+			}
+		}
+	}
+}
+
+//ajout de l'icône sur le lien vers la page d'accueil pour les menus dropdown et megadropdown situé dans la zone dm_custom_top
+ul.menu-dropdown, ul.menu-megadropdown {
+	#dm_custom_top .dm_widget.navigation_menu & {
+		//décalage de marge
+		@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
+		@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+		
+		//lien vers la page d'accueil
+		& > li.dm_root {
+			//ajout de la sprite sur la home
+			& > .link_root {
+				//suppression du texte
+				text-indent:-9999em;
+				//insertion de la sprite
+				@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
+				//suppression rollOver
+				&, .rgba & {
+					&, &:hover, &:focus { background-color: transparent; }
+				}
+			}
+		}
+
+		//double sélecteur pour forcer la réinitialisation sans utiliser !important
+		& > li.dm_root,
+		& > li.first.dm_root {
+			//uniformisation des marges du bouton
+			& > .link_root,
+			&:hover > .link_root,
+			& > .link_root:hover,
+			& > .link_root:focus {
+				border: 0;
+				padding: 0;
+				margin: @decalV @decalH;
+			}
+		}
+	}
+}
+
+//comportement flèche différents selon les types de menu
+ul.menu-dropdown li.dm_dir > .link:hover:after,
+ul.menu-dropdown li.dm_dir:hover > .link:after,
+ul.menu-accordion li.dm_parent > .link:after,
+ul.menu-megadropdown > li.dm_dir > .link:hover:after,
+ul.menu-megadropdown > li.dm_dir:hover > .link:after {
+	right: @menuArrowOffsetX + @menuArrowDecal;
+	top: @menuArrowOffsetY + @menuArrowDecal;
+	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
+	
+	//ajout des transitions pour navigateurs récents
+	.csstransitions.csstransforms & {
+		right: @menuArrowOffsetX;
+		top: @menuArrowOffsetY;
+		//border-color: transparent transparent transparent @menuDropdownArrowColorSup;
+		@rotate(90deg);
+	}
+	
+	//inversion de style automatique en fonction du conteneur
+	#dm_sidebar_right & {
+		right: auto !important;
+		left: @menuArrowOffsetX + @menuArrowDecal;
+		
+		.csstransitions.csstransforms & {
+			left: @menuArrowOffsetX;
+			//border-color: transparent @menuDropdownArrowColorSup transparent transparent;
+			@rotate(-90deg);
+		}
+	}
+}
+
+//mise en couleur des cellules ouvertes
+ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
+ul.menu-megadropdown li.dm_dir:hover > .link,
+ul.menu-accordion li.dm_parent > .link,
+ul.menu-accordion li.dm_parent li.dm_parent > .link {
+	background-color: @colorCouleur1;
+	color: @colorCouleur3Clair;
+	&:hover { color: @colorCouleur3ClairSup; }
+}
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletPortrait(){
+	#dm_custom_top {
+		.dm_widget.navigation_menu {
+			.dm_widget_inner {
+				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+			}
+		}
+	}
+}
+
+//importation des requêtes média
+@import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";

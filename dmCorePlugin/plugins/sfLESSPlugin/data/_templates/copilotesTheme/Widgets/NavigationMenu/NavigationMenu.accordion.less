@@ -1,0 +1,59 @@
+// NavigationMenu.accordion.less
+// v1.2
+// Last Updated : 2012-03-09 15:05
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//Config du widget courant
+@import "_templates/copilotesTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
+
+//Importation des classes de composition du menu
+@import "_framework/SPLessCss/Widgets/NavigationMenu/Accordion/_Accordion.less";
+
+
+ul.menu-accordion {
+	//rajout bordure à gauche sur le menu principal
+	border-left: 1px solid @zonesBorderColor;
+	
+	//rajout bordure en haut sur le menu principal et gestion décalage
+	& > li.first > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @zonesBorderColor; }
+	margin-top: 0px;
+
+	//calcul couleur intermédiaire entre la couleur colorCouleur3MoyenSup et colorCouleur3Clair
+	@interCouleur : mix(@colorCouleur3MoyenSup, @colorCouleur3Clair, 33.33%);
+	
+	li.dm_parent {
+		//couleur de fond des autres liens
+		& > ul > li > .link {
+			background-color: @colorCouleur3Clair;
+			color: @colorCouleur3;
+			&:hover {
+				background-color: @interCouleur;
+				color: @colorCouleur3Sup;
+			}
+		}
+		//couleurs de fond des sous parents
+		li.dm_parent > .link {
+			background-color: mix(@colorCouleur3Clair, @colorCouleur1, 80%);
+			color: @colorCouleur3;
+			&:hover {
+				background-color: mix(@interCouleur, @colorCouleur1, 80%);
+				color: @colorCouleur3Sup;
+			}
+		}
+	}
+	
+	//couleur de la flèche
+	li.dm_dir > .link:after {
+		border-color: transparent transparent transparent @menuArrowColor;
+		#dm_sidebar_right & { border-color: transparent @menuArrowColor transparent transparent; }
+	}
+	li.dm_parent > .link:after {
+		border-color: @menuDropdownArrowColorSup transparent transparent transparent;
+		.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
+		.csstransitions.csstransforms #dm_sidebar_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
+	}
+}

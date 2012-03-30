@@ -1,0 +1,211 @@
+// NavigationMenu.dropdown.less
+// v1.2
+// Last Updated : 2012-02-02 16:30
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+
+//Config du widget courant
+@import "_templates/copilotesTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
+
+//Importation des classes de composition du menu
+@import "_framework/SPLessCss/Widgets/NavigationMenu/Dropdown/_Dropdown.less";
+
+ul.menu-dropdown {
+	//rajout bordure à gauche sur les menus
+	&, & ul { border-left: 1px solid @zonesBorderColor; }
+	
+	//modifications de dimensions pour ajouts de bordures sur les côtés, et compensation décalage
+	ul {
+		@gridWidth(@menuDropdownCols; (@gridGutter*-1 +1px));
+		margin-left: -1px;
+		//on rajoute 1px en largeur par la suite afin de permettre une superposition des côtés
+		ul {
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
+		}
+	}
+	
+	#dm_sidebar_left & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad * -2 + 1px));
+		//on décale de 2px car les menus de gauche ont une bordure de superposition dès le premier niveau
+		ul {
+			margin-left: -2px;
+			@gridAbsoluteLeft(@gridCol_SidebarLeft; (@zonesOffsetPad * -2));
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1 + @zonesOffsetPad));
+		}
+		ul ul {
+			margin-left: -1px;
+			@gridAbsoluteLeft(@menuDropdownCols; (@gridGutter*-1 + @zonesOffsetPad));
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
+		}
+	}
+	#dm_sidebar_right & {
+		//largeur en fonction de la zone
+		@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad * -2 + 1px));
+		ul {
+			margin-right: -1px;
+			margin-left: 0;
+			@gridAbsoluteRight(@gridCol_SidebarRight; (@zonesOffsetPad * -2));
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1 + @zonesOffsetPad));
+		}
+		ul ul {
+			margin-right: 0;
+			@gridAbsoluteRight(@menuDropdownCols; (@gridGutter*-1 + @zonesOffsetPad));
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
+		}
+	}
+	
+	//rajout bordure en haut sur les menus et gestion décalage
+	& ul,
+	#dm_sidebar_left &,
+	#dm_sidebar_right & {
+		margin-top: -1px;
+		//pour toutes les premières cellules
+		li.first {
+			& > .link { padding-top: @gridBaseline/2; border-top: 1px solid @zonesBorderColor; }
+			& > ul { margin-top: 0; }
+		}
+	}
+	
+	//pour les premières cellules contenues dans celle du premier niveau
+	#dm_sidebar_left &,
+	#dm_sidebar_right & {
+		margin-top: 0;
+		//suppression décalage sur les 8 premiers niveaux
+		& > li.first,
+		& > li.first > ul > li.first,
+		& > li.first > ul > li.first > ul > li.first,
+		& > li.first > ul > li.first > ul > li.first > ul > li.first,
+		& > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first,
+		& > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first,
+		& > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first,
+		& > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first {
+			& > .link { padding-top: @menuDropdownPadV; }
+		}
+	}
+	
+	
+	//couleur de la flèche
+	li.dm_dir {
+		& > .link:after {
+			border-color: transparent transparent transparent @menuArrowColor;
+			#dm_sidebar_right & { border-color: transparent @menuArrowColor transparent transparent; }
+		}
+		& > .link:hover:after,
+		&:hover > .link:after {
+			border-color: @menuArrowColorSup transparent transparent transparent;
+			.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
+			.csstransitions.csstransforms #dm_sidebar_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
+		}
+	}
+	
+	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
+	#dm_custom_top .dm_widget.navigation_menu & {
+		//supression bordure à gauche sur le premier niveau
+		border-left: 0;
+		
+		//ajout ombre
+		ul {
+			border-right: 0;
+			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
+		}
+		
+		//modification de couleurs du menu
+		.link {
+			background-color: @colorCouleur2;
+			color: @colorCouleur3Clair;
+			
+			//personnalisation padding pour menu horizontal
+			padding-right: @menuDropdownPadHCustomTop;
+			padding-left: @menuDropdownPadHCustomTop + 1px;
+			
+			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
+			&.dm_inactive { color: @colorCouleur3Moyen; }
+			//LoVe's Hurts Fade Away
+			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Sup; }
+			&:active { color: @colorCouleur1; }
+		}
+		
+		//modification de la couleur de la flèche
+		li.dm_dir {
+			& > .link:after {
+				border-color: transparent transparent transparent @colorCouleur3Moyen;
+			}
+			& > .link:hover:after,
+			&:hover > .link:after {
+				border-color: @colorCouleur3Clair transparent transparent transparent;
+				.csstransitions.csstransforms & { border-color: transparent transparent transparent @colorCouleur3Clair; }
+			}
+		}
+		
+		//gestion des cellules de premier niveau
+		& > li {
+			& > .link {
+				//uniformisation couleur de police
+				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
+				&.dm_inactive { color: @colorCouleur3Clair; }
+				
+				margin-top: floor(@gridBaseline / 4) + 1px;
+				margin-bottom: floor(@gridBaseline / 4) + 1px;
+				padding-top: floor(@gridBaseline / 4) + 0px;
+				padding-bottom: floor(@gridBaseline / 4) + 0px;
+				border-bottom: 0;
+			}
+			//pleine hauteur lors du rollOver
+			&:hover > .link,
+			& > .link:hover,
+			& > .link:focus {
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: @gridBaseline/2;
+				padding-bottom: @gridBaseline/2;
+				margin-left: -1px;
+				border-left: 1px solid @zonesBorderColor;
+			}
+			
+			//élargissement en pleine hauteur pour les dossiers
+			&.dm_dir:hover > .link,
+			&.dm_dir > .link:hover,
+			&.dm_dir > .link:focus {
+				padding-bottom: @menuDropdownPadV;
+				border-bottom: 1px solid @zonesBorderColor;
+			}
+			
+			//rajout bordure à gauche sur la première cellule
+			//et correction de la cellule suivant dm_root (qui contient une icône link_root)
+			&.first,
+			&.dm_root + li {
+				& > .link { border-left: 1px solid @zonesBorderColor; }
+				//suppression décalage lors du rollOver
+				&:hover > .link,
+				& > .link:hover,
+				& > .link:focus { margin-left: 0; }
+				
+				//gestion décalage pour la première cellule
+				ul {
+					margin-left: 0;
+					ul { margin-left: -1px; }
+				}
+			}
+			
+			&.dm_dir {
+				//masquage de la flèche
+				& > .link:after {
+					display: none;
+					visibility: hidden;
+					//suppression animation rotation
+					@transformNone();
+					@transitionNone();
+				}
+			}
+		}
+	}
+}

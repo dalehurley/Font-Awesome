@@ -1,0 +1,22 @@
+// ActusDuCabinetActuArticlesContextuel.less
+// v1.0
+// Last Updated : 2012-01-26 14:25
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+#dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.actus_du_cabinet_actu_articles_contextuel {
+		//appel de la fonction de placement de la sprite
+		@widgetTitleSprite("Default"; "cabinet"; "actualites");
+
+		.dm_widget_inner {
+			& > .title {
+				//complément de l'appel de la sprite sur le titre
+				&:after { @spriteBgp(@spriteFormat_M; @spriteOffX-cabinet-actualites; @spriteOffY-cabinet-actualites); }
+			}
+		}
+	}
+}
