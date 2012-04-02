@@ -1,0 +1,60 @@
+// ContentBlocDePubEnFlash.less
+// v1.0
+// Last Updated : 2012-01-24 16:45
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//contentFlowPlayer
+@pubLargeur: 250px;
+@pubHauteur: 250px;
+@nbreBaseLinePub: floor(@pubHauteur / @gridBaseline) + 1;
+@pubHeight: @nbreBaseLinePub * @gridBaseline;
+@calculMarginVertical: (@pubHeight - @pubHauteur) / 2;
+
+//suppression bordure et compensation padding
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.content_bloc_de_pub_en_flash {
+		.dm_widget_inner {
+			padding: 0 @zonesOffsetPad;
+			border: 0;
+		}
+	}
+}
+
+#dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.content_bloc_de_pub_en_flash {
+		.dm_widget_inner {
+			.dm_flow_player {
+				margin-top: @calculMarginVertical;
+				margin-bottom: @calculMarginVertical;
+			}
+		}
+	}
+}
+
+#dm_sidebar_left {
+	.dm_widget.content_bloc_de_pub_en_flash {
+		.dm_widget_inner{
+			.dm_flow_player {
+				@calculMarginHorizontal: (@gridWidth_SidebarLeft - @pubLargeur) / 2;
+				margin-right: @calculMarginHorizontal;
+				margin-left: @calculMarginHorizontal;
+			}
+		}
+	}
+}
+
+#dm_sidebar_right {
+	.dm_widget.content_bloc_de_pub_en_flash {
+		.dm_widget_inner{
+			.dm_flow_player {
+				@calculMarginHorizontal: (@gridWidth_SidebarRight - @pubLargeur) / 2;
+				margin-right: @calculMarginHorizontal;
+				margin-left: @calculMarginHorizontal;
+			}
+		}
+	}
+}

@@ -1,0 +1,31 @@
+// SidSPLessCssDebug.less
+// v1.2
+// Last Updated : 2011-11-25 14:35
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//Importation de la mise en page par défaut du widget
+@import "_framework/SPLessCss/Widgets/Debug/_Debug.less";
+
+.dm_widget.debug_debug {
+	//placement absolue en haut à droite de la page
+	top: @gridBaseline*4;
+	right: @gridGutter;
+	/*.debugTemplate {
+		//&:hover		{ background-color: red;		}
+		&.tap		{ background-color: blue;		}
+		&.taphold	{ background-color: purple;		}
+		&.swipe		{ background-color: lime;		}
+		&.swipeleft	{ background-color: teal;		}
+		&.swiperight{ background-color: green;		}
+	}*/
+}
+
+//ajout placement personnalisé de la div de debug flotante
+.debug, .warning {
+	//top: @gridBaseline;
+	right:0;
+}

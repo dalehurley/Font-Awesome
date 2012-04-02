@@ -1,0 +1,82 @@
+// _SocialNetworkLogos.less
+// v1.1
+// Last Updated : 2012-03-05 14:40
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
+
+//Importation de la mise en page par défaut du widget
+@import "_framework/SPLessCss/Widgets/SocialNetworkLogos/_SocialNetworkLogos.less";
+
+.dm_widget.social_network_logos {
+	#dm_header & {
+		position: absolute;
+		right: 0;
+		bottom: @gridBaseline;
+	}
+	
+	//décalage de padding
+	@decalV: ((@gridBaseline*2 - @spriteFormat_M)/2 - 1px);
+	@decalH: ((@gridColWidth - @spriteFormat_M)/2 - 1px);
+	
+	.elements {
+		.element {
+			padding: @decalV @decalH;
+			margin-left: @gridGutter;
+			&:hover { background-color: inherit; }
+			//on supprime le décalage à gauche pour le premier
+			&.first { margin-left: 0; }
+		}
+	}
+
+	.link {
+		//ajout transition
+		@transitionCompress();
+
+		//ajout du fond blanc arrondi avec bordure
+		background-color: @colorWhite;
+		.rgba & { background-color: fadeout(@colorWhite, 25%); }
+		border: 1px solid @colorWhite;
+		overflow: hidden;
+		//on ne sépare pas le rgba pour l'ombre car si le navigateur gère cette dernière il gère également le rgba
+		@boxShadow(0 0 @offS fadeout(@colorBlack, 50%));
+		@borderRadiusCompress(7px);
+
+		&:hover {
+			.rgba & { background-color: @colorWhite; }
+			margin-top: @offS*-1;
+			margin-bottom: @offS;
+			border-color: @colorCouleur1;
+			@boxShadow(0 @offS @offM fadeout(@colorBlack, 25%));
+		}
+
+		//chargement thème de sprite
+		@spriteDimension(@spriteFormat_M);
+		@spriteBgi("Default"; "M");
+		
+		&.link_facebook {
+			@spriteBgiSvg("Default"; "socialnetwork"; "facebook");
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-facebook; @spriteOffY-socialnetwork-facebook);
+		}
+		&.link_googleplus {
+			@spriteBgiSvg("Default"; "socialnetwork"; "googleplus");
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-googleplus; @spriteOffY-socialnetwork-googleplus);
+		}
+		&.link_linkedin {
+			@spriteBgiSvg("Default"; "socialnetwork"; "linkedin");
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-linkedin; @spriteOffY-socialnetwork-linkedin);
+		}
+		&.link_twitter {
+			@spriteBgiSvg("Default"; "socialnetwork"; "twitter");
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-twitter; @spriteOffY-socialnetwork-twitter);
+		}
+	}
+}

@@ -1,0 +1,175 @@
+// _Itemprop.less
+// v1.1
+// Last Updated : 2012-03-28 14:50
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+
+//ce fichier contient la définitions de tous les champs par défaut définits en microdata (cf http://schema.org/docs/full.html)
+
+//CIBLEURS GÉNÉRAUX DES ITEMSCOPE ET ITEMPROP
+.itemscope, .itemprop {
+}
+
+//débuggage alignements des différents éléments constitutifs des itemprops
+.type, .value, .separator, .dash, .ellipsis { }
+
+//séparateur de type &#160;:&#160;
+.separator { }
+
+//tiret de type &#160;-&#160;
+.dash { }
+
+//ellipsis de type &#160;(...)
+.ellipsis {}
+
+
+
+
+//SCHEMAS
+//http://schema.org/docs/full.html
+
+
+//THING
+//http://schema.org/Thing
+
+.name, .title {
+	//changement de la police spécifique à Ténor
+	font-family: @fontGlobalFamilySerif;
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & { font-weight: bold; color: @colorText; }
+}
+
+.description, .teaser {
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & { font-size: @fontSizeSmall; }
+	//dans du contenu
+	#dm_page_content .contentHeader & { margin-top: @gridBaseline/2; }
+}
+
+
+
+//ARTICLE
+//http://schema.org/Article
+
+//stylage minimal de la date
+.date {
+	//dans un listing ou un résultat de recherche
+	.elements .element &, .search_results .search_result & {
+		//désactivation date dans certaines zones
+		#dm_sidebar_left &, #dm_sidebar_right & { display: none; visibility: hidden; }
+	}
+	//dans du contenu
+	#dm_page_content .contentHeader & { margin-top: @gridBaseline/2; }
+}
+
+
+
+//PERSON
+//http://schema.org/Person
+
+.contactPoints {
+}
+
+.jobTitle {
+}
+
+
+
+//ORGANIZATION
+//http://schema.org/Organization
+
+.address {
+}
+
+
+
+//CONTACTPOINT
+//http://schema.org/ContactPoint
+
+.contactType {
+}
+
+//ajout sprites pour certains éléments
+.email, .faxNumber, .telephone {
+	//masquage separateur
+	.separator { display: none; visibility: hidden; }
+	
+	//dimension de l'icone
+	.type {
+		position: relative;
+		display: inline-block;
+		text-indent:-9999em;
+		@spriteDimension(@spriteFormat_S);
+		//appel différenciées des fonctions de sprite
+		@spriteBgi("Default"; "S");
+		//décalage de marge
+		@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+		@decalH: (@gridGutter - @spriteFormat_S) / 2;
+		padding-top: @decalV;
+		padding-bottom: @decalV;
+		margin-right: @decalH + @offS;
+		margin-left: @decalH;
+		/*
+		//test ajout toolTip à partir de la balise Title
+		&:after {
+			background-color: teal;
+			position: absolute;
+			white-space: nowrap;
+			content: attr(title);
+			color: #fff;
+			//white-space: nowrap;
+			//opacity: 0;
+		}
+		&:hover:after {
+			//opacity: 1;
+		}*/
+	}
+}
+
+.email {
+	.isLess & { background-color: fadeout(#D773FF, 50%); }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-email; @spriteOffY-communication-email);
+		@spriteBgiSvg("Default"; "communication"; "email");
+	}
+}
+
+.faxNumber {
+	.isLess & { background-color: fadeout(#FF73BB, 50%); }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-faxNumber; @spriteOffY-communication-faxNumber);
+		@spriteBgiSvg("Default"; "communication"; "faxNumber");
+	}
+}
+
+.telephone {
+	.isLess & { background-color: fadeout(#FF7393, 50%); }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-telephone; @spriteOffY-communication-telephone);
+		@spriteBgiSvg("Default"; "communication"; "telephone");
+	}
+}
+
+
+
+//POSTALADDRESS
+//http://schema.org/PostalAddress
+
+.streetAddress {
+	.isLess & { background-color: fadeout(#7398FF, 50%); }
+}
+
+.postalCode {
+	.isLess & { background-color: fadeout(#73E5FF, 50%); }
+}
+
+.addressLocality {
+	.isLess & { background-color: fadeout(#73FFCC, 50%); }
+}
+
+.addressRegion {
+}
+
+.addressCountry {
+}

@@ -1,0 +1,111 @@
+// _WidgetsBase.less
+// v1.0
+// Last Updated : 2011-09-14 15:10
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Ce fichier permet d'initialiser un style par défaut pour tous les widgets et n'est inclu qu'une seule fois dans le template
+
+//EN ATTENDANT OPTIMISATION GÉNÉRALE DU FRAMEWORK : inclusion des widgets ne nécessitant pas d'appels médias séparés
+@import "_templates/copilotesTheme/Widgets/ActusDuCabinetActuArticlesContextuel/_ActusDuCabinetActuArticlesContextuel.less";
+@import "_templates/copilotesTheme/Widgets/EquipeCabinetEquipesContextuel/_EquipeCabinetEquipesContextuel.less";
+@import "_templates/copilotesTheme/Widgets/MissionsMissionsContextuel/_MissionsMissionsContextuel.less";
+@import "_templates/copilotesTheme/Widgets/SpecifiquesBaseEditorialeArticlesBySectionContextuel/_SpecifiquesBaseEditorialeArticlesBySectionContextuel.less";
+@import "_templates/copilotesTheme/Widgets/SpecifiquesBaseEditorialeFilActualite/_SpecifiquesBaseEditorialeFilActualite.less";
+@import "_templates/copilotesTheme/Widgets/SpecifiquesBaseEditorialeListAgenda/_SpecifiquesBaseEditorialeListAgenda.less";
+
+//STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
+.dm_widget {
+	.dm_widget_inner {
+		//changement taille du titre des widgets
+		& > .title {
+			#dm_page_content & {
+				text-transform: none;
+				font-size: @fontSizeH3Px;
+				line-height: @gridBaseline;
+				//@getPxFontConfig(@fontSizeH3Px);
+			}
+			#dm_sidebar_left &, #dm_sidebar_right & {
+				text-transform: uppercase;
+				font-size: @fontSizeH4Px;
+				line-height: @gridBaseline;
+				//@getPxFontConfig(@fontSizeH4Px);
+			}
+		}
+	}
+}
+
+//placement des widgets dans le header
+#dm_header {
+	
+	.dm_widget.content_image {
+		.isLess & { background-color: #D6B8C4; }
+		float: left;
+	}
+	
+	.dm_widget.content_ck_editor {
+		.isLess & { background-color: #B8D6C1; }
+		float: left;
+		margin-left: @offM;
+		
+		.dm_widget_inner {
+			color: @colorCouleur3ClairSup;
+			font-family: @fontGlobalFamilyWebFont;
+			text-transform: uppercase;
+			word-spacing: 0.125em;
+			letter-spacing: 0.125em;
+			padding-top: @gridBaseline/2;
+			padding-bottom: @gridBaseline/2;
+			
+			//stylage des élements de titrage
+			.dm_site_title, .dm_site_slogan { margin: 0; padding: 0; }
+			.dm_site_title {
+				.isLess & { background-color: #B6BFB9; }
+				font-weight: bold;
+				padding-bottom: @gridBaseline/2;
+			}
+			.dm_site_slogan {
+				.isLess & { background-color: #ACBFB2; }
+				padding-top: (@gridBaseline/2 -1px);
+				border-top: 1px solid @colorCouleur3ClairSup;
+			}
+		}
+	}
+}
+
+//stylage par défaut des widgets dans les zones principales
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget {
+		margin-bottom: @gridBaseline/2;
+		
+		.dm_widget_inner {
+			padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
+			//ajout d'une bordure dont l'épaisseur a été déduite
+			border: 1px solid @zonesBorderColor;
+			//suppression bordures sous niveaux
+			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
+			
+			& > .title {
+				background-color: @colorCouleur3Clair;
+				color: @colorCouleur1;
+				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
+				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
+				border-bottom: 1px solid @zonesBorderColor;
+				font-weight: bold;
+				word-spacing: 0.05em;
+				letter-spacing: 0.05em;
+				//on supprime le décalage situé entre le titre et une liste d'éléments quand ils sont suivi l'un par l'autre
+				& ~ .elements { margin-top: @gridBaseline/-2; }
+			}
+		}
+	}
+}
+
+//couleur de fond des widgets à gauche (essentiellement le menu accordion)
+#dm_sidebar_left {
+	.dm_widget {
+		.dm_widget_inner {
+			background-color: @colorCouleur3ClairSup;
+		}
+	}
+}

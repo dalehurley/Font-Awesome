@@ -1,0 +1,25 @@
+// _TabletLandscape.less
+// v1.0
+// Last Updated : 2011-08-22 15:00
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Requête média pour adapter le design en fonction du support
+@templateMedia_TabletLandscape() {
+	/*
+	//chargement fonction automatique de placement général
+	@gridAutoLayout(@gridScreen_TabletLandscape;@gridCol_TabletLandscape);
+	
+	#dm_main_inner {
+		@gridSiteWidth(@gridScreen_TabletLandscape; @gridCol_TabletLandscape; @gridPadding);
+	}
+	*/
+	//Suppression de la transition lors du passage en mode paysage
+	.csstransitions {
+		//on introduit un décalage temporel dans la réorganisation de l'interface
+		#dm_sidebar_right {
+			//@transitionDelay(.2s);
+			@transitionNone();
+		}
+	}
+}
