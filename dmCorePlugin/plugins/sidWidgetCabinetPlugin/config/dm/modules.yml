@@ -19,20 +19,12 @@
       name: "Le Recrutement|Les Recrutements"
       page: true
       credentials: recrutement
-      
-<?php
-if (is_object(sfContext::getInstance()->getUser())) {
-            if (dmConfig::get('client_type') == 'cgp'){
-?>    
+
     SelectionPlacement:
       model: SidCabinetSelectionPlacement
       name: "La Sélection de placement|Les Sélections de placements"
       page: false
       credentials: selection_placement
-<?php
-}
-}
-?>
 
 "Les Missions":
   "Description des missions":

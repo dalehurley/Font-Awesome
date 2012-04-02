@@ -246,6 +246,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return $this->user->can($this->getOption('credentials'));
     }
+
     public function hasChildren() {
         $nbChildren = 0;
         
@@ -255,6 +256,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return 0 !== $nbChildren;
     }
+
     /**
      * Returns true if the item has a child with the given name.
      *
@@ -387,9 +389,20 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return '<ul' . ($id ? ' id="' . $id . '"' : '') . ($class ? ' class="' . $class . '"' : '') . '>';
     }
+
     public function renderChild() {
+        $display = true;
+        if (is_object($this->getLink())){
+            if (method_exists($this->getLink(),'getPage')){
+                if ($this->getLink()->getPage()->action == 'list'){ // les pages ayant une action = list sont les pages manuelles qui list les page automatique filles
+                    if (!$this->hasChildren()){ // s'il n'y a pas de pages filles alors on n'affiche pas cette page list
+                        $display = false; 
+                    }
+                }
+            }
+        }
         $html = '';
-        if ($this->checkUserAccess()) {
+        if ($this->checkUserAccess() && $display) {
             $html.= $this->renderLiOpenTag();
             $html.= $this->renderChildBody();
             if ($this->hasChildren() && $this->getOption('show_children')) {
