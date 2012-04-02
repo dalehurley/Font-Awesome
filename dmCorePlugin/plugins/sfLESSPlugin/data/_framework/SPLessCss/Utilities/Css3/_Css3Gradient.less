@@ -1,6 +1,6 @@
 // _Css3Gradient.less
-// v1.2.1
-// Last Updated : 2012-03-30 15:15
+// v1.2.2
+// Last Updated : 2012-04-02 10:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -123,7 +123,7 @@
 	@cssPieBehavior();
 }
 
-@horizontalGradientMulti-4(@stop1: 0; @stop2: 33.33; @stop3: 66.67; @stop4: 100; @color1: #f00; @color2: #f0f; @color3: #0f0; @color4: #00f) {
+@horizontalGradientMulti-4(@stop1: 0%; @stop2: 33.33%; @stop3: 66.67%; @stop4: 100%; @color1: #f00; @color2: #f0f; @color3: #0f0; @color4: #00f) {
 	//calcul variables
 	@gap1: ((@color1 - @color2) + (@color2 - @color1));
 	@base1: @color1 - (@color1 - @color2);
@@ -181,7 +181,7 @@
 									@color4 @stop4,
 									);
 }
-@horizontalGradientMultiPie-4(@stop1: 0; @stop2: 33.33; @stop3: 66.67; @stop4: 100; @color1: #f00; @color2: #f0f; @color3: #0f0; @color4: #00f) {
+@horizontalGradientMultiPie-4(@stop1: 0%; @stop2: 33.33%; @stop3: 66.67%; @stop4: 100%; @color1: #f00; @color2: #f0f; @color3: #0f0; @color4: #00f) {
 	@horizontalGradientMulti-4(@stop1; @stop2; @stop3; @stop4; @color1; @color2; @color3; @color4);
 	-pie-background: linear-gradient(
 									left,

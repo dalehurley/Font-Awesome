@@ -36,8 +36,8 @@ input, textarea {
 	
 	//Modernizr enhancement (syntaxe lessPHP v0.3.0)
 	.rgba & {
-		background-color: fadeout(@colorWhite,50);
-		&:disabled { background-color: fadeout(@colorCouleur3MoyenSup,50); }
+		background-color: fadeout(@colorWhite, 50%);
+		&:disabled { background-color: fadeout(@colorCouleur3MoyenSup, 50%); }
 	}
 	.boxshadow & {
 		@boxShadow(inset 0 @offS @offM @colorCouleur3Clair);
@@ -123,8 +123,8 @@ select, input, textarea, button {
 			
 			//Modernizr enhancement (syntaxe lessPHP v0.3.0)
 			.rgba & {
-				background-color: fadeout(@colorWhite,50) !important;
-				&:disabled { background-color: fadeout(@colorCouleur3MoyenSup,50) !important; }
+				background-color: fadeout(@colorWhite, 50%) !important;
+				&:disabled { background-color: fadeout(@colorCouleur3MoyenSup, 50%) !important; }
 			}
 			.boxshadow & {
 				@boxShadow(inset 0 @offS @offM @colorCouleur3Clair);
