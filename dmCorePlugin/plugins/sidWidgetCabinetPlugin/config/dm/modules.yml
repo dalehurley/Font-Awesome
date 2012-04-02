@@ -23,7 +23,7 @@
     SelectionPlacement:
       model: SidCabinetSelectionPlacement
       name: "La Sélection de placement|Les Sélections de placements"
-      page: false
+      page: true
       credentials: selection_placement
 
 "Les Missions":
