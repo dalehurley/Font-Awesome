@@ -402,7 +402,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
     }
     protected function renderLiOpenTag() {
 
-        if (is_object($this->getLink())){
+        if (is_object($this->getLink()) && is_object($this->getLink()->getPage())){
             $moduleAction = $this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action;
         } else {
             $moduleAction = '';
