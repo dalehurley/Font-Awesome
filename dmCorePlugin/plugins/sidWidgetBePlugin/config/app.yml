@@ -100,18 +100,4 @@ all:
   # nombre d'article de la liste en bas des article BE (modif de article ListBySection)
   nb-article-listing : 5
 
-  traductions-module:     
-    # changement des noms des rubriques en fonction du client_type (ec ou cgp)
-    # ancien : nouveau
-    cgp-fr:
-      "Les Missions": Les Services
-      "Description des missions": Description des services
-      "Mission|Les Missions": Service|Les Services
 
-    aga-fr:
-      "Les Missions": Les Prestations
-      "Description des missions": Description des prestations
-      "Mission|Les Missions": Prestation|Les Prestations
-      "Description du Cabinet": "Description de l'association"
-      "Présentation du Cabinet": "Présentation de l'Association"
-      "Le Cabinet": "L'Association"
