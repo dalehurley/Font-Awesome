@@ -54,8 +54,8 @@ class selectionPlacementsSelectionsListView extends dmWidgetPluginView {
         }
 
         if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
-        $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('selectionPlacement','list');
-        $vars['titreBloc'] = $namePage->getName();
+            $namePage = dmDb::table('DmPage')->findOneByModuleAndAction('selectionPlacement','list');
+            $vars['titreBloc'] = $namePage->getName();
         }
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
 
@@ -91,7 +91,6 @@ class selectionPlacementsSelectionsListView extends dmWidgetPluginView {
                     'width' => $vars['widthImage'],
                     'withImage' => $vars['withImage'],
                     'lien' => $lien,
-                    'namePage' => $namePage,
                     'redirect' => $redirect,
                     'constanteSelection' => $constanteSelection
             
