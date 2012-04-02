@@ -165,11 +165,13 @@ class contentTemplateTools {
         $command .= "mkdir " . $dirOUTtheme .";";
         $command .= "mkdir " . $dirOUTtheme."/theme" .";";     
         $command .= "mkdir " . $dirOUTtheme."/theme/less" .";";              
-        $command .= "cp ". $webDirName . "//theme/less/* " . $dirOUTtheme ."/theme/less;";
+        $command .= "cp ". $webDirName . "/theme/less/* " . $dirOUTtheme ."/theme/less;";
+        // on supprime les fichiers import.less (v2) et _ConfigGeneral.less (v1) du dump effectué
+        $command .= "rm ". $dirOUTtheme ."/theme/less/_ConfigGeneral.less;";
+        $command .= "rm ". $dirOUTtheme ."/theme/less/import.less;";
 
         $output = exec($command);
         $return[]['dumpDB'] = 'copie des fichiers theme';
-
 
         return $return;
     }
