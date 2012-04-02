@@ -1,6 +1,6 @@
 // _SearchForm.less
-// v1.1
-// Last Updated : 2012-03-28 09:55
+// v1.5
+// Last Updated : 2012-04-02 17:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -53,43 +53,37 @@
 
 			//placement formulaire
 			form {
-				background-color: @colorCouleur1Moyen;
-				// .rgba & { background-color: fadeout(@colorCouleur1, 20%); }
-				// border: 1px solid @colorCouleur3Fonce;
+				position: relative;
+				background-color: @colorCouleur1;
 
 				//application largeur (soustraction bordure)
 				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2));
 				padding-bottom: @gridBaseline/2;
-				// padding: (@gridBaseline/4 -1px) 0;
 
 				//Ajout transition sur la couleur de fond
 				.csstransitions & {
-					@transitionCompress(all; .2s; ease-out; 0);
+					@transitionCompress(background-color; .2s; ease-out; 0);
 				}
 
 				//ajout de la sprite avec l'icône de recherche
-				// &:before {
-				// 	position: relative;
-				// 	display: block;
-				// 	content: "";
-				// 	float: left;
-				// 	//décalage de marge
-				// 	@decalV: @gridBaseline - @spriteFormat_S;
-				// 	margin: @decalV 0 0 @offS;
-				// 	//chargement sprite entière avec dimension et SVG
-				// 	@spriteDefinition("DefaultLight"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
-				// }
+				&:before {
+					position: absolute;
+					display: block;
+					z-index: 2;
+					content: "";
+					//décalage de marge
+					@decalV: @gridBaseline - @spriteFormat_S;
+					// margin: @decalV 0 0 @offS;
+					left: @offS;
+					top: @decalV;
+					//chargement sprite entière avec dimension et SVG
+					@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
+				}
 
 				//classe CSS focus ajoutée en JS
 				&.focus {
-					background-color: @colorCouleur1;
-					// .rgba & { background-color: fadeout(@colorWhite, 20%); }
-					// border-color: @colorCouleur3Moyen;
-					
-					//changement sprite au focus
-					// &:before{
-					// 	@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
-					// }
+					background-color: @colorCouleur1Moyen;
+					&:before { display: none; visibility: hidden; }
 				}
 			}
 
@@ -98,50 +92,36 @@
 			
 			//champ de saisie de la recherche
 			.query {
-				//suppression styles par défaut du champ
-				// &, &:focus, &:disabled, &:hover { background-color: transparent; }
-
+				//placement et stylage de l'élément
+				display: block;
+				z-index: 1;
 				//changement couleur et transparence du fond
-				background-color: @colorWhite;
 				&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
-				
-				// .rgba & {
-				// 	background-color: fadeout(@colorWhite, 50%);
-				// 	&:disabled { background-color: fadeout(@colorCouleur3MoyenSup, 50%); }
-				// }
-
-				// border: 0;
 				//suppression outline parasite sous webkit
 				outline: 0;
 				border-color: @zonesBorderColor;
 
-				// .boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
-
-				//placement et stylage de l'élément
-				display: block;
-				// float: left;
-				// color: @colorCouleur3ClairSup;
-				// &:focus{ color: @colorText; }
-
-				//ajustement du padding sans les bordures
-				// padding: 2px @offS 2px @offS;
+				//suppression des ombres internes
+				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
 
 				//application largeur
-				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 2px));
+				&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 2px)); }
+
 				//ajout du décalage à gauche si pseudo élément affiché
-				// .generatedcontent & {
-				// 	@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 2px));
-				// }
+				.generatedcontent & {
+					padding-left: @spriteFormat_S + @offS*2;
+					@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 2px));
+
+					//suppression padding left lors du focus
+					&:focus { padding-left: @offS; }
+				}
 
 				//couleur des placeHolders
 				//ciblage natif
 				&::-webkit-input-placeholder { color: @colorText; }
-				// &:disabled::-webkit-input-placeholder { color: @colorCouleur3MoyenSup; }
 				&:-moz-placeholder { color: @colorText; }
-				// &:disabled:-moz-placeholder { color: @colorCouleur3MoyenSup; }
 				//utilisé avec jQuery-placeholder
 				&.placeholder { color: @colorText; }
-				// &.placeholder:disabled { color: @colorCouleur3MoyenSup; }
 			}
 		}
 
