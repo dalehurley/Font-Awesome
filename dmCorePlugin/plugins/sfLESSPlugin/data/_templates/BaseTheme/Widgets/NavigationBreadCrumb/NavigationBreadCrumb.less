@@ -22,7 +22,7 @@
 		//ajout d'une bordure dont l'épaisseur a été déduite
 		border: 1px solid @zonesBorderColor;
 		//permet de sortie de la zone
-		margin: (@gridBaseline + 1px) (@zonesOffsetPad * -1) -1px (@zonesOffsetPad * -1);
+		margin: 0 (@zonesOffsetPad * -1) @gridBaseline/2 (@zonesOffsetPad * -1);
 		//définitions de la largeur
 		@gridWidth((@gridCol - @gridCol_SidebarLeft); (@zonesOffsetPad * -2 +2px));
 	}
