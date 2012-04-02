@@ -246,6 +246,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return $this->user->can($this->getOption('credentials'));
     }
+
     public function hasChildren() {
         $nbChildren = 0;
         
@@ -255,6 +256,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return 0 !== $nbChildren;
     }
+
     /**
      * Returns true if the item has a child with the given name.
      *
@@ -387,9 +389,20 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return '<ul' . ($id ? ' id="' . $id . '"' : '') . ($class ? ' class="' . $class . '"' : '') . '>';
     }
+
     public function renderChild() {
+        $display = true;
+        if (is_object($this->getLink())){
+            if (method_exists($this->getLink(),'getPage')){
+                if ($this->getLink()->getPage()->action == 'list'){ // les pages ayant une action = list sont les pages manuelles qui list les page automatique filles
+                    if (!$this->hasChildren()){ // s'il n'y a pas de pages filles alors on n'affiche pas cette page list
+                        $display = false; 
+                    }
+                }
+            }
+        }
         $html = '';
-        if ($this->checkUserAccess()) {
+        if ($this->checkUserAccess() && $display) {
             $html.= $this->renderLiOpenTag();
             $html.= $this->renderChildBody();
             if ($this->hasChildren() && $this->getOption('show_children')) {
@@ -401,6 +414,14 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         return $html;
     }
     protected function renderLiOpenTag() {
+
+        if (is_object($this->getLink())){
+            if (method_exists($this->getLink(),'getPage')){ // method exist for page in front only...
+                $moduleAction = $this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action;
+            }
+        } else {
+            $moduleAction = '';
+        }
         $classes = array();
         $id = $this->getOption('show_id') ? dmString::slugify('menu-' . $this->getRoot()->getName() . '-' . $this->getName()) : null;
         $link = $this->getLink();
@@ -415,13 +436,16 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         }
         if ($link && $link->isCurrent()) {
             $classes[] = $link->getOption('current_class');
-        } elseif ($link && $link->isParent()) {
+        } elseif ($link 
+                && $link->isParent() 
+                && $moduleAction != 'main_root'
+               ) { 
             $classes[] = $link->getOption('parent_class');
         }
 
         // lioshi : ajout classe dm_root au li
         if ($this->getLink() instanceof dmFrontLinkTagPage) {
-            if ($this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action == 'main_root' 
+            if ($moduleAction == 'main_root' 
                 && $this->parent->getOption('ul_class') != 'menu-accordion' )  {  // ajout lioshi : pas de class dm_root en plus pour le menu de type accordion
                 $classes[] = 'dm_root';
             }

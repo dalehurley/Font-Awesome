@@ -1,0 +1,41 @@
+// BandeauSmartBandeau.less
+// v1.2
+// Last Updated : 2012-02-01 15:30
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+
+.dm_widget.bandeau_smart_bandeau {
+	.isLess & { background-color: #6A8581; }
+	overflow: hidden;
+	
+	.dm_widget_inner {
+		margin: 0;
+		height: @gridBaseline;
+		padding: @gridBaseline/4 0;
+		.dm_widget_inner { padding: 0; height: auto; }
+	}
+	
+	.bandeau_show {
+		color: @colorCouleur3Fonce;
+		font-weight: bold;
+	}
+}
+
+//TODO : revoir replacement élément en mode portrait car le JS impose la taille du bandeau au chargement !
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletPortrait(){
+	.dm_widget.bandeau_smart_bandeau {
+		display: none;
+		visibility: hidden;
+	}
+}
+
+//importation des requêtes média
+@import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";

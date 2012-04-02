@@ -1,0 +1,337 @@
+// _Wrappers.less
+// v1.3
+// Last Updated : 2012-03-28 17:40
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//container utilisé pour contenir les éléments de navigation de la page ou du widget
+.navigationWrapper {
+	//changement taille et apparence liens
+	.link { color: @colorCouleur1; text-transform: uppercase; }
+	
+	//suppression bordures
+	.elements {
+		margin: 0;
+		.element {
+			font-size: @fontSizeMicro;
+			line-height: @gridBaseline;
+			vertical-align: top;
+			//suppression bordures
+			padding: 0;
+			border-bottom: 0;
+			&:hover { background-color: inherit; }
+			&.last{ padding-bottom: 0; }
+		}
+	}
+}
+
+//container utilisé pour contenir les éléments de navigation de la page ou du widget
+.navigationTop { margin-bottom: @gridBaseline/2; }
+.navigationBottom {
+	margin-top: @gridBaseline/2;
+	//lorsque précédé d'un listing
+	.elements + & { margin-top: 0; }
+}
+
+//pager (numéroration des pages)
+.pager {
+	ul {
+		.page {
+			margin: 0 @offS;
+
+			//placement du lien
+			.link {
+				//ajout des transitions pour navigateurs récents
+				.csstransitions & {
+					@transitionCompress(background-color, color; .2s; ease-in-out; 0);
+				}
+
+				display: block;
+				font-size: @fontSizeSmall;
+				text-decoration: none;
+				outline: 0;
+				padding: (@gridBaseline/4 -1px) (@gridGutter/2 -1px);
+
+				background-color: @colorCouleur3ClairSup;
+				border: 1px solid @zonesBorderColor;
+				color: @colorCouleur3Fonce;
+
+				//LoVe's Hurts Fade Away
+				&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
+				&:active { color: @colorCouleur1; }
+			}
+
+			//page courante
+			&.current {
+				.link {
+					font-weight: bold;
+					border: 0;
+					padding: @gridBaseline/4 @gridGutter/2;
+					&, &:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur1; }
+				}
+			}
+
+			//configuration de base pour les sprites
+			&.prev, &.next, &.first, &.last {
+				//déplacement du style vers le li
+				background-color: @colorCouleur3ClairSup;
+				border: 1px solid @zonesBorderColor;
+				&:hover { background-color: @colorCouleur3Clair; }
+				//ajout des transitions pour navigateurs récents
+				.csstransitions & {
+					@transitionCompress(background-color; .2s; ease-in-out; 0);
+				}
+
+				//décalage de marge (on enlève 1px pour la bordure)
+				@decalV: (@gridBaseline - @spriteFormat_S)/2;
+				padding: (@decalV + @gridBaseline/4 -1px) (@gridGutter/4 -1px);
+
+				.link {
+					//suppression texte et animation du fond
+					text-indent:-9999em;
+					&, &:hover, &:focus { background-color: transparent; }
+					border: 0;
+					padding: 0;
+					@transitionNone();
+					//initialisation de la sprite
+					@spriteDimension(@spriteFormat_S);
+					@spriteBgi("Default"; "S");
+				}
+			}
+
+			//appel des sprites sur les éléments de navigation
+			&.prev {
+				.link {
+					@spriteBgiSvg("Default"; "navigation"; "arrowDarkLeft");
+					@spriteBgp(@spriteFormat_S; @spriteOffX-navigation-arrowDarkLeft; @spriteOffY-navigation-arrowDarkLeft);
+				}
+			}
+
+			&.next {
+				.link {
+					@spriteBgiSvg("Default"; "navigation"; "arrowDarkRight");
+					@spriteBgp(@spriteFormat_S; @spriteOffX-navigation-arrowDarkRight; @spriteOffY-navigation-arrowDarkRight);
+				}
+			}
+
+			&.first {
+				margin-left: 0;
+				.link {
+					@spriteBgiSvg("Default"; "internet"; "back");
+					@spriteBgp(@spriteFormat_S; @spriteOffX-internet-back; @spriteOffY-internet-back);
+				}
+			}
+
+			&.last {
+				margin-right: 0;
+				.link {
+					@spriteBgiSvg("Default"; "internet"; "forward");
+					@spriteBgp(@spriteFormat_S; @spriteOffX-internet-forward; @spriteOffY-internet-forward);
+				}
+			}
+		}
+	}
+
+}
+
+//container utitlisé pour contenir les fichiers liés à un article
+.fileWrapper {
+	background-color: @colorCouleur3Clair;
+	border: 1px solid @zonesBorderColor;
+	padding: (@gridBaseline/2 -1px) (@gridGutter/2 -1px);
+	margin: 0 @gridColWidth + @gridGutter;
+	//changement couleur de titre
+	.title { color: @colorCouleur3Fonce; }
+	
+	//décalage de marge
+	@decalV: (@gridBaseline*2 - @spriteFormat_M) / 2;
+	@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+	
+	.generatedcontent & {
+		min-height: @spriteFormat_M + @decalV*2;
+		padding-left: @spriteFormat_M + @decalH*2 + @gridGutter/2;
+	}
+	
+	&:before {
+		.isLess & { background-color: #ED5583; }
+		position: absolute;
+		display: block;
+		float: left;
+		content: "";
+		top: 0;
+		left: 0;
+		margin: (@decalV + @gridBaseline/2) @decalH;
+		//chargement sprite entière avec dimension et SVG
+		@spriteDefinition("Default"; "explorer"; "file"; "M"; @spriteFormat_M; @spriteOffX-explorer-file; @spriteOffY-explorer-file);
+	}
+}
+
+//container situés directement dans un widget en enblobant plusieurs sous-contenus
+.supWrapper {
+	.elements {
+		.element {
+			//suppression transition
+			.csstransitions & {
+				@transitionNone();
+			}
+			&:hover { background-color: transparent; }
+			
+			padding-bottom: @gridBaseline - 1px;
+			border-bottom: 1px solid @zonesBorderColor;
+			&.last { border: 0; padding-bottom: 0; }
+		}
+	}
+	margin: 0 (@zonesOffsetPad * -1 +1px) @gridBaseline (@zonesOffsetPad * -1 +1px);
+	padding: 0 (@zonesOffsetPad -1px) (@gridBaseline - 1px) (@zonesOffsetPad -1px);
+	//gestion bordure du wrapper
+	border-bottom: 1px solid @zonesBorderColor;
+	&.last { border: 0; padding-bottom: 0; }
+}
+
+//container situé dans un sous élément (par exemple un listing)
+.subWrapper {
+	.elements .element & {
+		//positionnement élément en ligne dans zone spécifique
+		#dm_custom_bottom & .itemprop { display: inline; vertical-align: top; }
+	}
+}
+
+//container de l'image en pleine largeur (utilisé dans l'affichage d'un article)
+.imageFullWrapper {
+	#dm_page_content .contentHeader & { margin-bottom: @gridBaseline/2; }
+}
+
+//configuration de base des deux containers d'images
+.imageWrapper, .imageGallery {
+}
+
+//listings d'éléments diverses (article, personnes, organisations, etc) et résultats de recherche
+.elements, .search_results {
+	margin: 0 (@zonesOffsetPad * -1 +1px);
+}
+	
+.elements .element,
+.search_results .search_result {
+	//ajout transition navigateurs modernes
+	.csstransitions & {
+		@transitionCompress(background-color; .5s);
+	}
+	&:hover { background-color: @colorCouleur3ClairSup; }
+	
+	padding: @gridBaseline/2 (@zonesOffsetPad -1px) (@gridBaseline/2 -1px) (@zonesOffsetPad -1px);
+	border-bottom: 1px dashed @zonesBorderColor;
+	
+	//suppression bordure et padding pour dernier élément
+	&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }
+}
+
+//résultats de recherche
+.search_results {
+	//débuggage car classe appliquée également à un widget
+	&.dm_widget {
+		margin-left: inherit;
+		margin-right: inherit;
+	}
+	
+	.search_result {
+
+		//stylage par défaut du compteur
+		&:before {
+			color: @colorCouleur1;
+			font-weight: bold;
+		}
+
+		//probabilité de correspondance
+		.score {
+			font-size: @fontSizeMicro;
+			color: @colorCouleur3;
+			//on impose une largeur fixe pour garder un alignement des titres de résultats
+			width: 3em;
+			margin-right: @offM;
+			text-align: right;
+		}
+	}
+}
+
+
+
+// //TEMPORAIRE : DÉFINITION DES DIMENSIONS DIRECTEMENT EN CSS EN ATTENDANT IMPLÉMENTATION HAUTEUR PROPREMENT DANS LES WIDGETS
+// .imageFullWrapper {
+// 	.isLess & {
+// 		background-color: #B550A9;
+// 	}
+	
+// 	.image {
+// 		.isLess & { 
+// 			background-color: #6150B5;
+// 			position: absolute;
+// 		}
+		
+// 		//débug de dimensions sur certains widgets biens précis de la base éditoriale
+// 		.isLess #dm_page_content & {
+// 			@gridWidth(@thumbContent_col);
+// 			@gridHeight(@thumbContent_bl);
+// 		}
+// 	}
+
+// 	//application dimensions en dur
+// 	.isLess #dm_page_content & {
+// 		@gridWidth(@thumbContent_col);
+// 		@gridHeight(@thumbContent_bl);
+// 	}
+// }
+
+// .imageWrapper {
+// 	//dans les listings de contenu
+// 	.elements .element & {
+// 		.isLess & {
+// 			background-color: #B550A9;
+// 			//on remet le décalage  à l'extérieur du container car l'image est positionnée en absolute
+// 			margin-left: @gridGutter;
+// 		}
+
+// 		//application dimensions en dur
+// 		.isLess #dm_page_content & {
+// 			@gridWidth(@thumbL_col);
+// 			@gridHeight(@thumbL_bl);
+// 		}
+
+// 		.isLess #dm_sidebar_right & {
+// 			@gridWidth(@thumbSidebarRight_col);
+// 			@gridHeight(@thumbSidebarRight_bl);
+// 		}
+
+// 		//partie équipe
+// 		.isLess #dm_page_content .equipe_cabinet_equipe_show & {
+// 			@gridWidth(@thumbM_col);
+// 			@gridHeight(@thumbM_bl*2);
+// 			margin-left: 0;
+// 			margin-right: @gridGutter;
+// 		}
+// 		.isLess #dm_sidebar_right .equipe_cabinet_equipes_contextuel & {
+// 			@gridWidth(@thumbS_col);
+// 			@gridHeight(@thumbS_bl);
+// 		}
+		
+// 		//replacement de l'image
+// 		.image {
+// 			.isLess & {
+// 				background-color: #6150B5;
+// 				position: absolute;
+// 				float: none;
+// 				margin: 0;
+// 				right: 0;
+// 			}
+			
+// 			//valeur arbitraire de replacement car on ne connait par forcément la hauteur de l'image
+// 			//#dm_page_content &, #dm_sidebar_right & { top: 50%; margin-top: -50%; }
+
+// 			//débug de dimensions sur certains widgets biens précis de la base éditoriale
+// 			.isLess #dm_page_content .article_list_by_section &,
+// 			.isLess #dm_sidebar_right .specifiques_base_editoriale_fil_actualite & {
+// 				@gridWidth(@thumbSidebarRight_col);
+// 				@gridHeight(@thumbSidebarRight_bl);
+// 			}
+// 		}
+// 	}
+// }
