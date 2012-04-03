@@ -14,23 +14,33 @@
 @import "_templates/copilotesTheme/Widgets/SpecifiquesBaseEditorialeFilActualite/_SpecifiquesBaseEditorialeFilActualite.less";
 @import "_templates/copilotesTheme/Widgets/SpecifiquesBaseEditorialeListAgenda/_SpecifiquesBaseEditorialeListAgenda.less";
 
+//couleurs de débug dans les zones de contenu uniquement
+.isLess {
+	#dm_sidebar_left, #dm_sidebar_right, #dm_page_content {
+		.dm_widget {
+			background-color: fadeout(#ADA1E6, 25%);
+			.dm_widget_inner { background-color: fadeout(#8C7FE6, 25%); }
+		}
+	}
+}
+
 //STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
 .dm_widget {
 	.dm_widget_inner {
 		//changement taille du titre des widgets
 		& > .title {
-			#dm_page_content & {
-				text-transform: none;
-				font-size: @fontSizeH3Px;
-				line-height: @gridBaseline;
-				//@getPxFontConfig(@fontSizeH3Px);
-			}
-			#dm_sidebar_left &, #dm_sidebar_right & {
-				text-transform: uppercase;
-				font-size: @fontSizeH4Px;
-				line-height: @gridBaseline;
-				//@getPxFontConfig(@fontSizeH4Px);
-			}
+			// #dm_page_content & {
+			// 	text-transform: none;
+			// 	font-size: @fontSizeH3Px;
+			// 	line-height: @gridBaseline;
+			// 	//@getPxFontConfig(@fontSizeH3Px);
+			// }
+			// #dm_sidebar_left &, #dm_sidebar_right & {
+			// 	text-transform: uppercase;
+			// 	font-size: @fontSizeH4Px;
+			// 	line-height: @gridBaseline;
+			// 	//@getPxFontConfig(@fontSizeH4Px);
+			// }
 		}
 	}
 }
@@ -82,20 +92,25 @@
 			padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
 			//ajout d'une bordure dont l'épaisseur a été déduite
 			border: 1px solid @zonesBorderColor;
+			//ajout coin arrondi
+			@borderRadiusTopLeftPie(@offL);
+
 			//suppression bordures sous niveaux
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
 			
 			& > .title {
-				background-color: @colorCouleur3Clair;
-				color: @colorCouleur1;
+				background-color: @zonesBorderColor;
+				color: @colorCouleur3ClairSup;
 				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
-				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
+				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px + @offS);
 				border-bottom: 1px solid @zonesBorderColor;
-				font-weight: bold;
+				font-weight: normal;
 				word-spacing: 0.05em;
 				letter-spacing: 0.05em;
 				//on supprime le décalage situé entre le titre et une liste d'éléments quand ils sont suivi l'un par l'autre
 				& ~ .elements { margin-top: @gridBaseline/-2; }
+				//ajout coin arrondi
+				@borderRadiusTopLeftPie((@offL -1px));
 			}
 		}
 	}
