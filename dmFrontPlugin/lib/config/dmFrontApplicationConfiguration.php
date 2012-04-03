@@ -42,10 +42,22 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
     dm::enableMailer(); // car  enable_mailer:false dans config.yml (pour des raisons de performance)
     // do something with the freshly saved $contact
     $message = '';
-    foreach ($contact as $key => $value) {
-      $message .= sfContext::getInstance()->getI18N('fr')->__($key) .":". $value."
-";
-    };
+    $message .= "Contact ".$contact->id."
+    ";
+    $message .= $contact->title.' '.$contact->name.' '.$contact->firstname;
+    $message .= $contact->adresse.' '.$contact->postalcode.' '.$contact->ville.' '."
+    ";
+    $message .= $contact->email."
+    ";
+    $message .= $contact->phone."
+    ";
+    $message .= $contact->fax."
+    ";
+    $message .= "Fonction :".$contact->function."
+    ";
+    $message .= "Message :".$contact->body."
+    ";
+
     sfContext::getInstance()->getMailer()->composeAndSend(array(dmConfig::get('site_email_sender') => dmConfig::get('site_name')),dmConfig::get('site_email'), 'Contact reçu', $message);
 
   }
