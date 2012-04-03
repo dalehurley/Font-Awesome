@@ -545,6 +545,30 @@ $queryMajSiteType = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s
 $dbh->query($queryMajSiteType);
 
 //-------------------------------------------------------------------------------------
+//    Create the dmSetting site_email_sender
+//-------------------------------------------------------------------------------------
+$siteEmailSender = sfConfig::get('sf_email_default-sender');
+$siteEmailSenderAsk = $this->askAndValidate(array('', 'L\'adresse email de l\'expéditeur? (par defaut: '.$siteEmailSender.')', ''), new sfValidatorEmail(
+                        array('required' => false)
+    ));
+$siteEmailSender = empty($siteEmailSenderAsk) ? $siteEmailSender : $siteEmailSenderAsk;
+
+// sauvegarde du site_email_sender dans la table dmSetting
+$queryMajSiteEmailsender = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$siteEmailSender.'\' WHERE s.name = \'site_email_sender\';';
+$dbh->query($queryMajSiteEmailsender);
+
+//-------------------------------------------------------------------------------------
+//    Create the dmSetting site_email
+//-------------------------------------------------------------------------------------
+$siteEmail = $this->askAndValidate(array('', 'L\'adresse email du site (le destinataire des contacts)? (par defaut: '.$siteEmail.')', ''), new sfValidatorEmail(
+                        array('required' => true)
+    ));
+
+// sauvegarde du site_email_sender dans la table dmSetting
+$queryMajSiteEmail = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$siteEmail.'\' WHERE s.name = \'site_email\';';
+$dbh->query($queryMajSiteEmail);
+
+//-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
 $this->logBlock('
