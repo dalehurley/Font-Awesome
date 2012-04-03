@@ -8,10 +8,6 @@
  * sfConfig inaccessible ici...
  * 
  */
-$emailDefaultSender = "contact@expert-clients.fr";   
-
-
-
 sfConfig::set('dm_core_dir', realpath(dirname(__FILE__) . '/..'));
 
 require_once(sfConfig::get('dm_core_dir') . '/lib/core/dm.php');
@@ -556,7 +552,9 @@ $dbh->query($queryMajSiteType);
 //-------------------------------------------------------------------------------------
 //    Create the dmSetting site_email_sender
 //-------------------------------------------------------------------------------------
-$siteEmailSender = $emailDefaultSender;
+$appConf = sfYaml::load(sfConfig::get('dm_core_dir') . '/config/app.yml');
+$siteEmailSender = $appConf ['all']['email']['default-sender'];
+
 $siteEmailSenderAsk = $this->askAndValidate(array('', 'L\'adresse email de l\'expéditeur? (par defaut: '.$siteEmailSender.')', ''), new sfValidatorEmail(
                         array('required' => false)
     ));
