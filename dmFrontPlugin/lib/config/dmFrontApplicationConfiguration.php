@@ -30,7 +30,7 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
     parent::initConfiguration();
   }
 
-
+  // envoi d'email quand un dmContact est envoyé
   public function configure()
   {
     $this->dispatcher->connect('dm_contact.saved', array($this, 'listenToContactSavedEvent'));
@@ -41,7 +41,7 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
     $contact = $e['contact'];
     dm::enableMailer(); // car  enable_mailer:false dans config.yml (pour des raisons de performance)
     // do something with the freshly saved $contact
-    sfContext::getInstance()->getMailer()->composeAndSend(array('contact@expert-clients.fr' => dmConfig::get('site_name')),'lionel.fenneteau@gmail.com', 'contact reçu', $contact);
+    sfContext::getInstance()->getMailer()->composeAndSend(array(dmConfig::get('site_email_sender') => dmConfig::get('site_name')),dmConfig::get('site_email'), 'Contact reçu', $contact);
 
   }
 

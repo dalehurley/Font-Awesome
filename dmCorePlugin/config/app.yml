@@ -7,6 +7,9 @@ all:
     ips-allowed:    # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
       - 127.0.0.1
 
+  email:
+    default-sender: "contact@expert-clients.fr"    
+
   controllers-access:    # param for controller's (dev.php, less.php) access
     ips-allowed:   # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
       - 127.0.0.1
