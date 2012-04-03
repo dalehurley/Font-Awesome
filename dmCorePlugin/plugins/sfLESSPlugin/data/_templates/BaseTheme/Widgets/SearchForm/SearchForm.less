@@ -82,7 +82,7 @@
 					//animation apparition de la sprite
 					.csstransitions.opacity & {
 						opacity: 1;
-						@transition(top, opacity; .2s; ease-out; 0);
+						@transition(top, opacity; .2s; ease-out; .1s);
 					}
 				}
 
@@ -101,6 +101,9 @@
 							// left: @spriteFormat_S*-1;
 							top: @gridBaseline;
 							opacity: 0;
+
+							//changement délai
+							@transitionDelay(.05s);
 						}
 					}
 				}
@@ -116,7 +119,7 @@
 					@transitionProperty(padding-left, width);
 					@transitionDelay(0);
 					&:focus{
-						@transitionDelay(.2s);
+						@transitionDelay(.1s);
 					}
 				}
 
