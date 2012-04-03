@@ -51,3 +51,18 @@ default:
     
   storage: 
     class: dmSessionStorage
+
+  mailer: # config of smtp connect and mailer class
+    class: sfMailer
+    param:
+      logging:           %SF_LOGGING_ENABLED%
+      charset:           %SF_CHARSET%
+      delivery_strategy: realtime
+      transport:
+        class: Swift_SmtpTransport
+        param:
+          host:       192.168.50.6
+          port:       25
+          encryption: ~
+          username:   contact@expert-clients.fr
+          password:   DJnuitblanche
