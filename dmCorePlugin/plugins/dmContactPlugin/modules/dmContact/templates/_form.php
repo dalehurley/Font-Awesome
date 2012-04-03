@@ -1,7 +1,6 @@
 <?php
 // Contact : Form
 // Vars : $form
- 
 $html = '';
 echo _tag('h2', array('class' => 'title'), '{{Nom_page_contact}}');
 
