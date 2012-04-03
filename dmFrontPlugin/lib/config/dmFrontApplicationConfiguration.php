@@ -44,9 +44,9 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
     $message = '';
     $contactFields = get_object_vars($contact);
     foreach ($contactFields as $key => $value) {
-      $message .= __($key) .":". $value."
+      $message .= $key .":". $value."
 ";
-    }
+    };
     sfContext::getInstance()->getMailer()->composeAndSend(array(dmConfig::get('site_email_sender') => dmConfig::get('site_name')),dmConfig::get('site_email'), 'Contact reçu', $message);
 
   }
