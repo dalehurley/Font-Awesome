@@ -48,7 +48,7 @@ $serverCheck->setCommandApplication($this->commandApplication);
 //    }
 //}
 
-$this->logBlock('Diem Sid - Installation','CHOICE_LARGE');
+$this->logBlock('Diem Sid - Installation','HELP_LARGE');
 
 /**
  *  Valeurs par defaut 
@@ -114,16 +114,6 @@ $ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com)
                         array('invalid' => 'Le nom de domaine est pas invalide')
         ));
 $settings['ndd'] = $ndd;
-
-// le nom du site
-$projectName = $ndd;
-$projectName = substr($projectName, strrpos($projectName, '//'));
-$projectName = dmString::slugify($projectName);
-$projectNameAsk = $this->askAndValidate(array('', 'Le nom du site qui apparaitra dans l\'administration? (par defaut: '.$projectName.')', ''), new sfValidatorString(
-                        array('required' => false)
-    ));
-// par défaut $projectName
-$projectName = empty($projectNameAsk) ? $projectName : $projectNameAsk;
 
 /*
  * QUESTIONS
@@ -489,9 +479,23 @@ if ($site==''){
   $this->logBlock('Test de la page d\'accueil '.$siteUrl.' reussi', 'INFO');
 }
 
+// Les paramètres
+//-------------------------------------------------------------------------------------
+$this->logBlock('Les paramètres suivants seront modifiables dans l\'administration du site > Système > Configuration > Paramètres' ,'HELP_LARGE');
+
 //-------------------------------------------------------------------------------------
 //    Update the dmSetting site_name
 //-------------------------------------------------------------------------------------
+// le nom du site
+$projectName = $ndd;
+$projectName = substr($projectName, strrpos($projectName, '//'));
+$projectName = dmString::slugify($projectName);
+$projectNameAsk = $this->askAndValidate(array('', 'Le nom du site qui apparaitra dans l\'administration? (par defaut: '.$projectName.')', ''), new sfValidatorString(
+                        array('required' => false)
+    ));
+// par défaut $projectName
+$projectName = empty($projectNameAsk) ? $projectName : $projectNameAsk;
+
 // sauvegarde du site_name dans la table dmSetting
 $queryMajSiteName = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$projectName.'\' WHERE s.name = \'site_name\';';
 $dbh->query($queryMajSiteName);
