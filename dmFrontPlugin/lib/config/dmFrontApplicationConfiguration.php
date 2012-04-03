@@ -59,7 +59,7 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
     $message .= "Message: ".$contact->body."
 ";
 
-    sfContext::getInstance()->getMailer()->composeAndSend(array(dmConfig::get('site_email_sender') => dmConfig::get('site_name')),dmConfig::get('site_email'), dmConfig::get('site_name')).' - Contact', $message);
+    sfContext::getInstance()->getMailer()->composeAndSend(array(dmConfig::get('site_email_sender') => dmConfig::get('site_name')),dmConfig::get('site_email'), dmConfig::get('site_name').' - Contact', $message);
 
   }
 
