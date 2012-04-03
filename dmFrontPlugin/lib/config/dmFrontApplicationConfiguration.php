@@ -43,22 +43,23 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
     // do something with the freshly saved $contact
     $message = '';
     $message .= "Contact ".$contact->id."
-    ";
-    $message .= $contact->title.' '.$contact->name.' '.$contact->firstname;
+";
+    $message .= $contact->title.' '.$contact->name.' '.$contact->firstname."
+";
     $message .= $contact->adresse.' '.$contact->postalcode.' '.$contact->ville.' '."
-    ";
+";
     $message .= $contact->email."
-    ";
-    $message .= $contact->phone."
-    ";
-    $message .= $contact->fax."
-    ";
-    $message .= "Fonction :".$contact->function."
-    ";
-    $message .= "Message :".$contact->body."
-    ";
+";
+    $message .= "Téléphone: ".$contact->phone."
+";
+    $message .= "Fax: ".$contact->fax."
+";
+    $message .= "Fonction: ".$contact->function."
+";
+    $message .= "Message: ".$contact->body."
+";
 
-    sfContext::getInstance()->getMailer()->composeAndSend(array(dmConfig::get('site_email_sender') => dmConfig::get('site_name')),dmConfig::get('site_email'), 'Contact reçu', $message);
+    sfContext::getInstance()->getMailer()->composeAndSend(array(dmConfig::get('site_email_sender') => dmConfig::get('site_name')),dmConfig::get('site_email'), dmConfig::get('site_name')).' - Contact'., $message);
 
   }
 
