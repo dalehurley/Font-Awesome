@@ -1,6 +1,6 @@
 // _SearchForm.less
-// v1.5
-// Last Updated : 2012-04-02 17:10
+// v1.6
+// Last Updated : 2012-04-03 11:05
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -62,7 +62,7 @@
 
 				//Ajout transition sur la couleur de fond
 				.csstransitions & {
-					@transitionCompress(background-color; .2s; ease-out; 0);
+					@transitionCompress(all; .2s; ease-out; 0);
 				}
 
 				//ajout de la sprite avec l'icône de recherche
@@ -78,12 +78,31 @@
 					top: @decalV;
 					//chargement sprite entière avec dimension et SVG
 					@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
+					
+					//animation apparition de la sprite
+					.csstransitions.opacity & {
+						opacity: 1;
+						@transition(top, opacity; .2s; ease-out; 0);
+					}
 				}
 
 				//classe CSS focus ajoutée en JS
 				&.focus {
 					background-color: @colorCouleur1Moyen;
-					&:before { display: none; visibility: hidden; }
+					&:before {
+						//animation disparition de la sprite
+						visibility: hidden;
+						display: none;
+						.csstransitions.opacity & {
+							//on réaffiche la sprite pour gérer l'animation
+							visibility: visible;
+							display: block;
+							//replacement et disparition de la sprite
+							// left: @spriteFormat_S*-1;
+							top: @gridBaseline;
+							opacity: 0;
+						}
+					}
 				}
 			}
 
@@ -92,6 +111,15 @@
 			
 			//champ de saisie de la recherche
 			.query {
+				//ajout du padding-left et width au propriétés animées par défaut
+				.csstransitions & {
+					@transitionProperty(padding-left, width);
+					@transitionDelay(0);
+					&:focus{
+						@transitionDelay(.2s);
+					}
+				}
+
 				//placement et stylage de l'élément
 				display: block;
 				z-index: 1;
@@ -198,6 +226,23 @@
 //hack webkit (Safari et Chrome)
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	.dm_widget.search_form {
+		.dm_widget_inner {
+			//stylage lorsque placé dans la zone située sous le header
+			#dm_custom_top & {
+				//correction du bug sur le champ de saisi
+				.query {
+					//on enlève l'épaisseur de la bordure non prise en compte dans le calcul de la largeur
+					&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 1px)); }
+					.generatedcontent & { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 1px)); }
+
+					//suppression du délai car l'animation n'est pas gérée sur les pseudos éléments
+					.csstransitions &:focus {
+						@transitionDelay(0);
+					}
+				}
+			}
+		}
+
 		//stylage lorsque placé dans le header
 		#dm_header & {
 			//correction du bug sur le champ de saisi
