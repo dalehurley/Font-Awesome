@@ -69,6 +69,7 @@
 				&:before {
 					position: absolute;
 					display: block;
+					visibility: visible;
 					z-index: 2;
 					content: "";
 					//décalage de marge
@@ -82,7 +83,7 @@
 					//animation apparition de la sprite
 					.csstransitions.opacity & {
 						opacity: 1;
-						@transition(top, opacity; .2s; ease-out; .1s);
+						@transition(visibility, top, opacity; .05s, .2s, .2s; ease-out; .05s, .1s, .1s);
 					}
 				}
 
@@ -95,7 +96,6 @@
 						display: none;
 						.csstransitions.opacity & {
 							//on réaffiche la sprite pour gérer l'animation
-							visibility: visible;
 							display: block;
 							//replacement et disparition de la sprite
 							// left: @spriteFormat_S*-1;
@@ -103,7 +103,7 @@
 							opacity: 0;
 
 							//changement délai
-							@transitionDelay(.05s);
+							@transitionDelay(.2s, .05s, .05s);
 						}
 					}
 				}
