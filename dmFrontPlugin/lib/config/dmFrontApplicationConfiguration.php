@@ -43,7 +43,7 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
     // do something with the freshly saved $contact
     $message = '';
     foreach ($contact as $key => $value) {
-      $message .= sfContext::getInstance()->get18n()->__($key) .":". $value."
+      $message .= sfContext::getInstance()->getI18n()->__($key) .":". $value."
 ";
     };
     sfContext::getInstance()->getMailer()->composeAndSend(array(dmConfig::get('site_email_sender') => dmConfig::get('site_name')),dmConfig::get('site_email'), 'Contact reçu', $message);
