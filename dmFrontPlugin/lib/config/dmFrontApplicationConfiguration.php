@@ -42,7 +42,7 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
     dm::enableMailer(); // car  enable_mailer:false dans config.yml (pour des raisons de performance)
     // do something with the freshly saved $contact
     $message = '';
-    $contactFields = get_object_vars($contact);
+    $contactFields = get_class_vars($contact);
     $message .= count($contactFields);
 
 $message .= $contact->body;
