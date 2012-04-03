@@ -43,6 +43,7 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
     // do something with the freshly saved $contact
     $message = '';
     $contactFields = get_object_vars($contact);
+    $message .= count($contactFields);
     foreach ($contactFields as $key => $value) {
       $message .= $key .":". $value."
 ";
