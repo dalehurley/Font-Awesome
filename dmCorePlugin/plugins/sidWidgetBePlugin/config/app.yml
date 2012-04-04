@@ -100,4 +100,9 @@ all:
   # nombre d'article de la liste en bas des article BE (modif de article ListBySection)
   nb-article-listing : 5
 
-
+  # nom des rubriques concernant le kit création
+  creation:
+    rubriques:
+      - ec_creation_entreprise
+      - ec_guidecreation
+      - ec_idees_business
