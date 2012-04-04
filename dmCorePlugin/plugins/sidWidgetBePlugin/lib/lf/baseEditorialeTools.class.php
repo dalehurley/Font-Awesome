@@ -544,15 +544,41 @@ class baseEditorialeTools {
             // pour chaque groupe, je cherche les pages concernées dans SidRubrique
             foreach($arrayGroups as $group){
                 $beginTime = microtime(true);
-                $record_ids = dmDb::query('SidRubrique p')->withI18n($lang)->select()->where('pTranslation.title IN (\''.implode('\',\'',$group['values']).'\') and p.is_active = true')->execute();
-                foreach($record_ids as $record_id){
+                // RUBRIQUES
+                $rubriqueRecordIds = dmDb::query('SidRubrique p')->withI18n($lang)->select()->where('pTranslation.title IN (\''.implode('\',\'',$group['values']).'\') and p.is_active = true')->execute();
+                foreach ($rubriqueRecordIds as $rubriqueRecordId) {
                     // j'update dans DmPageTranslation le champ group_page
-                    $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'rubrique' and d.action = 'show' and d.record_id = ".$record_id->id)->execute();
-                    foreach($groupPages as $groupPage){
+                    $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'rubrique' and d.action = 'show' and d.record_id = " . $rubriqueRecordId->id)->execute();
+                    foreach ($groupPages as $groupPage) {
                         $groupPage->Translation[$lang]->group_page = $group['name-group'];
                         $groupPages->save();
                     }
-                $return[]['Group dmPages : ' . $record_id->getTitle()] = " a été ajouté au groupe ".$group['name-group']. " [" . (microtime(true) - $beginTime) . " s]";
+                    // SECTIONS
+                    $sectionRecordIds = dmDb::query('SidSection p')->withI18n($lang)->select()->where('p.rubrique_id = ' . $rubriqueRecordId->id . ' and p.is_active = true')->execute();
+                    // j'update les sections de la rubrique
+                    foreach ($sectionRecordIds as $sectionRecordId) {
+                        // j'update dans DmPageTranslation le champ group_page
+                        $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'section' and d.action = 'show' and d.record_id = " . $sectionRecordId->id)->execute();
+                        foreach ($groupPages as $groupPage) {
+                            $groupPage->Translation[$lang]->group_page = $group['name-group'];
+                            $groupPages->save();
+                        }
+                        // ARTICLES
+                        $articleRecordIds = dmDb::query('SidArticle p')->withI18n($lang)->select()->where('p.section_id = ' . $sectionRecordId->id . ' and p.is_active = true')->execute();
+                        // j'update les sections de la rubrique
+                        foreach ($articleRecordIds as $articleRecordId) {
+                            // j'update dans DmPageTranslation le champ group_page
+                            $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'section' and d.action = 'show' and d.record_id = " . $articleRecordId->id)->execute();
+                            foreach ($groupPages as $groupPage) {
+                                $groupPage->Translation[$lang]->group_page = $group['name-group'];
+                                $groupPages->save();
+                            }
+                        }
+                    }
+
+
+
+                    $return[]['La rubrique ' . $rubriqueRecordId->getTitle() . ' et tous ses enfants'] = " ont été ajouté au groupe " . $group['name-group'] . " [" . (microtime(true) - $beginTime) . " s]";
                 }
             }
         }
