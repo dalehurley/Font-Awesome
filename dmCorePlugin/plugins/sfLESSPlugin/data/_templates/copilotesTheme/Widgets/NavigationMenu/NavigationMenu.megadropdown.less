@@ -285,14 +285,12 @@ ul.menu-megadropdown {
 					@transitionNone();
 				}
 
-				//Copilotes : rajout d'une bordure en bas du lien pour masquer la bordure de la sous-partie
+				//Copilotes : rajout d'une bordure en haut du lien pour fermer le contour du menu
 				&:hover > .link,
 				& > .link:hover,
 				& > .link:focus {
 					border-top: 1px solid @zonesBorderColor;
-					border-bottom: 1px solid @colorCouleur2Clair;
 					padding-top: (@gridBaseline/2 -1px);
-					padding-bottom: (@gridBaseline/2 -1px);
 					z-index: 600;
 				}
 			}
