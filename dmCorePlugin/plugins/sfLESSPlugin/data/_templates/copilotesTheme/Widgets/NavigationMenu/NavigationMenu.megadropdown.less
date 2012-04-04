@@ -197,13 +197,14 @@ ul.menu-megadropdown {
 			&, .rgba & { background-color: transparent; }
 			padding: 0;
 			border: 0;
-			
-			color: @colorCouleur3Clair;
+
+			//Copilotes : personnalisation des couleurs des liens
+			color: @colorCouleur3;
 			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
 			&.dm_inactive { color: @colorCouleur3Moyen; }
 			//LoVe's Hurts Fade Away
-			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Sup; }
-			&:active { color: @colorCouleur1; }
+			&:hover, &:focus { color: @colorCouleur3Fonce; background-color: @colorCouleur2Moyen; }
+			&:active { color: @colorCouleur1Clair; }
 		}
 
 		//gestion des cellules de premier niveau

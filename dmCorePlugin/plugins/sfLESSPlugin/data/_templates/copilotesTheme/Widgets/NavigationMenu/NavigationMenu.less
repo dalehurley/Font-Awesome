@@ -241,8 +241,8 @@ ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 
 //mise en couleur des cellules ouvertes
 ul.menu-dropdown li.dm_dir:hover > .link,
-// #dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
-// #dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-accordion li.dm_parent > .link,
 ul.menu-accordion li.dm_parent li.dm_parent > .link {
@@ -254,9 +254,9 @@ ul.menu-accordion li.dm_parent li.dm_parent > .link {
 //Co-pilotes : couleurs spécifiques
 #dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown > li.dm_dir:hover > .link,
 #dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown > li.dm_dir:hover > .link {
-	background-color: @colorCouleur2ClairSup;
-	color: @colorCouleur1Moyen;
-	&:hover { color: @colorCouleur1MoyenSup; }
+	background-color: transparent;
+	color: @colorCouleur1;
+	&:hover { color: @colorCouleur1Moyen; background-color: @colorCouleur2ClairSup; }
 }
 
 //création des fonctions localisées de déclinaisons média
