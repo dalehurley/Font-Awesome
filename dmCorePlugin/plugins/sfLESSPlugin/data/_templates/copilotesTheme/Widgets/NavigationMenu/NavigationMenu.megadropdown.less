@@ -173,14 +173,21 @@ ul.menu-megadropdown {
 
 		//ajout ombre et couleur de fond
 		ul {
-			background-color: @colorCouleur2;
-			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 fadeout(@colorBlack, 50%));
+			background-color: @colorCouleur2ClairSup;
+			// @boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 fadeout(@colorBlack, 50%));
+			//Copilotes : changement épaisseur ombrage
+			@boxShadow(@offS @offS @offS fadeout(@colorBlack, 50%));
 			//suppression bordure du haut
-			border-top: 0;
+			// border-top: 0;
+			//Copilotes : on laisse la bordure en haut et on superpose
+			margin-top: -1px;
+
 			//niveau 2 et +
 			ul {
 				&, .rgba & { background-color: transparent; }
 				@boxShadow(none);
+				//Copilotes : réinitialisation placement
+				margin-top: 0;
 			}
 		}
 
@@ -223,7 +230,7 @@ ul.menu-megadropdown {
 				// border-right: 1px solid @zonesBorderColor;
 
 				//personnalisation padding pour menu horizontal
-				@padV: floor(@gridBaseline / 4) + 0px;
+				// @padV: floor(@gridBaseline / 4) + 0px;
 				@padH: @menuDropdownPadHCustomTop;
 				// padding: @padV @padH @padV (@padH +1px);
 
@@ -275,6 +282,17 @@ ul.menu-megadropdown {
 					//suppression animation rotation
 					@transformNone();
 					@transitionNone();
+				}
+
+				//Copilotes : rajout d'une bordure en bas du lien pour masquer la bordure de la sous-partie
+				&:hover > .link,
+				& > .link:hover,
+				& > .link:focus {
+					border-top: 1px solid @zonesBorderColor;
+					border-bottom: 1px solid @colorCouleur2ClairSup;
+					padding-top: (@gridBaseline/2 -1px);
+					padding-bottom: (@gridBaseline/2 -1px);
+					z-index: 600;
 				}
 			}
 		}
