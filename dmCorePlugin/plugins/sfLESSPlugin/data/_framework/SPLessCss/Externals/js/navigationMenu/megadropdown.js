@@ -1,6 +1,6 @@
 // megadropdown.js
-// v1.5
-// Last Updated : 2012-03-22 11:30
+// v1.6.5
+// Last Updated : 2012-04-04 12:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -37,15 +37,21 @@
 			if(dmAreaIndex == 'auto') dmAreaIndex = 0;
 			dmAreaIndex = parseInt(dmAreaIndex);
 
-			//on fait passer devant le menu lors du rollOver de ce dernier
-			if(dmAreaIndex < highestZindex) {
-				// $(dmArea).css('zIndex', highestZindex + 1);
-				$(this).bind('mouseover', function(){
-					$(dmArea).css('zIndex', highestZindex + 1);
-				}).bind('mouseout', function(){
-					$(dmArea).css('zIndex', dmAreaIndex);
-				});;
-			}
+			//détection du rollOver et du rollOut
+			$(this).bind('mouseover', function(){
+				//on fait passer devant le menu lors du rollOver de ce dernier
+				if(dmAreaIndex < highestZindex) $(dmArea).css('zIndex', highestZindex + 1);
+				
+				//ajout d'une classe d'hover
+				if(!$(this).closest('.dm_widget_inner').hasClass('hover')) $(this).closest('.dm_widget_inner').addClass('hover');
+
+			}).bind('mouseout', function(){
+				//on remet l'index par défaut
+				if(dmAreaIndex < highestZindex) $(dmArea).css('zIndex', dmAreaIndex);
+
+				//suppression de la classe seulement si présente
+				if($(this).closest('.dm_widget_inner').hasClass('hover')) $(this).closest('.dm_widget_inner').removeClass('hover');
+			});;
 
 			//on ne s'occupe que des liens ayant des enfants (dm_dir)
 			$(this).children('li').each(function(index) {
