@@ -526,6 +526,41 @@ class baseEditorialeTools {
         
         return $return;
     }
+    
+    /*
+     * Affectation à un groupe des dmPages en fonction du tableau présent dans app.yml pour le kit création
+     *
+    */
+    public static function affectGroupDmPages() {
+        // retour
+        $return = array();
+        // les languages
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+        $nbPagesModified = 0;
+        
+        foreach ($arrayLangs as $lang) { // pour chaque lang utilisées et définies dans le fichier config/dm/config.yml
+            // je récupère dans le app de dmCorePlugin/config les tableaux des groupes à affectés aux pages
+            $arrayGroups = sfConfig::get('app_groups_rubriques');
+            // pour chaque groupe, je cherche les pages concernées dans SidRubrique
+            foreach($arrayGroups as $group){
+                $beginTime = microtime(true);
+                $record_ids = dmDb::query('SidRubrique p')->withI18n($lang)->select()->where('pTranslation.title IN (\''.implode('\',\'',$group['values']).'\') and p.is_active = true')->execute();
+                foreach($record_ids as $record_id){
+                    // j'update dans DmPageTranslation le champ group_page
+                    $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'rubrique' and d.action = 'show' and d.record_id = ".$record_id->id)->execute();
+                    foreach($groupPages as $groupPage){
+                        $groupPage->Translation[$lang]->group_page = $group['name-group'];
+                        $groupPages->save();
+                    }
+                $return[]['Group dmPages : ' . $record_id->getTitle()] = " a été ajouté au groupe ".$group['name-group']. " [" . (microtime(true) - $beginTime) . " s]";
+                }
+            }
+        }
+        
+        
+        return $return;
+    }
+    
     /*
      * Nettoyage du repertoire local
      * - Suppression des dossiers vides
