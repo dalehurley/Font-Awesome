@@ -228,7 +228,17 @@ class dmDataLoad
         'default_value' => '',
         'description' => 'The site type',
         'group_name' =>'site'
-      )            
+      ),
+      'site_email_sender' => array(
+        'default_value' => '',
+        'description' => 'The site email sender',
+        'group_name' =>'site'
+      ),
+      'site_email' => array(
+        'default_value' => '',
+        'description' => 'The site email recepter',
+        'group_name' =>'site'
+      )                          
     );
 
     $existingSettings = dmDb::query('DmSetting s INDEXBY s.name')

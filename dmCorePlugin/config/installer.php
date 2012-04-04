@@ -3,6 +3,11 @@
 /** @var sfGenerateProjectTask This file runs in the context of sfGenerateProjectTask::execute() */ 
 //$this;
 
+/**
+ * parametres globaux
+ * sfConfig inaccessible ici...
+ * 
+ */
 sfConfig::set('dm_core_dir', realpath(dirname(__FILE__) . '/..'));
 
 require_once(sfConfig::get('dm_core_dir') . '/lib/core/dm.php');
@@ -43,7 +48,7 @@ $serverCheck->setCommandApplication($this->commandApplication);
 //    }
 //}
 
-$this->logBlock('Diem Sid - Installation','CHOICE_LARGE');
+$this->logBlock('Diem Sid - Installation','HELP_LARGE');
 
 /**
  *  Valeurs par defaut 
@@ -109,16 +114,6 @@ $ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com)
                         array('invalid' => 'Le nom de domaine est pas invalide')
         ));
 $settings['ndd'] = $ndd;
-
-// le nom du site
-$projectName = $ndd;
-$projectName = substr($projectName, strrpos($projectName, '//'));
-$projectName = dmString::slugify($projectName);
-$projectNameAsk = $this->askAndValidate(array('', 'Le nom du site qui apparaitra dans l\'administration? (par defaut: '.$projectName.')', ''), new sfValidatorString(
-                        array('required' => false)
-    ));
-// par défaut $projectName
-$projectName = empty($projectNameAsk) ? $projectName : $projectNameAsk;
 
 /*
  * QUESTIONS
@@ -484,9 +479,23 @@ if ($site==''){
   $this->logBlock('Test de la page d\'accueil '.$siteUrl.' reussi', 'INFO');
 }
 
+// Les paramètres
+//-------------------------------------------------------------------------------------
+$this->logBlock('Les paramètres suivants seront modifiables dans l\'administration du site > Système > Configuration > Paramètres' ,'HELP_LARGE');
+
 //-------------------------------------------------------------------------------------
 //    Update the dmSetting site_name
 //-------------------------------------------------------------------------------------
+// le nom du site
+$projectName = $ndd;
+$projectName = substr($projectName, strrpos($projectName, '//'));
+$projectName = dmString::slugify($projectName);
+$projectNameAsk = $this->askAndValidate(array('', 'Le nom du site qui apparaitra dans l\'administration? (par defaut: '.$projectName.')', ''), new sfValidatorString(
+                        array('required' => false)
+    ));
+// par défaut $projectName
+$projectName = empty($projectNameAsk) ? $projectName : $projectNameAsk;
+
 // sauvegarde du site_name dans la table dmSetting
 $queryMajSiteName = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$projectName.'\' WHERE s.name = \'site_name\';';
 $dbh->query($queryMajSiteName);
@@ -545,14 +554,41 @@ $queryMajSiteType = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s
 $dbh->query($queryMajSiteType);
 
 //-------------------------------------------------------------------------------------
+//    Create the dmSetting site_email_sender
+//-------------------------------------------------------------------------------------
+$appConf = sfYaml::load(sfConfig::get('dm_core_dir') . '/config/app.yml');
+$siteEmailSender = $appConf ['all']['email']['default-sender'];
+
+$siteEmailSenderAsk = $this->askAndValidate(array('', 'L\'adresse email de l\'expéditeur? (par defaut: '.$siteEmailSender.')', ''), new sfValidatorEmail(
+                        array('required' => false)
+    ));
+$siteEmailSender = empty($siteEmailSenderAsk) ? $siteEmailSender : $siteEmailSenderAsk;
+
+// sauvegarde du site_email_sender dans la table dmSetting
+$queryMajSiteEmailsender = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$siteEmailSender.'\' WHERE s.name = \'site_email_sender\';';
+$dbh->query($queryMajSiteEmailsender);
+
+//-------------------------------------------------------------------------------------
+//    Create the dmSetting site_email
+//-------------------------------------------------------------------------------------
+$siteEmail = '';
+$siteEmail = $this->askAndValidate(array('', 'L\'adresse email du site (le destinataire des contacts)?', ''), new sfValidatorEmail(
+                        array('required' => true)
+    ));
+
+// sauvegarde du site_email_sender dans la table dmSetting
+$queryMajSiteEmail = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$siteEmail.'\' WHERE s.name = \'site_email\';';
+$dbh->query($queryMajSiteEmail);
+
+//-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
 $this->logBlock('
   Le site '.$projectName.' est pret. Accedez-y via '.$settings['ndd'].'/admin.php. 
   Votre login est "admin" et votre mot de passe est "'. $settings['database']['password'] .'". 
   Lancer maintenant la commande "php symfony controls" afin de :
-  - charger un dump de contenu
   - installer un thème
+  - charger un dump de contenu
 ','HELP');
 exit;
 
