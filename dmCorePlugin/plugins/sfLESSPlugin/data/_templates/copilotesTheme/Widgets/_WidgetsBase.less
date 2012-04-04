@@ -45,6 +45,19 @@
 	}
 }
 
+//Widget spécifique à Copilotes contenant des liens personnalisés vers le contenu du site
+.dm_widget.content_ck_editor.copilotesTagcloud {
+	
+	.dm_widget_inner {
+		.isLess & { background-color: fadeout(#85C5D4, 50%); }
+
+		#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
+			border: 0;
+			padding: @gridBaseline/2 @zonesOffsetPad;
+		}
+	}
+}
+
 //placement des widgets dans le header
 #dm_header {
 	
