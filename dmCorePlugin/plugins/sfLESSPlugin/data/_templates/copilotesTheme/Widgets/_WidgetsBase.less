@@ -91,7 +91,7 @@
 		.dm_widget_inner {
 			padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
 			//ajout d'une bordure dont l'épaisseur a été déduite
-			border: 1px solid @zonesBorderColor;
+			border: 1px solid @colorZoneBorder;
 			//ajout coin arrondi
 			@borderRadiusTopLeftPie(@offL);
 
@@ -99,11 +99,11 @@
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
 			
 			& > .title {
-				background-color: @zonesBorderColor;
+				background-color: @colorZoneBorder;
 				color: @colorCouleur3ClairSup;
 				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
 				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px + @offS);
-				border-bottom: 1px solid @zonesBorderColor;
+				border-bottom: 1px solid @colorZoneBorder;
 				font-weight: normal;
 				word-spacing: 0.05em;
 				letter-spacing: 0.05em;

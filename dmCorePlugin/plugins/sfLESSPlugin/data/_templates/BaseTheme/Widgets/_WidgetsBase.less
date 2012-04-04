@@ -81,7 +81,7 @@
 		.dm_widget_inner {
 			padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
 			//ajout d'une bordure dont l'épaisseur a été déduite
-			border: 1px solid @zonesBorderColor;
+			border: 1px solid @colorZoneBorder;
 			//suppression bordures sous niveaux
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
 			
@@ -90,7 +90,7 @@
 				color: @colorCouleur1;
 				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
 				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
-				border-bottom: 1px solid @zonesBorderColor;
+				border-bottom: 1px solid @colorZoneBorder;
 				font-weight: bold;
 				word-spacing: 0.05em;
 				letter-spacing: 0.05em;

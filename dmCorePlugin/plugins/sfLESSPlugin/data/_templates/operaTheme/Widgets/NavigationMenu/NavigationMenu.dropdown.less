@@ -20,7 +20,7 @@
 
 ul.menu-dropdown {
 	//rajout bordure à gauche sur les menus
-	&, & ul { border-left: 1px solid @zonesBorderColor; }
+	&, & ul { border-left: 1px solid @colorZoneBorder; }
 	
 	//modifications de dimensions pour ajouts de bordures sur les côtés, et compensation décalage
 	ul {
@@ -70,7 +70,7 @@ ul.menu-dropdown {
 		margin-top: -1px;
 		//pour toutes les premières cellules
 		li.first {
-			& > .link { padding-top: @gridBaseline/2; border-top: 1px solid @zonesBorderColor; }
+			& > .link { padding-top: @gridBaseline/2; border-top: 1px solid @colorZoneBorder; }
 			& > ul { margin-top: 0; }
 		}
 	}
@@ -171,7 +171,7 @@ ul.menu-dropdown {
 			& > .link:hover,
 			& > .link:focus {
 				margin-left: -1px;
-				border-left: 1px solid @zonesBorderColor;
+				border-left: 1px solid @colorZoneBorder;
 			}
 			
 			//élargissement en pleine hauteur pour les dossiers
@@ -179,14 +179,14 @@ ul.menu-dropdown {
 			&.dm_dir > .link:hover,
 			&.dm_dir > .link:focus {
 				padding-bottom: @menuDropdownPadV;
-				border-bottom: 1px solid @zonesBorderColor;
+				border-bottom: 1px solid @colorZoneBorder;
 			}
 			
 			//rajout bordure à gauche sur la première cellule
 			//et correction de la cellule suivant dm_root (qui contient une icône link_root)
 			&.first,
 			&.dm_root + li {
-				& > .link { border-left: 1px solid @zonesBorderColor; }
+				& > .link { border-left: 1px solid @colorZoneBorder; }
 				//suppression décalage lors du rollOver
 				&:hover > .link,
 				& > .link:hover,

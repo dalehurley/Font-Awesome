@@ -118,7 +118,7 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
 		border-style: solid;
 		border-width: 0 1px 1px 0;
-		border-color: @colorCouleur3Moyen @zonesBorderColor;
+		border-color: @colorCouleur3Moyen @colorZoneBorder;
 		color: @colorCouleur3Fonce;
 		
 		//changement taille selon zone
@@ -133,7 +133,7 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	}
 
 	//remise de la couleur du bas sur les premiers et derniers de liste
-	.last > .link { border-color: @zonesBorderColor; }
+	.last > .link { border-color: @colorZoneBorder; }
 }
 
 ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
