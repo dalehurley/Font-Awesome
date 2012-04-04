@@ -171,6 +171,24 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return $this->parent ? $this->parent->getRoot() : $this;
     }
+
+    /**
+     * @return dmMenu the parent menu with level=0
+     */
+    public function getParentLevel0() {
+        
+        if ($this->getLevel() == 0) {
+            return $this;
+        }
+        if ($this->parent->getLevel() > 0){
+            return $this->parent->getParentLevel0();
+        } 
+        if ($this->parent->getLevel() == 0){
+            return $this->parent;
+        }
+
+    }
+
     /**
      * @return dmMenu the parent menu
      */
@@ -408,15 +426,22 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             }
         }
 
-        if ($display){ // si on doit afficher le child alors on vérifie le champ groupdisplayed
-            switch ($this->getOption('groupdisplayed')) {
+        /**
+         * Gestion des champs groupPage de dmPage, en fonction du champ groupdisplayed de chaque item
+         */
+        if ($display                        // si on doit afficher le child alors on vérifie le champ groupdisplayed
+            && $this->getLevel() > 0){      // on ne traite pas le niveau 0 qui est gérable à la main dans le formulaire du widget
+            
+            $groupdisplayed = $this->getParentLevel0()->getOption('groupdisplayed');  // on récupère le param groupdisplayed du menu de level 0 : le niveau qui est gérable dans le form du widget
+             
+            switch ($groupdisplayed) {
                 case '*':  // on affiche tout
                     $display = true;
                     break;
-                case '':  
+                case '':  // on affiche les pages qui n'ont pas de groupPage ou groupPage is null
                     if (is_object($this->getLink())){
                         if (method_exists($this->getLink(),'getPage')){
-                            if (in_array($this->getLink()->getPage()->module, explode(' ', $this->getOption('groupdisplayed')))){
+                            if ($this->getLink()->getPage()->groupPage == '' || $this->getLink()->getPage()->groupPage == null){
                                 $display = true;
                             } else {
                                 $display = false;
@@ -424,10 +449,10 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                         }
                     }
                     break;                
-                default:  // on affiche seulement les groupdisplayed renseigné dna sle menu pour le child en cours
+                default:  // on affiche seulement les pages qui ont groupPage = groupdisplayed renseigné dans le menu 
                     if (is_object($this->getLink())){
                         if (method_exists($this->getLink(),'getPage')){
-                            if (in_array($this->getLink()->getPage()->module, explode(' ', $this->getOption('groupdisplayed')))){
+                            if (in_array($this->getLink()->getPage()->groupPage, explode(' ', $groupdisplayed))){
                                 $display = true;
                             } else {
                                 $display = false;
