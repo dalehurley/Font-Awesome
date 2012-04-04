@@ -64,11 +64,14 @@
 			@boxShadow(@offS @offS @offS fadeout(@colorBlack, 50%));
 
 			//Copilotes : on supprime les bords arrondis du bas lors du rollOver du megadropdown
+			.csstransitions & {
+				@transitionCompress(border-radius; .2s; ease-out; 0);
+			}
+			
 			&.megadropdownHover {
 				@borderRadiusBottomRight(0);
 				@borderRadiusBottomLeft(0);
 			}
-			
 		}
 	}
 }
