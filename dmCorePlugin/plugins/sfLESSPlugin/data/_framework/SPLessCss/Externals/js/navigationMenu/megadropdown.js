@@ -1,6 +1,6 @@
 // megadropdown.js
-// v1.6.5
-// Last Updated : 2012-04-04 12:30
+// v1.6.6
+// Last Updated : 2012-04-04 16:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -37,21 +37,28 @@
 			if(dmAreaIndex == 'auto') dmAreaIndex = 0;
 			dmAreaIndex = parseInt(dmAreaIndex);
 
-			//détection du rollOver et du rollOut
-			$(this).bind('mouseover', function(){
-				//on fait passer devant le menu lors du rollOver de ce dernier
-				if(dmAreaIndex < highestZindex) $(dmArea).css('zIndex', highestZindex + 1);
-				
+			//détection du rollOver et du rollOut sur l'ensemble du menu
+			if(dmAreaIndex < highestZindex) {
+				$(this).bind('mouseover', function(){
+					//on fait passer devant le menu lors du rollOver de ce dernier
+					 $(dmArea).css('zIndex', highestZindex + 1);
+				}).bind('mouseout', function(){
+					//on remet l'index par défaut
+					$(dmArea).css('zIndex', dmAreaIndex);
+				});
+			}
+
+			//ciblage du widgetInner
+			var getWidgetInner = $(this).closest('.dm_widget_inner');
+
+			//détection du rollOver et du rollOut uniquement sur les liens de dossier de premier niveau
+			$(this).children('li.dm_dir').bind('mouseover', function(){
 				//ajout d'une classe d'hover
-				if(!$(this).closest('.dm_widget_inner').hasClass('megadropdownHover')) $(this).closest('.dm_widget_inner').addClass('megadropdownHover');
-
+				if(!getWidgetInner.hasClass('megadropdownHover')) getWidgetInner.addClass('megadropdownHover');
 			}).bind('mouseout', function(){
-				//on remet l'index par défaut
-				if(dmAreaIndex < highestZindex) $(dmArea).css('zIndex', dmAreaIndex);
-
 				//suppression de la classe seulement si présente
-				if($(this).closest('.dm_widget_inner').hasClass('megadropdownHover')) $(this).closest('.dm_widget_inner').removeClass('megadropdownHover');
-			});;
+				if(getWidgetInner.hasClass('megadropdownHover')) getWidgetInner.removeClass('megadropdownHover');
+			});
 
 			//on ne s'occupe que des liens ayant des enfants (dm_dir)
 			$(this).children('li').each(function(index) {
