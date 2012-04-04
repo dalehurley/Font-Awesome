@@ -2,11 +2,11 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" xml:space="preserve">
 <g>
-	<rect x="10.709" y="44.873" fill="##spriteCouleur3ClairSup##" width="8.406" height="11.149"/>
-	<rect x="22.59" y="37.013" fill="##spriteCouleur3ClairSup##" width="8.408" height="19.009"/>
-	<rect x="34.471" y="42.314" fill="##spriteCouleur3ClairSup##" width="8.408" height="13.707"/>
-	<rect x="46.168" y="27.143" fill="##spriteCouleur3ClairSup##" width="8.408" height="28.879"/>
-	<polygon fill="##spriteCouleur3ClairSup##" points="50.92,23.629 53.301,7.978 38.066,11.669 42.027,15.592 32.703,25.136 26.34,18.834 
+	<rect x="10.709" y="44.873" fill="##spriteCouleurLight##" width="8.406" height="11.149"/>
+	<rect x="22.59" y="37.013" fill="##spriteCouleurLight##" width="8.408" height="19.009"/>
+	<rect x="34.471" y="42.314" fill="##spriteCouleurLight##" width="8.408" height="13.707"/>
+	<rect x="46.168" y="27.143" fill="##spriteCouleurLight##" width="8.408" height="28.879"/>
+	<polygon fill="##spriteCouleurLight##" points="50.92,23.629 53.301,7.978 38.066,11.669 42.027,15.592 32.703,25.136 26.34,18.834 
 		9.424,35.909 14.424,40.863 26.645,28.525 33.137,34.958 47.543,20.413 	"/>
 </g>
 </svg>
