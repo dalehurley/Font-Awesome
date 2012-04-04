@@ -50,6 +50,7 @@ echo _tag('div.dm.dm_page_edit_wrap',
       _tag('ul.dm_form_elements',
         $form['is_active']->renderRow().
         $form['is_visible_bread_crumb']->renderRow().
+        $form['group_page']->renderRow().
         $form['is_secure']->renderRow().
         _tag('li.dm_form_element.credentials.clearfix'.($page->isSecure ? '' : '.none'),
           $form['credentials']->label()->field()->error()
