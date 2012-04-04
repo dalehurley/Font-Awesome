@@ -174,7 +174,7 @@ ul.menu-megadropdown {
 		//ajout ombre et couleur de fond
 		ul {
 			background-color: @colorCouleur2;
-			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @colorCouleur2);
+			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 fadeout(@colorBlack, 50%));
 			//suppression bordure du haut
 			border-top: 0;
 			//niveau 2 et +
@@ -202,41 +202,63 @@ ul.menu-megadropdown {
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
+				//Co-pilotes : couleurs spécifiques
+				background-color: transparent;
+				color: @colorCouleur1;
+				border-color: transparent;
+				margin-left: -1px;
+				border-left-width: 1px;
+				border-left-style: solid;
+				border-right-width: 1px;
+				border-right-style: solid;
+				&:hover, &:focus { color: @colorCouleur1Moyen; background-color: @colorCouleur2ClairSup; }
+
 				//uniformisation couleur de police
 				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
 				&.dm_inactive { color: @colorCouleur3Clair; }
 				
-				margin-top: floor(@gridBaseline / 4) + 1px;
-				margin-bottom: floor(@gridBaseline / 4) + 1px;
+				// margin-top: floor(@gridBaseline / 4) + 1px;
+				// margin-bottom: floor(@gridBaseline / 4) + 1px;
 				//ajout bordure à droite
-				border-right: 1px solid @zonesBorderColor;
+				// border-right: 1px solid @zonesBorderColor;
 
 				//personnalisation padding pour menu horizontal
 				@padV: floor(@gridBaseline / 4) + 0px;
 				@padH: @menuDropdownPadHCustomTop;
-				padding: @padV @padH @padV (@padH +1px);
+				// padding: @padV @padH @padV (@padH +1px);
+
+				//Co-pilotes : marges initiales
+				margin-top: 0;
+				margin-bottom: 0;
+				padding: @gridBaseline/2 @padH @gridBaseline/2 (@padH +1px);
 			}
 			//pleine hauteur lors du rollOver
 			&:hover > .link,
 			& > .link:hover,
 			& > .link:focus {
-				margin-top: 0;
-				margin-bottom: 0;
-				padding-top: @gridBaseline/2;
-				padding-bottom: @gridBaseline/2;
-				margin-left: -1px;
-				border-left: 1px solid @zonesBorderColor;
+				// margin-top: 0;
+				// margin-bottom: 0;
+				// padding-top: @gridBaseline/2;
+				// padding-bottom: @gridBaseline/2;
+				// margin-left: -1px;
+				// border-left: 1px solid @zonesBorderColor;
+				
+				//Co-pilotes : couleurs spécifiques
+				border-color: @zonesBorderColor;
 			}
 
 			//rajout bordure à gauche sur la première cellule
 			//et correction de la cellule suivant dm_root (qui contient une icône link_root)
 			&.first,
 			&.dm_root + li {
-				& > .link { border-left: 1px solid @zonesBorderColor; }
+				//Co-pilotes : corrections de marge et couleur de bordure
+				& > .link { margin-left: 0; }
+
+				// & > .link { border-left: 1px solid @zonesBorderColor; }
 				//suppression décalage lors du rollOver
-				&:hover > .link,
-				& > .link:hover,
-				& > .link:focus { margin-left: 0; }
+				// &:hover > .link,
+				// & > .link:hover,
+				// & > .link:focus { margin-left: 0; }
 				
 				//gestion décalage pour la première cellule
 				ul {
