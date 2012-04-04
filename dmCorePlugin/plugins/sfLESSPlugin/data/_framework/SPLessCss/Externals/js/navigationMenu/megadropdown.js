@@ -43,14 +43,14 @@
 				if(dmAreaIndex < highestZindex) $(dmArea).css('zIndex', highestZindex + 1);
 				
 				//ajout d'une classe d'hover
-				if(!$(this).closest('.dm_widget_inner').hasClass('hover')) $(this).closest('.dm_widget_inner').addClass('hover');
+				if(!$(this).closest('.dm_widget_inner').hasClass('megadropdownHover')) $(this).closest('.dm_widget_inner').addClass('megadropdownHover');
 
 			}).bind('mouseout', function(){
 				//on remet l'index par défaut
 				if(dmAreaIndex < highestZindex) $(dmArea).css('zIndex', dmAreaIndex);
 
 				//suppression de la classe seulement si présente
-				if($(this).closest('.dm_widget_inner').hasClass('hover')) $(this).closest('.dm_widget_inner').removeClass('hover');
+				if($(this).closest('.dm_widget_inner').hasClass('megadropdownHover')) $(this).closest('.dm_widget_inner').removeClass('megadropdownHover');
 			});;
 
 			//on ne s'occupe que des liens ayant des enfants (dm_dir)
