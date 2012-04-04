@@ -57,6 +57,10 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return $this;
     }
+    public function groupdisplayed($group) {
+        
+        return $this->setOption('groupdisplayed', $group);
+    }    
     public function secure($bool) {
         
         return $this->setOption('secure', (bool)$bool);
@@ -392,6 +396,8 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
     public function renderChild() {
         $display = true;
+        $html = '';
+
         if (is_object($this->getLink())){
             if (method_exists($this->getLink(),'getPage')){
                 if ($this->getLink()->getPage()->action == 'list'){ // les pages ayant une action = list sont les pages manuelles qui list les page automatique filles
@@ -401,7 +407,37 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                 }
             }
         }
-        $html = '';
+
+        if ($display){ // si on doit afficher le child alors on vérifie le champ groupdisplayed
+            switch ($this->getOption('groupdisplayed')) {
+                case '*':  // on affiche tout
+                    $display = true;
+                    break;
+                case '':  
+                    if (is_object($this->getLink())){
+                        if (method_exists($this->getLink(),'getPage')){
+                            if (in_array($this->getLink()->getPage()->module, explode(' ', $this->getOption('groupdisplayed')))){
+                                $display = true;
+                            } else {
+                                $display = false;
+                            }
+                        }
+                    }
+                    break;                
+                default:  // on affiche seulement les groupdisplayed renseigné dna sle menu pour le child en cours
+                    if (is_object($this->getLink())){
+                        if (method_exists($this->getLink(),'getPage')){
+                            if (in_array($this->getLink()->getPage()->module, explode(' ', $this->getOption('groupdisplayed')))){
+                                $display = true;
+                            } else {
+                                $display = false;
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
         if ($this->checkUserAccess() && $display) {
             $html.= $this->renderLiOpenTag();
             $html.= $this->renderChildBody();

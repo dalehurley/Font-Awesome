@@ -21,6 +21,7 @@ $.fn.extend({
         position: 0,
         link: '',
         text: '',
+        groupdisplayed: '',
         secure: false,
         nofollow: false,
         target: ''
@@ -32,6 +33,7 @@ $.fn.extend({
 <ul class="item_form"> \
 <li class="clearfix"><label>'+metadata.text_message+':</label><input class="text" type="text" name="'+formName+'[text]['+itemIndex+']" /></li> \
 <li class="clearfix"><label>'+metadata.link_message+':</label><input class="link" type="text" name="'+formName+'[link]['+itemIndex+']" /></li> \
+<li class="clearfix"><label>'+metadata.groupdisplayed_message+':</label><input class="groupdisplayed" type="text" name="'+formName+'[groupdisplayed]['+itemIndex+']" /><br/>'+metadata.groupdisplayed_help+'</li> \
 <li class="clearfix" style="padding-top: 5px;"> \
 <a class="remove s16 s16_delete" style="color: red;float: right">'+metadata.delete_message+'</a> \
 <a class="extend s16 s16_add_little" style="color: #559955">'+metadata.extended_show_message+'</a> \
@@ -49,6 +51,7 @@ $.fn.extend({
 
       $li.find('div.extended').hide().end()
         .find('input.text').val(item.text).end()
+        .find('input.groupdisplayed').val(item.groupdisplayed).end()        
         .find('input.link').val(item.link).end()
         .find('input.secure').prop('checked', item.secure).end()
         .find('input.nofollow').prop('checked', item.nofollow).end()
