@@ -101,8 +101,11 @@ all:
   nb-article-listing : 5
 
   # nom des rubriques concernant le kit création
-  creation:
+  groups:
     rubriques:
-      - ec_creation_entreprise
-      - ec_guidecreation
-      - ec_idees_business
+      creation:
+        values:
+          - ec_creation_entreprise
+          - ec_guidecreation
+          - ec_idees_business
+        name-group: creation
