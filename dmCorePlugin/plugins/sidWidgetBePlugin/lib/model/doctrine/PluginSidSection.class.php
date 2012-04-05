@@ -51,4 +51,33 @@ abstract class PluginSidSection extends BaseSidSection {
 //        return  $sectionPage[0]->name;
     }
 
+     /**
+     *
+     * @return string rubrique's page's name of the section
+     * 
+     */
+    public function getRubriquePageTitle() {
+        $rubriquePage = dmDb::table('DmPage')
+                ->createQuery('p')
+                ->where('p.module = ? and action=? and record_id=?', array('rubrique', 'show', $this->getRubrique()->id))
+                ->limit(1)
+                ->execute();
+        return $rubriquePage[0]->title;
+    }
+
+    /**
+     *
+     * @return string section's page's name of the section
+     * 
+     */
+    public function getPageTitle() {
+        $sectionPage = dmDb::table('DmPage')
+                ->createQuery('p')
+                ->where('p.module = ? and action=? and record_id=?', array('section', 'show', $this->id))
+                ->limit(1)
+                ->execute();
+        return $sectionPage[0]->title;
+    }    
+
+
 }
