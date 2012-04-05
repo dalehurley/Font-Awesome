@@ -14,7 +14,7 @@
 	#dm_footer > .dm_zones { background-color: #c8ccbc; }
 	#dm_sidebar_left > .dm_zones { background-color: #ccccb8; }
 	#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
-	#dm_page_content > .dm_zones { background-color: #b8cccc; }
+	// #dm_page_content > .dm_zones { background-color: #b8cccc; }
 	#dm_custom_top > .dm_zones { background-color: #ccccb8; }
 	#dm_custom_bottom > .dm_zones { background-color: fadeout(#ccb8cc, 50%); }
 }
@@ -32,9 +32,17 @@
 }
 
 #dm_main_inner {
-	// background-image: url("@{urlImagesTemplate}/DemoRef/copilotes-coquelicot.png");
-	// background-repeat: no-repeat;
-	// background-position: 100% 100%;
+}
+
+#dm_page_content {
+	& > .dm_zones {
+		background-color: @colorWhite;
+		//ajout coin arrondi
+		@borderRadiusTopLeftPie(@offL);
+
+		//suppression du fond blanc sur la page d'accueil
+		.page_main_root & { background-color: transparent; }
+	}
 }
 
 //stylage du header
