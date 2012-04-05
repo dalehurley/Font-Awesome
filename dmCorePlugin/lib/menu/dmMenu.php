@@ -57,6 +57,10 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return $this;
     }
+    public function groupdisplayed($group) {
+        
+        return $this->setOption('groupdisplayed', $group);
+    }    
     public function secure($bool) {
         
         return $this->setOption('secure', (bool)$bool);
@@ -167,6 +171,24 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return $this->parent ? $this->parent->getRoot() : $this;
     }
+
+    /**
+     * @return dmMenu the parent menu with level=0
+     */
+    public function getParentLevel0() {
+        
+        if ($this->getLevel() == 0) {
+            return $this;
+        }
+        if ($this->parent->getLevel() > 0){
+            return $this->parent->getParentLevel0();
+        } 
+        if ($this->parent->getLevel() == 0){
+            return $this->parent;
+        }
+
+    }
+
     /**
      * @return dmMenu the parent menu
      */
@@ -246,6 +268,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return $this->user->can($this->getOption('credentials'));
     }
+
     public function hasChildren() {
         $nbChildren = 0;
         
@@ -255,6 +278,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return 0 !== $nbChildren;
     }
+
     /**
      * Returns true if the item has a child with the given name.
      *
@@ -387,9 +411,59 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return '<ul' . ($id ? ' id="' . $id . '"' : '') . ($class ? ' class="' . $class . '"' : '') . '>';
     }
+
     public function renderChild() {
+        $display = true;
         $html = '';
-        if ($this->checkUserAccess()) {
+
+        if (is_object($this->getLink())){
+            if (method_exists($this->getLink(),'getPage')){
+                if ($this->getLink()->getPage()->action == 'list'){ // les pages ayant une action = list sont les pages manuelles qui list les page automatique filles
+                    if (!$this->hasChildren()){ // s'il n'y a pas de pages filles alors on n'affiche pas cette page list
+                        $display = false; 
+                    }
+                }
+            }
+        }
+
+        /**
+         * Gestion des champs groupPage de dmPage, en fonction du champ groupdisplayed de chaque item
+         */
+        if ($display                        // si on doit afficher le child alors on vérifie le champ groupdisplayed
+            && $this->getLevel() > 0){      // on ne traite pas le niveau 0 qui est gérable à la main dans le formulaire du widget
+            
+            $groupdisplayed = $this->getParentLevel0()->getOption('groupdisplayed');  // on récupère le param groupdisplayed du menu de level 0 : le niveau qui est gérable dans le form du widget
+             
+            switch ($groupdisplayed) {
+                case '*':  // on affiche tout
+                    $display = true;
+                    break;
+                case '':  // on affiche les pages qui n'ont pas de groupPage ou groupPage is null
+                    if (is_object($this->getLink())){
+                        if (method_exists($this->getLink(),'getPage')){
+                            if ($this->getLink()->getPage()->groupPage == '' || $this->getLink()->getPage()->groupPage == null){
+                                $display = true;
+                            } else {
+                                $display = false;
+                            }
+                        }
+                    }
+                    break;                
+                default:  // on affiche seulement les pages qui ont groupPage = groupdisplayed renseigné dans le menu 
+                    if (is_object($this->getLink())){
+                        if (method_exists($this->getLink(),'getPage')){
+                            if (in_array($this->getLink()->getPage()->groupPage, explode(' ', $groupdisplayed))){
+                                $display = true;
+                            } else {
+                                $display = false;
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
+        if ($this->checkUserAccess() && $display) {
             $html.= $this->renderLiOpenTag();
             $html.= $this->renderChildBody();
             if ($this->hasChildren() && $this->getOption('show_children')) {
@@ -401,6 +475,14 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         return $html;
     }
     protected function renderLiOpenTag() {
+
+        if (is_object($this->getLink())){
+            if (method_exists($this->getLink(),'getPage')){ // method exist for page in front only...
+                $moduleAction = $this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action;
+            }
+        } else {
+            $moduleAction = '';
+        }
         $classes = array();
         $id = $this->getOption('show_id') ? dmString::slugify('menu-' . $this->getRoot()->getName() . '-' . $this->getName()) : null;
         $link = $this->getLink();
@@ -415,13 +497,17 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         }
         if ($link && $link->isCurrent()) {
             $classes[] = $link->getOption('current_class');
-        } elseif ($link && $link->isParent()) {
+        } elseif ($link 
+                && $link->isParent() 
+                && $moduleAction != 'main_root'
+               ) { 
             $classes[] = $link->getOption('parent_class');
         }
 
         // lioshi : ajout classe dm_root au li
         if ($this->getLink() instanceof dmFrontLinkTagPage) {
-            if ($this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action == 'main_root') {
+            if ($moduleAction == 'main_root' 
+                && $this->parent->getOption('ul_class') != 'menu-accordion' )  {  // ajout lioshi : pas de class dm_root en plus pour le menu de type accordion
                 $classes[] = 'dm_root';
             }
         } 

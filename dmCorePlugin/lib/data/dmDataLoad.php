@@ -223,7 +223,22 @@ class dmDataLoad
         'default_value' => '',
         'description' => 'The client type',
         'group_name' =>'site'
-      )     
+      ),
+      'site_type' => array(
+        'default_value' => '',
+        'description' => 'The site type',
+        'group_name' =>'site'
+      ),
+      'site_email_sender' => array(
+        'default_value' => '',
+        'description' => 'The site email sender',
+        'group_name' =>'site'
+      ),
+      'site_email' => array(
+        'default_value' => '',
+        'description' => 'The site email recepter',
+        'group_name' =>'site'
+      )                          
     );
 
     $existingSettings = dmDb::query('DmSetting s INDEXBY s.name')
@@ -446,139 +461,12 @@ class dmDataLoad
 
   protected function loadPermissions()
   {
-    $array = array(
-      // Autorisations particulières sans rapport avec le menu de l'Admin
-      "system" => "Accès au Système d'Administration",
-      'ck_editor_lite' => 'ckEditor Lite',
-      'admin_bandeau_lite' => 'Administration du bandeau Lite',
-      'super_admin' => 'Acces super Admin',
-      "admin" => "Admin => Accès au compte de l'administrateur)",
-      "loremize" => "Admin => Création de contenu aléatoire (pour Test)",
-      "page_bar_admin" => "Admin => Affichage de la barre d'outil PAGE",
-      "media_bar_admin" => "Admin => Affichage de la barre d'outil MEDIA ",
-      "tool_bar_admin" => "Admin => Affiche la barre supérieure des menus déroulant",
-      "see_accueil" => "Menu général remis en forme",
-      // Menu Contenu
+      // les permissions ne s'effacent pas dans la base - DONC on efface la table DmPermission pour réinjecter le tableau à jour
       // 
-        // Sous-menu Retours visiteur
-      'contact_me' => "Contenu => Retour visiteur => Contacts (messages via le formulaire de contact)",  
-        // Sous-menu Base Editoriale
-      'rubrique' => "Contenu => Base Editoriale => Rubriques (Gestion des rubriques de la BE)",
-      'section' => "Contenu => Base Editoriale => Sections (Gestion des sections de la BE)",
-      'article' => "Contenu => Base Editoriale => Articles (Gestion des articles de la BE)",
-        // Sous-menu Tag
-      'tags' => "Contenu => Tag => Tags (Gestion des tags)",
-      // Menu Gestion du bandeau
-      // 
-        // Sous-menu Bandeau défilant
-      'groupe_bandeau' => "Gestion du bandeau => Bandeau défilant => Mes groupes de bandeau", 
-      'bandeau' => "Gestion du bandeau => Bandeau défilant => Mes Bandeaux",  
-      // Menu Le cabinet
-      // 
-        // Sous-menu Description du cabinet
-      'page_cabinet' => "Le cabinet => Description du cabinet => Les pages du cabinet",
-      'equipe' => "Le cabinet => Description du cabinet => Equipes",
-      'recrutement' => "Le cabinet => Description du cabinet => Recrutements",
-        // Sous-menu Actualité du cabinet
-      'type_actu' => "Le cabinet => Actualité du cabinet => Type de mes articles",
-      'actualite_contenu' => "Le cabinet => Actualité du cabinet => Actualités du cabinet",  
-        // Sous-menu Mes Coordonnées
-      'renseignements' => "Le cabinet => Mes Coordonnées => Renseignements",
-        // Sous-menu Mes sites utiles
-      'index_sites_utiles' => "Le cabinet => Mes sites utiles => Page d'accueil des sites utiles",
-      'groupe_sites_utiles' => 'Le cabinet => Mes sites utiles => Les groupes de sites utiles',
-      'sites_utiles' => "Le cabinet => Mes sites utiles => Les sites utiles",
-      // Menu Les Missions
-      // 
-        // Sous-menu Description des missions
-      'mission' => "Les Missions => Description des missions",
-      // Menu Référencement
-      // 
-        // Sous-menu Services
-      "use_google_analytics" => "Référencement => Services =>  Google Analytics",
-      "google_analytics" => "Référencement => Services =>  Google Analyticss",
-      "use_google_webmaster_tools" => "Référencement => Services =>  Google Webmaster Tools",
-      "google_webmaster_tools" => "Référencement => Services =>  Google Webmaster Tools",
-        // Sous-menu Sitemap
-      "sitemap" => "Référencement => Sitemap => Gérer le sitemap XML",
-        // Sous-menu Pages
-      "manual_metas" => "Référencement => Pages =>  Gérer les pages (Gérer les métas)",
-      "manage_pages" => "Référencement => Pages =>  Gérer les pages (Réordonner les pages)",
-      "automatic_metas" => "Référencement => Pages =>  Référencement automatique (Gérer les métas)",
-        // Sous-menu Redirections
-      'url_redirection' => "Référencement => Redirections =>  Redirections d'urls",
-      // Menu Système
-      // 
-        // Sous-menu Configuration
-      "configuration" => "Système => Configuration => Paramètres",
-        // Sous-menu Journal
-      'sent_mail' => "Système => Journal => Courriels envoyés",
-      'error_log' => "Système => Journal => Erreurs (voir les mails en erreur)",
-        // Sous-menu Dev
-      'see_diagrams' => "Système => Dev => Voir les schémas ( Graphique du modèle de données)",
-      'code_editor' => "Système => Dev => Editeur de code (Accès aux codes du site)",
-      'diem_console' => "Système => Dev => Console Diem (Accès console)",
-      'see_server' => "Système => Dev => Serveur (Config sur serveur)",
-        // Sous-menu Sécurité
-      "security_user" => "Système => Sécurité =>Utilisateurs (Gestion des droits des utilisateurs coté Admin)",
-      "security_permission" => "Système => Sécurité => Autorisations (Gestion des Autorisations coté Admin)",
-      "security_group" => "Système => Sécurité => Groupes (Gestion des Autorisations classées par Groupe)",
-      'security_record' => "Système => Sécurité => Permissions sur les Enregistrements",
-      'security_record_permission_association' => "Système => Sécurité => Associations sur les Permissions d'Enregistrements",
-      // Menu Outils
-      // 
-        // Sous-menu Configuration 
-      "config_panel" => "Outils => Configuration => Panneau de configuration",
-      'mail_template' => 'Outils => Configuration => Gabarits des courriels (Gestion des messages types)',
-      "layout" => "Outils => Configuration => Layouts (Gérer les Layouts du site)",
-      'constantes' => "Outils => Configuration => Gestion des constantes du site",
-        // Sous-menu Traduction 
-      "translation" => "Outils => Traduction => Phrases (Gestion des phrases à traduire)",
-      "catalogue_translation" => "Outils => Traduction => Catalogues (Gestion des catalogues des phrases de traductions)",
-        // Sous-menu Surveillance 
-      'see_chart' => "Outils => Surveillance => Graphique (Historique des visite)",
-      "see_log" => "Outils => Surveillance => Journal (Listing de Logs)",
-        // Sous-menu Média 
-      "media_library" => "Outils => Média => Média (Gérer les médias depuis l'Admin)",
-        // Sous-menu Moteur de Recherche 
-      "search_engine" => "Outils => Moteur de Recherche => Gérer l'index",
-      // Menu BOT
-      // 
-        // Sous-menu Internal Bot 
-      'bot' => "Outils => BOT => Internal Bot (Contrôle de la vitesse de chargement des pages)", 
-      //  
-      // Divers autorisations pour la gestion des widgets coté front
-      "zone_add" => "Coté Front => Add zones",
-      "zone_edit" => "Coté Front => Edit zones",
-      "zone_delete" => "Coté Front => Delete zones",
-      "widget_add" => "Coté Front => Add widgets",
-      "widget_edit" => "Coté Front => Edit widgets",
-      "widget_delete" => "Coté Front => Delete widgets",
-      'widget_edit_fast' => 'Coté Front => Can fast edit widgets',
-      'widget_edit_fast_record' => 'Coté Front => Fast edit widget record',
-      'widget_edit_fast_content_title' => 'Coté Front => Fast edit widget content title',
-      'widget_edit_fast_content_link' => 'Coté Front => Fast edit widget content link',
-      'widget_edit_fast_content_image' => 'Coté Front => Fast edit widget content image',
-      'widget_edit_fast_content_text' => 'Coté Front => Fast edit widget content text',
-      'widget_edit_fast_navigation_menu' => 'Coté Front => Fast edit widget navigation menu',
-      "page_add" => "Coté Front => Add pages",
-      "page_edit" => "Coté Front => Edit pages",
-      "page_delete" => "Coté Front => Delete pages",
-      "page_bar_front" => "Coté Front => See page bar in front",
-      "media_bar_front" => "Coté Front => See media bar in front",
-      "tool_bar_front" => "Coté Front => See toolbar in front",
-      // Divers - A voir
-      "clear_cache" => "Clear the cache",
-      "log" => "Manage logs",
-      "content" => "CRUD dynamic content in admin",
-      "site_view" => "See non-public website and inactive pages",
-      "media_ignore_whitelist" => "Upload media with any filetype",
-      "export_table" => "Export table contents",
-      "xiti" => "Configure Xiti",
-      'see_request' => 'See the requests window',
-      'see_event' => 'See the events window',
-      'interface_settings' => 'Manage interface settings like default image resize method', 
-        );
+      dmDB::query()->from('DmPermission')->delete()->execute();
+      
+      // injection du tableau qui est dans le app
+    $array = sfConfig::get('app_permissions_list');
 
     $existingPermissions = dmDb::query('DmPermission p INDEXBY p.name')
     ->select('p.name')
@@ -600,7 +488,13 @@ class dmDataLoad
 
   protected function loadGroups()
   {
-    $array = array(
+    
+        $permission = sfConfig::get('app_modules-specifiques_'.dmConfig::get('client_type').'-'.dmConfig::get('site_type'));
+        if(count($permission) == 0) $permission = array();
+        $permissionsClientWeb = array_merge(sfConfig::get('app_groupes-permissions-client-web_permissions'),$permission);
+        $permissionsBaseDoc = array_merge(sfConfig::get('app_groupes-permissions-base-doc_permissions'),$permission);
+      
+      $array = array(
 /*      "developer" => array(
         'description' => "Able to read and update source code",
         'permissions' => array(
@@ -707,32 +601,21 @@ class dmDataLoad
         )
       ),
  * 
- * Ajout SID : les groupes d'autorisations à l'installation
+ * Ajout SID : les groupes d'autorisations à l'installation pour le client
  */
-      "web_client" => array(
-                'description' => "Accès pour le client Web",
-                'permissions' => array(
-                    'bandeau',
-                    'see_accueil',
-//                    'see_log',
-                    'see_chart',
-                    'tool_bar_admin',
-                    'admin',
-                    'ck_editor_lite',
-                    'admin_bandeau_lite',
-                    'sites_utiles',
-                    'groupe_sites_utiles',
-                    'index_sites_utiles',
-                    'page_cabinet',
-                    'equipe',
-                    'recrutement',
-                    'mission',
-                    'actualite_contenu',
-                    'contact_me'
-                )
+        // droit pour les sites
+        "web_client" => array(
+                'description' => sfConfig::get('app_groupes-permissions-client-web_description'),
+                'permissions' => $permissionsClientWeb
+                  
+            ),
+        // droit pour les bases doc
+        "basedoc_client" => array(
+                'description' => sfConfig::get('app_groupes-permissions-base-doc_description'),
+                'permissions' => $permissionsBaseDoc
             ),
         );
-
+      
     $permissions = dmDb::query('DmPermission p INDEXBY name')->select('p.name')->fetchArray();
 
     $groups = new Doctrine_Collection(dmDb::table('DmGroup'));

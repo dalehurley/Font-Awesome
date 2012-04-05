@@ -2,8 +2,8 @@
 
 class CtrForm extends dmForm
 {
-	protected static $listePeriodicite = array(12=>'Mois',1=>'Ans', 4=>'Trimestre', 2=>'Semestres');
-	protected static $listeVersement = array(1=>' D&eacute;but de p&eacute;riode', 0=>'Fin de p&eacute;riode');
+	protected static $listePeriodicite = array(12=>'Mois',1=>'An(s)', 4=>'Trimestre(s)', 2=>'Semestre(s)');
+	protected static $listeVersement = array(1=>' Début de période', 0=>'Fin de période');
 
 	 public function setup()
 	{
@@ -20,40 +20,39 @@ class CtrForm extends dmForm
 	    ));
 
 	    $this->widgetSchema->setLabels(array(
-		  'montant'    => 'Montant financ&eacute; du cr&eacute;dit-bail',
-		  'depot'   => 'D&eacute;p&ocirc;t initial',
+		  'montant'    => 'Montant financé du crédit-bail',
+		  'depot'   => 'Dépôt initial',
 		  'remboursements' => 'Montant des remboursements',
-		  'nbloyers' => 'Mombre de loyers',
+		  'nbloyers' => 'Nombre de loyers',
 		  'periodicite' => 'Périodicité',
 		  'debut' => 'Versements',
 		  'valeur' => 'Valeur de rachat',
 		  
 		));
-		$this->widgetSchema->setNameFormat('maform[%s]');
 				
 	     $this->setValidators(array(
 	      'montant'    => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'Le montant financ&eacute; du cr&eacute;dit-bail est obligatoire.',
-	      		'invalid'=>'Le montant financ&eacute; du cr&eacute;dit-bail doit etre numérique',
+	      		'invalid'=>'Le montant financ&eacute; du cr&eacute;dit-bail doit être numérique (exemple: 12.5)',
 		      )),
 
 	      'depot'    => new sfValidatorNumber(array('required' => true),array(
-	      		'required'=>'Le d&eacute;p&ocirc;t initial est obligatoire.',
-	      		'invalid'=>'Le d&eacute;p&ocirc;t initial doit etre numérique',
+	      		'required'=>'Le dépôt initial est obligatoire.',
+	      		'invalid'=>'Le dépôt initial doit être numérique (exemple: 12.5)',
 		      )),
 	      'periodicite' => new sfValidatorChoice(array('choices' => array_keys(self::$listePeriodicite))),
 	      'debut' => new sfValidatorChoice(array('choices' => array_keys(self::$listeVersement))),
 	      'remboursements' => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'Le montant des remboursements est obligatoire.',
-	      		'invalid'=>'Le montant des remboursements doit etre numérique',
+	      		'invalid'=>'Le montant des remboursements doit être numérique (exemple: 12.5)',
 		      )),
 		  'nbloyers' => new sfValidatorNumber(array('required' => true),array(
-	      		'required'=>'Le mombre de loyers est obligatoire.',
-	      		'invalid'=>'Le mombre de loyers doit etre numérique',
+	      		'required'=>'Le nombre de loyers est obligatoire.',
+	      		'invalid'=>'Le nombre de loyers doit être numérique (exemple: 12.5)',
 		      )),
 		  'valeur' => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'La valeur de rachat est obligatoire.',
-	      		'invalid'=>'La valeur de rachatdoit etre numérique',
+	      		'invalid'=>'La valeur de rachatdoit être numérique (exemple: 12.5)',
 		      )),
     )); 
 

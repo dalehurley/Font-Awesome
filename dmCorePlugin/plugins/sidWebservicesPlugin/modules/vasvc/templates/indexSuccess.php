@@ -31,12 +31,12 @@
 			<td align="right" class="texte2">24</td>
 		</tr>
 		<tr>
-			<td align="left" class="texte1">Périodicité (M : mois, A : ans, T : trimestres, S : semestres)</td>
-			<td align="right" class="texte1">T</td>
+			<td align="left" class="texte1">Périodicité</td>
+			<td align="right" class="texte1">Trimestre(s)</td>
 
 		</tr>
 		<tr>
-			<td align="left" class="texte2">Versements Fin ou Début de période (F ou D)</td>
+			<td align="left" class="texte2">Fin de période ou Début de période </td>
 			<td align="right" class="texte2">F</td>
 		</tr>
 		<tr>

@@ -9,7 +9,7 @@ class DmPageFrontEditForm extends DmPageForm
   {
     parent::configure();
     
-    $this->useFields(array('id', 'module', 'action', 'slug', 'name', 'title', 'h1', 'description', 'keywords', 'is_active', 'is_secure', 'credentials', 'is_indexable', 'is_visible_bread_crumb'), false);
+    $this->useFields(array('id', 'module', 'action', 'slug', 'name', 'title', 'h1', 'description', 'keywords', 'is_active', 'is_secure', 'credentials', 'is_indexable', 'is_visible_bread_crumb','group_page'), false);
     
     if(!sfConfig::get('dm_seo_use_keywords'))
     {
@@ -54,7 +54,8 @@ class DmPageFrontEditForm extends DmPageForm
     $this->widgetSchema['is_secure']->setLabel('Requires authentication');
     $this->widgetSchema['is_indexable']->setLabel('Search engine crawlers');
     $this->widgetSchema['is_visible_bread_crumb']->setLabel('Visible in bread-crumb');
-    
+    $this->widgetSchema['group_page']->setLabel('Groupe');
+    $this->widgetSchema->setHelp('group_page','Choisir le groupe pour cette page : <br />- un libellé de groupe utilisable comme paramètres dans Widget Menu pour restreindre l\'affichage des entrées<br />- * (pour tout afficher)<br />- ne rien mettre pour afficher les rubriques SANS groupe ');
     if ($this->object->getNode()->isRoot())
     {
       foreach(array('slug', 'module', 'action') as $fieldName)
@@ -80,7 +81,8 @@ class DmPageFrontEditForm extends DmPageForm
       'credentials' => $this->object->credentials,
       'is_indexable' => $this->object->is_indexable,
       'parent_id' => $this->object->getNodeParentId(),
-      'is_visible_bread_crumb' => $this->object->is_visible_bread_crumb
+      'is_visible_bread_crumb' => $this->object->is_visible_bread_crumb,
+      'group_page' => $this->object->group_page
     ));
   }
   

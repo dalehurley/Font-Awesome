@@ -38,7 +38,7 @@ class baseEditorialeTools {
                 foreach ($sidSections as $sidSection) {
                     foreach ($arrayLangs as $lang) {
                         // le fichier json de la section en cours
-                        $fileRubriqueName = $rubriqueDir . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
+                        $fileRubriqueName = $rubriqueDir . '/' . $sidSection->Translation[$lang]->title . '.json';
                         // on supprime le fichier .json
                         if (is_file($fileRubriqueName)) unlink($fileRubriqueName);
                         if (!$sidSection->isActive) {
@@ -47,28 +47,7 @@ class baseEditorialeTools {
                         } else {
                             
                             // on récupère les articles de cette section
-                            if ($sidSection->getTranslation()->$lang->title == 'ec_actualites'){
-                                // on ne prend que les 6 derniers mois ou les 30 derniers
-                                $articles = dmDb::query('SidArticle a')
-                                    ->withI18n($lang)
-                                    ->where("DATEDIFF(CURRENT_DATE, aTranslation.updated_at) < ".sfConfig::get('app_nb-jours-max-date-article',100))   // age max pour un article
-                                    ->addWhere('section_id='.$sidSection->id)
-                                    ->execute();
-                                if (count($articles) < sfConfig::get('app_nb-articles-min-par-section',10)){ // on prend les X derniers articles
-                                    $articles = dmDb::query('SidArticle a')
-                                    ->withI18n($lang)
-                                    ->orderBy("aTranslation.updated_at desc")
-                                    ->where('section_id='.$sidSection->id)
-                                    ->limit(sfConfig::get('app_nb-articles-min-par-section',10))
-                                    ->execute();
-                                    $return[]['Section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = '30 derniers articles';
-                                } else {
-                                    $return[]['Section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = '6 derniers mois';
-                                }
-                  
-                            } else { // on prend tous les articles
-                                $articles = Doctrine_Core::getTable('SidArticle')->findBySectionIdAndIsActive($sidSection->id,true);
-                            }
+                            $articles = Doctrine_Core::getTable('SidArticle')->findBySectionIdAndIsActive($sidSection->id,true);
 
                             $arrayJson = array();
                             $j = 0;
@@ -246,181 +225,235 @@ class baseEditorialeTools {
             $arrayLangs = sfConfig::get('dm_i18n_cultures');
             // repertoire loacl des json
             $repBaseEditoriale = sfConfig::get('app_rep-local-json');
-            // boucle sur les rubriques
-            
-            foreach ($rubriques as $rubrique) {
-                //$return[$i]['Traitement de la rubrique'] = $rubrique->Translation[$arrayLangs[0]]->title;
-                if (!$rubrique->isActive) {
-                    $return[$i]['WARNING'] = 'Rubrique : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' non active.';
-                } else {
-                    $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueIdAndIsActive($rubrique->id, true);
-                    if (count($sidSections) == 0) {
-                        $return[$i]['WARNING'] = 'La rubrique : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' ne contient pas de section.';
-                    }
-                    $k = 1;
-                    
-                    foreach ($sidSections as $sidSection) {
-                        if (!is_dir($repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title)) {
-                            $return[$i]['WARNING'] = 'Le repertoire ' . $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title . ' n\'existe pas.';
-                            // on supprime alors la rubrique
-                            $rubrique->delete();
-                            $return[$i]['Rubrique ' . $rubrique . ' supprimé car ' . $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title . ' n\'existe pas.'] = " ";
-                        } else {
-                            if (!$sidSection->isActive) {
-                                $return[$i]['WARNING'] = 'Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title . ' non active.';
+
+            foreach ($arrayLangs as $lang) {
+                // boucle sur les rubriques
+                foreach ($rubriques as $rubrique) {
+                    //$return[$i]['Traitement de la rubrique'] = $rubrique->Translation[$lang]->title;
+                    if (!$rubrique->isActive) {
+                        $return[$i]['WARNING'] = 'Rubrique : ' . $rubrique->Translation[$lang]->title . ' non active.';
+                    } else {
+                        $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueIdAndIsActive($rubrique->id, true);
+                        if (count($sidSections) == 0) {
+                            $return[$i]['WARNING'] = 'La rubrique : ' . $rubrique->Translation[$lang]->title . ' ne contient pas de section.';
+                        }
+                        $k = 1;
+                        foreach ($sidSections as $sidSection) {
+                            if (!is_dir($repBaseEditoriale . $rubrique->Translation[$lang]->title)) {
+                                $return[$i]['WARNING'] = 'Le repertoire ' . $repBaseEditoriale . $rubrique->Translation[$lang]->title . ' n\'existe pas.';
+                                // on supprime alors la rubrique
+                                $rubrique->delete();
+                                $return[$i]['Rubrique ' . $rubrique . ' supprimé car ' . $repBaseEditoriale . $rubrique->Translation[$lang]->title . ' n\'existe pas.'] = " ";
                             } else {
-                                //$return[$i]['-> Traitement section - '.$k] = 'Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title ;
-                                // Récupération du json de la rubrique
-                                $fileRubriqueJsonName = $repBaseEditoriale . $rubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . '.json';
-                                if (!file_exists($fileRubriqueJsonName)) {
-                                    $return[$i]['WARNING'] = 'Le fichier ' . $fileRubriqueJsonName . ' est absent.';
-                                    // on supprime alors la section si le fichier json est absent
-                                    $sidSection->delete();
-                                    $return[$i]['Section ' . $sidSection . ' supprimée car ' . $fileRubriqueJsonName . ' absent'] = " ";
+                                if (!$sidSection->isActive) {
+                                    $return[$i]['WARNING'] = 'Section : ' . $rubrique->Translation[$lang]->title . ' > ' . $sidSection->Translation[$lang]->title . ' non active.';
                                 } else {
-                                    $arrayArticlesBaseEditoriale = json_decode(file_get_contents($fileRubriqueJsonName));
-                                    // trier le tableau json pour n'avoir que les articles depuis le dernier updatedAt des articles
-                                    $lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAtBySection($sidSection->id, $arrayLangs[0]);
-                                    //$lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAt();
-                                    //$return[$i]['-> Nb Articles total - '.$k] = count($arrayArticlesBaseEditoriale);
-                                    $arrayArticlesBaseEditorialeSorted = array();
-                                    
-                                    foreach ($arrayArticlesBaseEditoriale as $article) { // on ne garde que les articles récents
-                                        //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate->updatedAt;
-                                        if ($article->updatedAt->$arrayLangs[0] > $lastUpdatedDate) {
-                                            $arrayArticlesBaseEditorialeSorted[] = $article;
-                                            // $return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
-                                            $k++;
-                                        } else {
-                                            //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
-                                            $k++;
-                                        }
-                                    }
-                                    //$return[$i]['-> Nb Articles nouveaux - '.$k] = count($arrayArticlesBaseEditorialeSorted);
-                                    // Insertion des articles
-                                    $j = 1;
-                                    $nbInsert = 0;
-                                    $nbMaj = 0;
-                                    $nbInchange = 0;
-                                    $nbMajDesactivation = 0;
-                                    // parametre a ajouter
-                                    if ($mode == 'total') {
-                                        $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditoriale; // (total)
-                                        
+                                    //$return[$i]['-> Traitement section - '.$k] = 'Section : ' . $rubrique->Translation[$lang]->title . ' > ' . $sidSection->Translation[$lang]->title ;
+                                    // Récupération du json de la rubrique
+                                    $fileRubriqueJsonName = $repBaseEditoriale . $rubrique->Translation[$lang]->title . '/' . $sidSection->Translation[$lang]->title . '.json';
+                                    if (!file_exists($fileRubriqueJsonName)) {
+                                        $return[$i]['WARNING'] = 'Le fichier ' . $fileRubriqueJsonName . ' est absent.';
+                                        // on supprime alors la section si le fichier json est absent
+                                        $sidSection->delete();
+                                        $return[$i]['Section ' . $sidSection . ' supprimée car ' . $fileRubriqueJsonName . ' absent'] = " ";
                                     } else {
-                                        $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditorialeSorted; // (incremental)
+                                        $arrayArticlesBaseEditoriale = json_decode(file_get_contents($fileRubriqueJsonName));
+                                        // trier le tableau json pour n'avoir que les articles depuis le dernier updatedAt des articles
+                                        $lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAtBySection($sidSection->id, $lang);
+                                        //$lastUpdatedDate = Doctrine_Core::getTable('SidArticle')->getMaxUpdatedAt();
+                                        //$return[$i]['-> Nb Articles total - '.$k] = count($arrayArticlesBaseEditoriale);
+                                        $arrayArticlesBaseEditorialeSorted = array();
                                         
-                                    }
-                                    
-                                    foreach ($arrayArticlesBaseEditorialeChoice as $articleBE) {
-                                        $article = Doctrine::getTable('SidArticle')->findOneByFilenameAndSectionId($articleBE->filename, $sidSection->id);
-                                        if ($article->isNew()) { // l'article n'existe pas en base
-                                            $nbInsert++;
-                                            
-                                            foreach ($arrayLangs as $lang) {
-                                                if (isset($articleBE->title->$lang)) $article->Translation[$lang]->title = $articleBE->title->$lang;
-                                                if (isset($articleBE->chapeau->$lang)) $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
-                                            }
-                                            $article->sectionId = $sidSection->id; // la rubrique/section en cours de traitement
-                                            $article->filename = $articleBE->filename;
-                                            $article->isActive = $articleBE->isActive;
-                                            $article->isDossier = $articleBE->isDossier;
-                                            
-                                            foreach ($arrayLangs as $lang) {
-                                                if (isset($articleBE->createdAt->$lang)) {
-                                                    $article->Translation[$lang]->created_at = $articleBE->createdAt->$lang;
-                                                }
-                                                if (isset($articleBE->updatedAt->$lang)) {
-                                                    $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;
-                                                }
-                                            }
-                                            //                                            $article->createdAt = $articleBE->createdAt;
-                                            //                                            $article->save();
-                                            //                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
-                                            //                                            $article->updatedAt = $articleBE->updatedAt;
-                                            //                                            $article->save();
-                                            // maj des tags de l'article à partir des données Json
-                                            $article->removeAllTags();
-                                            $article->setTags($articleBE->tags);
-                                            $article->save();
-                                            $articleName = $articleBE->title->$arrayLangs[0];
-                                            //$return[$i]['Insertion article ' . $article->filename . ' - ' . $article->id] =  $articleName;
-                                            
-                                        } elseif ($article->Translation[$arrayLangs[0]]->updated_at < $articleBE->updatedAt->$arrayLangs[0]) { // l'article doit etre mis à jour
-                                            
-                                            foreach ($arrayLangs as $lang) {
-                                                if (isset($articleBE->title->$lang)) $article->Translation[$lang]->title = $articleBE->title->$lang;
-                                                if (isset($articleBE->chapeau->$lang)) $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
-                                            }
-                                            $article->isActive = $articleBE->isActive;
-                                            $article->isDossier = $articleBE->isDossier;
-                                            //                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
-                                            //                                            $article->updatedAt = $articleBE->updatedAt;
-                                            //                                            $article->save();
-                                            
-                                            foreach ($arrayLangs as $lang) {
-                                                if (isset($articleBE->updatedAt->$lang)) {
-                                                    $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;
-                                                }
-                                            }
-                                            // maj des tags de l'article à partir des données Json
-                                            $article->removeAllTags();
-                                            $article->setTags($articleBE->tags);
-                                            $article->save();
-                                            $articleName = $articleBE->title->$arrayLangs[0];
-                                            if ($articleBE->isActive) {
-                                                $nbMaj++;
-                                                //$return[$i]['MAJ article ' . $article->filename . ' - ' . $article->id] =  $articleName;
-                                                
+                                        foreach ($arrayArticlesBaseEditoriale as $article) { // on ne garde que les articles récents
+                                            //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate->updatedAt;
+                                            if ($article->updatedAt->$lang > $lastUpdatedDate) {
+                                                $arrayArticlesBaseEditorialeSorted[] = $article;
+                                                // $return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
+                                                $k++;
                                             } else {
-                                                $nbMajDesactivation++;
-                                                //$return[$i]['MAJ article (désactivation)' . $article->filename . ' - ' . $article->id] =  $articleName;
-                                                
+                                                //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
+                                                $k++;
                                             }
-                                        } else {
-                                            // article inchangé
-                                            $nbInchange++;
                                         }
-                                        $j++;
+                                        //$return[$i]['-> Nb Articles nouveaux - '.$k] = count($arrayArticlesBaseEditorialeSorted);
+                                        // Insertion des articles
+                                        $j = 1;
+                                        $nbInsert = 0;
+                                        $nbMaj = 0;
+                                        $nbInchange = 0;
+                                        $nbMajDesactivation = 0;
+                                        // parametre a ajouter
+                                        if ($mode == 'total') {
+                                            $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditoriale; // (total)
+                                            
+                                        } else {
+                                            $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditorialeSorted; // (incremental)
+                                            
+                                        }
+                                        
+                                        foreach ($arrayArticlesBaseEditorialeChoice as $articleBE) {
+                                            $article = Doctrine::getTable('SidArticle')->findOneByFilenameAndSectionId($articleBE->filename, $sidSection->id);
+                                            if ($article->isNew()) { // l'article n'existe pas en base
+                                                $nbInsert++;
+                                                
+                                                foreach ($arrayLangs as $lang) {
+                                                    if (isset($articleBE->title->$lang)) $article->Translation[$lang]->title = $articleBE->title->$lang;
+                                                    if (isset($articleBE->chapeau->$lang)) $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
+                                                }
+                                                $article->sectionId = $sidSection->id; // la rubrique/section en cours de traitement
+                                                $article->filename = $articleBE->filename;
+                                                $article->isActive = $articleBE->isActive;
+                                                $article->isDossier = $articleBE->isDossier;
+                                                
+                                                foreach ($arrayLangs as $lang) {
+                                                    if (isset($articleBE->createdAt->$lang)) {
+                                                        $article->Translation[$lang]->created_at = $articleBE->createdAt->$lang;
+                                                    }
+                                                    if (isset($articleBE->updatedAt->$lang)) {
+                                                        $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;
+                                                    }
+                                                }
+                                                //                                            $article->createdAt = $articleBE->createdAt;
+                                                //                                            $article->save();
+                                                //                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
+                                                //                                            $article->updatedAt = $articleBE->updatedAt;
+                                                //                                            $article->save();
+                                                // maj des tags de l'article à partir des données Json
+                                                $article->removeAllTags();
+                                                $article->setTags($articleBE->tags);
+                                                $article->save();
+                                                $articleName = $articleBE->title->$lang;
+                                                //$return[$i]['Insertion article ' . $article->filename . ' - ' . $article->id] =  $articleName;
+                                                
+                                            } elseif ($article->Translation[$lang]->updated_at < $articleBE->updatedAt->$lang) { // l'article doit etre mis à jour
+                                                
+                                                foreach ($arrayLangs as $lang) {
+                                                    if (isset($articleBE->title->$lang)) $article->Translation[$lang]->title = $articleBE->title->$lang;
+                                                    if (isset($articleBE->chapeau->$lang)) $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
+                                                }
+                                                $article->isActive = $articleBE->isActive;
+                                                $article->isDossier = $articleBE->isDossier;
+                                                //                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
+                                                //                                            $article->updatedAt = $articleBE->updatedAt;
+                                                //                                            $article->save();
+                                                
+                                                foreach ($arrayLangs as $lang) {
+                                                    if (isset($articleBE->updatedAt->$lang)) {
+                                                        $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;
+                                                    }
+                                                }
+                                                // maj des tags de l'article à partir des données Json
+                                                $article->removeAllTags();
+                                                $article->setTags($articleBE->tags);
+                                                $article->save();
+                                                $articleName = $articleBE->title->$lang;
+                                                if ($articleBE->isActive) {
+                                                    $nbMaj++;
+                                                    //$return[$i]['MAJ article ' . $article->filename . ' - ' . $article->id] =  $articleName;
+                                                    
+                                                } else {
+                                                    $nbMajDesactivation++;
+                                                    //$return[$i]['MAJ article (désactivation)' . $article->filename . ' - ' . $article->id] =  $articleName;
+                                                    
+                                                }
+                                            } else {
+                                                // article inchangé
+                                                $nbInchange++;
+                                            }
+                                            $j++;
+                                        }
+                                        // infos section
+                                        if ($nbInchange != 0) {
+                                            $inchange = $nbInchange . ' inchangés | ';
+                                        } else {
+                                            $inchange = '';
+                                        }
+                                        if ($nbMaj != 0) {
+                                            $maj = $nbMaj . ' maj | ';
+                                        } else {
+                                            $maj = '';
+                                        }
+                                        if ($nbInsert != 0) {
+                                            $insert = $nbInsert . ' inserés | ';
+                                        } else {
+                                            $insert = '';
+                                        }
+                                        if ($nbMajDesactivation != 0) {
+                                            $majDesactivation = $nbMajDesactivation . ' maj désactivation ';
+                                        } else {
+                                            $majDesactivation = '';
+                                        }
+                                        $infos = 'Total: ' . count($arrayArticlesBaseEditoriale) . ' => ';
+                                        if (count($arrayArticlesBaseEditorialeSorted) != 0) {
+                                            $infos.= ' (' . count($arrayArticlesBaseEditorialeSorted) . ' new) ';
+                                        } elseif ($mode == 'incremental') {
+                                            $infos.= ' Pas de nouveaux articles. ';
+                                        }
+                                        $return[$i]['Section : ' . $rubrique->Translation[$lang]->title . ' > ' . $sidSection->Translation[$lang]->title] = $infos . $inchange . $maj . $majDesactivation . $insert;
+                                        //return $return;
+                                        
                                     }
-                                    // infos section
-                                    if ($nbInchange != 0) {
-                                        $inchange = $nbInchange . ' inchangés | ';
-                                    } else {
-                                        $inchange = '';
-                                    }
-                                    if ($nbMaj != 0) {
-                                        $maj = $nbMaj . ' maj | ';
-                                    } else {
-                                        $maj = '';
-                                    }
-                                    if ($nbInsert != 0) {
-                                        $insert = $nbInsert . ' inserés | ';
-                                    } else {
-                                        $insert = '';
-                                    }
-                                    if ($nbMajDesactivation != 0) {
-                                        $majDesactivation = $nbMajDesactivation . ' maj désactivation ';
-                                    } else {
-                                        $majDesactivation = '';
-                                    }
-                                    $infos = 'Total: ' . count($arrayArticlesBaseEditoriale) . ' => ';
-                                    if (count($arrayArticlesBaseEditorialeSorted) != 0) {
-                                        $infos.= ' (' . count($arrayArticlesBaseEditorialeSorted) . ' new) ';
-                                    } elseif ($mode == 'incremental') {
-                                        $infos.= ' Pas de nouveaux articles. ';
-                                    }
-                                    $return[$i]['Section : ' . $rubrique->Translation[$arrayLangs[0]]->title . ' > ' . $sidSection->Translation[$arrayLangs[0]]->title] = $infos . $inchange . $maj . $majDesactivation . $insert;
-                                    //return $return;
-                                    
                                 }
                             }
+                            $k++;
+
+                            // purge des articles X derniers jours et Y articles 
+                            if (in_array($sidSection->getTranslation()->$lang->title, sfConfig::get('app_sections_truncated',array()))){
+                                
+                                $articles = dmDb::query('SidArticle a')
+                                    ->withI18n($lang)
+                                    ->where("DATEDIFF(CURRENT_DATE, aTranslation.updated_at) < ".sfConfig::get('app_nb-jours-max-date-article',100))   // age max pour un article
+                                    ->addWhere('section_id='.$sidSection->id)
+                                    ->execute();
+
+                                // on prend les X derniers articles    
+                                if (count($articles) < sfConfig::get('app_nb-articles-min-par-section',10)){ 
+                                    $articles = dmDb::query('SidArticle a')
+                                    ->withI18n($lang)
+                                    ->orderBy("aTranslation.updated_at desc")
+                                    ->where('section_id='.$sidSection->id)
+                                    ->limit(sfConfig::get('app_nb-articles-min-par-section',10))
+                                    ->execute();
+
+                                    $listId = '';
+                                    foreach ($articles as $article) {
+                                        $listId .= $article->id.',';
+                                    }
+                                    $listId = substr($listId,0,-1);
+      
+                                    // purge des autres articles que les Y derniers articles
+                                    $q = Doctrine_Manager::getInstance()->getCurrentConnection();
+                                    $query = "  DELETE FROM sid_article  
+                                                WHERE 
+                                                id not in (".$listId.") 
+                                                and section_id= ".$sidSection->id;
+                                    $result = $q->execute($query);
+
+                                    $return[]['Purge section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = 'Purge des articles autres que les '.sfConfig::get('app_nb-articles-min-par-section',10).' derniers articles';                                
+
+                                } else {
+                                    // purge des articles > X derniers mois
+                                    $q = Doctrine_Manager::getInstance()->getCurrentConnection();
+                                    $query = "  DELETE FROM sid_article  
+                                                WHERE id in (SELECT id from sid_article_translation at
+                                                                WHERE DATEDIFF(CURRENT_DATE, updated_at) > ".sfConfig::get('app_nb-jours-max-date-article',100)."
+                                                            ) 
+                                                and section_id= ".$sidSection->id;
+                                    $result = $q->execute($query);
+
+                                    $return[]['Purge section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = 'Purge articles > '.sfConfig::get('app_nb-jours-max-date-article',100).' derniers jours';
+                                }
+                  
+                            }  
+
+                            //       
+
                         }
-                        $k++;
                     }
+                    $i++;
                 }
-                $i++;
             }
+
             // mise à jour de l'index
             $timeBeginSearchUpdate = microtime(true);
             // $return[$i]['Maj indexation'] = exec('php symfony dm:search-update').'-->'.(microtime(true) - $timeBeginSearchUpdate) . ' s';
@@ -497,6 +530,70 @@ class baseEditorialeTools {
         
         return $return;
     }
+    
+    /*
+     * Affectation à un groupe des dmPages en fonction du tableau présent dans app.yml pour le kit création
+     *
+    */
+    public static function affectGroupDmPages() {
+        // retour
+        $return = array();
+        // les languages
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+        $nbPagesModified = 0;
+        
+        foreach ($arrayLangs as $lang) { // pour chaque lang utilisées et définies dans le fichier config/dm/config.yml
+            // je récupère dans le app de dmCorePlugin/config les tableaux des groupes à affectés aux pages
+            $arrayGroups = sfConfig::get('app_groups_rubriques');
+            // pour chaque groupe, je cherche les pages concernées dans SidRubrique
+            foreach($arrayGroups as $group){
+                $beginTime = microtime(true);
+                // RUBRIQUES
+                $rubriqueRecordIds = dmDb::query('SidRubrique p')->withI18n($lang)->select()->where('pTranslation.title IN (\''.implode('\',\'',$group['values']).'\') and p.is_active = true')->execute();
+                foreach ($rubriqueRecordIds as $rubriqueRecordId) {
+                    // j'update dans DmPageTranslation le champ group_page
+                    $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'rubrique' and d.action = 'show' and d.record_id = " . $rubriqueRecordId->id)->execute();
+                    foreach ($groupPages as $groupPage) {
+                        $groupPage->Translation[$lang]->group_page = $group['name-group'];
+                        $groupPages->save();
+                        $nbPagesModified++;
+                    }
+                    // SECTIONS
+                    $sectionRecordIds = dmDb::query('SidSection p')->withI18n($lang)->select()->where('p.rubrique_id = ' . $rubriqueRecordId->id . ' and p.is_active = true')->execute();
+                    // j'update les sections de la rubrique
+                    foreach ($sectionRecordIds as $sectionRecordId) {
+                        // j'update dans DmPageTranslation le champ group_page
+                        $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'section' and d.action = 'show' and d.record_id = " . $sectionRecordId->id)->execute();
+                        foreach ($groupPages as $groupPage) {
+                            $groupPage->Translation[$lang]->group_page = $group['name-group'];
+                            $groupPages->save();
+                            $nbPagesModified++;
+                        }
+                        // ARTICLES
+                        $articleRecordIds = dmDb::query('SidArticle p')->withI18n($lang)->select()->where('p.section_id = ' . $sectionRecordId->id . ' and p.is_active = true')->execute();
+                        // j'update les sections de la rubrique
+                        foreach ($articleRecordIds as $articleRecordId) {
+                            // j'update dans DmPageTranslation le champ group_page
+                            $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'article' and d.action = 'show' and d.record_id = " . $articleRecordId->id)->execute();
+                            foreach ($groupPages as $groupPage) {
+                                $groupPage->Translation[$lang]->group_page = $group['name-group'];
+                                $groupPages->save();
+                                $nbPagesModified++;
+                            }
+                        }
+                    }
+
+
+
+                    $return[]['La rubrique ' . $rubriqueRecordId->getTitle() . ' et tous ses enfants ('.$nbPagesModified.' pages)'] = " ont été ajouté au groupe " . $group['name-group'] . " [" . (microtime(true) - $beginTime) . " s]";
+                }
+            }
+        }
+        
+        
+        return $return;
+    }
+    
     /*
      * Nettoyage du repertoire local
      * - Suppression des dossiers vides
@@ -832,9 +929,9 @@ class baseEditorialeTools {
                                     // }
                                     // Si le xml est plus récent que celui de la bdd, alors j'update le titre, le chapeau et la rubrique
                                     if ($date_update > $article->Translation[$arrayLangs[0]]->updated_at) {
-                                        $filename = $update->getElementsByTagName('Code')->item(0)->nodeValue;
-                                        $titre = $update->getElementsByTagName('Headline')->item(0)->nodeValue;
-                                        $chapo = $update->getElementsByTagName('Head')->item(0)->nodeValue;
+                                        $filename = $xml->getElementsByTagName('Code')->item(0)->nodeValue;
+                                        $titre = $xml->getElementsByTagName('Headline')->item(0)->nodeValue;
+                                        $chapo = $xml->getElementsByTagName('Head')->item(0)->nodeValue;
                                         $article->Translation[$arrayLangs[0]]->title = $titre;
                                         $article->Translation[$arrayLangs[0]]->chapeau = $chapo;
                                         $article->setSectionId($section->id);
@@ -886,9 +983,8 @@ class baseEditorialeTools {
                 foreach ($sidArticles as $sidArticle) {
                     if (!in_array($sidArticle->filename . '.xml', $repArticle)) {
                         if ($sidArticle->isActive) {
-                            $sidArticle->setIsActive(false);
-                            $sidArticle->save();
-                            $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article désactivé'] = $sidArticle->filename;
+                            $sidArticle->delete();
+                            $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article supprimé'] = $sidArticle->filename;
                             $j++;
                         }
                     } elseif (!$sidArticle->getIsActive()) {

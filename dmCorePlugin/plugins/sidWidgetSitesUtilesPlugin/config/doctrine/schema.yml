@@ -17,6 +17,23 @@ SidIndexSitesUtiles:
       type: boolean
       notnull: true
       default: true
+    image:
+      type: integer
+    file:
+      type: integer
+    title_file:
+      type: string(255)
+  relations:
+    Image:
+      class: DmMedia
+      local: image
+      foreignAlias: Photos
+      onDelete: Cascade
+    Files:
+      class:          DmMedia
+      local:          file
+      foreignAlias:   SidIndexSitesUtiles
+      onDelete: Cascade
       
 SidGroupeSitesUtiles:
   actAs:

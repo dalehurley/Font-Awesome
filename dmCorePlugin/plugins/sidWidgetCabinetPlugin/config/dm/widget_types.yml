@@ -43,3 +43,13 @@ recrutementsCabinet:
   recrutementShow:
     cache:              true
     public_name:        (recrutementCabinet) Pages des recrutements
+    
+selectionPlacements:
+  
+  selectionsList:
+    cache:              true
+    public_name:        (selectionPlacements) Liste des selections de placement
+    
+  selectionShow:
+    cache:              true
+    public_name:        (selectionPlacements) Pages des selections de placement

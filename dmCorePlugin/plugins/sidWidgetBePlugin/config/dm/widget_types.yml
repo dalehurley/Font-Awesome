@@ -1,7 +1,7 @@
-handWidgets:
-    
-  listSousHomeByRubrique:
-    public_name:        (H) Liste sous home par rubrique
+#handWidgets:
+#    
+#  listSousHomeByRubrique:
+#    public_name:        (H) Liste sous home par rubrique
       
 specifiquesBaseEditoriale:
 
@@ -25,3 +25,8 @@ affichage:
 #    view_class:         articleAfficheView   
 #    form_class:         articleAfficheform
     public_name:        Affichage article
+
+  listSection:
+#    view_class:         articleAfficheView   
+#    form_class:         articleAfficheform
+    public_name:        Affichage section par rubrique    

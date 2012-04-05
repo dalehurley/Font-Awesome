@@ -12,5 +12,8 @@ _tag('div',
  
     //$form['nbArticles']->renderRow().   
     $form['titreBloc']->renderRow().
-    $form['cssClass']->renderRow()
+    $form['cssClass']->renderRow().
+    $form['length']->renderRow().
+    $form['withResume']->renderRow().
+    $form['smartGoogleMap']->render()
 ); 

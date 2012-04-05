@@ -31,18 +31,18 @@ class CtForm extends dmForm
 	     $this->setValidators(array(
 	      'capital'    => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'Le Capital emprunt&eacute; est obligatoire.',
-	      		'invalid'=>'Le Capital emprunt&eacute; doit etre numérique',
+	      		'invalid'=>'Le Capital emprunt&eacute; doit être numérique (exemple: 12.5)',
 		      )),
 
 	      'versements'    => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'Le montant des versements est obligatoire.',
-	      		'invalid'=>'Le montant des versements doit etre numérique',
+	      		'invalid'=>'Le montant des versements doit être numérique (exemple: 12.5)',
 		      )),
 	      'periodicite' => new sfValidatorChoice(array('choices' => array_keys(self::$listePeriodicite))),
 	      'debut' => new sfValidatorChoice(array('choices' => array_keys(self::$listeVersement))),
 	      'nbversements' => new sfValidatorNumber(array('required' => true),array(
 	      		'required'=>'Le nombre de versements est obligatoire.',
-	      		'invalid'=>'Le nombre de versements doit etre numérique',
+	      		'invalid'=>'Le nombre de versements doit être numérique (exemple: 12.5)',
 		      )),
     )); 
 	     parent::setup(); // call setup of dmForm to have html templating dm_form_element li and ul...

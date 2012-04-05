@@ -1,6 +1,6 @@
 <?php
 echo _tag('ul.help',
-	_tag('li',"Ce widget permet d'afficher la page de la mission avec un titre de bloc sur mesure")
+	_tag('li',"Ce widget permet d'afficher la page du recrutement avec un titre de bloc sur mesure")
 	);
 
 echo

@@ -19,13 +19,20 @@
       name: "Le Recrutement|Les Recrutements"
       page: true
       credentials: recrutement
+   
+    SelectionPlacement:
+      model: SidCabinetSelectionPlacement
+      name: "La Sélection de placement|Les Sélections de placements"
+      page: true
+      credentials: selection_placement
 
-"Les Missions ou Services":
-  "Description des missions ou services":
+
+"Les Missions":
+  "Description des missions":
     Mission:
       model: SidCabinetMission
       page: true
-      name: "Mission/Services|Les Missions/Services"
+      name: "Mission|Les Missions"
       credentials: mission
 
 

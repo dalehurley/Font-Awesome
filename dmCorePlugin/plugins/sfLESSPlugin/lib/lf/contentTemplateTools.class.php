@@ -119,10 +119,12 @@ class contentTemplateTools {
             $fileOUT = $file . ".". self::ndd() .".settings." . self::dumpExtension; // on ajoute un prefixe à l'extension pour reconnaitre lors du loadDB les dump avec settings
             $dirOUTassets = $file . "." . self::ndd() .".settings." . self::dumpExtension . ".assets";
             $dirOUTmodules = $file . "." . self::ndd() .".settings." .self::dumpExtension . ".modules";
+            $dirOUTtheme = $file . "." . self::ndd() .".settings." .self::dumpExtension . ".theme";
         } else {
             $fileOUT = $file . "." . self::dumpExtension;
             $dirOUTassets = $file . "." . self::dumpExtension . ".assets";
             $dirOUTmodules = $file . "." . self::dumpExtension . ".modules";
+            $dirOUTtheme = $file . "." . self::dumpExtension . ".theme";
         }
         
         // option -c pour ajouter les champs dans la requete INSERT
@@ -130,7 +132,6 @@ class contentTemplateTools {
         $return[]['dumpDB'] = 'base ' . $dbname . ' -> ' . $fileOUT . '(' . filesize($fileOUT) . ' o)';
 
         // save du dossier uploads
-        
         // le nom du dossier web
         $webDirName = sfConfig::get('sf_web_dir');
         
@@ -138,7 +139,6 @@ class contentTemplateTools {
         $command .= "mkdir " . $dirOUTassets .";";
         $command .= "mkdir " . $dirOUTassets."/uploads" .";";        
         $command .= "cp -R ". $webDirName . "/uploads/* " . $dirOUTassets ."/uploads;";
-
 
         $output = exec($command);
         // nettoyage du dossier assets en supprimant les dossiers .thumbs
@@ -155,6 +155,23 @@ class contentTemplateTools {
         }
         $output = exec($command);
         $return[]['dumpDB'] = 'copie du module main du front';
+
+
+        // save du dossier uploads
+        // le nom du dossier web
+        $webDirName = sfConfig::get('sf_web_dir');
+        
+        $command = "rm -rf " . $dirOUTtheme . ";";
+        $command .= "mkdir " . $dirOUTtheme .";";
+        $command .= "mkdir " . $dirOUTtheme."/theme" .";";     
+        $command .= "mkdir " . $dirOUTtheme."/theme/less" .";";              
+        $command .= "cp ". $webDirName . "/theme/less/* " . $dirOUTtheme ."/theme/less;";
+        // on supprime les fichiers import.less (v2) et _ConfigGeneral.less (v1) du dump effectué
+        $command .= "rm ". $dirOUTtheme ."/theme/less/_ConfigGeneral.less;";
+        $command .= "rm ". $dirOUTtheme ."/theme/less/import.less;";
+
+        $output = exec($command);
+        $return[]['dumpDB'] = 'copie des fichiers theme';
 
         return $return;
     }
@@ -223,6 +240,8 @@ class contentTemplateTools {
         $dirINassets = $file . ".assets";
         // save du dossier uploads
         $dirINmodule = $file . ".modules";
+        // save du dossier theme
+        $dirINtheme = $file . ".theme";        
 
         // load datas from DB
         $fileOUT = $file . "." . $dbname . "";
@@ -259,6 +278,10 @@ class contentTemplateTools {
         //echo "cp -R " . $dirINassets ."/* ". $webDirName . "/;";
         exec("cp -R " . $dirINassets ."/* ". $webDirName . "/;");
         $return[]['COMMENT'] = 'copie des assets ';
+
+        // load du dossier theme
+        exec("cp -R " . $dirINtheme ."/* ". $webDirName . "/;");
+        $return[]['COMMENT'] = 'copie des fichiers theme';        
         
         // load du dossier apps/front/modules/main
         exec("cp -R " . $dirINmodule ."/* apps/front/modules/;");

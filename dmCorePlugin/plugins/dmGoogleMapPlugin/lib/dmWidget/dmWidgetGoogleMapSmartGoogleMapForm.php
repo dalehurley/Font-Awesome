@@ -6,7 +6,13 @@ class dmWidgetGoogleMapSmartGoogleMapForm extends dmWidgetPluginForm
   public function configure()
   {
       parent::configure();    
-
+      
+      $this->widgetSchema['smartGoogleMap'] = new sfWidgetFormInputHidden(array(),array('value' => 'true'));
+      $this->validatorSchema['smartGoogleMap'] = new sfValidatorBoolean(array('required' => false));
+      
+      $this->widgetSchema['withResume'] = new sfWidgetFormInputCheckbox(array('default' => true));
+      $this->validatorSchema['withResume'] = new sfValidatorBoolean(array('required' => false));
+      $this->widgetSchema['withResume']->setLabel('Afficher le résumé de l\'implantation');
   }
 
   public function getStylesheets()

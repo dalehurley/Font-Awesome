@@ -24,6 +24,45 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
 		
 		return $stylesheets;
     }
+    
+    /**
+     *
+     * recurive function to find news of ec_echeancier between 2 months
+     * 
+     * @param type $arrayFilActus
+     * @param type $date
+     * @return type array of object
+     */    
+    
+    public function currentMonthAgenda($arrayFilActus,$date){
+            $vars = $this->getViewVars();
+            // recherche de la section en cours pour l'agenda, elle s'appelle : AAAAMM
+            $AAAAMM = $date;
+            $sectionCurrentMonthAgenda = dmDb::table('SidSection')
+                    ->createQuery('a')
+                    ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                    ->where('aTranslation.title = ?', $AAAAMM)
+                    ->limit(1)
+                    ->execute();
+            $sectionId = $sectionCurrentMonthAgenda[0]->id;
+
+            // si la section
+            if($sectionId){
+                $arrayFilActus = dmDb::table('SidArticle')            
+                    ->createQuery('a')
+                    ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                    ->where('a.section_id = ? and a.is_active=? and aTranslation.created_at >= ?', array($sectionId, true,date('Y-m-d')))
+                    ->orderBy('aTranslation.created_at ASC')
+                    ->limit($vars['nbArticles'])
+                    ->execute();
+                if(count($arrayFilActus) == 0){
+                    $date = date('Ym', strtotime("+1 month"));
+                    $arrayFilActus = self::currentMonthAgenda($arrayFilActus,$date);
+                };
+            };
+            
+            return $arrayFilActus;
+    }
 
     protected function doRender() {
 
@@ -31,25 +70,8 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
         $arrayFilActus = array();
 
         // recherche de la section en cours pour l'agenda, elle s'appelle : AAAAMM
-        $AAAAMM = date('Ym');
-        $sectionCurrentMonthAgenda = dmDb::table('SidSection')
-                ->createQuery('a')
-                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
-                ->where('aTranslation.title = ?', $AAAAMM)
-                ->limit(1)
-                ->execute();
-        $sectionId = $sectionCurrentMonthAgenda[0]->id;
-        
-        if($sectionId){
-            //$arrayFilActus = dmDb::table('SidArticle')->findByIsActiveAndSectionId(true,$sectionId)->limit(3);
-            $arrayFilActus = dmDb::table('SidArticle')            
-                ->createQuery('a')
-                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
-                ->where('a.section_id = ? and a.is_active=? and aTranslation.created_at>=?', array($sectionId, true,date('Y-m-d')))
-                ->orderBy('aTranslation.created_at DESC')
-                ->limit($vars['nbArticles'])
-                ->execute();
-        }
+        $date = date('Ym');
+        $arrayFilActus = self::currentMonthAgenda($arrayFilActus,$date);
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
         // je cherche la page vers le calendrier des vacances
         $recordIdPage = dmDb::table('SidArticle')->createQuery('a')

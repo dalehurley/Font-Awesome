@@ -6,7 +6,7 @@ $i = 1;
 $i_max = count($equipes);
 $class = '';
 // vars  $equipes, $titreBloc, $nomRubrique
-if (count($i_max)) { // si nous avons des actu articles
+if (count($equipes)) { // si nous avons des actu articles
 // initialisation des variables pour les class first et last
 // initialisation des variables pour les class first et last
     echo _tag('h2', array('class' => 'title'), $titreBloc);
@@ -31,8 +31,14 @@ echo _open('section', array('class' => 'supWrapper clearfix first last'));
 
         echo _open('li', array('class' => 'element itemscope Person ' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope', 'id' => dmString::slugify($equipe->getFirstName() . '-' . $equipe->getName())));
 
-        if (($withImage == TRUE) && $equipe->getImage()->checkFileExists() == true) {
-            echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
+        if ($withImage == TRUE){
+            if($equipe->getImage()->checkFileExists() == true) {
+                $trombi = $equipe->getImage();
+            }
+            else {
+                $trombi = ($equipe->getTitle() == 'Mr') ? '/sidWidgetCabinetPlugin/_images/silhouette-homme.png' : '/sidWidgetCabinetPlugin/_images/silhouette-femme.png';
+            }
+            echo _tag('span', array('class' => 'imageWrapper'), _media($trombi)->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
         };
         if($civ == TRUE) $civ = $equipe->getTitle();
         echo _open('span', array('class' => 'wrapper'));

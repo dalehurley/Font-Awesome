@@ -41,11 +41,43 @@ if (!is_file($xml)) {
         $doc_xsl->load($xsl);
         $moteurXslt = new xsltProcessor();
         $moteurXslt->importstylesheet($doc_xsl);
-		//on envoie un parametre permettant d'afficher l'image
-        $moteurXslt->setParameter('', 'imageAffiche', 'true');
-		
-		//ajout du contenu à afficher
-		$html.= $moteurXslt->transformToXML($doc_xml);
+        //on envoie un parametre permettant d'afficher l'image
+//        $moteurXslt->setParameter('', 'imageAffiche', 'true');
+                
+                //récupération de l'image au dossier affiché
+        $nameImage = '';
+                $multimediaImages = $doc_xml->getElementsByTagName('MultimediaInsert');
+                foreach ($multimediaImages as $multimediaImage) {
+                    $nameImage = '';
+                    $nameImage = $multimediaImage->getElementsByTagName('FileName')->item(0)->nodeValue;
+                    if (strpos($nameImage, '-p.jpg')){
+                        break;
+                    }
+                }
+                
+                // vérification du nom de l'image en vérifiant avec le nom de l'image dans le xml et/ou avec le prefixe 'images' ???
+                $imageExist = false;
+                $imageLink = '/_images/' . $nameImage;
+                if (is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
+                    $imageExist = true;
+                } elseif (!is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
+                    $imageLink = '/_images/images' . $nameImage;
+                    if (is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
+                        $imageExist = true;
+                    }
+                }
+                else
+                    $imageExist = false;
+                
+                
+		$imageHtml = '';
+		if ($imageExist){
+			$imageHtml = 	'<div class="imageFullWrapper">'.
+                                            '<img  src="'.$imageLink.'" itemprop="image" class="image" alt="'.$article->title.'">'.
+                                        '</div>';
+		}
+                //ajout du contenu à afficher
+		$html.= $imageHtml.$moteurXslt->transformToXML($doc_xml);
 		
     } else {
 		$html.= debugTools::infoDebug(array(__('Error : invalid xml') => $xml),'warning');

@@ -4,13 +4,22 @@
 //récupération du titre
 foreach ($sitesUtilesPager as $sitesUtiles) {
     $firstSitesUtilesGroup = $sitesUtiles->getGroupeSitesUtiles()->title;
+    $firstDescriptionSiteUtileGroup = $sitesUtiles->getGroupeSitesUtiles()->getDescription();
     break;
 }
 echo get_partial('global/titleWidget', array('title' => $firstSitesUtilesGroup));
 
 //affichage du pager du haut
 echo get_partial('global/navigationWrapper', array('placement' => 'top', 'pager' => $sitesUtilesPager));
-
+if($firstDescriptionSiteUtileGroup != ''){
+//    echo _open('article.itemscope Article');
+        echo _open('header.contentHeader');
+            echo _open('span.wrapper');
+                echo _tag('span.teaser', $firstDescriptionSiteUtileGroup);
+            echo _close('span');
+        echo _close('header');
+//    echo _close('article');
+}
 //ouverture du listing
 echo _open('ul.elements');
 
@@ -66,7 +75,9 @@ foreach ($sitesUtilesPager as $article) {
 
 	//ajout de l'article
 	echo 
-	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">';
+	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">
+<a class="link link_box" href="'.$article->getUrl().'" title="'.$article->getTitle().'">
+	';
 	echo 
 			$imageHtml.
 			'<span class="wrapper">'.
@@ -77,7 +88,9 @@ foreach ($sitesUtilesPager as $article) {
 				'<span itemprop="description" class="teaser itemprop description">'.$article->description.'</span>'.
 			'</span>'
 	;
-	echo '</li>';
+	echo '
+</a>
+	</li>';
 
 }
 	
