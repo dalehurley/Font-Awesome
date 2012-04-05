@@ -1,6 +1,6 @@
 // _Dropdown.less
-// v1.1
-// Last Updated : 2012-02-23 11:55
+// v1.2
+// Last Updated : 2012-04-05 12:20
 // Copyright : SID Presse | 2006-2008 Live Web Institute (http://www.lwis.net) | Stu Nicholls (http://www.cssplay.co.uk)
 // Author : Arnaud GAUDIN
 
@@ -151,13 +151,7 @@ ul.menu-dropdown {
 		visibility: hidden;
 		.csstransitions.opacity & {
 			opacity: 0;
-			//@transitionCompress(visibility, opacity; 0s, .2s; ease-out; .2s, 0s);
-			//safari ne supporte pas la déclaration séparé complète différencié en pseudo classe
-			//@transition(visibility, opacity; 0s, .2s; ease-out; .2s, 0s);
-			@transitionProperty(visibility, opacity);
-			@transitionDuration(0s, .2s);
-			@transitionFunction(ease-out);
-			@transitionDelay(.2s, 0s);
+			@transition(visibility, opacity; 0s, .2s; ease-out; .2s, 0s);
 		}
 	}
 	
@@ -193,27 +187,25 @@ ul.menu-dropdown {
 	}
 	
 	//Ancienne notation répétitive
-	/*
-	:hover ul {
-		visibility: visible;
-		ul { visibility: hidden; }
-		:hover ul {
-			visibility:visible;
-			ul { visibility: hidden; }
-			:hover ul {
-				visibility:visible;
-				ul { visibility: hidden; }
-				:hover ul {
-					visibility:visible;
-					ul { visibility: hidden; }
-					:hover ul {
-						visibility:visible;
-						ul { visibility: hidden; }
-						//ZONE D'INSERTION DE NIVEAUX SUPPLÉMENTAIRES
-					}
-				}
-			}
-		}
-	}
-	*/
+	// :hover ul {
+	// 	visibility: visible;
+	// 	ul { visibility: hidden; }
+	// 	:hover ul {
+	// 		visibility:visible;
+	// 		ul { visibility: hidden; }
+	// 		:hover ul {
+	// 			visibility:visible;
+	// 			ul { visibility: hidden; }
+	// 			:hover ul {
+	// 				visibility:visible;
+	// 				ul { visibility: hidden; }
+	// 				:hover ul {
+	// 					visibility:visible;
+	// 					ul { visibility: hidden; }
+	// 					//ZONE D'INSERTION DE NIVEAUX SUPPLÉMENTAIRES
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 }

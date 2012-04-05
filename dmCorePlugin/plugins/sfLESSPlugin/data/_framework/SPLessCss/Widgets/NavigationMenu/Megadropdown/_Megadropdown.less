@@ -1,6 +1,6 @@
 // _Megadropdown.less
-// v1.6
-// Last Updated : 2012-03-22 11:10
+// v1.7
+// Last Updated : 2012-04-05 12:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -191,15 +191,10 @@ ul.menu-megadropdown {
 		& > li.dm_dir {
 			& > ul {
 				opacity: 0;
-				//@transitionCompress(visibility, opacity; .2s; ease-out; .2s, 0s);
-				@transitionProperty(visibility, opacity);
-				@transitionDuration(0s, .2s);
-				@transitionFunction(ease-out);
-				@transitionDelay(.2s, 0s);
+				@transition(visibility, opacity; 0s, .2s; ease-out; .2s, 0s);
 			}
 			&.hover > ul, &:hover > ul {
 				opacity: 1;
-				//@transitionCompress(visibility, opacity; .2s; ease-out; 0s);
 				@transitionDelay(0s, 0s);
 			}
 		}
