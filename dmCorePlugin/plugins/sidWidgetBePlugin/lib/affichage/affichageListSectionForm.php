@@ -1,6 +1,7 @@
 <?php
 
 class affichageListSectionForm extends dmWidgetPluginForm {
+    
     public function configure() {
         
         parent::configure();

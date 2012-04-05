@@ -27,10 +27,23 @@
 @colorCouleur2FonceSup: #466f94;		// HSV : 208/52/57		S+5 V-15		//HSB : 
 
 //IMPORTATION DE LA COULEUR3 DEPUIS LE FRAMEWORK (enlever import et recopier pour override)
-@import "_framework/SPLessCss/Config/Colors/_ConfigColorsCouleur3.less";
+// @import "_framework/SPLessCss/Config/Colors/_ConfigColorsCouleur3.less";
+
+//CONFIGURATION PAR DÉFAUT DE LA COULEUR 3 (utilisée pour les grisés)
+@colorCouleur3: #6b7d95;				// HSV : 42/12/57						//828991
+@colorCouleur3Clair: #ced6e0;			// HSV : 42/7/92		S-5 V+35		//dfe4eb
+@colorCouleur3ClairSup: #dae2ed;		// HSV : 42/7/97		S-5 V+40		//eaf0f7
+@colorCouleur3Moyen: #adb8c7;			// HSV : 42/12/77		S V+20			//b0b9c4
+@colorCouleur3MoyenSup: #b8c4d4;		// HSV : 42/12/82		S V+25			//bcc5d1
+@colorCouleur3Sup: #8e9cad;				// HSV : 42/12/62		S V+5			//8e959e
+@colorCouleur3Fonce: #374961;			// HSV : 42/27/37		S+15 V-20		//50565e
+@colorCouleur3FonceSup: #3f536e;		// HSV : 42/27/42		S+15 V-15		//5b626b
 
 //IMPORTATION DES COULEURS SYSTÈME GÉNÉRALES (enlever import et recopier pour override)
 @import "_framework/SPLessCss/Config/Colors/_ConfigColorsSystem.less";
+
+//couleur de la bordure de séparation du menu
+@colorZoneBorder: @colorCouleur3Fonce;
 
 //IMPORTATION DES COULEURS DES SPRITES (enlever import et recopier pour override)
 @import "_framework/SPLessCss/Config/Colors/_ConfigColorsSprite.less";

@@ -1,6 +1,6 @@
 // _SocialNetworkLogos.less
-// v1.1
-// Last Updated : 2012-03-05 14:40
+// v1.2
+// Last Updated : 2012-04-05 12:25
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -38,8 +38,10 @@
 	}
 	
 	.link {
-		//ajout transition
-		@transitionCompress();
+		//ajout des transitions pour navigateurs récents
+		.csstransitions & {
+			@transitionCompress(all; .2s; ease-out; 0s);
+		}
 
 		//ajout du fond blanc arrondi avec bordure
 		background-color: @colorWhite;

@@ -1,6 +1,6 @@
 // _DebugLists.less
-// v1.2
-// Last Updated : 2012-03-28 14:30
+// v1.3
+// Last Updated : 2012-04-05 13:50
 // Copyright : SID Presse | http://github.com/necolas | http://html5boilerplate.com | http://www.cssplay.co.uk
 // Author : Arnaud GAUDIN | Nicolas Gallagher | Paul Irish | Stuart Nicholls
 
@@ -20,10 +20,10 @@ nav ul, nav ol {
 	padding: 0;
 }
 //suppression du pseudo element compteur
-nav ol li:before { content: ""; margin: 0; }
+#dm_page nav ol li:before { content: ""; margin: 0; }
 
-//configuration par défaut des liste ordonnées
-ol {
+//configuration par défaut des liste ordonnées uniquement pour le contenu
+#dm_page_content ol {
 	//on rajoute par défaut un zéro devant les chiffres
 	list-style-type: decimal-leading-zero;
 

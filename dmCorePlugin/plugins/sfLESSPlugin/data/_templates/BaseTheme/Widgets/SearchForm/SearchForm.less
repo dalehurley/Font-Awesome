@@ -1,6 +1,6 @@
 // _SearchForm.less
-// v1.5
-// Last Updated : 2012-04-02 17:10
+// v1.6.1
+// Last Updated : 2012-04-05 15:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -62,13 +62,14 @@
 
 				//Ajout transition sur la couleur de fond
 				.csstransitions & {
-					@transitionCompress(background-color; .2s; ease-out; 0);
+					@transitionCompress(background-color; .2s; ease-out; 0s);
 				}
 
 				//ajout de la sprite avec l'icône de recherche
 				&:before {
 					position: absolute;
 					display: block;
+					visibility: visible;
 					z-index: 2;
 					content: "";
 					//décalage de marge
@@ -78,12 +79,33 @@
 					top: @decalV;
 					//chargement sprite entière avec dimension et SVG
 					@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
+					
+					//animation apparition de la sprite
+					.csstransitions.opacity & {
+						opacity: 1;
+						@transition(visibility, top, opacity; .05s, .2s, .2s; ease-out; .05s, .1s, .1s);
+					}
 				}
 
 				//classe CSS focus ajoutée en JS
 				&.focus {
 					background-color: @colorCouleur1Moyen;
-					&:before { display: none; visibility: hidden; }
+					&:before {
+						//animation disparition de la sprite
+						visibility: hidden;
+						display: none;
+						.csstransitions.opacity & {
+							//on réaffiche la sprite pour gérer l'animation
+							display: block;
+							//replacement et disparition de la sprite
+							// left: @spriteFormat_S*-1;
+							top: @gridBaseline;
+							opacity: 0;
+
+							//changement délai
+							@transitionDelay(.2s, .05s, .05s);
+						}
+					}
 				}
 			}
 
@@ -92,6 +114,15 @@
 			
 			//champ de saisie de la recherche
 			.query {
+				//ajout du padding-left et width au propriétés animées par défaut
+				.csstransitions & {
+					@transitionProperty(padding-left, width);
+					@transitionDelay(0s);
+					&:focus{
+						@transitionDelay(.1s);
+					}
+				}
+
 				//placement et stylage de l'élément
 				display: block;
 				z-index: 1;
@@ -99,7 +130,7 @@
 				&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
 				//suppression outline parasite sous webkit
 				outline: 0;
-				border-color: @zonesBorderColor;
+				border-color: @colorZoneBorder;
 
 				//suppression des ombres internes
 				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
@@ -198,6 +229,23 @@
 //hack webkit (Safari et Chrome)
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	.dm_widget.search_form {
+		.dm_widget_inner {
+			//stylage lorsque placé dans la zone située sous le header
+			#dm_custom_top & {
+				//correction du bug sur le champ de saisi
+				.query {
+					//on enlève l'épaisseur de la bordure non prise en compte dans le calcul de la largeur
+					&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 1px)); }
+					.generatedcontent & { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 1px)); }
+
+					//suppression du délai car l'animation n'est pas gérée sur les pseudos éléments
+					.csstransitions &:focus {
+						@transitionDelay(0s);
+					}
+				}
+			}
+		}
+
 		//stylage lorsque placé dans le header
 		#dm_header & {
 			//correction du bug sur le champ de saisi
