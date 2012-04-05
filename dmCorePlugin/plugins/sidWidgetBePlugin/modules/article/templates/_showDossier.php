@@ -50,6 +50,18 @@ if (!is_file($xml)) {
 		//récupération des articles associées au dossier affiché
 		$sections = $doc_xml->getElementsByTagName("Section");
 		$linkedArticles = array();
+                
+                //récupération de l'image au dossier affiché
+                $multimediaImage = '';
+		$multimediaInserts = $doc_xml->getElementsByTagName("MultimediaInserts");
+                if (count($multimediaInserts) > 0) {
+                    $multimediaImages = $multimediaInserts->item(0)->getElementsByTagName('MultimediaInsert');
+                    foreach ($multimediaImages as $multimediaImage) {
+                        $multimediaImage = $multimediaImages->item(0)->getElementsByTagName('FileName')->item(0)->nodeValue;
+                        if (strpos($multimediaImage, '-e.jpg'))
+                            break;
+                    }
+                }
 
 		//remplissage d'un tableau de valeur contenant les id des articles associés
 		foreach ($sections as $section) {
@@ -128,9 +140,24 @@ if (!is_file($xml)) {
 			}
 		
 		//affichage du contenu
-		$imageLink = '/_images/lea' . $article->filename . '-g.jpg';
+                //
+                // vérification du nom de l'image en vérifiant avec le nom de l'image dans le xml et/ou avec le prefixe 'images' ???
+                $imageExist = false;
+                $imageLink = '/_images/' . $multimediaImage;
+                if (is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
+                    $imageExist = true;
+                } elseif (!is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
+                    $imageLink = '/_images/images' . $multimediaImage;
+                    if (is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
+                        $imageExist = true;
+                    }
+                }
+                else
+                    $imageExist = false;
+                
+                
 		$imageHtml = '';
-		if (is_file(sfConfig::get('sf_web_dir').$imageLink) && $withImage){
+		if ($imageExist && $withImage){
 			$imageHtml = 	'<div class="imageFullWrapper">'.
 						    	'<img width="'.$widthImage.'" src="'.$imageLink.'" itemprop="image" class="image" alt="'.$article->title.'">'.
 							'</div>';
