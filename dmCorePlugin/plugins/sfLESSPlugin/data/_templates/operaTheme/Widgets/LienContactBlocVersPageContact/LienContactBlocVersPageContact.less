@@ -21,7 +21,6 @@
 	
 	.dm_widget_inner {
 		background-color: @colorCouleur3;
-		
 		& > .title {
 			//override couleur du lien
 			#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
@@ -43,6 +42,9 @@
 		color: @colorCouleur3ClairSup;
 		word-spacing: -0.05em;
 		letter-spacing: -0.05em;
+		//ajout padding pour décalage éléments
+		padding-left: @zonesOffsetPad;
+		padding-right: @zonesOffsetPad;
 		margin-bottom: @gridBaseline/2;
 	}
 	

@@ -1,0 +1,252 @@
+// _SearchForm.less
+// v1.1
+// Last Updated : 2012-03-28 09:55
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
+
+//Importation de la mise en page par défaut du widget
+@import "_framework/SPLessCss/Widgets/SearchForm/_SearchForm.less";
+
+.dm_widget.search_form {
+	.isLess & { background-color: fadeout(#BBF2F2, 25%); }
+
+	//placement dans la zone située sous le header
+	#dm_custom_top & {
+		float: left;
+		margin-left: @zonesOffsetPad*-1;
+		margin-right: (@gridGutter - @zonesOffsetPad);
+	}
+
+	//placement et stylage lorsque placé dans le header
+	#dm_header & {
+		//permet d'étendre la zone en débordement de la page
+		margin-left: -100%;
+		margin-right: -100%;
+		width: auto;
+		margin-bottom: @gridBaseline;
+		padding: 0;
+		//hauteur imposée par le placement
+		height: (@gridBaseline * 2 -1px);
+		
+		//ajout fond
+		background-color: @colorCouleur2Fonce;
+		//bordure de séparation
+		border-bottom: 1px solid @colorCouleur3Clair;
+	}
+
+	.dm_widget_inner {
+		.isLess & { background-color: fadeout(#8ED4D4, 75%); }
+
+		//stylage lorsque placé dans la zone située sous le header
+		#dm_custom_top & {
+			padding-bottom: @gridBaseline/2;
+
+			//placement formulaire
+			form {
+				background-color: @colorCouleur3Moyen;
+				.rgba & { background-color: fadeout(@colorCouleur3Moyen, 20%); }
+				border: 1px solid @colorCouleur3Fonce;
+				//application largeur (soustraction bordure)
+				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + 2px));
+				margin: 0;
+				padding: (@gridBaseline/4 -1px) 0;
+				//ajout de la bordure arrondie
+				@borderRadiusCompress(@offL);
+
+				//Ajout transition sur la couleur de fond
+				.csstransitions & {
+					@transitionCompress(all; .2s; ease-out; 0s);
+				}
+
+				//ajout de la sprite avec l'icône de recherche
+				&:before {
+					position: relative;
+					display: block;
+					content: "";
+					float: left;
+					//décalage de marge
+					@decalV: @gridBaseline - @spriteFormat_S;
+					margin: @decalV 0 0 @offS;
+					//chargement sprite entière avec dimension et SVG
+					@spriteDefinition("DefaultLight"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
+				}
+
+				//classe CSS focus ajoutée en JS
+				&.focus {
+					background-color: @colorWhite;
+					.rgba & { background-color: fadeout(@colorWhite, 20%); }
+					border-color: @colorCouleur3Moyen;
+					
+					//changement sprite au focus
+					&:before{
+						@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
+					}
+				}
+			}
+
+			//masquage du label et du bouton de validation
+			.label, .submit { display: none; visibility: hidden; }
+			
+			//champ de saisie de la recherche
+			.query {
+				//suppression styles par défaut du champ
+				&, &:focus, &:disabled, &:hover { background-color: transparent; }
+				border: 0;
+				//suppression outline parasite sous webkit
+				outline: 0;
+
+				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
+
+				//placement et stylage de l'élément
+				display: block;
+				float: left;
+				color: @colorCouleur3ClairSup;
+				&:focus{ color: @colorText; }
+
+				//ajustement du padding sans les bordures
+				padding: 2px @offS 2px @offS;
+
+				//application largeur
+				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 2px));
+				//ajout du décalage à gauche si pseudo élément affiché
+				.generatedcontent & {
+					@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 2px));
+				}
+
+				//couleur des placeHolders
+				//ciblage natif
+				&::-webkit-input-placeholder { color: @colorCouleur3ClairSup; }
+				&:disabled::-webkit-input-placeholder { color: @colorCouleur3MoyenSup; }
+				&:-moz-placeholder { color: @colorCouleur3ClairSup; }
+				&:disabled:-moz-placeholder { color: @colorCouleur3MoyenSup; }
+				//utilisé avec jQuery-placeholder
+				&.placeholder { color: @colorCouleur3ClairSup; }
+				&.placeholder:disabled { color: @colorCouleur3MoyenSup; }
+			}
+		}
+
+		//stylage lorsque placé dans le header
+		#dm_header & {
+			//centrage au centre du site
+			position: relative;
+			@gridSiteWidth();
+			margin-left: auto;
+			margin-right: auto;
+
+			//placement formulaire
+			form {
+				position: relative;
+				display: block;
+				float: right;
+				margin: 0;
+			}
+			
+			//stylage du formulaire spécifique à la zone (refaire un style spécifique pour intégration dans contenu)
+			label.label {
+				display: none;
+				visibility: hidden;
+			}
+			input.query {
+				position: absolute;
+				display: block;
+				right: (@spriteFormat_S + @offM / 2 + 1px);
+				border-color: @colorCouleur2FonceSup;
+				background-color: @colorWhite;
+				//padding horizontal soustrait à la largeur
+				@padHSub: (@offS + 1px) * 2 + (@spriteFormat_S + @offM / 2 + 1px);
+				//application largeur
+				@gridWidth(@gridCol_SidebarRight; @padHSub);
+				//réduction taille pour maintien baseline
+				line-height: (@gridBaseline - 10px);		//on soustrait la différence de padding et de bordure (4*2 + 2)
+				//placement sur deux lignes
+				padding-top: 4px;
+				padding-bottom: 3px;
+				margin-top: (@gridBaseline - @gridBaseline/2 - 2px - 1px);
+				margin-bottom: (@gridBaseline - @gridBaseline/2 - 2px);			//on enlève 1px à cause de la border-bottom de search_form
+				//arrondissement des coins
+				@borderRadiusCompress(@gridBaseline 0 0 @gridBaseline);
+			}
+			
+			input.submit {
+				position: absolute;
+				display: block;
+				right: 0;
+				//suppression du dégradé
+				&, .cssgradients & { background-color: @colorCouleur3Clair; }
+				//changement couleur d'appui
+				.boxshadow &:active { @insetShadow(0; 0; @offM; @offS; @colorCouleur3Sup); }
+				//suppression texte
+				text-indent: -9999em;
+				//suppression bordure de gauche
+				border-left: 0;
+				//bordure sur le côté droit
+				@borderRadiusCompress(0 @gridBaseline @gridBaseline 0);
+				//ajout sprite de recherche
+				@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
+				//ajout différence d'épaisseur
+				padding-top: (@gridBaseline - @spriteFormat_S) / 2 + 10px;
+				padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 8px;
+				padding-left: @offM;
+				padding-right: @offM + 2px;
+				margin-top: (@gridBaseline - @gridBaseline/2 - 2px - 1px);
+				margin-bottom: (@gridBaseline - @gridBaseline/2 - 2px);			//on enlève 1px à cause de la border-bottom de search_form
+			}
+		}
+	}
+}
+
+//hack webkit (Safari et Chrome)
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.dm_widget.search_form {
+		//stylage lorsque placé dans le header
+		#dm_header & {
+			//correction du bug sur le champ de saisi
+			input.query { padding-bottom: 4px; }
+			input.submit { padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 9px; }
+		}
+	}
+}
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletLandscape() {
+	.dm_widget.search_form {
+		//stylage lorsque placé dans le header
+		#dm_header & {
+			//correction du bug sur le champ de saisi
+			input.query { padding-bottom: 3px; }
+			input.submit { padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 8px; }
+		}
+	}
+}
+
+@templateMedia_TabletPortrait(){
+	.dm_widget.search_form {
+		//stylage lorsque placé dans le header
+		#dm_header & {
+			//correction du bug sur le champ de saisi
+			input.query { padding-bottom: 3px; }
+			input.submit { padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 8px; }
+		}
+
+		.dm_widget_inner {
+			//stylage lorsque placé dans le header
+			#dm_header & {
+				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+			}
+		}
+	}
+}
+
+//importation des requêtes média
+@import "_framework/SPLessCss/Grids/Medias/_TabletLandscape.less";
+@import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";

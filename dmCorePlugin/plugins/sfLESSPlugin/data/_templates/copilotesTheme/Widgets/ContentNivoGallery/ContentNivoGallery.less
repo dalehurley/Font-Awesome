@@ -8,6 +8,7 @@
 @import "_templates/copilotesTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 @import "_templates/copilotesTheme/Utilities/Sprites/_SpritesUtils.less";
 
@@ -15,6 +16,12 @@
 @import "_framework/SPLessCss/Widgets/ContentNivoGallery/_ContentNivoGallery.less";
 
 .dm_widget.content_nivo_gallery {
+
+	//Co-pilotes : ajout coin arrondi et suppression débords
+	.dm_widget_nivo_gallery {
+		@borderRadiusTopLeftPie(@offL);
+		overflow: hidden;
+	}
 	
 	//placement sélecteurs de navigation
 	.nivo-controlNav {
