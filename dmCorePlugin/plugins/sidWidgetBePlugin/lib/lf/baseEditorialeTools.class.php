@@ -568,7 +568,7 @@ class baseEditorialeTools {
                         // j'update les sections de la rubrique
                         foreach ($articleRecordIds as $articleRecordId) {
                             // j'update dans DmPageTranslation le champ group_page
-                            $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'section' and d.action = 'show' and d.record_id = " . $articleRecordId->id)->execute();
+                            $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'article' and d.action = 'show' and d.record_id = " . $articleRecordId->id)->execute();
                             foreach ($groupPages as $groupPage) {
                                 $groupPage->Translation[$lang]->group_page = $group['name-group'];
                                 $groupPages->save();
