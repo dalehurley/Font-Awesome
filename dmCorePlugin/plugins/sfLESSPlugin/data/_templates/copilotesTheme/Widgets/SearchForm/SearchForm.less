@@ -62,7 +62,7 @@
 
 				//Ajout transition sur la couleur de fond
 				.csstransitions & {
-					@transitionCompress(all; .2s; ease-out; 0);
+					@transitionCompress(all; .2s; ease-out; 0s);
 				}
 
 				//ajout de la sprite avec l'icône de recherche
@@ -117,7 +117,7 @@
 				//ajout du padding-left et width au propriétés animées par défaut
 				.csstransitions & {
 					@transitionProperty(padding-left, width);
-					@transitionDelay(0);
+					@transitionDelay(0s);
 					&:focus{
 						@transitionDelay(.1s);
 					}
@@ -240,7 +240,7 @@
 
 					//suppression du délai car l'animation n'est pas gérée sur les pseudos éléments
 					.csstransitions &:focus {
-						@transitionDelay(0);
+						@transitionDelay(0s);
 					}
 				}
 			}

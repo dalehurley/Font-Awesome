@@ -151,13 +151,13 @@ ul.menu-dropdown {
 		visibility: hidden;
 		.csstransitions.opacity & {
 			opacity: 0;
-			//@transitionCompress(visibility, opacity; 0, .2s; ease-out; .2s, 0);
+			//@transitionCompress(visibility, opacity; 0s, .2s; ease-out; .2s, 0s);
 			//safari ne supporte pas la déclaration séparé complète différencié en pseudo classe
-			//@transition(visibility, opacity; 0, .2s; ease-out; .2s, 0);
+			//@transition(visibility, opacity; 0s, .2s; ease-out; .2s, 0s);
 			@transitionProperty(visibility, opacity);
-			@transitionDuration(0, .2s);
+			@transitionDuration(0s, .2s);
 			@transitionFunction(ease-out);
-			@transitionDelay(.2s, 0);
+			@transitionDelay(.2s, 0s);
 		}
 	}
 	
@@ -173,7 +173,7 @@ ul.menu-dropdown {
 		visibility: hidden;
 		.csstransitions.opacity & {
 			opacity: 0;
-			@transitionDelay(.2s, 0);
+			@transitionDelay(.2s, 0s);
 		}
 	}
 	
@@ -188,7 +188,7 @@ ul.menu-dropdown {
 		visibility: visible;
 		.csstransitions.opacity & {
 			opacity: 1;
-			@transitionDelay(0, 0);
+			@transitionDelay(0s, 0s);
 		}
 	}
 	
