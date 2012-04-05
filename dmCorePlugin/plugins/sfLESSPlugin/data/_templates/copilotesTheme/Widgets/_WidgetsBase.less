@@ -14,6 +14,9 @@
 @import "_templates/copilotesTheme/Widgets/SpecifiquesBaseEditorialeFilActualite/_SpecifiquesBaseEditorialeFilActualite.less";
 @import "_templates/copilotesTheme/Widgets/SpecifiquesBaseEditorialeListAgenda/_SpecifiquesBaseEditorialeListAgenda.less";
 
+//import du widget spécifique temporaire pour Copilotes
+@import "_templates/copilotesTheme/Widgets/CopilotesTagcloud/_CopilotesTagcloud.less";
+
 //couleurs de débug dans les zones de contenu uniquement
 .isLess {
 	#dm_sidebar_left, #dm_sidebar_right, #dm_page_content {
@@ -41,19 +44,6 @@
 			// 	line-height: @gridBaseline;
 			// 	//@getPxFontConfig(@fontSizeH4Px);
 			// }
-		}
-	}
-}
-
-//Widget spécifique à Copilotes contenant des liens personnalisés vers le contenu du site
-.dm_widget.content_ck_editor.copilotesTagcloud {
-	
-	.dm_widget_inner {
-		.isLess & { background-color: fadeout(#85C5D4, 50%); }
-
-		#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
-			border: 0;
-			padding: @gridBaseline/2 @zonesOffsetPad;
 		}
 	}
 }
