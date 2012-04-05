@@ -1,6 +1,6 @@
 // NavigationMenu.dropdown.less
-// v1.2
-// Last Updated : 2012-02-02 16:30
+// v1.2.1
+// Last Updated : 2012-04-04 12:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -20,7 +20,7 @@
 
 ul.menu-dropdown {
 	//rajout bordure à gauche sur les menus
-	&, & ul { border-left: 1px solid @zonesBorderColor; }
+	&, & ul { border-left: 1px solid @colorZoneBorder; }
 	
 	//modifications de dimensions pour ajouts de bordures sur les côtés, et compensation décalage
 	ul {
@@ -70,7 +70,7 @@ ul.menu-dropdown {
 		margin-top: -1px;
 		//pour toutes les premières cellules
 		li.first {
-			& > .link { padding-top: @gridBaseline/2; border-top: 1px solid @zonesBorderColor; }
+			& > .link { padding-top: @gridBaseline/2; border-top: 1px solid @colorZoneBorder; }
 			& > ul { margin-top: 0; }
 		}
 	}
@@ -152,28 +152,41 @@ ul.menu-dropdown {
 				//Co-pilotes : couleurs spécifiques
 				background-color: transparent;
 				color: @colorCouleur1;
-				&:hover, &:focus { color: @colorCouleur1Moyen; background-color: @colorCouleur2ClairSup; }
+				border-color: transparent;
+				margin-left: -1px;
+				border-left-width: 1px;
+				border-left-style: solid;
+				&:hover, &:focus { color: @colorCouleur1Moyen; background-color: @colorCouleur2Clair; }
 				
 				//uniformisation couleur de police
-				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
-				&.dm_inactive { color: @colorCouleur3Clair; }
-				
-				margin-top: floor(@gridBaseline / 4) + 1px;
-				margin-bottom: floor(@gridBaseline / 4) + 1px;
-				padding-top: floor(@gridBaseline / 4) + 0px;
-				padding-bottom: floor(@gridBaseline / 4) + 0px;
-				border-bottom: 0;
+				&.dm_current { &, &:hover { color: @colorCouleur1Moyen; } }
+				&.dm_inactive { color: @colorCouleur1; }
+
+				// margin-top: floor(@gridBaseline / 4) + 1px;
+				// margin-bottom: floor(@gridBaseline / 4) + 1px;
+				// padding-top: floor(@gridBaseline / 4) + 0px;
+				// padding-bottom: floor(@gridBaseline / 4) + 0px;
+				border-bottom: 0 none transparent;
+
+				//Co-pilotes : marges initiales
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: @gridBaseline/2;
+				padding-bottom: @gridBaseline/2;
 			}
 			//pleine hauteur lors du rollOver
 			&:hover > .link,
 			& > .link:hover,
 			& > .link:focus {
-				margin-top: 0;
-				margin-bottom: 0;
-				padding-top: @gridBaseline/2;
-				padding-bottom: @gridBaseline/2;
-				margin-left: -1px;
-				border-left: 1px solid @zonesBorderColor;
+				// margin-top: 0;
+				// margin-bottom: 0;
+				// padding-top: @gridBaseline/2;
+				// padding-bottom: @gridBaseline/2;
+				// margin-left: -1px;
+				// border-left: 1px solid @colorZoneBorder;
+				
+				//Co-pilotes : couleurs spécifiques
+				border-color: @colorZoneBorder;
 			}
 			
 			//élargissement en pleine hauteur pour les dossiers
@@ -181,18 +194,21 @@ ul.menu-dropdown {
 			&.dm_dir > .link:hover,
 			&.dm_dir > .link:focus {
 				padding-bottom: @menuDropdownPadV;
-				border-bottom: 1px solid @zonesBorderColor;
+				border-bottom: 1px solid @colorZoneBorder;
 			}
 			
 			//rajout bordure à gauche sur la première cellule
 			//et correction de la cellule suivant dm_root (qui contient une icône link_root)
 			&.first,
 			&.dm_root + li {
-				& > .link { border-left: 1px solid @zonesBorderColor; }
+				//Co-pilotes : corrections de marge et couleur de bordure
+				& > .link { margin-left: 0; }
+
+				// & > .link { border-left: 1px solid @colorZoneBorder; }
 				//suppression décalage lors du rollOver
-				&:hover > .link,
-				& > .link:hover,
-				& > .link:focus { margin-left: 0; }
+				// &:hover > .link,
+				// & > .link:hover,
+				// & > .link:focus { margin-left: 0; }
 				
 				//gestion décalage pour la première cellule
 				ul {

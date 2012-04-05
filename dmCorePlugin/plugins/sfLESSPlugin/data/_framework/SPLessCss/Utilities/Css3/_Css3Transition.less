@@ -1,6 +1,6 @@
 // _Css3Transition.less
-// v1.2
-// Last Updated : 2011-12-02 11:15
+// v1.2.5
+// Last Updated : 2012-04-05 11:50
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -13,6 +13,9 @@
 //@function	[ease | linear | ease-in | ease-out | ease-in-out | cubic-bezier(<number>, <number>, <number>, <number>)]*
 //@delay	[time]*
 
+// Firefox 11 respecte la norme W3C qui impose une unité aux durées, sinon la notation shorthand ne fonctionne pas
+// http://blog.assortedgarbage.com/2011/08/the-importance-of-s-in-css3-transition-shorthand
+
 //suppression de toute transition
 @transitionNone(){
 	-webkit-transition: none;
@@ -23,7 +26,7 @@
 	transition: none;
 }
 
-@transition(@property: all; @duration: .5s; @function: ease; @delay: 0) {
+@transition(@property: all; @duration: .5s; @function: ease; @delay: 0s) {
 	-webkit-transition-property: @property;
 	-webkit-transition-duration: @duration;
 	-webkit-transition-timing-function: @function;
@@ -55,15 +58,10 @@
 	transition-delay: @delay;
 }
 
-@transitionCompress(@property: all; @duration: .5s; @function: ease; @delay: 0){
+@transitionCompress(@property: all; @duration: .5s; @function: ease; @delay: 0s){
 	-webkit-transition: @property @duration @function @delay;
 	-khtml-transition: @property @duration @function @delay;
-	//firefox 9.0 ne supporte pas encore la déclaration compressée avec des virgules entre les propriétés, donc séparation
-	//-moz-transition: @property @duration @function @delay;
-	-moz-transition-property: @property;
-	-moz-transition-duration: @duration;
-	-moz-transition-timing-function: @function;
-	-moz-transition-delay: @delay;
+	-moz-transition: @property @duration @function @delay;
 	-o-transition: @property @duration @function @delay;
 	-ms-transition: @property @duration @function @delay;
 	transition: @property @duration @function @delay;
@@ -97,7 +95,7 @@
 	transition-timing-function: @function;
 }
 
-@transitionDelay(@delay: 0) {
+@transitionDelay(@delay: 0s) {
 	-webkit-transition-delay: @delay;
 	-khtml-transition-delay: @delay;
 	-moz-transition-delay: @delay;

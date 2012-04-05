@@ -22,7 +22,7 @@
 
 ul.menu-megadropdown {
 	//rajout bordure à gauche sur le premier niveau
-	& { border-left: 1px solid @zonesBorderColor; }
+	& { border-left: 1px solid @colorZoneBorder; }
 
 	#dm_sidebar_left & {
 		//largeur en fonction de la zone
@@ -38,7 +38,7 @@ ul.menu-megadropdown {
 	#dm_sidebar_right & {
 		//pour toutes les premières cellules
 		& > li.first {
-			& > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @zonesBorderColor; }
+			& > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @colorZoneBorder; }
 			& > ul { top: 0; padding-top: (@gridBaseline -1px); }
 		}
 	}
@@ -47,7 +47,7 @@ ul.menu-megadropdown {
 	ul {
 		background-color: @colorCouleur3ClairSup;
 		//ajout bordure
-		border: 1px solid @zonesBorderColor;
+		border: 1px solid @colorZoneBorder;
 		//changement de la pleine largeur au premier sous-niveau
 		padding: @gridBaseline (@gridGutter -1px) (@gridBaseline -1px) (@gridGutter -1px);
 		@gridWidth(@gridCol; (@gridGutter*2 + @zonesOffsetPad*-2));
@@ -98,7 +98,7 @@ ul.menu-megadropdown {
 		
 		//sous parties de niveau 2 et + contenues dans un ul contenant des sous-dossiers
 		&.hasDmDir li {
-			border-right: 1px dotted @zonesBorderColor;
+			border-right: 1px dotted @colorZoneBorder;
 			padding: 0 (@gridGutter/2 -1px) 0 (@gridGutter/2);
 			margin-bottom: @gridBaseline;
 			//on suprimme les bordures et marges inférieures pour les sous parties
@@ -209,7 +209,7 @@ ul.menu-megadropdown {
 				margin-top: floor(@gridBaseline / 4) + 1px;
 				margin-bottom: floor(@gridBaseline / 4) + 1px;
 				//ajout bordure à droite
-				border-right: 1px solid @zonesBorderColor;
+				border-right: 1px solid @colorZoneBorder;
 
 				//personnalisation padding pour menu horizontal
 				@padV: floor(@gridBaseline / 4) + 0px;
@@ -225,14 +225,14 @@ ul.menu-megadropdown {
 				padding-top: @gridBaseline/2;
 				padding-bottom: @gridBaseline/2;
 				margin-left: -1px;
-				border-left: 1px solid @zonesBorderColor;
+				border-left: 1px solid @colorZoneBorder;
 			}
 
 			//rajout bordure à gauche sur la première cellule
 			//et correction de la cellule suivant dm_root (qui contient une icône link_root)
 			&.first,
 			&.dm_root + li {
-				& > .link { border-left: 1px solid @zonesBorderColor; }
+				& > .link { border-left: 1px solid @colorZoneBorder; }
 				//suppression décalage lors du rollOver
 				&:hover > .link,
 				& > .link:hover,

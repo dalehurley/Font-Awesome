@@ -1,6 +1,6 @@
 // _SearchForm.less
-// v1.1
-// Last Updated : 2012-03-28 09:55
+// v1.6.1
+// Last Updated : 2012-04-05 15:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -23,8 +23,8 @@
 	//placement dans la zone située sous le header
 	#dm_custom_top & {
 		float: left;
-		margin-left: @zonesOffsetPad*-1;
-		margin-right: (@gridGutter - @zonesOffsetPad);
+		margin-left: (@gridGutter - @zonesOffsetPad);
+		margin-right: @zonesOffsetPad*-1;
 	}
 
 	//placement et stylage lorsque placé dans le header
@@ -49,47 +49,62 @@
 
 		//stylage lorsque placé dans la zone située sous le header
 		#dm_custom_top & {
-			padding-bottom: @gridBaseline/2;
+			margin-bottom: @gridBaseline/2;
 
 			//placement formulaire
 			form {
-				background-color: @colorCouleur3Moyen;
-				.rgba & { background-color: fadeout(@colorCouleur3Moyen, 20%); }
-				border: 1px solid @colorCouleur3Fonce;
+				position: relative;
+				// background-color: @colorCouleur1;
+
 				//application largeur (soustraction bordure)
-				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + 2px));
-				margin: 0;
-				padding: (@gridBaseline/4 -1px) 0;
-				//ajout de la bordure arrondie
-				@borderRadiusCompress(@offL);
+				@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2));
+				// padding-bottom: @gridBaseline/2;
 
 				//Ajout transition sur la couleur de fond
-				.csstransitions & {
-					@transitionCompress(all; .2s; ease-out; 0);
-				}
+				// .csstransitions & {
+				// 	@transitionCompress(background-color; .2s; ease-out; 0s);
+				// }
 
 				//ajout de la sprite avec l'icône de recherche
 				&:before {
-					position: relative;
+					position: absolute;
 					display: block;
+					visibility: visible;
+					z-index: 2;
 					content: "";
-					float: left;
 					//décalage de marge
 					@decalV: @gridBaseline - @spriteFormat_S;
-					margin: @decalV 0 0 @offS;
+					// margin: @decalV 0 0 @offS;
+					left: @offS;
+					top: @decalV;
 					//chargement sprite entière avec dimension et SVG
-					@spriteDefinition("DefaultLight"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
+					@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-internet-search; @spriteOffY-DefaultLight-internet-search);
+					
+					//animation apparition de la sprite
+					.csstransitions.opacity & {
+						opacity: 1;
+						@transition(visibility, opacity; .05s, .2s; ease-out; .05s, .1s);
+					}
 				}
 
 				//classe CSS focus ajoutée en JS
 				&.focus {
-					background-color: @colorWhite;
-					.rgba & { background-color: fadeout(@colorWhite, 20%); }
-					border-color: @colorCouleur3Moyen;
-					
-					//changement sprite au focus
-					&:before{
-						@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
+					// background-color: @colorCouleur1Moyen;
+					&:before {
+						//animation disparition de la sprite
+						visibility: hidden;
+						display: none;
+						.csstransitions.opacity & {
+							//on réaffiche la sprite pour gérer l'animation
+							display: block;
+							//replacement et disparition de la sprite
+							// left: @spriteFormat_S*-1;
+							// top: @gridBaseline;
+							opacity: 0;
+
+							//changement délai
+							@transitionDelay(.2s, .05s);
+						}
 					}
 				}
 			}
@@ -99,39 +114,45 @@
 			
 			//champ de saisie de la recherche
 			.query {
-				//suppression styles par défaut du champ
-				&, &:focus, &:disabled, &:hover { background-color: transparent; }
-				border: 0;
-				//suppression outline parasite sous webkit
-				outline: 0;
-
-				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
+				//ajout du padding-left et width au propriétés animées par défaut
+				.csstransitions & {
+					@transitionProperty(padding-left, width);
+					@transitionDelay(0s);
+					&:focus{
+						@transitionDelay(.1s);
+					}
+				}
 
 				//placement et stylage de l'élément
 				display: block;
-				float: left;
-				color: @colorCouleur3ClairSup;
-				&:focus{ color: @colorText; }
+				z-index: 1;
+				//changement couleur et transparence du fond
+				&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
+				//suppression outline parasite sous webkit
+				outline: 0;
+				border-color: @colorZoneBorder;
 
-				//ajustement du padding sans les bordures
-				padding: 2px @offS 2px @offS;
+				//suppression des ombres internes
+				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
 
 				//application largeur
-				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 2px));
+				&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2 + @offS*2 + 2px)); }
+
 				//ajout du décalage à gauche si pseudo élément affiché
 				.generatedcontent & {
-					@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 2px));
+					padding-left: @spriteFormat_S + @offS*2;
+					@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 2px));
+
+					//suppression padding left lors du focus
+					&:focus { padding-left: @offS; }
 				}
 
 				//couleur des placeHolders
 				//ciblage natif
-				&::-webkit-input-placeholder { color: @colorCouleur3ClairSup; }
-				&:disabled::-webkit-input-placeholder { color: @colorCouleur3MoyenSup; }
-				&:-moz-placeholder { color: @colorCouleur3ClairSup; }
-				&:disabled:-moz-placeholder { color: @colorCouleur3MoyenSup; }
+				&::-webkit-input-placeholder { color: @colorText; }
+				&:-moz-placeholder { color: @colorText; }
 				//utilisé avec jQuery-placeholder
-				&.placeholder { color: @colorCouleur3ClairSup; }
-				&.placeholder:disabled { color: @colorCouleur3MoyenSup; }
+				&.placeholder { color: @colorText; }
 			}
 		}
 
@@ -208,6 +229,23 @@
 //hack webkit (Safari et Chrome)
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	.dm_widget.search_form {
+		.dm_widget_inner {
+			//stylage lorsque placé dans la zone située sous le header
+			#dm_custom_top & {
+				//correction du bug sur le champ de saisi
+				.query {
+					//on enlève l'épaisseur de la bordure non prise en compte dans le calcul de la largeur
+					&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2 + @offS*2 + 1px)); }
+					.generatedcontent & { @gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 1px)); }
+
+					//suppression du délai car l'animation n'est pas gérée sur les pseudos éléments
+					.csstransitions &:focus {
+						@transitionDelay(0s);
+					}
+				}
+			}
+		}
+
 		//stylage lorsque placé dans le header
 		#dm_header & {
 			//correction du bug sur le champ de saisi
