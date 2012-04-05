@@ -25,3 +25,8 @@ affichage:
 #    view_class:         articleAfficheView   
 #    form_class:         articleAfficheform
     public_name:        Affichage article
+
+  listSection:
+#    view_class:         articleAfficheView   
+#    form_class:         articleAfficheform
+    public_name:        Affichage section par rubrique    

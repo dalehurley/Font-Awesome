@@ -57,6 +57,10 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return $this;
     }
+    public function groupdisplayed($group) {
+        
+        return $this->setOption('groupdisplayed', $group);
+    }    
     public function secure($bool) {
         
         return $this->setOption('secure', (bool)$bool);
@@ -167,6 +171,24 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return $this->parent ? $this->parent->getRoot() : $this;
     }
+
+    /**
+     * @return dmMenu the parent menu with level=0
+     */
+    public function getParentLevel0() {
+        
+        if ($this->getLevel() == 0) {
+            return $this;
+        }
+        if ($this->parent->getLevel() > 0){
+            return $this->parent->getParentLevel0();
+        } 
+        if ($this->parent->getLevel() == 0){
+            return $this->parent;
+        }
+
+    }
+
     /**
      * @return dmMenu the parent menu
      */
@@ -392,6 +414,8 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
     public function renderChild() {
         $display = true;
+        $html = '';
+
         if (is_object($this->getLink())){
             if (method_exists($this->getLink(),'getPage')){
                 if ($this->getLink()->getPage()->action == 'list'){ // les pages ayant une action = list sont les pages manuelles qui list les page automatique filles
@@ -401,7 +425,44 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                 }
             }
         }
-        $html = '';
+
+        /**
+         * Gestion des champs groupPage de dmPage, en fonction du champ groupdisplayed de chaque item
+         */
+        if ($display                        // si on doit afficher le child alors on vérifie le champ groupdisplayed
+            && $this->getLevel() > 0){      // on ne traite pas le niveau 0 qui est gérable à la main dans le formulaire du widget
+            
+            $groupdisplayed = $this->getParentLevel0()->getOption('groupdisplayed');  // on récupère le param groupdisplayed du menu de level 0 : le niveau qui est gérable dans le form du widget
+             
+            switch ($groupdisplayed) {
+                case '*':  // on affiche tout
+                    $display = true;
+                    break;
+                case '':  // on affiche les pages qui n'ont pas de groupPage ou groupPage is null
+                    if (is_object($this->getLink())){
+                        if (method_exists($this->getLink(),'getPage')){
+                            if ($this->getLink()->getPage()->groupPage == '' || $this->getLink()->getPage()->groupPage == null){
+                                $display = true;
+                            } else {
+                                $display = false;
+                            }
+                        }
+                    }
+                    break;                
+                default:  // on affiche seulement les pages qui ont groupPage = groupdisplayed renseigné dans le menu 
+                    if (is_object($this->getLink())){
+                        if (method_exists($this->getLink(),'getPage')){
+                            if (in_array($this->getLink()->getPage()->groupPage, explode(' ', $groupdisplayed))){
+                                $display = true;
+                            } else {
+                                $display = false;
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
         if ($this->checkUserAccess() && $display) {
             $html.= $this->renderLiOpenTag();
             $html.= $this->renderChildBody();

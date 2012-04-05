@@ -7,6 +7,7 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
   {
     $this->validatorSchema['link'] = new sfValidatorPass();
     $this->validatorSchema['text'] = new sfValidatorPass();
+    $this->validatorSchema['groupdisplayed'] = new sfValidatorPass();    
     $this->validatorSchema['secure'] = new sfValidatorPass();
     $this->validatorSchema['nofollow'] = new sfValidatorPass();
     $this->validatorSchema['depth'] = new sfValidatorPass();
@@ -108,6 +109,7 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
       $values['items'][] = array(
         'link'     => $values['link'][$index],
         'text'     => $values['text'][$index],
+        'groupdisplayed'     => $values['groupdisplayed'][$index],
         'secure'   => (int) !empty($values['secure'][$index]),
         'nofollow' => (int) !empty($values['nofollow'][$index]),
         'depth'    => $values['depth'][$index],
@@ -118,6 +120,7 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
     unset(
       $values['link'],
       $values['text'],
+      $values['groupdisplayed'],
       $values['secure'],
       $values['nofollow'],
       $values['depth'],
