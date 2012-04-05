@@ -49,21 +49,21 @@
 
 		//stylage lorsque placé dans la zone située sous le header
 		#dm_custom_top & {
-			// margin-bottom: @gridBaseline/2;
+			margin-bottom: @gridBaseline/2;
 
 			//placement formulaire
 			form {
 				position: relative;
-				background-color: @colorCouleur1;
+				// background-color: @colorCouleur1;
 
 				//application largeur (soustraction bordure)
 				@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2));
-				padding-bottom: @gridBaseline/2;
+				// padding-bottom: @gridBaseline/2;
 
 				//Ajout transition sur la couleur de fond
-				.csstransitions & {
-					@transitionCompress(background-color; .2s; ease-out; 0s);
-				}
+				// .csstransitions & {
+				// 	@transitionCompress(background-color; .2s; ease-out; 0s);
+				// }
 
 				//ajout de la sprite avec l'icône de recherche
 				&:before {
@@ -83,13 +83,13 @@
 					//animation apparition de la sprite
 					.csstransitions.opacity & {
 						opacity: 1;
-						@transition(visibility, top, opacity; .05s, .2s, .2s; ease-out; .05s, .1s, .1s);
+						@transition(visibility, opacity; .05s, .2s; ease-out; .05s, .1s);
 					}
 				}
 
 				//classe CSS focus ajoutée en JS
 				&.focus {
-					background-color: @colorCouleur1Moyen;
+					// background-color: @colorCouleur1Moyen;
 					&:before {
 						//animation disparition de la sprite
 						visibility: hidden;
@@ -99,11 +99,11 @@
 							display: block;
 							//replacement et disparition de la sprite
 							// left: @spriteFormat_S*-1;
-							top: @gridBaseline;
+							// top: @gridBaseline;
 							opacity: 0;
 
 							//changement délai
-							@transitionDelay(.2s, .05s, .05s);
+							@transitionDelay(.2s, .05s);
 						}
 					}
 				}
