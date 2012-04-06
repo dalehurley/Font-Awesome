@@ -37,8 +37,8 @@
 #dm_page_content {
 	& > .dm_zones {
 		background-color: @colorWhite;
-		//ajout coin arrondi
-		@borderRadiusTopLeftPie(@offL);
+		//ajout coins arrondis an haut
+		@borderRadiusCompress(@offL @offL 0 0);
 
 		//suppression du fond blanc sur la page d'accueil
 		.page_main_root & { background-color: transparent; }
