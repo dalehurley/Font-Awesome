@@ -53,11 +53,11 @@
 			// margin-right: auto;
 			// background-color: @colorCouleur2Clair;
 
-			//Copilotes : changement dimension pour caler sur débord
-			padding-left: @zonesOffsetPad;
-			padding-right: @zonesOffsetPad;
-			margin-left: @zonesOffsetPad*-1;
-			margin-right: @zonesOffsetPad*-1;
+			//Copilotes : changement dimension pour caler sur débord et éviter que les liens ne touchent le bords
+			padding-left: @gridGutter/2;
+			padding-right: @gridGutter/2;
+			margin-left: @gridGutter/-2;
+			margin-right: @gridGutter/-2;
 
 			@horizontalGradientMulti-4(0%; 49%; 51%; 100%; @colorCouleur2Moyen; @colorCouleur2Clair; @colorCouleur2Clair; @colorCouleur2Moyen);
 			@borderRadiusCompress(@offM);

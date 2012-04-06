@@ -23,8 +23,7 @@
 	//placement dans la zone située sous le header
 	#dm_custom_top & {
 		float: left;
-		margin-left: (@gridGutter - @zonesOffsetPad);
-		margin-right: @zonesOffsetPad*-1;
+		margin-left: @gridGutter;
 	}
 
 	//placement et stylage lorsque placé dans le header
@@ -57,7 +56,7 @@
 				// background-color: @colorCouleur1;
 
 				//application largeur (soustraction bordure)
-				@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2));
+				@gridWidth(@gridCol_SidebarRight);
 				// padding-bottom: @gridBaseline/2;
 
 				//Ajout transition sur la couleur de fond
@@ -136,12 +135,12 @@
 				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
 
 				//application largeur
-				&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2 + @offS*2 + 2px)); }
+				&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarRight; (@offS*2 + 2px)); }
 
 				//ajout du décalage à gauche si pseudo élément affiché
 				.generatedcontent & {
 					padding-left: @spriteFormat_S + @offS*2;
-					@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 2px));
+					@gridWidth(@gridCol_SidebarRight; (@offS*3 + @spriteFormat_S + 2px));
 
 					//suppression padding left lors du focus
 					&:focus { padding-left: @offS; }
@@ -235,8 +234,8 @@
 				//correction du bug sur le champ de saisi
 				.query {
 					//on enlève l'épaisseur de la bordure non prise en compte dans le calcul de la largeur
-					&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2 + @offS*2 + 1px)); }
-					.generatedcontent & { @gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 1px)); }
+					&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarRight; (@offS*2 + 1px)); }
+					.generatedcontent & { @gridWidth(@gridCol_SidebarRight; (@offS*3 + @spriteFormat_S + 1px)); }
 
 					//suppression du délai car l'animation n'est pas gérée sur les pseudos éléments
 					.csstransitions &:focus {

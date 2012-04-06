@@ -21,10 +21,9 @@
 		.isLess & { background-color: fadeout(#F04F97, 25%); }
 		//ajout d'une bordure dont l'épaisseur a été déduite
 		border: 1px solid @colorZoneBorder;
-		//permet de sortie de la zone
-		margin: 0 (@zonesOffsetPad * -1) @gridBaseline/2 (@zonesOffsetPad * -1);
+		margin-bottom: @gridBaseline/2;
 		//définitions de la largeur
-		@gridWidth((@gridCol - @gridCol_SidebarRight); (@zonesOffsetPad * -2 +2px));
+		@gridWidth((@gridCol - @gridCol_SidebarRight); 2px);
 	}
 	
 	//apparrence des liens
@@ -72,7 +71,7 @@
 	.navigation_bread_crumb {
 		.dm_widget_inner {
 			//définitions de la largeur
-			@gridWidth(@gridCol_Content; (@zonesOffsetPad * -2 +2px));
+			@gridWidth(@gridCol_Content; 2px);
 		}
 	}
 }

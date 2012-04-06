@@ -109,7 +109,7 @@
 	.dm_widget {
 
 		.dm_widget_inner {
-			padding: @gridBaseline/2 @zonesOffsetPad;
+			padding: @gridBaseline/2 @gridGutter/2;
 
 			& > .title {
 				.isLess & { background-color: fadeout(#528733, 25%); }
@@ -126,7 +126,7 @@
 	.dm_widget {
 
 		.dm_widget_inner {
-			padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
+			padding: (@gridBaseline/2 - 1px) (@gridGutter/2 - 1px);
 			//ajout d'une bordure dont l'épaisseur a été déduite
 			border: 1px solid @colorZoneBorder;
 			//ajout coin arrondi
@@ -138,8 +138,8 @@
 			& > .title {
 				background-color: @colorZoneBorder;
 				color: @colorCouleur3ClairSup;
-				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
-				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px + @offS);
+				margin: (@gridBaseline/-2 +1px) (@gridGutter/-2 +1px) (@gridBaseline/2) (@gridGutter/-2 +1px);
+				padding: (@gridBaseline/2 - 1px) (@gridGutter/2 - 1px + @offS);
 				border-bottom: 1px solid @colorZoneBorder;
 				//ajout coin arrondi
 				@borderRadiusTopLeftPie((@offL -1px));
