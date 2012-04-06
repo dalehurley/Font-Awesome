@@ -216,7 +216,7 @@
 
 //listings d'éléments diverses (article, personnes, organisations, etc) et résultats de recherche
 .elements, .search_results {
-	margin: 0 @gridGutter/-1;
+	margin: 0;
 	//on ajoute un pixel dans les sidebars à cause des bordures de widgets
 	#dm_sidebar_left &, #dm_sidebar_right & {
 		margin-right: (@gridGutter/-2 +1px);
@@ -232,7 +232,7 @@
 	}
 	&:hover { background-color: @colorCouleur3ClairSup; }
 	
-	padding: @gridBaseline/2 @gridGutter (@gridBaseline/2 -1px) @gridGutter;
+	padding: @gridBaseline/2 @gridGutter/2 (@gridBaseline/2 -1px) @gridGutter/2;
 
 	//on soustrait un pixel dans les sidebars à cause des bordures de widgets
 	#dm_sidebar_left &, #dm_sidebar_right & {
