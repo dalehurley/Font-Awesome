@@ -114,6 +114,7 @@ class sfLESS
       return sfFinder::type('file')
         ->name('*.less')
         ->discard('_*')
+        ->prune('Externals')
         ->follow_link()
         ->in(self::getConfig()->getLessPaths());
     }
