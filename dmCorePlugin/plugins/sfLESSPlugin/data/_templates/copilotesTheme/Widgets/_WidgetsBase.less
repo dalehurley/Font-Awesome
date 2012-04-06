@@ -92,6 +92,40 @@
 		margin-bottom: @gridBaseline/2;
 		
 		.dm_widget_inner {
+			
+			& > .title {
+				margin-bottom: @gridBaseline/2;
+				font-weight: normal;
+				word-spacing: 0.05em;
+				letter-spacing: 0.05em;
+				//on supprime le décalage situé entre le titre et une liste d'éléments quand ils sont suivi l'un par l'autre
+				& ~ .elements { margin-top: @gridBaseline/-2; }
+			}
+		}
+	}
+}
+
+#dm_page_content {
+	.dm_widget {
+
+		.dm_widget_inner {
+			padding: @gridBaseline/2 @zonesOffsetPad;
+
+			& > .title {
+				.isLess & { background-color: fadeout(#528733, 25%); }
+				color: @colorCouleur1;
+				text-transform: uppercase;
+				padding-bottom: (@gridBaseline/2 -1px);
+				border-bottom: 1px solid @colorZoneBorder;
+			}
+		}
+	}
+}
+
+#dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget {
+
+		.dm_widget_inner {
 			padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
 			//ajout d'une bordure dont l'épaisseur a été déduite
 			border: 1px solid @colorZoneBorder;
@@ -107,11 +141,6 @@
 				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
 				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px + @offS);
 				border-bottom: 1px solid @colorZoneBorder;
-				font-weight: normal;
-				word-spacing: 0.05em;
-				letter-spacing: 0.05em;
-				//on supprime le décalage situé entre le titre et une liste d'éléments quand ils sont suivi l'un par l'autre
-				& ~ .elements { margin-top: @gridBaseline/-2; }
 				//ajout coin arrondi
 				@borderRadiusTopLeftPie((@offL -1px));
 			}
