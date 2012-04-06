@@ -8,6 +8,7 @@
 @import "_templates/copilotesTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
@@ -20,6 +21,9 @@
 	.dm_widget_inner {
 		.isLess & { background-color: fadeout(#F04F97, 25%); }
 		//ajout d'une bordure dont l'épaisseur a été déduite
+		background-color: @colorWhite;
+		//Copilotes : ajout arrondi sur le widget
+		@borderRadiusCompress(@offM);
 		border: 1px solid @colorZoneBorder;
 		margin-bottom: @gridBaseline/2;
 		//définitions de la largeur
