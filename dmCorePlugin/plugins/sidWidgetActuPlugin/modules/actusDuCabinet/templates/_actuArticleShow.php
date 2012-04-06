@@ -49,7 +49,7 @@ if(count($articles)){
             echo _open('footer', array('class' => 'contentFooter'));
                 echo _open('div', array('class' => 'fileWrapper'));
                     echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
-                    echo _link($article->getFiles());
+                    echo _link($article->getFiles())->text($article->getTitleFile());
                 echo _close('div');
             echo _close('footer');
         }
