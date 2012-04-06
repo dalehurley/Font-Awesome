@@ -1,0 +1,53 @@
+// GetVariables.less
+// v1.1
+// Last Updated : 2012-02-27 12:30
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Ce fichier rassemble un ensemble de variables destinées à l'export vers la partie PHP du framework
+
+//importation des fichiers de config
+@import "_templates/BaseTheme/Config/_ConfigInit.less";
+
+//CLASSEMENT DES VARIABLES PAR CATÉGORIE
+
+//FRAMEWORK
+.framework {
+	frameworkVersion:@frameworkVersion;
+	frameworkDate:@frameworkDate;
+	frameworkCopyright:@frameworkCopyright;
+	frameworkAuthor:@frameworkAuthor;
+}
+
+//TEMPLATE
+.template {
+	templateVersion:@templateVersion;
+	templateDate:@templateDate;
+	templateGrid:@templateGrid;
+	templateCopyright:@templateCopyright;
+	templateAuthor:@templateAuthor;
+}
+
+//MAIN
+.main {
+	mainTemplate:@mainTemplate;
+	mainHashMd5:@mainHashMd5;
+	urlImagesTemplate:@urlImagesTemplate;
+	urlImagesFramework:@urlImagesFramework;
+	urlImagesClient:@urlImagesClient;
+}
+
+//GRID (trouver une meilleure solution en cas de grilles multiple)
+@import "_framework/SPLessCss/Grids/Types/Grid_Default/_GridGetVariables.less";
+
+//SPRITE
+.sprite {
+	spriteFormat:@spriteFormat;
+	spriteFormat_S:@spriteFormat_S;
+	spriteFormat_M:@spriteFormat_M;
+	spriteFormat_L:@spriteFormat_L;
+	spriteFormat_X:@spriteFormat_X;
+}
+
+//COLOR
+@import "_framework/SPLessCss/Config/Colors/_ColorGetVariables.less";
