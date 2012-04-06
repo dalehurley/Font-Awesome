@@ -28,12 +28,29 @@
 .contentBody {
 	padding-top: @gridBaseline/2;
 	padding-bottom: @gridBaseline/2;
+
+	//stylage des liens en rouge gras
+	a, a.link {
+		color: @colorCouleur1;
+		font-weight: bold;
+		text-decoration: none;
+		&:hover, &:focus { text-decoration: underline; }
+	}
 }
 
 .contentFooter {
 	//débord de la zone pour faire touche la bordure, compensation avec padding
-	margin: 0 (@zonesOffsetPad * -1 +1px);
-	padding: (@gridBaseline/2 -1px) (@zonesOffsetPad -1px) 0 (@zonesOffsetPad -1px);
+	margin: 0;
+	padding: (@gridBaseline/2 -1px) 0 0 0;
+
+	//on soustrait un pixel dans les sidebars à cause des bordures de widgets
+	#dm_sidebar_left &, #dm_sidebar_right & {
+		margin-right: (@gridGutter/-2 +1px);
+		margin-left: (@gridGutter/-2 +1px);
+		padding-right: (@gridGutter/2 -1px);
+		padding-left: (@gridGutter/2 -1px);
+	}
+	
 	border-top: 1px dotted @colorZoneBorder;
 
 	//Métadonnées de l'article
