@@ -28,6 +28,14 @@
 .contentBody {
 	padding-top: @gridBaseline/2;
 	padding-bottom: @gridBaseline/2;
+
+	//stylage des liens en rouge gras
+	a, a.link {
+		color: @colorCouleur1;
+		font-weight: bold;
+		text-decoration: none;
+		&:hover, &:focus { text-decoration: underline; }
+	}
 }
 
 .contentFooter {
