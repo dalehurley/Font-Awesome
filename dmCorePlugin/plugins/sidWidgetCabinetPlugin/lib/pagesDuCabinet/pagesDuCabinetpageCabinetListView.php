@@ -27,6 +27,8 @@ class pagesDuCabinetpageCabinetListView extends dmWidgetPluginView {
         $redirect = false;
         $header = '';
         $dmPage = sfContext::getInstance()->getPage();
+        $ancestors = $dmPage->getNode()->getAncestors();
+        $nameParent = $ancestors[count($ancestors) - 1]->getName();
 
         switch ($dmPage->module . '/' . $dmPage->action) {
             // si on est dans la page d'un article su cabinet, on enlève de la liste des articles en bas de page l'article qui est affiché ($dmPage->record_id)
@@ -36,15 +38,17 @@ class pagesDuCabinetpageCabinetListView extends dmWidgetPluginView {
                         ->from('SidCabinetPageCabinet a')
                         ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
                         ->execute();
+                ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $nameParent : '';
                 break;
             // pour affichage du listing des articles du cabinet quand on est sur la page "Actualités du cabinet"
             default:
 
                 $pageCabinets = dmDb::table('SidCabinetPageCabinet')->findByIsActive(true);
+                ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $dmPage->getName() :'';
 //              ($vars['withImage'] == true) ? (($pageCabinet->getImage()->checkFileExists() == true) ? $image = $pageCabinet->getImage() : $image = ''): $image = '';
 		}
 
-        ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $dmPage->getName() :'';
+        
         ($vars['lien'] != NULL || $vars['lien'] != " ") ? $lien = $vars['lien'] : $lien = '';
         
         if (count($pageCabinets) == 1 && ($dmPage->module . '/' . $dmPage->action == 'pageCabinet/list')) {

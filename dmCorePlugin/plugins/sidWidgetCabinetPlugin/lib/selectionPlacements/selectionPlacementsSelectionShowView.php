@@ -23,9 +23,11 @@ class selectionPlacementsSelectionShowView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $dmPage = sfContext::getInstance()->getPage();
+        $ancestors = $dmPage->getNode()->getAncestors();
+        $nameParent = $ancestors[count($ancestors) - 1]->getName();
        
         if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
-        $vars['titreBloc'] = $dmPage->getName();
+        $vars['titreBloc'] = $nameParent;
         };
         $selections = dmDb::table('SidCabinetSelectionPlacement')->findOneByIdAndIsActive($dmPage->record_id,true);
         return $this->getHelper()->renderPartial('selectionPlacements', 'selectionShow', array(

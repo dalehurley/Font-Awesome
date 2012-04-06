@@ -38,6 +38,8 @@ generator:
           label: 'Choisir une image'
         file_form:
           label: 'Choisir un fichier'
+        title_file:
+          label: 'Nom du fichier'
       list:
         batch_actions:
           delete:
