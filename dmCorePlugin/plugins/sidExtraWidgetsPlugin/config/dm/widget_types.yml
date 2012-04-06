@@ -1,0 +1,5 @@
+dmWidgetContent:
+
+  imagePlus:
+    name:               "image plus"
+    cache:              true
