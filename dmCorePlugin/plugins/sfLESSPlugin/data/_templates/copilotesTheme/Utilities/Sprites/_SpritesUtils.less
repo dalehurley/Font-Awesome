@@ -14,7 +14,7 @@
 	//ciblage du titre du widget
 	& .dm_widget_inner > .title {
 		//que si l'élément :after est géré (éviter un mélange avec .svg), on rajoute de l'espace à gauche pour caler la sprite
-		.generatedcontent & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px + @offS); }
+		.generatedcontent & { padding-left: (@spriteFormat_M + @gridGutter/2 -1px + @offS); }
 		
 		&:after {
 			position: absolute;

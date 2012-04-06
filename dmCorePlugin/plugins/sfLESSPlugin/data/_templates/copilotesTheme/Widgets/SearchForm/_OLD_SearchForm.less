@@ -23,8 +23,7 @@
 	//placement dans la zone située sous le header
 	#dm_custom_top & {
 		float: left;
-		margin-left: @zonesOffsetPad*-1;
-		margin-right: (@gridGutter - @zonesOffsetPad);
+		margin-right: @gridGutter;
 	}
 
 	//placement et stylage lorsque placé dans le header
@@ -57,7 +56,7 @@
 				.rgba & { background-color: fadeout(@colorCouleur3Moyen, 20%); }
 				border: 1px solid @colorCouleur3Fonce;
 				//application largeur (soustraction bordure)
-				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + 2px));
+				@gridWidth(@gridCol_SidebarLeft; 2px);
 				margin: 0;
 				padding: (@gridBaseline/4 -1px) 0;
 				//ajout de la bordure arrondie
@@ -117,10 +116,10 @@
 				padding: 2px @offS 2px @offS;
 
 				//application largeur
-				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 2px));
+				@gridWidth(@gridCol_SidebarLeft; (@offS*2 + 2px));
 				//ajout du décalage à gauche si pseudo élément affiché
 				.generatedcontent & {
-					@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 2px));
+					@gridWidth(@gridCol_SidebarLeft; (@offS*3 + @spriteFormat_S + 2px));
 				}
 
 				//couleur des placeHolders

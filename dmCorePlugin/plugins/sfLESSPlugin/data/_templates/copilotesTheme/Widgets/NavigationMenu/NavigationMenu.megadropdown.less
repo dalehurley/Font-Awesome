@@ -26,11 +26,11 @@ ul.menu-megadropdown {
 
 	#dm_sidebar_left & {
 		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad * -2 + 1px));
+		@gridWidth(@gridCol_SidebarLeft; 1px);
 	}
 	#dm_sidebar_right & {
 		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad * -2 + 1px));
+		@gridWidth(@gridCol_SidebarRight; 1px);
 	}
 
 	//rajout bordure en haut sur les menus et gestion décalage
@@ -50,9 +50,7 @@ ul.menu-megadropdown {
 		border: 1px solid @colorZoneBorder;
 		//changement de la pleine largeur au premier sous-niveau
 		padding: @gridBaseline (@gridGutter -1px) (@gridBaseline -1px) (@gridGutter -1px);
-		@gridWidth(@gridCol; (@gridGutter*2 + @zonesOffsetPad*-2));
-		//replacement à gauche
-		left: @zonesOffsetPad*-1;
+		@gridWidth(@gridCol; (@gridGutter*2));
 
 		//liens des sous niveaux
 		li .link {
@@ -64,7 +62,7 @@ ul.menu-megadropdown {
 
 		#dm_sidebar_left & {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
-			@gridAbsoluteLeft(@gridCol_SidebarLeft; (@zonesOffsetPad * -2 + 2px));
+			@gridAbsoluteLeft(@gridCol_SidebarLeft; 2px);
 			top: -1px;
 			margin-top: 0;
 			padding-left: @gridGutter;
@@ -73,7 +71,7 @@ ul.menu-megadropdown {
 		
 		#dm_sidebar_right & {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
-			@gridAbsoluteRight(@gridCol_SidebarRight; (@zonesOffsetPad * -2 + 1px));
+			@gridAbsoluteRight(@gridCol_SidebarRight; 1px);
 			top: -1px;
 			margin-top: 0;
 			padding-right: @gridGutter;
@@ -108,7 +106,7 @@ ul.menu-megadropdown {
 			&.first, &.firstOfRow, &.lastOfRow {
 				ul, & {
 					//configuration par défaut avec la pleine largeur de la page
-					@gridWidth(4; @gridGutter + @zonesOffsetPad*-1);
+					@gridWidth(4; @gridGutter);
 				}
 			}
 
@@ -116,20 +114,20 @@ ul.menu-megadropdown {
 			&.first, &.firstOfRow {
 				ul, & {
 					#dm_sidebar_left & {
-						@gridWidth(5; @gridGutter + @zonesOffsetPad*-2);
+						@gridWidth(5; @gridGutter);
 					}
 					#dm_sidebar_right & {
-						@gridWidth(4; @gridGutter + @zonesOffsetPad*-1);
+						@gridWidth(4; @gridGutter);
 					}
 				}
 			}
 			&.lastOfRow {
 				ul, & {
 					#dm_sidebar_left & {
-						@gridWidth(5; @gridGutter + @zonesOffsetPad*-1);
+						@gridWidth(5; @gridGutter);
 					}
 					#dm_sidebar_right & {
-						@gridWidth(4; @gridGutter + @zonesOffsetPad*-2);
+						@gridWidth(4; @gridGutter);
 					}
 				}
 			}
@@ -148,7 +146,7 @@ ul.menu-megadropdown {
 
 		//sous parties de niveau 2 et + contenues dans un ul ne contenant aucun sous-dossier
 		&.hasNoDir li {
-			@gridWidth(4; @gridGutter + @zonesOffsetPad*-1);
+			@gridWidth(4; @gridGutter);
 		}
 	}
 
