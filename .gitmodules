@@ -19,9 +19,6 @@
 [submodule "dmCorePlugin/lib/vendor/php-user-agent"]
 	path = dmCorePlugin/lib/vendor/php-user-agent
 	url = git@github.com:SidPresse/php-user-agent.git
-[submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/lessphp"]
-	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/lessphp
-	url = git@github.com:SidPresse/lessphp.git
 [submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/bootstrap"]
 	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/bootstrap
 	url = git@github.com:stephanemeron/bootstrap.git
