@@ -114,6 +114,7 @@ class sfLESS
       return sfFinder::type('file')
         ->name('*.less')
         ->discard('_*')
+        ->prune('Externals') // pour qu'il n'aille pas cherche de .less dans le dossier des dumps
         ->follow_link()
         ->in(self::getConfig()->getLessPaths());
     }
@@ -122,6 +123,7 @@ class sfLESS
       return sfFinder::type('file')
         ->name('style.less')      // Pour les themes V2 seuls les fichiers style.less sont compilés et peuvent se retrouver dans le dossier css du site
         ->discard('_*')
+        ->prune('Externals') // pour qu'il n'aille pas cherche de .less dans le dossier des dumps        
         ->follow_link()
         ->in(self::getConfig()->getLessPaths());
     }

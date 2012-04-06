@@ -444,7 +444,7 @@ class spLessCss {
 	private static function getColorsParam($colorKey){
 
 		// il faut aller chercher dans le fichier  	
-		$fileConfig = sfconfig::get('sf_web_dir').'/theme/css/_framework/SPLessCss/Config/GetVariables.css';
+		$fileConfig = sfconfig::get('sf_web_dir').'/theme/css/_templates/' . dmConfig::get('site_theme') . '/Config/GetVariables.css';
 		// on lit chaque ligne du fichier pour trouver la chaine $colorKey
 		$lines = file($fileConfig);
 		foreach ($lines as $lineNumber => $lineContent)

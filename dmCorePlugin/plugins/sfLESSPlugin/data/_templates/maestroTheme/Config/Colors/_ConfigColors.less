@@ -1,0 +1,31 @@
+// _ConfigColors.less
+// v1.1
+// Last Updated : 2012-04-06 09:45
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//CONFIGURATION DES COULEURS DE LAYOUT ET DE LEURS VARIANTES
+//à définir dans Symfony avec une interface de type config v2ter
+@colorCouleur1: #00aebf;				// HSV : 185/100/75
+@colorCouleur1Clair: #50bfc9;			// HSV : 185/60/80		S-40 V+5
+@colorCouleur1ClairSup: #57cdd9;		// HSV : 185/60/85		S-40 V+10
+@colorCouleur1Moyen: #007f8a;			// HSV : 185/100/55		S+30 V-20
+@colorCouleur1MoyenSup: #00a3b3;		// HSV : 185/100/70		S+30 V-5
+@colorCouleur1Sup: #0bd2e6;				// HSV : 185/95/90		S-5 V+15
+@colorCouleur1Fonce: #006770;			// HSV : 185/100/45		S+30 V-30
+@colorCouleur1FonceSup: #007580;		// HSV : 185/100/50		S+30 V-25
+
+@colorCouleur2: #27353d;				// HSV : 18/28/28
+@colorCouleur2Clair: #536670;			// HSV : 18/18/48		S-10 V+20
+@colorCouleur2ClairSup: #7994a3;		// HSV : 18/18/68		S-10 V+40
+@colorCouleur2Moyen: #3c4e57;			// HSV : 18/23/38		S-5 V+10
+@colorCouleur2MoyenSup: #445863;		// HSV : 18/23/43		S-5 V+15
+@colorCouleur2Sup: #2f414a;				// HSV : 18/28/33		S V+5
+@colorCouleur2Fonce: #06090a;			// HSV : 18/33/8		S+5 V-20
+@colorCouleur2FonceSup: #0e1417;		// HSV : 18/33/13		S+5 V-15
+
+//IMPORTATION DE LA COULEUR3 DEPUIS LE FRAMEWORK (enlever import et recopier pour override)
+@import "_framework/SPLessCss/Config/Colors/_ConfigColorsCouleur3.less";
+
+//IMPORTATION DES COULEURS SYSTÈME GÉNÉRALES (enlever import et recopier pour override)
+@import "_framework/SPLessCss/Config/Colors/_ConfigColorsSystem.less";

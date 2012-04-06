@@ -397,15 +397,17 @@ class baseEditorialeTools {
                             }
                             $k++;
 
-                            // purges des articles
+                            // purge des articles X derniers jours et Y articles 
                             if (in_array($sidSection->getTranslation()->$lang->title, sfConfig::get('app_sections_truncated',array()))){
-                                // on supprime les 6 derniers mois ou les 30 derniers articles
+                                
                                 $articles = dmDb::query('SidArticle a')
                                     ->withI18n($lang)
                                     ->where("DATEDIFF(CURRENT_DATE, aTranslation.updated_at) < ".sfConfig::get('app_nb-jours-max-date-article',100))   // age max pour un article
                                     ->addWhere('section_id='.$sidSection->id)
                                     ->execute();
-                                if (count($articles) < sfConfig::get('app_nb-articles-min-par-section',10)){ // on prend les X derniers articles
+
+                                // on prend les X derniers articles    
+                                if (count($articles) < sfConfig::get('app_nb-articles-min-par-section',10)){ 
                                     $articles = dmDb::query('SidArticle a')
                                     ->withI18n($lang)
                                     ->orderBy("aTranslation.updated_at desc")
@@ -442,7 +444,9 @@ class baseEditorialeTools {
                                     $return[]['Purge section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = 'Purge articles > '.sfConfig::get('app_nb-jours-max-date-article',100).' derniers jours';
                                 }
                   
-                            }        
+                            }  
+
+                            //       
 
                         }
                     }
@@ -526,6 +530,70 @@ class baseEditorialeTools {
         
         return $return;
     }
+    
+    /*
+     * Affectation à un groupe des dmPages en fonction du tableau présent dans app.yml pour le kit création
+     *
+    */
+    public static function affectGroupDmPages() {
+        // retour
+        $return = array();
+        // les languages
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+        $nbPagesModified = 0;
+        
+        foreach ($arrayLangs as $lang) { // pour chaque lang utilisées et définies dans le fichier config/dm/config.yml
+            // je récupère dans le app de dmCorePlugin/config les tableaux des groupes à affectés aux pages
+            $arrayGroups = sfConfig::get('app_groups_rubriques');
+            // pour chaque groupe, je cherche les pages concernées dans SidRubrique
+            foreach($arrayGroups as $group){
+                $beginTime = microtime(true);
+                // RUBRIQUES
+                $rubriqueRecordIds = dmDb::query('SidRubrique p')->withI18n($lang)->select()->where('pTranslation.title IN (\''.implode('\',\'',$group['values']).'\') and p.is_active = true')->execute();
+                foreach ($rubriqueRecordIds as $rubriqueRecordId) {
+                    // j'update dans DmPageTranslation le champ group_page
+                    $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'rubrique' and d.action = 'show' and d.record_id = " . $rubriqueRecordId->id)->execute();
+                    foreach ($groupPages as $groupPage) {
+                        $groupPage->Translation[$lang]->group_page = $group['name-group'];
+                        $groupPages->save();
+                        $nbPagesModified++;
+                    }
+                    // SECTIONS
+                    $sectionRecordIds = dmDb::query('SidSection p')->withI18n($lang)->select()->where('p.rubrique_id = ' . $rubriqueRecordId->id . ' and p.is_active = true')->execute();
+                    // j'update les sections de la rubrique
+                    foreach ($sectionRecordIds as $sectionRecordId) {
+                        // j'update dans DmPageTranslation le champ group_page
+                        $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'section' and d.action = 'show' and d.record_id = " . $sectionRecordId->id)->execute();
+                        foreach ($groupPages as $groupPage) {
+                            $groupPage->Translation[$lang]->group_page = $group['name-group'];
+                            $groupPages->save();
+                            $nbPagesModified++;
+                        }
+                        // ARTICLES
+                        $articleRecordIds = dmDb::query('SidArticle p')->withI18n($lang)->select()->where('p.section_id = ' . $sectionRecordId->id . ' and p.is_active = true')->execute();
+                        // j'update les sections de la rubrique
+                        foreach ($articleRecordIds as $articleRecordId) {
+                            // j'update dans DmPageTranslation le champ group_page
+                            $groupPages = dmDb::query('DmPage d')->select()->where("d.module = 'article' and d.action = 'show' and d.record_id = " . $articleRecordId->id)->execute();
+                            foreach ($groupPages as $groupPage) {
+                                $groupPage->Translation[$lang]->group_page = $group['name-group'];
+                                $groupPages->save();
+                                $nbPagesModified++;
+                            }
+                        }
+                    }
+
+
+
+                    $return[]['La rubrique ' . $rubriqueRecordId->getTitle() . ' et tous ses enfants ('.$nbPagesModified.' pages)'] = " ont été ajouté au groupe " . $group['name-group'] . " [" . (microtime(true) - $beginTime) . " s]";
+                }
+            }
+        }
+        
+        
+        return $return;
+    }
+    
     /*
      * Nettoyage du repertoire local
      * - Suppression des dossiers vides

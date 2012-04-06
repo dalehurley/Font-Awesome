@@ -64,7 +64,7 @@ ul.menu-dropdown, ul.menu-megadropdown, ul.menu-accordion {
 		
 		//ajout des transitions pour navigateurs récents
 		.csstransitions & {
-			@transitionCompress(background-color, color, border-color; .2s; ease-in-out; 0);
+			@transitionCompress(background-color, color, border-color; .2s; ease-in-out; 0s);
 		}
 	}
 
@@ -109,7 +109,7 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		// padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
 		border-style: solid;
 		// border-width: 0 1px 1px 0;
-		border-color: @zonesBorderColor;
+		border-color: @colorZoneBorder;
 		color: @colorCouleur3Fonce;
 
 		//changement taille selon zone
@@ -186,7 +186,7 @@ ul.menu-dropdown li, ul.menu-accordion li {
 			
 			//ajout des transitions pour navigateurs récents
 			.csstransitions.csstransforms & {
-				@transitionCompress(all; .15s; ease-in; 0);
+				@transitionCompress(all; .15s; ease-in; 0s);
 				@origin(25%; 50%);
 			}
 			
@@ -285,7 +285,7 @@ ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	}
 	//changement délai de transition
 	.csstransitions & {
-		@transitionDelay(0);
+		@transitionDelay(0s);
 	}
 }
 

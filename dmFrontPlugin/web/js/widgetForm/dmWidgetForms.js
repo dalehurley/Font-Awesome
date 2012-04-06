@@ -38,6 +38,19 @@ $.fn.extend({
       $('li.background', $form)[$(this).val() == 'fit' ? 'show' : 'hide']();
     }).trigger('change');
   },
+
+  dmWidgetContentImagePlusForm: function(widget)
+  {
+    var $form = this.find('form:first');
+
+    this.dmWidgetContentBaseMediaForm(widget, {
+      accept: '#dm_media_bar li.file.image'
+    });
+
+    $('select.dm_media_method', $form).bind('change', function() {
+      $('li.background', $form)[$(this).val() == 'fit' ? 'show' : 'hide']();
+    }).trigger('change');
+  },
   
   dmWidgetContentTextForm: function(widget)
   {

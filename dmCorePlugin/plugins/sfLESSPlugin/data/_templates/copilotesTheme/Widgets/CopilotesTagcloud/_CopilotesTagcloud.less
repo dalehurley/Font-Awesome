@@ -1,0 +1,112 @@
+// _CopilotesTagcloud.less
+// v1.0
+// Last Updated : 2012-04-05 11:30
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Config par défaut des widgets du template
+@import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//Widget spécifique à Copilotes contenant des liens personnalisés vers le contenu du site
+.dm_widget.content_ck_editor.copilotesTagcloud {
+	
+	.dm_widget_inner {
+		.isLess & { background-color: fadeout(#85C5D4, 50%); }
+		//sert de point de référence au placement absolu des liens
+		position: relative;
+		height: @gridBaseline*20;
+
+		//suppression padding, bordure et arrondi
+		#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
+			border: 0;
+			padding: 0;
+		}
+	}
+
+	//stylage des titres
+	.title {
+		.isLess & { background-color: fadeout(#899428, 10%); }
+		font-family: @fontGlobalFamilyWebFontHandWriting;
+		color: @colorCouleur1;
+		margin: 0;
+	}
+
+	//stylage des liens du widget
+	.link {
+		.isLess & { background-color: fadeout(#4C9428, 10%); }
+		position: absolute;
+		font-weight: bold;
+		line-height: @gridBaseline;
+		color: @colorCouleur3ClairSup;
+		&:hover { color: @colorCouleur1; }
+
+		//suppression soulignage
+		&, &:hover { text-decoration: none; }
+		
+		//ajout des transitions pour navigateurs récents
+		.csstransitions & {
+			@transitionCompress(color; .2s; ease-out; 0s);
+		}
+	}
+
+	//groupe de mots
+	.tagcloud {
+		.isLess & { background-color: fadeout(#5E579C, 10%); }
+		position: absolute;
+	}
+
+	//placement des groupes de liens
+	#tagcloud-1 { @gridAbsoluteLeft(3); top: @gridBaseline*5; }
+	#tagcloud-2 { @gridAbsoluteRight(2); bottom: @gridBaseline*3; }
+
+	#tcl-1{
+		font-size: @fontSizeH4Px;
+		left: -70px;
+		top: @gridBaseline*-4;
+	}
+	#tcl-2{
+		font-size: @fontSizeH3Px;
+		left: -135px;
+		top: @gridBaseline*-0.5;
+	}
+	#tcl-3{
+		font-size: @fontSizeH3Px;
+		left: 80px;
+		top: @gridBaseline*4;
+	}
+	#tcl-4{
+		font-size: @fontSizeH3Px;
+		left: 125px;
+		top: @gridBaseline*2;
+	}
+	#tcl-5{
+		font-size: @fontSizeH4Px;
+		left: 205px;
+		top: @gridBaseline/-1;
+	}
+	#tcl-6{
+		font-size: @fontSizeH4Px;
+		left: -107px;
+		top: @gridBaseline*5;
+	}
+	#tcl-7{
+		font-size: @fontSizeH3Px;
+		left: 78px;
+		top: @gridBaseline*-2.5;
+	}
+	#tcl-8{
+		font-size: @fontSizeH3Px;
+		left: -140px;
+		top: @gridBaseline*4;
+	}
+	#tcl-9{
+		font-size: @fontSizeH4Px;
+		left: -70px;
+		top: @gridBaseline*-1.5;
+	}
+	#tcl-10{
+		font-size: @fontSizeH4Px;
+		left: 62px;
+		top: @gridBaseline*5;
+	}
+}

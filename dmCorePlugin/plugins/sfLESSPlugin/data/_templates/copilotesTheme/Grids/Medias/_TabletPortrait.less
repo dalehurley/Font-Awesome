@@ -21,8 +21,8 @@
 	#dm_sidebar_right {
 		.dm_widget {
 			float: left;
-			margin-left: @zonesOffsetPad;
-			@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad * -2));
+			margin-left: @gridGutter;
+			@gridWidth(@gridCol_SidebarRight);
 			
 			//on pase à la ligne un widget sur 2
 			&:first-child, &:nth-child(odd) {
@@ -37,7 +37,7 @@
 	.csstransitions {
 		//on réinitialise les temps de réaction, #dm_page_content
 		#dm_main_inner, #dm_sidebar_right {
-			@transitionDelay(0);
+			@transitionDelay(0s);
 		}
 	}*/
 }

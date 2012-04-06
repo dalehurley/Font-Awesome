@@ -47,7 +47,7 @@
 			.link {
 				//ajout des transitions pour navigateurs récents
 				.csstransitions & {
-					@transitionCompress(background-color, color; .2s; ease-in-out; 0);
+					@transitionCompress(background-color, color; .2s; ease-in-out; 0s);
 				}
 
 				display: block;
@@ -57,7 +57,7 @@
 				padding: (@gridBaseline/4 -1px) (@gridGutter/2 -1px);
 
 				background-color: @colorCouleur3ClairSup;
-				border: 1px solid @zonesBorderColor;
+				border: 1px solid @colorZoneBorder;
 				color: @colorCouleur3Fonce;
 
 				//LoVe's Hurts Fade Away
@@ -79,11 +79,11 @@
 			&.prev, &.next, &.first, &.last {
 				//déplacement du style vers le li
 				background-color: @colorCouleur3ClairSup;
-				border: 1px solid @zonesBorderColor;
+				border: 1px solid @colorZoneBorder;
 				&:hover { background-color: @colorCouleur3Clair; }
 				//ajout des transitions pour navigateurs récents
 				.csstransitions & {
-					@transitionCompress(background-color; .2s; ease-in-out; 0);
+					@transitionCompress(background-color; .2s; ease-in-out; 0s);
 				}
 
 				//décalage de marge (on enlève 1px pour la bordure)
@@ -141,7 +141,7 @@
 //container utitlisé pour contenir les fichiers liés à un article
 .fileWrapper {
 	background-color: @colorCouleur3Clair;
-	border: 1px solid @zonesBorderColor;
+	border: 1px solid @colorZoneBorder;
 	padding: (@gridBaseline/2 -1px) (@gridGutter/2 -1px);
 	margin: 0 @gridColWidth + @gridGutter;
 	//changement couleur de titre
@@ -181,14 +181,14 @@
 			&:hover { background-color: transparent; }
 			
 			padding-bottom: @gridBaseline - 1px;
-			border-bottom: 1px solid @zonesBorderColor;
+			border-bottom: 1px solid @colorZoneBorder;
 			&.last { border: 0; padding-bottom: 0; }
 		}
 	}
 	margin-bottom: @gridBaseline;
 	padding-bottom: (@gridBaseline - 1px);
 	//gestion bordure du wrapper
-	border-bottom: 1px solid @zonesBorderColor;
+	border-bottom: 1px solid @colorZoneBorder;
 	&.last { border: 0; padding-bottom: 0; }
 }
 
@@ -237,7 +237,7 @@
 	&:hover { background-color: @colorCouleur3ClairSup; }
 
 	padding: @gridBaseline/2 0 (@gridBaseline/2 -1px) 0;
-	border-bottom: 1px dashed @zonesBorderColor;
+	border-bottom: 1px dashed @colorZoneBorder;
 
 	//suppression bordure et padding pour dernier élément
 	&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }

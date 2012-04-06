@@ -14,9 +14,9 @@
 	#dm_footer > .dm_zones { background-color: #c8ccbc; }
 	#dm_sidebar_left > .dm_zones { background-color: #ccccb8; }
 	#dm_sidebar_right > .dm_zones { background-color: #b8ccb8; }
-	#dm_page_content > .dm_zones { background-color: #b8cccc; }
+	// #dm_page_content > .dm_zones { background-color: #b8cccc; }
 	#dm_custom_top > .dm_zones { background-color: #ccccb8; }
-	#dm_custom_bottom > .dm_zones { background-color: #ccb8cc; }
+	#dm_custom_bottom > .dm_zones { background-color: fadeout(#ccb8cc, 50%); }
 }
 
 //couleur de la zone située sous le header jusqu'en bas
@@ -32,9 +32,17 @@
 }
 
 #dm_main_inner {
-	background-image: url("@{urlImagesTemplate}/DemoRef/copilotes-coquelicot.png");
-	background-repeat: no-repeat;
-	background-position: 100% 100%;
+}
+
+#dm_page_content {
+	& > .dm_zones {
+		background-color: @colorWhite;
+		//ajout coins arrondis an haut
+		@borderRadiusCompress(@offL @offL 0 0);
+
+		//suppression du fond blanc sur la page d'accueil
+		.page_main_root & { background-color: transparent; }
+	}
 }
 
 //stylage du header
@@ -84,9 +92,27 @@
 
 //stylage de la zone de bas de page
 #dm_custom_bottom {
+	.isLess & { background-color: fadeout(#998A99, 50%); }
+	//permet d'étendre la zone en débordement de la page
+	margin-left: -100%;
+	margin-right: -100%;
+	//ajout du fond du site
+	background-image: url("@{urlImagesTemplate}/DemoRef/copilotes-coquelicot.png");
+	background-repeat: no-repeat;
+	background-position: 52.5% 100%;
+
+	.dm_zones {
+		position: relative;
+		@gridSiteWidth();
+		margin-left: auto;
+		margin-right: auto;
+		min-height: @gridBaseline*4;
+		//on rajoute un padding en bas pour gérer l'emplacement des icônes sociales
+		padding-bottom: @gridBaseline*4;
+	}
 }
 
 #dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
 	//meilleure gestion uniformisée des bordures
-	.dm_zones { margin: 0 (@zonesOffsetPad * -1) @gridBaseline (@zonesOffsetPad * -1); }
+	.dm_zones { margin-bottom: @gridBaseline; }
 }

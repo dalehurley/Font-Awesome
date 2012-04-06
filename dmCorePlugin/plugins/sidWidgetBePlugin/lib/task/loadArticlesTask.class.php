@@ -183,6 +183,20 @@ EOF;
                     }
                 }
             }
+            
+            //------------------------------------------------------------------------------------------------------------
+            //    Affectation d'un groupe à certaines pages
+            //------------------------------------------------------------------------------------------------------------            
+            $results = baseEditorialeTools::affectGroupDmPages();
+
+            if (!in_array("quiet", $arguments)) {
+                $this->logSection('### loadArticles', 'Affectation d\'un groupe à certaines pages.');
+                foreach ($results as $result) { 
+                    foreach ($result as $log => $desc) {
+                        $this->logSection($log, $desc,null,$log);
+                    }
+                }
+            }
             //------------------------------------------------------------------------------------------------------------
             //    Synchronisation des pages automatiques
             //------------------------------------------------------------------------------------------------------------            

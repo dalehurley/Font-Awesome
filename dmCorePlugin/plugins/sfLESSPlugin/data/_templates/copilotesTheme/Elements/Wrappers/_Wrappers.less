@@ -43,7 +43,7 @@
 			.link {
 				//ajout des transitions pour navigateurs récents
 				.csstransitions & {
-					@transitionCompress(background-color, color; .2s; ease-in-out; 0);
+					@transitionCompress(background-color, color; .2s; ease-in-out; 0s);
 				}
 
 				display: block;
@@ -53,7 +53,7 @@
 				padding: (@gridBaseline/4 -1px) (@gridGutter/2 -1px);
 
 				background-color: @colorCouleur3ClairSup;
-				border: 1px solid @zonesBorderColor;
+				border: 1px solid @colorZoneBorder;
 				color: @colorCouleur3Fonce;
 
 				//LoVe's Hurts Fade Away
@@ -75,11 +75,11 @@
 			&.prev, &.next, &.first, &.last {
 				//déplacement du style vers le li
 				background-color: @colorCouleur3ClairSup;
-				border: 1px solid @zonesBorderColor;
+				border: 1px solid @colorZoneBorder;
 				&:hover { background-color: @colorCouleur3Clair; }
 				//ajout des transitions pour navigateurs récents
 				.csstransitions & {
-					@transitionCompress(background-color; .2s; ease-in-out; 0);
+					@transitionCompress(background-color; .2s; ease-in-out; 0s);
 				}
 
 				//décalage de marge (on enlève 1px pour la bordure)
@@ -137,7 +137,7 @@
 //container utitlisé pour contenir les fichiers liés à un article
 .fileWrapper {
 	background-color: @colorCouleur3Clair;
-	border: 1px solid @zonesBorderColor;
+	border: 1px solid @colorZoneBorder;
 	padding: (@gridBaseline/2 -1px) (@gridGutter/2 -1px);
 	margin: 0 @gridColWidth + @gridGutter;
 	//changement couleur de titre
@@ -177,14 +177,23 @@
 			&:hover { background-color: transparent; }
 			
 			padding-bottom: @gridBaseline - 1px;
-			border-bottom: 1px solid @zonesBorderColor;
+			border-bottom: 1px solid @colorZoneBorder;
 			&.last { border: 0; padding-bottom: 0; }
 		}
 	}
-	margin: 0 (@zonesOffsetPad * -1 +1px) @gridBaseline (@zonesOffsetPad * -1 +1px);
-	padding: 0 (@zonesOffsetPad -1px) (@gridBaseline - 1px) (@zonesOffsetPad -1px);
+	margin: 0 @gridGutter/-1 @gridBaseline @gridGutter/-1;
+	padding: 0 @gridGutter (@gridBaseline - 1px) @gridGutter;
+
+	//on soustrait un pixel dans les sidebars à cause des bordures de widgets
+	#dm_sidebar_left &, #dm_sidebar_right & {
+		margin-right: (@gridGutter/-2 +1px);
+		margin-left: (@gridGutter/-2 +1px);
+		padding-right: (@gridGutter/2 -1px);
+		padding-left: (@gridGutter/2 -1px);
+	}
+	
 	//gestion bordure du wrapper
-	border-bottom: 1px solid @zonesBorderColor;
+	border-bottom: 1px solid @colorZoneBorder;
 	&.last { border: 0; padding-bottom: 0; }
 }
 
@@ -207,7 +216,12 @@
 
 //listings d'éléments diverses (article, personnes, organisations, etc) et résultats de recherche
 .elements, .search_results {
-	margin: 0 (@zonesOffsetPad * -1 +1px);
+	margin: 0;
+	//on ajoute un pixel dans les sidebars à cause des bordures de widgets
+	#dm_sidebar_left &, #dm_sidebar_right & {
+		margin-right: (@gridGutter/-2 +1px);
+		margin-left: (@gridGutter/-2 +1px);
+	}
 }
 	
 .elements .element,
@@ -218,8 +232,15 @@
 	}
 	&:hover { background-color: @colorCouleur3ClairSup; }
 	
-	padding: @gridBaseline/2 (@zonesOffsetPad -1px) (@gridBaseline/2 -1px) (@zonesOffsetPad -1px);
-	border-bottom: 1px dashed @zonesBorderColor;
+	padding: @gridBaseline/2 @gridGutter/2 (@gridBaseline/2 -1px) @gridGutter/2;
+
+	//on soustrait un pixel dans les sidebars à cause des bordures de widgets
+	#dm_sidebar_left &, #dm_sidebar_right & {
+		padding-right: (@gridGutter/2 -1px);
+		padding-left: (@gridGutter/2 -1px);
+	}
+
+	border-bottom: 1px dashed @colorZoneBorder;
 	
 	//suppression bordure et padding pour dernier élément
 	&.last { padding-bottom: @gridBaseline/2; border-bottom: 0; }
