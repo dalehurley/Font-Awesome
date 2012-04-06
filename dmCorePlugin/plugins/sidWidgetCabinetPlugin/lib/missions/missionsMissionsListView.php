@@ -28,6 +28,8 @@ class missionsMissionsListView extends dmWidgetPluginView {
         $vars = $this->getViewVars();
         $arrayMissions = array();
         $dmPage = sfContext::getInstance()->getPage();
+        $ancestors = $dmPage->getNode()->getAncestors();
+        $nameParent = $ancestors[count($ancestors) - 1]->getName();
         $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars['nbArticles'];
         switch ($dmPage->module.'/'.$dmPage->action){
             
@@ -45,6 +47,7 @@ class missionsMissionsListView extends dmWidgetPluginView {
                 foreach ($missions as $mission) { // on stock les NB actu article 
                     $arrayMissions[$mission->id] = $mission;
                 }
+                ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $nameParent : '';
             break;
             default:
 
@@ -63,6 +66,7 @@ class missionsMissionsListView extends dmWidgetPluginView {
             break;
                 
         }
+        ($vars['titreBloc'] == NULL || $vars['titreBloc'] == " ") ? $vars['titreBloc'] = $dmPage->getName() :'';
 
         return $this->getHelper()->renderPartial('missions', 'missionsList', array(
                     'missions' => $arrayMissions,
