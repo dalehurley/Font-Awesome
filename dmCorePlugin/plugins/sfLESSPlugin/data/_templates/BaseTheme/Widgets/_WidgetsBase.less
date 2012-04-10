@@ -41,12 +41,35 @@
 	.dm_widget.content_image {
 		.isLess & { background-color: #D6B8C4; }
 		float: left;
+
+		//Configuration par défaut des différents types de logo
+
+		//pour l'affichage web sur écran
+		&.logoFull { display: block; visibility: visible; }
+		&.logoLight { display: none; visibility: hidden; }
+		
+		//pour l'affichage en mode édition (on affiche tout les un sous les autres)
+		#dm_page.edit & {
+			float: none;
+			&.logoFull, &.logoLight { display: block; visibility: visible; }
+		}
 	}
 	
 	.dm_widget.content_ck_editor {
 		.isLess & { background-color: #B8D6C1; }
 		float: left;
 		margin-left: @offM;
+
+		//Configuration par défaut des différents types de contenu
+
+		//pour l'affichage web sur écran
+		&.printInfo { display: none; visibility: hidden; }
+
+		//pour l'affichage en mode édition (on affiche tout les un sous les autres)
+		#dm_page.edit & {
+			float: none;
+			&.printInfo { display: block; visibility: visible; }
+		}
 		
 		.dm_widget_inner {
 			color: @headerTextColor;
