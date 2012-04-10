@@ -1,6 +1,6 @@
 // _Print.less
-// v1.0
-// Last Updated : 2011-04-18 15:10
+// v1.1
+// Last Updated : 2012-04-10 17:35
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -11,16 +11,29 @@
 	.testDebug { font-family: "frameworkMedia_Print"; }
 	@templateMedia_Print();
 	
-	* { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } // Black prints faster: h5bp.com/s
-	a, a:visited { text-decoration: underline; }
-	a[href]:after { content: " (" attr(href) ")"; }
-	abbr[title]:after { content: " (" attr(title) ")"; }
-	.ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  // Don't show links for images, or javascript/internal links
-	pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
-	thead { display: table-header-group; } // h5bp.com/t
-	tr, img { page-break-inside: avoid; }
-	img { max-width: 100% !important; }
-	@page { margin: 0.5cm; }
-	p, h2, h3 { orphans: 3; widows: 3; }
-	h2, h3 { page-break-after: avoid; }
+	//Modifications par défaut de HTML5 boilerplate, à tester au cas par cas
+	// * { background: transparent !important; color: @colorBlack !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } // Black prints faster: h5bp.com/s
+	// a, a:visited { text-decoration: underline; }
+	// a[href]:after { content: " (" attr(href) ")"; }
+	// abbr[title]:after { content: " (" attr(title) ")"; }
+	// .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  // Don't show links for images, or javascript/internal links
+	// pre, blockquote {
+	// 	border: 1px solid @colorZoneBorder;
+	// 	page-break-inside: avoid;
+	// }
+	// thead { display: table-header-group; } // h5bp.com/t
+	// tr, img { page-break-inside: avoid; }
+	// img { max-width: 100% !important; }
+	// @page { margin: 0.5cm; }
+	// p, h2, h3 { orphans: 3; widows: 3; }
+	// h2, h3 { page-break-after: avoid; }
+
+
+	//POUR TOUS LES TEMPLATES
+	//Masquage des différentes zones du site
+	#dm_sidebar_left,
+	#dm_sidebar_right {
+		display: none !important;
+		visibility: hidden !important;
+	}
 }
