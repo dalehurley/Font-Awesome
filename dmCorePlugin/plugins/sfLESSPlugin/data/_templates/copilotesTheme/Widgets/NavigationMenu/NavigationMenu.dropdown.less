@@ -34,31 +34,31 @@ ul.menu-dropdown {
 	
 	#dm_sidebar_left & {
 		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad * -2 + 1px));
+		@gridWidth(@gridCol_SidebarLeft; 1px);
 		//on décale de 2px car les menus de gauche ont une bordure de superposition dès le premier niveau
 		ul {
 			margin-left: -2px;
-			@gridAbsoluteLeft(@gridCol_SidebarLeft; (@zonesOffsetPad * -2));
-			@gridWidth(@menuDropdownCols; (@gridGutter*-1 + @zonesOffsetPad));
+			@gridAbsoluteLeft(@gridCol_SidebarLeft);
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
 		}
 		ul ul {
 			margin-left: -1px;
-			@gridAbsoluteLeft(@menuDropdownCols; (@gridGutter*-1 + @zonesOffsetPad));
+			@gridAbsoluteLeft(@menuDropdownCols; (@gridGutter*-1));
 			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
 		}
 	}
 	#dm_sidebar_right & {
 		//largeur en fonction de la zone
-		@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad * -2 + 1px));
+		@gridWidth(@gridCol_SidebarRight; 1px);
 		ul {
 			margin-right: -1px;
 			margin-left: 0;
-			@gridAbsoluteRight(@gridCol_SidebarRight; (@zonesOffsetPad * -2));
-			@gridWidth(@menuDropdownCols; (@gridGutter*-1 + @zonesOffsetPad));
+			@gridAbsoluteRight(@gridCol_SidebarRight);
+			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
 		}
 		ul ul {
 			margin-right: 0;
-			@gridAbsoluteRight(@menuDropdownCols; (@gridGutter*-1 + @zonesOffsetPad));
+			@gridAbsoluteRight(@menuDropdownCols; (@gridGutter*-1));
 			@gridWidth(@menuDropdownCols; (@gridGutter*-1));
 		}
 	}
