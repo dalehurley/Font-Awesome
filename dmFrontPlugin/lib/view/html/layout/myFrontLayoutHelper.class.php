@@ -91,6 +91,18 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		return $html;
 	}
 
+	//Changement chemin vers la favicon
+	protected function getFavicon()
+	{
+		foreach(array('ico', 'png', 'gif') as $extension)
+		{
+			if (file_exists(sfConfig::get('sf_web_dir').'/theme/images/favicon.'.$extension))
+			{
+				return 'theme/images/favicon.'.$extension;
+			}
+		}
+	}
+
 	//Rajout fonction personnalisée pour avoir l'icone Apple
 	protected function getTouchIcon($size = '')
 	{
@@ -98,14 +110,13 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		{
 			//composition du nom du fichier
 			if($size != ''){
-				$appleIcon = sfConfig::get('sf_web_dir').'/apple-touch-icon-'.$size.'-precomposed.'.$extension;
+				$touchIcon = 'theme/images/apple-touch-icon-'.$size.'-precomposed.'.$extension;
 			}else{
-				$appleIcon = sfConfig::get('sf_web_dir').'/apple-touch-icon-precomposed.'.$extension;
+				$touchIcon = 'theme/images/apple-touch-icon-precomposed.'.$extension;
 			}
 			
-			if (file_exists($appleIcon)) {
-				return $appleIcon;
-			}
+			//on ne retourne l'icône que si elle existe
+			if (file_exists(sfConfig::get('sf_web_dir') . '/' . $touchIcon)) return $touchIcon;
 		}
 	}
 	
@@ -114,29 +125,37 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		$touchIcon = $this->getTouchIcon();
 		$touchIcon72 = $this->getTouchIcon('72x72');
 		$touchIcon114 = $this->getTouchIcon('114x114');
+		$touchIcon144 = $this->getTouchIcon('144x144');
 		
 		//création html
 		$html = '';
 		
 		//rajout des icones précomposées à différentes résolutions
 		if ($touchIcon) {
-			$html.= sprintf('<link rel="apple-touch-icon" href="%s/%s" />',
+			$html.= sprintf('<link rel="apple-touch-icon-precomposed" href="%s/%s" />',
 						dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root'),
 						$touchIcon
 						);
 			$html.= PHP_EOL;
 		}
 		if ($touchIcon72) {
-			$html.= sprintf('<link rel="apple-touch-icon" sizes="72x72" href="%s/%s" />',
+			$html.= sprintf('<link rel="apple-touch-icon-precomposed" sizes="72x72" href="%s/%s" />',
 						dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root'),
 						$touchIcon72
 						);
 			$html.= PHP_EOL;
 		}
 		if ($touchIcon114) {
-			$html.= sprintf('<link rel="apple-touch-icon" sizes="114x114" href="%s/%s" />',
+			$html.= sprintf('<link rel="apple-touch-icon-precomposed" sizes="114x114" href="%s/%s" />',
 						dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root'),
 						$touchIcon114
+						);
+			$html.= PHP_EOL;
+		}
+		if ($touchIcon144) {
+			$html.= sprintf('<link rel="apple-touch-icon-precomposed" sizes="144x144" href="%s/%s" />',
+						dmArray::get($this->serviceContainer->getParameter('request.context'), 'relative_url_root'),
+						$touchIcon144
 						);
 			$html.= PHP_EOL;
 		}
