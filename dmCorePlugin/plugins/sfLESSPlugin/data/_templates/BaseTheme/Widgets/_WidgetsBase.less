@@ -1,6 +1,6 @@
 // _WidgetsBase.less
-// v1.0
-// Last Updated : 2011-09-14 15:10
+// v1.2
+// Last Updated : 2012-04-11 10:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -41,18 +41,9 @@
 	.dm_widget.content_image {
 		.isLess & { background-color: #D6B8C4; }
 		float: left;
-
-		//Configuration par défaut des différents types de logo
-
-		//pour l'affichage web sur écran
-		&.logoFull { display: block; visibility: visible; }
-		&.logoLight { display: none; visibility: hidden; }
 		
-		//pour l'affichage en mode édition (on affiche tout les un sous les autres)
-		#dm_page.edit & {
-			float: none;
-			&.logoFull, &.logoLight { display: block; visibility: visible; }
-		}
+		//suppression du float en mode édition
+		#dm_page.edit & { float: none; }
 	}
 	
 	.dm_widget.content_ck_editor {
@@ -60,16 +51,8 @@
 		float: left;
 		margin-left: @offM;
 
-		//Configuration par défaut des différents types de contenu
-
-		//pour l'affichage web sur écran
-		&.printInfo { display: none; visibility: hidden; }
-
-		//pour l'affichage en mode édition (on affiche tout les un sous les autres)
-		#dm_page.edit & {
-			float: none;
-			&.printInfo { display: block; visibility: visible; }
-		}
+		//suppression du float et de la marge gauche en mode édition
+		#dm_page.edit & { float: none; margin-left: 0; }
 		
 		.dm_widget_inner {
 			color: @headerTextColor;
