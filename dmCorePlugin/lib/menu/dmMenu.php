@@ -365,12 +365,28 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                 // ATTENTION : les enfants d'une page inactive ne seront pas visible dans le site
                 ->where('pTranslation.is_active = ? ', true)
                 // ajout stef pour rendre visible ou pas les pages inactive
-                ->orderBy('p.rgt') 
                 // tri par ordre alphabétique sur le name de la page : 
                 //->orderBy('pTranslation.name')
         );
+
         if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
-             
+            
+            // tri des pageChildren par le record_id et le modele correspondant
+            $k=0;
+            foreach ($pageChildren as $i => $childPage) {
+                if ($childPage->getIsAutomatic() && $childPage->get('level')>0){
+                    //$childPos = $childPage->getDmModule()->getTable()->createQuery('m')->where('m.id = ? ', $childPage->get('record_id'))->execute();
+                    $childPos = $childPage->getRecord()->position;
+                    //$childs[$childPos[0]->position] = $childPage;
+                    $childs[$childPos] = $childPage;
+                } else {
+                   $childs[$k] = $childPage;
+                }
+                $k++;
+            }
+            ksort($childs);
+            $pageChildren = $childs;
+
             foreach ($pageChildren as $i => $childPage) {
                 $this->addChild($childPage->get('name') , $childPage)->addRecursiveChildren($depth - 1);
             }
