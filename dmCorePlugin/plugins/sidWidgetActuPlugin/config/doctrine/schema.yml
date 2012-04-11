@@ -41,7 +41,7 @@ SidActuArticle:
 #      notnull: true
     resume:
       type: clob
-      extra: ckeditor
+#      extra: ckeditor
       notnull: true
     text:
       type: clob

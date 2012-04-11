@@ -1,6 +1,7 @@
 ﻿/*
 Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
+stef
 */
 
 (function(){
@@ -5999,7 +6000,8 @@ j.add('format',{
 }
 });
 // rajout stef sup à la fin
-i.format_tags='p;h1;h2;h3;h4;h5;h6;pre;address;div;sup';
+//i.format_tags='p;h1;h2;h3;h4;h5;h6;pre;address;div;sup';
+i.format_tags='h5;p;h6;em;sup';
 // rajout stef
 i.format_p={
     element:'p'
@@ -6034,11 +6036,14 @@ i.format_h4={
 };
 
 i.format_h5={
-    element:'h5'
+    element:'h5',attributes : {'class' : 'title'}
 };
 
 i.format_h6={
-    element:'h6'
+    element:'h6',attributes : {'class' : 'title'}
+};
+i.format_em={
+    element:'em',attributes : {'class' : 'annotation'}
 };
 // rajout stef
 i.format_sup={
