@@ -40,6 +40,7 @@ echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http:
         echo _tag('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'), $pageCabinet->getResume());
     echo _close('header');
     echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $pageCabinet->getText());
+    if($lien != ''){
     echo _open('footer', array('class' => 'contentFooter'));
         echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
             echo _open('ul', array('class' => 'elements'));
@@ -49,4 +50,5 @@ echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http:
             echo _close('ul');
         echo _close('div');
     echo _close('footer');
+}
 echo _close('article');

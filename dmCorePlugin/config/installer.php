@@ -507,7 +507,8 @@ $dbh->query($queryMajSiteName);
 $dispoTypes = array (
   1 => 'ec',
   2 => 'cgp',
-  3 => 'aga'  
+  3 => 'aga',
+  4 => 'copilotes'  
 );
 $this->logBlock('Types de client disponibles:', 'INFO_LARGE');
 foreach ($dispoTypes as $k => $dispoType) {

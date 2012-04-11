@@ -35,6 +35,9 @@ all:
       "Les Missions": Les Services
       "Description des missions": Description des services
       "Mission|Les Missions": Service|Les Services
+      "Présentation du Cabinet": Présentation
+      "L'Actualité du Cabinet|Les Actualités du Cabinet": "Notre Actualité|Nos Actualités"
+      "Actualité du Cabinet": "Notre Actualité"
 
     aga-fr:
       "Les Missions": Les Prestations
@@ -43,6 +46,21 @@ all:
       "Description du Cabinet": "Description de l'association"
       "Présentation du Cabinet": "Présentation de l'Association"
       "Le Cabinet": "L'Association"
+      "L'Actualité du Cabinet|Les Actualités du Cabinet": "Notre Actualité|Nos Actualités"
+      "Actualité du Cabinet": "Actualités de l'association"
+
+    copilotes-fr:
+      "Les Missions": Nos valeurs
+      "Description des missions": Description de nos valeurs
+      "Mission|Les Missions": Valeurs|Nos valeurs
+      "Description du Cabinet": "Description de CO-PILOTES"
+      "Présentation du Cabinet": "CO-PILOTES en images"
+      "Le Cabinet": "CO-PILOTES en images"
+      "Les Actualités du Cabinet": Nos Engagements
+      "Les Sélections de placements": Nos offres
+      "Actualité du Cabinet": "Description de nos engagements"
+
+
       
   # tableau des description des permissions 
   permissions:
@@ -218,3 +236,5 @@ all:
     ec-base-doc:
     aga-site:
     aga-base-doc:
+    copilotes-site:
+      - selection_placement

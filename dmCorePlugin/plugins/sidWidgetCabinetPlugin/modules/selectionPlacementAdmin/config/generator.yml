@@ -13,14 +13,14 @@ generator:
       fields:
         is_active:
           label: Active
+        title_file:
+          label: 'Nom du fichier'
       list:
         display:
           - '=title'
-          - image
-          - file
           - is_active
-          - title_file
           - text
+          - image
           - created_at
           - updated_at
         sort:
@@ -33,19 +33,16 @@ generator:
         display:
           - title
           - is_active
-          - image
-          - file
-          - title_file
           - text
+          - image
           - created_at
           - updated_at
       form:
         display:
           NONE: [title, is_active]
-          Image: [image_form, image_view]
-          File: [file_form, file_view]
           Text: [text]
-          Others: [title_file]
+          Image: [image_form, image_view]
+          File: [file_form, file_view, title_file]
         class: SidCabinetSelectionPlacementAdminForm
         fields: {  }
       edit: ~

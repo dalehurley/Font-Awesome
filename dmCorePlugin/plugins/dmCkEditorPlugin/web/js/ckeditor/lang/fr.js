@@ -440,19 +440,23 @@ format:{
     voiceLabel:'Format',
     panelTitle:'Format de paragraphe',
     panelVoiceLabel:'Choisissez un format de paragraphe',
-    tag_p:'Normal',
-    tag_pre:'Formaté',
-    tag_address:'Adresse',
-    tag_h1:'Titre 1',
-    tag_h2:'Titre 2',
-    tag_h3:'Titre 3',
-    tag_h4:'Titre 4',
-    tag_h5:'Titre 5',
-    tag_h6:'Titre 6',
-    tag_div:'Normal (DIV)',
-    // rajout stef
-    tag_sup:'Exposant'
-    // rajout stef
+//    tag_p:'Normal',
+//    tag_pre:'Formaté',
+//    tag_address:'Adresse',
+//    tag_h1:'Titre 1',
+//    tag_h2:'Titre 2',
+//    tag_h3:'Titre 3',
+//    tag_h4:'Titre 4',
+//    tag_h5:'Titre 5',
+//    tag_h6:'Titre 6',
+// modif stef
+    tag_h5:'Titre paragraphe',
+    tag_h6:'Titre Annotation',
+    tag_em:'Texte Annotation',
+    tag_p:'Texte paragraphe',
+    tag_sup:'Exposant',
+//modif stef
+    tag_div:'Normal (DIV)'
 },
 div:{
     title:'Create Div Container',

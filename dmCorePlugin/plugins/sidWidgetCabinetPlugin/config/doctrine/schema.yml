@@ -15,7 +15,7 @@ SidCabinetPageCabinet:
 #      notnull: true
     resume:
       type: clob
-      extra: ckeditor
+#      extra: ckeditor
       notnull: false
     text:
       type: clob
@@ -80,7 +80,7 @@ SidCabinetEquipe:
       email: true
     text:
       type: clob
-      extra: ckeditor
+#      extra: ckeditor
       notnull: false
     image:
       type: integer
@@ -140,7 +140,7 @@ SidCabinetMission:
       notnull: true
     resume:
       type: clob
-      extra: ckeditor
+#      extra: ckeditor
       notnull: true
     text:
       type: clob

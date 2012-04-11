@@ -33,3 +33,16 @@ img, input, textarea
 {
 	cursor: default;
 }
+
+h5,h5.title{
+    font-size: 14px
+}
+
+h6,h6.title{
+    font-size: 13px;
+    font-style: italic
+}
+em,em.annotation{
+    font-style: italic
+}
+;
