@@ -1,6 +1,6 @@
 // _Print.less
-// v1.1
-// Last Updated : 2012-04-10 17:35
+// v1.2
+// Last Updated : 2012-04-11 10:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -9,7 +9,6 @@
 
 @media print {
 	.testDebug { font-family: "frameworkMedia_Print"; }
-	@templateMedia_Print();
 	
 	//Modifications par défaut de HTML5 boilerplate, à tester au cas par cas
 	// * { background: transparent !important; color: @colorBlack !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } // Black prints faster: h5bp.com/s
@@ -36,4 +35,21 @@
 		display: none !important;
 		visibility: hidden !important;
 	}
+
+	//configuration par défaut du header
+	#dm_header {
+		//Configuration par défaut des différents types de logo
+		.dm_widget.content_image {
+			&.logoFull { display: none; visibility: hidden; }
+			&.logoLight { display: block; visibility: visible; }
+		}
+
+		//Configuration par défaut des différents types de contenu
+		.dm_widget.content_ck_editor {
+			&.printInfo { display: block; visibility: visible; }
+		}
+	}
+
+	//appel de la fonction PRINT du template
+	@templateMedia_Print();
 }

@@ -1,6 +1,6 @@
 // _WidgetsBase.less
-// v1.1
-// Last Updated : 2012-04-10 16:40
+// v1.2
+// Last Updated : 2012-04-11 10:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -9,4 +9,33 @@
 //permet de forcer le clearfix sur l'intérieur des widgets
 .dm_widget_inner {
 	@getClearfix();
+}
+
+//placement des widgets dans le header
+#dm_header {
+	
+	//Configuration par défaut des différents types de logo
+	.dm_widget.content_image {
+		
+		//pour l'affichage web sur écran
+		&.logoFull { display: block; visibility: visible; }
+		&.logoLight { display: none; visibility: hidden; }
+
+		//pour l'affichage en mode édition (on affiche tout les un sous les autres)
+		#dm_page.edit & {
+			&.logoFull, &.logoLight { display: block; visibility: visible; }
+		}
+	}
+
+	//Configuration par défaut des différents types de contenu
+	.dm_widget.content_ck_editor {
+
+		//pour l'affichage web sur écran
+		&.printInfo { display: none; visibility: hidden; }
+
+		//pour l'affichage en mode édition (on affiche tout les un sous les autres)
+		#dm_page.edit & {
+			&.printInfo { display: block; visibility: visible; }
+		}
+	}
 }
