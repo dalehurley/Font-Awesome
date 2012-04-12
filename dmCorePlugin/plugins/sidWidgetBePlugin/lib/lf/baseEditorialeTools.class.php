@@ -449,6 +449,26 @@ class baseEditorialeTools {
                             //       
 
                         }
+
+                        // mise à jour du champ position les sections de la rubrique ec_echeancier
+                        $titleSection = 'ec_echeancier';
+                        if ($rubrique->getTranslation()->$lang->title == $titleSection){
+                            foreach ($sidSections as $sidSection) {   
+                                $sectionsToSort[$sidSection->title]= $sidSection; // DB's section's title (i.e:201203) in key, id in value
+                            }
+                        
+                            ksort($sectionsToSort); // sort by title
+                            $p = 1;
+                            foreach ($sectionsToSort as $section) {
+                                if ($section->position != $p){                               
+                                    $return[]['Position section : '.$titleSection.'/'.$section->title] = 'changement de '.$section->position .' en '. $p; 
+                                    $section->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
+                                    $section->save();
+                                }
+                                $p++;
+                            }
+                        }
+
                     }
                     $i++;
                 }
