@@ -371,13 +371,14 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
         if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
             
-            // tri des pageChildren par le record_id et le modele correspondant
+            // sort pageChildren with le record_id corresponding model
             $k=0;
             foreach ($pageChildren as $i => $childPage) {
-                if ($childPage->getIsAutomatic() && $childPage->get('level')>0){
-                    //$childPos = $childPage->getDmModule()->getTable()->createQuery('m')->where('m.id = ? ', $childPage->get('record_id'))->execute();
+                if ($childPage->getIsAutomatic()){
+                    // too bad : not use cache object
+                    // $childPos = $childPage->getDmModule()->getTable()->createQuery('m')->where('m.id = ? ', $childPage->get('record_id'))->execute();
+                    // $childs[$childPos[0]->position] = $childPage;
                     $childPos = $childPage->getRecord()->position;
-                    //$childs[$childPos[0]->position] = $childPage;
                     $childs[$childPos] = $childPage;
                 } else {
                    $childs[$k] = $childPage;
@@ -387,6 +388,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             ksort($childs);
             $pageChildren = $childs;
 
+            // launch render for children pages
             foreach ($pageChildren as $i => $childPage) {
                 $this->addChild($childPage->get('name') , $childPage)->addRecursiveChildren($depth - 1);
             }
@@ -409,6 +411,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         }
     }
     public function render() {
+
         $html = '';
         if ($this->checkUserAccess() && $this->hasChildren()) {
             $html = $this->renderUlOpenTag();
