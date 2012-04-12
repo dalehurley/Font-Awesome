@@ -27,7 +27,7 @@
 
 //stylage du header
 #dm_header {
-	@verticalGradient(@colorCouleur1; @colorCouleur1Fonce);
+	@verticalGradient(@headerBgColorClair; @headerBgColorFonce);
 	@boxShadowPie(0 @gridBaseline/4 @gridBaseline/4 @colorCouleur2Fonce);
 	//bordure ici pour prendre toute la largeur du site
 	border-bottom: 1px solid @colorCouleur1Clair;
@@ -37,6 +37,7 @@
 		@gridSiteWidth();
 		margin-left: auto;
 		margin-right: auto;
+		padding-top: @gridBaseline;
 		padding-bottom: (@gridBaseline -1px);
 	}
 }

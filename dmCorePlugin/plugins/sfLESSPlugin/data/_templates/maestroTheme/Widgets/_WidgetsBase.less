@@ -44,12 +44,18 @@
 	.dm_widget.content_image {
 		.isLess & { background-color: fadeout(#D6B8C4, 50%); }
 		float: left;
+
+		//suppression du float en mode édition
+		#dm_page.edit & { float: none; }
 	}
 	
 	.dm_widget.content_ck_editor {
 		.isLess & { background-color: fadeout(#B8D6C1, 50%); }
 		float: left;
 		margin-left: @offM;
+
+		//suppression du float et de la marge gauche en mode édition
+		#dm_page.edit & { float: none; margin-left: 0; }
 		
 		.dm_widget_inner {
 			color: @headerTextColor;
