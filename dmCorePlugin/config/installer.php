@@ -111,7 +111,7 @@ $projectKey = dmProject::getKey();  // le nom du dossier du site
 $ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com)', ''), new sfValidatorRegex(
                         array('pattern' => '/^([a-z0-9-]+\.)+[a-z]{2,6}$/',
                         'required' => true),
-                        array('invalid' => 'Le nom de domaine est pas invalide')
+                        array('invalid' => 'Le nom de domaine est invalide')
         ));
 $settings['ndd'] = $ndd;
 
