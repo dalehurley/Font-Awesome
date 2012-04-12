@@ -1,11 +1,16 @@
 // _Css3Gradient.less
-// v1.2.5
-// Last Updated : 2012-04-12 12:00
+// v1.3
+// Last Updated : 2012-04-12 15:50
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //Gestion des dégradés
+
 //Bug corrigé : https://github.com/leafo/lessphp/issues/#issue/56
+
+//CSS3Pie ne gère par les couleurs transparentes : http://css3pie.com/documentation/supported-css3-features
+//Donc possibilité de définitions séparées de ces dernières.
+
 
 @verticalGradient(@top: #FFF; @bottom: #000) {
 	//calcul variables
@@ -21,9 +26,9 @@
 	background-image: -ms-linear-gradient(top, @top, @bottom);													//IE10
 	background-image: linear-gradient(top, @top, @bottom);
 }
-@verticalGradientPie(@top: #FFF; @bottom: #000) {
+@verticalGradientPie(@top: #FFF; @bottom: #000; @pieTop: @top; @pieBottom: @bottom) {
 	@verticalGradient(@top; @bottom);
-	-pie-background: linear-gradient(top, @top, @bottom);
+	-pie-background: linear-gradient(top, @pieTop, @pieBottom);
 	//ajout behavior cssPie
 	@cssPieBehavior();
 }
@@ -42,9 +47,9 @@
 	background-image: -ms-linear-gradient(left, @top, @bottom);													//IE10
 	background-image: linear-gradient(left, @left, @right);
 }
-@horizontalGradientPie(@left: #FFF; @right: #000) {
+@horizontalGradientPie(@left: #FFF; @right: #000; @pieLeft: @left; @pieRight: @right) {
 	@horizontalGradient(@left; @right);
-	-pie-background: linear-gradient(left, @left, @right);
+	-pie-background: linear-gradient(left, @pieLeft, @pieRight);
 	//ajout behavior cssPie
 	@cssPieBehavior();
 }
@@ -110,14 +115,14 @@
 									@color4 @stop4,
 									);
 }
-@verticalGradientMultiPie-4(@stop1: 0%; @stop2: 33.33%; @stop3: 66.67%; @stop4: 100%; @color1: #f00; @color2: #f0f; @color3: #0f0; @color4: #00f) {
+@verticalGradientMultiPie-4(@stop1: 0%; @stop2: 33.33%; @stop3: 66.67%; @stop4: 100%; @color1: #f00; @color2: #f0f; @color3: #0f0; @color4: #00f; @pieColor1: @color1; @pieColor2: @color2; @pieColor3: @color3; @pieColor4: @color4) {
 	@verticalGradientMulti-4(@stop1; @stop2; @stop3; @stop4; @color1; @color2; @color3; @color4);
 	-pie-background: linear-gradient(
 									top,
-									@color1 @stop1,
-									@color2 @stop2,
-									@color3 @stop3,
-									@color4 @stop4,
+									@pieColor1 @stop1,
+									@pieColor2 @stop2,
+									@pieColor3 @stop3,
+									@pieColor4 @stop4,
 									);
 	//ajout behavior cssPie
 	@cssPieBehavior();
@@ -181,14 +186,14 @@
 									@color4 @stop4,
 									);
 }
-@horizontalGradientMultiPie-4(@stop1: 0%; @stop2: 33.33%; @stop3: 66.67%; @stop4: 100%; @color1: #f00; @color2: #f0f; @color3: #0f0; @color4: #00f) {
+@horizontalGradientMultiPie-4(@stop1: 0%; @stop2: 33.33%; @stop3: 66.67%; @stop4: 100%; @color1: #f00; @color2: #f0f; @color3: #0f0; @color4: #00f; @pieColor1: @color1; @pieColor2: @color2; @pieColor3: @color3; @pieColor4: @color4) {
 	@horizontalGradientMulti-4(@stop1; @stop2; @stop3; @stop4; @color1; @color2; @color3; @color4);
 	-pie-background: linear-gradient(
 									left,
-									@color1 @stop1,
-									@color2 @stop2,
-									@color3 @stop3,
-									@color4 @stop4,
+									@pieColor1 @stop1,
+									@pieColor2 @stop2,
+									@pieColor3 @stop3,
+									@pieColor4 @stop4,
 									);
 	//ajout behavior cssPie
 	@cssPieBehavior();

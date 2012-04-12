@@ -1,6 +1,6 @@
 // _Css3Shadow.less
-// v1.2
-// Last Updated : 2012-03-19 14:20
+// v1.3
+// Last Updated : 2012-04-12 15:50
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -8,7 +8,12 @@
 //Fonctionne sur : Chrome, FireFox 3.5+, Internet Explorer 9.0, Opera 10.5, Safari 3.0+
 //À tester : Konqueror
 //Safari (webkit) ne gère pas le inset et le spread, donc désactivation pour ces derniers
+
 //Bug corrigé : https://github.com/leafo/lessphp/issues/#issue/56
+
+//CSS3Pie ne gère par les couleurs transparentes : http://css3pie.com/documentation/supported-css3-features
+//Donc possibilité de définitions séparées de ces dernières.
+
 
 //suppression de toute ombre
 @boxShadowNone(){
@@ -26,28 +31,29 @@
 	-o-box-shadow: @shadow;
 	box-shadow: @shadow;
 }
-@boxShadowPie(@shadow){
+@boxShadowPie(@shadow; @pieShadow: @shadow){
 	@boxShadow(@shadow);
+	-pie-box-shadow: @pieShadow;
 	//ajout behavior cssPie
 	@cssPieBehavior();
 }
-@dropShadow(@x:0; @y:1px; @blur:2px; @spread:0; @color:#000) {
+@dropShadow(@x: 0; @y: 1px; @blur: 2px; @spread: 0; @color: #000) {
 	//désactivation spread en attendant support webkit :
 	//@x @y @blur @spread @color
 	@boxShadow(@x @y @blur @color);
 }
-@dropShadowPie(@x:0; @y:1px; @blur:2px; @spread:0; @color:#000) {
+@dropShadowPie(@x: 0; @y: 1px; @blur: 2px; @spread: 0; @color: #000; @pieColor: @color) {
 	//désactivation spread en attendant support webkit :
 	//@x @y @blur @spread @color
-	@boxShadowPie(@x @y @blur @color);
+	@boxShadowPie(@x @y @blur @color; @x @y @blur @pieColor);
 }
-@insetShadow(@x:0; @y:1px; @blur:2px; @spread:0; @color:#000) {
+@insetShadow(@x: 0; @y: 1px; @blur: 2px; @spread: 0; @color: #000) {
 	//désactivation spread en attendant support webkit :
 	//inset @x @y @blur @spread @color
 	@boxShadow(inset @x @y @blur @color);
 }
-@insetShadowPie(@x:0; @y:1px; @blur:2px; @spread:0; @color:#000) {
+@insetShadowPie(@x: 0; @y: 1px; @blur: 2px; @spread: 0; @color: #000; @pieColor: @color) {
 	//désactivation spread en attendant support webkit :
 	//inset @x @y @blur @spread @color)
-	@boxShadowPie(inset @x @y @blur @color);
+	@boxShadowPie(inset @x @y @blur @color; inset @x @y @blur @pieColor);
 }

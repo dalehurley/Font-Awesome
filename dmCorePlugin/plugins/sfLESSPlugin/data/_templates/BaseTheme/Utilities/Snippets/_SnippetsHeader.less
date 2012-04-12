@@ -15,3 +15,16 @@
 		background-position: @bgPosition;
 	}
 }
+
+@snippetHeaderPaddingVertical(@paddingTop: @gridBaseline; @paddingBottom: @paddingTop) {
+	#dm_header {
+		.dm_zones {
+			padding-top: @paddingTop;
+			//on enlève 1px pour compenser automatiquement la bordure du bas
+			padding-bottom: (@paddingBottom -1px);
+		}
+
+		//on change également le placement des socialNetwork
+		#dm_page & { .dm_widget.social_network_logos { bottom: @paddingBottom; } }
+	}
+}
