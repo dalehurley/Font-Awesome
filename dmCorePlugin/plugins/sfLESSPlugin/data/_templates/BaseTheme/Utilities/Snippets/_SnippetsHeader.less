@@ -1,0 +1,17 @@
+// _SnippetsHeader.less
+// v1.0
+// Last Updated : 2012-04-12 12:15
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Ce fichier rassemble un ensemble de fonctions de personnalisation du header pour Ténor
+
+//Remplacement du dégradé du header par une image avec une couleur de fond
+@snippetHeaderBackgroundImage(@bgColor: #0f0; @bgImage; @bgRepeat; @bgPosition) {
+	#dm_header {
+		background-color: @bgColor;
+		background-image: url(@{bgImage});
+		background-repeat: @bgRepeat;
+		background-position: @bgPosition;
+	}
+}
