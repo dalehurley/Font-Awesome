@@ -6,6 +6,7 @@
 // $withImage
 // $nbArticles
 // $nbSections
+// $sectionName
 
 foreach ($sectionArticles as $section => $sectionArticle) {
 
@@ -55,6 +56,15 @@ foreach ($sectionArticles as $section => $sectionArticle) {
                     '<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>'.
                 '</span>'
         );
+        if(count($sectionName) >1){
+        echo _open('span', array('class'=>'navigationWrapper navigationBottom'));
+            echo _open('ul', array('class'=>'elements'));
+                echo _open('li', array('class'=>'element first last'));
+                    echo _link($article->getSection())->text(__('The other ').$sectionName[$article->getSection()->id]);
+                echo _close('li');
+            echo _close('ul');
+        echo _close('span');
+        }
         echo '</li>';
 
     }
