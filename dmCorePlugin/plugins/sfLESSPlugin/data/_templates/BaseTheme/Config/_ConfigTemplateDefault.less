@@ -4,7 +4,7 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
-// Ce fichier dï¿½finit tous les paramï¿½tres par dï¿½faut du template. Modifier ce fichier revient ï¿½ modifier les paramï¿½tres par dï¿½faut des sites utilisant ce template.
+// Ce fichier définit tous les paramètres par défaut du template. Modifier ce fichier revient à modifier les paramètres par défaut des sites utilisant ce template.
 
 //Versionning du template
 @templateVersion: "0.1";
@@ -13,31 +13,31 @@
 @templateAuthor: "Arnaud GAUDIN";
 
 
-//Dï¿½CLARATION DU TEMPLATE DANS LE SYSTï¿½ME
-//dï¿½finir ici le chemin vers le fichier de base du theme choisi
+//DÉCLARATION DU TEMPLATE DANS LE SYSTÈME
+//définir ici le chemin vers le fichier de base du theme choisi
 @importTemplateBase(){ @import "_templates/BaseTheme/_BaseTheme.less"; }
-//dï¿½finir ici le chemin vers le fichier de base du theme choisi
+//définir ici le chemin vers le fichier de base du theme choisi
 //@importTemplateMedia(){ @import "_templates/BaseTheme/Medias/_Medias.less"; }
 @import "_templates/BaseTheme/Medias/_Medias.less";
 
-//Sï¿½LECTION DU SYSTï¿½ME DE GRILLE
+//SÉLECTION DU SYSTÈME DE GRILLE
 @templateGrid: "Grid_Default";
-//import du fichier de personnalisation media systï¿½me de grille du template
+//import du fichier de personnalisation media système de grille du template
 @import "_templates/BaseTheme/Grids/Types/Grid_Default/_GridMedia.less";
-//import du fichier de config du systï¿½me de grille sï¿½lectionnï¿½
+//import du fichier de config du système de grille sélectionné
 @import "_framework/SPLessCss/Grids/Types/Grid_Default/_GridConfig.less";
 //configuration de la grille dans le template
 @import "_templates/BaseTheme/Grids/Types/Grid_Default/_GridConfig.less";
-//import du fichier de calcul du systï¿½me de grille sï¿½lectionnï¿½
+//import du fichier de calcul du système de grille sélectionné
 @import "_framework/SPLessCss/Grids/Types/Grid_Default/_GridCalcul.less";
 
 //CONFIGURATION DES POLICES
 @fontGlobalFamilyWebFont: 'PT Sans', sans-serif;
 
-//CONFIGURATION DES COULEURS SYSTï¿½ME Gï¿½Nï¿½RALES
+//CONFIGURATION DES COULEURS SYSTÈME GÉNÉRALES
 @import "_templates/BaseTheme/Config/Colors/_ConfigColors.less";
 
 //CONFIGURATION PROPRE AU TEMPLATE
 
-//calcul dï¿½calage intï¿½rieur des zones
+//calcul décalage intérieur des zones
 @zonesOffsetPad: (@gridGutter / 3);

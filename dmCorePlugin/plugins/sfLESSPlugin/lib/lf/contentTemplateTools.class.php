@@ -166,6 +166,10 @@ class contentTemplateTools {
         $command .= "mkdir " . $dirOUTtheme."/theme" .";";     
         $command .= "mkdir " . $dirOUTtheme."/theme/less" .";";              
         $command .= "cp ". $webDirName . "/theme/less/* " . $dirOUTtheme ."/theme/less;";
+
+        $command .= "mkdir " . $dirOUTtheme."/theme/images" .";";              
+        $command .= "cp ". $webDirName . "/theme/images/* " . $dirOUTtheme ."/theme/images;";
+
         // on supprime les fichiers import.less (v2) et _ConfigGeneral.less (v1) du dump effectué
         $command .= "rm ". $dirOUTtheme ."/theme/less/_ConfigGeneral.less;";
         $command .= "rm ". $dirOUTtheme ."/theme/less/import.less;";

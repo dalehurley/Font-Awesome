@@ -18,12 +18,14 @@ abstract class PluginSidArticle extends BaseSidArticle {
      * 
      */
     public function getSectionPageTitle() {
-        $sectionPage = dmDb::table('DmPage')
-                ->createQuery('p')
-                ->where('p.module = ? and action=? and record_id=?', array('section', 'show', $this->getSection()->id))
-                ->limit(1)
-                ->execute();
-        return $sectionPage[0]->title;
+
+        // $sectionPage = dmDb::table('DmPage')
+        //         ->createQuery('p')
+        //         ->where('p.module = ? and action=? and record_id=?', array('section', 'show', $this->getSection()->id))
+        //         ->limit(1)
+        //         ->execute();
+        // return $sectionPage[0]->title;
+        return $this->getSection()->getDmPage()->title;
     }
     
      /**
@@ -32,12 +34,13 @@ abstract class PluginSidArticle extends BaseSidArticle {
      * 
      */
     public function getRubriquePageTitle() {
-        $rubriquePage = dmDb::table('DmPage')
-                ->createQuery('p')
-                ->where('p.module = ? and action=? and record_id=?', array('rubrique', 'show', $this->getSection()->getRubrique()->id))
-                ->limit(1)
-                ->execute();
-        return $rubriquePage[0]->title;
+        // $rubriquePage = dmDb::table('DmPage')
+        //         ->createQuery('p')
+        //         ->where('p.module = ? and action=? and record_id=?', array('rubrique', 'show', $this->getSection()->getRubrique()->id))
+        //         ->limit(1)
+        //         ->execute();
+        // return $rubriquePage[0]->title;
+         return $this->getSection()->getRubrique()->getDmPage()->title;
     }
 
 }
