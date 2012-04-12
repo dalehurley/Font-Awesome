@@ -16,6 +16,13 @@ class lienContactBlocVersPageContactForm extends dmWidgetPluginForm {
                     'required' => true
                 ));
         
+        $this->widgetSchema['href']     = new sfWidgetFormInputText(array(), array(
+                    'class' => 'dm_link_droppable',
+                    'title' => $this->__('Accepts pages, medias and urls')
+                ));
+        
+        $this->validatorSchema['href']  = new dmValidatorLinkUrlInternal(array('required' => true));
+        
 //        $this->widgetSchema['titreLien'] = new sfWidgetFormInputText(array('default' => 'Contactez-nous'));
 //        $this->validatorSchema['titreLien'] = new sfValidatorString(array(
 //                    'required' => true
@@ -24,6 +31,7 @@ class lienContactBlocVersPageContactForm extends dmWidgetPluginForm {
         $this->widgetSchema->setHelps(array(
             'message' => 'Le message qui apparaitra dans le bloc',
             'titreBloc' => 'Le titre du bloc.',
+            'href' => 'faire glisser la page désirée depuis l\'onglet PAGE ou saisissez l\'adresse',
 //            'titreLien' => 'Le titre du lien.',
         ));
 

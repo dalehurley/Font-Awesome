@@ -665,7 +665,7 @@ setup:function(A){
             children:[{
                 type:'text',
                 label:a.lang.link.cssClasses,
-                'default':'_link', // rajout stef pour class par défault des liens
+                'default':'link', // rajout stef pour class par défault des liens
                 id:'advCSSClasses',
                 setup:q,
                 commit:t
