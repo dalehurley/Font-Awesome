@@ -1,6 +1,6 @@
 // _Css3Gradient.less
-// v1.2.2
-// Last Updated : 2012-04-02 10:20
+// v1.2.5
+// Last Updated : 2012-04-12 12:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -14,12 +14,12 @@
 	@bgColor: @gap / 2 + @base;
 	
 	background-color: @bgColor;
-	background: -webkit-gradient(linear,left top,left bottom,color-stop(0, @top),color-stop(1, @bottom));	//Chrome 1-9 and Safari 4-5
-	background: -webkit-linear-gradient(top, @top, @bottom);												//Chrome 10 and Safari 5.1
-	background: -moz-linear-gradient(top, @top, @bottom);													//Firefox 3.6
-	background: -o-linear-gradient(top, @top, @bottom);														//Opera 11.1
-	background: -ms-linear-gradient(top, @top, @bottom);													//IE10
-	background: linear-gradient(top, @top, @bottom);
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, @top),color-stop(1, @bottom));	//Chrome 1-9 and Safari 4-5
+	background-image: -webkit-linear-gradient(top, @top, @bottom);												//Chrome 10 and Safari 5.1
+	background-image: -moz-linear-gradient(top, @top, @bottom);													//Firefox 3.6
+	background-image: -o-linear-gradient(top, @top, @bottom);														//Opera 11.1
+	background-image: -ms-linear-gradient(top, @top, @bottom);													//IE10
+	background-image: linear-gradient(top, @top, @bottom);
 }
 @verticalGradientPie(@top: #FFF; @bottom: #000) {
 	@verticalGradient(@top; @bottom);
@@ -35,12 +35,12 @@
 	@bgColor: @gap / 2 + @base;
 	
 	background-color: @bgColor;
-	background: -webkit-gradient(linear,left top,right top,color-stop(0, @left),color-stop(1, @right));		//Chrome 1-9 and Safari 4-5
-	background: -webkit-linear-gradient(left, @left, @right);												//Chrome 10 and Safari 5.1
-	background: -moz-linear-gradient(left, @left, @right);													//Firefox 3.6
-	background: -o-linear-gradient(left, @top, @bottom);													//Opera 11.1
-	background: -ms-linear-gradient(left, @top, @bottom);													//IE10
-	background: linear-gradient(left, @left, @right);
+	background-image: -webkit-gradient(linear,left top,right top,color-stop(0, @left),color-stop(1, @right));		//Chrome 1-9 and Safari 4-5
+	background-image: -webkit-linear-gradient(left, @left, @right);												//Chrome 10 and Safari 5.1
+	background-image: -moz-linear-gradient(left, @left, @right);													//Firefox 3.6
+	background-image: -o-linear-gradient(left, @top, @bottom);													//Opera 11.1
+	background-image: -ms-linear-gradient(left, @top, @bottom);													//IE10
+	background-image: linear-gradient(left, @left, @right);
 }
 @horizontalGradientPie(@left: #FFF; @right: #000) {
 	@horizontalGradient(@left; @right);
@@ -65,7 +65,7 @@
 	@bgColor: @gap3 / 2 + @base3;
 	
 	background-color: @bgColor;
-	background: -webkit-gradient(								//Chrome 1-9 and Safari 4-5
+	background-image: -webkit-gradient(								//Chrome 1-9 and Safari 4-5
 									linear,
 									left top,
 									left bottom,
@@ -74,35 +74,35 @@
 									color-stop(@stop3, @color3),
 									color-stop(@stop4, @color4)
 									);
-	background: -webkit-linear-gradient(							//Chrome 10 and Safari 5.1
+	background-image: -webkit-linear-gradient(							//Chrome 10 and Safari 5.1
 									top,
 									@color1 @stop1,
 									@color2 @stop2,
 									@color3 @stop3,
 									@color4 @stop4,
 									);
-	background: -moz-linear-gradient(								//Firefox 3.6
+	background-image: -moz-linear-gradient(								//Firefox 3.6
 									top,
 									@color1 @stop1,
 									@color2 @stop2,
 									@color3 @stop3,
 									@color4 @stop4,
 									);
-	background: -o-linear-gradient(									//Opera 11.1
+	background-image: -o-linear-gradient(									//Opera 11.1
 									top,
 									@color1 @stop1,
 									@color2 @stop2,
 									@color3 @stop3,
 									@color4 @stop4,
 									);
-	background: -ms-linear-gradient(								//IE10
+	background-image: -ms-linear-gradient(								//IE10
 									top,
 									@color1 @stop1,
 									@color2 @stop2,
 									@color3 @stop3,
 									@color4 @stop4,
 									);
-	background: linear-gradient(
+	background-image: linear-gradient(
 									top,
 									@color1 @stop1,
 									@color2 @stop2,
@@ -136,7 +136,7 @@
 	@bgColor: @gap3 / 2 + @base3;
 	
 	background-color: @bgColor;
-	background: -webkit-gradient(								//Chrome 1-9 and Safari 4-5
+	background-image: -webkit-gradient(								//Chrome 1-9 and Safari 4-5
 									linear,
 									left top,
 									right top,
@@ -145,35 +145,35 @@
 									color-stop(@stop3, @color3),
 									color-stop(@stop4, @color4)
 									);
-	background: -webkit-linear-gradient(							//Chrome 10 and Safari 5.1
+	background-image: -webkit-linear-gradient(							//Chrome 10 and Safari 5.1
 									left,
 									@color1 @stop1,
 									@color2 @stop2,
 									@color3 @stop3,
 									@color4 @stop4,
 									);
-	background: -moz-linear-gradient(								//Firefox 3.6
+	background-image: -moz-linear-gradient(								//Firefox 3.6
 									left,
 									@color1 @stop1,
 									@color2 @stop2,
 									@color3 @stop3,
 									@color4 @stop4,
 									);
-	background: -o-linear-gradient(									//Opera 11.1
+	background-image: -o-linear-gradient(									//Opera 11.1
 									left,
 									@color1 @stop1,
 									@color2 @stop2,
 									@color3 @stop3,
 									@color4 @stop4,
 									);
-	background: -ms-linear-gradient(								//IE10
+	background-image: -ms-linear-gradient(								//IE10
 									left,
 									@color1 @stop1,
 									@color2 @stop2,
 									@color3 @stop3,
 									@color4 @stop4,
 									);
-	background: linear-gradient(
+	background-image: linear-gradient(
 									left,
 									@color1 @stop1,
 									@color2 @stop2,
