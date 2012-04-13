@@ -360,6 +360,31 @@ LIMIT 1')->getStatement();
     return $filesystem->getLastExec('output');
   }
   
+  /**
+   * A dmPage P has children if children dmPage have level=p.level+1 and left> and right 
+   * 
+   */
+  public function hasChildrenActive()
+  {
+    if (!$this->get('lft') && !$this->get('rgt'))
+    {
+      return null;
+    }
+
+    $stmt = Doctrine_Manager::connection()->prepare('SELECT p.id
+FROM '.$this->getTable()->getTableName().' p 
+JOIN '.$this->getTable()->getTableName().'_translation pt on p.id = pt.id
+WHERE p.lft > ? AND p.rgt < ?
+AND p.level = ?
+AND pt.is_active = 1
+ORDER BY p.rgt ASC
+LIMIT 1')->getStatement();
+
+    $stmt->execute(array($this->get('lft'), $this->get('rgt'), $this->get('level')+1));
+    
+    return $stmt->fetchColumn();
+  }
+
   
         
 }
