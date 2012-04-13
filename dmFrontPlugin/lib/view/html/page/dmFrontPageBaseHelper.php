@@ -229,6 +229,8 @@ abstract class dmFrontPageBaseHelper extends dmConfigurable
 		));
 
 		$options['id'] = dmArray::get($options, 'id', 'dm_area_'.$area['id']);
+		// add data-id attr which be tracked by dmArea.js
+		$options['data-id'] = $area['id'];
 
 		$html = '';
 
