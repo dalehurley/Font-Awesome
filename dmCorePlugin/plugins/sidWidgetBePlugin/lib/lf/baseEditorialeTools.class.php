@@ -769,7 +769,9 @@ class baseEditorialeTools {
         // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine
         $nbDirToCut = substr_count(sfConfig::get('app_ftp-rep') , '/');
         //$command = "wget -A.xml -c -N -r -nH -nv --cut-dirs=1 ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local');
-        $command = "wget -c -N -r -nH -nv --cut-dirs=1 ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local');
+        //$command = "wget -c -N -r -nH -nv --cut-dirs=1 ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local');
+        $command = "wget -A.xml -q -m -nH --cut-dirs=1 ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local');
+       
         exec($command, $output);
     }
     /*
@@ -793,6 +795,12 @@ class baseEditorialeTools {
         $nbDirToCut = substr_count(sfConfig::get('app_ftp-image-rep') , '/');
         $command = "wget -A.jpg -c -N -r -nH -nv --cut-dirs=" . $nbDirToCut . " ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-image-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-image-password')) . "@" . sfConfig::get('app_ftp-image-host') . "/" . sfConfig::get('app_ftp-image-rep') . " -P " . sfConfig::get('app_rep-local-images');
         exec($command, $output);
+
+        // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine
+        $nbDirToCut = substr_count(sfConfig::get('app_ftp-rep') , '/');
+        $command = "wget -A.jpg -m -nH --cut-dirs=" . $nbDirToCut . " ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local-images');
+        exec($command, $output);
+
     }
     /*
      * récupération des fichiers images de LEA
