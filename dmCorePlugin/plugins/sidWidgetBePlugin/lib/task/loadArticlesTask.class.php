@@ -169,6 +169,20 @@ EOF;
                     }
                 }
             }
+
+            //------------------------------------------------------------------------------------------------------------
+            //    Synchronisation des pages automatiques
+            //------------------------------------------------------------------------------------------------------------            
+            $results = baseEditorialeTools::syncPages();
+
+            if (!in_array("quiet", $arguments)) {
+                $this->logSection('### loadArticles', 'Synchronisation des pages automatiques.');
+                foreach ($results as $result) { 
+                    foreach ($result as $log => $desc) {
+                        $this->logSection($log, $desc,null,$log);
+                    }
+                }
+            } 
             
             //------------------------------------------------------------------------------------------------------------
             //    Replacement des name/slug/title et description des dmPages juste synchronisées
@@ -197,20 +211,6 @@ EOF;
                     }
                 }
             }
-            //------------------------------------------------------------------------------------------------------------
-            //    Synchronisation des pages automatiques
-            //------------------------------------------------------------------------------------------------------------            
-            $results = baseEditorialeTools::syncPages();
-
-            if (!in_array("quiet", $arguments)) {
-                $this->logSection('### loadArticles', 'Synchronisation des pages automatiques.');
-                foreach ($results as $result) { 
-                    foreach ($result as $log => $desc) {
-                        $this->logSection($log, $desc,null,$log);
-                    }
-                }
-            }            
-
               
             
         } else {
