@@ -36,8 +36,8 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-bottom: (@gridBaseline * -30);
-		//ombre répétée dans WidgetBase sur le dm_zones:before de dm_layout_centerTopTop
-		@boxShadow(0 0 (@gridGutter*4) @colorCouleur3Fonce);
+		//ombre répétée dans NavigationMenu sur le dm_widget_inner
+		@dropShadowPie(0; 0; @gridGutter*4; 0; fadeout(@colorBlack, 50%); @colorBlack);
 	}
 }
 

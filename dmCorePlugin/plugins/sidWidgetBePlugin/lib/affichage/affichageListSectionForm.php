@@ -32,7 +32,8 @@ class affichageListSectionForm extends dmWidgetPluginForm {
         //    }
         
         $this->widgetSchema->setHelps(array(
-                'nbArticles' => 'Le nombre maximum d\'articles affichés pour chaque section.'
+                'nbArticles' => 'Le nombre maximum d\'articles affichés pour chaque section.',
+                'nbSections' => '0 pour voir toutes les sections de la rubriques.'
             ));        
         
     }

@@ -14,6 +14,7 @@ _tag('div',
     $form['titreBloc']->renderRow().
     $form['message']->renderRow().
     $form['lien']->renderRow().
+    $form['href']->renderRow().
     $form['cssClass']->renderRow()
   
 ); 

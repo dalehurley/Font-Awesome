@@ -6,5 +6,5 @@
       page: true
       front: false
       credentials: renseignements
-      components:
+#      components:
 #        show:
