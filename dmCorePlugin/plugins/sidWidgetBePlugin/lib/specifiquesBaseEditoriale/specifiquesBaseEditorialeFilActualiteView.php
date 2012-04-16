@@ -75,7 +75,8 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                     'length' => $vars['length'],
                     'section' => $vars['section'],
                     'withImage' => $vars['withImage'],
-                    'widthImage' => $vars['widthImage']
+                    'widthImage' => $vars['widthImage'],
+                    'justTitle' => $vars['justTitle']
                 ));
     }
 

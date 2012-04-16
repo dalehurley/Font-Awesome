@@ -5,6 +5,8 @@ class specifiquesBaseEditorialeListActualiteForm extends dmWidgetPluginForm {
     public function configure() {
 
         parent::configure();
+        $this->widgetSchema['justTitle'] = new sfWidgetFormInputCheckbox(array('default'=> false, 'label' => 'Afficher UNIQUEMENT le titre (maestro)'));
+        $this->validatorSchema['justTitle']  = new sfValidatorBoolean();
     }
 
     public function getStylesheets() {

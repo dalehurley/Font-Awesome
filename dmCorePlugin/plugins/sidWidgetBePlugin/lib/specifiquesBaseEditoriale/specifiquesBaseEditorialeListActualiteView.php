@@ -12,7 +12,7 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
             'withImage',
             'chapo',
             'heightImage',
-            'widthImage'        
+            'widthImage'     
         ));
     }
 
@@ -56,6 +56,7 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
                     'height' => $vars['heightImage'],
                     'withImage' => $vars['withImage'],
                     'chapo' => $vars['chapo'],
+                    'justTitle' => $vars['justTitle']
                 ));
 
 

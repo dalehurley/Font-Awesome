@@ -29,6 +29,9 @@ class specifiquesBaseEditorialeFilActualiteForm extends dmWidgetPluginForm {
         $this->validatorSchema['nbArticles'] = new sfValidatorInteger(array(
                     'required' => true
                 ));
+                
+        $this->widgetSchema['justTitle'] = new sfWidgetFormInputCheckbox(array('default'=> false, 'label' => 'Afficher UNIQUEMENT le titre (maestro)'));
+        $this->validatorSchema['justTitle']  = new sfValidatorBoolean();
         
         $this->widgetSchema->setHelps(array(
             'titreBloc' => 'Le titre OBLIGATOIRE du bloc.',
