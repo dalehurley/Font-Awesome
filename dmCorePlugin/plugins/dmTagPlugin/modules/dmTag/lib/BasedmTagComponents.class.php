@@ -12,7 +12,7 @@ class BasedmTagComponents extends myFrontModuleComponents
 
   public function executePopular()
   {
-    $this->dmTags = dmDb::table('DmTag')->getPopularTags(array(), 100);
+    $this->dmTags = dmDb::table('DmTag')->getPopularTags(array(), 20);
 	
 	//insertion de la CSS du widget du theme courant
 	$this->getResponse()->addStylesheet('/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/DmTagPopular/DmTagPopular.css');
