@@ -40,18 +40,28 @@ foreach ($articles as $article) {
 		}
 	}
 
-	//ajout de l'article
-	echo 
-	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">';
-	echo _link($article)->set('.link.link_box')->text(
-			$imageHtml.
+	// gestion de l'affichage du titre seul ou non (maestro)
+	$chapeauHtml = '';
+	$textHtml = '';
+	if($justTitle != true) {
+		$chapeauHtml = '<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>';
+	}
+	$textHtml = 
 			'<span class="wrapper">'.
 				'<span class="subWrapper">'.
 					'<span itemprop="name" class="title itemprop name">'.$article->getTitle().'</span>'.
 					'<meta content="'.$article->createdAt.'" itemprop="datePublished">'.
 				'</span>'.
-				'<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>'.
-			'</span>'
+				$chapeauHtml.
+			'</span>';
+
+	
+	//ajout de l'article
+	echo 
+	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">';
+	echo _link($article)->set('.link.link_box')->text(
+			$imageHtml.$textHtml
+			
 	);
 	echo '</li>';
 
