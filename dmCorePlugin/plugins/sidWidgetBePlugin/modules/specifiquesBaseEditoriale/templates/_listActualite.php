@@ -31,11 +31,13 @@ foreach ($articles as $article) {
 	//on supprime les photos après les 3 premiers articles
 	$imageLink = '/_images/lea' . $article->filename . '-p.jpg';
 	$imageHtml = '';
-	if (is_file(sfConfig::get('sf_web_dir').$imageLink) && $i < 4 ){  // les 3 premiers articles ont une image
-		$imageHtml = 	
-			'<span class="imageWrapper">'.
-				'<img src="'.$imageLink.'" itemprop="image" class="image" alt="'.$article->getTitle().'">'.
-			'</span>';
+	if($withImage == TRUE){
+		if (is_file(sfConfig::get('sf_web_dir').$imageLink) && $i < 4 ){  // les 3 premiers articles ont une image
+			$imageHtml = 	
+				'<span class="imageWrapper">'.
+					'<img src="'.$imageLink.'" width="'.$width.'" itemprop="image" class="image" alt="'.$article->getTitle().'">'.
+				'</span>';
+		}
 	}
 
 	//ajout de l'article
