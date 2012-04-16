@@ -98,7 +98,7 @@
 				//application largeur (soustraction bordure)
 				@gridWidth(@formCol; (@offS*2 + 2px));
 
-				border: 1px solid @colorCouleur2Fonce;
+				border: 1px solid @colorZoneBorder;
 				overflow: hidden;
 				margin: 0;
 				padding: 0;
@@ -113,14 +113,13 @@
 
 				//ajout de la sprite avec l'icône de recherche
 				&:before {
-					background-color: red;
 					position: absolute;
 					display: block;
 					visibility: visible;
-					z-index: 2;
+					z-index: 1;
 					content: "";
 					//décalage de marge
-					@decalV: (@gridBaseline*1.5 - @spriteFormat_S)/2;
+					@decalV: (@gridBaseline*1.5 - @spriteFormat_S -2px)/2;
 					// margin: @decalV 0 0 @offS;
 					left: @offS;
 					top: @decalV;
@@ -130,7 +129,7 @@
 					//animation apparition de la sprite
 					.csstransitions.opacity & {
 						opacity: 1;
-						@transition(visibility, top, opacity; .05s, .2s, .2s; ease-out; .05s, .1s, .1s);
+						@transition(visibility, left, opacity; .05s, .2s, .2s; ease-out; .05s, .1s, .1s);
 					}
 				}
 
@@ -148,14 +147,13 @@
 							//on réaffiche la sprite pour gérer l'animation
 							display: block;
 							//replacement et disparition de la sprite
-							// left: @spriteFormat_S*-1;
-							top: @gridBaseline;
+							left: @offS + @spriteFormat_S;
+							// top: @gridBaseline;
 							opacity: 0;
 
 							//changement délai
 							@transitionDelay(.2s, .05s, .05s);
 						}
-						// @spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
 					}
 				}
 			}
@@ -176,9 +174,9 @@
 
 				//placement et stylage de l'élément
 				display: block;
-				z-index: 1;
+				z-index: 2;
 				//changement couleur et transparence du fond
-				&, &:focus, &:disabled { &, .rgba & { background-color: fadeout(#00aa00, 50%); } }
+				&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
 				//suppression outline parasite sous webkit
 				outline: 0;
 				border: 0;
@@ -198,26 +196,18 @@
 					@gridWidth(@formCol; (@offS*3 + @spriteFormat_S + 2px));
 
 					//bordure arrondi à gauche
-					@borderRadiusCompress((@offL -1px) 0 0 (@offL -1px));
+					@borderRadiusCompress((@offL -1px));
 
 					//suppression margin left lors du focus
 					&:focus { margin-left: 0; }
 				}
 
-				color: @colorCouleur3ClairSup;
-				&:focus{
-					color: @colorText;
-				}
-
 				//couleur des placeHolders
 				//ciblage natif
-				&::-webkit-input-placeholder { color: @colorCouleur3ClairSup; text-transform: uppercase; }
-				&:disabled::-webkit-input-placeholder { color: @colorCouleur3MoyenSup; text-transform: uppercase; }
-				&:-moz-placeholder { color: @colorCouleur3ClairSup; text-transform: uppercase; }
-				&:disabled:-moz-placeholder { color: @colorCouleur3MoyenSup; text-transform: uppercase; }
+				&::-webkit-input-placeholder { color: @colorText; text-transform: uppercase; }
+				&:-moz-placeholder { color: @colorText; text-transform: uppercase; }
 				//utilisé avec jQuery-placeholder
-				&.placeholder { color: @colorCouleur3ClairSup; text-transform: uppercase; }
-				&.placeholder:disabled { color: @colorCouleur3MoyenSup; text-transform: uppercase; }
+				&.placeholder { color: @colorText; text-transform: uppercase; }
 			}
 		}
 	}
