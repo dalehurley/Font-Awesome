@@ -96,15 +96,13 @@
 				.rgba & { background-color: fadeout(@colorCouleur2ClairSup, 20%); }
 
 				//application largeur (soustraction bordure)
-				@gridWidth(@formCol; (@offS*2 + 2px));
-
-				border: 1px solid @colorZoneBorder;
-				overflow: hidden;
+				@gridWidth(@formCol; @offS*2);
+				// overflow: hidden;
 				margin: 0;
 				padding: 0;
 
 				//ajout de la bordure arrondie
-				@borderRadiusCompress(@offL);
+				// @borderRadiusCompress(@offL);
 
 				//Ajout transition sur la couleur de fond
 				// .csstransitions & {
@@ -113,13 +111,14 @@
 
 				//ajout de la sprite avec l'icône de recherche
 				&:before {
+					background-color: red;
 					position: absolute;
 					display: block;
 					visibility: visible;
 					z-index: 1;
 					content: "";
 					//décalage de marge
-					@decalV: (@gridBaseline*1.5 - @spriteFormat_S -2px)/2;
+					@decalV: (@gridBaseline*1.5 - @spriteFormat_S)/2;
 					// margin: @decalV 0 0 @offS;
 					left: @offS;
 					top: @decalV;
@@ -176,27 +175,28 @@
 				display: block;
 				z-index: 2;
 				//changement couleur et transparence du fond
-				&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
+				&, &:focus, &:disabled { &, .rgba & { background-color: fadeout(#00aa00, 50%); } }
 				//suppression outline parasite sous webkit
 				outline: 0;
-				border: 0;
+				// border: 0;
+				border: 1px solid purple;
 				//ajustement du padding sans les bordures
 				// padding: 2px @offS 2px @offS;
-				padding: (@gridBaseline/4 +1px) @offS;
+				padding: (@gridBaseline/4) @offS;
 
 				//suppression des ombres internes
 				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
 				
 				//application largeur
-				&, .generatedcontent &:focus { @gridWidth(@formCol; (@offS*2 + 2px)); }
+				&, .generatedcontent &:focus { @gridWidth(@formCol; (@offS*2 + 4px)); }
 
 				//ajout du décalage à gauche si pseudo élément affiché
 				.generatedcontent & {
 					margin-left: @offS + @spriteFormat_S;
-					@gridWidth(@formCol; (@offS*3 + @spriteFormat_S + 2px));
+					@gridWidth(@formCol; (@offS*3 + @spriteFormat_S + 4px));
 
 					//bordure arrondi à gauche
-					@borderRadiusCompress((@offL -1px));
+					// @borderRadiusCompress((@offL +1px));
 
 					//suppression margin left lors du focus
 					&:focus { margin-left: 0; }
