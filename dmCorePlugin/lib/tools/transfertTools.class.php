@@ -18,7 +18,7 @@ class transfertTools {
         $arrayDirs = scandir($dir);
         $tabDir = array();
         foreach ($arrayDirs as $j => $arrayDir) {
-            if (($arrayDir != '.') && ($arrayDir != '..')) {
+            if (($arrayDir != '.') && ($arrayDir != '..') && (substr($arrayDir,0,1) != '.')) {
                $tabDir[] = utf8_decode($arrayDir);
             }
         }
@@ -45,7 +45,7 @@ class transfertTools {
         $repFtp = dir($ftpRubrique);
         $tabRep = array();
         while (($entry = $repFtp->read()) !== false) {
-            if ($entry != '.' && $entry != '..') {
+            if ($entry != '.' && $entry != '..' && (substr($arrayDir,0,1) != '.')) {
             $tabRep[] = utf8_decode($entry);
             }
         };

@@ -9,7 +9,8 @@ $.widget('ui.dmArea', {
   
   initialize: function()
   {
-    this.id = this.element.attr('id').substring(8);
+    //this.id = this.element.attr('id').substring(8);
+    this.id = this.element.attr('data-id');
     
     this.initZones();
   },

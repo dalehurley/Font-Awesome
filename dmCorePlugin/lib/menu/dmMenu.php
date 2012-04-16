@@ -438,7 +438,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         if (is_object($this->getLink())){
             if (method_exists($this->getLink(),'getPage')){
                 if ($this->getLink()->getPage()->action == 'list'){ // les pages ayant une action = list sont les pages manuelles qui list les page automatique filles
-                    if (!$this->hasChildren()){ // s'il n'y a pas de pages filles alors on n'affiche pas cette page list
+                    if (!$this->getLink()->getPage()->hasChildrenActive()){ // s'il n'y a pas de pages filles alors on n'affiche pas cette page list
                         $display = false; 
                     }
                 }
