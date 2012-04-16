@@ -13,7 +13,8 @@ $form->renderGlobalErrors(),
         $form['section']->renderRow() .
         $form['lien']->renderRow().
         $form['withImage']->renderRow().
-        $form['widthImage']->renderRow()
+        $form['widthImage']->renderRow().
+        $form['justTitle']->renderRow()
 );
 
 
