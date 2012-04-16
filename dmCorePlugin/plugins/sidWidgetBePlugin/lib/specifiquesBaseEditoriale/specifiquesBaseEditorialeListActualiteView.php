@@ -56,7 +56,7 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
                     'height' => $vars['heightImage'],
                     'withImage' => $vars['withImage'],
                     'chapo' => $vars['chapo'],
-                    'justTitle' => $vars['justTitle']
+                    'justTitle' => isset($vars['justTitle'])?$vars['justTitle']:false
                 ));
 
 
