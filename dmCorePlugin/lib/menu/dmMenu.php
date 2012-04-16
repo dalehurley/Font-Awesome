@@ -365,12 +365,30 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                 // ATTENTION : les enfants d'une page inactive ne seront pas visible dans le site
                 ->where('pTranslation.is_active = ? ', true)
                 // ajout stef pour rendre visible ou pas les pages inactive
-                ->orderBy('p.rgt') 
                 // tri par ordre alphabétique sur le name de la page : 
                 //->orderBy('pTranslation.name')
         );
+
         if ($pageChildren = $this->getLink()->getPage()->getNode()->getChildren()) {
-             
+            
+            // sort pageChildren with le record_id corresponding model
+            $k=0;
+            foreach ($pageChildren as $i => $childPage) {
+                if ($childPage->getIsAutomatic()){
+                    // too bad : not use cache object
+                    // $childPos = $childPage->getDmModule()->getTable()->createQuery('m')->where('m.id = ? ', $childPage->get('record_id'))->execute();
+                    // $childs[$childPos[0]->position] = $childPage;
+                    $childPos = $childPage->getRecord()->position;
+                    $childs[$childPos] = $childPage;
+                } else {
+                   $childs[$k] = $childPage;
+                }
+                $k++;
+            }
+            ksort($childs);
+            $pageChildren = $childs;
+
+            // launch render for children pages
             foreach ($pageChildren as $i => $childPage) {
                 $this->addChild($childPage->get('name') , $childPage)->addRecursiveChildren($depth - 1);
             }
@@ -393,6 +411,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         }
     }
     public function render() {
+
         $html = '';
         if ($this->checkUserAccess() && $this->hasChildren()) {
             $html = $this->renderUlOpenTag();
@@ -419,7 +438,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         if (is_object($this->getLink())){
             if (method_exists($this->getLink(),'getPage')){
                 if ($this->getLink()->getPage()->action == 'list'){ // les pages ayant une action = list sont les pages manuelles qui list les page automatique filles
-                    if (!$this->hasChildren()){ // s'il n'y a pas de pages filles alors on n'affiche pas cette page list
+                    if (!$this->getLink()->getPage()->hasChildrenActive()){ // s'il n'y a pas de pages filles alors on n'affiche pas cette page list
                         $display = false; 
                     }
                 }

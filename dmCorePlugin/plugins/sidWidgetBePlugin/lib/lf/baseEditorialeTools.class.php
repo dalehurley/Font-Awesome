@@ -449,6 +449,26 @@ class baseEditorialeTools {
                             //       
 
                         }
+
+                        // mise à jour du champ position les sections de la rubrique ec_echeancier
+                        $titleSection = 'ec_echeancier';
+                        if ($rubrique->getTranslation()->$lang->title == $titleSection){
+                            foreach ($sidSections as $sidSection) {   
+                                $sectionsToSort[$sidSection->title]= $sidSection; // DB's section's title (i.e:201203) in key, id in value
+                            }
+                        
+                            ksort($sectionsToSort); // sort by title
+                            $p = 1;
+                            foreach ($sectionsToSort as $section) {
+                                if ($section->position != $p){                               
+                                    $return[]['Position section : '.$titleSection.'/'.$section->title] = 'changement de '.$section->position .' en '. $p; 
+                                    $section->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
+                                    $section->save();
+                                }
+                                $p++;
+                            }
+                        }
+
                     }
                     $i++;
                 }
@@ -622,8 +642,9 @@ class baseEditorialeTools {
                                 if (is_dir($dir . $rubrique . '/' . $section)) {
                                     // si le dossier est un dossier "images" on déplace les images dans le dossiers "rep-local-images"
                                     if ($section == 'images') {
-                                        echo 'copie dossier : ' . $rubrique . '/' . $section . '/* vers ' . sfConfig::get('app_rep-local-images') . "\n";
-                                        exec('cp ' . $dir . $rubrique . '/' . $section . '/* ' . sfConfig::get('app_rep-local-images')); // on déplace les iamges
+                                        // plus de copie, on ramene les images dans une autre fonction, directement copié par le wget dans le dossier des images
+                                        //echo 'copie dossier : ' . $rubrique . '/' . $section . '/* vers ' . sfConfig::get('app_rep-local-images') . "\n";
+                                        //exec('cp ' . $dir . $rubrique . '/' . $section . '/* ' . sfConfig::get('app_rep-local-images')); // on déplace les iamges
                                         echo 'suppression dossier : ' . $rubrique . '/' . $section . "\n";
                                         exec('rm -R "' . $dir . $rubrique . '/' . $section . '"'); // on supprime un eventuel dossier dans un dossier de section
                                         
@@ -749,7 +770,9 @@ class baseEditorialeTools {
         // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine
         $nbDirToCut = substr_count(sfConfig::get('app_ftp-rep') , '/');
         //$command = "wget -A.xml -c -N -r -nH -nv --cut-dirs=1 ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local');
-        $command = "wget -c -N -r -nH -nv --cut-dirs=1 ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local');
+        //$command = "wget -c -N -r -nH -nv --cut-dirs=1 ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local');
+        $command = "wget -A.xml -m -nH --cut-dirs=1 ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local');
+       
         exec($command, $output);
     }
     /*
@@ -771,8 +794,14 @@ class baseEditorialeTools {
         }
         // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine
         $nbDirToCut = substr_count(sfConfig::get('app_ftp-image-rep') , '/');
-        $command = "wget -A.jpg -c -N -r -nH -nv --cut-dirs=" . $nbDirToCut . " ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-image-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-image-password')) . "@" . sfConfig::get('app_ftp-image-host') . "/" . sfConfig::get('app_ftp-image-rep') . " -P " . sfConfig::get('app_rep-local-images');
+        $command = "wget -A.jpg -c -N -r -nH -nv -nd --cut-dirs=" . $nbDirToCut . " ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-image-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-image-password')) . "@" . sfConfig::get('app_ftp-image-host') . "/" . sfConfig::get('app_ftp-image-rep') . " -P " . sfConfig::get('app_rep-local-images');
         exec($command, $output);
+
+        // count du nombre de / pour savoir combien de niveaux de répertoire il faut zapper pour que les images soient à la racine
+        $nbDirToCut = substr_count(sfConfig::get('app_ftp-rep') , '/');
+        $command = "wget -A.jpg -c -N -r -nH -nv -nd --cut-dirs=" . $nbDirToCut . " ftp://" . self::convertStringForWget(sfConfig::get('app_ftp-login')) . ":" . self::convertStringForWget(sfConfig::get('app_ftp-password')) . "@" . sfConfig::get('app_ftp-host') . "/" . sfConfig::get('app_ftp-rep') . " -P " . sfConfig::get('app_rep-local-images');
+        exec($command, $output);
+
     }
     /*
      * récupération des fichiers images de LEA

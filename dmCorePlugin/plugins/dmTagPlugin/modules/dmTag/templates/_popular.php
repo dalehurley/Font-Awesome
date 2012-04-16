@@ -23,10 +23,10 @@ foreach ($dmTags as $dmTag)
 
 echo _close('ul');
 */
-//use_stylesheet('../../dmTagPlugin/css/style');
+use_stylesheet('/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/DmTagPopular/DmTagPopular.css');
 
 $style = 1 ;
-echo _tag('h4.title', __('Our most popular items by keyword'));
+//echo _tag('h4.title', __('Our most popular items by keyword'));
 echo _open('p.elements');
 
 foreach ($dmTags as $dmTag)

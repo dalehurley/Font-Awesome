@@ -14,16 +14,18 @@ class affichageListSectionView extends dmWidgetPluginView {
         } else {
             $recordId = $vars['recordId'];
         }
-
+        $vars['nbSections'] =  ($vars['nbSections']== 0) ? '' : $vars['nbSections'];
         $sections = dmDb::table('SidSection') //->findOneBySectionId($section->id);
                 ->createQuery('s')
                 ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 's')
                 ->where('s.rubrique_id = ? ', $recordId)
-                ->orderBy('RAND()')
+//                ->orderBy('RAND()')
+                ->orderBy('s.position')
                 ->limit($vars['nbSections'])->execute();
 
         $sectionArticles = array(); 
         $articleTitles = array();
+        $sectionName= array();
         foreach ($sections as $section) {
             $listTitles = '\''.implode('\',\'', $articleTitles).'\'';
 
@@ -63,10 +65,13 @@ class affichageListSectionView extends dmWidgetPluginView {
             foreach ($articles as $article) {
                 $articleTitles[] = str_replace('\'', ' ', $article->title);
             }
+            $nameSectionPage = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('section', 'show', $section->id);
+            $sectionName[$section->id] = $nameSectionPage->getTitle();
         }
 
         return $this->getHelper()->renderPartial('affichage', 'listSection', array(
             'sectionArticles' => $sectionArticles, 
+            'sectionName' => $sectionName,
             'widthImage' => $vars['widthImage'],
             'withImage' => $vars['withImage'],
             'nbArticles' => $vars['nbArticles'],

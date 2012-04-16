@@ -68,7 +68,6 @@ foreach ($articlePager as $article) {
                                 }
                                 
                             }
-                            echo '$nameImage'.$nameImage;
 //                        }
                         // vérification du nom de l'image en vérifiant avec le nom de l'image dans le xml et/ou avec le prefixe 'images' ???
                         $imageExist = false;
