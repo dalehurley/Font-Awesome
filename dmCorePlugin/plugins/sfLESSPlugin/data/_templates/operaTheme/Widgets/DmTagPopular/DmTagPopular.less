@@ -9,6 +9,20 @@
 
 .dm_widget.dm_tag_popular {
 	.dm_widget_inner {
-		
+		.elements {
+			.element {
+				display: inline;
+				//permet d'éviter le décalage de baseline
+				line-height: @fontGlobalLineHeightMonospace;
+			}
+			.font1{ font-size: (@fontGlobalSizePx -4px); }
+			.font2{ font-size: (@fontGlobalSizePx -3px); }
+			.font3{ font-size: (@fontGlobalSizePx -2px); }
+			.font4{ font-size: (@fontGlobalSizePx -1px); }
+			.font5{ font-size: (@fontGlobalSizePx); }
+			.font6{ font-size: (@fontGlobalSizePx +1px); }
+			.font7{ font-size: (@fontGlobalSizePx +2px); }
+			.font8{ font-size: (@fontGlobalSizePx +3px); }
+		}
 	}
 }
