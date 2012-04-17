@@ -12,7 +12,7 @@ class BasedmUserAdminActions extends autodmUserAdminActions {
         }
     }
     public function executeSignin(dmWebRequest $request) {
-        // lioshi: login de l'admin par reception des variables id et key avec une fonction de hachage et une clef connue seulement par l'emetteur du lien
+        // lioshi: autologin - login de l'admin par reception des variables id et key avec une fonction de hachage et une clef connue seulement par l'emetteur du lien
         // la fonction de hachage intègre la date au jour près près : date("Y-m-d"), le lien est donc valable une journée
         // l'emettteur est de plus filtré par IP
         if (sfConfig::get('app_link-login_active')) {
