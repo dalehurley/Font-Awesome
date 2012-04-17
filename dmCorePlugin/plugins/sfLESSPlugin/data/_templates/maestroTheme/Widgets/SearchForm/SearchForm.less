@@ -39,53 +39,6 @@
 	.dm_widget_inner {
 		.isLess & { background-color: fadeout(#8ED4D4, 75%); }
 
-		// //stylage lorsque placé dans le header
-		// #dm_header & {
-		// 	//calcul dimension en colonnes du formulaire
-		// 	@formCol: floor((@gridCol - @gridCol_SidebarLeft)/2);
-
-		// 	//placement formulaire
-		// 	form {
-		// 		//application largeur (soustraction bordure)
-		// 		@gridWidth(@formCol; 2px);
-		// 	}
-
-		// 	//champ de saisie de la recherche
-		// 	.query {
-		// 		//application largeur
-		// 		@gridWidth(@formCol; (@offS*2 + 2px));
-		// 		//ajout du décalage à gauche si pseudo élément affiché
-		// 		.generatedcontent & {
-		// 			@gridWidth(@formCol; (@offS*3 + @spriteFormat_S + 2px));
-		// 			&:focus{
-		// 				@gridWidth(@formCol; (@offS*2 + 2px));
-		// 			}
-		// 		}
-		// 	}
-		// }
-
-		// //stylage lorsque placé dans la zone située sous le header
-		// #dm_custom_top & {
-		// 	//placement formulaire
-		// 	form {
-		// 		//application largeur (soustraction bordure)
-		// 		@gridWidth(@gridCol_SidebarLeft; 2px);
-		// 	}
-
-		// 	//champ de saisie de la recherche
-		// 	.query {
-		// 		//application largeur
-		// 		@gridWidth(@gridCol_SidebarLeft; (@offS*2 + 2px));
-		// 		//ajout du décalage à gauche si pseudo élément affiché
-		// 		.generatedcontent & {
-		// 			@gridWidth(@gridCol_SidebarLeft; (@offS*3 + @spriteFormat_S + 2px));
-		// 			&:focus{
-		// 				@gridWidth(@gridCol_SidebarLeft; (@offS*2 + 2px));
-		// 			}
-		// 		}
-		// 	}
-		// }
-		
 		//stylage lorsque placé dans le header ou dans la zone située sous ce dernier
 		#dm_header &, #dm_custom_top &  {
 
