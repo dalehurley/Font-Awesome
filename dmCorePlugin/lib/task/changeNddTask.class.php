@@ -33,11 +33,12 @@ EOF;
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
         if (dmConfig::get('site_ndd') != ''){
-          $actualNdd = dmConfig::get('site_ndd');
-          $this->logblock('NDD actuel : '.$actualNdd, 'HELP');
+            $actualNdd = dmConfig::get('site_ndd');
+            $this->logblock('NDD actuel : '.$actualNdd, 'HELP');
         } else {
-           $this->logblock('NDD inconnu en Base de données, merci d\'ajouter le champ dm_setting.site_ndd', 'ERROR');
-           exit;
+            $this->runTask('dm:setup');
+            $this->logblock('dm:change-ndd : NDD inconnu en Base de données, merci d\'ajouter le champ dm_setting.site_ndd', 'ERROR');
+            exit;
         }
 
         $ndd = $this->askAndValidate(array('', 'Le nouveau nom de domaine? (format: example.com)', ''), new sfValidatorRegex(
