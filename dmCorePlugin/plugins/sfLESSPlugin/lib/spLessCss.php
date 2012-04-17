@@ -12,6 +12,11 @@ class spLessCss {
 			//affichage du widget de DEBUG du framework
 			echo dm_get_widget('debug', 'debug', array());
 		}
+
+		//lien vers le js associé au theme
+		$jsLink = '/theme/less/_templates/' . dmConfig::get('site_theme'). '/Externals/js/theme/frontTheme.js';
+		//chargement de la CSS si existante
+		if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) use_javascript($jsLink);
 		
 		//actualisation des paramètres du framework
 		//if($pageOptions['isLess']) sidSPLessCss::loadLessParameters();
