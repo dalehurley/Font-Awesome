@@ -582,6 +582,13 @@ $queryMajSiteEmail = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on 
 $dbh->query($queryMajSiteEmail);
 
 //-------------------------------------------------------------------------------------
+//    Update the dmSetting site_ndd
+//-------------------------------------------------------------------------------------
+// sauvegarde du site_ndd dans la table dmSetting
+$queryMajSiteNdd = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$settings['ndd'].'\' WHERE s.name = \'site_ndd\';';
+$dbh->query($queryMajSiteNdd);
+
+//-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
 $this->logBlock('
