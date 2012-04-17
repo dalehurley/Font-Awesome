@@ -1,6 +1,6 @@
 // _ConfigInit.less
-// v1.0
-// Last Updated : 2012-04-11 15:45
+// v1.1
+// Last Updated : 2012-04-17 10:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -13,11 +13,18 @@
 //importation de la configuration locale du framework
 @import "_ConfigFrameworkOverride.less";
 
-//importation de la configuration générale (sélection du theme principal et configuration par défaut du template choisi, incluant lui-même la grille)
+//importation de la configuration générale comprenant :
+// sélection du theme principal
+// configuration par défaut du template choisi et de la grille
+// configuration des couleurs
+// importation des overrides client
 @import "_ConfigGeneral.less";
 
 //importation de la configuration locale du template choisi
-@import "_ConfigTemplateOverride.less";
+// @import "_ConfigTemplateOverride.less";
+
+
+
 
 //définition du chemin général vers le dossier image du framework
 @urlImagesFramework: "/theme/less/_framework/SPLessCss/Images";
