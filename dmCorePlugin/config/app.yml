@@ -203,7 +203,7 @@ all:
     permissions:
       - bandeau
       - see_accueil
-      - see_log
+#      - see_log
       - see_chart
       - tool_bar_admin
       - admin
