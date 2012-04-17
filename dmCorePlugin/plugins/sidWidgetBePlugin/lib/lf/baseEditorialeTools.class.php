@@ -469,7 +469,7 @@ class baseEditorialeTools {
                                         array_splice($articlesToSort, $articleToSort);
                                     }
                                 }
-                                print_r($articlesToSort);
+                                
                                 $p = 1;
                                 foreach ($articlesToSort as $article) {
                                     if ($article->position != $p){                               
