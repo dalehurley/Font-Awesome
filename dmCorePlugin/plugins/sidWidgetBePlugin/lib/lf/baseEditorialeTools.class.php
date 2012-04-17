@@ -455,6 +455,30 @@ class baseEditorialeTools {
                         if ($rubrique->getTranslation()->$lang->title == $titleSection){
                             foreach ($sidSections as $sidSection) {   
                                 $sectionsToSort[$sidSection->title]= $sidSection; // DB's section's title (i.e:201203) in key, id in value
+                                // requete pour trier l'échéancier avec "délai variable" en premier
+                                $sidArticles = dmDb::query('SidArticle a')
+                                    ->where('section_id='.$sidSection->id)
+                                    ->execute();
+                                foreach($sidArticles as $sidArticle){
+                                        $articlesToSort[$sidArticle->getTitle()] = $sidArticle;
+                                }
+                                natsort($articlesToSort);
+                                foreach($articlesToSort as $articleToSort){
+                                    if(strpos($articleToSort, 'variable')){
+                                        array_unshift($articlesToSort, $articleToSort);
+                                        array_splice($articlesToSort, $articleToSort);
+                                    }
+                                }
+                                print_r($articlesToSort);
+                                $p = 1;
+                                foreach ($articlesToSort as $article) {
+                                    if ($article->position != $p){                               
+                                        $return[]['Position article : '.$article->getTitle()] = 'changement de '.$article->position .' en '. $p; 
+                                        $article->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
+                                        $article->save();
+                                    }
+                                    $p++;
+                                }
                             }
                         
                             ksort($sectionsToSort); // sort by title

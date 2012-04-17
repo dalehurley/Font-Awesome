@@ -60,7 +60,12 @@ foreach ($sectionArticles as $section => $sectionArticle) {
         echo _open('span', array('class'=>'navigationWrapper navigationBottom'));
             echo _open('ul', array('class'=>'elements'));
                 echo _open('li', array('class'=>'element first last'));
+                if($this->context->getPage()->getRecord()->getTitle() == 'ec_echeancier'){
+                    echo _link($article->getSection())->text(__('The other dates of ').$sectionName[$article->getSection()->id]);
+                }
+                else{                
                     echo _link($article->getSection())->text(__('The other ').$sectionName[$article->getSection()->id]);
+                }
                 echo _close('li');
             echo _close('ul');
         echo _close('span');
