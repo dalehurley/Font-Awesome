@@ -113,6 +113,11 @@ class dmDataLoad
         'description' => 'The site name',
         'group_name' =>'site'
       ),
+      'site_ndd' => array(
+        'default_value' => '',
+        'description' => 'The site ndd',
+        'group_name' =>'site'
+      ),      
       'site_active' => array(
         'type' => 'boolean',
         'default_value' => 1,

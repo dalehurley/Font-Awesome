@@ -132,6 +132,12 @@ EOF;
               'options' => array()                
               ), 
             array(
+              'command' => 'dm:change-ndd',
+              'libelle' => 'Changer le ndd du site ['.dmConfig::get('site_ndd').']',
+              'arguments' => array(),
+              'options' => array()                
+              ),             
+            array(
               'separator' => 'Moteur de recherche (Lucene)', 
               'command' => 'dm:search-update',
               'libelle' => 'Mise à jour index de recherche',
