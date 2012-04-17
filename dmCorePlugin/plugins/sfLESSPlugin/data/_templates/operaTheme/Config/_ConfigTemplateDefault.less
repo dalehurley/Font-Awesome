@@ -1,14 +1,14 @@
 // _ConfigTemplateDefault.less
-// v1.0
-// Last Updated : 2012-02-27 12:30
+// v1.5
+// Last Updated : 2012-04-17 10:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 // Ce fichier définit tous les paramètres par défaut du template. Modifier ce fichier revient à modifier les paramètres par défaut des sites utilisant ce template.
 
 //Versionning du template
-@templateVersion: "0.1";
-@templateDate: "2011-03-10T11:30";
+@templateVersion: "1.0";
+@templateDate: "2012-04-17T10:25";
 @templateCopyright: "SidPresse";
 @templateAuthor: "Arnaud GAUDIN";
 
@@ -19,6 +19,7 @@
 //définir ici le chemin vers le fichier de base du theme choisi
 //@importTemplateMedia(){ @import "_templates/operaTheme/Medias/_Medias.less"; }
 @import "_templates/operaTheme/Medias/_Medias.less";
+
 
 //SÉLECTION DU SYSTÈME DE GRILLE
 @templateGrid: "Grid_Default";
@@ -31,17 +32,37 @@
 //import du fichier de calcul du système de grille sélectionné
 @import "_framework/SPLessCss/Grids/Types/Grid_Default/_GridCalcul.less";
 
+
 //CONFIGURATION DES POLICES
 @fontGlobalFamilyWebFont: 'PT Sans', sans-serif;
+
 
 //CONFIGURATION DES COULEURS SYSTÈME GÉNÉRALES
 @import "_templates/operaTheme/Config/Colors/_ConfigColors.less";
 
-//CONFIGURATION PROPRE AU TEMPLATE
 
+//CONFIGURATION PROPRE AU TEMPLATE
 //calcul décalage intérieur des zones
 @zonesOffsetPad: (@gridGutter / 2);
-
 //configuration du header de Opéra
 @headerBgImageUrl: "@{urlImagesTemplate}/DemoRef/header.jpg";
 @headerHeight_bl: 16;
+
+
+//IMPORTATION DES OVERRIDES CLIENTS PARTIE 1
+//importation de la configuration locale du template choisi
+@import "_ConfigTemplateOverride.less";
+//importation de la configuration locale des couleurs
+@import "_ConfigColorsOverride.less";
+
+
+//IMPORTATION DES COULEURS DE RÉFÉRENCE (définitions basées sur les couleurs existantes)
+@import "_framework/SPLessCss/Config/Colors/_ConfigColorsReference.less";
+@import "_templates/operaTheme/Config/Colors/_ConfigColorsReference.less";
+
+
+//IMPORTATION DES OVERRIDES CLIENTS PARTIE 2
+//importation de la configuration locale des couleurs de référence
+@import "_ConfigColorsReferenceOverride.less";
+//importation des snippets de personnalisation du site Client
+@import "_LayoutOverride.less";

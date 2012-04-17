@@ -113,6 +113,11 @@ class dmDataLoad
         'description' => 'The site name',
         'group_name' =>'site'
       ),
+      'site_ndd' => array(
+        'default_value' => '',
+        'description' => 'The site ndd',
+        'group_name' =>'site'
+      ),      
       'site_active' => array(
         'type' => 'boolean',
         'default_value' => 1,
@@ -207,7 +212,8 @@ class dmDataLoad
         'credentials' => 'manual_metas'
       ),
       'title_suffix' => array(
-        'default_value' => ' | '.dmString::humanize(dmProject::getKey()),
+        //'default_value' => ' | '.dmString::humanize(dmProject::getKey()),
+        'default_value' => ' | '.dmString::humanize(dmConfig::get('site_name')),
         'description' => 'Append something at the end of all pages title',
         'group_name' =>'seo',
         'credentials' => 'manual_metas'
