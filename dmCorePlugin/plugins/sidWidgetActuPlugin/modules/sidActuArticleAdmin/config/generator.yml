@@ -77,6 +77,7 @@ generator:
         sort:
           - position
           - asc
+#          - desc
         table_method: getAdminListQuery
         table_count_method: ~
         sortable: true
