@@ -574,6 +574,28 @@ class baseEditorialeTools {
         
         return $return;
     }
+
+    /*
+     * Mise à false de is_indexable dans des dmPage pour les pages de la base éditoriale
+     *
+     */
+
+    public static function noIsIndexableDmPages() {
+        // retour
+        $return = array();
+        $arrayIdPage = array();
+        $arrayLangs = sfConfig::get('dm_i18n_cultures');
+        $modulePage = Doctrine_Query::create()->from('DmPage p')->select('p.id')->where("p.module IN ('rubrique','section','article')")->execute();
+        foreach($modulePage as $idPage){$arrayIdPage[]=$idPage->id;};
+        $stringModulePage = implode("','", $arrayIdPage);
+        $pages = Doctrine_Query::create()
+                ->update('DmPageTranslation pt')
+                ->set('pt.is_indexable','?', false)
+                ->where("pt.id IN ('".$stringModulePage."')")
+                ->execute();
+        $return[]['No Indexable Pages'] = "->".count($modulePage)." pages modified";
+        return $return;
+    }
     
     /*
      * Affectation à un groupe des dmPages en fonction du tableau présent dans app.yml pour le kit création
