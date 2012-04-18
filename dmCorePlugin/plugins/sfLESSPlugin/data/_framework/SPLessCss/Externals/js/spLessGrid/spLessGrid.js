@@ -1,6 +1,6 @@
 // spLessGrid.js - Pour le framework SPLessCss
-// v1.3
-// Last Updated : 2012-03-01 14:30
+// v1.4
+// Last Updated : 2012-04-18 14:50
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
@@ -10,7 +10,7 @@
 	//Définition du plugin
 	$.fn.spLessGrid = function() {
 		//Ajout de debug
-		// $.fn.spLessGrid.debug("spLessGrid | jQueryMobile : " + $.mobile);
+		// $.fn.frontFramework.debug("spLessGrid | jQueryMobile : " + $.mobile);
 
 		//stockage du this courant dans une variable pour accès dans les sous-boucles
 		var getThis = this;
@@ -51,14 +51,14 @@
 			var gridToggle = (switchRel == 'off' || switchRel == undefined) ? false : true;
 
 			//code permettant de trouver une combinaison
-			// $.fn.spLessGrid.debug("key : " + e.which);
+			// $.fn.frontFramework.debug("key : " + e.which);
 			// e.preventDefault();
 			
 			//combinaisons possibles : e.ctrlKey, e.altKey, e.shiftKey, e.metaKey
 			if(e.metaKey && e.which == 71) {
 				//message de debug
-				// if(gridToggle)	$.fn.spLessGrid.debug("Masquage de la grille");
-				// else			$.fn.spLessGrid.debug("Affichage de la grille");
+				// if(gridToggle)	$.fn.frontFramework.debug("Masquage de la grille");
+				// else			$.fn.frontFramework.debug("Affichage de la grille");
 
 				//on inverse l'affichage de la grille par rapport à l'état switch
 				$.fn.spLessGrid.toggleGrid(getThis, options, !gridToggle);
@@ -159,13 +159,13 @@
 			progressBar.width('0%').find(".picker").text(0);
 		}
 		
-		$.fn.spLessGrid.debug('dataRecup.hashMd5 : ' + dataRecup.hashMd5 + ' dataRecup.prct : ' + dataRecup.prct + ' dataRecup.spriteFormat : ' + dataRecup.spriteFormat);
+		// $.fn.frontFramework.debug('dataRecup.hashMd5 : ' + dataRecup.hashMd5 + ' dataRecup.prct : ' + dataRecup.prct + ' dataRecup.spriteFormat : ' + dataRecup.spriteFormat);
 		
 		$.getJSON(action, dataRecup, function(data) {
 			//on appel la fonction de façon récursive si on a pas atteint 100
 			if(data.prct < 100) $.fn.spLessGrid.spriteGenerate(action, data, progressBar);
 			
-			$.fn.spLessGrid.debug('data.hashMd5 : ' + data.hashMd5 + ' data.prct : ' + data.prct + ' data.spriteFormat : ' + data.spriteFormat);
+			// $.fn.frontFramework.debug('data.hashMd5 : ' + data.hashMd5 + ' data.prct : ' + data.prct + ' data.spriteFormat : ' + data.spriteFormat);
 			
 			//actualisation de la barre de progression
 			progressBar.stop().animate({width: data.prct + '%'}, 1000, function() {
@@ -175,7 +175,7 @@
 					setTimeout(function(){ $(progressBar).remove(); },200);
 					
 					//message de débug
-					$.fn.spLessGrid.debug("spLessGrid | spriteGenerate : génération des sprites terminées");
+					// $.fn.frontFramework.debug("spLessGrid | spriteGenerate : génération des sprites terminées");
 					
 					//rechargement de la page
 					window.location.reload();
@@ -314,12 +314,6 @@
 		$.fn.spLessGrid.debugTemplate.each(function(){
 			$(this).find('.debugInfo .info.' + info + ' .value').text(value);
 		});
-	}
-	
-	//fonction de debuggage
-	$.fn.spLessGrid.debug = function(txt){
-		if (window.console && window.console.log)
-			window.console.log(txt);
 	}
 	
 	//Paramètres par défaut
