@@ -39,7 +39,13 @@
 			options.isPostHSL = true;
 			options.offsetHSL -= widgetSocialNetworkLogos.outerHeight(true);
 
-			$.fn.frontFramework.debug("widgetSocialNetworkLogos outerHeight : " + widgetSocialNetworkLogos.outerHeight(true));
+			//replacement en absolu du widget
+			widgetSocialNetworkLogos.css({
+										'position' : 'absolute',
+										'bottom' : '0'
+									});
+
+			// $.fn.frontFramework.debug("widgetSocialNetworkLogos outerHeight : " + widgetSocialNetworkLogos.outerHeight(true));
 		}
 
 		//ajout d'un padding bottom à l'area pour placer l'élément
