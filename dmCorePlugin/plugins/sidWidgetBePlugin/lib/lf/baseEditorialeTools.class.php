@@ -266,6 +266,7 @@ class baseEditorialeTools {
                                         
                                         foreach ($arrayArticlesBaseEditoriale as $article) { // on ne garde que les articles récents
                                             //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate->updatedAt;
+
                                             if ($article->updatedAt->$lang > $lastUpdatedDate) {
                                                 $arrayArticlesBaseEditorialeSorted[] = $article;
                                                 // $return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
@@ -292,8 +293,10 @@ class baseEditorialeTools {
                                         }
                                         
                                         foreach ($arrayArticlesBaseEditorialeChoice as $articleBE) {
+
                                             $article = Doctrine::getTable('SidArticle')->findOneByFilenameAndSectionId($articleBE->filename, $sidSection->id);
                                             if ($article->isNew()) { // l'article n'existe pas en base
+                                                
                                                 $nbInsert++;
                                                 
                                                 foreach ($arrayLangs as $lang) {
@@ -325,7 +328,8 @@ class baseEditorialeTools {
                                                 $articleName = $articleBE->title->$lang;
                                                 //$return[$i]['Insertion article ' . $article->filename . ' - ' . $article->id] =  $articleName;
                                                 
-                                            } elseif ($article->Translation[$lang]->updated_at < $articleBE->updatedAt->$lang) { // l'article doit etre mis à jour
+                                            } elseif (
+                                                $article->Translation[$lang]->updated_at < $articleBE->updatedAt->$lang) { // l'article doit etre mis à jour
                                                 
                                                 foreach ($arrayLangs as $lang) {
                                                     if (isset($articleBE->title->$lang)) $article->Translation[$lang]->title = $articleBE->title->$lang;
@@ -450,48 +454,79 @@ class baseEditorialeTools {
 
                         }
 
-                        // mise à jour du champ position les sections de la rubrique ec_echeancier
-                        $titleSection = 'ec_echeancier';
-                        if ($rubrique->getTranslation()->$lang->title == $titleSection){
-                            foreach ($sidSections as $sidSection) {   
-                                $sectionsToSort[$sidSection->title]= $sidSection; // DB's section's title (i.e:201203) in key, id in value
-                                // requete pour trier l'échéancier avec "délai variable" en premier
-                                $sidArticles = dmDb::query('SidArticle a')
-                                    ->where('section_id='.$sidSection->id)
-                                    ->execute();
-                                foreach($sidArticles as $sidArticle){
-                                        $articlesToSort[$sidArticle->getTitle()] = $sidArticle;
-                                }
-                                natsort($articlesToSort);
-                                foreach($articlesToSort as $articleToSort){
-                                    if(strpos($articleToSort, 'variable')){
-                                        array_unshift($articlesToSort, $articleToSort);
-                                        array_splice($articlesToSort, $articleToSort);
+                        // mise à jour du champ position les sections des rubriques
+                        switch ($rubrique->getTranslation()->$lang->title) {
+                                case 'ec_echeancier': // tri complexe par title + cas particuliers pour les articles et par title pour les sections
+                                    $sectionsToSort = array();
+                                    foreach ($sidSections as $sidSection) {   
+                                        $sectionsToSort[$sidSection->title]= $sidSection; // DB's section's title (i.e:201203) in key, id in value
+                                        
+                                        // requete pour trier l'échéancier avec "délai variable" en premier
+                                        $articlesToSort = array();
+                                        $sidArticles = dmDb::query('SidArticle a')
+                                            ->where('section_id='.$sidSection->id)
+                                            ->execute();
+                                        $i=1;
+                                        foreach($sidArticles as $sidArticle){
+
+                                            $pos = strpos($sidArticle->getTitle(), 'Fin');
+                                            if($pos === false){
+                                                $pos = false;
+                                            } else {
+                                                $pos = true;
+                                            }
+                                            if($pos){
+                                                $articlesToSort['Z-'.$sidArticle->getTitle()] = $sidArticle; // on préfixe par 0 pour que le knatsort le place en premier
+                                            }elseif(preg_match("/^[a-zA-Z]{1}/", $sidArticle->getTitle())){
+                                                $articlesToSort['0-'.$sidArticle->getTitle()] = $sidArticle; // on préfixe par Z pour que le knatsort le place en dernier
+                                            }else {
+                                                $articlesToSort[$sidArticle->getTitle().$i] = $sidArticle;
+                                            }
+                                            $i++;
+
+                                        }
+                                        arrayTools::knatsort($articlesToSort);
+                                        $p = 1;
+                                        foreach ($articlesToSort as $article) {
+                                            if ($article->position != $p){                               
+                                                $return[]['Position article : '.$article->getTitle().' - '.$article->getId() ] = 'changement de '.$article->position .' en '. $p;
+                                                $article->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
+                                                $article->save();
+                                            }
+                                            $p++;
+                                        }
                                     }
-                                }
                                 
-                                $p = 1;
-                                foreach ($articlesToSort as $article) {
-                                    if ($article->position != $p){                               
-                                        $return[]['Position article : '.$article->getTitle()] = 'changement de '.$article->position .' en '. $p; 
-                                        $article->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
-                                        $article->save();
+                                    ksort($sectionsToSort); // sort by title
+                                    $p = 1;
+                                    foreach ($sectionsToSort as $section) {
+                                        if ($section->position != $p){                               
+                                            $return[]['Position section ec_echeancier : '.$section->getRubrique()->title.'/'.$section->title] = 'changement de '.$section->position .' en '. $p; 
+                                            $section->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
+                                            $section->save();
+                                        }
+                                        $p++;
                                     }
-                                    $p++;
-                                }
-                            }
-                        
-                            ksort($sectionsToSort); // sort by title
-                            $p = 1;
-                            foreach ($sectionsToSort as $section) {
-                                if ($section->position != $p){                               
-                                    $return[]['Position section : '.$titleSection.'/'.$section->title] = 'changement de '.$section->position .' en '. $p; 
-                                    $section->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
-                                    $section->save();
-                                }
-                                $p++;
-                            }
-                        }
+                                    break;
+
+                                default: // tri simple par ordre alphabétique
+                                    $sectionsToSort = array();
+                                    foreach ($sidSections as $sidSection) { 
+                                        $sectionsToSort[$sidSection->title]= $sidSection;
+                                    }
+                                    ksort($sectionsToSort); // sort by title
+                                    $p = 1;
+                                    foreach ($sectionsToSort as $section) {
+                                        if ($section->position != $p){                               
+                                            $return[]['Position section : '.$section->getRubrique()->title.'/'.$section->title] = 'changement de '.$section->position .' en '. $p; 
+                                            $section->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
+                                            $section->save();
+                                        }
+                                        $p++;
+                                    }                                        
+                                    break;
+
+                        } 
 
                     }
                     $i++;

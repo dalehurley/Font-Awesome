@@ -110,4 +110,21 @@ class arrayTools {
         return $attributes;
     }
 
+    /**
+     * natsort on key and not on value
+     * @param  array &$karr array to sort
+     * @return array        array in param
+     */
+    public static function knatsort(&$karr){
+        $kkeyarr = array_keys($karr);
+        natsort($kkeyarr);
+        $ksortedarr = array();
+        foreach($kkeyarr as $kcurrkey){
+            $ksortedarr[$kcurrkey] = $karr[$kcurrkey];
+        }
+        $karr = $ksortedarr;
+        return true;
+    }
+
+
 }
