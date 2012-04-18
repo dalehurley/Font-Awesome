@@ -74,9 +74,9 @@ generator:
 #          - created_by
 #          - updated_by            
           - image
-        sort:
-          - position
-          - asc
+        sort: ~
+#          - position
+#          - asc
 #          - desc
         table_method: getAdminListQuery
         table_count_method: ~
