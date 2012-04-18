@@ -43,9 +43,9 @@ class dmGoogleAnalyticsForm extends dmForm
       }
       catch(dmGapiException $e)
       {
-        // probably bad email/password
+        // probably bad email/password OR account not validated
         // throw an error bound to the password field
-        throw new sfValidatorErrorSchema($validator, array('email' => new sfValidatorError($validator, 'Bad email or password')));
+        throw new sfValidatorErrorSchema($validator, array('email' => new sfValidatorError($validator, 'Bad email or password OR bad ga_key (Warning: - and not _ after UA...)')));
       }
     }
     
