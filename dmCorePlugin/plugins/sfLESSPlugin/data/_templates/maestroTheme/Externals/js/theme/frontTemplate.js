@@ -13,7 +13,7 @@
 		// iterate and reformat each matched element
 		return this.each(function() {
 			//Affichage debug initialisation
-			$.fn.frontTemplate.debug("frontTemplate maestroTheme | initialisation");
+			$.fn.frontFramework.debug("frontTemplate maestroTheme | initialisation");
 
 			$.fn.frontTemplate.resizeCols(0,0,0);
 		});
@@ -46,18 +46,12 @@
 		if(hSR != null && hSR > maxH) maxH = hSR;
 
 		//affichage infos de débug
-		$.fn.frontTemplate.debug("frontTemplate | maxH : " + maxH + " hC : " + hC + " hSL : " + hSL + " hSR : " + hSR);
+		$.fn.frontFramework.debug("frontTemplate | maxH : " + maxH + " hC : " + hC + " hSL : " + hSL + " hSR : " + hSR);
 
 		//application des hauteurs sur les éléments (on utilise minHeight pour adapter automatiquement en fonction du changement du contenu)
 		if(dmZonesPageContent.length > 0) dmZonesPageContent.css('minHeight', maxH);
 		if(dmZonesSidebarLeft.length > 0) dmZonesSidebarLeft.css('minHeight', maxH);
 		if(dmZonesSidebarRight.length > 0) dmZonesSidebarRight.css('minHeight', maxH);
-	}
-
-	//fonction de debuggage
-	$.fn.frontTemplate.debug = function(txt){
-		if (window.console && window.console.log)
-			window.console.log(txt);
 	}
 
 	//lancement automatique de la fonction

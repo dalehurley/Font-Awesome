@@ -13,14 +13,8 @@
 		// iterate and reformat each matched element
 		return this.each(function() {
 			//Affichage debug initialisation
-			$.fn.frontTemplate.debug("frontTemplate modeleTheme | initialisation");
+			$.fn.frontFramework.debug("frontTemplate modeleTheme | initialisation");
 		});
-	}
-
-	//fonction de debuggage
-	$.fn.frontTemplate.debug = function(txt){
-		if (window.console && window.console.log)
-			window.console.log(txt);
 	}
 
 	//lancement automatique de la fonction
