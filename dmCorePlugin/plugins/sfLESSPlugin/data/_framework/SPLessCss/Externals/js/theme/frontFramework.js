@@ -8,24 +8,24 @@
 (function($){
 
 	//Définition du plugin
-	$.fn.frontTheme = function() {
+	$.fn.frontFramework = function() {
 
 		// iterate and reformat each matched element
 		return this.each(function() {
 			//Affichage debug initialisation
-			$.fn.frontTheme.debug("frontTheme SPLessCss | initialisation");
+			$.fn.frontFramework.debug("frontFramework SPLessCss | initialisation");
 		});
 	}
 
 	//fonction de debuggage
-	$.fn.frontTheme.debug = function(txt){
+	$.fn.frontFramework.debug = function(txt){
 		if (window.console && window.console.log)
 			window.console.log(txt);
 	}
 
 	//lancement automatique de la fonction
 	$(document).ready(function(){
-		$('html').frontTheme();
+		$('html').frontFramework();
 	});
 
 })(jQuery);
