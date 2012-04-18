@@ -15,43 +15,37 @@
 			//Affichage debug initialisation
 			$.fn.frontFramework.debug("frontTemplate maestroTheme | initialisation");
 
-			$.fn.frontTemplate.resizeCols(0,0,0);
+			//Configuration du redimenssionnement
+			$.fn.frontTemplate.resizeCols({
+										offsetHC: 0,
+										offsetHSL: 0,
+										offsetHSR: 0
+										});
 		});
 	}
 
 	//Gestion de la taille des colonnes
-	$.fn.frontTemplate.resizeCols = function (offsetHC, offsetHSL, offsetHSR) {
+	$.fn.frontTemplate.resizeCols = function (options) {
 
-		//sélection des éléments de page
-		var dmZonesPageContent= $('#dm_page_content > .dm_zones');
-		var dmZonesSidebarLeft = $('#dm_sidebar_left > .dm_zones');
-		var dmZonesSidebarRight = $('#dm_sidebar_right > .dm_zones');
+		//changement des valeurs des options
 
-		//hauteur contenu
-		var hC = (dmZonesPageContent.length > 0) ? dmZonesPageContent.height() : null;
-		//hauteur sidebar left
-		var hSL = (dmZonesSidebarLeft.length > 0) ? dmZonesSidebarLeft.height() : null;
-		//hauteur sidebar right
-		var hSR = (dmZonesSidebarRight.length > 0) ? dmZonesSidebarRight.height() : null;
+		//on vérifie la présence de différents widgets à placer en bas dans la sidebarLeft
 
-		//on rajoute les offsets si définis sur les dimensions
-		if(offsetHC != null && hC != null) hC += offsetHC;
-		if(offsetHSL != null && hSL != null) hSL += offsetHSL;
-		if(offsetHSR != null && hSR != null) hSR += offsetHSR;
+		//sélection de diverses widgets à placer en bas de la colonne
+		//#dm_sidebar_left 
+		var widgetSocialNetworkLogos = $('.dm_widget.social_network_logos');
 
-		//calcul de la plus grande hauteur
-		var maxH = 0;
-		if(hC != null && hC > maxH) maxH = hC;
-		if(hSL != null && hSL > maxH) maxH = hSL;
-		if(hSR != null && hSR > maxH) maxH = hSR;
+		if(widgetSocialNetworkLogos.length > 0) {
+			//on soustrait la hauteur au calcul à posteriori
+			options.isPostHSL = true;
+			options.offsetHSL -= widgetSocialNetworkLogos.height();
+		}
 
-		//affichage infos de débug
-		$.fn.frontFramework.debug("frontTemplate | maxH : " + maxH + " hC : " + hC + " hSL : " + hSL + " hSR : " + hSR);
+		//ajout d'un padding bottom à l'area pour placer l'élément
+		$('#dm_sidebar_left').css('paddingBottom', Math.abs(options.offsetHSL));
 
-		//application des hauteurs sur les éléments (on utilise minHeight pour adapter automatiquement en fonction du changement du contenu)
-		if(dmZonesPageContent.length > 0) dmZonesPageContent.css('minHeight', maxH);
-		if(dmZonesSidebarLeft.length > 0) dmZonesSidebarLeft.css('minHeight', maxH);
-		if(dmZonesSidebarRight.length > 0) dmZonesSidebarRight.css('minHeight', maxH);
+		//appel de la fonction de redimenssionnement générale
+		$.fn.frontFramework.resizeCols(options);
 	}
 
 	//lancement automatique de la fonction
