@@ -1,4 +1,4 @@
-// frontTheme.js
+// frontTemplate.js
 // v1.0
 // Last Updated : 2012-04-17 17:30
 // Copyright : SID Presse
@@ -8,19 +8,19 @@
 (function($){
 
 	//Définition du plugin
-	$.fn.frontTheme = function() {
+	$.fn.frontTemplate = function() {
 
 		// iterate and reformat each matched element
 		return this.each(function() {
 			//Affichage debug initialisation
-			$.fn.frontTheme.debug("frontTheme maestroTheme | initialisation");
+			$.fn.frontTemplate.debug("frontTemplate maestroTheme | initialisation");
 
-			$.fn.frontTheme.resizeCols(0,0,0);
+			$.fn.frontTemplate.resizeCols(0,0,0);
 		});
 	}
 
 	//Gestion de la taille des colonnes
-	$.fn.frontTheme.resizeCols = function (offsetHC, offsetHSL, offsetHSR) {
+	$.fn.frontTemplate.resizeCols = function (offsetHC, offsetHSL, offsetHSR) {
 
 		//sélection des éléments de page
 		var dmZonesPageContent= $('#dm_page_content > .dm_zones');
@@ -46,7 +46,7 @@
 		if(hSR != null && hSR > maxH) maxH = hSR;
 
 		//affichage infos de débug
-		$.fn.frontTheme.debug("frontTheme | maxH : " + maxH + " hC : " + hC + " hSL : " + hSL + " hSR : " + hSR);
+		$.fn.frontTemplate.debug("frontTemplate | maxH : " + maxH + " hC : " + hC + " hSL : " + hSL + " hSR : " + hSR);
 
 		//application des hauteurs sur les éléments (on utilise minHeight pour adapter automatiquement en fonction du changement du contenu)
 		if(dmZonesPageContent.length > 0) dmZonesPageContent.css('minHeight', maxH);
@@ -55,14 +55,14 @@
 	}
 
 	//fonction de debuggage
-	$.fn.frontTheme.debug = function(txt){
+	$.fn.frontTemplate.debug = function(txt){
 		if (window.console && window.console.log)
 			window.console.log(txt);
 	}
 
 	//lancement automatique de la fonction
 	$(document).ready(function(){
-		$('html').frontTheme();
+		$('html').frontTemplate();
 	});
 
 })(jQuery);
