@@ -10,7 +10,7 @@
 	//Définition du plugin
 	$.fn.menuMegaDropdown = function() {
 		//test ajout de debug
-		$.fn.menuMegaDropdown.debug("menuMegaDropdown | initialisation : " + $(this).attr("class"));
+		$.fn.frontFramework.debug("menuMegaDropdown | initialisation : " + $(this).attr("class"));
 		
 		//largeur de rangée
 		var largeurLigneFull = $('#dm_main_inner').outerWidth();
@@ -103,7 +103,7 @@
 					
 					//calcul du nombre de colonnes affichable en largeur
 					var displayNbreCol = Math.floor(rowWidth / colWidth);
-					// $.fn.menuMegaDropdown.debug(index + ' rowWidth : ' + rowWidth + ' colWidth : ' + colWidth + ' displayNbreCol : ' + displayNbreCol);
+					// $.fn.frontFramework.debug(index + ' rowWidth : ' + rowWidth + ' colWidth : ' + colWidth + ' displayNbreCol : ' + displayNbreCol);
 
 					//on ajoute une classe CSS spécifique à chaque début et fin de ligne
 					//(on cible les enfants avec find car children fait bugger modernizr avec le sélecteur nth-of-type)
@@ -158,12 +158,6 @@
 				}
 			});
 		});
-	}
-
-	//fonction de debuggage
-	$.fn.menuMegaDropdown.debug = function(txt){
-		if (window.console && window.console.log)
-			window.console.log(txt);
 	}
 
 	//lancement automatique de la fonction
