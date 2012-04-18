@@ -52,9 +52,9 @@ if (isset($argv[1])) {
 } else {
 	$argument = '--none--';
 }
-
 echo $colors->getColoredString("  Commande choisie : ".$argument, "green", "light_gray") . "  \n";
 
+// Exemple to give interection with human
 // echo "Dumps des sites de démo et de client?  Tapez 'oui' pour continuer: ";
 // $handle = fopen ("php://stdin","r");
 // $line = fgets($handle);
@@ -70,37 +70,66 @@ switch ($argument) {
 		break;
 
 	case 'dumps':
-		$dir = opendir($dirSites); 
-
-		while($dirSite = readdir($dir)) {
-			if(	(substr($dirSite,0,6) == '_demo_' || substr($dirSite,0,2) == 'IM') && is_dir($dirSites.'/'.$dirSite)) {
-				
-				echo "------ Site demo ou client : ".$dirSites.'/'.$dirSite." -------\n";
-				$command = "cd ".$dirSites.'/'.$dirSite.";php symfony db:dump --auto=true";
-				exec($command);
-				echo "-----------------------------------------------------------\n";
-
-			} 
-		}
-		closedir($dir);
+		$command = "cd ".$dirSites."/##DIRSITE##;php symfony db:dump --auto=true";
+		commandForAllSites($command,$dirSites);
 		break;
+
+	case 'loadArticles':
+		$command = "cd ".$dirSites."/##DIRSITE##;php symfony be:loadArticles sections;php symfony be:loadArticles articles;";
+		commandForAllSites($command,$dirSites);
+		break;
+
+	case 'search-update':
+		$command = "cd ".$dirSites."/##DIRSITE##;php symfony dm:search-update;";
+		commandForAllSites($command,$dirSites);
+		break;
+
+	case 'sitemap-update':
+		$command = "cd ".$dirSites."/##DIRSITE##;php symfony dm:sitemap-update;";
+		commandForAllSites($command,$dirSites);
+		break;
+
+
+
+
+
+
 
 	case 'loadBE':
 		echo "------ Base éditoriale - mise à jour -------\n";
 		$command = "cd ".$dirBE.";php symfony be:loadBE verbose --auto=true";
 		exec($command);
 		echo "-----------------------------------------------------------\n";
-
 		break;
 
-
-
-
-	
 	default:
 		echo $colors->getColoredString($utilisation, "white", "green") . "\n"; ;
 		break;
 }
+
+
+
+/**
+ * execute une commande pour les sites d'un dossier donné
+ * @param  [type] $command  [description]
+ * @param  [type] $dirSites [description]
+ * @return [type]           [description]
+ */
+function commandForAllSites($command,$dirSites){
+	$dir = opendir($dirSites); 
+	// compteur
+	//echo 
+	while($dirSite = readdir($dir)) {
+		if(	(substr($dirSite,0,6) == '_demo_' || substr($dirSite,0,2) == 'si') && is_dir($dirSites.'/'.$dirSite)) {
+			echo "------ Site : ".$dirSites.'/'.$dirSite." -------\n";
+			$command = str_replace('##DIRSITE##', $dirSite, $command);
+			exec($command);
+			echo "-----------------------------------------------------------\n";
+		} 
+	}
+	closedir($dir);
+}
+
 
 
 
