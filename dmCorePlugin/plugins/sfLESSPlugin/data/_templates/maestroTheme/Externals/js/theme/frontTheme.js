@@ -15,24 +15,29 @@
 			//Affichage debug initialisation
 			$.fn.frontTheme.debug("frontTheme maestroTheme | initialisation");
 
-			$.fn.frontTheme.resizeCols();
+			$.fn.frontTheme.resizeCols(0,0,0);
 		});
 	}
 
 	//Gestion de la taille des colonnes
-	$.fn.frontTheme.resizeCols = function (offsetHSL = 0, offsetHSR = 0, offsetHC = 0) {
+	$.fn.frontTheme.resizeCols = function (offsetHC, offsetHSL, offsetHSR) {
 
 		//sélection des éléments de page
+		var dmZonesPageContent= $('#dm_page_content > .dm_zones');
 		var dmZonesSidebarLeft = $('#dm_sidebar_left > .dm_zones');
 		var dmZonesSidebarRight = $('#dm_sidebar_right > .dm_zones');
-		var dmZonesPageContent= $('#dm_page_content > .dm_zones');
 
+		//hauteur contenu
+		var hC = (dmZonesPageContent.length > 0) ? dmZonesPageContent.height() : null;
 		//hauteur sidebar left
 		var hSL = (dmZonesSidebarLeft.length > 0) ? dmZonesSidebarLeft.height() : null;
 		//hauteur sidebar right
 		var hSR = (dmZonesSidebarRight.length > 0) ? dmZonesSidebarRight.height() : null;
-		//hauteur contenu
-		var hC = (dmZonesPageContent.length > 0) ? dmZonesPageContent.height() : null;
+
+		//on rajoute les offsets si définis sur les dimensions
+		if(offsetHC != null && hC != null) hC += offsetHC;
+		if(offsetHSL != null && hSL != null) hSL += offsetHSL;
+		if(offsetHSR != null && hSR != null) hSR += offsetHSR;
 
 		//calcul de la plus grande hauteur
 		var maxH = 0;
@@ -41,12 +46,12 @@
 		if(hSR != null && hSR > maxH) maxH = hSR;
 
 		//affichage infos de débug
-		$.fn.frontTheme.debug("frontTheme | maxH : " + maxH + " hSL : " + hSL + " hSR : " + hSR + " hC : " + hC);
+		$.fn.frontTheme.debug("frontTheme | maxH : " + maxH + " hC : " + hC + " hSL : " + hSL + " hSR : " + hSR);
 
-		//application des hauteurs sur les éléments
-		if(dmZonesSidebarLeft.length > 0) dmZonesSidebarLeft.height(maxH);
-		if(dmZonesSidebarRight.length > 0) dmZonesSidebarRight.height(maxH);
-		if(dmZonesPageContent.length > 0) dmZonesPageContent.height(maxH);
+		//application des hauteurs sur les éléments (on utilise minHeight pour adapter automatiquement en fonction du changement du contenu)
+		if(dmZonesPageContent.length > 0) dmZonesPageContent.css('minHeight', maxH);
+		if(dmZonesSidebarLeft.length > 0) dmZonesSidebarLeft.css('minHeight', maxH);
+		if(dmZonesSidebarRight.length > 0) dmZonesSidebarRight.css('minHeight', maxH);
 	}
 
 	//fonction de debuggage
