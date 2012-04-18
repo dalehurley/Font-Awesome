@@ -32,13 +32,14 @@
 		//on vérifie la présence de différents widgets à placer en bas dans la sidebarLeft
 
 		//sélection de diverses widgets à placer en bas de la colonne
-		//#dm_sidebar_left 
+		// #dm_sidebar_left 
 		var widgetSocialNetworkLogos = $('.dm_widget.social_network_logos');
-
 		if(widgetSocialNetworkLogos.length > 0) {
 			//on soustrait la hauteur au calcul à posteriori
 			options.isPostHSL = true;
-			options.offsetHSL -= widgetSocialNetworkLogos.height();
+			options.offsetHSL -= widgetSocialNetworkLogos.outerHeight(true);
+
+			$.fn.frontFramework.debug("widgetSocialNetworkLogos outerHeight : " + widgetSocialNetworkLogos.outerHeight(true));
 		}
 
 		//ajout d'un padding bottom à l'area pour placer l'élément
