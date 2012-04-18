@@ -13,7 +13,7 @@
 		// iterate and reformat each matched element
 		return this.each(function() {
 			//Affichage debug initialisation
-			$.fn.menuMegaDropdown.debug("frontTheme modeleTheme | initialisation");
+			$.fn.frontTheme.debug("frontTheme modeleTheme | initialisation");
 		});
 	}
 
