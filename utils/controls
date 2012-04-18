@@ -1,0 +1,108 @@
+<?php
+/**
+ * Launch this script in command line
+ * 
+ * - dump (db:dump --auto=true) all sites prefixed by _demo_ or IM
+ */
+
+include ('cliColors.class.php');
+$colors = new Colors();
+
+
+$hostname = $_SERVER["HOSTNAME"];
+echo $colors->getColoredString("  Hostname : ".$hostname, "dark_gray", "yellow") . "  \n";
+
+/************************ parametres **************************************/
+switch ($hostname) {
+	case 'fedoralionel':
+		$dirSites = "/data/www";
+		$dirBE = "/data/www/base-editoriale";   
+		break;
+
+	case 'productionvm15':
+		$dirSites = "/data/www/sitesv3";
+		$dirBE = "data/www/sitesv3/_system_base-editoriale";  // serveur de prod
+		break;
+
+	default:
+		$dirSites = "";
+		$dirBE = "";  
+		break;
+}
+
+
+/**************************************************************************/
+
+$utilisation = 
+<<<EOF
+  Utilisation : php controls [argument]                                  
+  Arguments disponibles :                                                
+    --help   aide                                                        
+    dumps    sauvegarde des sites de demo et des sites client en dump    
+
+
+
+
+
+EOF;
+
+// la commande choisie
+if (isset($argv[1])) { 
+	$argument = $argv[1]; 
+} else {
+	$argument = '--none--';
+}
+
+echo $colors->getColoredString("  Commande choisie : ".$argument, "green", "light_gray") . "  \n";
+
+// echo "Dumps des sites de démo et de client?  Tapez 'oui' pour continuer: ";
+// $handle = fopen ("php://stdin","r");
+// $line = fgets($handle);
+// if(trim($line) != 'oui'){
+//     echo "Abandon!\n";
+//     exit;
+// }
+// echo "\n";
+
+switch ($argument) {
+	case '--help':
+		echo $colors->getColoredString($utilisation, "white", "green") . "\n"; ;
+		break;
+
+	case 'dumps':
+		$dir = opendir($dirSites); 
+
+		while($dirSite = readdir($dir)) {
+			if(	(substr($dirSite,0,6) == '_demo_' || substr($dirSite,0,2) == 'IM') && is_dir($dirSites.'/'.$dirSite)) {
+				
+				echo "------ Site demo ou client : ".$dirSites.'/'.$dirSite." -------\n";
+				$command = "cd ".$dirSites.'/'.$dirSite.";php symfony db:dump --auto=true";
+				exec($command);
+				echo "-----------------------------------------------------------\n";
+
+			} 
+		}
+		closedir($dir);
+		break;
+
+	case 'loadBE':
+		echo "------ Base éditoriale - mise à jour -------\n";
+		$command = "cd ".$dirBE.";php symfony be:loadBE verbose --auto=true";
+		exec($command);
+		echo "-----------------------------------------------------------\n";
+
+		break;
+
+
+
+
+	
+	default:
+		echo $colors->getColoredString($utilisation, "white", "green") . "\n"; ;
+		break;
+}
+
+
+
+
+?>
