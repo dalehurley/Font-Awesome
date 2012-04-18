@@ -32,8 +32,11 @@
 		//on vérifie la présence de différents widgets à placer en bas dans la sidebarLeft
 
 		//sélection de diverses widgets à placer en bas de la colonne
-		// #dm_sidebar_left 
-		var widgetSocialNetworkLogos = $('.dm_widget.social_network_logos');
+		var widgetFollowingMenu = $('#dm_sidebar_left .dm_widget.navigation_menu ~ .dm_widget.social_network_logos');
+
+		$.fn.frontFramework.debug("widgetFollowingMenu : " + widgetFollowingMenu.length);
+		//à refaire
+		/*
 		if(widgetSocialNetworkLogos.length > 0) {
 			//on soustrait la hauteur au calcul à posteriori
 			options.isPostHSL = true;
@@ -44,12 +47,12 @@
 										'position' : 'absolute',
 										'bottom' : '0'
 									});
-
 			// $.fn.frontFramework.debug("widgetSocialNetworkLogos outerHeight : " + widgetSocialNetworkLogos.outerHeight(true));
 		}
+		*/
 
 		//ajout d'un padding bottom à l'area pour placer l'élément
-		$('#dm_sidebar_left').css('paddingBottom', Math.abs(options.offsetHSL));
+		//$('#dm_sidebar_left').css('paddingBottom', Math.abs(options.offsetHSL));
 
 		//appel de la fonction de redimenssionnement générale
 		$.fn.frontFramework.resizeCols(options);
