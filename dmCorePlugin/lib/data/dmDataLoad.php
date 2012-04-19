@@ -115,7 +115,9 @@ class dmDataLoad
       ),
       'site_ndd' => array(
         'default_value' => '',
-        'description' => 'The site ndd',
+        'type' => 'text',
+        'params' => 'disabled="disabled"',
+        'description' => 'The site ndd can be change by task dm:change-ndd',
         'group_name' =>'site'
       ),      
       'site_active' => array(
@@ -244,7 +246,21 @@ class dmDataLoad
         'default_value' => '',
         'description' => 'The site email recepter',
         'group_name' =>'site'
-      )                          
+      ),
+      'site_theme_version' => array(
+        'default_value' => '',
+        'type' => 'text',
+        'params' => 'disabled="disabled"',
+        'description' => 'The site_theme_version can be change by task theme:install',
+        'group_name' =>'site'
+      ),
+      'site_theme' => array(
+        'default_value' => '',
+        'type' => 'text',
+        'params' => 'disabled="disabled"',
+        'description' => 'The site_theme can be change by task theme:install',
+        'group_name' =>'site'
+      ),
     );
 
     $existingSettings = dmDb::query('DmSetting s INDEXBY s.name')
