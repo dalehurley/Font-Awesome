@@ -46,10 +46,10 @@
 
 			//replacement en absolu du widget
 			$(this).css({
-										'position' : 'absolute',
-										'bottom' : (fullHeight*-1)
-									});
-
+						'position' : 'absolute',
+						'bottom' : (fullHeight*-1)
+					});
+			
 			// $.fn.frontFramework.debug(index + " widget : " + $(this).attr('class') + ' fullHeight ' + fullHeight + ' outerHeight ' + $(this).outerHeight(true));
 		});
 
