@@ -8,7 +8,29 @@ generator:
     route_prefix: dm_contact
     with_doctrine_route: false
     config:
-      actions: ~
+      actions: 
+        _new:              # le client ne peut pas créer un bandeau, le bouton Ajouter de l'admin n'apparaitra pas
+          credentials: [ super_admin ]   # seule la permission super_admin a droit
+        _add:              # le client ne peut pas créer un bandeau, le bouton Ajouter de l'admin n'apparaitra pas
+          credentials: [ super_admin ]   # seule la permission super_admin a droit
+        _delete:
+          credentials: [[ super_admin , admin ]]  # il faut les permissions super_admin ET admin
+        _save:
+          credentials: [[ super_admin , admin ]]  # il faut la permission super_admin OU admin pour accéder
+        history:
+          credentials: [[ super_admin , admin ]]
+        list:
+          credentials: [[ super_admin , admin ]]
+        edit:
+          credentials: [[ super_admin , admin ]]
+        _save_and_list:
+          credentials: [ super_admin ]  # pour ne pas faire apparaitre le bouton "enregister et retour à la liste" dans le bandeau du haut quand on n'a pas la permission SUPER_ADMIN
+        _save_and_next:
+          credentials: [ super_admin ]
+        _save_and_add:
+          credentials: [ super_admin ]
+        _sort:
+          credentials: [super_admin]
       fields: {  }
       list:
         display:

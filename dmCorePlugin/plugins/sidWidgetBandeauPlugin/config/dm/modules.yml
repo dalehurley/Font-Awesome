@@ -1,5 +1,5 @@
-"Gestion du Bandeau":
-  "Bandeau défilant":
+"Management of scrolling banners":
+  Ticker:
     GroupeBandeau:
       model: SidGroupeBandeau
       name: "Mon groupe de bandeaux|Mes groupes de bandeaux"
@@ -9,7 +9,7 @@
 
     Bandeau:
       model: SidBandeau
-      name: "Mon bandeau|Mes bandeaux"
+      name: "My band|My bands"
       credentials: bandeau
 #      parent: GroupeBandeau
       components:

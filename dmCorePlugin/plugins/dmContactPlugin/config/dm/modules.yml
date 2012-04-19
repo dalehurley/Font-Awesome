@@ -1,9 +1,9 @@
-Content:
+"Contact management":
 
-  Feedback:
+  "Contacts (forms received)":
 
     dmContact:
-      name:            Contact|Contacts
+      name:            "My request for contacts|My requests for contacts"
       credentials: contact_me
       actions:
         form:

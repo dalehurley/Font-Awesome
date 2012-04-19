@@ -16,10 +16,10 @@ Tools:
     dmCatalogue:
       name:         Catalogue
       credentials:  catalogue_translation
-  Monitoring:
-    dmChart:
-      name:         Chart
-      credentials:  see_chart
+#  Monitoring:
+#    dmChart:
+#      name:         Chart
+#      credentials:  see_chart
     dmLog:
       name:         Log
       credentials:  see_log
@@ -81,3 +81,9 @@ System:
     dmServer:
       name:         Server
       credentials:  see_server
+      
+"The followed by the internet audience":  
+  "Site activity":
+    dmChart:
+      name:         Chart
+      credentials:  see_chart
