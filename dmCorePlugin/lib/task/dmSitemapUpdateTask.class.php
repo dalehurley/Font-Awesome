@@ -8,9 +8,9 @@ class dmSitemapUpdateTask extends dmContextTask
   protected function configure()
   {
     parent::configure();
-    
+  
     $this->addArguments(array(
-      new sfCommandArgument('domain', sfCommandArgument::REQUIRED, 'The domain name (ie. http://www.my-domain.com)'),
+      new sfCommandArgument('domain', sfCommandArgument::OPTIONAL, 'The domain name (ie. http://www.my-domain.com)'),
     ));
     
     $this->namespace = 'dm';
@@ -26,6 +26,17 @@ class dmSitemapUpdateTask extends dmContextTask
   protected function execute($arguments = array(), $options = array())
   {
     $this->withDatabase();
+
+    if (dmConfig::get('site_ndd') != ''){
+        $actualNdd = dmConfig::get('site_ndd');
+        $this->log('NDD actuel : '.$actualNdd);
+    } else {
+        $this->runTask('dm:setup');
+        $this->logBlock('ERROR : dm:change-ndd : NDD inconnu en Base de données, merci d\'ajouter le champ dm_setting.site_ndd', 'ERROR');
+        exit;
+    }
+
+    $arguments['domain'] = dmConfig::get('site_ndd');
 
     if(0 !== strpos($arguments['domain'], 'http://'))
     {
