@@ -107,6 +107,18 @@
 		public function getBackgroundColors() {
 			return array_keys($this->background_colors);
 		}
+
+		public function error($libelle){
+			return $this->getColoredString($libelle,"white", "red") . "  \n";
+		}
+
+		public function help($libelle){
+			return $this->getColoredString($libelle,"green") . "  \n";
+		}
+
+		public function info($libelle){
+			return $this->getColoredString($libelle,"white", "red") . "  \n";
+		}
 	}
  
 ?>

@@ -2,41 +2,46 @@
 /**
  * Launch this script in command line
  * 
- * - dump (db:dump --auto=true) all sites prefixed by _demo_ or IM
  */
 
 include ('cliColors.class.php');
 $colors = new Colors();
 
+// recup hostname
+//$hostname = $_SERVER["HOSTNAME"];
+//echo $colors->getColoredString("  Hostname : ".$hostname, "dark_gray", "yellow") . "  \n";
 
-$hostname = $_SERVER["HOSTNAME"];
-echo $colors->getColoredString("  Hostname : ".$hostname, "dark_gray", "yellow") . "  \n";
+/************************ parametres (no need, all in argv) **************************************/
+// switch ($hostname) {
+// 	case 'fedoralionel':
+// 		$dirSites = "/data/www";
+// 		$dirBE = "/data/www/base-editoriale";   
+// 		break;
 
-/************************ parametres **************************************/
-switch ($hostname) {
-	case 'fedoralionel':
-		$dirSites = "/data/www";
-		$dirBE = "/data/www/base-editoriale";   
-		break;
+// 	case 'productionvm15':
+// 		$dirSites = "/data/www/sitesv3";
+// 		$dirBE = "data/www/sitesv3/_system_base-editoriale";  // serveur de prod
+// 		break;
 
-	case 'productionvm15':
-		$dirSites = "/data/www/sitesv3";
-		$dirBE = "data/www/sitesv3/_system_base-editoriale";  // serveur de prod
-		break;
-
-	default:
-		$dirSites = "";
-		$dirBE = "";  
-		break;
-}
+// 	default:
+// 		$dirSites = "";
+// 		$dirBE = "";  
+// 		break;
+// }
 
 
 /**************************************************************************/
 
 $utilisation = 
 <<<EOF
-  Utilisation : php controls [argument]                                  
-  Arguments disponibles :                                                
+         
+  Utilisation : php controls argument1 argument2 argument3                                        
+          
+  argument1 : le dossier contenant du(des) site(s) [exemple: /data/www/ ]    
+
+  argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
+
+  argument3 : la commande                                                
     --help   aide                                                        
     dumps    sauvegarde des sites de demo et des sites client en dump    
 
@@ -45,14 +50,28 @@ $utilisation =
 
 
 EOF;
+$help = $colors->getColoredString($utilisation, "green") . "\n";
+
+
+
+if (count($argv)!=4 || $argv[0]!='controls'){
+	echo $colors->error("  ERREUR : il faut 3 arguments ");
+	echo $help;
+	exit;
+}
+
+// le dossier contenant du site
+$dirSites = $argv[1];
+
 
 // la commande choisie
-if (isset($argv[1])) { 
-	$argument = $argv[1]; 
-} else {
-	$argument = '--none--';
-}
-echo $colors->getColoredString("  Commande choisie : ".$argument, "green", "light_gray") . "  \n";
+$commande = $argv[3]; 
+echo $colors->getColoredString("  Commande choisie : ".$commande, "green") . "  \n";
+
+
+
+
+
 
 // Exemple to give interection with human
 // echo "Dumps des sites de démo et de client?  Tapez 'oui' pour continuer: ";
@@ -66,7 +85,7 @@ echo $colors->getColoredString("  Commande choisie : ".$argument, "green", "ligh
 
 switch ($argument) {
 	case '--help':
-		echo $colors->getColoredString($utilisation, "white", "green") . "\n"; ;
+		echo $help;
 		break;
 
 	case 'dumps':
@@ -96,14 +115,12 @@ switch ($argument) {
 
 
 	case 'loadBE':
-		echo "------ Base éditoriale - mise à jour -------\n";
 		$command = "cd ".$dirBE.";php symfony be:loadBE verbose --auto=true";
 		exec($command);
-		echo "-----------------------------------------------------------\n";
 		break;
 
 	default:
-		echo $colors->getColoredString($utilisation, "white", "green") . "\n"; ;
+		echo $help; 
 		break;
 }
 
@@ -121,10 +138,12 @@ function commandForAllSites($command,$dirSites){
 	//echo 
 	while($dirSite = readdir($dir)) {
 		if(	(substr($dirSite,0,6) == '_demo_' || substr($dirSite,0,2) == 'si') && is_dir($dirSites.'/'.$dirSite)) {
-			echo "------ Site : ".$dirSites.'/'.$dirSite." -------\n";
+
+			echo $colors->getColoredString("------ Site : ".$dirSites."/".$dirSite." -------".$argument, "white", "magenta") . "  \n";
 			$command = str_replace('##DIRSITE##', $dirSite, $command);
 			exec($command);
-			echo "-----------------------------------------------------------\n";
+			echo $colors->getColoredString("-----------------------------------------------------------", "white", "magenta") . "  \n";
+
 		} 
 	}
 	closedir($dir);
