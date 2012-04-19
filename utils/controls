@@ -5,7 +5,7 @@
  */
 
 include ('cliColors.class.php');
-$colors = new Colors();
+$colors = new Colors(); // appel object colorisation
 
 // recup hostname
 //$hostname = $_SERVER["HOSTNAME"];
@@ -14,17 +14,17 @@ $colors = new Colors();
 /************************ parametres (no need, all in argv) **************************************/
 // switch ($hostname) {
 // 	case 'fedoralionel':
-// 		$dirSites = "/data/www";
+// 		$dirContentSite = "/data/www";
 // 		$dirBE = "/data/www/base-editoriale";   
 // 		break;
 
 // 	case 'productionvm15':
-// 		$dirSites = "/data/www/sitesv3";
+// 		$dirContentSite = "/data/www/sitesv3";
 // 		$dirBE = "data/www/sitesv3/_system_base-editoriale";  // serveur de prod
 // 		break;
 
 // 	default:
-// 		$dirSites = "";
+// 		$dirContentSite = "";
 // 		$dirBE = "";  
 // 		break;
 // }
@@ -35,88 +35,125 @@ $colors = new Colors();
 $utilisation = 
 <<<EOF
          
-  Utilisation : php controls argument1 argument2 argument3                                        
+ Utilisation : php controls argument1 argument2 argument3 [interactive]                                       
           
   argument1 : le dossier contenant du(des) site(s) [exemple: /data/www/ ]    
-
   argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
-
   argument3 : la commande                                                
-    --help   aide                                                        
-    dumps    sauvegarde des sites de demo et des sites client en dump    
-
-
-
-
+    --help                aide                                                        
+    dumps                 sauvegarde des sites de demo et des sites client en dump 
+    loadArticles          charge les sections puis les articles
+    search-update         met à jour lucene (index de recherche)
+    sitemap-update        met à jour le sitemap
+    setup                 effectue un dm:setup
+    loadBE                met à jour la base éditoriale
+    ccc                   purge du cache web et APC
+    less-compile          compilation des fichiers less
+    generate-sprite       génération des sprites
+    migration-doctrine    effectue une migration doctrine suivi d'un dm:setup
+    infos                 donne des infos 
+  argument4 (optionnel) : 
+    auto                  mode automatique (sans validation des sites à traiter) 
 
 EOF;
 $help = $colors->getColoredString($utilisation, "green") . "\n";
 
-
-
-if (count($argv)!=4 || $argv[0]!='controls'){
-	echo $colors->error("  ERREUR : il faut 3 arguments ");
+// verification 3 arguments
+if (count($argv)<4 || $argv[0]!='controls'){
+	echo $colors->error("  ERREUR : il y a 3 arguments obligatoires");
+	echo $help;
+	exit;
+}
+// verification arg 1 is dir
+if (!is_dir($argv[1])){
+	echo $colors->error("  ERREUR : l'argument 1 doit être un répertoire valide ");
 	echo $help;
 	exit;
 }
 
+
+// récupération des 3 arguments
 // le dossier contenant du site
-$dirSites = $argv[1];
-
-
+$dirContentSite = $argv[1];
+echo $colors->info("  Dossier contenant : ".$dirContentSite." ");
+// le dossier du site
+$dirSite = $argv[2];
+echo $colors->info("  Dossier site : ".$dirSite." ");
 // la commande choisie
-$commande = $argv[3]; 
-echo $colors->getColoredString("  Commande choisie : ".$commande, "green") . "  \n";
+$argCommande = $argv[3]; 
+echo $colors->info("  Commande : ".$argCommande." ");
+// arguement 4 optionnel
+if (isset($argv[4]) && $argv[4]=='auto'){
+	$interactiveMode = false;
+} else {
+	$interactiveMode = true;
+}
 
 
-
-
-
-
-// Exemple to give interection with human
-// echo "Dumps des sites de démo et de client?  Tapez 'oui' pour continuer: ";
-// $handle = fopen ("php://stdin","r");
-// $line = fgets($handle);
-// if(trim($line) != 'oui'){
-//     echo "Abandon!\n";
-//     exit;
-// }
-// echo "\n";
-
-switch ($argument) {
+switch ($argCommande) {
 	case '--help':
 		echo $help;
 		break;
 
 	case 'dumps':
-		$command = "cd ".$dirSites."/##DIRSITE##;php symfony db:dump --auto=true";
-		commandForAllSites($command,$dirSites);
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony db:dump --auto=true";
+		commandForAllSites($commande);
 		break;
 
 	case 'loadArticles':
-		$command = "cd ".$dirSites."/##DIRSITE##;php symfony be:loadArticles sections;php symfony be:loadArticles articles;";
-		commandForAllSites($command,$dirSites);
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony be:loadArticles sections;php symfony be:loadArticles articles;";
+		commandForAllSites($commande);
 		break;
 
 	case 'search-update':
-		$command = "cd ".$dirSites."/##DIRSITE##;php symfony dm:search-update;";
-		commandForAllSites($command,$dirSites);
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:search-update;";
+		commandForAllSites($commande);
 		break;
 
 	case 'sitemap-update':
-		$command = "cd ".$dirSites."/##DIRSITE##;php symfony dm:sitemap-update;";
-		commandForAllSites($command,$dirSites);
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:sitemap-update;";
+		commandForAllSites($commande);
 		break;
 
-
-
-
-
-
+	case 'setup':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:setup;";
+		commandForAllSites($commande);
+		break;
 
 	case 'loadBE':
-		$command = "cd ".$dirBE.";php symfony be:loadBE verbose --auto=true";
-		exec($command);
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony be:loadBE verbose --auto=true";
+		commandForAllSites($commande);
+		break;
+
+    // ccc                   purge du cache web et APC
+    // less-compile          compilation des fichiers less
+    // generate-sprite       génération des sprites
+    // migration-doctrine    effectue une migration doctrine suivi d'un dm:setup
+    // infos                 donne des infos 
+
+	case 'ccc':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony ccc";
+		commandForAllSites($commande);
+		break;
+
+	case 'less-compile':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony less:compile-all";
+		commandForAllSites($commande);
+		break;
+
+	case 'generate-sprite':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony less:sprite";
+		commandForAllSites($commande);
+		break;
+
+	case 'migration-doctrine':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony doctrine:generate-migrations-diff;php symfony doctrine:migrate;php symfony dm:setup;";
+		commandForAllSites($commande);
+		break;
+
+	case 'infos-site':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:infos-site;";
+		commandForAllSites($commande);
 		break;
 
 	default:
@@ -129,28 +166,83 @@ switch ($argument) {
 /**
  * execute une commande pour les sites d'un dossier donné
  * @param  [type] $command  [description]
- * @param  [type] $dirSites [description]
+ * @param  [type] $dirContentSite [description]
  * @return [type]           [description]
  */
-function commandForAllSites($command,$dirSites){
-	$dir = opendir($dirSites); 
-	// compteur
-	//echo 
-	while($dirSite = readdir($dir)) {
-		if(	(substr($dirSite,0,6) == '_demo_' || substr($dirSite,0,2) == 'si') && is_dir($dirSites.'/'.$dirSite)) {
+function commandForAllSites($commande){
+	
+	global $interactiveMode;
+	global $dirContentSite;
+	global $dirSite;
+	global $argCommande;
 
-			echo $colors->getColoredString("------ Site : ".$dirSites."/".$dirSite." -------".$argument, "white", "magenta") . "  \n";
-			$command = str_replace('##DIRSITE##', $dirSite, $command);
-			exec($command);
-			echo $colors->getColoredString("-----------------------------------------------------------", "white", "magenta") . "  \n";
+	$colors = new Colors(); // appel object colorisation
 
+	$dirContent = opendir($dirContentSite); 
+
+
+	$allSiteBeginTime = microtime(true);
+	$nbATraiter = 0;
+	while($dir = readdir($dirContent)) {
+		
+		$aTraiter = false;
+		if (substr($dirSite,-1) == '*'){
+			if(substr($dir,0,strlen($dirSite)-1) == substr($dirSite,0,-1) && is_dir($dirContentSite.'/'.$dir)) {
+				$aTraiter = true;
+			}
+		} else {
+			if($dir == $dirSite && is_dir($dirContentSite.'/'.$dir)) {
+				$aTraiter = true;
+			}
+		}
+
+		if($aTraiter) {
+			$sfFilename = $dirContentSite.'/'.$dir.'/symfony';
+			if (is_file($sfFilename)){
+				$nbATraiter ++;
+				//echo $colors->important("A traiter > ". $dirContentSite.'/'.$dir);
+				$interactiveValidation = true;  // validation humaine à vrai par défaut
+				if ($interactiveMode){
+					echo $colors->question("Pour le site ".$dirContentSite.'/'.$dir." souhaitez vous effectuer la commande ".$argCommande."? (oui/non)");
+					$handle = fopen ("php://stdin","r");
+					$line = fgets($handle);
+					if(trim($line) != 'oui'){
+					    $interactiveValidation = false;
+					}
+				} 
+				if ($interactiveValidation){ // on traite si la validation humaine est faite
+					$siteBeginTime = microtime(true);
+				 	echo $colors->important("  Début de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande." ");
+				 	$commandToRun = str_replace('##DIRSITE##', $dir, $commande);
+				 	
+				 	$result = array();
+				 	exec($commandToRun, $result);
+				 	foreach ($result as $key => $value) {
+				 		echo $colors->help($value);
+				 	}
+
+				 	echo $colors->info("Commande effectuée : ". $commandToRun);
+				 	$dureeSite = microtime(true) - $siteBeginTime. " s";
+				 	echo $colors->important("  Fin de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande." (".$dureeSite.")")."\n";
+				}
+			} else {
+				echo $colors->error("Site ".$dirContentSite.'/'.$dir." invalide : fichier ". $sfFilename." absent...");
+			}
 		} 
 	}
-	closedir($dir);
+
+	$dureeAllSite = microtime(true) - $allSiteBeginTime. " s";
+
+	closedir($dirContent);
+
+	if (!$nbATraiter) {
+		echo $colors->error("Pas de site correspondant aux arguments...");
+	} else {
+		$libATraiter = ($nbATraiter>0)?" sites ont été traités ":" site a été traité ";
+		echo $colors->important(" \n  INFOS : ".$nbATraiter.$libATraiter." en ".$dureeAllSite." \n ");	
+	}
+	
 }
-
-
-
 
 
 ?>
