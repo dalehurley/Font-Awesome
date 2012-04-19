@@ -8,9 +8,79 @@
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
-//@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 
 //AdressesMultiples
 .dm_widget.adresses_multiples {
+
+	.dm_widget_inner {
+
+	}
 	
+	//on change la couleur de fond lorsque contenu dans le footer
+	#dm_footer & {
+		//pour passer en desssous tous les éléments du footer
+		position: relative;
+		clear: both;
+		float: none;
+		//permet d'étendre la zone en débordement de la page
+		margin-left: -100%;
+		margin-right: -100%;
+		background-color: @colorCouleur3Clair;
+
+		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
+		.dm_widget_inner {
+			position: relative;
+			@gridSiteWidth();
+			margin-left: auto;
+			margin-right: auto;
+			padding: @gridBaseline/2 0;
+		}
+	}
+
+	//placement des éléments
+	.elements {
+		margin: 0;
+		padding: 0;
+
+		.element {
+			//suppression transition
+			.csstransitions & {
+				@transitionNone();
+			}
+			&:hover { background-color: transparent; }
+
+			//adaptation padding
+			padding: 0;
+			//suppression bordure et ajout à droite
+			border: 0;
+
+			//changement taille de police
+			font-size: @fontSizeSmall;
+			line-height: @gridBaseline;
+
+			//mise en ligne de tous les éléments
+			#dm_page & {
+				.itemprop, .itemscope, .subWrapper {
+					display: inline;
+					vertical-align: top;
+				}
+			}
+			
+			//masquage de différents éléments .type
+			#dm_page & { .streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } } }
+		}
+	}
+}
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletPortrait(){
+	#dm_footer {
+		.adresses_multiples {
+			.dm_widget_inner {
+				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+			}
+		}
+	}
 }
