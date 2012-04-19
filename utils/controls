@@ -42,11 +42,21 @@ $utilisation =
   argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
 
   argument3 : la commande                                                
-    --help         aide                                                        
-    dumps          sauvegarde des sites de demo et des sites client en dump    
+    --help                aide                                                        
+    dumps                 sauvegarde des sites de demo et des sites client en dump 
+    loadArticles          charge les sections puis les articles
+    search-update         met à jour lucene (index de recherche)
+    sitemap-update        met à jour le sitemap
+    setup                 effectue un dm:setup
+    loadBE                met à jour la base éditoriale
+    ccc                   purge du cache web et APC
+    less-compile          compilation des fichiers less
+    generate-sprite       génération des sprites
+    migration-doctrine    effectue une migration doctrine suivi d'un dm:setup
+    infos                 donne des infos 
 
   argument4 (optionnel) : 
-    interactive    mode humain / intéractif (avec validation des sites à traiter) 
+    auto                  mode automatique (sans validation des sites à traiter) 
 
 
 
@@ -78,10 +88,10 @@ echo $colors->info("  Dossier site : ".$dirSite." ");
 $argCommande = $argv[3]; 
 echo $colors->info("  Commande : ".$argCommande." ");
 // arguement 4 optionnel
-if (isset($argv[4]) && $argv[4]=='interactive'){
-	$interactiveMode = true;
-} else {
+if (isset($argv[4]) && $argv[4]=='auto'){
 	$interactiveMode = false;
+} else {
+	$interactiveMode = true;
 }
 
 
@@ -110,14 +120,44 @@ switch ($argCommande) {
 		commandForAllSites($commande);
 		break;
 
-
-
-
-
-
+	case 'setup':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:setup;";
+		commandForAllSites($commande);
+		break;
 
 	case 'loadBE':
 		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony be:loadBE verbose --auto=true";
+		commandForAllSites($commande);
+		break;
+
+    // ccc                   purge du cache web et APC
+    // less-compile          compilation des fichiers less
+    // generate-sprite       génération des sprites
+    // migration-doctrine    effectue une migration doctrine suivi d'un dm:setup
+    // infos                 donne des infos 
+
+	case 'ccc':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony ccc";
+		commandForAllSites($commande);
+		break;
+
+	case 'less-compile':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony less:compile-all";
+		commandForAllSites($commande);
+		break;
+
+	case 'generate-sprite':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony less:sprite";
+		commandForAllSites($commande);
+		break;
+
+	case 'migration-doctrine':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony doctrine:generate-migrations-diff;php symfony doctrine:migrate;php symfony dm:setup;";
+		commandForAllSites($commande);
+		break;
+
+	case 'infos-site':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:infos-site;";
 		commandForAllSites($commande);
 		break;
 
@@ -144,10 +184,9 @@ function commandForAllSites($commande){
 	$colors = new Colors(); // appel object colorisation
 
 	$dirContent = opendir($dirContentSite); 
-	// compteur d'exécution
-	//echo 
-	
 
+
+	$allSiteBeginTime = microtime(true);
 	$nbATraiter = 0;
 	while($dir = readdir($dirContent)) {
 		
@@ -177,11 +216,19 @@ function commandForAllSites($commande){
 					}
 				} 
 				if ($interactiveValidation){ // on traite si la validation humaine est faite
-				 	echo $colors->important("  Début de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande);
-				 	$commande = str_replace('##DIRSITE##', $dir, $commande);
-				 	exec($commande);
-				 	echo ">".$commande."\n";
-				 	echo $colors->important("  Fin de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande);
+					$siteBeginTime = microtime(true);
+				 	echo $colors->important("  Début de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande." ");
+				 	$commandToRun = str_replace('##DIRSITE##', $dir, $commande);
+				 	
+				 	$result = array();
+				 	exec($commandToRun, $result);
+				 	foreach ($result as $key => $value) {
+				 		echo $colors->help($value);
+				 	}
+
+				 	echo $colors->info("Commande effectuée : ". $commandToRun);
+				 	$dureeSite = microtime(true) - $siteBeginTime. " s";
+				 	echo $colors->important("  Fin de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande." (".$dureeSite.")")."\n";
 				}
 			} else {
 				echo $colors->error("Site ".$dirContentSite.'/'.$dir." invalide : fichier ". $sfFilename." absent...");
@@ -189,13 +236,15 @@ function commandForAllSites($commande){
 		} 
 	}
 
+	$dureeAllSite = microtime(true) - $allSiteBeginTime. " s";
+
 	closedir($dirContent);
 
 	if (!$nbATraiter) {
 		echo $colors->error("Pas de site correspondant aux arguments...");
 	} else {
 		$libATraiter = ($nbATraiter>0)?" sites ont été traités ":" site a été traité ";
-		echo $colors->info("  ".$nbATraiter." ".$libATraiter);	
+		echo $colors->important(" \n  INFOS : ".$nbATraiter.$libATraiter." en ".$dureeAllSite." \n ");	
 	}
 	
 }

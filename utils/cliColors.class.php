@@ -109,23 +109,23 @@
 		}
 
 		public function error($libelle){
-			return $this->getColoredString(" ".$libelle,"white", "red") . "  \n";
+			return $this->getColoredString(" ".$libelle,"white", "red") . "\n";
 		}
 
 		public function help($libelle){
-			return $this->getColoredString(" ".$libelle,"green") . "  \n";
+			return $this->getColoredString(" ".$libelle,"green") . "\n";
 		}
 
 		public function info($libelle){
-			return $this->getColoredString(" ".$libelle,"green", "light_gray") . "  \n";
+			return $this->getColoredString(" ".$libelle,"green", "light_gray") . "\n";
 		}
 
 		public function important($libelle){
-			return $this->getColoredString(" ".$libelle,"white", "magenta") . "  \n";
+			return $this->getColoredString(" ".$libelle,"white", "magenta") . "\n";
 		}		
 
 		public function question($libelle){
-			return $this->getColoredString(" ".$libelle,"white", "yellow") . "  \n";
+			return $this->getColoredString(" ".$libelle,"white", "yellow") . "\n";
 		}			
 	}
  
