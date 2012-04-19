@@ -35,25 +35,26 @@ $colors = new Colors(); // appel object colorisation
 $utilisation = 
 <<<EOF
          
- Utilisation : php controls argument1 argument2 argument3 [interactive]                                       
+ Utilisation : php controls argument1 argument2 argument3 [auto]                                       
           
-  argument1 : le dossier contenant du(des) site(s) [exemple: /data/www/ ]    
-  argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
-  argument3 : la commande                                                
-    --help                aide                                                        
-    dumps                 sauvegarde des sites de demo et des sites client en dump 
-    loadArticles          charge les sections puis les articles
-    search-update         met à jour lucene (index de recherche)
-    sitemap-update        met à jour le sitemap
-    setup                 effectue un dm:setup
-    loadBE                met à jour la base éditoriale
-    ccc                   purge du cache web et APC
-    less-compile          compilation des fichiers less
-    generate-sprite       génération des sprites
-    migration-doctrine    effectue une migration doctrine suivi d'un dm:setup
-    infos                 donne des infos 
-  argument4 (optionnel) : 
-    auto                  mode automatique (sans validation des sites à traiter) 
+  * argument1 : le dossier contenant du(des) site(s) [exemple: /data/www ]    
+  * argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
+  * argument3 : la commande                                                
+      --help                aide                                                        
+      dumps                 sauvegarde en dump 
+      dumps-with-settings        sauvegarde en dump (avec config dm_setting)
+      loadArticles          charge les sections puis les articles
+      search-update         met à jour lucene (index de recherche)
+      sitemap-update        met à jour le sitemap
+      setup                 effectue un dm:setup
+      loadBE                met à jour la base éditoriale
+      ccc                   purge du cache web et APC
+      less-compile          compilation des fichiers less
+      generate-sprite       génération des sprites
+      migration-doctrine    effectue une migration doctrine suivi d'un dm:setup
+      infos                 donne des infos 
+  * argument4 (optionnel) : 
+      auto                  mode automatique (sans validation des sites à traiter) 
 
 EOF;
 $help = $colors->getColoredString($utilisation, "green") . "\n";
@@ -99,6 +100,11 @@ switch ($argCommande) {
 		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony db:dump --auto=true";
 		commandForAllSites($commande);
 		break;
+
+	case 'dumps-with-settings':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony db:dump --settings=true --auto=true";
+		commandForAllSites($commande);
+		break;		
 
 	case 'loadArticles':
 		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony be:loadArticles sections;php symfony be:loadArticles articles;";
