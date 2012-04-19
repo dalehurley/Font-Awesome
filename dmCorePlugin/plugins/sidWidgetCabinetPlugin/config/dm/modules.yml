@@ -1,4 +1,4 @@
-"Le Cabinet":
+"Page management of the firm":
 
   "Description du Cabinet":
 
@@ -27,7 +27,7 @@
       credentials: selection_placement
 
 
-"Les Missions":
+"Page management of the missions":
   "Description des missions":
     Mission:
       model: SidCabinetMission

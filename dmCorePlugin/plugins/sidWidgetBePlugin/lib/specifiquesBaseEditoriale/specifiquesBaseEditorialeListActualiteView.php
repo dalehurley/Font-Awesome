@@ -33,15 +33,14 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
                 $andWhere ='';
                 if($this->context->getPage()->getRecord()->Section->Rubrique->getTitle() == 'ec_echeancier'){
                     $orderBy = 'a.position DESC';
-                    $andWhere = 'aTranslation.created_at > CURRENT_DATE';
+                    $andWhere = 'and aTranslation.created_at > CURRENT_DATE';
                 }
                 else $orderBy = 'aTranslation.updated_at DESC';
                 
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidArticle a')
                         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
-                        ->where('a.is_active = ? and  a.id <> ? and a.section_id = ?', array(true, $dmPage->record_id,$recordId))
-                        ->andWhere($andWhere)
+                        ->where('a.is_active = ? and  a.id <> ? and a.section_id = ?'.$andWhere, array(true, $dmPage->record_id,$recordId))
                         ->orderBy($orderBy)
                         ->limit($nbArticles)
                         ->execute();
