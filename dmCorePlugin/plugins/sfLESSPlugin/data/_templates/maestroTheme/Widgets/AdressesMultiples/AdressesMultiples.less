@@ -8,8 +8,9 @@
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
-@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //AdressesMultiples
 .dm_widget.adresses_multiples {
@@ -60,16 +61,59 @@
 			font-size: @fontSizeSmall;
 			line-height: @gridBaseline;
 
-			//mise en ligne de tous les éléments
+
+
 			#dm_page & {
+				//masquage de différents éléments .type
+				.streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } }
+
+				//changement comportemant par défaut (cf itemprop.less)
+				.email, .faxNumber, .telephone {
+					//réaparition du séparateur
+					.separator { display: inline; visibility: visible; }
+
+					//suppression des sprites
+					.type {
+						@spriteDelete();
+						padding: 0;
+						margin: 0;
+						text-indent: inherit;
+					}
+				}
+
+				//changement du texte
+				.name, .itemprop {
+					font-size: @fontSizeSmall;
+					line-height: @gridBaseline;
+					//changement de la couleur
+					color: @colorCouleur2Clair;
+				}
+
+				//remise police par défault sur le nom
+				.itemprop.name { font-family: @fontGlobalFamilySansSerif; margin-left: 0; }
+
+				//mise en ligne de tous les éléments
 				.itemprop, .itemscope, .subWrapper {
 					display: inline;
 					vertical-align: top;
 				}
+
+				//ajout marges à droite
+				.itemprop, .subWrapper { margin-left: @offS; }
+				.subWrapper .itemprop { margin-left: 0; }
+
+				//ajout de tiret sur certains éléments
+				.streetAddress, .subWrapper, .email, .telephone, .faxNumber {
+					//suppression marge à droite car on rajoute un tiret
+					margin-left: 0;
+					&:before {
+						display: inline;
+						content: "\002013";
+						padding: 0 @offS;
+						font-size: @fontSizeSmall;
+					}
+				}
 			}
-			
-			//masquage de différents éléments .type
-			#dm_page & { .streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } } }
 		}
 	}
 }
