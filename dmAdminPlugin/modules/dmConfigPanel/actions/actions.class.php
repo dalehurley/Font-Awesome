@@ -57,6 +57,7 @@ class dmConfigPanelActions extends dmAdminBaseActions
               dmConfig::set($settingName, $formValues[$settingName]);
             }
           }
+          
         }
         
         $this->getUser()->logInfo('Your modifications have been saved', true);
