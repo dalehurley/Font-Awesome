@@ -229,6 +229,9 @@ class baseEditorialeTools {
             foreach ($arrayLangs as $lang) {
                 // boucle sur les rubriques
                 foreach ($rubriques as $rubrique) {
+
+                    $return[$i]['--------- Rubrique : ' . $rubrique->Translation[$lang]->title] = '----------';
+
                     //$return[$i]['Traitement de la rubrique'] = $rubrique->Translation[$lang]->title;
                     if (!$rubrique->isActive) {
                         $return[$i]['WARNING'] = 'Rubrique : ' . $rubrique->Translation[$lang]->title . ' non active.';
@@ -266,6 +269,7 @@ class baseEditorialeTools {
                                         
                                         foreach ($arrayArticlesBaseEditoriale as $article) { // on ne garde que les articles récents
                                             //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate->updatedAt;
+
                                             if ($article->updatedAt->$lang > $lastUpdatedDate) {
                                                 $arrayArticlesBaseEditorialeSorted[] = $article;
                                                 // $return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
@@ -276,12 +280,6 @@ class baseEditorialeTools {
                                             }
                                         }
                                         //$return[$i]['-> Nb Articles nouveaux - '.$k] = count($arrayArticlesBaseEditorialeSorted);
-                                        // Insertion des articles
-                                        $j = 1;
-                                        $nbInsert = 0;
-                                        $nbMaj = 0;
-                                        $nbInchange = 0;
-                                        $nbMajDesactivation = 0;
                                         // parametre a ajouter
                                         if ($mode == 'total') {
                                             $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditoriale; // (total)
@@ -290,78 +288,35 @@ class baseEditorialeTools {
                                             $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditorialeSorted; // (incremental)
                                             
                                         }
+
+                                        $nbInsert = 0;
+                                        $nbMaj = 0;
+                                        $nbInchange = 0;
+                                        $nbMajDesactivation = 0;
                                         
                                         foreach ($arrayArticlesBaseEditorialeChoice as $articleBE) {
-                                            $article = Doctrine::getTable('SidArticle')->findOneByFilenameAndSectionId($articleBE->filename, $sidSection->id);
-                                            if ($article->isNew()) { // l'article n'existe pas en base
-                                                $nbInsert++;
-                                                
-                                                foreach ($arrayLangs as $lang) {
-                                                    if (isset($articleBE->title->$lang)) $article->Translation[$lang]->title = $articleBE->title->$lang;
-                                                    if (isset($articleBE->chapeau->$lang)) $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
-                                                }
-                                                $article->sectionId = $sidSection->id; // la rubrique/section en cours de traitement
-                                                $article->filename = $articleBE->filename;
-                                                $article->isActive = $articleBE->isActive;
-                                                $article->isDossier = $articleBE->isDossier;
-                                                
-                                                foreach ($arrayLangs as $lang) {
-                                                    if (isset($articleBE->createdAt->$lang)) {
-                                                        $article->Translation[$lang]->created_at = $articleBE->createdAt->$lang;
-                                                    }
-                                                    if (isset($articleBE->updatedAt->$lang)) {
-                                                        $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;
-                                                    }
-                                                }
-                                                //                                            $article->createdAt = $articleBE->createdAt;
-                                                //                                            $article->save();
-                                                //                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
-                                                //                                            $article->updatedAt = $articleBE->updatedAt;
-                                                //                                            $article->save();
-                                                // maj des tags de l'article à partir des données Json
-                                                $article->removeAllTags();
-                                                $article->setTags($articleBE->tags);
-                                                $article->save();
-                                                $articleName = $articleBE->title->$lang;
-                                                //$return[$i]['Insertion article ' . $article->filename . ' - ' . $article->id] =  $articleName;
-                                                
-                                            } elseif ($article->Translation[$lang]->updated_at < $articleBE->updatedAt->$lang) { // l'article doit etre mis à jour
-                                                
-                                                foreach ($arrayLangs as $lang) {
-                                                    if (isset($articleBE->title->$lang)) $article->Translation[$lang]->title = $articleBE->title->$lang;
-                                                    if (isset($articleBE->chapeau->$lang)) $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
-                                                }
-                                                $article->isActive = $articleBE->isActive;
-                                                $article->isDossier = $articleBE->isDossier;
-                                                //                                            // on lance une seconde foit la sauvegarde pour mettre à jour le updatedAt, car lors de l'insert d'un objet on ne peut écraser le updatedAt
-                                                //                                            $article->updatedAt = $articleBE->updatedAt;
-                                                //                                            $article->save();
-                                                
-                                                foreach ($arrayLangs as $lang) {
-                                                    if (isset($articleBE->updatedAt->$lang)) {
-                                                        $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;
-                                                    }
-                                                }
-                                                // maj des tags de l'article à partir des données Json
-                                                $article->removeAllTags();
-                                                $article->setTags($articleBE->tags);
-                                                $article->save();
-                                                $articleName = $articleBE->title->$lang;
-                                                if ($articleBE->isActive) {
+                                            
+                                            $returnArticle = self::insertArticle($articleBE,$sidSection,$arrayLangs,$lang);
+
+                                            switch ($returnArticle) {
+                                                case 'insert':
+                                                    $nbInsert++;
+                                                    break;
+                                                case 'inchange':
+                                                    $nbInchange++;
+                                                    break;
+                                                case 'maj':
                                                     $nbMaj++;
-                                                    //$return[$i]['MAJ article ' . $article->filename . ' - ' . $article->id] =  $articleName;
-                                                    
-                                                } else {
+                                                    break;
+                                                case 'majDesactivation':
                                                     $nbMajDesactivation++;
-                                                    //$return[$i]['MAJ article (désactivation)' . $article->filename . ' - ' . $article->id] =  $articleName;
-                                                    
-                                                }
-                                            } else {
-                                                // article inchangé
-                                                $nbInchange++;
+                                                    break;                                                                                                                                             
+                                                default:
+                                                    # code...
+                                                    break;
                                             }
-                                            $j++;
                                         }
+
                                         // infos section
                                         if ($nbInchange != 0) {
                                             $inchange = $nbInchange . ' inchangés | ';
@@ -398,16 +353,125 @@ class baseEditorialeTools {
                             $k++;
 
                             // purge des articles X derniers jours et Y articles 
+                            $return = array_merge($return,self::purgeArticles($rubrique, $sidSection, $lang));
+                            //echo ">".$rubrique."\n";
+                        }
+                        // mise à jour du champ position les sections des rubriques
+                        $return = array_merge($return,self::majPositionBe ($rubrique, $lang));
+                        //echo ">".$rubrique."\n";
+                    }
+                    $i++;
+                }
+            }
+
+            // mise à jour de l'index
+            $timeBeginSearchUpdate = microtime(true);
+            // $return[$i]['Maj indexation'] = exec('php symfony dm:search-update').'-->'.(microtime(true) - $timeBeginSearchUpdate) . ' s';
+            $return[$i]['Execution'] = (microtime(true) - $timeBegin) . ' s';
+        }
+        
+        return $return;
+    }
+
+    /**
+     * insert un article et renvoi le statut
+     * @param  [type] $articleBE  [description]
+     * @param  [type] $sidSection [description]
+     * @return [type]             [description]
+     */
+    public static function insertArticle($articleBE,$sidSection,$arrayLangs,$lang){
+
+        $article = Doctrine::getTable('SidArticle')->findOneByFilenameAndSectionId($articleBE->filename, $sidSection->id);
+        if ($article->isNew()) { // l'article n'existe pas en base
+            $return = 'insert';
+            foreach ($arrayLangs as $lang) {
+                if (isset($articleBE->title->$lang)) $article->Translation[$lang]->title = $articleBE->title->$lang;
+                if (isset($articleBE->chapeau->$lang)) $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
+            }
+            $article->sectionId = $sidSection->id; // la rubrique/section en cours de traitement
+            $article->filename = $articleBE->filename;
+            $article->isActive = $articleBE->isActive;
+            $article->isDossier = $articleBE->isDossier;
+            
+            foreach ($arrayLangs as $lang) {
+                if (isset($articleBE->createdAt->$lang)) {
+                    $article->Translation[$lang]->created_at = $articleBE->createdAt->$lang;
+                }
+                if (isset($articleBE->updatedAt->$lang)) {
+                    $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;
+                }
+            }
+            // maj des tags de l'article à partir des données Json
+            $article->removeAllTags();
+            $article->setTags($articleBE->tags);
+            $article->save();
+            $articleName = $articleBE->title->$lang;
+            //$return[$i]['Insertion article ' . $article->filename . ' - ' . $article->id] =  $articleName;
+        } elseif (
+            $article->Translation[$lang]->updated_at < $articleBE->updatedAt->$lang) { // l'article doit etre mis à jour
+            
+            foreach ($arrayLangs as $lang) {
+                if (isset($articleBE->title->$lang)) $article->Translation[$lang]->title = $articleBE->title->$lang;
+                if (isset($articleBE->chapeau->$lang)) $article->Translation[$lang]->chapeau = $articleBE->chapeau->$lang;
+            }
+            $article->isActive = $articleBE->isActive;
+            $article->isDossier = $articleBE->isDossier;
+
+            foreach ($arrayLangs as $lang) {
+                if (isset($articleBE->updatedAt->$lang)) {
+                    $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;
+                }
+            }
+            // maj des tags de l'article à partir des données Json
+            $article->removeAllTags();
+            $article->setTags($articleBE->tags);
+            $article->save();
+            $articleName = $articleBE->title->$lang;
+            if ($articleBE->isActive) {
+                $return = 'maj';
+                //$return[$i]['MAJ article ' . $article->filename . ' - ' . $article->id] =  $articleName;
+            } else {
+                $return = 'majDesactivation';;
+                //$return[$i]['MAJ article (désactivation)' . $article->filename . ' - ' . $article->id] =  $articleName;
+            }
+        } else {
+            // article inchangé
+            $return = 'inchange';;
+        }
+        return $return;
+    }
+
+
+
+    /*
+     * Mise à jour des pages automatiques
+    */
+    public static function syncPages() {
+        // mise à jour des pages automatiques sur le site
+        $return[]['Sync pages'] = exec('php symfony dm:sync-pages');
+        
+        return $return;
+    }
+
+    /**
+     * purge des articles en fonction de leur date et nombre par section
+     * X derniers jours et Y articles
+     * @return [type] [description]
+     */
+    public static function purgeArticles($rubrique, $sidSection, $lang){
+
+        $return = array();
+            // purge des articles X derniers jours et Y articles
                             if (in_array($sidSection->getTranslation()->$lang->title, sfConfig::get('app_sections_truncated',array()))){
                                 
                                 $articles = dmDb::query('SidArticle a')
                                     ->withI18n($lang)
-                                    ->where("DATEDIFF(CURRENT_DATE, aTranslation.updated_at) < ".sfConfig::get('app_nb-jours-max-date-article',100))   // age max pour un article
+                                    ->where("DATEDIFF(CURRENT_DATE, aTranslation.updated_at) < ".sfConfig::get('app_nb-jours-max-date-article',100)) // age max pour un article
                                     ->addWhere('section_id='.$sidSection->id)
                                     ->execute();
 
-                                // on prend les X derniers articles    
-                                if (count($articles) < sfConfig::get('app_nb-articles-min-par-section',10)){ 
+                                // on prend les X derniers articles
+                                if (count($articles) < sfConfig::get('app_nb-articles-min-par-section',10)){
                                     $articles = dmDb::query('SidArticle a')
                                     ->withI18n($lang)
                                     ->orderBy("aTranslation.updated_at desc")
@@ -423,98 +487,115 @@ class baseEditorialeTools {
       
                                     // purge des autres articles que les Y derniers articles
                                     $q = Doctrine_Manager::getInstance()->getCurrentConnection();
-                                    $query = "  DELETE FROM sid_article  
-                                                WHERE 
-                                                id not in (".$listId.") 
+                                    $query = " DELETE FROM sid_article
+                                                WHERE
+                                                id not in (".$listId.")
                                                 and section_id= ".$sidSection->id;
                                     $result = $q->execute($query);
 
-                                    $return[]['Purge section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = 'Purge des articles autres que les '.sfConfig::get('app_nb-articles-min-par-section',10).' derniers articles';                                
+                                    $return[]['Purge section '.$rubrique->getTranslation()->$lang->title.'/'.$sidSection->getTranslation()->$lang->title.' : '] = 'Purge des articles autres que les '.sfConfig::get('app_nb-articles-min-par-section',10).' derniers articles';
 
                                 } else {
                                     // purge des articles > X derniers mois
                                     $q = Doctrine_Manager::getInstance()->getCurrentConnection();
-                                    $query = "  DELETE FROM sid_article  
-                                                WHERE id in (SELECT id from sid_article_translation at
-                                                                WHERE DATEDIFF(CURRENT_DATE, updated_at) > ".sfConfig::get('app_nb-jours-max-date-article',100)."
-                                                            ) 
-                                                and section_id= ".$sidSection->id;
+                                    $query = " DELETE FROM sid_article
+                                                    WHERE id in (SELECT id from sid_article_translation at
+                                                        WHERE DATEDIFF(CURRENT_DATE, updated_at) > ".sfConfig::get('app_nb-jours-max-date-article',100)."
+                                                    )
+                                                    and section_id= ".$sidSection->id;
                                     $result = $q->execute($query);
 
-                                    $return[]['Purge section '.$rubrique->getTranslation()->$lang->title.'/ec-actualites : '] = 'Purge articles > '.sfConfig::get('app_nb-jours-max-date-article',100).' derniers jours';
+                                    $return[]['Purge section '.$rubrique->getTranslation()->$lang->title.'/'.$sidSection->getTranslation()->$lang->title.' : '] = 'Purge articles > '.sfConfig::get('app_nb-jours-max-date-article',100).' derniers jours';
                                 }
                   
-                            }  
+                            } 
 
-                            //       
+        return $return; 
+    }
 
-                        }
-
-                        // mise à jour du champ position les sections de la rubrique ec_echeancier
-                        $titleSection = 'ec_echeancier';
-                        if ($rubrique->getTranslation()->$lang->title == $titleSection){
-                            foreach ($sidSections as $sidSection) {   
-                                $sectionsToSort[$sidSection->title]= $sidSection; // DB's section's title (i.e:201203) in key, id in value
-                                // requete pour trier l'échéancier avec "délai variable" en premier
-                                $sidArticles = dmDb::query('SidArticle a')
-                                    ->where('section_id='.$sidSection->id)
-                                    ->execute();
-                                foreach($sidArticles as $sidArticle){
-                                        $articlesToSort[$sidArticle->getTitle()] = $sidArticle;
-                                }
-                                natsort($articlesToSort);
-                                foreach($articlesToSort as $articleToSort){
-                                    if(strpos($articleToSort, 'variable')){
-                                        array_unshift($articlesToSort, $articleToSort);
-                                        array_splice($articlesToSort, $articleToSort);
-                                    }
-                                }
-                                
-                                $p = 1;
-                                foreach ($articlesToSort as $article) {
-                                    if ($article->position != $p){                               
-                                        $return[]['Position article : '.$article->getTitle()] = 'changement de '.$article->position .' en '. $p; 
-                                        $article->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
-                                        $article->save();
-                                    }
-                                    $p++;
-                                }
-                            }
+    /**
+     * Maj du chammp position pour les article/rubrique/section
+     * @param  object $rubrique la rubrique en cours
+     * @return [type]                [description]
+     */
+    public static function majPositionBe($rubrique, $lang){
+        $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueIdAndIsActive($rubrique->id, true);
+        $return = array();
+        // mise à jour du champ position les sections des rubriques
+        switch ($rubrique->getTranslation()->$lang->title) {
+                case 'ec_echeancier': // tri complexe par title + cas particuliers pour les articles et par title pour les sections
+                    $sectionsToSort = array();
+                    foreach ($sidSections as $sidSection) {   
+                        $sectionsToSort[$sidSection->title]= $sidSection; // DB's section's title (i.e:201203) in key, id in value
                         
-                            ksort($sectionsToSort); // sort by title
-                            $p = 1;
-                            foreach ($sectionsToSort as $section) {
-                                if ($section->position != $p){                               
-                                    $return[]['Position section : '.$titleSection.'/'.$section->title] = 'changement de '.$section->position .' en '. $p; 
-                                    $section->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
-                                    $section->save();
-                                }
-                                $p++;
+                        // requete pour trier l'échéancier avec "délai variable" en premier
+                        $articlesToSort = array();
+                        $sidArticles = dmDb::query('SidArticle a')
+                            ->where('section_id='.$sidSection->id)
+                            ->execute();
+                        $i=1;
+                        foreach($sidArticles as $sidArticle){
+
+                            $pos = strpos($sidArticle->getTitle(), 'Fin');
+                            if($pos === false){
+                                $pos = false;
+                            } else {
+                                $pos = true;
                             }
+                            if($pos){
+                                $articlesToSort['Z-'.$sidArticle->getTitle()] = $sidArticle; // on préfixe par 0 pour que le knatsort le place en premier
+                            }elseif(preg_match("/^[a-zA-Z]{1}/", $sidArticle->getTitle())){
+                                $articlesToSort['0-'.$sidArticle->getTitle()] = $sidArticle; // on préfixe par Z pour que le knatsort le place en dernier
+                            }else {
+                                $articlesToSort[$sidArticle->getTitle().$i] = $sidArticle;
+                            }
+                            $i++;
+
                         }
-
+                        arrayTools::knatsort($articlesToSort);
+                        $p = 1;
+                        foreach ($articlesToSort as $article) {
+                            if ($article->position != $p){                               
+                                $return[]['Position article : '.$article->getTitle().' - '.$article->getId() ] = 'changement de '.$article->position .' en '. $p;
+                                $article->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
+                                $article->save();
+                            }
+                            $p++;
+                        }
                     }
-                    $i++;
-                }
-            }
+                
+                    ksort($sectionsToSort); // sort by title
+                    $p = 1;
+                    foreach ($sectionsToSort as $section) {
+                        if ($section->position != $p){                               
+                            $return[]['Position section ec_echeancier : '.$section->getRubrique()->title.'/'.$section->title] = 'changement de '.$section->position .' en '. $p; 
+                            $section->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
+                            $section->save();
+                        }
+                        $p++;
+                    }
+                    break;
 
-            // mise à jour de l'index
-            $timeBeginSearchUpdate = microtime(true);
-            // $return[$i]['Maj indexation'] = exec('php symfony dm:search-update').'-->'.(microtime(true) - $timeBeginSearchUpdate) . ' s';
-            $return[$i]['Execution'] = (microtime(true) - $timeBegin) . ' s';
+                default: // tri simple par ordre alphabétique
+                    $sectionsToSort = array();
+                    foreach ($sidSections as $sidSection) { 
+                        $sectionsToSort[$sidSection->title]= $sidSection;
+                    }
+                    ksort($sectionsToSort); // sort by title
+                    $p = 1;
+                    foreach ($sectionsToSort as $section) {
+                        if ($section->position != $p){                               
+                            $return[]['Position section : '.$section->getRubrique()->title.'/'.$section->title] = 'changement de '.$section->position .' en '. $p; 
+                            $section->position = $p; // affect position in order of title in DB, not in order of position in related object table like default
+                            $section->save();
+                        }
+                        $p++;
+                    }                                        
+                    break;
         }
-        
         return $return;
     }
-    /*
-     * Mise à jour des pages automatiques
-    */
-    public static function syncPages() {
-        // mise à jour des pages automatiques sur le site
-        $return[]['Sync pages'] = exec('php symfony dm:sync-pages');
-        
-        return $return;
-    }
+
     /*
      * Replacement des name/slug/title et description des dmPages en fonction du tableau présent dans app.yml
      *

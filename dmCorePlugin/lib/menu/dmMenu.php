@@ -417,11 +417,80 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             $html = $this->renderUlOpenTag();
             
             foreach ($this->children as $child) {
-                $html.= $child->renderChild();
+
+                $display = true;
+
+                // gestion de l'affichage des enfants
+                if (is_object($child->getLink())){
+                    if (method_exists($child->getLink(),'getPage')){
+                        if ($child->getLink()->getPage()->action == 'list'){ // les pages ayant une action = list sont les pages manuelles qui list les page automatique filles
+                            if (!$child->getLink()->getPage()->hasChildrenActive()){ // s'il n'y a pas de pages filles alors on n'affiche pas cette page list
+                                $display = false; 
+                            }
+                        }
+                    }
+                }
+
+                /**
+                 * Gestion des champs groupPage de dmPage, en fonction du champ groupdisplayed de chaque item
+                 */
+                if ($display                        // si on doit afficher le child alors on vérifie le champ groupdisplayed
+                    && $child->getLevel() > 0){      // on ne traite pas le niveau 0 qui est gérable à la main dans le formulaire du widget
+                    
+                    $groupdisplayed = $child->getParentLevel0()->getOption('groupdisplayed');  // on récupère le param groupdisplayed du menu de level 0 : le niveau qui est gérable dans le form du widget
+                     
+                    switch ($groupdisplayed) {
+                        case '*':  // on affiche tout
+                            $display = true;
+                            break;
+                        case '':  // on affiche les pages qui n'ont pas de groupPage ou groupPage is null
+                            if (is_object($child->getLink())){
+                                if (method_exists($child->getLink(),'getPage')){
+                                    if ($child->getLink()->getPage()->groupPage == '' || $child->getLink()->getPage()->groupPage == null){
+                                        $display = true;
+                                    } else {
+                                        $display = false;
+                                    }
+                                }
+                            }
+                            break;                
+                        default:  // on affiche seulement les pages qui ont groupPage = groupdisplayed renseigné dans le menu 
+                            if (is_object($child->getLink())){
+                                if (method_exists($child->getLink(),'getPage')){
+                                    if (in_array($child->getLink()->getPage()->groupPage, explode(' ', $groupdisplayed))){
+                                        $display = true;
+                                    } else {
+                                        $display = false;
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                }
+                // on stocke les child à afficher
+                if ($display) $childToRenders[]=$child;
             }
+
+            // childs to render
+            $i = 1;
+            foreach ($childToRenders as $childToRender) {
+                switch ($i) {
+                    case 1:
+                        $class = 'first';
+                        break;
+                    case count($childToRenders):
+                        $class = 'last';
+                        break;                    
+                    default:
+                        $class = '';
+                        break;
+                }
+                $html.= $childToRender->renderChild($class);
+                $i++;
+            }
+                    
             $html.= '</ul>';
         }
-        
         return $html;
     }
     protected function renderUlOpenTag() {
@@ -431,59 +500,11 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         return '<ul' . ($id ? ' id="' . $id . '"' : '') . ($class ? ' class="' . $class . '"' : '') . '>';
     }
 
-    public function renderChild() {
-        $display = true;
+    public function renderChild($class='') {
         $html = '';
 
-        if (is_object($this->getLink())){
-            if (method_exists($this->getLink(),'getPage')){
-                if ($this->getLink()->getPage()->action == 'list'){ // les pages ayant une action = list sont les pages manuelles qui list les page automatique filles
-                    if (!$this->getLink()->getPage()->hasChildrenActive()){ // s'il n'y a pas de pages filles alors on n'affiche pas cette page list
-                        $display = false; 
-                    }
-                }
-            }
-        }
-
-        /**
-         * Gestion des champs groupPage de dmPage, en fonction du champ groupdisplayed de chaque item
-         */
-        if ($display                        // si on doit afficher le child alors on vérifie le champ groupdisplayed
-            && $this->getLevel() > 0){      // on ne traite pas le niveau 0 qui est gérable à la main dans le formulaire du widget
-            
-            $groupdisplayed = $this->getParentLevel0()->getOption('groupdisplayed');  // on récupère le param groupdisplayed du menu de level 0 : le niveau qui est gérable dans le form du widget
-             
-            switch ($groupdisplayed) {
-                case '*':  // on affiche tout
-                    $display = true;
-                    break;
-                case '':  // on affiche les pages qui n'ont pas de groupPage ou groupPage is null
-                    if (is_object($this->getLink())){
-                        if (method_exists($this->getLink(),'getPage')){
-                            if ($this->getLink()->getPage()->groupPage == '' || $this->getLink()->getPage()->groupPage == null){
-                                $display = true;
-                            } else {
-                                $display = false;
-                            }
-                        }
-                    }
-                    break;                
-                default:  // on affiche seulement les pages qui ont groupPage = groupdisplayed renseigné dans le menu 
-                    if (is_object($this->getLink())){
-                        if (method_exists($this->getLink(),'getPage')){
-                            if (in_array($this->getLink()->getPage()->groupPage, explode(' ', $groupdisplayed))){
-                                $display = true;
-                            } else {
-                                $display = false;
-                            }
-                        }
-                    }
-                    break;
-            }
-        }
-
-        if ($this->checkUserAccess() && $display) {
-            $html.= $this->renderLiOpenTag();
+        if ($this->checkUserAccess()) {
+            $html.= $this->renderLiOpenTag($class);
             $html.= $this->renderChildBody();
             if ($this->hasChildren() && $this->getOption('show_children')) {
                 $html.= $this->render();
@@ -493,7 +514,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         
         return $html;
     }
-    protected function renderLiOpenTag() {
+    protected function renderLiOpenTag($class='') {
 
         if (is_object($this->getLink())){
             if (method_exists($this->getLink(),'getPage')){ // method exist for page in front only...
@@ -505,12 +526,14 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         $classes = array();
         $id = $this->getOption('show_id') ? dmString::slugify('menu-' . $this->getRoot()->getName() . '-' . $this->getName()) : null;
         $link = $this->getLink();
-        if ($this->isFirst()) {
-            $classes[] = 'first';
-        }
-        if ($this->isLast()) {
-            $classes[] = 'last';
-        }
+        // if ($this->isFirst()) {
+        //     $classes[] = 'first';
+        // }
+        // if ($this->isLast()) {
+        //     $classes[] = 'last';
+        // }
+        $classes[] = $class;
+
         if ($this->getOption('li_class')) {
             $classes[] = $this->getOption('li_class');
         }

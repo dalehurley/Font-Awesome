@@ -1,0 +1,156 @@
+<?php
+/**
+ * Launch this script in command line
+ * 
+ */
+
+include ('cliColors.class.php');
+$colors = new Colors();
+
+// recup hostname
+//$hostname = $_SERVER["HOSTNAME"];
+//echo $colors->getColoredString("  Hostname : ".$hostname, "dark_gray", "yellow") . "  \n";
+
+/************************ parametres (no need, all in argv) **************************************/
+// switch ($hostname) {
+// 	case 'fedoralionel':
+// 		$dirSites = "/data/www";
+// 		$dirBE = "/data/www/base-editoriale";   
+// 		break;
+
+// 	case 'productionvm15':
+// 		$dirSites = "/data/www/sitesv3";
+// 		$dirBE = "data/www/sitesv3/_system_base-editoriale";  // serveur de prod
+// 		break;
+
+// 	default:
+// 		$dirSites = "";
+// 		$dirBE = "";  
+// 		break;
+// }
+
+
+/**************************************************************************/
+
+$utilisation = 
+<<<EOF
+         
+  Utilisation : php controls argument1 argument2 argument3                                        
+          
+  argument1 : le dossier contenant du(des) site(s) [exemple: /data/www/ ]    
+
+  argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
+
+  argument3 : la commande                                                
+    --help   aide                                                        
+    dumps    sauvegarde des sites de demo et des sites client en dump    
+
+
+
+
+
+EOF;
+$help = $colors->getColoredString($utilisation, "green") . "\n";
+
+
+
+if (count($argv)!=4 || $argv[0]!='controls'){
+	echo $colors->error("  ERREUR : il faut 3 arguments ");
+	echo $help;
+	exit;
+}
+
+// le dossier contenant du site
+$dirSites = $argv[1];
+
+
+// la commande choisie
+$commande = $argv[3]; 
+echo $colors->getColoredString("  Commande choisie : ".$commande, "green") . "  \n";
+
+
+
+
+
+
+// Exemple to give interection with human
+// echo "Dumps des sites de démo et de client?  Tapez 'oui' pour continuer: ";
+// $handle = fopen ("php://stdin","r");
+// $line = fgets($handle);
+// if(trim($line) != 'oui'){
+//     echo "Abandon!\n";
+//     exit;
+// }
+// echo "\n";
+
+switch ($argument) {
+	case '--help':
+		echo $help;
+		break;
+
+	case 'dumps':
+		$command = "cd ".$dirSites."/##DIRSITE##;php symfony db:dump --auto=true";
+		commandForAllSites($command,$dirSites);
+		break;
+
+	case 'loadArticles':
+		$command = "cd ".$dirSites."/##DIRSITE##;php symfony be:loadArticles sections;php symfony be:loadArticles articles;";
+		commandForAllSites($command,$dirSites);
+		break;
+
+	case 'search-update':
+		$command = "cd ".$dirSites."/##DIRSITE##;php symfony dm:search-update;";
+		commandForAllSites($command,$dirSites);
+		break;
+
+	case 'sitemap-update':
+		$command = "cd ".$dirSites."/##DIRSITE##;php symfony dm:sitemap-update;";
+		commandForAllSites($command,$dirSites);
+		break;
+
+
+
+
+
+
+
+	case 'loadBE':
+		$command = "cd ".$dirBE.";php symfony be:loadBE verbose --auto=true";
+		exec($command);
+		break;
+
+	default:
+		echo $help; 
+		break;
+}
+
+
+
+/**
+ * execute une commande pour les sites d'un dossier donné
+ * @param  [type] $command  [description]
+ * @param  [type] $dirSites [description]
+ * @return [type]           [description]
+ */
+function commandForAllSites($command,$dirSites){
+	$dir = opendir($dirSites); 
+	// compteur
+	//echo 
+	while($dirSite = readdir($dir)) {
+		if(	(substr($dirSite,0,6) == '_demo_' || substr($dirSite,0,2) == 'si') && is_dir($dirSites.'/'.$dirSite)) {
+
+			echo $colors->getColoredString("------ Site : ".$dirSites."/".$dirSite." -------".$argument, "white", "magenta") . "  \n";
+			$command = str_replace('##DIRSITE##', $dirSite, $command);
+			exec($command);
+			echo $colors->getColoredString("-----------------------------------------------------------", "white", "magenta") . "  \n";
+
+		} 
+	}
+	closedir($dir);
+}
+
+
+
+
+
+?>
