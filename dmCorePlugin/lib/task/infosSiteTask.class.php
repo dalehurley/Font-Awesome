@@ -34,9 +34,9 @@ EOF;
 
         if (dmConfig::get('site_ndd') != ''){
             $actualNdd = dmConfig::get('site_ndd');
-            $this->logblock('- Nom de domaine : '.$actualNdd, 'HELP');
+            $this->logblock('- Nom de domaine  : '.$actualNdd, 'HELP');
         } else {
-            $this->logblock('- Nom de domaine : inconnu', 'HELP');
+            $this->logblock('- Nom de domaine  : --inconnu--', 'HELP');
         }
 
         $this->logblock('- Dossier du site : '.getcwd(), 'HELP');
