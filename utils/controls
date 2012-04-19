@@ -37,7 +37,7 @@ $utilisation =
          
  Utilisation : php controls argument1 argument2 argument3 [auto]                                       
           
-  * argument1 : le dossier contenant du(des) site(s) [exemple: /data/www/ ]    
+  * argument1 : le dossier contenant du(des) site(s) [exemple: /data/www ]    
   * argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
   * argument3 : la commande                                                
       --help                aide                                                        
