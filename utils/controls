@@ -35,12 +35,10 @@ $colors = new Colors(); // appel object colorisation
 $utilisation = 
 <<<EOF
          
-  Utilisation : php controls argument1 argument2 argument3 [interactive]                                       
+ Utilisation : php controls argument1 argument2 argument3 [interactive]                                       
           
   argument1 : le dossier contenant du(des) site(s) [exemple: /data/www/ ]    
-
   argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
-
   argument3 : la commande                                                
     --help                aide                                                        
     dumps                 sauvegarde des sites de demo et des sites client en dump 
@@ -54,11 +52,8 @@ $utilisation =
     generate-sprite       génération des sprites
     migration-doctrine    effectue une migration doctrine suivi d'un dm:setup
     infos                 donne des infos 
-
   argument4 (optionnel) : 
     auto                  mode automatique (sans validation des sites à traiter) 
-
-
 
 EOF;
 $help = $colors->getColoredString($utilisation, "green") . "\n";
