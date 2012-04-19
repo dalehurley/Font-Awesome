@@ -35,7 +35,7 @@ $colors = new Colors(); // appel object colorisation
 $utilisation = 
 <<<EOF
          
- Utilisation : php controls argument1 argument2 argument3 [auto]                                       
+ Utilisation : php controls argument1 argument2 argument3 [auto] [quiet]                                      
           
   * argument1 : le dossier contenant du(des) site(s) [exemple: /data/www ]    
   * argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
@@ -55,6 +55,8 @@ $utilisation =
       infos                 donne des infos 
   * argument4 (optionnel) : 
       auto                  mode automatique (sans validation des sites à traiter) 
+  * argument5 (optionnel) : 
+      quiet                 mode silencieux (pas complètement...)       
 
 EOF;
 $help = $colors->getColoredString($utilisation, "green") . "\n";
@@ -89,7 +91,12 @@ if (isset($argv[4]) && $argv[4]=='auto'){
 } else {
 	$interactiveMode = true;
 }
-
+// arguement 5 optionnel
+if (isset($argv[5]) && $argv[5]=='quiet'){
+	$quietMode = true;
+} else {
+	$quietMode = false;
+}
 
 switch ($argCommande) {
 	case '--help':
@@ -178,6 +185,7 @@ switch ($argCommande) {
 function commandForAllSites($commande){
 	
 	global $interactiveMode;
+	global $quietMode;
 	global $dirContentSite;
 	global $dirSite;
 	global $argCommande;
@@ -218,7 +226,11 @@ function commandForAllSites($commande){
 				} 
 				if ($interactiveValidation){ // on traite si la validation humaine est faite
 					$siteBeginTime = microtime(true);
-				 	echo $colors->important("  Début de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande." ");
+				 	if (!$quietMode) {
+				 		echo $colors->important("  Début de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande." ");
+				 	} else {
+				 		echo $colors->important("Site ".$dirContentSite.'/'.$dir." ");
+				 	}
 				 	$commandToRun = str_replace('##DIRSITE##', $dir, $commande);
 				 	
 				 	$result = array();
@@ -227,9 +239,9 @@ function commandForAllSites($commande){
 				 		echo $colors->help($value);
 				 	}
 
-				 	echo $colors->info("Commande effectuée : ". $commandToRun);
+				 	if (!$quietMode) echo $colors->info("Commande effectuée : ". $commandToRun);
 				 	$dureeSite = microtime(true) - $siteBeginTime. " s";
-				 	echo $colors->important("  Fin de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande." (".$dureeSite.")")."\n";
+				 	if (!$quietMode) echo $colors->important("  Fin de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande." (".$dureeSite.")")."\n";
 				}
 			} else {
 				echo $colors->error("Site ".$dirContentSite.'/'.$dir." invalide : fichier ". $sfFilename." absent...");
