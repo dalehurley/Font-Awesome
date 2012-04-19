@@ -136,7 +136,13 @@ EOF;
               'libelle' => 'Changer le ndd du site ['.dmConfig::get('site_ndd').']',
               'arguments' => array(),
               'options' => array()                
-              ),             
+              ),  
+            array(
+              'command' => 'dm:infos-site',
+              'libelle' => 'Les informations sur le site',
+              'arguments' => array(),
+              'options' => array()                
+              ),  
             array(
               'separator' => 'Moteur de recherche (Lucene)', 
               'command' => 'dm:search-update',
