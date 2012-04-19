@@ -21,13 +21,10 @@
 	url = git@github.com:SidPresse/php-user-agent.git
 [submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/bootstrap"]
 	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/bootstrap
-	url = git@github.com:stephanemeron/bootstrap.git
+	url = git@github.com:SidPresse/bootstrap.git
 [submodule "symfony"]
 	path = symfony
 	url = git@github.com:SidPresse/symfony.git
-[submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/Font-Awesome"]
-	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/Font-Awesome
-	url = git@github.com:SidPresse/Font-Awesome.git
 [submodule "dmCorePlugin/plugins/sfLESSPlugin/data/_framework/SPLessCss/Externals/js/polyfills/jquery-placeholder"]
 	path = dmCorePlugin/plugins/sfLESSPlugin/data/_framework/SPLessCss/Externals/js/polyfills/jquery-placeholder
 	url = https://github.com/mathiasbynens/jquery-placeholder.git
