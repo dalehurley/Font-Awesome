@@ -432,7 +432,7 @@
     right: 0;
 }
 /* ajout stef*/
-.dmAdmin_index #dm_tool_bar ul.level0 > li > a{
+.dm #dm_tool_bar ul.level0 > li > a{
     padding: 3px 3px 1px 3px;
     font-size: 12px;
     letter-spacing: 0px;

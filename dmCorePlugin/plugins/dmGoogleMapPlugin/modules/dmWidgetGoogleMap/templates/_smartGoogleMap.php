@@ -7,8 +7,9 @@ $i_max = count($adresses);
 $class = '';
 
 if (count($adresses)) {
-    echo _tag('h2', array('class' => 'title'), $titreBloc);
     if(count($adresses)>1){
+    echo _tag('h2', array('class' => 'title'), $titreBloc);
+    
         echo _open('div', array('class' => 'navigationWrapper navigationTop'));
             echo _open('ul', array('class' => 'elements'));
                 foreach($adresses as $ancre){
