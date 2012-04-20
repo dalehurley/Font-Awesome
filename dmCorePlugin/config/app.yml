@@ -63,8 +63,6 @@ all:
       "Les Actualités du Cabinet": Nos Engagements
       "Les Sélections de placements": Nos offres
       "Actualité du Cabinet": "Description de nos engagements"
-
-
       
   # tableau des description des permissions 
   permissions:

@@ -12,7 +12,7 @@
 	//Définition du plugin
 	$.fn.menuAccordion = function(options) {
 		//test ajout de debug
-		$.fn.menuAccordion.debug("menuAccordion | initialisation : " + $(this).attr("class"));
+		$.fn.frontFramework.debug("menuAccordion | initialisation : " + $(this).attr("class"));
 		
 		// build main options before element iteration
 		var opts = $.extend({}, $.fn.menuAccordion.defaults, options);
@@ -118,12 +118,6 @@
 	$.fn.menuAccordion.removeEvent = function(li) {
 		//on ne lance l'événement click que sur le lien enfant (on enlève le handler avant de l'ajouter au cas où une instance multiple se produit)
 		$(li).find('> .link').unbind('click', $.fn.menuAccordion.bindEvent);
-	}
-	
-	//fonction de debuggage
-	$.fn.menuAccordion.debug = function(txt){
-		if (window.console && window.console.log)
-			window.console.log(txt);
 	}
 	
 	//Paramètres par défaut

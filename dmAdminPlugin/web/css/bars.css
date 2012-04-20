@@ -40,12 +40,12 @@
 }
 #dm_tool_bar ul.level0 > li > a {
   float:left;
-  padding: 3px 3px 1px 3px;
+  padding: 3px 6px 1px 6px;
   text-decoration:none;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
   height: 22px;
-  /*letter-spacing: 1px;*/
+  letter-spacing: 1px;
 }
 #dm_tool_bar ul.level0 > li.ui-state-active > a {
   color: #222;
@@ -160,6 +160,6 @@
 #dm_tool_bar .widget16 {
   margin: 6px 0 0 0 ;
 }
-
-.sfWebDebugMenu li{
-  margin: 0 4px 0 4px}
+/*
+#sfWebDebugBar .sfWebDebugMenu li{
+  padding: 0 4px 0 4px}*/

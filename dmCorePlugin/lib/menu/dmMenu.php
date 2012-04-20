@@ -548,8 +548,11 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
         // lioshi : ajout classe dm_root au li
         if ($this->getLink() instanceof dmFrontLinkTagPage) {
-            if ($moduleAction == 'main_root' 
-                && $this->parent->getOption('ul_class') != 'menu-accordion' )  {  // ajout lioshi : pas de class dm_root en plus pour le menu de type accordion
+            if ($moduleAction == 'main_root') {
+                // ajout lioshi : pas de class dm_root en plus pour le menu de type accordion
+                // && $this->parent->getOption('ul_class') != 'menu-accordion' )  {
+                // modif Arnaud : désactivé car la classe dm_root peut servir à l'avenir sur ce type de menu pour styler le bouton d'acceuil sur les basedocs Ténor
+                // Erratum : apparemment ça ne marchait pas car la classe dm_root était quand même ajoutée
                 $classes[] = 'dm_root';
             }
         } 

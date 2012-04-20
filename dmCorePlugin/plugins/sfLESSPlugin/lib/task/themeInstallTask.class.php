@@ -154,41 +154,48 @@ EOF;
         } else {
             $lang = 1; // only one? we take the 1
         }
+
         // sauvegarde du site_theme dans la table dmSetting
-        $configSiteTheme = array(
-            'type' => 'text',
-            'default_value' => ' ',
-            'value' => $nomTemplateChoisi,
-            'description' => 'Site current theme',
-            'group_name' => 'site',
-            'lang' => $arrayLangs[$lang]
-        );
-        $setting = dmDB::table('dmSetting')->findOneByName('site_theme');
-        if (is_object($setting)) {
-            $setting->delete(); // delete entry site_theme
-        } 
-        $setting = new DmSetting;
-        $setting->set('name', 'site_theme');
-        $setting->fromArray($configSiteTheme);
-        $setting->save();
+        $queryMajSiteTheme = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$nomTemplateChoisi.'\' WHERE t.lang = \''.$arrayLangs[$lang].'\' AND s.name = \'site_theme\';';
+        $connection->query($queryMajSiteTheme);
+
+        // $configSiteTheme = array(
+        //     'type' => 'text',
+        //     'default_value' => ' ',
+        //     'value' => $nomTemplateChoisi,
+        //     'description' => 'Site current theme',
+        //     'group_name' => 'site',
+        //     'lang' => $arrayLangs[$lang]
+        // );
+        // $setting = dmDB::table('dmSetting')->findOneByName('site_theme');
+        // if (is_object($setting)) {
+        //     $setting->delete(); // delete entry site_theme
+        // } 
+        // $setting = new DmSetting;
+        // $setting->set('name', 'site_theme');
+        // $setting->fromArray($configSiteTheme);
+        // $setting->save();
         
         // sauvegarde du site_theme_version dans la table dmSetting
-        $configSiteThemeVersion = array(
-            'type' => 'text',
-            'default_value' => ' ',
-            'value' => $nomVersionChoisi,
-            'description' => 'Site current theme version',
-            'group_name' => 'site',
-            'lang' => $arrayLangs[$lang]
-        );
-        $setting = dmDB::table('dmSetting')->findOneByName('site_theme_version');
-        if (is_object($setting)) {
-            $setting->delete(); // delete entry site_theme_version
-        } 
-        $setting = new DmSetting;
-        $setting->set('name', 'site_theme_version');
-        $setting->fromArray($configSiteThemeVersion);
-        $setting->save();
+        $queryMajSiteThemeVersion = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$nomVersionChoisi.'\' WHERE t.lang = \''.$arrayLangs[$lang].'\' AND s.name = \'site_theme_version\';';
+        $connection->query($queryMajSiteThemeVersion);
+
+        // $configSiteThemeVersion = array(
+        //     'type' => 'text',
+        //     'default_value' => ' ',
+        //     'value' => $nomVersionChoisi,
+        //     'description' => 'Site current theme version',
+        //     'group_name' => 'site',
+        //     'lang' => $arrayLangs[$lang]
+        // );
+        // $setting = dmDB::table('dmSetting')->findOneByName('site_theme_version');
+        // if (is_object($setting)) {
+        //     $setting->delete(); // delete entry site_theme_version
+        // } 
+        // $setting = new DmSetting;
+        // $setting->set('name', 'site_theme_version');
+        // $setting->fromArray($configSiteThemeVersion);
+        // $setting->save();
        
         $this->logBlock('Le theme : ' . $nomTemplateChoisi. ' ('.$nomVersionChoisi.')' . ' est installe.', 'INFO_LARGE');
     }

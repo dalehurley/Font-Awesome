@@ -36,10 +36,11 @@ class dmFrontBaseActions extends dmBaseActions
    */
   public function isSecure()
   {
-    if (!dmConfig::get('site_active'))
-    {
-      return true;
-    }
+    // lioshi change to stop error 401 : Too many forwards have been detected for this request. 
+    // if (!dmConfig::get('site_active'))
+    // {
+    //   return true;
+    // }
 
     return parent::isSecure();
   }

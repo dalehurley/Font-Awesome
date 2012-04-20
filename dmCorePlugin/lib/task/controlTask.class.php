@@ -142,7 +142,13 @@ EOF;
               'libelle' => 'Les informations sur le site',
               'arguments' => array(),
               'options' => array()                
-              ),  
+              ), 
+            array(
+              'command' => 'doctrine:sql-query',
+              'libelle' => 'Lancer une requete sql sur la base',
+              'arguments' => array(),
+              'options' => array()                
+              ),                
             array(
               'separator' => 'Moteur de recherche (Lucene)', 
               'command' => 'dm:search-update',

@@ -12,6 +12,15 @@ class spLessCss {
 			//affichage du widget de DEBUG du framework
 			echo dm_get_widget('debug', 'debug', array());
 		}
+
+		//lien vers le js du framework
+		$jsLinkFramework = '/theme/less/_framework/SPLessCss/Externals/js/theme/frontFramework.js';
+		//chargement du JS si existant
+		if (is_file(sfConfig::get('sf_web_dir') . $jsLinkFramework)) use_javascript($jsLinkFramework);
+		//lien vers le js associé au theme
+		$jsLinkTemplate = '/theme/less/_templates/' . dmConfig::get('site_theme'). '/Externals/js/theme/frontTemplate.js';
+		//chargement du JS si existant
+		if (is_file(sfConfig::get('sf_web_dir') . $jsLinkTemplate)) use_javascript($jsLinkTemplate);
 		
 		//actualisation des paramètres du framework
 		//if($pageOptions['isLess']) sidSPLessCss::loadLessParameters();
