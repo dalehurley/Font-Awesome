@@ -13,6 +13,6 @@
 		.isLess & { background-color: #CE8EE8; }
 	}
 
-	//Début temporaire : rajout marge pour décaler le bloc sous l'image
-	#dm_sidebar_left & { margin-top: 20 * @gridBaseline; }
+	//on force la largeur sur le total de la largeur
+	#dm_sidebar_left &, #dm_sidebar_right & { width: 100%; }
 }

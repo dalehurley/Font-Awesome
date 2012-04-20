@@ -10,7 +10,7 @@
 	//Définition du plugin
 	$.fn.menuDropdown = function(options) {
 		//test ajout de debug
-		$.fn.menuDropdown.debug("menuDropdown | initialisation : " + $(this).attr("class"));
+		$.fn.frontFramework.debug("menuDropdown | initialisation : " + $(this).attr("class"));
 		
 		
 		// build main options before element iteration
@@ -24,12 +24,6 @@
 			//lancement de la fonction de compatibilité
 			$.fn.menuDropdown.compatibility(this);
 		});
-	}
-	
-	//fonction de debuggage
-	$.fn.menuDropdown.debug = function(txt){
-		if (window.console && window.console.log)
-			window.console.log(txt);
 	}
 	
 	//Paramètres par défaut

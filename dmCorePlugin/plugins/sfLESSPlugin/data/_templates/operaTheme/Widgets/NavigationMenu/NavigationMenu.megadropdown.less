@@ -1,6 +1,6 @@
 // NavigationMenu.megadropdown.less
-// v1.5
-// Last Updated : 2012-03-22 12:05
+// v1.6
+// Last Updated : 2012-04-17 15:45
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -66,20 +66,30 @@ ul.menu-megadropdown {
 			@gridWidth(@gridCol - @gridCol_SidebarLeft; @gridGutter - @zonesOffsetPad);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteLeft(@gridCol_SidebarLeft; 2px);
-			top: -1px;
+			//pour aligner sur le lien d'ouverture (désactivé)
+			// top: -1px;
 			margin-top: 0;
+			padding-top: (@gridBaseline -1px);
 			padding-left: @gridGutter;
-			ul{ padding-left: 0; }
+			ul {
+				padding-top: 0;
+				padding-left: 0;
+			}
 		}
 		
 		#dm_sidebar_right & {
 			@gridWidth(@gridCol - @gridCol_SidebarRight; @gridGutter - @zonesOffsetPad);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			@gridAbsoluteRight(@gridCol_SidebarRight; 1px);
-			top: -1px;
+			//pour aligner sur le lien d'ouverture (désactivé)
+			// top: -1px;
 			margin-top: 0;
+			padding-top: (@gridBaseline -1px);
 			padding-right: @gridGutter;
-			ul{ padding-right: 0; }
+			ul {
+				padding-top: 0;
+				padding-right: 0;
+			}
 		}
 		
 		//niveau 2 et +
@@ -150,7 +160,15 @@ ul.menu-megadropdown {
 
 		//sous parties de niveau 2 et + contenues dans un ul ne contenant aucun sous-dossier
 		&.hasNoDir li {
-			@gridWidth(4; @gridGutter + @zonesOffsetPad*-1);
+			//on prend la moitié de la largeur totale du site
+			@gridWidth(floor(@gridCol/2); @gridGutter + @zonesOffsetPad*-1);
+			//pour les sidebars on étale le contenu sur la moitié de la largeur restante
+			#dm_sidebar_left & {
+				@gridWidth(floor((@gridCol - @gridCol_SidebarLeft)/2); @gridGutter + @zonesOffsetPad*-2);
+			}
+			#dm_sidebar_right & {
+				@gridWidth(floor((@gridCol - @gridCol_SidebarRight)/2); @gridGutter + @zonesOffsetPad*-2);
+			}
 		}
 	}
 
