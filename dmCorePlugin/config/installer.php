@@ -415,6 +415,8 @@ $this->getFilesystem()->execute('ln -s '.$beDirImages. ' '.sfConfig::get('sf_roo
 //-------------------------------------------------------------------------------------
 //    liaison vers le dossier templates contenant les partials du coeur
 //-------------------------------------------------------------------------------------
+$this->logBlock('Lien symbolique partials/template.', 'INFO_LARGE');
+$out = $err = null;
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../dmFrontPlugin/templates/ '.sfConfig::get('sf_root_dir').'/apps/front/templates', $out, $err);
 
 //-------------------------------------------------------------------------------------
