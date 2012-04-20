@@ -10,10 +10,18 @@ ul.menu-default {
 
 	//Par défaut, mise en place des éléments en block alignés à gauche
 	#dm_header &, #dm_footer & {
+		//ajout clearfix car li en float
+		@getClearfix();
+
 		li {
 			.isLess & { background-color: #95BBE8; }
 			display: block;
 			float: left;
+
+			//placement des liens
+			.link {
+				.isLess & { background-color: #36574D; }
+			}
 		}
 	}
 }
