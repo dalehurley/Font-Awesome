@@ -1,0 +1,27 @@
+// _Default.less
+// v1.0
+// Last Updated : 2012-04-20 10:40
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+ul.menu-default {
+	.isLess & { background-color: #A9DDE8; }
+	position: relative;
+
+	//Par défaut, mise en place des éléments en block alignés à gauche
+	#dm_header &, #dm_footer & {
+		//ajout clearfix car li en float
+		@getClearfix();
+
+		li {
+			.isLess & { background-color: #95BBE8; }
+			display: block;
+			float: left;
+
+			//placement des liens
+			.link {
+				.isLess & { background-color: #36574D; }
+			}
+		}
+	}
+}
