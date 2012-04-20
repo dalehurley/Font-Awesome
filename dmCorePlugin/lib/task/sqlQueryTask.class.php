@@ -47,22 +47,61 @@ EOF;
             $query = $options['query'];
         }
 
-        $this->logBlock('Sql query : '.$query, 'INFO_LARGE');
+// query() or exec()?
+// --------------
+// After the connection to database is successfully created and the PDO object instance is set, the object can be used to perform SQL queries.
+// The SQL queries with PDO can be made in two ways:
+//         - directly using "exec()", and "query()" methods,
+//         - or with the prepare() ... execute() statement.
+// The first variant is more simple, in this lesson it's presented the exec method.
 
-        $res = $connection->query($query);
+// • The queries that modify rows in the table, but not return a result set with rows and columns (INSERT, UPDATE, and DELETE), are send with exec(), this method returns the number of affected rows, or FALSE on error.
+// $count = $conn->exec("SQL Query");
 
+// • Queries that select rows (SELECT) and return a result set with rows and columns are sent with the query() method. In case of error, returns FALSE.
+// $res = $conn->query("SQL Query");
 
-        // $res = Doctrine_Core::getTable('dmSetting')
-        //                 ->createQuery('s')
-        //                 ->execute();
+        switch (strtolower(substr($query,0,6))) {
+            case 'select':
+                $res = $connection->query($query);
+                $displayPDOStatement = true;
+                break;
 
+            case 'update':
+                $res = $connection->exec($query);
+                $displayPDOStatement = false;
+                break;  
 
-        // BUG si affichage
-        // foreach ($res as $line) {
-        //     foreach ($line as $value) {
-        //         echo $value."\n";
-        //     }
-        // }
+            case 'insert':
+                $res = $connection->exec($query);
+                $displayPDOStatement = false;
+                break; 
+
+            case 'delete':
+                $res = $connection->exec($query);
+                $displayPDOStatement = false;
+                break;                                               
+            
+            default:
+                $this->logBlock('Invalid query : '.$query." => ONLY SELECT, INSERT, UPDATE, and DELETE", 'ERROR_LARGE');
+                exit; 
+                break;
+        }
+
+        $this->logBlock('Sql query OK : '.$query, 'INFO');
+
+        if ($displayPDOStatement){    
+            foreach ($res as $line) {
+                foreach ($line as $key => $value) {
+                    if (!is_int($key)) $this->logBlock(" ".$key. " : ".$value, 'HELP'); 
+                }
+                echo "\n";
+            }
+        } else {
+            $libLigneAffected = ($res>1)?" lignes affectées":" ligne affectée";
+            $this->logBlock($res . $libLigneAffected, 'HELP'); 
+        }
+        
         
 
          

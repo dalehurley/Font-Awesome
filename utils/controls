@@ -40,19 +40,20 @@ $utilisation =
   * argument1 : le dossier contenant du(des) site(s) [exemple: /data/www ]    
   * argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
   * argument3 : la commande                                                
-      --help                aide                                                        
-      dumps                 sauvegarde en dump 
-      dumps-with-settings        sauvegarde en dump (avec config dm_setting)
-      loadArticles          charge les sections puis les articles
-      search-update         met à jour lucene (index de recherche)
-      sitemap-update        met à jour le sitemap
-      setup                 effectue un dm:setup
-      loadBE                met à jour la base éditoriale
-      ccc                   purge du cache web et APC
-      less-compile          compilation des fichiers less
-      generate-sprite       génération des sprites
-      migration-doctrine    effectue une migration doctrine suivi d'un dm:setup
-      infos                 donne des infos 
+      --help                        aide                                                        
+      dumps                         sauvegarde en dump 
+      dumps-with-settings           sauvegarde en dump (avec config dm_setting)
+      loadArticles                  charge les sections puis les articles
+      search-update                 met à jour lucene (index de recherche)
+      sitemap-update                met à jour le sitemap
+      setup                         effectue un dm:setup
+      loadBE                        met à jour la base éditoriale
+      ccc                           purge du cache web et APC
+      less-compile                  compilation des fichiers less
+      generate-sprite               génération des sprites
+      migration-doctrine            effectue une migration doctrine suivi d'un dm:setup
+      infos                         donne des infos 
+      query="SELECT * FROM test"    execute une requête SQL (ONLY SELECT, INSERT, UPDATE, and DELETE)
   * argument4 (optionnel) : 
       auto                  mode automatique (sans validation des sites à traiter) 
   * argument5 (optionnel) : 
@@ -170,7 +171,15 @@ switch ($argCommande) {
 		break;
 
 	default:
-		echo $help; 
+		if (substr($argCommande,0,6) == 'query='){
+			$query = substr($argCommande,6);
+			$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony doctrine:sql-query --query=\"".$query."\";";
+			commandForAllSites($commande);
+		} else {
+			echo $colors->error("Commande incompréhensible...");
+			echo $help; 
+		}
+		
 		break;
 }
 
