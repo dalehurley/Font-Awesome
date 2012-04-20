@@ -116,7 +116,7 @@ class dmDataLoad
       'site_ndd' => array(
         'default_value' => '',
         'type' => 'text',
-        'params' => 'disabled="disabled"',
+        'params' => 'readonly="readonly"',
         'description' => 'The site ndd can be change by task dm:change-ndd',
         'group_name' =>'site'
       ),      
@@ -132,12 +132,13 @@ class dmDataLoad
         'description' => 'Is the site ready for search engine crawlers ?',
         'group_name' =>'site'
       ),
-      'site_working_copy' => array(
-        'type' => 'boolean',
-        'default_value' => 1,
-        'description' => 'Is this site the current working copy ?',
-        'group_name' =>'site'
-      ),
+      // lioshi : seems to be useless
+      // 'site_working_copy' => array(
+      //   'type' => 'boolean',
+      //   'default_value' => 1,
+      //   'description' => 'Is this site the current working copy ?',
+      //   'group_name' =>'site'
+      // ),
       'ga_key' => array(
         'description' => 'The google analytics key without javascript stuff ( e.g. UA-9876614-1 )',
         'group_name' => 'tracking',
@@ -250,14 +251,14 @@ class dmDataLoad
       'site_theme_version' => array(
         'default_value' => '',
         'type' => 'text',
-        'params' => 'disabled="disabled"',
+        'params' => 'readonly="readonly"',
         'description' => 'The site_theme_version can be change by task theme:install',
         'group_name' =>'site'
       ),
       'site_theme' => array(
         'default_value' => '',
         'type' => 'text',
-        'params' => 'disabled="disabled"',
+        'params' => 'readonly="readonly"',
         'description' => 'The site_theme can be change by task theme:install',
         'group_name' =>'site'
       ),

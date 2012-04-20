@@ -61,9 +61,10 @@ class BasedmFrontActions extends dmFrontBaseActions
 
 		$accessDenied =
 		// the site is not active and requires the site_view permission to be displayed
-		(!dmConfig::get('site_active') && !$user->can('site_view'))
+		// (!dmConfig::get('site_active') && !$user->can('site_view'))    lioshi cause error 401 when site_active on false
 		// the page is not active and requires the site_view permission to be displayed
-		||  (!$this->page->get('is_active') && !$user->can('site_view'))
+		// ||  
+		(!$this->page->get('is_active') && !$user->can('site_view'))
 		// the page is secured and requires authentication to be displayed
 		||  ($this->page->get('is_secure') && !$user->isAuthenticated())
 		// the page is secured and the user has not required credentials
