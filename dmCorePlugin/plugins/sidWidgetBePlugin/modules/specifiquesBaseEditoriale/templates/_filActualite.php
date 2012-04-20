@@ -47,11 +47,6 @@ if (count($articles)) { // si nous avons des actu articles
                     if ($doc_xml->load($xml)) {
 
                         //récupération de l'image au dossier affiché
-                        
-//                        $multimediaInserts = $doc_xml->getElementsByTagName("MultimediaInserts");
-//                        echo 'count $multimediaInserts :'.$multimediaInserts->length;
-//                        if ($multimediaInserts->length > 0) {
-//                            $multimediaInserts->item(0);
                             $multimediaImages = $doc_xml->getElementsByTagName('MultimediaInsert');
                             foreach ($multimediaImages as $multimediaImage) {
                                 $nameImage = '';
