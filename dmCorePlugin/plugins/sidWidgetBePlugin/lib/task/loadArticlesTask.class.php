@@ -224,6 +224,20 @@ EOF;
                     }
                 }
             }
+
+            //------------------------------------------------------------------------------------------------------------
+            //    purge cache APC et web
+            //------------------------------------------------------------------------------------------------------------            
+            $results = baseEditorialeTools::ccc();
+
+            if (!in_array("quiet", $arguments)) {
+                $this->logSection('### loadArticles', 'Purge du cache APC et web.');
+                foreach ($results as $result) { 
+                    foreach ($result as $log => $desc) {
+                        $this->logSection($log, $desc,null,$log);
+                    }
+                }
+            }            
               
             
         } else {

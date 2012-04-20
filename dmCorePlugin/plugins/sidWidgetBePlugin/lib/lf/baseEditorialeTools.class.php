@@ -453,6 +453,15 @@ class baseEditorialeTools {
         return $return;
     }
 
+    /*
+     * purge ccc
+    */
+    public static function ccc() {
+        $return[]['Purge cache APC et web'] = exec('php symfony ccc');
+        
+        return $return;
+    }    
+
     /**
      * purge des articles en fonction de leur date et nombre par section
      * X derniers jours et Y articles
