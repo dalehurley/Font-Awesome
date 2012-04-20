@@ -7,7 +7,6 @@ class dmFrontLayoutHelper extends dmCoreLayoutHelper
 
   protected function initialize(array $options)
   {
-    
     // ajout lioshi : erreur 500 déclenchée si le site est inactif
     if (!dmConfig::get('site_active') && !sfContext::getInstance()->getUser()->can('site_view')) {
         throw new dmException('Site is inactive, only user with site_view credentials can see it');
