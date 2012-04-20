@@ -58,11 +58,15 @@
 			border: 0;
 
 			//changement taille de police
-			font-size: @fontSizeSmall;
+			font-size: @fontSizeMicro;
 			line-height: @gridBaseline;
 
-
-
+			//inversion style des liens
+			.link {
+				text-decoration: none;
+				&:hover{ text-decoration: underline; }
+			}
+			
 			#dm_page & {
 				//masquage de différents éléments .type
 				.streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } }
@@ -82,8 +86,8 @@
 				}
 
 				//changement du texte
-				.name, .itemprop {
-					font-size: @fontSizeSmall;
+				.name, .itemprop, .link {
+					font-size: @fontSizeMicro;
 					line-height: @gridBaseline;
 					//changement de la couleur
 					color: @colorCouleur2ClairSup;
