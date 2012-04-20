@@ -14,7 +14,7 @@ if ($dataType == 'DOSSIER'){
         array(
             'article' => $article,
             'withImage' => $withImage,
-            'widthImage' => $widthImage
+            //'widthImage' => $widthImage
             ));
     $pageSession = sfContext::getInstance()->getUser()->setAttribute('articleDataType', sfConfig::get('app_article-data-type-dossier'));
 }
