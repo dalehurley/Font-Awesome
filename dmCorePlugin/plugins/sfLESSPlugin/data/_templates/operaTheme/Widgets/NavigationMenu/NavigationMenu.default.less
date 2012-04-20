@@ -8,6 +8,7 @@
 @import "_templates/operaTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Config du widget courant
 @import "_templates/operaTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
@@ -15,9 +16,33 @@
 //Importation des classes de composition du menu
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Default/_Default.less";
 
-
-
 ul.menu-default {
+	//Personnalisation menu dans ces zones
+	#dm_header &, #dm_footer & {
+		li {
+			//changement apparence des liens
+			.link {
+				color: @colorCouleur3;
+				font-size: @fontSizeMicro;
+				line-height: @gridBaseline;
+				text-transform: uppercase;
+				text-decoration: none;
+				&:hover { text-decoration: underline; }
+			}
 
-	
+			//alignés à gauche donc rajout bullet à gauche
+			&:before {
+				display: block;
+				content: "";
+				float: left;
+				//ajout de la sprite de bullet collorée
+				@spriteDefinition("DefaultMono"; "bullet"; "disc"; "S"; @spriteFormat_S; @spriteOffX-DefaultMono-bullet-disc; @spriteOffY-DefaultMono-bullet-disc);
+				//décalage de marge
+				@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+				margin: @decalV @offS;
+			}
+			//pas de bullet sur le premier
+			&.first:before { display: none; visibility: hidden; }
+		}
+	}
 }
