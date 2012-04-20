@@ -4,7 +4,16 @@
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
-.menu-default {
+ul.menu-default {
+	.isLess & { background-color: #A9DDE8; }
 	position: relative;
-	background-color: lightblue;
+
+	//Par défaut, mise en place des éléments en block alignés à gauche
+	#dm_header &, #dm_footer & {
+		li {
+			.isLess & { background-color: #95BBE8; }
+			display: block;
+			float: left;
+		}
+	}
 }
