@@ -159,7 +159,8 @@ if (!is_file($xml)) {
 		$imageHtml = '';
 		if ($imageExist && $withImage){
 			$imageHtml = 	'<div class="imageFullWrapper">'.
-						    	'<img width="'.$widthImage.'" src="'.$imageLink.'" itemprop="image" class="image" alt="'.$article->title.'">'.
+						    	//'<img width="'.$widthImage.'" src="'.$imageLink.'" itemprop="image" class="image" alt="'.$article->title.'">'.
+						    	'<img src="'.$imageLink.'" itemprop="image" class="image" alt="'.$article->title.'">'.
 							'</div>';
 		}
 			echo '<article itemtype="http://schema.org/Article" itemscope="itemscope" class="itemscope Article">';
