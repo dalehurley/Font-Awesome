@@ -8,9 +8,123 @@
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
-//@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //AdressesMultiples
 .dm_widget.adresses_multiples {
+
+	.dm_widget_inner {
+
+	}
 	
+	//on change la couleur de fond lorsque contenu dans le footer
+	#dm_footer & {
+		//pour passer en desssous tous les éléments du footer
+		position: relative;
+		clear: both;
+		float: none;
+		//permet d'étendre la zone en débordement de la page
+		margin-left: -100%;
+		margin-right: -100%;
+		background-color: @colorWhite;
+
+		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
+		.dm_widget_inner {
+			position: relative;
+			@gridSiteWidth();
+			margin-left: auto;
+			margin-right: auto;
+			padding: @gridBaseline/2 0;
+		}
+	}
+
+	//placement des éléments
+	.elements {
+		margin: 0;
+		padding: 0;
+
+		.element {
+			//suppression transition
+			.csstransitions & {
+				@transitionNone();
+			}
+			&:hover { background-color: transparent; }
+
+			//adaptation padding
+			padding: 0;
+			//suppression bordure et ajout à droite
+			border: 0;
+
+			//changement taille de police
+			font-size: @fontSizeSmall;
+			line-height: @gridBaseline;
+
+
+
+			#dm_page & {
+				//masquage de différents éléments .type
+				.streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } }
+
+				//changement comportemant par défaut (cf itemprop.less)
+				.email, .faxNumber, .telephone {
+					//réaparition du séparateur
+					.separator { display: inline; visibility: visible; }
+
+					//suppression des sprites
+					.type {
+						@spriteDelete();
+						padding: 0;
+						margin: 0;
+						text-indent: inherit;
+					}
+				}
+
+				//changement du texte
+				.name, .itemprop {
+					font-size: @fontSizeSmall;
+					line-height: @gridBaseline;
+					//changement de la couleur
+					color: @colorCouleur2ClairSup;
+				}
+
+				//remise police par défault sur le nom
+				.itemprop.name { font-family: @fontGlobalFamilySansSerif; margin-left: 0; }
+
+				//mise en ligne de tous les éléments
+				.itemprop, .itemscope, .subWrapper {
+					display: inline;
+					vertical-align: top;
+				}
+
+				//ajout marges à droite
+				.itemprop, .subWrapper { margin-left: @offS; }
+				.subWrapper .itemprop { margin-left: 0; }
+
+				//ajout de tiret sur certains éléments
+				.streetAddress, .subWrapper, .email, .telephone, .faxNumber {
+					//suppression marge à droite car on rajoute un tiret
+					margin-left: 0;
+					&:before {
+						display: inline;
+						content: "\002013";
+						padding: 0 @offS;
+						font-size: @fontSizeSmall;
+					}
+				}
+			}
+		}
+	}
+}
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletPortrait(){
+	#dm_footer {
+		.adresses_multiples {
+			.dm_widget_inner {
+				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+			}
+		}
+	}
 }
