@@ -32,11 +32,12 @@
 
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
+			.isLess & { background-color: #807BD1; }
 			position: relative;
 			@gridSiteWidth();
 			margin-left: auto;
 			margin-right: auto;
-			padding: @gridBaseline/2 0;
+			padding: 0;
 		}
 	}
 
@@ -46,6 +47,10 @@
 		padding: 0;
 
 		.element {
+			//ajout de couleur de débug intercalées
+			.isLess &:nth-of-type(odd) { background-color: #C5A1E6; }
+			.isLess &:nth-of-type(even) { background-color: #E6A1E0; }
+
 			//suppression transition
 			.csstransitions & {
 				@transitionNone();
@@ -58,11 +63,20 @@
 			border: 0;
 
 			//changement taille de police
-			font-size: @fontSizeSmall;
-			line-height: @gridBaseline;
+			&, #dm_page & .name, #dm_page & .itemprop, #dm_page & .link {
+				font-size: @fontSizeMicro;
+				line-height: @gridBaseline;
+				vertical-align: top;
+				//changement de la couleur
+				color: @colorCouleur2ClairSup;
+			}
 
-
-
+			//inversion style des liens
+			.link {
+				text-decoration: none;
+				&:hover{ text-decoration: underline; }
+			}
+			
 			#dm_page & {
 				//masquage de différents éléments .type
 				.streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } }
@@ -70,7 +84,7 @@
 				//changement comportemant par défaut (cf itemprop.less)
 				.email, .faxNumber, .telephone {
 					//réaparition du séparateur
-					.separator { display: inline; visibility: visible; }
+					.separator { display: inline; visibility: visible; vertical-align: top; }
 
 					//suppression des sprites
 					.type {
@@ -81,22 +95,11 @@
 					}
 				}
 
-				//changement du texte
-				.name, .itemprop {
-					font-size: @fontSizeSmall;
-					line-height: @gridBaseline;
-					//changement de la couleur
-					color: @colorCouleur2ClairSup;
-				}
-
 				//remise police par défault sur le nom
 				.itemprop.name { font-family: @fontGlobalFamilySansSerif; margin-left: 0; }
 
 				//mise en ligne de tous les éléments
-				.itemprop, .itemscope, .subWrapper {
-					display: inline;
-					vertical-align: top;
-				}
+				.itemprop, .itemscope, .subWrapper { display: inline; vertical-align: top; }
 
 				//ajout marges à droite
 				.itemprop, .subWrapper { margin-left: @offS; }
