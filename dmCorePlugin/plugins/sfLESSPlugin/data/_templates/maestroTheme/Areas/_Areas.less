@@ -75,19 +75,6 @@
 		text-transform: uppercase;
 		float: left;
 		margin-right: @offM;
-		//ajout de la sprite sur l'élément
-		padding-right: @spriteFormat_S;
-		&:after {
-			position: absolute;
-			display: block;
-			//décalage de marge
-			@decalV: (@gridBaseline - @spriteFormat_S) / 2;
-			top: @decalV;
-			right: 0;
-			content: "";
-			//appel de la sprite
-			@spriteDefinition("Default"; "navigation"; "arrowColorDown"; "S"; @spriteFormat_S; @spriteOffX-navigation-arrowColorDown; @spriteOffY-navigation-arrowColorDown);
-		}
 	}
 }
 
