@@ -46,7 +46,6 @@
 //stylage du footer
 #dm_footer {
 	background-color: @colorCouleur2Moyen;
-	&, .link { color: @colorCouleur3ClairSup; }
 	padding: 0;
 	
 	.dm_zones {
@@ -54,19 +53,45 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
-	
+
 	//widgets situés dans le footer
 	.content_text {
-		font-size: @fontSizeMicro;
-		line-height: @gridBaseline;
+		.isLess & { background-color: #B6E0D1; }
+		position: relative;
+		&, .link { color: @colorCouleur3ClairSup; }
+		.link { text-decoration: none; &:hover { text-decoration: underline; } }
 		float: right;
-		.text_content p { margin: 0; }
+		&, .text_content p {
+			font-size: @fontSizeMicro;
+			line-height: @gridBaseline;
+			margin: 0;
+		}
 	}
 	.content_link {
+		.isLess & { background-color: #E0B6D1; }
+		position: relative;
+		&, .link {
+			color: @colorCouleur3ClairSup;
+			text-decoration: none;
+			&:hover { text-decoration: underline; }
+		}
 		font-size: @fontSizeMicro;
 		line-height: @gridBaseline;
 		float: left;
 		margin-right: @offM;
+		//ajout de la sprite sur l'élément
+		padding-right: @spriteFormat_S;
+		&:after {
+			position: absolute;
+			display: block;
+			//décalage de marge
+			@decalV: (@gridBaseline - @spriteFormat_S) / 2;
+			top: @decalV;
+			right: 0;
+			content: "";
+			//appel de la sprite
+			@spriteDefinition("Default"; "navigation"; "arrowColorDown"; "S"; @spriteFormat_S; @spriteOffX-navigation-arrowColorDown; @spriteOffY-navigation-arrowColorDown);
+		}
 	}
 }
 
