@@ -72,6 +72,18 @@ class dmFrontPageViewHelper extends dmFrontPageBaseHelper
                 //ajout stef
                 if (is_object($const)) {
                   $content = $const->getContent();
+                  // gestion de constantes contenant du php
+                  if (strpos($content, '<?')===false){
+                    // Pas de php, on laisse le contenu tel quel                    
+                  } else {
+                    // il y a du code php, on l'évalue
+                    if (strpos($content, '?>')===false){
+                                     
+                    } else {
+                      $p = new PhpStringParser();   // un classe bien sympa...
+                      $content = $p->parse($content);
+                    }
+                  }
                   $existContent = true;
                 } else {
                   $existContent = false;
@@ -80,9 +92,9 @@ class dmFrontPageViewHelper extends dmFrontPageBaseHelper
                 if ($existContent) {
                     //$infosDev .= '[' . $matchDB . ' -> '.$const->getContent().']<br>';
                     if ($isMaj){  // on met la première lettre en majuscule si spécifié
-                        $replaceConstante = ucfirst($const->getContent());
+                        $replaceConstante = ucfirst($content);
                     } else {
-                        $replaceConstante = $const->getContent();
+                        $replaceConstante = $content;
                     }
                     $html = str_replace($match, $replaceConstante , $html);
                 } else {
@@ -97,7 +109,7 @@ class dmFrontPageViewHelper extends dmFrontPageBaseHelper
 
             
         } else {
-            // pas de constantes ##constantes## dans ce widget
+            // pas de constantes {{constantes}} dans ce widget
             //$html = '[pas de match]' . $html;
         }
 
