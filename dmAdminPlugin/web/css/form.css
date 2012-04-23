@@ -25,7 +25,21 @@ div.sf_admin_form_inner {
 div.sf_admin_form form .dm_help_wrap,
 div.sf_admin_form form .help {
   color: #888;
-  margin-left:20%;
+  
+}
+
+div.sf_admin_form form .dm_help_wrap {
+  color: #2EA4A7 ;
+  margin: 10px 0 5px 20%;
+  box-shadow: 0 0 5px #aaa;
+  -moz-box-shadow: 0 0 5px #aaa;
+  -webkit-box-shadow: 0 0 5px #aaa;
+  padding: 5px 10px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  width: 500px;
+  background-color: #B9DAE0;
 }
 
 div.sf_admin_form fieldset {
