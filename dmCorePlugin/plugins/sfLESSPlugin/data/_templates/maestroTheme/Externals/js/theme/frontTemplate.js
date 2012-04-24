@@ -69,4 +69,12 @@
 		$('html').frontTemplate();
 	});
 
+	//lorsque la fenêtre est redimmensionnée
+	$(window).resize(function() {
+		//lancement de la fonction de replacement avec un délai lors du redimenssionnement
+		$.fn.frontFramework.delay(function(){
+			$('html').frontTemplate();
+		}, 500);
+	});
+
 })(jQuery);
