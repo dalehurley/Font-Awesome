@@ -22,11 +22,10 @@ ul.menu-default {
 		li {
 			//changement apparence des liens
 			.link {
-				color: @colorCouleur3;
+				color: @colorCouleur3ClairSup;
 				font-size: @fontSizeMicro;
 				line-height: @gridBaseline;
 				vertical-align: top;
-				text-transform: uppercase;
 				text-decoration: none;
 				&:hover { text-decoration: underline; }
 			}
@@ -37,7 +36,7 @@ ul.menu-default {
 				content: "";
 				float: left;
 				//ajout de la sprite de bullet collorée
-				@spriteDefinition("DefaultMono"; "bullet"; "disc"; "S"; @spriteFormat_S; @spriteOffX-DefaultMono-bullet-disc; @spriteOffY-DefaultMono-bullet-disc);
+				@spriteDefinition("DefaultLight"; "bullet"; "disc"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-bullet-disc; @spriteOffY-DefaultLight-bullet-disc);
 				//décalage de marge
 				@decalV: (@gridBaseline - @spriteFormat_S)/2;
 				// padding: @decalV 0;
