@@ -1,6 +1,6 @@
 // frontFramework.js
-// v1.0
-// Last Updated : 2012-04-17 17:30
+// v1.1
+// Last Updated : 2012-04-24 10:35
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -15,6 +15,38 @@
 			//Affichage debug initialisation
 			$.fn.frontFramework.debug("frontFramework SPLessCss | initialisation");
 		});
+	}
+
+	//Gestion de la taille minimale du site
+	$.fn.frontFramework.globalHeight = function (options) {
+
+		//Récupération hauteur du la vue du navigateur et du contenu
+		var hW = $(window).height();
+		var hB = $('body').height();
+
+		//sélection des éléments de page
+		var dmHeader = $('#dm_header');
+		var dmMain = $('#dm_main');
+		var dmFooter = $('#dm_footer');
+
+		//Calcul des différentes hauteurs composant le site
+		var hH = (dmHeader.length > 0) ? dmHeader.height() : 0;
+		var hM = (dmMain.length > 0) ? dmMain.height() : 0;
+		var hF = (dmFooter.length > 0) ? dmFooter.height() : 0;
+
+		//calcul de la différence entre le contenu et la fenetre
+		var offsetWindow = hW - hB;
+
+		//on affecte les dimensions que si l'écart est supérieur à 0
+		if(offsetWindow > 0) {
+			//application de la nouvelle hauteur sur diverses éléments
+			dmMain.css('minHeight', hM + offsetWindow);
+		}else{
+			//sinon on remet par default
+			dmMain.css('minHeight', 'inherit');
+		}
+
+		$.fn.frontFramework.debug("frontFramework | hW : " + hW + " hB : " + hB + " offsetWindow : " + offsetWindow);
 	}
 
 	//Gestion de la taille des colonnes
@@ -69,7 +101,13 @@
 
 	//lancement automatique de la fonction
 	$(document).ready(function(){
+		$.fn.frontFramework.globalHeight();
+
 		$('html').frontFramework();
+	});
+
+	$(window).resize(function() {
+		$.fn.frontFramework.globalHeight();
 	});
 
 })(jQuery);
