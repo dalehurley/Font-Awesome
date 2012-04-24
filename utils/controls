@@ -64,7 +64,7 @@ EOF;
 $help = $colors->getColoredString($utilisation, "green") . "\n";
 
 // verification 3 arguments
-if (count($argv)<4 || $argv[0]!='controls'){
+if (count($argv)<4 || substr($argv[0],-8)!='controls'){
 	echo $colors->error("  ERREUR : il y a 3 arguments obligatoires");
 	echo $help;
 	exit;
