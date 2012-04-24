@@ -1,6 +1,6 @@
 // frontTemplate.js
-// v1.0
-// Last Updated : 2012-04-17 17:30
+// v1.1
+// Last Updated : 2012-04-24 11:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
