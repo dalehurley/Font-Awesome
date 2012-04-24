@@ -21,7 +21,26 @@ if (count($equipes)) { // si nous avons des membres de l'article
         else
             $class = '';
         // condition pour gérer les class des listings
-
+//        // nouveau code pour arnaud afin de styler la silhouttee du membre de l'équipe qui n'a pas de photo
+//        $baliseTrombi = '';
+//        $classLi = '';
+//        if ($withImage == TRUE){
+//            if($equipe->getImage()->checkFileExists() == true) {
+//                $baliseTrombi = _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
+//            }
+//            else {
+//                $classLi = ($equipe->getTitle() == 'Mr') ? 'noImage male' : 'noImage female';
+//                $baliseTrombi = _tag('span', array('class' => 'imageWrapper', 'style' => 'width:'.$width.'px;'));
+//                
+//            }
+//            
+//        };
+//
+//        echo _open('li', array('class' => 'element itemscope Person '.$classLi . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope')));
+//        
+//        echo $baliseTrombi;
+//        // fin nouveau code pour arnaud afin de styler la silhouttee du membre de l'équipe qui n'a pas de photo
+        // code à supprimer après la modif d'arnaud
         echo _open('li', array('class' => 'element itemscope Person' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
 
         if ($withImage == TRUE) {
@@ -32,7 +51,7 @@ if (count($equipes)) { // si nous avons des membres de l'article
             }
             echo _tag('span', array('class' => 'imageWrapper'), _media($trombi)->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
         };
-
+        // code à supprimer après la modif d'arnaud
 
         $html.= _open('span', array('class' => 'wrapper'));
         $html.= _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), __($equipe->getTitle()) . ' ' . $equipe->getFirstName() . ' ' . $equipe->getName());
