@@ -48,4 +48,11 @@
 		    @boxShadow(0 0 0 1px @colorAdminWidget);
 		}
 	}
+
+	//on rajoute un espace sous le footer pour le voir apparaitre au dessus de la toolBar d'admin
+	#dm_footer {
+		margin-bottom: @gridBaseline*3;
+		//suppression float des widgets
+		.dm_widget { position: relative; float: none; }
+	}
 }
