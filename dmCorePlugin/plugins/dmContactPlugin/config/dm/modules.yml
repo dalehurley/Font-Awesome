@@ -1,9 +1,9 @@
-"Contact management":
+"Gestion des contacts":
 
-  "Contacts (forms received)":
+  "Les contacts (formulaires reçus)":
 
     dmContact:
-      name:            "My request for contacts|My requests for contacts"
+      name:            "Ma demande de contacts|Mes demandes de contacts"
       credentials: contact_me
       actions:
         form:
