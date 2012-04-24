@@ -29,9 +29,10 @@ ul.menu-megadropdown {
 		// @gridWidth(@gridCol_SidebarLeft);
 
 		//Maestro : pplication dimensions spécifique et placement à droite
-		@gridWidth(@menuMaestroColSidebarLeft);
+		@gridWidth(@menuMaestroColSidebarLeft; @gridGutter*-1);
 		float: right;
-		ul { float: none; }
+		margin-right: @gridColWidth;
+		ul { float: none; margin-right: 0; }
 	}
 	#dm_sidebar_right & {
 		//largeur en fonction de la zone
@@ -103,14 +104,16 @@ ul.menu-megadropdown {
 		}
 
 		#dm_sidebar_left & {
-			@gridWidth(@gridCol - @gridCol_SidebarLeft; @gridGutter);
+			@gridWidth(@gridCol - @gridCol_SidebarLeft + 1; @gridGutter*2);
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
 			// @gridAbsoluteLeft(@gridCol_SidebarLeft; 1px);
-			@gridAbsoluteLeft(@menuMaestroColSidebarLeft; 1px);
+			//on supprime le décalage de 1px car il n'y a pas de bordure à aligner comme dans Ténor
+			@gridAbsoluteLeft(@menuMaestroColSidebarLeft; @gridGutter*-1);
 			margin-top: 0;
 			//pour aligner sur le lien d'ouverture (désactivé)
 			// padding-top: (@gridBaseline +1px);
-			padding-left: (@gridGutter +1px);
+			// padding-left: (@gridGutter +1px);
+			padding-left: @gridGutter;
 			ul {
 				// padding-top: 0;
 				padding-left: 0;
@@ -124,7 +127,8 @@ ul.menu-megadropdown {
 			margin-top: 0;
 			//pour aligner sur le lien d'ouverture (désactivé)
 			// padding-top: (@gridBaseline +1px);
-			padding-right: (@gridGutter +1px);
+			// padding-right: (@gridGutter +1px);
+			padding-right: @gridGutter;
 			ul {
 				// padding-top: 0;
 				padding-right: 0;
@@ -145,6 +149,14 @@ ul.menu-megadropdown {
 				//configuration titre des sous parties
 				& > .link { color: @colorCouleur1; }
 			}
+		}
+
+		//définition largeur des sous parties
+		&.hasNoDir li,
+		&.hasDmDir li,
+		ul {
+			#dm_sidebar_left & { @gridWidth(3); }
+			#dm_sidebar_right & { @gridWidth(4); }
 		}
 		
 		//sous parties de niveau 2 et + contenues dans un ul contenant des sous-dossiers
@@ -167,7 +179,7 @@ ul.menu-megadropdown {
 			&.first, &.firstOfRow {
 				ul, & {
 					#dm_sidebar_left & {
-						@gridWidth(4);
+						@gridWidth(3; @gridGutter);
 					}
 					#dm_sidebar_right & {
 						@gridWidth(5; @gridGutter);
@@ -177,7 +189,7 @@ ul.menu-megadropdown {
 			&.lastOfRow {
 				ul, & {
 					#dm_sidebar_left & {
-						@gridWidth(4; @gridGutter);
+						@gridWidth(3; @gridGutter);
 					}
 					#dm_sidebar_right & {
 						@gridWidth(5);
