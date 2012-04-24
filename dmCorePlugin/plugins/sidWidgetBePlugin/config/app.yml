@@ -42,7 +42,7 @@ all:
       ec_multimedia: multimédia
       cgp_bourse: bourse   
       cgp_immobilier: immobilier          
-      cgp_fiscal: fiscal   
+      cgp_fiscal: fiscalité   
       cgp_actualites: actualités  
       cgp_dossiers: dossiers  
       cgp_faq: questions/réponses
@@ -54,13 +54,13 @@ all:
       ec_creation_entreprise: création d'entreprise
       ec_gestion: gestion     
       ec_patrimoine: patrimoine
-      ec_chiffres: chiffres
+      ec_chiffres: chiffres utiles
       ec_loi_de_finances: loi de finances
       ec_actualites: actualités  
       ec_dossiers: dossiers  
       ec_faq: questions/réponses
       ec_paie: paie
-      ec_aides: aides
+      ec_aides: aides à l'embauche
       ec_guidecreation: guide création 
       ec_idees_business: idées business 
       vacances_scolaires: vacances scolaires

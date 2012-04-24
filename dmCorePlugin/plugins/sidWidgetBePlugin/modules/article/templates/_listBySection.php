@@ -54,7 +54,7 @@ foreach ($articlePager as $article) {
                     if ($doc_xml->load($xml)) {
 
                         //récupération de l'image au dossier affiché
-                        
+                        $nameImage = '';
 //                        $multimediaInserts = $doc_xml->getElementsByTagName("MultimediaInserts");
 //                        echo 'count $multimediaInserts :'.$multimediaInserts->length;
 //                        if ($multimediaInserts->length > 0) {
@@ -63,7 +63,7 @@ foreach ($articlePager as $article) {
                             foreach ($multimediaImages as $multimediaImage) {
                                 $nameImage = '';
                                 $nameImage = $multimediaImage->getElementsByTagName('FileName')->item(0)->nodeValue;
-                                if (strpos($nameImage, '-p.jpg')){
+                                if (strpos($nameImage, '.jpg')){
                                     break;
                                 }
                                 
