@@ -1,6 +1,6 @@
 // _GridInit.less
-// v1.5
-// Last Updated : 2012-02-23 17:55
+// v1.6
+// Last Updated : 2012-04-24 10:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -46,15 +46,17 @@
 //CONFIGURATION D'UNE AREA PAR DÉFAULT (correspond à tous les dm_layout_*)
 .dm_area { position: relative; }
 
-//CONFIGURATION ZONE DE CONTENU EN FONCTION DE LA PRÉSENCE DES SIDEBARS
-#dm_page_content,
-.dm_sdbc_none #dm_page_content { float: left; }
-
 //PLACEMENT SIDEBARS
 #dm_sidebar_left, #dm_sidebar_right { float: left; padding: 0; }
 
 //chargement fonction automatique de placement général (paramètres par défaut chargés)
 @gridAutoLayout();
+
+//Essai de mise en place d'une hauteur minimale en fonction de la hauteur (remplacé par javascript)
+// @media only screen and (min-height: 600px) { #dm_main { min-height: 450px; } }
+// @media only screen and (min-height: 768px) { #dm_main { min-height: 550px; } }
+// @media only screen and (min-height: 1024px) { #dm_main { min-height: 750px; } }
+// @media only screen and (min-height: 1200px) { #dm_main { min-height: 850px; } }
 
 //debug pour masquage sidebars
 .dm_sdbc_right #dm_sidebar_left,

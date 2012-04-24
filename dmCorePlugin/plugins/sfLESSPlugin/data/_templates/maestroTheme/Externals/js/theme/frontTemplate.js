@@ -1,6 +1,6 @@
 // frontTemplate.js
-// v1.0
-// Last Updated : 2012-04-17 17:30
+// v1.1
+// Last Updated : 2012-04-24 11:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -67,6 +67,14 @@
 	//lancement automatique de la fonction
 	$(document).ready(function(){
 		$('html').frontTemplate();
+	});
+
+	//lorsque la fenêtre est redimmensionnée
+	$(window).resize(function() {
+		//lancement de la fonction de replacement avec un délai lors du redimenssionnement
+		$.fn.frontFramework.delay(function(){
+			$('html').frontTemplate();
+		}, 500);
 	});
 
 })(jQuery);

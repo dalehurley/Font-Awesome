@@ -1,6 +1,6 @@
 // EquipeCabinetEquipesContextuel.less
-// v1.0
-// Last Updated : 2012-01-26 13:45
+// v1.1
+// Last Updated : 2012-04-24 11:50
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -15,4 +15,28 @@
 
 	//on force la largeur sur le total de la largeur
 	#dm_sidebar_left &, #dm_sidebar_right & { width: 100%; }
+
+	//changement affichage des élements
+	.elements .element {
+
+		//remise du texte par défault
+		.name, .title {
+			font-family: @fontGlobalFamilySansSerif;
+			text-transform: none;
+			color: @colorBlack;
+			//cf itemprop.less
+			#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
+				font-weight: bold;
+				font-size: @fontSizeH6Px;
+			}
+		}
+
+		//réduction et changement couleur
+		.jobTitle {
+			color: @colorCouleur2ClairSup;
+			font-size: @fontSizeSmall;
+		}
+
+		.contactType { color: @colorCouleur1; }
+	}
 }
