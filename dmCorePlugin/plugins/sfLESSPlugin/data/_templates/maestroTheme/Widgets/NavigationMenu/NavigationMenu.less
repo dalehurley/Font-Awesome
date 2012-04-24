@@ -159,8 +159,7 @@ ul.menu-megadropdown > li {
 			//inversion de style automatique en fonction du conteneur
 			#dm_sidebar_right & {
 				right: auto !important;
-				left: @menuMaestroArrowOffsetY;
-				//border-color: transparent @menuDropdownArrowColor transparent transparent;
+				left: @menuMaestroArrowOffsetX;
 			}
 		}
 	}
@@ -281,11 +280,11 @@ ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	// border-width: @menuMaestroArrowDim;
 	border-width: @menuMaestroArrowDim @menuMaestroArrowDim/2;
 	// right: (@menuMaestroArrowOffsetX - @menuMaestroArrowDim*2 +1px);
-	right: (@menuMaestroArrowOffsetX - @menuMaestroArrowDim +1px);
+	right: (@menuMaestroArrowOffsetX - @menuMaestroArrowDim);
 	opacity: 1;
 	//inversion de style automatique en fonction du conteneur
 	#dm_sidebar_right & {
-		left: @menuMaestroArrowOffsetX - @menuMaestroArrowDim*2;
+		left: (@menuMaestroArrowOffsetX - @menuMaestroArrowDim);
 	}
 	//changement délai de transition
 	.csstransitions & {

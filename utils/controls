@@ -8,29 +8,8 @@ include ('cliColors.class.php');
 $colors = new Colors(); // appel object colorisation
 
 // recup hostname
-//$hostname = $_SERVER["HOSTNAME"];
-//echo $colors->getColoredString("  Hostname : ".$hostname, "dark_gray", "yellow") . "  \n";
-
-/************************ parametres (no need, all in argv) **************************************/
-// switch ($hostname) {
-// 	case 'fedoralionel':
-// 		$dirContentSite = "/data/www";
-// 		$dirBE = "/data/www/base-editoriale";   
-// 		break;
-
-// 	case 'productionvm15':
-// 		$dirContentSite = "/data/www/sitesv3";
-// 		$dirBE = "data/www/sitesv3/_system_base-editoriale";  // serveur de prod
-// 		break;
-
-// 	default:
-// 		$dirContentSite = "";
-// 		$dirBE = "";  
-// 		break;
-// }
-
-
-/**************************************************************************/
+$hostname = $_SERVER["HOSTNAME"];
+echo $colors->getColoredString("  Hostname : ".$hostname."  ", "dark_gray", "yellow") . "  \n";
 
 $utilisation = 
 <<<EOF

@@ -1,6 +1,6 @@
 // _NavigationBreadCrumb.less
-// v1.5
-// Last Updated : 2012-01-18 09:50
+// v1.6
+// Last Updated : 2012-04-24 16:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -14,12 +14,10 @@
 @import "_framework/SPLessCss/Widgets/NavigationBreadCrumb/_NavigationBreadCrumb.less";
 
 .dm_widget.navigation_bread_crumb {
-	.isLess & { background-color: #F0E9B9; }
-
+	.isLess & { background-color: #82705B; }
 	float: right;
 
 	.dm_widget_inner {
-		.isLess & { background-color: #C9C287; }
 		padding-bottom: @gridBaseline/2;
 		//définitions de la largeur
 		@gridWidth((@gridCol - @gridCol_SidebarLeft));
@@ -48,12 +46,12 @@
 		font-size: @fontSizeMicro;
 		line-height: @gridBaseline;
 
-		li{
+		li {
 			display: block;
 			float: left;
 			list-style: none;
 			margin: 0;
-			margin-left: @offM;
+			margin-left: @offS;
 			&:first-child{ margin-left: 0; }
 			//flèche de séparation
 			&.bread_crumb_separator {
