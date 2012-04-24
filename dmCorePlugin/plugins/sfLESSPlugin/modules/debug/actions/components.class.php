@@ -17,6 +17,8 @@ class debugComponents extends myFrontModuleComponents {
         $dmPage = sfContext::getInstance()->getPage();
         $pageCurrent =  $dmPage->module.'/'.$dmPage->action;
         $recordId = $dmPage->record_id;
+        $directorySite = substr(dirname(getcwd()),  strrpos(dirname(getcwd()), '/')+1);
+//        $directorySite = dirname(getcwd());
         // récupération du Layout de la page en cours
         $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
 		
@@ -79,6 +81,10 @@ class debugComponents extends myFrontModuleComponents {
 							array(
 								'info'	=>	'Page recordId',
 								'value'	=>	($recordId==0)?'No auto page' : $recordId
+							),
+                                                        array(
+								'info'	=>	'Directory of Site',
+								'value'	=>	$directorySite
 							),
 						);
 		
