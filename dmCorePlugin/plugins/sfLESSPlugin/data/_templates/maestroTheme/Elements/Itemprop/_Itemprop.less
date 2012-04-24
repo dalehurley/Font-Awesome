@@ -35,19 +35,20 @@
 
 .name, .title {
 	//changement de la police spécifique à Ténor
-	font-family: @fontGlobalFamilySerif;
+	font-family: @fontGlobalFamilyWebFontLight;
+	text-transform: uppercase;
 	//dans un listing ou un résultat de recherche
 	.elements .element &, .search_results .search_result & {
 		font-weight: bold;
 		color: @colorText;
 		#dm_page_content & {
 			font-weight: normal;
-			font-size: @fontSizeH4Px;
+			font-size: @fontSizeH3Px;
 			line-height: @gridBaseline;
 		}
 		#dm_sidebar_left &, #dm_sidebar_right & {
 			font-weight: normal;
-			font-size: @fontSizeH5Px;
+			font-size: @fontSizeH4Px;
 			line-height: @gridBaseline;
 		}
 	}
