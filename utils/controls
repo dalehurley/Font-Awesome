@@ -54,6 +54,7 @@ $utilisation =
       migration-doctrine            effectue une migration doctrine suivi d'un dm:setup
       infos                         donne des infos 
       query="SELECT * FROM test"    execute une requête SQL (ONLY SELECT, INSERT, UPDATE, and DELETE)
+      ndd="xxxxx@xxx.com"           search in sites a correspondance and display infos-site
   * argument4 (optionnel) : 
       auto                  mode automatique (sans validation des sites à traiter) 
   * argument5 (optionnel) : 
@@ -174,6 +175,10 @@ switch ($argCommande) {
 		if (substr($argCommande,0,6) == 'query='){
 			$query = substr($argCommande,6);
 			$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony doctrine:sql-query --query=\"".$query."\";";
+			commandForAllSites($commande);
+		} elseif (substr($argCommande,0,4) == 'ndd='){
+			$query = substr($argCommande,4);
+			$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:is-ndd --ndd=\"".$query."\";";
 			commandForAllSites($commande);
 		} else {
 			echo $colors->error("Commande incompréhensible...");
