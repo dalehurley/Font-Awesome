@@ -132,6 +132,9 @@
 			// $(getImg).load(function(){
 			// });
 		});
+		
+		//réappel de la fonction de redimenssionnement de la page
+		$('html').frontTemplate();
 	}
 	
 	//gestion du click de génération des sprites
