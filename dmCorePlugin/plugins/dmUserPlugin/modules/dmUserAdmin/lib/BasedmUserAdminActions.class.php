@@ -16,27 +16,24 @@ class BasedmUserAdminActions extends autodmUserAdminActions {
         // la fonction de hachage intègre la date au jour près près : date("Y-m-d"), le lien est donc valable une journée
         // l'emettteur est de plus filtré par IP
         if (sfConfig::get('app_link-login_active')) {
-            $calculatedKey = sha1($request->getParameter('id') . date("Y-m-d"));
 
-            // lioshi: ajout en session pour déboggage eventuel de l'accès
-            $this->getUser()->setAttribute('AutoLoginKey',$calculatedKey);
-            $this->getUser()->setAttribute('remoteServerAdress',$_SERVER['HTTP_REFERER']);
-
-            if ($request->getParameter('key') == $calculatedKey) {
                 // $pathArray = $request->getPathInfoArray();
                 // $remoteServer = $pathArray['REMOTE_ADDR'];
-                $urls = sfConfig::get('app_link-login_urls-allowed');
+                $ips = sfConfig::get('app_link-login_ips-allowed');
                 
-                foreach ($urls as $key => $url) {
-                    if (substr($_SERVER['HTTP_REFERER'], 0, strlen($url)) == $url) {
+                foreach ($ips as $key => $ip) {
+                    $calculatedKey = sha1($request->getParameter('id') . date("Y-m-d"). $ip);
+                    // lioshi: ajout en session pour déboggage eventuel de l'accès
+                    $this->getUser()->setAttribute('AutoLoginKey-'.$ip,$calculatedKey);
+
+                    if ($request->getParameter('key') == $calculatedKey) {
                         // le nom du user spécifié dans app.yml
                         $webClient = dmDb::table('dm_user')->findOneByUsername(sfConfig::get('app_link-login_user'));
                         // on log l'utilisatueur courrant avec l'user trouvé
                         $this->getUser()->signIn($webClient, false);
-                        
+                           
                         return $this->redirect('@homepage');
                         break;
-                    }
                 }
             }
         }
