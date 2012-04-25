@@ -6,7 +6,9 @@ all:
     ips-allowed:    # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
       - 127.0.0.1
       - 91.194.100.238  # IP of EA 
-
+    ips-message:
+      "91.194.100.238": "Afin de vous connecter merci de vous rendre dans votre espace abonné."
+      
   email:
     default-sender: "contact@expert-clients.fr"    
 
