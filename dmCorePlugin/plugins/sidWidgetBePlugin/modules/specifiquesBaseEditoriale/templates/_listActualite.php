@@ -40,7 +40,7 @@ foreach ($articles as $article) {
 		}
 	}
 
-	// gestion de l'affichage du titre seul ou non (maestro)
+	// gestion de l'affichage du titre seul ou non
 	$chapeauHtml = '';
 	$textHtml = '';
 	if($justTitle != true) {
