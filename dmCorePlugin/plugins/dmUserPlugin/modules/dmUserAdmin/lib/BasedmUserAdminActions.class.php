@@ -20,15 +20,15 @@ class BasedmUserAdminActions extends autodmUserAdminActions {
 
             // lioshi: ajout en session pour déboggage eventuel de l'accès
             $this->getUser()->setAttribute('AutoLoginKey',$calculatedKey);
-            $this->getUser()->setAttribute('remoteServerAdress',$_SERVER['REMOTE_ADDR']);
+            $this->getUser()->setAttribute('remoteServerAdress',$_SERVER['HTTP_REFERER']);
 
             if ($request->getParameter('key') == $calculatedKey) {
-                $pathArray = $request->getPathInfoArray();
-                $remoteServer = $pathArray['REMOTE_ADDR'];
-                $ips = sfConfig::get('app_link-login_ips-allowed');
+                // $pathArray = $request->getPathInfoArray();
+                // $remoteServer = $pathArray['REMOTE_ADDR'];
+                $urls = sfConfig::get('app_link-login_urls-allowed');
                 
-                foreach ($ips as $key => $ip) {
-                    if (substr($_SERVER['REMOTE_ADDR'], 0, strlen($ip)) == $ip) {
+                foreach ($urls as $key => $url) {
+                    if (substr($_SERVER['HTTP_REFERER'], 0, strlen($url)) == $url) {
                         // le nom du user spécifié dans app.yml
                         $webClient = dmDb::table('dm_user')->findOneByUsername(sfConfig::get('app_link-login_user'));
                         // on log l'utilisatueur courrant avec l'user trouvé
