@@ -28,6 +28,7 @@ class BasedmUserAdminActions extends autodmUserAdminActions {
                 // $pathArray = $request->getPathInfoArray();
                 // $remoteServer = $pathArray['REMOTE_ADDR'];
                 $ips = sfConfig::get('app_link-login_ips-allowed');
+                //sfContext::getInstance()->getUser()->setAttribute('test', date("Y-m-d"). dmConfig::get('site_ndd'));
                 
                 foreach ($ips as $key => $ip) {
                     $calculatedKey = sha1(date("Y-m-d"). $ip . dmConfig::get('site_ndd'));

@@ -19,7 +19,7 @@ all:
       - 217.108.240.225
       - 192.168.81.220
     ips-message:                       # message display on admin.php if client's ip is not allowed (in list above)
-      "91.194.100.239": "Afin de vous connecter merci de vous rendre dans votre espace abonné."  # ip of server which run sites      
+      "91.194.100.239": "Afin de vous connecter merci de vous rendre dans votre <a href=\"http://abonnes.expert-infos.com\">espace abonné</a>."  # ip of server which run sites      
 
   #variable utilisées dans les différents partials du site
   vars-partial:
