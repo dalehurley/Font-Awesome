@@ -64,7 +64,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
     protected function menuAddDir($currentMenu) {
         foreach ($currentMenu as $key => $value) {
             //ajout de la classe css
-            if (count($value) > 0) $value->liClass("dm_dir");
+            if (count($value) > 0) $value->liClass('dm_dir');
             //récursivité de la fonction
             $this->menuAddDir($value);
         }
