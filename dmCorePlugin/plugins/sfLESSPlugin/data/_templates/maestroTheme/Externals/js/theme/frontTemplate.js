@@ -69,9 +69,9 @@
 		$('html').frontTemplate();
 
 		//inversion ordre du wrapper dans les listings (pour passer devant l'image quand présente)
-		// $('.elements .element .wrapper').each(function(index) {
-		// 	$(this).prependTo($(this).parent());
-		// });
+		$('.elements .element .imageWrapper').each(function(index) {
+			$(this).insertAfter($(this).parent().children('.wrapper').children('.subWrapper'));
+		});
 	});
 
 	//lorsque la fenêtre est redimmensionnée
