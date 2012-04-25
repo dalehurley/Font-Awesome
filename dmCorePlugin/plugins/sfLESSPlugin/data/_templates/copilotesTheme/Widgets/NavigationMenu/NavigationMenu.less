@@ -177,44 +177,6 @@ ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
 	}
 }
 
-//ajout de l'icône sur le lien vers la page d'accueil pour les menus dropdown et megadropdown situé dans la zone dm_custom_top
-ul.menu-dropdown, ul.menu-megadropdown {
-	#dm_custom_top .dm_widget.navigation_menu & {
-		//décalage de marge
-		@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
-		@decalH: (@gridColWidth - @spriteFormat_M) / 2;
-		
-		//lien vers la page d'accueil
-		& > li.dm_root {
-			//ajout de la sprite sur la home
-			& > .link_root {
-				//suppression du texte
-				text-indent:-9999em;
-				//insertion de la sprite
-				@spriteDefinition("DefaultDark"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultDark-internet-home; @spriteOffY-DefaultDark-internet-home);
-				//suppression rollOver
-				&, .rgba & {
-					&, &:hover, &:focus { background-color: transparent; }
-				}
-			}
-		}
-
-		//double sélecteur pour forcer la réinitialisation sans utiliser !important
-		& > li.dm_root,
-		& > li.first.dm_root {
-			//uniformisation des marges du bouton
-			& > .link_root,
-			&:hover > .link_root,
-			& > .link_root:hover,
-			& > .link_root:focus {
-				border: 0;
-				padding: 0;
-				margin: @decalV @decalH;
-			}
-		}
-	}
-}
-
 //comportement flèche différents selon les types de menu
 ul.menu-dropdown li.dm_dir > .link:hover:after,
 ul.menu-dropdown li.dm_dir:hover > .link:after,
@@ -264,6 +226,44 @@ ul.menu-accordion li.dm_parent li.dm_parent > .link {
 	background-color: @colorCouleur2Clair;
 	color: @colorCouleur1;
 	&:hover { color: @colorCouleur1Moyen; }
+}
+
+//ajout de l'icône sur le lien vers la page d'accueil pour les menus dropdown et megadropdown situé dans la zone dm_custom_top
+ul.menu-dropdown, ul.menu-megadropdown {
+	#dm_custom_top .dm_widget.navigation_menu & {
+		//décalage de marge
+		@decalV: (@gridBaseline * 2 - @spriteFormat_M) / 2;
+		@decalH: (@gridColWidth - @spriteFormat_M) / 2;
+		
+		//lien vers la page d'accueil
+		& > li.dm_root {
+			//ajout de la sprite sur la home
+			& > .link_root {
+				//suppression du texte
+				text-indent:-9999em;
+				//insertion de la sprite
+				@spriteDefinition("DefaultDark"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultDark-internet-home; @spriteOffY-DefaultDark-internet-home);
+				//suppression rollOver
+				&, .rgba & {
+					&, &:hover, &:focus { background-color: transparent; }
+				}
+			}
+		}
+
+		//double sélecteur pour forcer la réinitialisation sans utiliser !important
+		& > li.dm_root,
+		& > li.first.dm_root {
+			//uniformisation des marges du bouton
+			& > .link_root,
+			&:hover > .link_root,
+			& > .link_root:hover,
+			& > .link_root:focus {
+				border: 0;
+				padding: 0;
+				margin: @decalV @decalH;
+			}
+		}
+	}
 }
 
 //création des fonctions localisées de déclinaisons média
