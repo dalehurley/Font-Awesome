@@ -124,6 +124,18 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		&:active { color: @colorCouleur1; }
 	}
 }
+
+//mise en couleur des cellules ouvertes
+ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
+ul.menu-megadropdown li.dm_dir:hover > .link,
+ul.menu-accordion li.dm_parent > .link,
+ul.menu-accordion li.dm_parent li.dm_parent > .link {
+	background-color: @colorCouleur1;
+	color: @colorCouleur3Clair;
+	&:hover { color: @colorCouleur3ClairSup; }
+}
 //##################################
 //##################################
 
@@ -202,19 +214,6 @@ ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 //##################################
 
 
-//mise en couleur des cellules ouvertes
-ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
-ul.menu-megadropdown li.dm_dir:hover > .link,
-ul.menu-accordion li.dm_parent > .link,
-ul.menu-accordion li.dm_parent li.dm_parent > .link {
-	background-color: @colorCouleur1;
-	color: @colorCouleur3Clair;
-	&:hover { color: @colorCouleur3ClairSup; }
-}
-
-
 //##################################
 //####### GESTION ICÔNE HOME #######
 //##################################
@@ -259,6 +258,9 @@ ul.menu-dropdown, ul.menu-megadropdown {
 //##################################
 
 
+//##################################
+//###### DÉCLINAISONS MÉDIAS #######
+//##################################
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletPortrait(){
 	#dm_custom_top {
@@ -272,3 +274,5 @@ ul.menu-dropdown, ul.menu-megadropdown {
 
 //importation des requêtes média
 @import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";
+//##################################
+//##################################
