@@ -2,7 +2,7 @@
 
 // gestion du message dépendant du hostname
 $info = '';
-$ipMessages = sfConfig::get('app_link-login_ips-message');
+$ipMessages = sfConfig::get('app_controllers-access_ips-message');
 foreach ($ipMessages as $ip => $message) {
   if ($_SERVER["SERVER_ADDR"] == $ip){
     $info = $message;
