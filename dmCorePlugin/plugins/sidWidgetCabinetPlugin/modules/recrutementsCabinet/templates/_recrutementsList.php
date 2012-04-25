@@ -40,52 +40,51 @@
   echo $html; */
 
 if (count($recrutements)) {
+    //Récupération des variables
+    $ellipsis = _tag('span.ellipsis', sfConfig::get('app_vars-partial_ellipsis'));
     $i = 1;
     $i_max = count($recrutements);
-    $class = '';
+
     if (count($recrutements) == 1 && ($redirect == true)) {
         header("Location: " . $header);
         exit;
-    } 
+    }
     else {
         echo _tag('h4', array('class' => 'title'), $titreBloc);
         echo _open('ul', array('class' => 'elements'));
         foreach ($recrutements as $recrutement) {
             $link = '';
-            if ($i == 1) {
-                $class = 'first';
-                if ($i == $i_max)
-                    $class = 'first last';
-            }
-            elseif ($i == $i_max)
-                $class = 'last';
-            else
-                $class = '';
 
-            echo _open('li', array('class' => 'element itemscope Article ' . $class, 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
+            //définition des options du li
+            $ctnOpts = array('class' => array('element', 'itemscope', 'Article'), 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope');
+            if($i == 1)         $ctnOpts['class'][] = 'first';
+            if($i >= $i_max)    $ctnOpts['class'][] = 'last';
+
+            echo _open('li', $ctnOpts);
+
             if ($withImage == true) {
-                if (($recrutement->getImage()->checkFileExists() == true) and ($i <= sfConfig::get('app_nb-image'))) {
+                if (($recrutement->getImage()->checkFileExists() == true) && ($i <= sfConfig::get('app_nb-image'))) {
                     $link .= _open('span', array('class' => 'imageWrapper'));
-                    $link .= _media($recrutement->getImage())->width($width)->set('.image itemprop="image"')->alt($recrutement->getTitle());
+                        $link .= _media($recrutement->getImage())->width($width)->set('.image itemprop="image"')->alt($recrutement->getTitle());
                     $link .= _close('span');
                 }
             };
             $link .= _open('span', array('class' => 'wrapper'));
-            $link .= _open('span', array('class' => 'subWrapper'));
-
-            if ($titreBloc != $recrutement->getTitle()) {
-                $link .= _tag('span', array('class' => 'title itemprop name', 'itemprop' => 'name'), $recrutement->getTitle());
-            };
-            $link .= _tag('meta', array('content' => $recrutement->createdAt, 'itemprop' => 'datePublished'));
-            $link .= _close('span');
-            $link .= _open('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'));
-            $link .= stringTools::str_truncate($recrutement->getText(), $length, '(...)', true, true);
-            $link .= _close('span');
+                $link .= _open('span', array('class' => 'subWrapper'));
+                    if ($titreBloc != $recrutement->getTitle()) {
+                        $link .= _tag('span', array('class' => array('title', 'itemprop', 'name'), 'itemprop' => 'name'), $recrutement->getTitle());
+                    };
+                    $link .= _tag('meta', array('content' => $recrutement->createdAt, 'itemprop' => 'datePublished'));
+                $link .= _close('span');
+                $link .= _open('span', array('class' => array('teaser', 'itemprop', 'description'), 'itemprop' => 'description'));
+                    $link .= stringTools::str_truncate($recrutement->getText(), $length, $ellipsis, true, true);
+                $link .= _close('span');
             $link .= _close('span');
 
             echo _link($recrutement)->set('.link_box')->text($link);
-            $i++;
+            
             echo _close('li');
+            $i++;
         }
         echo _close('ul');
         
