@@ -67,6 +67,11 @@
 	//lancement automatique de la fonction
 	$(document).ready(function(){
 		$('html').frontTemplate();
+
+		//inversion ordre du wrapper dans les listings (pour passer devant l'image quand présente)
+		// $('.elements .element .wrapper').each(function(index) {
+		// 	$(this).prependTo($(this).parent());
+		// });
 	});
 
 	//lorsque la fenêtre est redimmensionnée
