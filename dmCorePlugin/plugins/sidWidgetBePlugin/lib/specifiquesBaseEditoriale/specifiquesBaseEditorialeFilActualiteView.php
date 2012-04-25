@@ -56,7 +56,7 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                         ON s.id = s2.id 
                         WHERE s.is_active = true
                         and s.section_id in ('.$listSectionId.')
-                        group by s.filename
+                        group by s2.title
                         ORDER BY s2.updated_at DESC
                         LIMIT '.$vars['nbArticles'];
 
@@ -75,7 +75,8 @@ class specifiquesBaseEditorialeFilActualiteView extends dmWidgetPluginView {
                     'length' => $vars['length'],
                     'section' => $vars['section'],
                     'withImage' => $vars['withImage'],
-                    'widthImage' => $vars['widthImage']
+                    'widthImage' => $vars['widthImage'],
+                    'justTitle' => isset($vars['justTitle'])?$vars['justTitle']:false
                 ));
     }
 

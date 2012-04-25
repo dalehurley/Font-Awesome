@@ -55,9 +55,9 @@ generator:
           - updated_at
           
 #          - description
-        sort:
-          - position
-          - asc
+        sort: ~
+#          - position
+#          - asc
         table_method: getAdminListQuery
         table_count_method: ~
         sortable: true

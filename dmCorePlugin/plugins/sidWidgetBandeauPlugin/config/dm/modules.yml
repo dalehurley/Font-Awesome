@@ -1,4 +1,4 @@
-"Gestion du Bandeau":
+"Gestion des bandeaux défilants":
   "Bandeau défilant":
     GroupeBandeau:
       model: SidGroupeBandeau

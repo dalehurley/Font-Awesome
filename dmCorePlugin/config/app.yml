@@ -3,7 +3,6 @@ all:
   link-login:    
     active:  true   # activation du lien de login
     user: client
-    hashkey: 154774875454
     ips-allowed:    # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
       - 127.0.0.1
 
@@ -32,6 +31,7 @@ all:
     # changement des noms des rubriques en fonction du client_type (ec ou cgp)
     # ancien : nouveau
     cgp-fr:
+      "Gestion des pages des missions": Gestion des pages des services
       "Les Missions": Les Services
       "Description des missions": Description des services
       "Mission|Les Missions": Service|Les Services
@@ -40,6 +40,8 @@ all:
       "Actualité du Cabinet": "Notre Actualité"
 
     aga-fr:
+      "Gestion des pages du cabinet": "Gestion des pages de l'Association"
+      "Gestion des pages des missions": Gestion des pages des prestations
       "Les Missions": Les Prestations
       "Description des missions": Description des prestations
       "Mission|Les Missions": Prestation|Les Prestations
@@ -50,6 +52,8 @@ all:
       "Actualité du Cabinet": "Actualités de l'association"
 
     copilotes-fr:
+      "Gestion des pages du cabinet" : "Gestion de CO-PILOTES en images"
+      "Gestion des pages des missions": Gestion des pages de nos valeurs
       "Les Missions": Nos valeurs
       "Description des missions": Description de nos valeurs
       "Mission|Les Missions": Valeurs|Nos valeurs
@@ -59,8 +63,6 @@ all:
       "Les Actualités du Cabinet": Nos Engagements
       "Les Sélections de placements": Nos offres
       "Actualité du Cabinet": "Description de nos engagements"
-
-
       
   # tableau des description des permissions 
   permissions:
@@ -204,7 +206,7 @@ all:
     permissions:
       - bandeau
       - see_accueil
-      - see_log
+#      - see_log
       - see_chart
       - tool_bar_admin
       - admin

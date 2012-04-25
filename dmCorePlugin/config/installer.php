@@ -415,6 +415,8 @@ $this->getFilesystem()->execute('ln -s '.$beDirImages. ' '.sfConfig::get('sf_roo
 //-------------------------------------------------------------------------------------
 //    liaison vers le dossier templates contenant les partials du coeur
 //-------------------------------------------------------------------------------------
+$this->logBlock('Lien symbolique partials/template.', 'INFO_LARGE');
+$out = $err = null;
 $this->getFilesystem()->execute('ln -s ' . $diemLibConfigDir . '/../../dmFrontPlugin/templates/ '.sfConfig::get('sf_root_dir').'/apps/front/templates', $out, $err);
 
 //-------------------------------------------------------------------------------------
@@ -580,6 +582,13 @@ $siteEmail = $this->askAndValidate(array('', 'L\'adresse email du site (le desti
 // sauvegarde du site_email_sender dans la table dmSetting
 $queryMajSiteEmail = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$siteEmail.'\' WHERE s.name = \'site_email\';';
 $dbh->query($queryMajSiteEmail);
+
+//-------------------------------------------------------------------------------------
+//    Update the dmSetting site_ndd
+//-------------------------------------------------------------------------------------
+// sauvegarde du site_ndd dans la table dmSetting
+$queryMajSiteNdd = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.id = t.id SET value = \''.$settings['ndd'].'\' WHERE s.name = \'site_ndd\';';
+$dbh->query($queryMajSiteNdd);
 
 //-------------------------------------------------------------------------------------
 //    The END.

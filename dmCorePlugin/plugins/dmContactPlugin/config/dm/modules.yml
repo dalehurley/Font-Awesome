@@ -1,9 +1,9 @@
-Content:
+"Gestion des contacts":
 
-  Feedback:
+  "Les contacts (formulaires reçus)":
 
     dmContact:
-      name:            Contact|Contacts
+      name:            "Ma demande de contacts|Mes demandes de contacts"
       credentials: contact_me
       actions:
         form:

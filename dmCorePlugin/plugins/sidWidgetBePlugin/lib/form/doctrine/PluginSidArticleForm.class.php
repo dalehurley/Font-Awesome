@@ -13,8 +13,5 @@ abstract class PluginSidArticleForm extends BaseSidArticleForm
   public function setup()
   {
     parent::setup();
-    /*
-     * Here, the plugin form code
-     */
-  }
+	}
 }

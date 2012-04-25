@@ -5,7 +5,7 @@ abstract class dmWidgetPluginForm extends dmWidgetBaseForm
  public function configure()
   {
 
-    $this->widgetSchema['widthImage'] = new sfWidgetFormInputText(array('default' => 200, 'label' => 'Largeur en px'));
+    $this->widgetSchema['widthImage'] = new sfWidgetFormInputText(array('label' => 'Largeur en px'));
     $this->validatorSchema['widthImage'] = new dmValidatorCssSize(array(
                   'required' => false
                 ));

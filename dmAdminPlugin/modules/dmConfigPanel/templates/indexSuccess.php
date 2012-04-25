@@ -42,8 +42,17 @@ foreach($settings as $group => $groupSettings)
       $form[$settingName]->label()->field()->error().
       _tag('div.dm_help_wrap', escape(__($form[$settingName]->getHelp())))
     );
+    // modif stef
+    if (dmString::slugify($group) == 'site' && $it==count($groupSettings)) {
+        echo _tag('li.dm_form_element.clearfix.setting_text', '<label class="label" >Le répertoire du site : </label><span>' . dirname(getcwd()).'</span>'
+        );
+    }
+    // modif stef
   }
+ 
   echo _close('ul');
+  
+   
   
   echo _close('div');
 }

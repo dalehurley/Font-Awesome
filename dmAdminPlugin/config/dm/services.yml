@@ -18,13 +18,15 @@ parameters:
 
   week_chart.class:           dmWeekChart       # Responsible for rendering the week chart
   week_chart.options:
-    name:                     This Week         # public name for this chart
+#    name:                     This Week         # public name for this chart
+    name:                     Weekly monitoring of traffic         # public name for this chart
     lifetime:                 21600             # time in seconds to keep a cached version of the chart
     credentials:              see_chart
 
   visit_chart.class:          dmVisitChart      # Responsible for rendering the visit chart
   visit_chart.options:
-    name:                     This Year         # public name for this chart
+#    name:                     This Year         # public name for this chart
+    name:                     Annual monitoring of traffic         # public name for this chart
     lifetime:                 43200             # time in seconds to keep a cached version of the chart
     credentials:              see_chart
 

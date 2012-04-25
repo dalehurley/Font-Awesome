@@ -12,7 +12,7 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
             'withImage',
             'chapo',
             'heightImage',
-            'widthImage'        
+            'widthImage'     
         ));
     }
 
@@ -29,12 +29,19 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
         switch ($dmPage->module . '/' . $dmPage->action) {
             // si on est dans la page d'un article su cabinet, on enlève de la liste des articles en bas de page l'article qui est affiché ($dmPage->record_id)
             case 'article/show':
+                $orderBy ='';
+                $andWhere ='';
+                if($this->context->getPage()->getRecord()->Section->Rubrique->getTitle() == 'ec_echeancier'){
+                    $orderBy = 'a.position DESC';
+                    $andWhere = 'and aTranslation.created_at > CURRENT_DATE';
+                }
+                else $orderBy = 'aTranslation.updated_at DESC';
                 
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidArticle a')
                         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
-                        ->where('a.is_active = ? and  a.id <> ? and a.section_id = ?', array(true, $dmPage->record_id,$recordId))
-                        ->orderBy('aTranslation.updated_at DESC')
+                        ->where('a.is_active = ? and  a.id <> ? and a.section_id = ?'.$andWhere, array(true, $dmPage->record_id,$recordId))
+                        ->orderBy($orderBy)
                         ->limit($nbArticles)
                         ->execute();
 
@@ -56,6 +63,7 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
                     'height' => $vars['heightImage'],
                     'withImage' => $vars['withImage'],
                     'chapo' => $vars['chapo'],
+                    'justTitle' => isset($vars['justTitle'])?$vars['justTitle']:false
                 ));
 
 

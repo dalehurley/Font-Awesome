@@ -74,7 +74,8 @@ class dmAdminToolBarView extends dmToolBarView
   {
     return $this->helper->link('app:front')
     ->text(__('Go to site'))
-    ->set('.widget16.ml10.s16.s16_arrow_return_180');
+    ->target('blank')
+    ->set('.widget16.ml10.s16.s16_arrow_up_right');
   }
 
   protected function renderActiveUsers()

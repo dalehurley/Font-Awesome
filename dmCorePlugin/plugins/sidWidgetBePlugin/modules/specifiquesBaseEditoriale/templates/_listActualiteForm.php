@@ -14,7 +14,8 @@ $form->renderGlobalErrors(),
     $form['withImage']->renderRow().
     $form['widthImage']->renderRow().
     $form['heightImage']->renderRow().
-    $form['cssClass']->renderRow()
+    $form['cssClass']->renderRow().
+    $form['justTitle']->renderRow()
 );
 
 

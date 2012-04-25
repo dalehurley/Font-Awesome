@@ -117,7 +117,8 @@ class dmFrontToolBarView extends dmToolBarView
   {
     return $this->helper->link('app:admin')
     ->text(__('Go to admin'))
-    ->set('.widget16.s16.s16_arrow_return');
+    ->target('blank')
+    ->set('.widget16.s16.s16.s16_arrow_up_right');
   }
 
   protected function renderUserLinks()
