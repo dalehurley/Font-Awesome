@@ -24,7 +24,7 @@ class BasedmUserAdminActions extends autodmUserAdminActions {
                 foreach ($ips as $key => $ip) {
                     $calculatedKey = sha1($request->getParameter('id') . date("Y-m-d"). $ip);
                     // lioshi: ajout en session pour déboggage eventuel de l'accès
-                    $this->getUser()->setAttribute('AutoLoginKey-'.$ip,$calculatedKey);
+                    //$this->getUser()->setAttribute('AutoLoginKey-'.$ip,$calculatedKey);
 
                     if ($request->getParameter('key') == $calculatedKey) {
                         // le nom du user spécifié dans app.yml
