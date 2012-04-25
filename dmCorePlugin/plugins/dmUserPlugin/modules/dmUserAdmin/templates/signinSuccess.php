@@ -21,8 +21,6 @@ foreach ($ips as $key => $ip) {
 
 echo _open('div.dm.dm_auth');
 
-echo $_SERVER["SERVER_ADDR"];
-
 if ($info == '' || $accesGranted){ // on n'accède au formulaire de login que si l'on fait partie des ips-allowed ou si l'info (ips-message) liée à l'ip du serveur qui execute (dans le config/app.yml du Core) est nulle
   echo _tag('h1.site_name', dmConfig::get('site_name'));
 
