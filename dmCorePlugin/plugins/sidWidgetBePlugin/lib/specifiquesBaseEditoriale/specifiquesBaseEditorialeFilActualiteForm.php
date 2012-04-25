@@ -30,7 +30,7 @@ class specifiquesBaseEditorialeFilActualiteForm extends dmWidgetPluginForm {
                     'required' => true
                 ));
                 
-        $this->widgetSchema['justTitle'] = new sfWidgetFormInputCheckbox(array('default'=> false, 'label' => 'Afficher UNIQUEMENT le titre (maestro)'));
+        $this->widgetSchema['justTitle'] = new sfWidgetFormInputCheckbox(array('default'=> false, 'label' => 'Afficher UNIQUEMENT le titre'));
         $this->validatorSchema['justTitle']  = new sfValidatorBoolean(array(
                     'required' => false
                 )

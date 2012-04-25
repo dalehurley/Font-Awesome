@@ -17,6 +17,11 @@ class BasedmUserAdminActions extends autodmUserAdminActions {
         // l'emettteur est de plus filtré par IP
         if (sfConfig::get('app_link-login_active')) {
             $calculatedKey = sha1($request->getParameter('id') . date("Y-m-d"));
+
+            // lioshi: ajout en session pour déboggage eventuel de l'accès
+            $this->getUser()->setAttribute('AutoLoginKey',$calculatedKey);
+            $this->getUser()->setAttribute('remoteServerAdress',$_SERVER['REMOTE_ADDR']);
+
             if ($request->getParameter('key') == $calculatedKey) {
                 $pathArray = $request->getPathInfoArray();
                 $remoteServer = $pathArray['REMOTE_ADDR'];
