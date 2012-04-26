@@ -6,45 +6,52 @@
 
 //permet de forcer le redimenssionnement des containers d'images en attendant un système intégré dans DIEM
 
-//liste de tous les widgets de la base éditorial utilisant le format P
+//widgets de la base éditorial utilisant le format P
+.article_list_by_section {
 
-
-.imageWrapper {
 	//dans les listings de contenu
-	.article_list_by_section .elements .element & {
+	.elements .element .imageWrapper {
 		//application des dimensions en dur
 		@gridWidth(@thumbL_col);
 		@gridHeight(@thumbL_bl);
 
-		//replacement de l'image au format P
-		.image[src$="-p.jpg"] {
-			// @transitionCompress();
-			background-color: #6150B5;
-			// position: absolute;
+		//replacement de toutes les images
+		.image {
+			//suppression du float
 			float: none;
-			opacity: 0.75;
-			//calcul des nouvelles dimensions
-			@gridFormatAdjustVertical(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; 0; 0);
+
+			//replacement de l'image à différents formats
+			&[src$="-g.jpg"] { @gridFormatAdjustVertical(@imageRatio_G; @thumbL_col; @thumbL_bl; 0; 0; 0; 0); }
+			&[src$="-p.jpg"] { @gridFormatAdjustVertical(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; 0; 0); }
+			&[src$="-u.jpg"] { @gridFormatAdjustVertical(@imageRatio_U; @thumbL_col; @thumbL_bl; 0; 0; 0; 0); }
+			&[src$="-a.jpg"] { @gridFormatAdjustVertical(@imageRatio_A; @thumbL_col; @thumbL_bl; 0; 0; 0; 0); }
+			&[src$="-e.jpg"] { @gridFormatAdjustVertical(@imageRatio_E; @thumbL_col; @thumbL_bl; 0; 0; 0; 0); }
 		}
 	}
 
-	.article_list_by_section .elements .element:hover & {
+	.elements .element:hover .imageWrapper {
 		//application des dimensions en dur
 		@gridWidth(@thumbL_col; 20px);
 		@gridHeight(@thumbL_bl; 20px);
 		border: 10px solid red;
 
-		//replacement de l'image au format P
-		.image[src$="-p.jpg"] {
+		//replacement de toutes les images
+		.image {
 			//centrage horizontal
 			margin-left: -10px;
 			margin-right: -10px;
-			//changement margin vertical
-			@gridFormatAdjustVerticalMargin(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px);
+
+			//replacement de l'image à différents formats
+			&[src$="-g.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_G; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px); }
+			&[src$="-p.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px); }
+			&[src$="-u.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_U; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px); }
+			&[src$="-a.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_A; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px); }
+			&[src$="-e.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_E; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px); }
 		}
 	}
+}
 
-
+// .imageWrapper {
 
 		// .isLess & {
 		// 	background-color: #B550A9;
@@ -91,4 +98,4 @@
 		// 		@gridHeight(@thumbSidebarRight_bl);
 		// 	}
 		// }
-}
+// }
