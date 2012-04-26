@@ -21,9 +21,23 @@
 				background-color: #6150B5;
 				position: absolute;
 				float: none;
-				top: 50%;
-				left: 50%;
-				@gridMarginNegativeCentering(@thumbL_col; @thumbL_bl; 0; 0);
+				// top: 50%;
+				// left: 50%;
+
+				//pour les images au format p
+				&[src$="-p.jpg"] {
+					opacity: 0.75;
+					//calcul des nouvelles dimenssions
+					@gridFormatAdjustVertical(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px);
+					//centrage horizontal
+					margin-left: -10px;
+					margin-right: -10px;
+					// @gridFormatAdjustVerticalWidth(@thumbL_col; 20px);
+					// @gridFormatAdjustVerticalMargin(@imageRatio_P; @thumbL_col; @thumbL_bl; 20px; 20px);
+				}
+
+				// @gridWidth(@thumbL_col);
+				// @gridMarginNegativeCentering(@thumbL_col; @thumbL_bl; 0; 0);
 			}
 		}
 
