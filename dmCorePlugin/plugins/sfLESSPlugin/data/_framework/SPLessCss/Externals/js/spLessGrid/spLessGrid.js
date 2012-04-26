@@ -123,8 +123,14 @@
 			//calcul paramètres de placement
 			var getHeight = nbreBl * bH;
 			var decalMarginTop = (getHeight - imgHeight) / 2;
-			//application sur les éléments
-			if(getHeight != imgHeight) {
+
+			//on vérifie que la hauteur totale du wrapper n'est pas déjà conforme
+			var wrapperOuterHeight = $(wrapper).outerHeight();
+			var isWrapperSized = (wrapperOuterHeight % bH == 0) ? true : false;
+			// $.fn.frontFramework.debug("isWrapperSized : " + isWrapperSized );
+
+			//application sur les éléments seulement si nécessaire
+			if(getHeight != imgHeight && !isWrapperSized) {
 				$(wrapper).height(getHeight).css('overflow', 'hidden');
 				$(getImg).css('marginTop', decalMarginTop);
 			}
