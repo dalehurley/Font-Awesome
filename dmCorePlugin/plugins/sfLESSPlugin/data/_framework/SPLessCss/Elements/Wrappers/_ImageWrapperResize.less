@@ -8,38 +8,42 @@
 
 .imageWrapper {
 	//dans les listings de contenu
-	.elements .element & {
+	.article_list_by_section .elements .element & {
+		//application des dimensions en dur
+		@gridWidth(@thumbL_col);
+		@gridHeight(@thumbL_bl);
 
-		//application dimensions en dur
-		#dm_page_content & {
-			border: 10px solid red;
-			@gridWidth(@thumbL_col; 20px);
-			@gridHeight(@thumbL_bl; 20px);
+		@transitionCompress();
 
-			//replacement de l'image
-			.image {
-				background-color: #6150B5;
-				position: absolute;
-				float: none;
-				// top: 50%;
-				// left: 50%;
-
-				//pour les images au format p
-				&[src$="-p.jpg"] {
-					opacity: 0.75;
-					//calcul des nouvelles dimenssions
-					@gridFormatAdjustVertical(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px);
-					//centrage horizontal
-					margin-left: -10px;
-					margin-right: -10px;
-					// @gridFormatAdjustVerticalWidth(@thumbL_col; 20px);
-					// @gridFormatAdjustVerticalMargin(@imageRatio_P; @thumbL_col; @thumbL_bl; 20px; 20px);
-				}
-
-				// @gridWidth(@thumbL_col);
-				// @gridMarginNegativeCentering(@thumbL_col; @thumbL_bl; 0; 0);
-			}
+		//replacement de l'image au format P
+		.image[src$="-p.jpg"] {
+			// @transitionCompress();
+			background-color: #6150B5;
+			// position: absolute;
+			float: none;
+			opacity: 0.75;
+			//calcul des nouvelles dimensions
+			@gridFormatAdjustVertical(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; 0; 0);
 		}
+	}
+
+	.article_list_by_section .elements .element:hover & {
+		//application des dimensions en dur
+		@gridWidth(@thumbL_col; 20px);
+		@gridHeight(@thumbL_bl; 20px);
+		border: 10px solid red;
+
+		//replacement de l'image au format P
+		.image[src$="-p.jpg"] {
+			//centrage horizontal
+			margin-left: -10px;
+			margin-right: -10px;
+			//changement margin vertical
+			@gridFormatAdjustVerticalMargin(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px);
+		}
+	}
+
+
 
 		// .isLess & {
 		// 	background-color: #B550A9;
@@ -86,5 +90,4 @@
 		// 		@gridHeight(@thumbSidebarRight_bl);
 		// 	}
 		// }
-	}
 }
