@@ -17,9 +17,6 @@
 
 		//replacement de toutes les images
 		.image {
-			//suppression du float
-			float: none;
-
 			//replacement de l'image à différents formats
 			&[src$="-g.jpg"] { @gridFormatAdjustVertical(@imageRatio_G; @thumbL_col; @thumbL_bl; 0; 0; 0; 0); }
 			&[src$="-p.jpg"] { @gridFormatAdjustVertical(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; 0; 0); }
