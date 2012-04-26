@@ -12,19 +12,28 @@ class BasedmUserAdminActions extends autodmUserAdminActions {
         }
     }
     public function executeSignin(dmWebRequest $request) {
-        // lioshi: autologin - login de l'admin par reception des variables id et key avec une fonction de hachage et une clef connue seulement par l'emetteur du lien
+        // lioshi: autologin - login de l'admin par reception de la variable key qui contient l'ip du serveur appelant et le nom de domaine du site
         // la fonction de hachage intègre la date au jour près près : date("Y-m-d"), le lien est donc valable une journée
-        // l'emettteur est de plus filtré par IP
+        // l'emettteur est par IP du serveur appelant et par le nom de domaine
+        // 
+        // 
+        // l'émetteur du lien d'autologin doit présenter l'id et la key de la form
+        // http://site.com/admin.php?key=YYYYY
+        // la key doit correspondre à sha1(date("Y-m-d"). $ip . ndd_du_site)
+        // où ndd_du_site est le nom de domaine complet sans "http://", exemple "site.com"
+        // où $ip fait partie du tableau app_link-login_ips-allowed de config/app.yml du Core
+        // 
         if (sfConfig::get('app_link-login_active')) {
 
                 // $pathArray = $request->getPathInfoArray();
                 // $remoteServer = $pathArray['REMOTE_ADDR'];
                 $ips = sfConfig::get('app_link-login_ips-allowed');
+                //sfContext::getInstance()->getUser()->setAttribute('test', date("Y-m-d"). dmConfig::get('site_ndd'));
                 
                 foreach ($ips as $key => $ip) {
-                    $calculatedKey = sha1($request->getParameter('id') . date("Y-m-d"). $ip);
+                    $calculatedKey = sha1(date("Y-m-d"). $ip . dmConfig::get('site_ndd'));
                     // lioshi: ajout en session pour déboggage eventuel de l'accès
-                    $this->getUser()->setAttribute('AutoLoginKey-'.$ip,$calculatedKey);
+                    //$this->getUser()->setAttribute('AutoLoginKey-'.$ip,$calculatedKey);
 
                     if ($request->getParameter('key') == $calculatedKey) {
                         // le nom du user spécifié dans app.yml

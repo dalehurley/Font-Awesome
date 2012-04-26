@@ -230,6 +230,7 @@ function commandForAllSites($commande){
 				 	exec($commandToRun, $result);
 				 	foreach ($result as $key => $value) {
 				 		echo $colors->help($value);
+				 		//echo $value;
 				 	}
 
 				 	if (!$quietMode) echo $colors->info("Commande effectuée : ". $commandToRun);
