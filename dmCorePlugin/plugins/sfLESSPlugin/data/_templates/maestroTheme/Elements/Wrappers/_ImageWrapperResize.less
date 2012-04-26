@@ -28,22 +28,17 @@
 
 	.elements .element:hover .imageWrapper {
 		//application des dimensions en dur
-		@gridWidth(@thumbL_col; 20px);
-		@gridHeight(@thumbL_bl; 20px);
-		border: 10px solid red;
+		@gridWidth(@thumbL_col; 4px);
+		@gridHeight(@thumbL_bl; 4px);
 
 		//replacement de toutes les images
 		.image {
-			//centrage horizontal
-			margin-left: -10px;
-			margin-right: -10px;
-
 			//replacement de l'image à différents formats
-			&[src$="-g.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_G; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px); }
-			&[src$="-p.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px); }
-			&[src$="-u.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_U; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px); }
-			&[src$="-a.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_A; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px); }
-			&[src$="-e.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_E; @thumbL_col; @thumbL_bl; 0; 0; -10px; -10px); }
+			&[src$="-g.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_G; @thumbL_col; @thumbL_bl; 0; 0; -2px; -2px); }
+			&[src$="-p.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_P; @thumbL_col; @thumbL_bl; 0; 0; -2px; -2px); }
+			&[src$="-u.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_U; @thumbL_col; @thumbL_bl; 0; 0; -2px; -2px); }
+			&[src$="-a.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_A; @thumbL_col; @thumbL_bl; 0; 0; -2px; -2px); }
+			&[src$="-e.jpg"] { @gridFormatAdjustVerticalMargin(@imageRatio_E; @thumbL_col; @thumbL_bl; 0; 0; -2px; -2px); }
 		}
 	}
 }
