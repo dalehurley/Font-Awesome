@@ -1,6 +1,6 @@
 // _GridsUtils.less
-// v1.3
-// Last Updated : 2012-02-09 14:10
+// v1.4
+// Last Updated : 2012-04-26 14:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -116,4 +116,14 @@
 	@elementAbsoluteRight: @gridColWidth * @nbreCols + @gridGutter * (@nbreCols -1) - @padSub;
 	//application des paramètres
 	right: @elementAbsoluteRight;
+}
+
+//permet de calculer un margin négatif à gauche égale à la moitiée de la largeur obtenu par gridWidth
+@gridMarginNegativeCentering(@nbreCols: 1; @nbreLine: 1; @padHSub: 0; @padVSub: 0) {
+	//calcul des paramètres
+	@elementWidth: @gridColWidth * @nbreCols + @gridGutter * (@nbreCols -1) - @padHSub;
+	@elementHeight: @gridBaseline * @nbreLine - @padVSub;
+	//application des paramètres
+	margin-left: @elementWidth/-2;
+	margin-top: @elementHeight/-2;
 }
