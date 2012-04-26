@@ -1,0 +1,76 @@
+// _ImageWrapperResize.less
+// v1.0
+// Last Updated : 2012-04-26 17:40
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//permet de forcer le redimenssionnement des containers d'images en attendant un système intégré dans DIEM
+
+.imageWrapper {
+	//dans les listings de contenu
+	.elements .element & {
+
+		//application dimensions en dur
+		#dm_page_content & {
+			border: 10px solid red;
+			@gridWidth(@thumbL_col; 20px);
+			@gridHeight(@thumbL_bl; 20px);
+
+			//replacement de l'image
+			.image {
+				background-color: #6150B5;
+				position: absolute;
+				float: none;
+				top: 50%;
+				left: 50%;
+				@gridMarginNegativeCentering(@thumbL_col; @thumbL_bl; 0; 0);
+			}
+		}
+
+		// .isLess & {
+		// 	background-color: #B550A9;
+		// 	//on remet le décalage  à l'extérieur du container car l'image est positionnée en absolute
+		// 	margin-left: @gridGutter;
+		// }
+
+		
+
+		// .isLess #dm_sidebar_right & {
+		// 	@gridWidth(@thumbSidebarRight_col);
+		// 	@gridHeight(@thumbSidebarRight_bl);
+		// }
+
+		// //partie équipe
+		// .isLess #dm_page_content .equipe_cabinet_equipe_show & {
+		// 	@gridWidth(@thumbM_col);
+		// 	@gridHeight(@thumbM_bl*2);
+		// 	margin-left: 0;
+		// 	margin-right: @gridGutter;
+		// }
+		// .isLess #dm_sidebar_right .equipe_cabinet_equipes_contextuel & {
+		// 	@gridWidth(@thumbS_col);
+		// 	@gridHeight(@thumbS_bl);
+		// }
+		
+		// //replacement de l'image
+		// .image {
+		// 	.isLess & {
+		// 		background-color: #6150B5;
+		// 		position: absolute;
+		// 		float: none;
+		// 		margin: 0;
+		// 		right: 0;
+		// 	}
+			
+		// 	//valeur arbitraire de replacement car on ne connait par forcément la hauteur de l'image
+		// 	//#dm_page_content &, #dm_sidebar_right & { top: 50%; margin-top: -50%; }
+
+		// 	//débug de dimensions sur certains widgets biens précis de la base éditoriale
+		// 	.isLess #dm_page_content .article_list_by_section &,
+		// 	.isLess #dm_sidebar_right .specifiques_base_editoriale_fil_actualite & {
+		// 		@gridWidth(@thumbSidebarRight_col);
+		// 		@gridHeight(@thumbSidebarRight_bl);
+		// 	}
+		// }
+	}
+}
