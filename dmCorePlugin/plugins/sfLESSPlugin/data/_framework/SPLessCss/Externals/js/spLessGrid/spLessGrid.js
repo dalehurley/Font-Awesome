@@ -356,7 +356,7 @@
 			$.fn.spLessGrid.debugTemplate.spLessGrid();
 		}else{
 			//ajustement de la grille uniquement
-			$.fn.spLessGrid.adjustGrid();
+			// $.fn.spLessGrid.adjustGrid();
 		}
 
 		//désactivation de l'Ajax pour les transitions de page
