@@ -7,6 +7,23 @@
 include ('cliColors.class.php');
 $colors = new Colors(); // appel object colorisation
 
+// recherche de la commande php
+$execOk = false;
+$dirPhpCommand = '';
+$dirPhpCommandPossibilities = array(
+	'/opt/php/php5/cur/bin/',
+	'',
+	'/usr/bin/'
+	);
+foreach($dirPhpCommandPossibilities as $dirPhpCommandPossibility){
+	if (is_file($dirPhpCommandPossibility.'php') && exec($dirPhpCommandPossibility.'php -v')){
+			$dirPhpCommand = $dirPhpCommandPossibility;
+			$execOk = true;
+		}
+}
+if (!$execOk) echo $colors->error("  'Impossible de trouver la commande PHP'");
+
+
 // l'aide
 $utilisation = array();
 $utilisation[] = 'Utilisation : php controls [--help] argument1 argument2 argument3 [auto] [quiet]       '  ;                             
@@ -93,37 +110,37 @@ switch ($argCommande) {
 		break;
 
 	case 'dumps':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony db:dump --auto=true";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony db:dump --auto=true";
 		commandForAllSites($commande);
 		break;
 
 	case 'dumps-with-settings':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony db:dump --settings=true --auto=true";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony db:dump --settings=true --auto=true";
 		commandForAllSites($commande);
 		break;		
 
 	case 'loadArticles':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony be:loadArticles sections;php symfony be:loadArticles articles;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony be:loadArticles sections;php symfony be:loadArticles articles;";
 		commandForAllSites($commande);
 		break;
 
 	case 'search-update':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:search-update;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:search-update;";
 		commandForAllSites($commande);
 		break;
 
 	case 'sitemap-update':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:sitemap-update;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:sitemap-update;";
 		commandForAllSites($commande);
 		break;
 
 	case 'setup':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:setup;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:setup;";
 		commandForAllSites($commande);
 		break;
 
 	case 'loadBE':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony be:loadBE verbose --auto=true";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony be:loadBE verbose --auto=true";
 		commandForAllSites($commande);
 		break;
 
@@ -134,38 +151,38 @@ switch ($argCommande) {
     // infos                 donne des infos 
 
 	case 'ccc':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony ccc";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony ccc";
 		commandForAllSites($commande);
 		break;
 
 	case 'less-compile':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony less:compile-all";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony less:compile-all";
 		commandForAllSites($commande);
 		break;
 
 	case 'generate-sprite':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony less:sprite";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony less:sprite";
 		commandForAllSites($commande);
 		break;
 
 	case 'migration-doctrine':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony doctrine:generate-migrations-diff;php symfony doctrine:migrate;php symfony dm:setup;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony doctrine:generate-migrations-diff;".$dirPhpCommand."php symfony doctrine:migrate;".$dirPhpCommand."php symfony dm:setup;";
 		commandForAllSites($commande);
 		break;
 
 	case 'infos-site':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:infos-site;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:infos-site;";
 		commandForAllSites($commande);
 		break;
 
 	default:
 		if (substr($argCommande,0,6) == 'query='){
 			$query = substr($argCommande,6);
-			$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony doctrine:sql-query --query=\"".$query."\";";
+			$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony doctrine:sql-query --query=\"".$query."\";";
 			commandForAllSites($commande);
 		} elseif (substr($argCommande,0,4) == 'ndd='){
 			$query = substr($argCommande,4);
-			$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:is-ndd --ndd=\"".$query."\" --verbose=true;";
+			$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:is-ndd --ndd=\"".$query."\" --verbose=true;";
 			commandForAllSites($commande);
 		} else {
 			echo $colors->error("Commande incompréhensible...");
