@@ -29,11 +29,15 @@
 }
 
 //container utilisé pour contenir les éléments de navigation de la page ou du widget
-.navigationTop { margin-bottom: @gridBaseline/2; }
+.navigationTop { margin-bottom: @gridBaseline/2; .pager { margin-bottom: @gridBaseline/2; } }
 .navigationBottom {
 	margin-top: @gridBaseline/2;
+	.pager { margin-top: @gridBaseline/2; }
 	//lorsque précédé d'un listing
-	.elements + & { margin-top: 0; }
+	.elements + & {
+		margin-top: 0;
+		.pager { margin-top: @gridBaseline; }
+	}
 }
 
 //pager (numéroration des pages)
