@@ -356,6 +356,7 @@
 			$.fn.spLessGrid.debugTemplate.spLessGrid();
 		}else{
 			//ajustement de la grille uniquement
+			//Déasctivation en attendant mise en place offset marginTop sur état hover (cf Maestro)
 			// $.fn.spLessGrid.adjustGrid();
 		}
 
