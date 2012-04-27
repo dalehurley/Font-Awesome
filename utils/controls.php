@@ -40,7 +40,7 @@ foreach($dirPhpCommandPossibilities as $dirPhpCommandPossibility){
 			$execOk = true;
 		}
 }
-if (!$execOk) echo 'Impossible de trouver la commande PHP';
+if (!$execOk) echo '<ul><li class="denied">Impossible de trouver la commande PHP</li></ul>';
 
 // le mot de passe
 $loginPassword = 'comme une fleur en hiver';
