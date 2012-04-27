@@ -77,7 +77,7 @@
 				e.preventDefault();
 			}
 		});
-		
+
 		//TEST : on vérifie la présence du jQueryMobile
 		//if($.mobile) {
 		//	$(this).live("tap taphold swipe swipeleft swiperight", function(e) {
@@ -87,6 +87,8 @@
 		
 		// iterate and reformat each matched element
 		return this.each(function() {
+			$.fn.frontFramework.debug("spLessGrid | initialisation");
+
 			//ciblage du widget
 			var getWidget = $(this).closest('.dm_widget');
 			
@@ -97,11 +99,13 @@
 			$.fn.spLessGrid.createSwitch(this, options);
 			
 			//gestion de la génération des sprites
-			$(this).find(".spriteInit").bind('click', $.fn.spLessGrid.spriteBind);
+			// $(this).find(".spriteInit").bind('click', $.fn.spLessGrid.spriteBind);
 		});
 	};
 
 	$.fn.spLessGrid.adjustGrid = function() {
+		// $.fn.frontFramework.debug("spLessGrid | adjustGrid");
+
 		//on vérifie dans quel mode on est
 		var isDev = $('body').hasClass('isDev');
 		var isLess = $('body').hasClass('isLess');
@@ -134,7 +138,7 @@
 			//application sur les éléments seulement si nécessaire
 			if(getHeight != imgHeight && !isWrapperSized) {
 				//affichage débug
-				$.fn.frontFramework.debug("#" + indexWrapper + " isWrapperSized : " + isWrapperSized );
+				// $.fn.frontFramework.debug("#" + indexWrapper + " isWrapperSized : " + isWrapperSized );
 
 				if(isLess) {
 					$(wrapper).height(getHeight).css('overflow', 'hidden');
@@ -162,21 +166,21 @@
 	}
 	
 	//gestion du click de génération des sprites
-	$.fn.spLessGrid.spriteBind = function(e) {
-		//récupération de l'url de l'actions
-		var action = $(this).attr('formaction');
+	// $.fn.spLessGrid.spriteBind = function(e) {
+	// 	//récupération de l'url de l'actions
+	// 	var action = $(this).attr('formaction');
 		
-		//ajout et ciblage de la bar de progression
-		if($(this).siblings(".spriteProgress").length == 0) $(this).parent().append('<div class="spriteProgress disabled"><div class="picker"></div></div>');
-		var progressBar = $(this).siblings(".spriteProgress");
+	// 	//ajout et ciblage de la bar de progression
+	// 	if($(this).siblings(".spriteProgress").length == 0) $(this).parent().append('<div class="spriteProgress disabled"><div class="picker"></div></div>');
+	// 	var progressBar = $(this).siblings(".spriteProgress");
 		
-		//lancement requête AJAX
-		$.fn.spLessGrid.spriteGenerate(action, {prct: 0}, progressBar);
+	// 	//lancement requête AJAX
+	// 	$.fn.spLessGrid.spriteGenerate(action, {prct: 0}, progressBar);
 		
-		//désactivation comportement par défaut
-		e.preventDefault();
-	 	return false;
-	}
+	// 	//désactivation comportement par défaut
+	// 	e.preventDefault();
+	//  	return false;
+	// }
 	
 	//gestion de l'actualisation AJAX des sprites
 	$.fn.spLessGrid.spriteGenerate = function(action, dataRecup, progressBar) {
@@ -348,10 +352,13 @@
 	
 	$.fn.spLessGrid.initialize = function() {
 		//lancement de la fonction que si le block de débug est bien présent
-		$.fn.spLessGrid.debugTemplate.each(function() {
-			$(this).spLessGrid();
-		});
-		
+		if($.fn.spLessGrid.debugTemplate.length > 0) {
+			$.fn.spLessGrid.debugTemplate.spLessGrid();
+		}else{
+			//ajustement de la grille uniquement
+			$.fn.spLessGrid.adjustGrid();
+		}
+
 		//désactivation de l'Ajax pour les transitions de page
 		if($.mobile) $.mobile.ajaxEnabled = false;
 	}
