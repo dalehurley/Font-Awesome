@@ -22,6 +22,10 @@
 //Importation de la mise en page par défaut du widget
 @import "_framework/SPLessCss/Widgets/NavigationMenu/_NavigationMenu.less";
 
+
+//##################################
+//######## PLACEMENT WIDGET ########
+//##################################
 //personnalisation du widget par rapport à la zone contenante
 .dm_widget.navigation_menu {
 	margin: 0;
@@ -79,7 +83,13 @@
 		}
 	}
 }
+//##################################
+//##################################
 
+
+//##################################
+//########## GESTION LIENS #########
+//##################################
 //configuration de base des textes pour tous les types de menus
 ul.menu-dropdown, ul.menu-megadropdown, ul.menu-accordion {
 	//stylage minimale du lien
@@ -99,8 +109,8 @@ ul.menu-dropdown, ul.menu-megadropdown, ul.menu-accordion {
 	li, ul li.dm_dir {
 		font-weight: bold;
 		text-transform: uppercase;
-		word-spacing: -0.05em;
-		letter-spacing: -0.05em;
+		word-spacing: -0.025em;
+		letter-spacing: -0.025em;
 	}
 }
 
@@ -140,6 +150,32 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	.last > .link { border-color: @colorZoneBorder; }
 }
 
+//mise en couleur des cellules ouvertes
+ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
+ul.menu-megadropdown li.dm_dir:hover > .link,
+ul.menu-accordion li.dm_parent > .link,
+ul.menu-accordion li.dm_parent li.dm_parent > .link {
+	background-color: @colorCouleur1;
+	color: @colorCouleur3Clair;
+	&:hover { color: @colorCouleur3ClairSup; }
+}
+
+//Co-pilotes : couleurs spécifiques
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown > li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown > li.dm_dir:hover > .link {
+	background-color: @colorCouleur2Clair;
+	color: @colorCouleur1;
+	&:hover { color: @colorCouleur1Moyen; }
+}
+//##################################
+//##################################
+
+
+//##################################
+//#### GESTION FLÈCHE OUVERTURE ####
+//##################################
 ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
 	//création de la flèche avec des bordures
 	&.dm_dir > .link {
@@ -177,6 +213,43 @@ ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
 	}
 }
 
+//comportement flèche différents selon les types de menu
+ul.menu-dropdown li.dm_dir > .link:hover:after,
+ul.menu-dropdown li.dm_dir:hover > .link:after,
+ul.menu-accordion li.dm_parent > .link:after,
+ul.menu-megadropdown > li.dm_dir > .link:hover:after,
+ul.menu-megadropdown > li.dm_dir:hover > .link:after {
+	right: @menuArrowOffsetX + @menuArrowDecal;
+	top: @menuArrowOffsetY + @menuArrowDecal;
+	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
+	
+	//ajout des transitions pour navigateurs récents
+	.csstransitions.csstransforms & {
+		right: @menuArrowOffsetX;
+		top: @menuArrowOffsetY;
+		//border-color: transparent transparent transparent @menuDropdownArrowColorSup;
+		@rotate(90deg);
+	}
+	
+	//inversion de style automatique en fonction du conteneur
+	#dm_sidebar_right & {
+		right: auto !important;
+		left: @menuArrowOffsetX + @menuArrowDecal;
+		
+		.csstransitions.csstransforms & {
+			left: @menuArrowOffsetX;
+			//border-color: transparent @menuDropdownArrowColorSup transparent transparent;
+			@rotate(-90deg);
+		}
+	}
+}
+//##################################
+//##################################
+
+
+//##################################
+//####### GESTION ICÔNE HOME #######
+//##################################
 //ajout de l'icône sur le lien vers la page d'accueil pour les menus dropdown et megadropdown situé dans la zone dm_custom_top
 ul.menu-dropdown, ul.menu-megadropdown {
 	#dm_custom_top .dm_widget.navigation_menu & {
@@ -214,58 +287,13 @@ ul.menu-dropdown, ul.menu-megadropdown {
 		}
 	}
 }
+//##################################
+//##################################
 
-//comportement flèche différents selon les types de menu
-ul.menu-dropdown li.dm_dir > .link:hover:after,
-ul.menu-dropdown li.dm_dir:hover > .link:after,
-ul.menu-accordion li.dm_parent > .link:after,
-ul.menu-megadropdown > li.dm_dir > .link:hover:after,
-ul.menu-megadropdown > li.dm_dir:hover > .link:after {
-	right: @menuArrowOffsetX + @menuArrowDecal;
-	top: @menuArrowOffsetY + @menuArrowDecal;
-	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
-	
-	//ajout des transitions pour navigateurs récents
-	.csstransitions.csstransforms & {
-		right: @menuArrowOffsetX;
-		top: @menuArrowOffsetY;
-		//border-color: transparent transparent transparent @menuDropdownArrowColorSup;
-		@rotate(90deg);
-	}
-	
-	//inversion de style automatique en fonction du conteneur
-	#dm_sidebar_right & {
-		right: auto !important;
-		left: @menuArrowOffsetX + @menuArrowDecal;
-		
-		.csstransitions.csstransforms & {
-			left: @menuArrowOffsetX;
-			//border-color: transparent @menuDropdownArrowColorSup transparent transparent;
-			@rotate(-90deg);
-		}
-	}
-}
 
-//mise en couleur des cellules ouvertes
-ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
-ul.menu-megadropdown li.dm_dir:hover > .link,
-ul.menu-accordion li.dm_parent > .link,
-ul.menu-accordion li.dm_parent li.dm_parent > .link {
-	background-color: @colorCouleur1;
-	color: @colorCouleur3Clair;
-	&:hover { color: @colorCouleur3ClairSup; }
-}
-
-//Co-pilotes : couleurs spécifiques
-#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown > li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown > li.dm_dir:hover > .link {
-	background-color: @colorCouleur2Clair;
-	color: @colorCouleur1;
-	&:hover { color: @colorCouleur1Moyen; }
-}
-
+//##################################
+//###### DÉCLINAISONS MÉDIAS #######
+//##################################
 //création des fonctions localisées de déclinaisons média
 @templateMedia_TabletPortrait(){
 	#dm_custom_top {
@@ -279,3 +307,5 @@ ul.menu-accordion li.dm_parent li.dm_parent > .link {
 
 //importation des requêtes média
 @import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";
+//##################################
+//##################################

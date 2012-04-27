@@ -1,30 +1,25 @@
 <?php
 // vars = $pageCabinet, $length ,$lien, $titreBloc, $width, $height, $withImage
+
+//Récupération des variables
+$ellipsis = _tag('span.ellipsis', sfConfig::get('app_vars-partial_ellipsis'));
 $i = 1;
-$position = '';
-$i_max='';
 $i_max = count($pageCabinets);
+
 if (count($pageCabinets)) { // si nous avons des actu articles
 	
     echo _tag('h4.title',$titreBloc);
     echo _open('ul', array('class' => 'elements'));
 	foreach ($pageCabinets as $pageCabinet) {  
-        $link = '';    
+        $link = '';  
         
-        switch ($i){
-            case 1: 
-                if($i_max == 1)$position = 'first last';
-                else $position = 'first';
-                break;
-            case $i_max : $position = 'last';
-                break;
-            default : $position = '';
-        }
-       
+        //définition des options du li
+        $ctnOpts = array('class' => array('element', 'itemscope', 'Article'), 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope');
+        if($i == 1)         $ctnOpts['class'][] = 'first';
+        if($i >= $i_max)    $ctnOpts['class'][] = 'last';
         
-        echo _open('li', array('class' => 'element itemscope Article '.$position, 'itemtype' => 'http://schema.org/Article' , 'itemscope' => 'itemscope'));
-        
-        
+        echo _open('li', $ctnOpts);
+
         $link = '';
 
         if(($withImage == true) && ($pageCabinet->getImage()->checkFileExists() == true)){ 
@@ -33,17 +28,18 @@ if (count($pageCabinets)) { // si nous avons des actu articles
             $link .= _close('span');
         };
         $link .= _open('span' , array('class' => 'wrapper'));
-                    _open('span' , array('class' => 'subWrapper'));
-                        if($titreBloc != $pageCabinet->getTitle()){
-                            $link .= _tag('span', array('class' => 'title itemprop name', 'itemprop' => 'name') , $pageCabinet->getTitle());
-                        };
-                        $link .= _tag('meta' , array('content' => $pageCabinet->createdAt, 'itemprop' => 'datePublished'));
-                    $link .= _close('span');
-                    $link .= _open('span', array('class' =>'teaser itemprop description' , 'itemprop' => 'description'));
-                        $link .= stringTools::str_truncate($pageCabinet->getResume(), $length, '(...)', true);
-                    $link .= _close('span');
-                $link .= _close('span');
-            echo _link($pageCabinet)->set('.link_box')->text($link); 
+            $link .= _open('span' , array('class' => 'subWrapper'));
+                if($titreBloc != $pageCabinet->getTitle()){
+                    $link .= _tag('span', array('class' => array('title', 'itemprop', 'name'), 'itemprop' => 'name') , $pageCabinet->getTitle());
+                };
+                $link .= _tag('meta' , array('content' => $pageCabinet->createdAt, 'itemprop' => 'datePublished'));
+            $link .= _close('span');
+            $link .= _open('span', array('class' => array('teaser', 'itemprop', 'description') , 'itemprop' => 'description'));
+                $link .= stringTools::str_truncate($pageCabinet->getResume(), $length, $ellipsis, true);
+            $link .= _close('span');
+        $link .= _close('span');
+
+        echo _link($pageCabinet)->set('.link_box')->text($link);
 
         echo _close('li');
     } 

@@ -29,11 +29,15 @@
 }
 
 //container utilisé pour contenir les éléments de navigation de la page ou du widget
-.navigationTop { margin-bottom: @gridBaseline/2; }
+.navigationTop { margin-bottom: @gridBaseline/2; .pager { margin-bottom: @gridBaseline/2; } }
 .navigationBottom {
 	margin-top: @gridBaseline/2;
+	.pager { margin-top: @gridBaseline/2; }
 	//lorsque précédé d'un listing
-	.elements + & { margin-top: 0; }
+	.elements + & {
+		margin-top: 0;
+		.pager { margin-top: @gridBaseline; }
+	}
 }
 
 //pager (numéroration des pages)
@@ -169,6 +173,17 @@
 	}
 }
 
+// .wrapper {
+// 	.imageWrapper + & {
+// 		& > .title {
+// 			.isLess & { background-color: orange !important; }
+// 			width: 100%;
+// 			// clear: right;
+// 			display: block;
+// 		}
+// 	}
+// }
+
 //container situés directement dans un widget en enblobant plusieurs sous-contenus
 .supWrapper {
 	.elements {
@@ -206,12 +221,23 @@
 
 //container de l'image
 .imageWrapper {
-	// //on supprime le décalage lorsque situé dans un listing
-	// .elements .element & { margin-right: @zonesOffsetPad * -1; }
-	// #dm_sidebar_left .elements .element &,
-	// #dm_sidebar_right .elements .element & {
-	// 	margin-left: @zonesOffsetPad * -1;
-	// }
+	//ajout d'une bordure en rollOver dans les listings au rollOver
+	.elements .element & {
+		@transitionCompress(all; .5s);
+		outline-style: solid;
+		outline-width: 2px;
+		outline-offset: -2px;
+		// outline-width: 1px;
+		// outline-offset: 0;
+		outline-color: transparent;
+	}
+
+	.elements .element:hover & {
+		// outline-width: 2px;
+		// outline-offset: -2px;
+		outline-color: @colorCouleur1;
+		.rgba & { outline-color: fadeout(@colorCouleur1, 20%); }
+	}
 }
 
 //listings d'éléments diverses (article, personnes, organisations, etc) et résultats de recherche

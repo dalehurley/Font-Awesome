@@ -79,7 +79,8 @@
 		dmZonesSidebarRight.css('minHeight', 'inherit');
 
 		//lancement fonction de redimensionnement de la page
-		var offsetWindow = $.fn.frontFramework.globalHeight();
+		// var offsetWindow = $.fn.frontFramework.globalHeight();
+		var offsetWindow = 0;
 
 		//hauteur contenu
 		var hC = (dmZonesPageContent.length > 0) ? dmZonesPageContent.height() + offsetWindow : 0;
