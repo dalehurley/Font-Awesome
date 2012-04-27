@@ -218,9 +218,21 @@
 //container de l'image
 .imageWrapper {
 	//ajout d'une bordure en rollOver dans les listings au rollOver
+	.elements .element & {
+		@transitionCompress(all; .5s);
+		outline-style: solid;
+		outline-width: 2px;
+		outline-offset: -2px;
+		// outline-width: 1px;
+		// outline-offset: 0;
+		outline-color: transparent;
+	}
+
 	.elements .element:hover & {
-		border: 2px solid @colorCouleur1;
-		.image { margin: -2px; }
+		// outline-width: 2px;
+		// outline-offset: -2px;
+		outline-color: @colorCouleur1;
+		.rgba & { outline-color: fadeout(@colorCouleur1, 20%); }
 	}
 }
 

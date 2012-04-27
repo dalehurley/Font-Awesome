@@ -357,7 +357,7 @@
 		}else{
 			//ajustement de la grille uniquement
 			//Déasctivation en attendant mise en place offset marginTop sur état hover (cf Maestro)
-			// $.fn.spLessGrid.adjustGrid();
+			$.fn.spLessGrid.adjustGrid();
 		}
 
 		//désactivation de l'Ajax pour les transitions de page
