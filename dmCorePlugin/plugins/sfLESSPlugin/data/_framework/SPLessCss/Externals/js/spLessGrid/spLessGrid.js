@@ -356,8 +356,8 @@
 			$.fn.spLessGrid.debugTemplate.spLessGrid();
 		}else{
 			//ajustement de la grille uniquement
-			//Déasctivation en attendant mise en place offset marginTop sur état hover (cf Maestro)
-			$.fn.spLessGrid.adjustGrid();
+			//Désactivation en attendant débuggage complet sur Chrome (passe la taille au minimum avant d'ajuster)
+			// $.fn.spLessGrid.adjustGrid();
 		}
 
 		//désactivation de l'Ajax pour les transitions de page
