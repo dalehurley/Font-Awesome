@@ -183,37 +183,37 @@
 	// }
 	
 	//gestion de l'actualisation AJAX des sprites
-	$.fn.spLessGrid.spriteGenerate = function(action, dataRecup, progressBar) {
-		//on initialise la barre de progression
-		if(dataRecup.prct == 0) {
-			if(progressBar.hasClass('disabled')) progressBar.removeClass('disabled');
-			progressBar.width('0%').find(".picker").text(0);
-		}
+	// $.fn.spLessGrid.spriteGenerate = function(action, dataRecup, progressBar) {
+	// 	//on initialise la barre de progression
+	// 	if(dataRecup.prct == 0) {
+	// 		if(progressBar.hasClass('disabled')) progressBar.removeClass('disabled');
+	// 		progressBar.width('0%').find(".picker").text(0);
+	// 	}
 		
-		// $.fn.frontFramework.debug('dataRecup.hashMd5 : ' + dataRecup.hashMd5 + ' dataRecup.prct : ' + dataRecup.prct + ' dataRecup.spriteFormat : ' + dataRecup.spriteFormat);
+	// 	// $.fn.frontFramework.debug('dataRecup.hashMd5 : ' + dataRecup.hashMd5 + ' dataRecup.prct : ' + dataRecup.prct + ' dataRecup.spriteFormat : ' + dataRecup.spriteFormat);
 		
-		$.getJSON(action, dataRecup, function(data) {
-			//on appel la fonction de façon récursive si on a pas atteint 100
-			if(data.prct < 100) $.fn.spLessGrid.spriteGenerate(action, data, progressBar);
+	// 	$.getJSON(action, dataRecup, function(data) {
+	// 		//on appel la fonction de façon récursive si on a pas atteint 100
+	// 		if(data.prct < 100) $.fn.spLessGrid.spriteGenerate(action, data, progressBar);
 			
-			// $.fn.frontFramework.debug('data.hashMd5 : ' + data.hashMd5 + ' data.prct : ' + data.prct + ' data.spriteFormat : ' + data.spriteFormat);
+	// 		// $.fn.frontFramework.debug('data.hashMd5 : ' + data.hashMd5 + ' data.prct : ' + data.prct + ' data.spriteFormat : ' + data.spriteFormat);
 			
-			//actualisation de la barre de progression
-			progressBar.stop().animate({width: data.prct + '%'}, 1000, function() {
-				//disparition et suppression à la fin de l'animation
-				if(data.prct >= 100) {
-					$(progressBar).addClass('disabled');
-					setTimeout(function(){ $(progressBar).remove(); },200);
+	// 		//actualisation de la barre de progression
+	// 		progressBar.stop().animate({width: data.prct + '%'}, 1000, function() {
+	// 			//disparition et suppression à la fin de l'animation
+	// 			if(data.prct >= 100) {
+	// 				$(progressBar).addClass('disabled');
+	// 				setTimeout(function(){ $(progressBar).remove(); },200);
 					
-					//message de débug
-					// $.fn.frontFramework.debug("spLessGrid | spriteGenerate : génération des sprites terminées");
+	// 				//message de débug
+	// 				// $.fn.frontFramework.debug("spLessGrid | spriteGenerate : génération des sprites terminées");
 					
-					//rechargement de la page
-					window.location.reload();
-				}
-			}).find(".picker").text(data.prct);
-		});
-	}
+	// 				//rechargement de la page
+	// 				window.location.reload();
+	// 			}
+	// 		}).find(".picker").text(data.prct);
+	// 	});
+	// }
 	
 	//gestion apparition de la zone de debug
 	$.fn.spLessGrid.toggleDisplay = function(e, active) {
