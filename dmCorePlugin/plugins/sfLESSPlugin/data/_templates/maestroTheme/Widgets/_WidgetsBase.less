@@ -103,10 +103,11 @@
 				text-transform: uppercase;
 				font-family: @fontGlobalFamilySansSerif;
 				font-weight: normal;
-				font-size: @fontSizeH6Px;
+				font-size: @fontGlobalSizePx;
+				line-height: @gridBaseline;
 				// margin: (@gridBaseline/-2) (@zonesOffsetPad*-1) (@gridBaseline/2) (@zonesOffsetPad*-1);
 				margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0;
-				padding: @gridBaseline/4 0;
+				// padding: @gridBaseline/4 0;
 				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
 				& + .elements {
 					margin-top: @gridBaseline/-2;

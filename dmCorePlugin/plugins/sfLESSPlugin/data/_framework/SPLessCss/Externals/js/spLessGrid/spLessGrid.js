@@ -1,6 +1,6 @@
 // spLessGrid.js - Pour le framework SPLessCss
-// v1.4
-// Last Updated : 2012-04-18 14:50
+// v1.5
+// Last Updated : 2012-04-27 11:40
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
@@ -77,7 +77,7 @@
 				e.preventDefault();
 			}
 		});
-		
+
 		//TEST : on vérifie la présence du jQueryMobile
 		//if($.mobile) {
 		//	$(this).live("tap taphold swipe swipeleft swiperight", function(e) {
@@ -87,6 +87,8 @@
 		
 		// iterate and reformat each matched element
 		return this.each(function() {
+			$.fn.frontFramework.debug("spLessGrid | initialisation");
+
 			//ciblage du widget
 			var getWidget = $(this).closest('.dm_widget');
 			
@@ -97,16 +99,21 @@
 			$.fn.spLessGrid.createSwitch(this, options);
 			
 			//gestion de la génération des sprites
-			$(this).find(".spriteInit").bind('click', $.fn.spLessGrid.spriteBind);
+			// $(this).find(".spriteInit").bind('click', $.fn.spLessGrid.spriteBind);
 		});
 	};
 
 	$.fn.spLessGrid.adjustGrid = function() {
+		// $.fn.frontFramework.debug("spLessGrid | adjustGrid");
+
 		//on vérifie dans quel mode on est
 		var isDev = $('body').hasClass('isDev');
 		var isLess = $('body').hasClass('isLess');
 		//Hauteur bl
 		var bH = 18;
+
+		//Calcul de l'index du wrappers redimenssionnable
+		var indexWrapper = 0;
 
 		//application paramètres
 		$('.imageWrapper, .imageFullWrapper, .dm_widget_nivo_gallery_container, .dm_widget.content_image > .dm_widget_inner, .dm_widget_content_gallery').each(function(index){
@@ -123,10 +130,31 @@
 			//calcul paramètres de placement
 			var getHeight = nbreBl * bH;
 			var decalMarginTop = (getHeight - imgHeight) / 2;
-			//application sur les éléments
-			if(getHeight != imgHeight) {
-				$(wrapper).height(getHeight).css('overflow', 'hidden');
-				$(getImg).css('marginTop', decalMarginTop);
+
+			//on vérifie que la hauteur totale du wrapper n'est pas déjà conforme
+			var wrapperOuterHeight = $(wrapper).outerHeight();
+			var isWrapperSized = (wrapperOuterHeight % bH == 0) ? true : false;
+
+			//application sur les éléments seulement si nécessaire
+			if(getHeight != imgHeight && !isWrapperSized) {
+				//affichage débug
+				// $.fn.frontFramework.debug("#" + indexWrapper + " isWrapperSized : " + isWrapperSized );
+
+				if(isLess) {
+					$(wrapper).height(getHeight).css('overflow', 'hidden');
+					$(getImg).css('marginTop', decalMarginTop);
+				}else{
+					//calcul du délai de lancement
+					var delay = indexWrapper*500;
+					//lancement en décalage dans le temps
+					setTimeout(function(){
+						$(wrapper).css('overflow', 'hidden').animate({'height': getHeight}, 500);
+						$(getImg).animate({'marginTop': decalMarginTop}, 500);
+					}, delay);
+				}
+
+				//incrémentation wrapper redimenssionable
+				indexWrapper++;
 			}
 			//application au chargement
 			// $(getImg).load(function(){
@@ -138,54 +166,54 @@
 	}
 	
 	//gestion du click de génération des sprites
-	$.fn.spLessGrid.spriteBind = function(e) {
-		//récupération de l'url de l'actions
-		var action = $(this).attr('formaction');
+	// $.fn.spLessGrid.spriteBind = function(e) {
+	// 	//récupération de l'url de l'actions
+	// 	var action = $(this).attr('formaction');
 		
-		//ajout et ciblage de la bar de progression
-		if($(this).siblings(".spriteProgress").length == 0) $(this).parent().append('<div class="spriteProgress disabled"><div class="picker"></div></div>');
-		var progressBar = $(this).siblings(".spriteProgress");
+	// 	//ajout et ciblage de la bar de progression
+	// 	if($(this).siblings(".spriteProgress").length == 0) $(this).parent().append('<div class="spriteProgress disabled"><div class="picker"></div></div>');
+	// 	var progressBar = $(this).siblings(".spriteProgress");
 		
-		//lancement requête AJAX
-		$.fn.spLessGrid.spriteGenerate(action, {prct: 0}, progressBar);
+	// 	//lancement requête AJAX
+	// 	$.fn.spLessGrid.spriteGenerate(action, {prct: 0}, progressBar);
 		
-		//désactivation comportement par défaut
-		e.preventDefault();
-	 	return false;
-	}
+	// 	//désactivation comportement par défaut
+	// 	e.preventDefault();
+	//  	return false;
+	// }
 	
 	//gestion de l'actualisation AJAX des sprites
-	$.fn.spLessGrid.spriteGenerate = function(action, dataRecup, progressBar) {
-		//on initialise la barre de progression
-		if(dataRecup.prct == 0) {
-			if(progressBar.hasClass('disabled')) progressBar.removeClass('disabled');
-			progressBar.width('0%').find(".picker").text(0);
-		}
+	// $.fn.spLessGrid.spriteGenerate = function(action, dataRecup, progressBar) {
+	// 	//on initialise la barre de progression
+	// 	if(dataRecup.prct == 0) {
+	// 		if(progressBar.hasClass('disabled')) progressBar.removeClass('disabled');
+	// 		progressBar.width('0%').find(".picker").text(0);
+	// 	}
 		
-		// $.fn.frontFramework.debug('dataRecup.hashMd5 : ' + dataRecup.hashMd5 + ' dataRecup.prct : ' + dataRecup.prct + ' dataRecup.spriteFormat : ' + dataRecup.spriteFormat);
+	// 	// $.fn.frontFramework.debug('dataRecup.hashMd5 : ' + dataRecup.hashMd5 + ' dataRecup.prct : ' + dataRecup.prct + ' dataRecup.spriteFormat : ' + dataRecup.spriteFormat);
 		
-		$.getJSON(action, dataRecup, function(data) {
-			//on appel la fonction de façon récursive si on a pas atteint 100
-			if(data.prct < 100) $.fn.spLessGrid.spriteGenerate(action, data, progressBar);
+	// 	$.getJSON(action, dataRecup, function(data) {
+	// 		//on appel la fonction de façon récursive si on a pas atteint 100
+	// 		if(data.prct < 100) $.fn.spLessGrid.spriteGenerate(action, data, progressBar);
 			
-			// $.fn.frontFramework.debug('data.hashMd5 : ' + data.hashMd5 + ' data.prct : ' + data.prct + ' data.spriteFormat : ' + data.spriteFormat);
+	// 		// $.fn.frontFramework.debug('data.hashMd5 : ' + data.hashMd5 + ' data.prct : ' + data.prct + ' data.spriteFormat : ' + data.spriteFormat);
 			
-			//actualisation de la barre de progression
-			progressBar.stop().animate({width: data.prct + '%'}, 1000, function() {
-				//disparition et suppression à la fin de l'animation
-				if(data.prct >= 100) {
-					$(progressBar).addClass('disabled');
-					setTimeout(function(){ $(progressBar).remove(); },200);
+	// 		//actualisation de la barre de progression
+	// 		progressBar.stop().animate({width: data.prct + '%'}, 1000, function() {
+	// 			//disparition et suppression à la fin de l'animation
+	// 			if(data.prct >= 100) {
+	// 				$(progressBar).addClass('disabled');
+	// 				setTimeout(function(){ $(progressBar).remove(); },200);
 					
-					//message de débug
-					// $.fn.frontFramework.debug("spLessGrid | spriteGenerate : génération des sprites terminées");
+	// 				//message de débug
+	// 				// $.fn.frontFramework.debug("spLessGrid | spriteGenerate : génération des sprites terminées");
 					
-					//rechargement de la page
-					window.location.reload();
-				}
-			}).find(".picker").text(data.prct);
-		});
-	}
+	// 				//rechargement de la page
+	// 				window.location.reload();
+	// 			}
+	// 		}).find(".picker").text(data.prct);
+	// 	});
+	// }
 	
 	//gestion apparition de la zone de debug
 	$.fn.spLessGrid.toggleDisplay = function(e, active) {
@@ -324,10 +352,14 @@
 	
 	$.fn.spLessGrid.initialize = function() {
 		//lancement de la fonction que si le block de débug est bien présent
-		$.fn.spLessGrid.debugTemplate.each(function() {
-			$(this).spLessGrid();
-		});
-		
+		if($.fn.spLessGrid.debugTemplate.length > 0) {
+			$.fn.spLessGrid.debugTemplate.spLessGrid();
+		}else{
+			//ajustement de la grille uniquement
+			//Désactivation en attendant débuggage complet sur Chrome (passe la taille au minimum avant d'ajuster)
+			// $.fn.spLessGrid.adjustGrid();
+		}
+
 		//désactivation de l'Ajax pour les transitions de page
 		if($.mobile) $.mobile.ajaxEnabled = false;
 	}

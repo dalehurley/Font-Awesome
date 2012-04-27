@@ -1,6 +1,6 @@
 // _GridsUtils.less
-// v1.3
-// Last Updated : 2012-02-09 14:10
+// v1.5
+// Last Updated : 2012-04-26 16:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -116,4 +116,44 @@
 	@elementAbsoluteRight: @gridColWidth * @nbreCols + @gridGutter * (@nbreCols -1) - @padSub;
 	//application des paramètres
 	right: @elementAbsoluteRight;
+}
+
+//permet de calculer un margin négatif à gauche égale à la moitiée de la largeur obtenue par gridWidth
+@gridMarginNegativeCentering(@nbreCols: 1; @nbreLine: 1; @padHSub: 0; @padVSub: 0) {
+	//calcul des paramètres
+	@elementWidth: @gridColWidth * @nbreCols + @gridGutter * (@nbreCols -1) - @padHSub;
+	@elementHeight: @gridBaseline * @nbreLine - @padVSub;
+	//application des paramètres
+	margin-left: @elementWidth/-2;
+	margin-top: @elementHeight/-2;
+}
+
+//replacement des images de la base editoriale
+@gridFormatAdjustVertical(@imageRatio; @nbreCols: 1; @nbreLine: 1; @padHSub: 0; @padVSub: 0; @offsetTop: 0; @offsetBottom: 0) {
+	// gridFormatAdjustVertical: 'gridFormatAdjustVertical';
+	@gridFormatAdjustVerticalWidth(@nbreCols; @padHSub);
+	@gridFormatAdjustVerticalMargin(@imageRatio; @nbreCols; @nbreLine; @padHSub; @padVSub; @offsetTop; @offsetBottom);
+}
+
+//Système de replacement des images de la Base Editoriale, gestion de la largeur
+@gridFormatAdjustVerticalWidth(@nbreCols: 1; @padHSub: 0) {
+	//calcul des paramètres
+	@elementWidth: @gridColWidth * @nbreCols + @gridGutter * (@nbreCols -1) - @padHSub;
+	//application des paramètres
+	width: @elementWidth;
+}
+
+//Système de replacement des images de la Base Editoriale, gestion du margin
+@gridFormatAdjustVerticalMargin(@imageRatio; @nbreCols: 1; @nbreLine: 1; @padHSub: 0; @padVSub: 0; @offsetTop: 0; @offsetBottom: 0) {
+	//calcul des paramètres
+	@elementWidth: @gridColWidth * @nbreCols + @gridGutter * (@nbreCols -1) - @padHSub;
+	@elementHeight: @gridBaseline * @nbreLine - @padVSub;
+	//calcul de la hauteur appliquée pour un redimensionnement homothétique
+	@propHeight: round(@elementWidth * @imageRatio);
+	//calcul de la différence de hauter
+	@offsetHeight: (@elementHeight - @propHeight);
+
+	//application des paramètres
+	margin-top: @offsetHeight/2 + @offsetTop;
+	margin-bottom: @offsetHeight/2 + @offsetBottom;
 }
