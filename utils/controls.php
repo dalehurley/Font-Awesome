@@ -7,6 +7,8 @@
  * 
  */
 
+$pageTitle = 'Admin sites v3';
+
 switch ($_SERVER['REMOTE_ADDR']) {
 	case '127.0.0.1':
 		$dirContentSites = '/data/www';
@@ -28,25 +30,28 @@ $loginPassword = 'comme une fleur en hiver';
 <html lang="fr" > 
 <head>
 <meta charset="utf-8" />
-<title>Sites V3 - controls</title>
+<title>Controls</title>
 <meta name="language" content="fr" />
 <style>
 	<?php echo file_get_contents(__DIR__."/controls.css"); ?>
+	<?php echo file_get_contents(__DIR__."/icones.css"); ?>
 </style>
 </head>
 <body>
 
 <?php
 session_start();
+$messageLogin = '';
 
 if (isset($_POST['deconnexion'])){
 	$_SESSION['loginOK']= 'ko';
 }
 if (isset($_POST['login'])){
-	
 	$login = $_POST['login'];
 	if ($login==$loginPassword){
 		$_SESSION['loginOK'] = 'ok';
+	} else {
+		$messageLogin = '<br/><br/><ul><li class="denied">Accès refusé</li></ul>';
 	}
 }
 
@@ -62,30 +67,32 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 		$commandToRun = 'php '.__DIR__.'/controls '.$dirContentSites.' --all ndd='.$site.' auto quiet';
 	}
 
+	// deconnexion
+	echo '<ul class="deconnex"><li class="unlock"><a onclick="document.deconnex.submit();" href="#">Déconnexion</a></li></ul>';
 	// affichage
 	echo '<div class="promptFrame">';
-	echo '<h1>Sites V3</h1>';
+	echo '<h1>'.$pageTitle.'</h1>';
 	// formulaire pour la commande
 	echo '<form method="post" action="'.$PHP_SELF.'">';
-	echo '	Recherche par nom de domaine <input type="text" name="site" />';
+	echo '	<ul><li class="search"><a href="#">Recherche par nom de domaine</a></li></ul> <input type="text" name="site" />';
 	echo '</form>';
 
 	if ($res = executeCommand($commandToRun)) echo $res;
 	echo '</div>';
 
 	// deconnexion
-	echo '<form class="deconnexion" method="post" action="'.$PHP_SELF.'">';
+	echo '<form name="deconnex" class="deconnexion" method="post" action="'.$PHP_SELF.'">';
 	echo '<input type="hidden" name="deconnexion" value="ok" />';
-	echo '<input class="deconnexion" type="submit" value="déconnexion" />';
 	echo '</form>';	
 } else {
 
-	echo '<div class="promptFrame">';
-	echo '<h1>Sites V3</h1>';
+	echo '<div class="promptFrame login">';
+	echo '<h1>'.$pageTitle.'</h1>';
 	// formulaire pour la commande
 	echo '<form method="post" action="'.$PHP_SELF.'">';
-	echo '	Phrase de connexion <input type="text" name="login" />';
-	echo '	<input class="submit" type="submit" value="Ok" />';
+	echo '	<ul><li class="lock"><a href="#">Connexion</a></li></ul> <input type="text" name="login" />';
+	//echo '	<input class="submit" type="submit" value="Ok" />';
+	echo $messageLogin;
 	echo '</form>';
 	echo '</div>';
 }
@@ -102,6 +109,7 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
  * @return [type]          [description]
  */
 function executeCommand($command){
+	if ($command=='') return false;
 	$result = array();
 	$promptOnHtml = '';
 
@@ -114,6 +122,9 @@ function executeCommand($command){
 	}
 
 	//return '>>'.$resultRaw.'<<   '.$promptOnHtml;
+	if ($promptOnHtml == ''){
+		$promptOnHtml = '<p class ="">Pas de résultat.</p>';
+	}
 	return $promptOnHtml;
 }
 
@@ -180,7 +191,13 @@ function promptToHtml($value) {
     $class = array_unique($class);
     $classList = implode(' ', $class);
     
-    return '<p class ="' . $classList . '">' . $value . '</p>';
+    if ($value == ''){
+    	$return = '';
+    } else {
+    	$return = '<p class ="' . $classList . '">' . $value . '</p>';
+    }
+
+    return $return;
 }
   ?>
 
