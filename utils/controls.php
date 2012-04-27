@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Ce fichier peut être appelé d'une page tierce avec:
  * <?php include "chemin_ver_le_fichier/controls.php"; ?>
@@ -6,10 +7,12 @@
  * Il déploie son css dans la page et accède aux fichiers utiles en utilisant le paramètre __DIR__
  * 
  */
+ini_set('display_errors', 1);
+error_reporting(E_ALL); 
 
 $pageTitle = 'Admin sites v3';
 
-switch ($_SERVER['REMOTE_ADDR']) {
+switch ($_SERVER['SERVER_ADDR']) {
 	case '127.0.0.1':
 		$dirContentSites = '/data/www';
 		break;
@@ -23,6 +26,23 @@ switch ($_SERVER['REMOTE_ADDR']) {
 		break;
 }
 
+// recherche de la commande php
+$execOk = false;
+$dirPhpCommand = '';
+$dirPhpCommandPossibilities = array(
+	'/opt/php/php5/cur/bin/',
+	'',
+	'/usr/bin/'
+	);
+foreach($dirPhpCommandPossibilities as $dirPhpCommandPossibility){
+	if (is_file($dirPhpCommandPossibility.'php') && exec($dirPhpCommandPossibility.'php -v')){
+			$dirPhpCommand = $dirPhpCommandPossibility;
+			$execOk = true;
+		}
+}
+if (!$execOk) echo 'Impossible de trouver la commande PHP';
+
+// le mot de passe
 $loginPassword = 'comme une fleur en hiver';
 
 ?>
@@ -30,17 +50,58 @@ $loginPassword = 'comme une fleur en hiver';
 <html lang="fr" > 
 <head>
 <meta charset="utf-8" />
-<title>Controls</title>
+<title><?php echo $pageTitle; ?></title>
 <meta name="language" content="fr" />
 <style>
 	<?php echo file_get_contents(__DIR__."/controls.css"); ?>
 	<?php echo file_get_contents(__DIR__."/icones.css"); ?>
 </style>
 </head>
-<body>
+
+
+<style type="text/css" media="all">
+#chargement{
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+    	position: fixed;
+	background-color: gray;
+  	opacity : 0.7;
+  	-moz-opacity : 0.7;
+  	-ms-filter: "alpha(opacity=70)"; 
+  	filter : alpha(opacity=70);
+	z-index: 10000;
+}
+#chargement div.load{
+	text-align: center;
+	width: 400px;
+	color: #FFFFFF;
+	font-weight: bold;
+	display: block;
+	position:absolute;
+	top: 50%;
+	left: 50%; 
+	margin-left: -200px;
+}
+</style>
+<script type="text/javascript">
+document.getElementByiId('chargement').style.display='block';
+function displayLoad()
+{
+     document.getElementById('chargement').style.display='block';
+}
+function hideLoad()
+{
+     document.getElementById('chargement').style.display='none';
+}
+</script>
+<body onload="hideLoad();">
+<div id="chargement"><div class="load">Veuillez patienter,<br/>chargement de la page en cours...</div></div>
+
 
 <?php
-session_start();
+
 $messageLogin = '';
 
 if (isset($_POST['deconnexion'])){
@@ -61,10 +122,12 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 	*********************************************** Formulaire ***********************************************************************
 	************************************************************************************************************************************/
 
+	$commandToRun = '';
+
 	// recherche par nom de domaine
 	if (isset($_POST['site'])){
 		$site = $_POST['site'];
-		$commandToRun = 'php '.__DIR__.'/controls '.$dirContentSites.' --all ndd='.$site.' auto quiet';
+		$commandToRun = $dirPhpCommand.'php '.__DIR__.'/controls '.$dirContentSites.' --all ndd='.$site.' auto quiet';
 	}
 
 	// deconnexion
@@ -73,7 +136,7 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 	echo '<div class="promptFrame">';
 	echo '<h1>'.$pageTitle.'</h1>';
 	// formulaire pour la commande
-	echo '<form method="post" action="'.$PHP_SELF.'">';
+	echo '<form method="post" onSubmit="displayLoad();" action="'.$_SERVER['PHP_SELF'].'">';
 	echo '	<ul><li class="search"><a href="#">Recherche par nom de domaine</a></li></ul> <input type="text" name="site" />';
 	echo '</form>';
 
@@ -81,7 +144,7 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 	echo '</div>';
 
 	// deconnexion
-	echo '<form name="deconnex" class="deconnexion" method="post" action="'.$PHP_SELF.'">';
+	echo '<form name="deconnex" class="deconnexion" method="post" action="'.$_SERVER['PHP_SELF'].'">';
 	echo '<input type="hidden" name="deconnexion" value="ok" />';
 	echo '</form>';	
 } else {
@@ -89,7 +152,7 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 	echo '<div class="promptFrame login">';
 	echo '<h1>'.$pageTitle.'</h1>';
 	// formulaire pour la commande
-	echo '<form method="post" action="'.$PHP_SELF.'">';
+	echo '<form method="post" action="'.$_SERVER['PHP_SELF'].'">';
 	echo '	<ul><li class="lock"><a href="#">Connexion</a></li></ul> <input type="text" name="login" />';
 	//echo '	<input class="submit" type="submit" value="Ok" />';
 	echo $messageLogin;
@@ -109,12 +172,17 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
  * @return [type]          [description]
  */
 function executeCommand($command){
+
+	$resultRaw = '';
 	if ($command=='') return false;
 	$result = array();
 	$promptOnHtml = '';
 
-	exec(escapeshellcmd($command), $result);
-
+//debug
+//exec('/opt/php/php5/cur/bin/'.$command. ' 2>&1', $result);
+//echo $command."\n";
+//echo exec($command. ' 2>&1', $result);
+	exec($command, $result);
 	foreach ($result as $key => $value) {
 	    // traitement des codes du prompt pour remplacement en HTML
 	    $resultRaw .= $value;
@@ -123,7 +191,7 @@ function executeCommand($command){
 
 	//return '>>'.$resultRaw.'<<   '.$promptOnHtml;
 	if ($promptOnHtml == ''){
-		$promptOnHtml = '<p class ="">Pas de résultat.</p>';
+		$promptOnHtml = '<ul><li class="denied">Pas de résultat</li></ul>';
 	}
 	return $promptOnHtml;
 }
@@ -134,6 +202,7 @@ function executeCommand($command){
  * @return [type]        [description]
  */
 function promptToHtml($value) {
+	$class = array();
 	$promptCode['30']  = 'black';
 	$promptCode['31']  = 'red';
 	$promptCode['32']  = 'green';
