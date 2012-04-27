@@ -1,6 +1,6 @@
 // spLessGrid.js - Pour le framework SPLessCss
-// v1.4
-// Last Updated : 2012-04-18 14:50
+// v1.5
+// Last Updated : 2012-04-27 11:40
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
@@ -108,6 +108,9 @@
 		//Hauteur bl
 		var bH = 18;
 
+		//Calcul de l'index du wrappers redimenssionnable
+		var indexWrapper = 0;
+
 		//application paramètres
 		$('.imageWrapper, .imageFullWrapper, .dm_widget_nivo_gallery_container, .dm_widget.content_image > .dm_widget_inner, .dm_widget_content_gallery').each(function(index){
 			//ciblage des éléments
@@ -127,12 +130,27 @@
 			//on vérifie que la hauteur totale du wrapper n'est pas déjà conforme
 			var wrapperOuterHeight = $(wrapper).outerHeight();
 			var isWrapperSized = (wrapperOuterHeight % bH == 0) ? true : false;
-			// $.fn.frontFramework.debug("isWrapperSized : " + isWrapperSized );
 
 			//application sur les éléments seulement si nécessaire
 			if(getHeight != imgHeight && !isWrapperSized) {
-				$(wrapper).height(getHeight).css('overflow', 'hidden');
-				$(getImg).css('marginTop', decalMarginTop);
+				//affichage débug
+				$.fn.frontFramework.debug("#" + indexWrapper + " isWrapperSized : " + isWrapperSized );
+
+				if(isLess) {
+					$(wrapper).height(getHeight).css('overflow', 'hidden');
+					$(getImg).css('marginTop', decalMarginTop);
+				}else{
+					//calcul du délai de lancement
+					var delay = indexWrapper*500;
+					//lancement en décalage dans le temps
+					setTimeout(function(){
+						$(wrapper).css('overflow', 'hidden').animate({'height': getHeight}, 500);
+						$(getImg).animate({'marginTop': decalMarginTop}, 500);
+					}, delay);
+				}
+
+				//incrémentation wrapper redimenssionable
+				indexWrapper++;
 			}
 			//application au chargement
 			// $(getImg).load(function(){
