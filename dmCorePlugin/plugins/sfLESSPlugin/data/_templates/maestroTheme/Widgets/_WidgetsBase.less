@@ -16,7 +16,7 @@
 
 //couleurs de débug dans les zones de contenu uniquement
 .isLess {
-	#dm_sidebar_left, #dm_sidebar_right, #dm_page_content {
+	#dm_sidebar_left, #dm_sidebar_right, #dm_page_content, #dm_custom_bottom {
 		.dm_widget {
 			background-color: fadeout(#DCDAE6, 50%);
 			.dm_widget_inner { background-color: fadeout(#D2CFE6, 50%); }
@@ -27,18 +27,7 @@
 //STYLAGE GÉNÉRAL DES WIDGETS DANS LES ZONES DU SITE
 .dm_widget {
 	.dm_widget_inner {
-		//changement taille du titre des widgets
-		& > .title {
-			position: relative;
-			// #dm_page_content & {
-			// 	font-size: @fontSizeH5Px;
-			// 	line-height: @gridBaseline;
-			// }
-			// #dm_sidebar_left &, #dm_sidebar_right & {
-			// 	font-size: @fontSizeH6Px;
-			// 	line-height: @gridBaseline;
-			// }
-		}
+		& > .title { position: relative; }
 	}
 }
 
@@ -87,7 +76,7 @@
 }
 
 //stylage par défaut des widgets dans les zones principales
-#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right, #dm_custom_bottom {
 	.dm_widget {
 		margin-bottom: @gridBaseline;
 		
