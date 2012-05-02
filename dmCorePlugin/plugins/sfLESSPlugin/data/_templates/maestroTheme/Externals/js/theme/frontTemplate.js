@@ -29,7 +29,7 @@
 
 		//changement des valeurs des options
 		//on vérifie la présence de différents widgets à placer en bas dans la sidebarLeft
-
+		/*
 		//sélection de diverses widgets à placer en bas de la colonne
 		// var widgetFollowingMenu = $('#dm_sidebar_left > .dm_zones > .dm_zone > .dm_widgets > .dm_widget.navigation_menu ~ .dm_widget:not(.navigation_menu)');
 		// notation ne nécessitant pas de parser, donc plus rapide
@@ -60,6 +60,12 @@
 		options.isPostHSL = true;
 		options.offsetHSL -= fullHeight;
 		// $.fn.frontFramework.debug("widgetFollowingMenu fullHeight : " + fullHeight);
+		*/
+
+		//on soustrait la hauteur au calcul à posteriori
+		options.isPostHSL = true;
+		options.offsetHSL -= $('#dm_custom_bottom').find('.dm_zone.left').outerHeight(true);
+		
 		//appel de la fonction de redimenssionnement générale
 		$.fn.frontFramework.resizeCols(options);
 	}
