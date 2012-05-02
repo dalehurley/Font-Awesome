@@ -87,13 +87,15 @@
 //stylage de la zone de bas de page
 #dm_custom_bottom {
 	.dm_zones {
+		.dm_zone { position: relative; }
+
 		.dm_zone.left {
 			.isLess & { background-color: fadeout(#A1ADD1, 50%); }
 			//définition de la largeur
 			@gridWidth(@gridCol_SidebarLeft);
 			//placement et hauteur
-			float: left;
-			min-height: @gridBaseline;
+			position: absolute;
+			bottom: 100%;
 		}
 		.dm_zone.right {
 			.isLess & { background-color: fadeout(#A8A1D1, 50%); }
@@ -101,7 +103,6 @@
 			@gridWidth((@gridCol - @gridCol_SidebarLeft));
 			//placement et hauteur
 			float: right;
-			min-height: @gridBaseline;
 		}
 	}
 }	
