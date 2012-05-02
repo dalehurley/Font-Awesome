@@ -219,6 +219,12 @@
 	#dm_page_content .contentHeader & { margin-bottom: @gridBaseline/2; }
 }
 
+//configuration de base des deux containers d'images
+.imageWrapper, .imageGallery {
+	//placé à gauche dans la zone du bas
+	#dm_custom_bottom .dm_zone.left & { float: left; }
+}
+
 //container de l'image
 .imageWrapper {
 	//ajout d'une bordure en rollOver dans les listings au rollOver
@@ -237,6 +243,24 @@
 		// outline-offset: -2px;
 		outline-color: @colorCouleur1;
 		.rgba & { outline-color: fadeout(@colorCouleur1, 20%); }
+	}
+
+	//placé à gauche dans la zone du bas
+	#dm_custom_bottom .dm_zone.left & {
+		margin-left: 0;
+		margin-right: @gridGutter;
+	}
+}
+
+//container d'une galerie (à tester et débuggué lorsque implémenté dans le système)
+.imageGallery {
+	//placé à gauche dans la zone du bas, donc changement sens d'alignement
+	#dm_custom_bottom .dm_zone.left & {
+		.image, .link {
+			margin-right: @gridGutter;
+			margin-left: 0;
+			&.last { margin-right: 0; }
+		}
 	}
 }
 
