@@ -1,6 +1,6 @@
 // frontTemplate.js
-// v1.1
-// Last Updated : 2012-04-24 11:00
+// v1.2
+// Last Updated : 2012-05-02 15:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -29,7 +29,7 @@
 
 		//changement des valeurs des options
 		//on vérifie la présence de différents widgets à placer en bas dans la sidebarLeft
-
+		/*
 		//sélection de diverses widgets à placer en bas de la colonne
 		// var widgetFollowingMenu = $('#dm_sidebar_left > .dm_zones > .dm_zone > .dm_widgets > .dm_widget.navigation_menu ~ .dm_widget:not(.navigation_menu)');
 		// notation ne nécessitant pas de parser, donc plus rapide
@@ -60,6 +60,24 @@
 		options.isPostHSL = true;
 		options.offsetHSL -= fullHeight;
 		// $.fn.frontFramework.debug("widgetFollowingMenu fullHeight : " + fullHeight);
+		*/
+
+		//on rajoute l'espace manquant en bas à droite à priori afin de combler le manque éventuel
+		options.offsetHC += $('#dm_main').height() - $('#dm_main_inner').height();
+
+		//on calcul la hauteur de la zone customBottom et de sa sous-zone à gauche
+		var customBottomHeight = $('#dm_custom_bottom').outerHeight(true);
+		var customBottomLeftHeight = $('#dm_custom_bottom').find('.dm_zone.left').outerHeight(true);
+		// $.fn.frontFramework.debug("customBottomHeight : " + customBottomHeight + " customBottomLeftHeight : " + customBottomLeftHeight);
+
+		//on ne rajoute de l'espace que si la zone est insuffisamment grande pour le contenir
+		if(customBottomHeight != null && customBottomLeftHeight!= null && customBottomHeight < customBottomLeftHeight) {
+			//on ne rajoute que l'espace manquant
+			//en soustrayant la hauteur de la zone située en bas à gauche au calcul à posteriori
+			options.isPostHSL = true;
+			options.offsetHSL += (customBottomHeight - customBottomLeftHeight);
+		}
+
 		//appel de la fonction de redimenssionnement générale
 		$.fn.frontFramework.resizeCols(options);
 	}

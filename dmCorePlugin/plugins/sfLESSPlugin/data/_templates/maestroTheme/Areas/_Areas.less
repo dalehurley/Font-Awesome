@@ -21,6 +21,7 @@
 
 //couleur de la zone située sous le header jusqu'en bas
 #dm_main {
+	//taille par défaut : 1262*630
 	background-image: url(@{mainBgImageUrl});
 	background-repeat: no-repeat;
 	background-position: 50% top;
@@ -83,3 +84,27 @@
 #dm_custom_top {
 	min-height: @gridBaseline;
 }
+
+//stylage de la zone de bas de page
+#dm_custom_bottom {
+	.dm_zones {
+		.dm_zone { position: relative; }
+
+		.dm_zone.left {
+			.isLess & { background-color: fadeout(#A1ADD1, 50%); }
+			//définition de la largeur
+			@gridWidth(@gridCol_SidebarLeft);
+			//placement et hauteur
+			position: absolute;
+			bottom: 0;
+		}
+		.dm_zone.right {
+			.isLess & { background-color: fadeout(#A8A1D1, 50%); }
+			background-color: @colorCouleur3Clair;
+			//définition de la largeur
+			@gridWidth((@gridCol - @gridCol_SidebarLeft));
+			//placement et hauteur
+			float: right;
+		}
+	}
+}	

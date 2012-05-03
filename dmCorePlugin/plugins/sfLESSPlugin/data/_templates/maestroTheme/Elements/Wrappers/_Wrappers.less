@@ -210,13 +210,19 @@
 .subWrapper {
 	.elements .element & {
 		//positionnement élément en ligne dans zone spécifique
-		#dm_custom_bottom & .itemprop { display: inline; vertical-align: top; }
+		// #dm_custom_bottom & .itemprop { display: inline; vertical-align: top; }
 	}
 }
 
 //container de l'image en pleine largeur (utilisé dans l'affichage d'un article)
 .imageFullWrapper {
 	#dm_page_content .contentHeader & { margin-bottom: @gridBaseline/2; }
+}
+
+//configuration de base des deux containers d'images
+.imageWrapper, .imageGallery {
+	//placé à gauche dans la zone du bas
+	#dm_custom_bottom .dm_zone.left & { float: left; }
 }
 
 //container de l'image
@@ -237,6 +243,24 @@
 		// outline-offset: -2px;
 		outline-color: @colorCouleur1;
 		.rgba & { outline-color: fadeout(@colorCouleur1, 20%); }
+	}
+
+	//placé à gauche dans la zone du bas
+	#dm_custom_bottom .dm_zone.left & {
+		margin-left: 0;
+		margin-right: @gridGutter;
+	}
+}
+
+//container d'une galerie (à tester et débuggué lorsque implémenté dans le système)
+.imageGallery {
+	//placé à gauche dans la zone du bas, donc changement sens d'alignement
+	#dm_custom_bottom .dm_zone.left & {
+		.image, .link {
+			margin-right: @gridGutter;
+			margin-left: 0;
+			&.last { margin-right: 0; }
+		}
 	}
 }
 
