@@ -17,7 +17,6 @@
 	float: right;
 
 	.dm_widget_inner {
-		.isLess & { background-color: fadeout(#D672CE, 50%); }
 		padding-bottom: @gridBaseline/2;
 		//définitions de la largeur
 		@gridWidth((@gridCol - @gridCol_SidebarLeft));
@@ -39,7 +38,6 @@
 	}
 	
 	ol {
-		.isLess & { background-color: fadeout(#105E1E, 10%); }
 		display: block;
 		list-style: none;
 		margin: 0;
@@ -58,7 +56,6 @@
 		text-overflow: ellipsis;
 
 		li {
-			.isLess & { background-color: fadeout(#18105E, 10%); }
 			display: inline;
 			//ces 2 navigateurs ne gèrent pas le inline-block sur les élements en block par défaut donc tout en block
 			.ie6 &, .ie7 & { display: block; float: left; }

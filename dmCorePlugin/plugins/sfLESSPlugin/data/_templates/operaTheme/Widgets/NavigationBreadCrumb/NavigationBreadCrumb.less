@@ -35,7 +35,6 @@
 	}
 
 	ol {
-		.isLess & { background-color: fadeout(#105E1E, 10%); }
 		display: block;
 		list-style: none;
 		margin: 0;
@@ -54,13 +53,12 @@
 		text-overflow: ellipsis;
 
 		li{
-			.isLess & { background-color: fadeout(#18105E, 10%); }
 			display: inline;
 			//ces 2 navigateurs ne gèrent pas le inline-block sur les élements en block par défaut donc tout en block
 			.ie6 &, .ie7 & { display: block; float: left; }
 			list-style: none;
 			margin: 0 0 0 @offM;
-			&:first-child{ margin-left: 0; }
+			&:first-child{ margin-left: @gridPadding; }
 			//flèche de séparation
 			&.bread_crumb_separator {
 				display: inline-block;
