@@ -1,6 +1,6 @@
 // _NavigationBreadCrumb.less
-// v1.5
-// Last Updated : 2012-01-18 09:50
+// v2.0
+// Last Updated : 2012-05-03 15:45
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -19,7 +19,7 @@
 	float: left;
 	
 	.dm_widget_inner {
-		.isLess & { background-color: fadeout(#F04F97, 25%); }
+		.isLess & { background-color: fadeout(#D672CE, 50%); }
 		//ajout d'une bordure dont l'épaisseur a été déduite
 		background-color: @colorWhite;
 		//Copilotes : ajout arrondi sur le widget
@@ -46,22 +46,37 @@
 	
 	//gestion affichage listing de liens
 	ol {
+		.isLess & { background-color: fadeout(#105E1E, 10%); }
 		display: block;
 		list-style: none;
 		margin: 0;
 		padding: 0;
 		font-size: @fontSizeSmall;
 		line-height: (@gridBaseline -2px);
+		vertical-align: top;
+		
+		//définition d'une dimension fixe
+		@gridWidth((@gridCol - @gridCol_SidebarRight); 2px);
+		height: (@gridBaseline -2px);
+		//suppression retour à la ligne
+		white-space: nowrap;
+		//suppression dépassement et ajout ellipsis
+		overflow: hidden;
+		text-overflow: ellipsis;
 		
 		li {
-			display: block;
-			float: left;
+			.isLess & { background-color: fadeout(#18105E, 10%); }
+			display: inline;
+			//ces 2 navigateurs ne gèrent pas le inline-block sur les élements en block par défaut donc tout en block
+			.ie6 &, .ie7 & { display: block; float: left; }
 			list-style: none;
-			margin: 0;
-			margin-left: @offM;
+			margin: 0 0 0 @offM;
+			&:first-child{ margin-left: 0; }
 			//flèche de séparation
 			&.bread_crumb_separator {
-				display: block;
+				display: inline-block;
+				//ces 2 navigateurs ne gèrent pas le inline-block sur les élements en block par défaut donc tout en block
+				.ie6 &, .ie7 & { display: block; }
 				text-indent: -9999em;
 				margin-left: 0;
 				@spriteDefinition("Tenor"; "navigation"; "separatorRight"; "S"; @spriteFormat_S; @spriteOffX-Tenor-navigation-separatorRight; @spriteOffY-Tenor-navigation-separatorRight);
