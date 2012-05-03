@@ -43,6 +43,10 @@ ul.menu-megadropdown {
 		}
 	}
 
+	//Gestion de la couleurs des liens des dossiers
+	ul li.dm_dir > .link,
+	& > li.dm_dir > ul.hasDmDir > li > .link { color: @colorCouleur1; }
+
 	//configuration des dimensions à différents sous-niveaux
 	ul {
 		background-color: @colorCouleur3ClairSup;
@@ -96,14 +100,6 @@ ul.menu-megadropdown {
 			left: 0;
 			border: 0;
 			&, .rgba & { background-color: transparent; }
-		}
-		
-		li {
-			//sous-dossiers
-			&.dm_dir {
-				//configuration titre des sous parties
-				& > .link { color: @colorCouleur1; }
-			}
 		}
 		
 		//sous parties de niveau 2 et + contenues dans un ul contenant des sous-dossiers
