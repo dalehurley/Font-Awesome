@@ -30,7 +30,30 @@ class dmConsoleActions extends dmAdminBaseActions
     if (substr($command, 0, 2) == "sf")
     {
       $command = substr($command, 3);
-      $exec = sprintf('%s "%s" %s --color', sfToolkit::getPhpCli(), dmProject::getRootDir().'/symfony', $command);
+
+      // recherche de la commande php : ajout lioshi parce que la function sfToolkit::getPhpCli() ne trouve par le CLI
+      $execOk = false;
+      $dirPhpCommand = '';
+      $dirPhpCommandPossibilities = array(
+        '/opt/php/php5/cur/bin/',
+        '',
+        '/usr/bin/'
+        );
+      foreach($dirPhpCommandPossibilities as $dirPhpCommandPossibility){
+        if (is_file($dirPhpCommandPossibility.'php') && exec($dirPhpCommandPossibility.'php -v')){
+            $dirPhpCommand = $dirPhpCommandPossibility;
+            $execOk = true;
+          }
+      }
+      if (!$execOk) {
+        return $this->renderText(
+          "%s<li>PHP command not available. </li>"
+          )
+        ;
+      }
+
+      //$exec = sprintf('%s "%s" %s --color', sfToolkit::getPhpCli(), dmProject::getRootDir().'/symfony', $command);
+      $exec = sprintf('%s "%s" %s --color', $dirPhpCommand.'php', dmProject::getRootDir().'/symfony', $command);
     }
     else
     {
