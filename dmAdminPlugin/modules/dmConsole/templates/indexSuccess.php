@@ -20,5 +20,3 @@ echo _open('div#dm_console.mt10');
   echo _close('div');
 echo _close('div');
 
-echo 'rrr'.sfToolkit::getPhpCli();
-
