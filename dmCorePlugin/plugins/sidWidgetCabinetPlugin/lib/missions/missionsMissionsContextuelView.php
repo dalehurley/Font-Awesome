@@ -154,7 +154,9 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
             // je vérifie le nbre d'article
             // si un seul , on affiche en titre le titre de l'article
             if ($vars['nbArticles'] == 1) {
-                $vars['titreBloc'] = current($arrayMission)->getTitle();
+                if (count($arrayMission)!=0){
+                    $vars['titreBloc'] = current($arrayMission)->getTitle();
+                }
             } 
             // si plusieurs articles, on affiche en titre le nom de la page parente à ces articles
             elseif ($vars['nbArticles'] > 1){
