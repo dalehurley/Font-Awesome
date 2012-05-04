@@ -40,7 +40,7 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidArticle a')
                         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
-                        ->where('a.is_active = ? and  a.id <> ? and a.section_id = ?'.$andWhere, array(true, $dmPage->record_id,$recordId))
+                        ->where('a.is_active = ? and  a.id <> ? and a.section_id = ? '.$andWhere, array(true, $dmPage->record_id,$recordId))
                         ->orderBy($orderBy)
                         ->limit($nbArticles)
                         ->execute();
