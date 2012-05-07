@@ -105,5 +105,4 @@ class articleComponents extends myFrontModuleComponents
     $this->article = $this->getRecord($query);
   }
 
-
 }
