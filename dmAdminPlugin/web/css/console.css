@@ -5,7 +5,7 @@ div.console div.dm_box_inner
 
 #dm_console
 {
-  background: #000 url(../images/console/bg2.jpg) repeat center center;
+  background: #8E8E66; /*url(../images/console/bg2.jpg) repeat center center*/
   font-family: monospace;
   font-size: 12px;
   height: 540px;
@@ -43,8 +43,9 @@ div.console div.dm_box_inner
   line-height: 16px;
   display: inline-block;
 }
-#dm_lines li.dm_command_intro
+#dm_lines li.dm_command_intro strong
 {
+  color: #F9DFC3;
 }
 #dm_lines li.dm_command_user
 {

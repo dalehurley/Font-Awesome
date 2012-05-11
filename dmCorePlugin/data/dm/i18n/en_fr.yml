@@ -567,3 +567,11 @@
 "Site activity" : "Activité du site"
 "Annual monitoring of traffic" : "Suivi annuel du trafic"
 "Weekly monitoring of traffic" : "Suivi hebdomadaire du trafic"
+
+#Console
+"Logged as %s on %s": "Utilisateur %s connecté sur %s"
+"Current working directory: ": "Dossier de travail: "
+"Commands Available:": "Commandes disponibles:"
+"aliases Available:": "Raccourcis disponibles:"
+"symfony commands can be run by prefixing with sf": "Les commandes symfony sont executable en les préfixant par sf"
+"Example : sf cc (clear cache)": "Exemple: sf cc (clear cache)"
