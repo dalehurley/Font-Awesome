@@ -27,9 +27,11 @@
 	//Gestion de la taille des colonnes
 	$.fn.frontTemplate.resizeCols = function (options) {
 		
-		//on rajoute l'espace manquant en bas à droite à priori afin de combler le manque éventuel
-		options.offsetHC += $('#dm_main').height() - $('#dm_main_inner').height();
-
+		//on rajoute l'espace manquant à priori en bas à droite afin de combler le manque éventuel
+		var offsetHC = $('#dm_main').height() - $('#dm_main_inner').height();
+		if(offsetHC > 0) options.offsetHC += offsetHC;
+		// $.fn.frontFramework.debug("offsetHC : " + offsetHC);
+		
 		//on calcul la hauteur de la zone customBottom et de sa sous-zone à gauche
 		var customBottomHeight = $('#dm_custom_bottom').outerHeight(true);
 		var customBottomLeftHeight = $('#dm_custom_bottom').find('.dm_zone.left').outerHeight(true);
