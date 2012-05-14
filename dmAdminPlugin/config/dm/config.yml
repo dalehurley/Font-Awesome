@@ -22,14 +22,22 @@ default:
     max_per_page:         [ 3, 5, 10, 15, 20, 30, 50, 100, ∞ ]  # admin lists paginators
     list_truncate:        120                                   # truncate big descriptions in admin lists
 
-  console:                                          # emulate a linux shell
-                                                    # commands available
-    commands:            'sf ls ccc css info'                        #'sf man ll ls pwd cat mkdir rm cp mv touch chmod free df find clear php'
-    aliases:                                          # aliases available
+  console:                                                      # emulate a linux shell
+                                                                # commands available
+    commands:            'sf ls ccc css css-sprite infos'       #'sf man ll ls pwd cat mkdir rm cp mv touch chmod free df find clear php'
+    aliases:                                                    # aliases available
       'ls':              'ls -la'
       'ccc':             'sf ccc'
       'css':             'sf less:compile-all'
-      'info':            'sf dm:infos-site'
+      'css-sprite':      'sf less:sprite'
+      'infos':           'sf dm:infos-site'
 
-  service:                                          # Dependency Injection Container configuration
-    container_base_class: dmAdminBaseServiceContainer # The service container base class
+  service:                                                      # Dependency Injection Container configuration
+    container_base_class: dmAdminBaseServiceContainer           # The service container base class
+
+  # Les liens rapides 
+  express:     
+    links:
+      "Accueil":         "/admin.php"
+      "Sitemap":         "/admin.php/seo/sitemap/manage-xml-sitemap/index"
+      "Index recherche": "/admin.php/tools/search-engine/manage-index/index"
