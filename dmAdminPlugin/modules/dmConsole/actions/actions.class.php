@@ -20,56 +20,36 @@ class dmConsoleActions extends dmAdminBaseActions
 
   protected function getAliases()
   {
-    return sfConfig::get('dm_console_aliases', array('ll' => 'ls -l'));
+    return sfConfig::get('dm_console_aliases', array('ll' => 'ls -la'));
   }
     
   public function executeCommand(sfWebRequest $request)
   {
     $command = trim($request->getParameter("dm_command"));
 
+    // ajout lioshi : modification des test sur la commande pour permettre l'ajout d'alias utilisant sf 
+    //$options = substr(trim($command), 0, 2) == 'll' ||  substr(trim($command), 0, 2) == 'ls' ? '--color' : '' ;
+    $options = '--color';
+    $parts = explode(" ", $command);
+    $parts[0] = dmArray::get($this->getAliases(), $parts[0], $parts[0]);
+    $command = implode(" ", $parts);
+    $parts = explode(" ", $command);
+    $command = dmArray::get($this->getAliases(), $command, $command);
+    if (!in_array($parts[0], $this->getCommands())) 
+      return $this->renderText(sprintf(
+        "%s<li>This command is not available. You can do: <strong>%s</strong></li>",
+        $this->renderCommand($command), implode(' ', $this->getCommands())
+      ));
     if (substr($command, 0, 2) == "sf")
     {
       $command = substr($command, 3);
-
-      // recherche de la commande php : ajout lioshi parce que la function sfToolkit::getPhpCli() ne trouve par le CLI
-      $execOk = false;
-      $dirPhpCommand = '';
-      $dirPhpCommandPossibilities = array(
-        '/opt/php/php5/cur/bin/',
-        '',
-        '/usr/bin/'
-        );
-      foreach($dirPhpCommandPossibilities as $dirPhpCommandPossibility){
-        if (is_file($dirPhpCommandPossibility.'php') && exec($dirPhpCommandPossibility.'php -v')){
-            $dirPhpCommand = $dirPhpCommandPossibility;
-            $execOk = true;
-          }
-      }
-      if (!$execOk) {
-        return $this->renderText(
-          "%s<li>PHP command not available. </li>"
-          )
-        ;
-      }
-
-      //$exec = sprintf('%s "%s" %s --color', sfToolkit::getPhpCli(), dmProject::getRootDir().'/symfony', $command);
-      $exec = sprintf('%s "%s" %s --color', $dirPhpCommand.'php', dmProject::getRootDir().'/symfony', $command);
-    }
-    else
-    {
-      $options = substr(trim($command), 0, 2) == 'll' ||  substr(trim($command), 0, 2) == 'ls' ? '--color' : '' ;
-      $parts = explode(" ", $command);
-      $parts[0] = dmArray::get($this->getAliases(), $parts[0], $parts[0]);
-      $command = implode(" ", $parts);
-      $parts = explode(" ", $command);
-      $command = dmArray::get($this->getAliases(), $command, $command);
-      if (!in_array($parts[0], $this->getCommands()))
-        return $this->renderText(sprintf(
-          "%s<li>This command is not available. You can do: <strong>%s</strong></li>",
-          $this->renderCommand($command), implode(' ', $this->getCommands())
-        ));
+      //$exec = sprintf('%s "%s" %s --color', sfToolkit::getPhpCli(), dmProject::getRootDir().'/symfony', $command); // réécriture du getPhpCli qui ne fopnctionnepas si le getenv('PATH') ne renvoie rien
+      $exec = sprintf('%s "%s" %s --color', fileTools::getPhpCli(), dmProject::getRootDir().'/symfony', $command);
+    } else {
       $exec = sprintf("%s $options", $command);
     }
+
+
 
     ob_start();
     passthru($exec.' 2>&1', $return);
@@ -89,6 +69,8 @@ class dmConsoleActions extends dmAdminBaseActions
   public function executeIndex(sfWebRequest $request)
   {
     $this->commands = implode(' ', $this->getCommands());
+
+    $this->aliases = $this->getAliases();
 
     $this->uname = php_uname();
 

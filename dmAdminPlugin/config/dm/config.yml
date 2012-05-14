@@ -3,7 +3,7 @@ default:
   i18n:
     catalogue:            dm
     form:                 merge                     # Can be merge or embed
-    
+
   html:
     doctype:
       name:               html                      # Doctype ( 'html', 'xhtml' )
@@ -14,19 +14,30 @@ default:
 
   pageBar:
     enabled:              true
-    
+
   mediaBar:
     enabled:              true
-    
+
   admin:
     max_per_page:         [ 3, 5, 10, 15, 20, 30, 50, 100, ∞ ]  # admin lists paginators
     list_truncate:        120                                   # truncate big descriptions in admin lists
-    
-  console:                                          # emulate a linux shell
-                                                    # commands available
-    commands:             'sf man ll ls pwd cat mkdir rm cp mv touch chmod free df find clear php'
-    alias:                                          # aliases available
-      'll':               'ls -l'
 
-  service:                                          # Dependency Injection Container configuration
-    container_base_class: dmAdminBaseServiceContainer # The service container base class
+  console:                                                      # emulate a linux shell
+                                                                # commands available
+    commands:            'sf ls ccc css css-sprite infos'       #'sf man ll ls pwd cat mkdir rm cp mv touch chmod free df find clear php'
+    aliases:                                                    # aliases available
+      'ls':              'ls -la'
+      'ccc':             'sf ccc'
+      'css':             'sf less:compile-all'
+      'css-sprite':      'sf less:sprite'
+      'infos':           'sf dm:infos-site'
+
+  service:                                                      # Dependency Injection Container configuration
+    container_base_class: dmAdminBaseServiceContainer           # The service container base class
+
+  # Les liens rapides 
+  express:     
+    links:
+      "Accueil":         "/admin.php"
+      "Sitemap":         "/admin.php/seo/sitemap/manage-xml-sitemap/index"
+      "Index recherche": "/admin.php/tools/search-engine/manage-index/index"

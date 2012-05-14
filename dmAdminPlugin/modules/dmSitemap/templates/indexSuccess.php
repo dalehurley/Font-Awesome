@@ -6,13 +6,11 @@ use_javascript('admin.sitemap');
 
 echo _open('div.dm_sitemap.mt10');
 
-/*
 echo sprintf('%s%s%s',
   sprintf('<form style="text-align: center" method="post" class="dm_sitemap_generate_form" action="%s">', _link('@dm_sitemap?action=generate')->getHref()),
   sprintf('<input type="submit" value="%s" />', __('Generate sitemap')),
   '</form>'
 );
-*/
 
 echo _open('div.dm_sitemap_tabs.mt10');
 

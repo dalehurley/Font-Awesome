@@ -45,4 +45,49 @@ class fileTools {
             throw new Exception(sprintf('Directory %s does not exist!', $dirname));
         }
     }
+
+      /**
+       * Get path to php cli.
+       *
+       * @throws sfException If no php cli found
+       * @return string
+       */
+      public static function getPhpCli()
+      {
+
+        $path = getenv('PATH') ? getenv('PATH') : getenv('Path');
+        $suffixes = DIRECTORY_SEPARATOR == '\\' ? (getenv('PATHEXT') ? explode(PATH_SEPARATOR, getenv('PATHEXT')) : array('.exe', '.bat', '.cmd', '.com')) : array('');
+        
+        foreach (array('php5', 'php') as $phpCli)
+        {
+          foreach ($suffixes as $suffix)
+          {
+            foreach (explode(PATH_SEPARATOR, $path) as $dir)
+            {
+              if (is_file($file = $dir.DIRECTORY_SEPARATOR.$phpCli.$suffix) && is_executable($file))
+              {
+                return $file;
+              }
+            }
+          }
+        }
+
+        // recherche de la commande php : ajout lioshi 
+        $dirPhpCommandPossibilities = array( 
+          '/opt/php/php5/cur/bin/',
+          '',
+          '/usr/bin/'
+          );
+        foreach($dirPhpCommandPossibilities as $dirPhpCommandPossibility){
+          if (is_file($dirPhpCommandPossibility.'php') && exec($dirPhpCommandPossibility.'php -v')){
+              return $dirPhpCommandPossibility.'php';
+            }
+        }
+
+        throw new sfException('Unable to find PHP executable.');
+      }
+
+
+
+
 }
