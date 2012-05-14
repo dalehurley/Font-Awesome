@@ -31,10 +31,18 @@ class dmConsoleActions extends dmAdminBaseActions
     //$options = substr(trim($command), 0, 2) == 'll' ||  substr(trim($command), 0, 2) == 'ls' ? '--color' : '' ;
     $options = '--color';
     $parts = explode(" ", $command);
-    $parts[0] = dmArray::get($this->getAliases(), $parts[0], $parts[0]);
+    // ajout lioshi : ajout d'un niveau dans le tableau des aliases
+    //$parts[0] = dmArray::get($this->getAliases(), $parts[0], $parts[0]);
+    $aliases = $this->getAliases();    
+    if (array_key_exists($parts[0],$aliases)){
+      $parts[0] = $aliases[$parts[0]]['command'];
+    }
+
     $command = implode(" ", $parts);
     $parts = explode(" ", $command);
+
     $command = dmArray::get($this->getAliases(), $command, $command);
+
     if (!in_array($parts[0], $this->getCommands())) 
       return $this->renderText(sprintf(
         "%s<li>This command is not available. You can do: <strong>%s</strong></li>",

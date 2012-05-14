@@ -9,10 +9,10 @@ class dmAdminToolBarView extends dmToolBarView
     $this->renderClearCache().
     $this->renderCodeEditor().
     $this->renderMenu().
+    $this->renderExpressLinks().
     $this->renderCultureSelect().
     $this->renderApcLoad().
     $this->renderGoToSite().
-    $this->renderExpressLinks().
     $this->renderActiveUsers().
     $this->renderUserLinks().
     $this->renderSfWebDebug().
@@ -86,7 +86,7 @@ class dmAdminToolBarView extends dmToolBarView
     $return = '<select class="expressLinks" size="1" onChange="location = this.options[this.selectedIndex].value;">';
     $return .= '<option value="#" >-- '.__('Express links').' --</option>';
     foreach ($links as $title => $url) {
-      $return .= '<option value="'.$url.'" >'.$title.'</option>';
+      $return .= '<option value="'.$url.'" >'.__($title).'</option>';
     }
     $return .= '</select>' ;         
 

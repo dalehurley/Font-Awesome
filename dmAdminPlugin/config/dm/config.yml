@@ -26,11 +26,21 @@ default:
                                                                 # commands available
     commands:            'sf ls ccc css css-sprite infos'       #'sf man ll ls pwd cat mkdir rm cp mv touch chmod free df find clear php'
     aliases:                                                    # aliases available
-      'ls':              'ls -la'
-      'ccc':             'sf ccc'
-      'css':             'sf less:compile-all'
-      'css-sprite':      'sf less:sprite'
-      'infos':           'sf dm:infos-site'
+      'ls':
+        command:         'ls -la'
+        description:     'List files and directory'
+      'ccc':
+        command:         'sf ccc'
+        description:     'Clear cache'
+      'css':
+        command:         'sf less:compile-all'
+        description:     'Compile the .less files into .css files'
+      'css-sprite':
+        command:         'sf less:sprite'
+        description:     'Generate sprites (Graphic V1 only)'
+      'infos':
+        command:         'sf dm:infos-site'
+        description:     'Site infos'
 
   service:                                                      # Dependency Injection Container configuration
     container_base_class: dmAdminBaseServiceContainer           # The service container base class
@@ -38,6 +48,12 @@ default:
   # Les liens rapides 
   express:     
     links:
-      "Accueil":         "/admin.php"
-      "Sitemap":         "/admin.php/seo/sitemap/manage-xml-sitemap/index"
-      "Index recherche": "/admin.php/tools/search-engine/manage-index/index"
+      "Home":                    "/admin.php"
+#      "Sitemap":                "/admin.php/seo/sitemap/manage-xml-sitemap/index"
+#      "Search index":           "/admin.php/tools/search-engine/manage-index/index"
+      "Console":                 "/admin.php/system/dev/diem-console/index"
+      "Configuration":           "http://sitediem.com/admin.php/tools/configuration/configuration-panel/index"
+      "Constants":               "/admin.php/tools/configuration/constantes/index"
+      "Media":                   "/admin.php/tools/media/media/path"
+      "Google Analytics":        "/admin.php/seo/services/google-analytics/index"
+      "SEO management":          "/admin.php/seo/pages/automatic-seo"

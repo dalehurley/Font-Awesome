@@ -7,9 +7,12 @@ echo _open('div#dm_console.mt10');
     echo _tag("li.dm_command_intro", __("Current working directory: ").$pwd);
     echo _tag("li.dm_command_intro", __("Commands Available:"));
     echo _tag("li.dm_command_intro", "<strong>".$commands."</strong>");
-    echo _tag("li.dm_command_intro", __("aliases Available:"));   
-    foreach ($aliases as $com => $desc) {
-          echo _tag("li.dm_command_intro", "<strong>".$com." : ".$desc."</strong>"); 
+    echo _tag("li.dm_command_intro", __("aliases Available:")); 
+
+//echo $aliases['ls']['command'];
+
+    foreach ($aliases as $alias => $aliasDesc) {
+          echo _tag("li.dm_command_intro", "<strong>".$alias.str_repeat('&nbsp;', 30-strlen($alias))." : ".__($aliasDesc['description'])." (".$aliasDesc['command'].")</strong>"); 
      } 
     echo _tag("li.dm_command_intro", __("symfony commands can be run by prefixing with sf")._tag('br').__("Example : sf cc (clear cache)"));
     echo _tag("li.dm_command_intro", str_repeat("-", 50));
