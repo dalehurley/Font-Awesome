@@ -52,8 +52,14 @@ if (count($equipes)) { // si nous avons des membres de l'article
                 //on détecte le sexe de la personne
                 $personGenre = ($equipe->getTitle() == 'Mr') ? 'male' : 'female';
 
+                //détection de la taille des miniatures à sélectionner
+                if($width >= 110) $spriteFormat = 'spriteFormat_X';
+                elseif($width >= 55) $spriteFormat = 'spriteFormat_L';
+                elseif($width >= 27) $spriteFormat = 'spriteFormat_M';
+                else $spriteFormat = 'spriteFormat_S';
+
                 //on affiche un imageWrapper de la largeur des images, puis un span dans lequel sera affiché la silhouette en CSS
-                echo _tag('span', array('class' => array('imageWrapper', 'noImage', 'buddy'), 'style' => 'width:' . $width . 'px;'), _tag('span', array('class' => array('image', $personGenre)), '&#160;'));
+                echo _tag('span', array('class' => array('imageWrapper', 'noImage', 'buddy', $spriteFormat), 'style' => 'width:' . $width . 'px;'), _tag('span', array('class' => array('image', $personGenre)), '&#160;'));
             }
         };
 
