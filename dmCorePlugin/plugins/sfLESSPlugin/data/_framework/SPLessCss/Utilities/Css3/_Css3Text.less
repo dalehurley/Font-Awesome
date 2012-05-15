@@ -1,0 +1,20 @@
+// _Css3Text.less
+// v1.0
+// Last Updated : 2012-05-03 14:20
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//Gestion des effets sur le texte
+//Fonctionne sur : Chrome, FireFox 6+, Opera 11+, Safari 5.1+
+
+// http://drublic.de/blog/css3-auto-hyphenation-for-text-elements/
+// http://www.alsacreations.com/tuto/lire/1038-gerer-debordement-contenu-et-cesures-css.html
+// http://www.impressivewebs.com/new-css3-text-wrap/
+
+@hyphen(@value: auto) {
+	-webkit-hyphens: @value;
+	-moz-hyphens: @value;
+	-ms-hyphens: @value;
+	-o-hyphens: @value;
+	hyphens: @value;
+}
