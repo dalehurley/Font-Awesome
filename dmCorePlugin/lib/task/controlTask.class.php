@@ -93,7 +93,7 @@ EOF;
               ),
             array(
               'separator' => 'Gestion du cache',              
-              'command' => 'cc',
+              'command' => 'ccc',
               'libelle' => 'Purge du cache',
               'arguments' => array(),
               'options' => array(),

@@ -51,7 +51,9 @@ EOF;
     $dirs = array(
       sfConfig::get('sf_apps_dir'),
       sfConfig::get('sf_lib_dir'),
-      sfConfig::get('sf_data_dir')
+      sfConfig::get('sf_data_dir'),
+      sfConfig::get('sf_web_dir'),
+      sfConfig::get('sf_cache_dir')
     );
 
     $dirFinder = sfFinder::type('dir');
@@ -62,6 +64,9 @@ EOF;
       $this->chmod($dirFinder->in($dir), 0777);
       $this->chmod($fileFinder->in($dir), 0666);
     }
+
+    // ajout lioshi : necessaire pour permettre à apache de créer son fichier (cf task ccApc)
+    $this->chmod(sfConfig::get('sf_web_dir'), 0777);
     
     if(file_exists($dataBin = dmOs::join(sfConfig::get('sf_data_dir'), 'bin'))){
       $this->logSection('diem', 'setting execute bit for user and group to data/bin files');

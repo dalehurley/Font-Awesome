@@ -7,65 +7,78 @@
 include ('cliColors.class.php');
 $colors = new Colors(); // appel object colorisation
 
-// recup hostname
-$hostname = $_SERVER["HOSTNAME"];
-echo $colors->getColoredString("  Hostname : ".$hostname."  ", "dark_gray", "yellow") . "  \n";
+// recherche de la commande php
+$execOk = false;
+$dirPhpCommand = '';
+$dirPhpCommandPossibilities = array(
+	'/opt/php/php5/cur/bin/',
+	'',
+	'/usr/bin/'
+	);
+foreach($dirPhpCommandPossibilities as $dirPhpCommandPossibility){
+	if (is_file($dirPhpCommandPossibility.'php') && exec($dirPhpCommandPossibility.'php -v')){
+			$dirPhpCommand = $dirPhpCommandPossibility;
+			$execOk = true;
+		}
+}
+if (!$execOk) echo $colors->error("  'Impossible de trouver la commande PHP'");
 
-$utilisation = 
-<<<EOF
-         
- Utilisation : php controls argument1 argument2 argument3 [auto] [quiet]                                      
-          
-  * argument1 : le dossier contenant du(des) site(s) [exemple: /data/www ]    
-  * argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]     
-  * argument3 : la commande                                                
-      --help                        aide                                                        
-      dumps                         sauvegarde en dump 
-      dumps-with-settings           sauvegarde en dump (avec config dm_setting)
-      loadArticles                  charge les sections puis les articles
-      search-update                 met à jour lucene (index de recherche)
-      sitemap-update                met à jour le sitemap
-      setup                         effectue un dm:setup
-      loadBE                        met à jour la base éditoriale
-      ccc                           purge du cache web et APC
-      less-compile                  compilation des fichiers less
-      generate-sprite               génération des sprites
-      migration-doctrine            effectue une migration doctrine suivi d'un dm:setup
-      infos                         donne des infos 
-      query="SELECT * FROM test"    execute une requête SQL (ONLY SELECT, INSERT, UPDATE, and DELETE)
-      ndd="xxxxx@xxx.com"           search in sites a correspondance and display infos-site
-  * argument4 (optionnel) : 
-      auto                  mode automatique (sans validation des sites à traiter) 
-  * argument5 (optionnel) : 
-      quiet                 mode silencieux (pas complètement...)       
 
-EOF;
-$help = $colors->getColoredString($utilisation, "green") . "\n";
+// l'aide
+$utilisation = array();
+$utilisation[] = 'Utilisation : php controls [--help] argument1 argument2 argument3 [auto] [quiet]       '  ;                             
+$utilisation[] = '       ';
+$utilisation[] = '--help : aide        ';
+$utilisation[] = '       ';
+$utilisation[] = 'argument1 : le dossier contenant du(des) site(s) [exemple: /data/www ]    ';
+$utilisation[] = '       ';
+$utilisation[] = 'argument2 : le(s) dossier(s) du(des) site(s) [exemples: IM* , _demo_ec-tenor, _demo_* ]   ';  
+$utilisation[] = '       ';
+$utilisation[] = 'argument3 : la commande                                                ';
+$utilisation[] = '* dumps : sauvegarde en dump ';
+$utilisation[] = '* dumps-with-settings : sauvegarde en dump (avec config dm_setting)';
+$utilisation[] = '* loadArticles : charge les sections puis les articles';
+$utilisation[] = '* search-update : met à jour lucene (index de recherche)';
+$utilisation[] = '* sitemap-update : met à jour le sitemap';
+$utilisation[] = '* setup : effectue un dm:setup';
+$utilisation[] = '* loadBE : met à jour la base éditoriale';
+$utilisation[] = '* ccc : purge du cache web et APC';
+$utilisation[] = '* less-compile : compilation des fichiers less';
+$utilisation[] = '* generate-sprite : génération des sprites';
+$utilisation[] = '* migration-doctrine : effectue une migration doctrine suivi d\'un dm:setup';
+$utilisation[] = '* infos : donne des infos ';
+$utilisation[] = '* query="SELECT * FROM test : execute une requête SQL (ONLY SELECT, INSERT, UPDATE, and DELETE)';
+$utilisation[] = '* ndd="xxxxx@xxx.com" : search in sites a correspondance and display infos-site';
+$utilisation[] = '       ';
+$utilisation[] = 'Argument4 (optionnel) : ';
+$utilisation[] = '* auto : mode automatique (sans validation des sites à traiter) ';
+$utilisation[] = '       ';
+$utilisation[] = 'Argument5 (optionnel) : ';
+$utilisation[] = '* quiet : mode silencieux (pas complètement...)       ';
+$help = $colors->getColoredString('HELP : ', "dark_gray", "yellow") . "\n";
+foreach ($utilisation as $key => $line) {
+	$help .= $colors->getColoredString($line, "green") . "\n";
+}
+$inviteHelp = $colors->getColoredString('Tapez --help pour voir l\'aide', "green") . "\n";
 
-// verification 3 arguments
-if (count($argv)<4 || substr($argv[0],-8)!='controls'){
-	echo $colors->error("  ERREUR : il y a 3 arguments obligatoires");
+// affichage de l'aide
+if ($argv[1] == '--help'){
 	echo $help;
+	exit;
+}
+// verification 3 arguments
+if (count($argv)<4 || substr($argv[0],-8 )!='controls'){
+	echo $colors->error("  ERREUR : il y a 3 arguments obligatoires");
+	echo $inviteHelp;
 	exit;
 }
 // verification arg 1 is dir
 if (!is_dir($argv[1])){
 	echo $colors->error("  ERREUR : l'argument 1 doit être un répertoire valide ");
-	echo $help;
+	echo $inviteHelp;
 	exit;
 }
 
-
-// récupération des 3 arguments
-// le dossier contenant du site
-$dirContentSite = $argv[1];
-echo $colors->info("  Dossier contenant : ".$dirContentSite." ");
-// le dossier du site
-$dirSite = $argv[2];
-echo $colors->info("  Dossier site : ".$dirSite." ");
-// la commande choisie
-$argCommande = $argv[3]; 
-echo $colors->info("  Commande : ".$argCommande." ");
 // arguement 4 optionnel
 if (isset($argv[4]) && $argv[4]=='auto'){
 	$interactiveMode = false;
@@ -79,43 +92,55 @@ if (isset($argv[5]) && $argv[5]=='quiet'){
 	$quietMode = false;
 }
 
+// récupération des 3 arguments
+// le dossier contenant du site
+$dirContentSite = $argv[1];
+if (!$quietMode) echo $colors->info("  Dossier contenant : ".$dirContentSite." ");
+// le dossier du site
+$dirSite = $argv[2];
+if (!$quietMode) echo $colors->info("  Dossier site : ".$dirSite." ");
+// la commande choisie
+$argCommande = $argv[3]; 
+if (!$quietMode) echo $colors->info("  Commande : ".$argCommande." ");
+
+
 switch ($argCommande) {
 	case '--help':
 		echo $help;
 		break;
 
 	case 'dumps':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony db:dump --auto=true";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony db:dump --auto=true";
 		commandForAllSites($commande);
 		break;
 
 	case 'dumps-with-settings':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony db:dump --settings=true --auto=true";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony db:dump --settings=true --auto=true";
 		commandForAllSites($commande);
 		break;		
 
 	case 'loadArticles':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony be:loadArticles sections;php symfony be:loadArticles articles;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony be:loadArticles sections;php symfony be:loadArticles articles;";
 		commandForAllSites($commande);
 		break;
 
 	case 'search-update':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:search-update;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:search-update;";
 		commandForAllSites($commande);
 		break;
 
 	case 'sitemap-update':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:sitemap-update;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:sitemap-update;";
 		commandForAllSites($commande);
 		break;
 
 	case 'setup':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:setup;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:setup;";
 		commandForAllSites($commande);
 		break;
 
 	case 'loadBE':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony be:loadBE verbose --auto=true";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony be:loadBE verbose --auto=true";
 		commandForAllSites($commande);
 		break;
 
@@ -126,42 +151,42 @@ switch ($argCommande) {
     // infos                 donne des infos 
 
 	case 'ccc':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony ccc";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony ccc";
 		commandForAllSites($commande);
 		break;
 
 	case 'less-compile':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony less:compile-all";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony less:compile-all";
 		commandForAllSites($commande);
 		break;
 
 	case 'generate-sprite':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony less:sprite";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony less:sprite";
 		commandForAllSites($commande);
 		break;
 
 	case 'migration-doctrine':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony doctrine:generate-migrations-diff;php symfony doctrine:migrate;php symfony dm:setup;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony doctrine:generate-migrations-diff;".$dirPhpCommand."php symfony doctrine:migrate;".$dirPhpCommand."php symfony dm:setup;";
 		commandForAllSites($commande);
 		break;
 
 	case 'infos-site':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:infos-site;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:infos-site;";
 		commandForAllSites($commande);
 		break;
 
 	default:
 		if (substr($argCommande,0,6) == 'query='){
 			$query = substr($argCommande,6);
-			$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony doctrine:sql-query --query=\"".$query."\";";
+			$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony doctrine:sql-query --query=\"".$query."\";";
 			commandForAllSites($commande);
 		} elseif (substr($argCommande,0,4) == 'ndd='){
 			$query = substr($argCommande,4);
-			$commande = "cd ".$dirContentSite."/##DIRSITE##;php symfony dm:is-ndd --ndd=\"".$query."\";";
+			$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:is-ndd --ndd=\"".$query."\" --verbose=true;";
 			commandForAllSites($commande);
 		} else {
 			echo $colors->error("Commande incompréhensible...");
-			echo $help; 
+			echo $inviteHelp; 
 		}
 		
 		break;
@@ -193,7 +218,9 @@ function commandForAllSites($commande){
 	while($dir = readdir($dirContent)) {
 		
 		$aTraiter = false;
-		if (substr($dirSite,-1) == '*'){
+		if ($dirSite == '--all'){
+			$aTraiter = true;
+		} elseif (substr($dirSite,-1) == '*'){
 			if(substr($dir,0,strlen($dirSite)-1) == substr($dirSite,0,-1) && is_dir($dirContentSite.'/'.$dir)) {
 				$aTraiter = true;
 			}
@@ -222,7 +249,8 @@ function commandForAllSites($commande){
 				 	if (!$quietMode) {
 				 		echo $colors->important("  Début de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande." ");
 				 	} else {
-				 		echo $colors->important("Site ".$dirContentSite.'/'.$dir." ");
+				 		//echo $colors->important("Site ".$dirContentSite.'/'.$dir." ");
+				 		echo "\n";
 				 	}
 				 	$commandToRun = str_replace('##DIRSITE##', $dir, $commande);
 				 	
@@ -230,6 +258,7 @@ function commandForAllSites($commande){
 				 	exec($commandToRun, $result);
 				 	foreach ($result as $key => $value) {
 				 		echo $colors->help($value);
+				 		//echo $value;
 				 	}
 
 				 	if (!$quietMode) echo $colors->info("Commande effectuée : ". $commandToRun);
@@ -237,7 +266,7 @@ function commandForAllSites($commande){
 				 	if (!$quietMode) echo $colors->important("  Fin de traitement du site ".$dirContentSite.'/'.$dir." : ".$argCommande." (".$dureeSite.")")."\n";
 				}
 			} else {
-				echo $colors->error("Site ".$dirContentSite.'/'.$dir." invalide : fichier ". $sfFilename." absent...");
+				if (!$quietMode) echo $colors->error("Site ".$dirContentSite.'/'.$dir." invalide : fichier ". $sfFilename." absent...");
 			}
 		} 
 	}
@@ -250,7 +279,7 @@ function commandForAllSites($commande){
 		echo $colors->error("Pas de site correspondant aux arguments...");
 	} else {
 		$libATraiter = ($nbATraiter>0)?" sites ont été traités ":" site a été traité ";
-		echo $colors->important(" \n  INFOS : ".$nbATraiter.$libATraiter." en ".$dureeAllSite." \n ");	
+		if (!$quietMode) echo $colors->important("INFOS : ".$nbATraiter.$libATraiter." en ".$dureeAllSite);	
 	}
 	
 }

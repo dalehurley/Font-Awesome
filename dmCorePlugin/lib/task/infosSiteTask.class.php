@@ -57,9 +57,10 @@ EOF;
             if (strlen($key)>$lenghtMaxLib) $lenghtMaxLib = strlen($key); 
         }
 
+        $this->logblock((dmConfig::get('site_ndd') != '')?dmConfig::get('site_ndd'):$null, 'INFO');
         foreach ($infos as $lib => $value) {
             // on ajoute des espaces pour que les valeurs soient alignées
-            $this->logblock($lib.str_repeat(" ", $lenghtMaxLib - strlen($lib)) . " : " .$value, 'HELP');
+            $this->logblock($lib.str_repeat(" ", $lenghtMaxLib - strlen($lib)) . " : " .$value, 'COMMENT');
         }
         
 
