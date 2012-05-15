@@ -78,7 +78,7 @@ if (count($equipes)) { // si nous avons des membres de l'article
             $html.= _open('span', array('class' => 'itemprop cellphone'));
             $html.= _tag('span', array('class' => 'type', 'title' => __('Cellphone')), __('Cellphone'));
             $html.= _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
-            $html.= _tag('span', array('class' => 'value', 'itemprop' => 'cellphone'), $equipe->mobile);
+            $html.= _tag('span', array('class' => 'value', 'itemprop' => 'telephone'), $equipe->mobile);
             $html.= _close('span');
         };
         $html.= _close('span');

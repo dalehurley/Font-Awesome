@@ -93,7 +93,7 @@ echo _open('section', array('class' => 'supWrapper clearfix first last'));
             echo _open('span', array('class' => 'itemprop cellphone'));
             echo _tag('span', array('class' => 'type', 'title' => __('Cellphone')), __('Cellphone'));
             echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
-            echo _tag('span', array('class' => 'value', 'itemprop' => 'cellphone'), $equipe->mobile);
+            echo _tag('span', array('class' => 'value', 'itemprop' => 'telephone'), $equipe->mobile);
             echo _close('span');
         };
         echo _close('span');
