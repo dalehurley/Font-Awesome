@@ -138,12 +138,8 @@
 
 	//insertion de la sprite de silhouette en cas d'absence d'image dans les parties équipes
 	&.noImage.buddy {
-		//on force la hauteur 
-		height: @spriteFormat_X;
 		//suppression dépassement éventuel de la sprite
 		overflow: hidden;
-		//décalage de marge
-		padding-top: (@gridBaseline*7.5 - @spriteFormat_X);
 
 		.image {
 			position: absolute;
@@ -151,21 +147,83 @@
 			text-indent:-9999em;
 			//placement à mi-largeur
 			left: 50%;
-			margin-left: @spriteFormat_X/-2;
-			
-			//gestion dimension sprite
-			@spriteDimension(@spriteFormat_X);
-			//chargement thème de sprite
-			@spriteBgi("Default"; "X");
-			
-			//insertion des sprites
-			&.female {
-				@spriteBgiSvg("Default"; "internet"; "buddyFemale");
-				@spriteBgp(@spriteFormat_X; @spriteOffX-internet-buddyFemale; @spriteOffY-internet-buddyFemale);
+			bottom: 0;
+		}
+
+		//configuration en fonction du format de sprite sélectionné
+		&.spriteFormat_S {
+			height: @spriteFormat_S;
+			padding-top: (@gridBaseline - @spriteFormat_S);
+			.image {
+				margin-left: @spriteFormat_S/-2;
+				@spriteDimension(@spriteFormat_S);
+				@spriteBgi("Default"; "S");
+				//insertion des sprites
+				&.female {
+					@spriteBgiSvg("Default"; "internet"; "buddyFemale");
+					@spriteBgp(@spriteFormat_S; @spriteOffX-internet-buddyFemale; @spriteOffY-internet-buddyFemale);
+				}
+				&.male {
+					@spriteBgiSvg("Default"; "internet"; "buddyMale");
+					@spriteBgp(@spriteFormat_S; @spriteOffX-internet-buddyMale; @spriteOffY-internet-buddyMale);
+				}
 			}
-			&.male {
-				@spriteBgiSvg("Default"; "internet"; "buddyMale");
-				@spriteBgp(@spriteFormat_X; @spriteOffX-internet-buddyMale; @spriteOffY-internet-buddyMale);
+		}
+
+		&.spriteFormat_M {
+			height: @spriteFormat_M;
+			padding-top: (@gridBaseline*2 - @spriteFormat_M);
+			.image {
+				margin-left: @spriteFormat_M/-2;
+				@spriteDimension(@spriteFormat_M);
+				@spriteBgi("Default"; "M");
+				//insertion des sprites
+				&.female {
+					@spriteBgiSvg("Default"; "internet"; "buddyFemale");
+					@spriteBgp(@spriteFormat_M; @spriteOffX-internet-buddyFemale; @spriteOffY-internet-buddyFemale);
+				}
+				&.male {
+					@spriteBgiSvg("Default"; "internet"; "buddyMale");
+					@spriteBgp(@spriteFormat_M; @spriteOffX-internet-buddyMale; @spriteOffY-internet-buddyMale);
+				}
+			}
+		}
+
+		&.spriteFormat_L {
+			height: @spriteFormat_L;
+			padding-top: (@gridBaseline*4 - @spriteFormat_L);
+			.image {
+				margin-left: @spriteFormat_L/-2;
+				@spriteDimension(@spriteFormat_L);
+				@spriteBgi("Default"; "L");
+				//insertion des sprites
+				&.female {
+					@spriteBgiSvg("Default"; "internet"; "buddyFemale");
+					@spriteBgp(@spriteFormat_L; @spriteOffX-internet-buddyFemale; @spriteOffY-internet-buddyFemale);
+				}
+				&.male {
+					@spriteBgiSvg("Default"; "internet"; "buddyMale");
+					@spriteBgp(@spriteFormat_L; @spriteOffX-internet-buddyMale; @spriteOffY-internet-buddyMale);
+				}
+			}
+		}
+
+		&.spriteFormat_X {
+			height: @spriteFormat_X;
+			padding-top: (@gridBaseline*7.5 - @spriteFormat_X);
+			.image {
+				margin-left: @spriteFormat_X/-2;
+				@spriteDimension(@spriteFormat_X);
+				@spriteBgi("Default"; "X");
+				//insertion des sprites
+				&.female {
+					@spriteBgiSvg("Default"; "internet"; "buddyFemale");
+					@spriteBgp(@spriteFormat_X; @spriteOffX-internet-buddyFemale; @spriteOffY-internet-buddyFemale);
+				}
+				&.male {
+					@spriteBgiSvg("Default"; "internet"; "buddyMale");
+					@spriteBgp(@spriteFormat_X; @spriteOffX-internet-buddyMale; @spriteOffY-internet-buddyMale);
+				}
 			}
 		}
 	}
