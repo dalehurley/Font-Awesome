@@ -136,6 +136,40 @@
 	//dans un listing ou un résultat de recherche
 	.elements .element &, .search_results .search_result & { margin-bottom: 0; }
 
+	//insertion de la sprite de silhouette en cas d'absence d'image dans les parties équipes
+	&.noImage.buddy {
+		//on force la hauteur 
+		height: @spriteFormat_X;
+		//suppression dépassement éventuel de la sprite
+		overflow: hidden;
+		//décalage de marge
+		padding-top: (@gridBaseline*7.5 - @spriteFormat_X);
+
+		.image {
+			position: absolute;
+			display: block;
+			text-indent:-9999em;
+			//placement à mi-largeur
+			left: 50%;
+			margin-left: @spriteFormat_X/-2;
+			
+			//gestion dimension sprite
+			@spriteDimension(@spriteFormat_X);
+			//chargement thème de sprite
+			@spriteBgi("Default"; "X");
+			
+			//insertion des sprites
+			&.female {
+				@spriteBgiSvg("Default"; "internet"; "buddyFemale");
+				@spriteBgp(@spriteFormat_X; @spriteOffX-internet-buddyFemale; @spriteOffY-internet-buddyFemale);
+			}
+			&.male {
+				@spriteBgiSvg("Default"; "internet"; "buddyMale");
+				@spriteBgp(@spriteFormat_X; @spriteOffX-internet-buddyMale; @spriteOffY-internet-buddyMale);
+			}
+		}
+	}
+
 	//placé à gauche dans les sidebars et dans les subwrappers, donc marge à droite et aucune marge à gauche
 	#dm_sidebar_left &, #dm_sidebar_right &, .supWrapper & {
 		margin-left: 0;
