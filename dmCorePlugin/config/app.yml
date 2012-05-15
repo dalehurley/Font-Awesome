@@ -18,6 +18,7 @@ all:
       - 217.108.240.217
       - 217.108.240.225
       - 192.168.81.220
+      - 88.175.117.82   # Ip fixe Marie Laure Nauleau 
     ips-message:                       # message display on admin.php if client's ip is not allowed (in list above)
       "91.194.100.239": "Afin de vous connecter merci de vous rendre dans votre <a href=\"http://abonnes.expert-infos.com\">espace abonné</a>."  # ip of server which run sites      
 
@@ -34,7 +35,7 @@ all:
     # changement des noms des rubriques en fonction du client_type (ec ou cgp)
     # ancien : nouveau
     cgp-fr:
-      "Gestion des pages des missions": Gestion des pages des services
+      "Les missions": Les services
       "Les Missions": Les Services
       "Description des missions": Description des services
       "Mission|Les Missions": Service|Les Services
@@ -43,8 +44,8 @@ all:
       "Actualité du Cabinet": "Notre Actualité"
 
     aga-fr:
-      "Gestion des pages du cabinet": "Gestion des pages de l'Association"
-      "Gestion des pages des missions": Gestion des pages des prestations
+      "Le cabinet": "L'Association"
+      "Les missions": Les prestations
       "Les Missions": Les Prestations
       "Description des missions": Description des prestations
       "Mission|Les Missions": Prestation|Les Prestations
@@ -55,8 +56,8 @@ all:
       "Actualité du Cabinet": "Actualités de l'association"
 
     copilotes-fr:
-      "Gestion des pages du cabinet" : "Gestion de CO-PILOTES en images"
-      "Gestion des pages des missions": Gestion des pages de nos valeurs
+      "Le cabinet" : "CO-PILOTES en images"
+      "Les missions": Nos valeurs
       "Les Missions": Nos valeurs
       "Description des missions": Description de nos valeurs
       "Mission|Les Missions": Valeurs|Nos valeurs
@@ -66,7 +67,7 @@ all:
       "Les Actualités du Cabinet": Nos Engagements
       "Les Sélections de placements": Nos offres
       "Actualité du Cabinet": "Description de nos engagements"
-      
+
   # tableau des description des permissions 
   permissions:
     list:

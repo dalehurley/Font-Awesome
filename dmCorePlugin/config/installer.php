@@ -591,6 +591,15 @@ $queryMajSiteNdd = 'UPDATE `dm_setting_translation` t JOIN  `dm_setting` s on s.
 $dbh->query($queryMajSiteNdd);
 
 //-------------------------------------------------------------------------------------
+//    Permissions
+//-------------------------------------------------------------------------------------
+$this->logBlock('Permissions sur l\'arborescence', 'INFO');
+$out = $err = null;
+$this->getFilesystem()->execute(sprintf(
+    '%s %s %s', sfToolkit::getPhpCli(), sfConfig::get('sf_root_dir') . '/symfony', 'dm:permissions'
+  ), $out, $err);
+
+//-------------------------------------------------------------------------------------
 //    The END.
 //-------------------------------------------------------------------------------------
 $this->logBlock('

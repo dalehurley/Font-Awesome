@@ -9,6 +9,7 @@ class dmAdminToolBarView extends dmToolBarView
     $this->renderClearCache().
     $this->renderCodeEditor().
     $this->renderMenu().
+    $this->renderExpressLinks().
     $this->renderCultureSelect().
     $this->renderApcLoad().
     $this->renderGoToSite().
@@ -76,6 +77,23 @@ class dmAdminToolBarView extends dmToolBarView
     ->text(__('Go to site'))
     ->target('blank')
     ->set('.widget16.ml10.s16.s16_arrow_up_right');
+  }
+
+  protected function renderExpressLinks()
+  {
+    if ($this->user->can('systeme'))
+    {
+      $links = sfConfig::get('dm_express_links', array());
+
+      $return = '<select class="expressLinks" size="1" onChange="location = this.options[this.selectedIndex].value;">';
+      $return .= '<option value="#" >-- '.__('Express links').' --</option>';
+      foreach ($links as $title => $url) {
+        $return .= '<option value="'.$url.'" >'.__($title).'</option>';
+      }
+      $return .= '</select>' ;         
+
+      return $return;
+    }
   }
 
   protected function renderActiveUsers()

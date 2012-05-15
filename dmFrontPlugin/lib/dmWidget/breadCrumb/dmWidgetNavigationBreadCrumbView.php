@@ -123,9 +123,26 @@ class dmWidgetNavigationBreadCrumbView extends dmWidgetPluginView
       }
     } else {
 
-      $html = 'XXXXXXXXXX TODO : V2 version of breadcrumb with: http://twitter.github.com/bootstrap/components.html#breadcrumbs XXXXXXXXXXXX';
+      $html = '<ul class="breadcrumb">';
 
+      $it = 0;
+      foreach($vars['links'] as $link)
+      {
+        if ($vars['separator'] && (++$it < $vars['nbLinks']))
+        {
+          $html .= $helper->tag('li', $link);
+          $html .= $helper->tag('span.divider', $vars['separator']);
+        } else {
+          $html .= $helper->tag('li.active', $link);
+        }
+      }
 
+      $html .= '</ul>';
+
+      if ($this->isCachable())
+      {
+        $this->setCache($html);
+      }
     }
     return $html;
   }

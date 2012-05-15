@@ -196,7 +196,9 @@ EOF;
         // $setting->set('name', 'site_theme_version');
         // $setting->fromArray($configSiteThemeVersion);
         // $setting->save();
-       
+
+        $this->runTask('dm:permissions');
+
         $this->logBlock('Le theme : ' . $nomTemplateChoisi. ' ('.$nomVersionChoisi.')' . ' est installe.', 'INFO_LARGE');
     }
 }

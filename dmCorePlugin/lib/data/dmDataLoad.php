@@ -110,6 +110,7 @@ class dmDataLoad
     $array = array(
       'site_name' => array(
         'default_value' => dmString::humanize(dmProject::getKey()),
+        'type' => 'text',
         'description' => 'The site name',
         'group_name' =>'site'
       ),
@@ -229,11 +230,13 @@ class dmDataLoad
         'credentials' => 'url_redirection'
       ),
       'client_type' => array(
+        'type' => 'text',
         'default_value' => '',
         'description' => 'The client type',
         'group_name' =>'site'
       ),
       'site_type' => array(
+        'type' => 'text',
         'default_value' => '',
         'description' => 'The site type',
         'group_name' =>'site'

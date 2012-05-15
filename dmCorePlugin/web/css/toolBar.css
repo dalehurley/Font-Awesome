@@ -105,3 +105,9 @@ div.dm_refresh_show ul.dm_steps > li.current {
   margin-top: 6px;
   float: right;
 }
+
+#dm_tool_bar select.expressLinks
+{
+  margin: 3px 5px 0 0;
+  float: left;
+}

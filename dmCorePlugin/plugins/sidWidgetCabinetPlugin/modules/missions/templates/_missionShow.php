@@ -36,7 +36,7 @@ echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http:
                     echo _close('div');
                 }
         echo _tag('meta', array('content' => $titreBloc, 'itemprop' => 'articleSection'));
-        echo _tag('span', array('class' => 'teaser itemprop description'), $missions->getResume());
+        //echo _tag('span', array('class' => 'teaser itemprop description'), $missions->getResume());
         echo _tag('meta', array('content' => $missions->createdAt, 'itemprop' => 'datePublished'));
     echo _close ('header');
     echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $missions->getText());

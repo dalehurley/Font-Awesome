@@ -29,6 +29,8 @@ EOF;
      * @see sfTask
      */
     protected function execute($arguments = array() , $options = array()) {
+        $this->runTask('dm:permissions');
+
         if ($this->get('cache_manager')->clearAll()) {
             $this->logSection('diem', 'Cache successfully cleared');
             // clear APC cache via apache call
