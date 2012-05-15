@@ -20,38 +20,29 @@ if (count($equipes)) { // si nous avons des membres de l'article
             $class = ' last';
         else
             $class = '';
-        // condition pour gérer les class des listings
-//        // nouveau code pour arnaud afin de styler la silhouttee du membre de l'équipe qui n'a pas de photo
-//        $baliseTrombi = '';
-//        $classLi = '';
-//        if ($withImage == TRUE){
-//            if($equipe->getImage()->checkFileExists() == true) {
-//                $baliseTrombi = _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
-//            }
-//            else {
-//                $classLi = ($equipe->getTitle() == 'Mr') ? 'noImage male' : 'noImage female';
-//                $baliseTrombi = _tag('span', array('class' => 'imageWrapper', 'style' => 'width:'.$width.'px;'));
-//                
-//            }
-//            
-//        };
-//
-//        echo _open('li', array('class' => 'element itemscope Person '.$classLi . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope')));
-//        
-//        echo $baliseTrombi;
-//        // fin nouveau code pour arnaud afin de styler la silhouttee du membre de l'équipe qui n'a pas de photo
-        // code à supprimer après la modif d'arnaud
+
         echo _open('li', array('class' => 'element itemscope Person' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
 
-        if ($withImage == TRUE) {
-            if ($equipe->getImage()->checkFileExists() == true) {
-                $trombi = $equipe->getImage();
-            } else {
-                $trombi = ($equipe->getTitle() == 'Mr') ? '/sidWidgetCabinetPlugin/_images/silhouette-homme.png' : '/sidWidgetCabinetPlugin/_images/silhouette-femme.png';
+        // nouveau code pour arnaud afin de styler la silhouttee du membre de l'équipe qui n'a pas de photo
+        if($withImage == TRUE){
+            if($equipe->getImage()->checkFileExists() == true) {
+                //on affiche directement la photo de la personne
+                echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
             }
-            echo _tag('span', array('class' => 'imageWrapper'), _media($trombi)->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
+            else {
+                //on détecte le sexe de la personne
+                $personGenre = ($equipe->getTitle() == 'Mr') ? 'male' : 'female';
+
+                //détection de la taille des miniatures à sélectionner
+                if($width >= 110) $spriteFormat = 'spriteFormat_X';
+                elseif($width >= 55) $spriteFormat = 'spriteFormat_L';
+                elseif($width >= 27) $spriteFormat = 'spriteFormat_M';
+                else $spriteFormat = 'spriteFormat_S';
+
+                //on affiche un imageWrapper de la largeur des images, puis un span dans lequel sera affiché la silhouette en CSS
+                echo _tag('span', array('class' => array('imageWrapper', 'noImage', 'buddy', $spriteFormat), 'style' => 'width:' . $width . 'px;'), _tag('span', array('class' => array('image', $personGenre)), '&#160;'));
+            }
         };
-        // code à supprimer après la modif d'arnaud
 
         $html.= _open('span', array('class' => 'wrapper'));
         $html.= _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), __($equipe->getTitle()) . ' ' . $equipe->getFirstName() . ' ' . $equipe->getName());
