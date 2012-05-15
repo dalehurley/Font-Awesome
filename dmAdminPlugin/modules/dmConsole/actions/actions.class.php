@@ -11,11 +11,13 @@ class dmConsoleActions extends dmAdminBaseActions
 {
   
   protected static
-    $defaultCommands = 'sf man ll ls pwd cat mkdir rm cp mv touch chmod free df find clear php';
+    $defaultCommands = 'man ll ls pwd cat mkdir rm cp mv touch chmod free df find clear php';
 
   protected function getCommands()
   {
-    return explode(' ', sfConfig::get('dm_console_commands', self::$defaultCommands));
+    $commandsYml = sfConfig::get('dm_console_commands', self::$defaultCommands);
+
+    return explode(' ', $commandsYml);
   }
 
   protected function getAliases()
@@ -34,39 +36,43 @@ class dmConsoleActions extends dmAdminBaseActions
     // ajout lioshi : ajout d'un niveau dans le tableau des aliases
     //$parts[0] = dmArray::get($this->getAliases(), $parts[0], $parts[0]);
     $aliases = $this->getAliases();    
-    if (array_key_exists($parts[0],$aliases)){
+    if (array_key_exists($parts[0],$aliases)){ // on ne donne accès qu'aux aliases, pas à sf non plus
       $parts[0] = $aliases[$parts[0]]['command'];
-    }
 
-    $command = implode(" ", $parts);
-    $parts = explode(" ", $command);
+      $command = implode(" ", $parts);
+      $parts = explode(" ", $command);
 
-    $command = dmArray::get($this->getAliases(), $command, $command);
+      $command = dmArray::get($this->getAliases(), $command, $command);
 
-    if (!in_array($parts[0], $this->getCommands())) 
+      if (!in_array($parts[0], $this->getCommands()) && $parts[0] != 'sf') 
+        return $this->renderText(sprintf(
+          "%s<li>This command is not available. You can do those aliases: <strong>%s</strong></li>",
+          $this->renderCommand($command), implode(' ', $this->getCommands())
+        ));
+
+      if (substr($command, 0, 2) == "sf") // a symfony task
+      {
+        $command = substr($command, 3);
+        //$exec = sprintf('%s "%s" %s --color', sfToolkit::getPhpCli(), dmProject::getRootDir().'/symfony', $command); // réécriture du getPhpCli qui ne fopnctionnepas si le getenv('PATH') ne renvoie rien
+        $exec = sprintf('%s "%s" %s --color', fileTools::getPhpCli(), dmProject::getRootDir().'/symfony', $command);
+      } else {
+        $exec = sprintf("%s $options", $command);
+      }
+
+      ob_start();
+      passthru($exec.' 2>&1', $return);
+      $raw = dmAnsiColorFormatHtmlRenderer::render(ob_get_clean());
+      $arr = explode("\n", $raw);
+      $res = $this->renderCommand($command);
+      foreach($arr as $a)
+        $res .= "<li class='dm_result_command'><pre>".$a."</pre></li>";
+      return $this->renderText($res);
+    } else { // si pas présent dans les alias alors on n'execute rien
       return $this->renderText(sprintf(
-        "%s<li>This command is not available. You can do: <strong>%s</strong></li>",
-        $this->renderCommand($command), implode(' ', $this->getCommands())
-      ));
-    if (substr($command, 0, 2) == "sf")
-    {
-      $command = substr($command, 3);
-      //$exec = sprintf('%s "%s" %s --color', sfToolkit::getPhpCli(), dmProject::getRootDir().'/symfony', $command); // réécriture du getPhpCli qui ne fopnctionnepas si le getenv('PATH') ne renvoie rien
-      $exec = sprintf('%s "%s" %s --color', fileTools::getPhpCli(), dmProject::getRootDir().'/symfony', $command);
-    } else {
-      $exec = sprintf("%s $options", $command);
+          "%s<li>This alias command is not available, only: <strong>%s</strong></li>",
+          $this->renderCommand($command), implode(' ', $this->getCommands())
+        ));
     }
-
-
-
-    ob_start();
-    passthru($exec.' 2>&1', $return);
-    $raw = dmAnsiColorFormatHtmlRenderer::render(ob_get_clean());
-    $arr = explode("\n", $raw);
-    $res = $this->renderCommand($command);
-    foreach($arr as $a)
-      $res .= "<li class='dm_result_command'><pre>".$a."</pre></li>";
-    return $this->renderText($res);
   }
   
   protected function renderCommand($command)
