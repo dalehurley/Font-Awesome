@@ -10,9 +10,6 @@
  * Ce fichier reste dans le core, il est appelé en include dans les sites par les fichiers XXXXSuccess.php
  * 
  */
-//Debug ancienne zone pour déplacement anciens widgets
-//$pageOptionsCustom['areas']['centerTop'] = array('index' => 0, 'areaName' => 'centerTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
-
 //Configuration des zones du template
 $pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' => 'customTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 $pageOptionsCustom['areas']['dm_sidebar_left']['isActive'] = false;

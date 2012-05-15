@@ -1,6 +1,6 @@
 // _NavigationBreadCrumb.less
-// v1.5
-// Last Updated : 2012-01-18 09:50
+// v2.0
+// Last Updated : 2012-05-03 15:45
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -41,18 +41,30 @@
 		padding: 0;
 		font-size: @fontSizeMicro;
 		line-height: @gridBaseline;
+		vertical-align: top;
+		
+		//définition d'une dimension fixe
+		width: 100%;
+		height: @gridBaseline;
+		//suppression retour à la ligne
+		white-space: nowrap;
+		//suppression dépassement et ajout ellipsis
+		overflow: hidden;
+		text-overflow: ellipsis;
 
 		li{
-			display: block;
-			float: left;
+			display: inline;
+			//ces 2 navigateurs ne gèrent pas le inline-block sur les élements en block par défaut donc tout en block
+			.ie6 &, .ie7 & { display: block; float: left; }
 			list-style: none;
-			margin: 0;
-			margin-left: @offM;
+			margin: 0 0 0 @offM;
+			&:first-child{ margin-left: @gridPadding; }
 			//flèche de séparation
 			&.bread_crumb_separator {
-				display: block;
+				display: inline-block;
+				//ces 2 navigateurs ne gèrent pas le inline-block sur les élements en block par défaut donc tout en block
+				.ie6 &, .ie7 & { display: block; }
 				color: @colorCouleur3Moyen;
-				//font-size: @fontSizeMicro;
 				height: @fontSizeMicro;
 				line-height: @fontSizeMicro;
 				//centrage vertical du séparateur

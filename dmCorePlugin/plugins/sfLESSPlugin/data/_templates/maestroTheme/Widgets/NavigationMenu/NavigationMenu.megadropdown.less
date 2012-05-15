@@ -71,6 +71,10 @@ ul.menu-megadropdown {
 		}
 	}
 
+	//Gestion de la couleurs des liens des dossiers
+	ul li.dm_dir > .link,
+	& > li.dm_dir > ul.hasDmDir > li > .link { color: @colorCouleur1; }
+
 	//configuration des dimensions à différents sous-niveaux
 	ul {
 		background-color: @colorCouleur2;
@@ -97,8 +101,8 @@ ul.menu-megadropdown {
 			//LoVe's Hurts Fade Away
 			&:hover, &:focus {
 				color: @colorCouleur3ClairSup;
-				background-color: @colorCouleur2Sup;
-				.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
+				background-color: @colorCouleur2Moyen;
+				.rgba & { background-color: fadeout(@colorCouleur2Moyen, 20%); }
 			}
 			&:active { color: @colorCouleur1; }
 		}
@@ -141,14 +145,6 @@ ul.menu-megadropdown {
 			left: 0;
 			border: 0;
 			&, .rgba & { background-color: transparent; }
-		}
-		
-		li {
-			//sous-dossiers
-			&.dm_dir {
-				//configuration titre des sous parties
-				& > .link { color: @colorCouleur1; }
-			}
 		}
 
 		//définition largeur des sous parties
@@ -268,8 +264,8 @@ ul.menu-megadropdown {
 			//LoVe's Hurts Fade Away
 			&:hover, &:focus {
 				color: @colorCouleur3ClairSup;
-				background-color: @colorCouleur2Sup;
-				.rgba & { background-color: fadeout(@colorCouleur2Sup, 20%); }
+				background-color: @colorCouleur2Moyen;
+				.rgba & { background-color: fadeout(@colorCouleur2Moyen, 20%); }
 			}
 			&:active { color: @colorCouleur1; }
 		}
