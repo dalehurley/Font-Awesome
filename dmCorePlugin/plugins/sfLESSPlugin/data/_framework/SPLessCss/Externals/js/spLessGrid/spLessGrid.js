@@ -116,7 +116,7 @@
 		var indexWrapper = 0;
 
 		//application paramètres
-		$('.imageWrapper, .imageFullWrapper, .dm_widget_nivo_gallery_container, .dm_widget.content_image > .dm_widget_inner, .dm_widget_content_gallery').each(function(index){
+		$('.imageWrapper:not(.noImage), .imageFullWrapper:not(.noImage), .dm_widget_nivo_gallery_container, .dm_widget.content_image > .dm_widget_inner, .dm_widget_content_gallery').each(function(index){
 			//ciblage des éléments
 			var wrapper = this;
 			var getImg = $(wrapper).find("img");
