@@ -42,15 +42,21 @@ if (count($equipes)) { // si nous avons des membres de l'article
 //        // fin nouveau code pour arnaud afin de styler la silhouttee du membre de l'équipe qui n'a pas de photo
         // code à supprimer après la modif d'arnaud
         echo _open('li', array('class' => 'element itemscope Person' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
-
-        if ($withImage == TRUE) {
-            if ($equipe->getImage()->checkFileExists() == true) {
-                $trombi = $equipe->getImage();
-            } else {
-                $trombi = ($equipe->getTitle() == 'Mr') ? '/sidWidgetCabinetPlugin/_images/silhouette-homme.png' : '/sidWidgetCabinetPlugin/_images/silhouette-femme.png';
+        
+        if($withImage == TRUE){
+            if($equipe->getImage()->checkFileExists() == true) {
+                //on affiche directement la photo de la personne
+                echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
             }
-            echo _tag('span', array('class' => 'imageWrapper'), _media($trombi)->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
+            else {
+                //on détecte le sexe de la personne
+                $personGenre = ($equipe->getTitle() == 'Mr') ? 'male' : 'female';
+
+                //on affiche un imageWrapper de la largeur des images, puis un span dans lequel sera affiché la silhouette en CSS
+                echo _tag('span', array('class' => array('imageWrapper', 'noImage', 'buddy'), 'style' => 'width:' . $width . 'px;'), _tag('span', array('class' => array('image', $personGenre)), '&#160;'));
+            }
         };
+
         // code à supprimer après la modif d'arnaud
 
         $html.= _open('span', array('class' => 'wrapper'));

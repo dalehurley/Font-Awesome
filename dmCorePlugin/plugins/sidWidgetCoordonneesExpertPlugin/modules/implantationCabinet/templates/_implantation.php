@@ -51,15 +51,20 @@ echo _open('section', array('class' => 'supWrapper clearfix first last'));
         // code à supprimer après la modif d'arnaud
         echo _open('li', array('class' => 'element itemscope Person ' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope', 'id' => dmString::slugify($equipe->getFirstName() . '-' . $equipe->getName())));
 
-        if ($withImage == TRUE){
+        if($withImage == TRUE){
             if($equipe->getImage()->checkFileExists() == true) {
-                $trombi = $equipe->getImage();
+                //on affiche directement la photo de la personne
+                echo _tag('span', array('class' => 'imageWrapper'), _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
             }
             else {
-                $trombi = ($equipe->getTitle() == 'Mr') ? '/sidWidgetCabinetPlugin/_images/silhouette-homme.png' : '/sidWidgetCabinetPlugin/_images/silhouette-femme.png';
+                //on détecte le sexe de la personne
+                $personGenre = ($equipe->getTitle() == 'Mr') ? 'male' : 'female';
+
+                //on affiche un imageWrapper de la largeur des images, puis un span dans lequel sera affiché la silhouette en CSS
+                echo _tag('span', array('class' => array('imageWrapper', 'noImage', 'buddy'), 'style' => 'width:' . $width . 'px;'), _tag('span', array('class' => array('image', $personGenre)), '&#160;'));
             }
-            echo _tag('span', array('class' => 'imageWrapper'), _media($trombi)->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('.image itemprop="image"'));
         };
+        
         // code à supprimer après la modif d'arnaud
         if($civ == TRUE) $civ = $equipe->getTitle();
         echo _open('span', array('class' => 'wrapper'));
