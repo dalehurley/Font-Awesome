@@ -138,6 +138,12 @@ EOF;
               'options' => array()                
               ),  
             array(
+              'command' => 'dm:change-dir',
+              'libelle' => 'Changer le répertoire du site ['.getcwd().']',
+              'arguments' => array(),
+              'options' => array()                
+              ),             
+            array(
               'command' => 'dm:infos-site',
               'libelle' => 'Les informations sur le site',
               'arguments' => array(),
@@ -148,7 +154,13 @@ EOF;
               'libelle' => 'Lancer une requete sql sur la base',
               'arguments' => array(),
               'options' => array()                
-              ),                
+              ),  
+            array(
+              'command' => 'dm:permissions',
+              'libelle' => 'Mettre à jour les permissions sur les fichiers',
+              'arguments' => array(),
+              'options' => array()                
+              ), 
             array(
               'separator' => 'Moteur de recherche (Lucene)', 
               'command' => 'dm:search-update',
