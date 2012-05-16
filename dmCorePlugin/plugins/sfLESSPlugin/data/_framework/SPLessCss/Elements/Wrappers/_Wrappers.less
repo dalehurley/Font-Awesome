@@ -152,8 +152,7 @@
 		
 		//configuration en fonction du format de sprite sélectionné
 		&.spriteFormat_S {
-			height: @spriteFormat_S;
-			padding-top: (@gridBaseline - @spriteFormat_S);
+			height: @gridBaseline;
 			.image {
 				margin-left: @spriteFormat_S/-2;
 				@spriteDimension(@spriteFormat_S);
@@ -171,8 +170,7 @@
 		}
 
 		&.spriteFormat_M {
-			height: @spriteFormat_M;
-			padding-top: (@gridBaseline*2 - @spriteFormat_M);
+			height: @gridBaseline*2;
 			.image {
 				margin-left: @spriteFormat_M/-2;
 				@spriteDimension(@spriteFormat_M);
@@ -190,8 +188,7 @@
 		}
 
 		&.spriteFormat_L {
-			height: @spriteFormat_L;
-			padding-top: (@gridBaseline*4 - @spriteFormat_L);
+			height: @gridBaseline*3.5;
 			.image {
 				margin-left: @spriteFormat_L/-2;
 				@spriteDimension(@spriteFormat_L);
@@ -209,8 +206,7 @@
 		}
 
 		&.spriteFormat_X {
-			height: @spriteFormat_X;
-			padding-top: (@gridBaseline*8 - @spriteFormat_X);
+			height: @gridBaseline*7;
 			.image {
 				margin-left: @spriteFormat_X/-2;
 				@spriteDimension(@spriteFormat_X);
