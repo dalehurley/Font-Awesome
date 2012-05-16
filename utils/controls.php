@@ -15,17 +15,24 @@ $pageTitle = 'Admin sites v3';
 
 switch ($_SERVER['SERVER_ADDR']) {
 	case '127.0.0.1':
-		$dirContentSites = '/data/www';
+		$dirContentSites = array(
+			'/data/www'
+			);
 		$fileJsonData = '/data/www/siteData/dataSites.json';
 		break;
 	
 	case '91.194.100.239':
-		$dirContentSites = '/data/www/sitesv3';
+		$dirContentSites = array(
+			'/data/www/sitesv3',
+			'/data/www/sitesv3mep'
+		);
 		$fileJsonData = '/data/www/dataSites.json';		
 		break;
 
 	default:
-		$dirContentSites = '/data/www';
+		$dirContentSites = array(
+			'/data/www'
+		);
 		break;
 }
 
@@ -247,22 +254,25 @@ function executeCommand($file=false){
 		// on crée le fichier
 		$inF = fopen($file,"w");
 
-		// on se ballade dans tous les sites pour lancer la task dm:infos-site
-		$i=0;
-		$dirContent = opendir($dirContentSites); 
-		while($dir = readdir($dirContent)) {
-			$command = $dirPhpCommand.'php '.$dirContentSites.'/'.$dir.'/symfony dm:infos-site';  // on envoie '.' à la tache is-ndd (via controls) car tous les ndd ont un '.'
-			//echo $command.'<br/>';
-			$result = array();
-			exec($command, $result);
+		foreach ($dirContentSites as $dirContentSite) {
+			// on se ballade dans tous les sites pour lancer la task dm:infos-site
+			$i=0;
+			$dirContent = opendir($dirContentSite); 
+			while($dir = readdir($dirContent)) {
+				$command = $dirPhpCommand.'php '.$dirContentSites.'/'.$dir.'/symfony dm:infos-site';  // on envoie '.' à la tache is-ndd (via controls) car tous les ndd ont un '.'
+				//echo $command.'<br/>';
+				$result = array();
+				exec($command, $result);
 
-			foreach ($result as $key => $value) {
-			    // traitement des codes du prompt pour remplacement en HTML
-			    $resultRaw .= $value;
-			    $arrayPromptOnHtml[$i][] = promptToHtml($value);
+				foreach ($result as $key => $value) {
+				    // traitement des codes du prompt pour remplacement en HTML
+				    $resultRaw .= $value;
+				    $arrayPromptOnHtml[$i][] = promptToHtml($value);
+				}
+				$i++;
 			}
-			$i++;
 		}
+
 		//fputs($inF,$command);
 		// on met tous les résultats de la tache infos-site dans un fichier json
 		fputs($inF,json_encode($arrayPromptOnHtml));
