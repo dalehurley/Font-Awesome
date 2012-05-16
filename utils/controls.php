@@ -7,18 +7,21 @@ session_start();
  * Il déploie son css dans la page et accède aux fichiers utiles en utilisant le paramètre __DIR__
  * 
  */
-ini_set('display_errors', 1);
-error_reporting(E_ALL); 
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL); 
 
+/****************** PARAMETRES **********************/
 $pageTitle = 'Admin sites v3';
 
 switch ($_SERVER['SERVER_ADDR']) {
 	case '127.0.0.1':
 		$dirContentSites = '/data/www';
+		$fileJsonData = '/data/www/siteData/dataSites.json';
 		break;
 	
 	case '91.194.100.239':
 		$dirContentSites = '/data/www/sitesv3';
+		$fileJsonData = '/data/www/sitesv3/dataSites.json';		
 		break;
 
 	default:
@@ -123,25 +126,62 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 	************************************************************************************************************************************/
 
 	$commandToRun = '';
-
-	// recherche par nom de domaine
-	if (isset($_POST['site'])){
-		$site = $_POST['site'];
-		$commandToRun = $dirPhpCommand.'php '.__DIR__.'/controls '.$dirContentSites.' --all ndd='.$site.' auto quiet';
-	}
+	$reloadData = '';
+	$results = false;
 
 	// deconnexion
 	echo '<ul class="deconnex"><li class="unlock"><a onclick="document.deconnex.submit();" href="#">Déconnexion</a></li></ul>';
 	// affichage
+
 	echo '<div class="promptFrame">';
 	echo '<h1>'.$pageTitle.'</h1>';
-	// formulaire pour la commande
+
+	// formulaire pour la recherche de ndd
 	echo '<form method="post" onSubmit="displayLoad();" action="'.$_SERVER['PHP_SELF'].'">';
-	echo '	<ul><li class="search"><a href="#">Recherche par nom de domaine</a></li></ul> <input type="text" name="site" />';
+	echo '	<ul><li class="search"><a href="#">Recherche de site</a></li></ul> <input type="text" name="site" />';
+	echo '  <span class="infos">Par nom de domaine, type, thème...</span>';
 	echo '</form>';
 
-	if ($res = executeCommand($commandToRun)) echo $res;
+	// recherche 
+	if (isset($_POST['site'])){
+		$site = $_POST['site'];
+		$arraySites = json_decode(file_get_contents($fileJsonData),true);
+		$findRes = false;  // a t on au moins un resultat?
+
+		foreach ($arraySites as $key => $arraySite) {
+			$siteMatch = false;
+			foreach ($arraySite as $line => $value) {
+					$pos = strpos(removeAccents(strtolower($value)), removeAccents(strtolower($site))); // on fait une recherche de chaine formatée (minuscule sans accent) pour avoir un maximum de résultat
+					if ($pos === false) {
+					} else {
+						$siteMatch = true; // le site en cours correspond 
+					}
+			}
+			if ($siteMatch) { // on affiche le site complet en cours
+				 foreach ($arraySite as $data) {
+				 	echo $data;
+				 }
+				$findRes = true;
+			}
+		}
+		if (!$findRes) echo '<ul><li class="denied">Pas de résultat</li></ul>';
+	}
+	if ($results) echo '> '.$results; 
+
 	echo '</div>';
+
+	// formulaire pour la recharge
+	echo '<form class="reload" method="post" name="reloadData" onSubmit="displayLoad();" action="'.$_SERVER['PHP_SELF'].'">';
+	echo '	<ul><li class="repeat"><a onClick="document.reloadData.submit();" href="#">Recharger les données</a></li></ul>';
+	echo '  <span class="infos">(dernière mise à jour le '.date("Y-m-d à H:i:s",filemtime($fileJsonData)).')</span>';
+	echo '	<input type="hidden" name="reloadData" value="true"/>';	
+	if (isset($_POST['reloadData'])){
+		$reloadData = $_POST['reloadData'];
+		if (executeCommand($fileJsonData)) {
+			//echo '<ul><li class="info"><a href="#">Chargement des données ok</a></li></ul>';
+		}
+	}
+	echo '</form>';
 
 	// deconnexion
 	echo '<form name="deconnex" class="deconnexion" method="post" action="'.$_SERVER['PHP_SELF'].'">';
@@ -171,29 +211,61 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
  * @param  [type] $command [description]
  * @return [type]          [description]
  */
-function executeCommand($command){
-
+function executeCommand($file=false){
+	global $dirContentSites;
+	global $dirPhpCommand;
+	
 	$resultRaw = '';
-	if ($command=='') return false;
 	$result = array();
 	$promptOnHtml = '';
+	$arrayPromptOnHtml = array();
 
 //debug
 //exec('/opt/php/php5/cur/bin/'.$command. ' 2>&1', $result);
 //echo $command."\n";
 //echo exec($command. ' 2>&1', $result);
-	exec($command, $result);
-	foreach ($result as $key => $value) {
-	    // traitement des codes du prompt pour remplacement en HTML
-	    $resultRaw .= $value;
-	    $promptOnHtml .= promptToHtml($value);
-	}
+	if (!$file){
+		exec($command, $result);
+		foreach ($result as $key => $value) {
+		    // traitement des codes du prompt pour remplacement en HTML
+		    $resultRaw .= $value;
+		    $promptOnHtml .= promptToHtml($value);
+		}
+		//return '>>'.$resultRaw.'<<   '.$promptOnHtml;
+		if ($promptOnHtml == ''){
+			$promptOnHtml = '<ul><li class="denied">Pas de résultat</li></ul>';
+		}
+		return $promptOnHtml;
+	} else {
+		if (is_file($file)){
+			unlink($file);
+		} 
+		// on crée le fichier
+		$inF = fopen($file,"w");
 
-	//return '>>'.$resultRaw.'<<   '.$promptOnHtml;
-	if ($promptOnHtml == ''){
-		$promptOnHtml = '<ul><li class="denied">Pas de résultat</li></ul>';
+		// on se ballade dans tous les sites pour lancer la task dm:infos-site
+		$i=0;
+		$dirContent = opendir($dirContentSites); 
+		while($dir = readdir($dirContent)) {
+			$command = $dirPhpCommand.'php '.$dirContentSites.'/'.$dir.'/symfony dm:infos-site';  // on envoie '.' à la tache is-ndd (via controls) car tous les ndd ont un '.'
+			//echo $command.'<br/>';
+			$result = array();
+			exec($command, $result);
+
+			foreach ($result as $key => $value) {
+			    // traitement des codes du prompt pour remplacement en HTML
+			    $resultRaw .= $value;
+			    $arrayPromptOnHtml[$i][] = promptToHtml($value);
+			}
+			$i++;
+		}
+		//fputs($inF,$command);
+		// on met tous les résultats de la tache infos-site dans un fichier json
+		fputs($inF,json_encode($arrayPromptOnHtml));
+		fclose($inF);
+
+		return true;
 	}
-	return $promptOnHtml;
 }
 
 /**
@@ -268,6 +340,55 @@ function promptToHtml($value) {
 
     return $return;
 }
+
+function removeAccents($txt) {
+    $txt = str_replace('œ', 'oe', $txt);
+    $txt = str_replace('Œ', 'Oe', $txt);
+    $txt = str_replace('æ', 'ae', $txt);
+    $txt = str_replace('Æ', 'Ae', $txt);
+    mb_regex_encoding('UTF-8');
+    $txt = mb_ereg_replace('[ÀÁÂÃÄÅĀĂǍẠẢẤẦẨẪẬẮẰẲẴẶǺĄ]', 'A', $txt);
+    $txt = mb_ereg_replace('[àáâãäåāăǎạảấầẩẫậắằẳẵặǻą]', 'a', $txt);
+    $txt = mb_ereg_replace('[ÇĆĈĊČ]', 'C', $txt);
+    $txt = mb_ereg_replace('[çćĉċč]', 'c', $txt);
+    $txt = mb_ereg_replace('[ÐĎĐ]', 'D', $txt);
+    $txt = mb_ereg_replace('[ďđ]', 'd', $txt);
+    $txt = mb_ereg_replace('[ÈÉÊËĒĔĖĘĚẸẺẼẾỀỂỄỆ]', 'E', $txt);
+    $txt = mb_ereg_replace('[èéêëēĕėęěẹẻẽếềểễệ]', 'e', $txt);
+    $txt = mb_ereg_replace('[ĜĞĠĢ]', 'G', $txt);
+    $txt = mb_ereg_replace('[ĝğġģ]', 'g', $txt);
+    $txt = mb_ereg_replace('[ĤĦ]', 'H', $txt);
+    $txt = mb_ereg_replace('[ĥħ]', 'h', $txt);
+    $txt = mb_ereg_replace('[ÌÍÎÏĨĪĬĮİǏỈỊ]', 'I', $txt);
+    $txt = mb_ereg_replace('[ìíîïĩīĭįıǐỉị]', 'i', $txt);
+    $txt = str_replace('Ĵ', 'J', $txt);
+    $txt = str_replace('ĵ', 'j', $txt);
+    $txt = str_replace('Ķ', 'K', $txt);
+    $txt = str_replace('ķ', 'k', $txt);
+    $txt = mb_ereg_replace('[ĹĻĽĿŁ]', 'L', $txt);
+    $txt = mb_ereg_replace('[ĺļľŀł]', 'l', $txt);
+    $txt = mb_ereg_replace('[ÑŃŅŇ]', 'N', $txt);
+    $txt = mb_ereg_replace('[ñńņňŉ]', 'n', $txt);
+    $txt = mb_ereg_replace('[ÒÓÔÕÖØŌŎŐƠǑǾỌỎỐỒỔỖỘỚỜỞỠỢ]', 'O', $txt);
+    $txt = mb_ereg_replace('[òóôõöøōŏőơǒǿọỏốồổỗộớờởỡợð]', 'o', $txt);
+    $txt = mb_ereg_replace('[ŔŖŘ]', 'R', $txt);
+    $txt = mb_ereg_replace('[ŕŗř]', 'r', $txt);
+    $txt = mb_ereg_replace('[ŚŜŞŠ]', 'S', $txt);
+    $txt = mb_ereg_replace('[śŝşš]', 's', $txt);
+    $txt = mb_ereg_replace('[ŢŤŦ]', 'T', $txt);
+    $txt = mb_ereg_replace('[ţťŧ]', 't', $txt);
+    $txt = mb_ereg_replace('[ÙÚÛÜŨŪŬŮŰŲƯǓǕǗǙǛỤỦỨỪỬỮỰ]', 'U', $txt);
+    $txt = mb_ereg_replace('[ùúûüũūŭůűųưǔǖǘǚǜụủứừửữự]', 'u', $txt);
+    $txt = mb_ereg_replace('[ŴẀẂẄ]', 'W', $txt);
+    $txt = mb_ereg_replace('[ŵẁẃẅ]', 'w', $txt);
+    $txt = mb_ereg_replace('[ÝŶŸỲỸỶỴ]', 'Y', $txt);
+    $txt = mb_ereg_replace('[ýÿŷỹỵỷỳ]', 'y', $txt);
+    $txt = mb_ereg_replace('[ŹŻŽ]', 'Z', $txt);
+    $txt = mb_ereg_replace('[źżž]', 'z', $txt);
+    
+    return $txt;
+    }
+
   ?>
 
 </body>
