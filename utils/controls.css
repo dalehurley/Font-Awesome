@@ -22,31 +22,31 @@ div.promptFrame {
   margin: 50px;
   background: -webkit-gradient(
     linear,
-    left top, right bottom,
+    right,
     from(#ffffff),
     to(#dddddd),
     color-stop(0.8, #cccccc)
   );
   background: -webkit-linear-gradient(
-    left top,
+    right,
     #ffffff,
     #cccccc 80%,
     #dddddd
   );
   background: -moz-linear-gradient(
-    left top,
+    right,
     #ffffff,
     #cccccc 80%,
     #dddddd
   );
   background: -o-linear-gradient(
-    left top,
+    right,
     #ffffff,
     #cccccc 80%,
     #dddddd
   );
   background: linear-gradient(
-    left top,
+    right,
     #ffffff,
     #cccccc 80%,
     #dddddd

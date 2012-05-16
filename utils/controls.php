@@ -21,7 +21,7 @@ switch ($_SERVER['SERVER_ADDR']) {
 	
 	case '91.194.100.239':
 		$dirContentSites = '/data/www/sitesv3';
-		$fileJsonData = '/data/www/sitesv3/dataSites.json';		
+		$fileJsonData = '/data/www/dataSites.json';		
 		break;
 
 	default:
@@ -100,7 +100,7 @@ function hideLoad()
 }
 </script>
 <body onload="hideLoad();">
-<div id="chargement"><div class="load">Veuillez patienter,<br/>chargement de la page en cours...</div></div>
+<div id="chargement"><div class="load">Veuillez patienter, chargement en cours...</div></div>
 
 
 <?php
@@ -178,7 +178,7 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 		}
 	}
 	echo '<form class="reload" method="post" name="reloadData" onSubmit="displayLoad();" action="'.$_SERVER['PHP_SELF'].'">';
-	echo '	<ul><li class="repeat"><a onClick="document.reloadData.submit();" href="#">Recharger les données</a></li></ul>';
+	echo '	<ul><li class="repeat"><a onClick="displayLoad();document.reloadData.submit();" href="#">Recharger les données</a></li></ul>';
 	echo '  <span class="infos">dernière mise à jour le '.date("Y-m-d à H:i:s",filemtime($fileJsonData)).'</span>';
 	echo '	<input type="hidden" name="reloadData" value="true"/>';	
 	echo '</form>';
@@ -238,8 +238,12 @@ function executeCommand($file=false){
 		return $promptOnHtml;
 	} else {
 		if (is_file($file)){
-			unlink($file);
-		} 
+			//unlink($file);
+			$inF = fopen($file,"w");
+			ftruncate($inF,0);
+		} else {
+			$inF = fopen($file,"w");
+		}
 		// on crée le fichier
 		$inF = fopen($file,"w");
 
