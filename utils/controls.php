@@ -259,7 +259,7 @@ function executeCommand($file=false){
 			$i=0;
 			$dirContent = opendir($dirContentSite); 
 			while($dir = readdir($dirContent)) {
-				$command = $dirPhpCommand.'php '.$dirContentSites.'/'.$dir.'/symfony dm:infos-site';  // on envoie '.' à la tache is-ndd (via controls) car tous les ndd ont un '.'
+				$command = $dirPhpCommand.'php '.$dirContentSite.'/'.$dir.'/symfony dm:infos-site';  // on envoie '.' à la tache is-ndd (via controls) car tous les ndd ont un '.'
 				//echo $command.'<br/>';
 				$result = array();
 				exec($command, $result);
