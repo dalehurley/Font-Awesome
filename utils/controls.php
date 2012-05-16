@@ -127,7 +127,6 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 
 	$commandToRun = '';
 	$reloadData = '';
-	$results = false;
 
 	// deconnexion
 	echo '<ul class="deconnex"><li class="unlock"><a onclick="document.deconnex.submit();" href="#">Déconnexion</a></li></ul>';
@@ -147,7 +146,7 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 		$site = $_POST['site'];
 		$arraySites = json_decode(file_get_contents($fileJsonData),true);
 		$findRes = false;  // a t on au moins un resultat?
-
+		$i=0;
 		foreach ($arraySites as $key => $arraySite) {
 			$siteMatch = false;
 			foreach ($arraySite as $line => $value) {
@@ -158,15 +157,16 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 					}
 			}
 			if ($siteMatch) { // on affiche le site complet en cours
-				 foreach ($arraySite as $data) {
+				$i++;
+				echo '<span class="num white">'.$i.'</span>';
+				foreach ($arraySite as $data) {
 				 	echo $data;
-				 }
+				}
 				$findRes = true;
 			}
 		}
 		if (!$findRes) echo '<ul><li class="denied">Pas de résultat</li></ul>';
 	}
-	if ($results) echo '> '.$results; 
 
 	echo '</div>';
 

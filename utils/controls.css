@@ -146,8 +146,8 @@ form input.deconnexion {
 }
 
 p {
-	padding: 0 10px;
-    margin: 2px;
+	padding: 0 30px;
+  margin: 2px;
 }
 
 .black { 
@@ -172,7 +172,7 @@ p {
 	color: #3C7070;
 }
 .white { 
-	color: #AAA;
+	color: #FFF;
 }
 .lightBlack { 
 	color: #808080;
@@ -260,4 +260,11 @@ p {
 span.infos {
   font-size: 0.6em;
   font-weight: normal;
+}
+
+span.num {
+  font-size: 0.8em;
+  font-weight: bold;
+  float: left;
+  margin-left: 5px;
 }
