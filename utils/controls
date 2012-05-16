@@ -47,6 +47,7 @@ $utilisation[] = '* less-compile : compilation des fichiers less';
 $utilisation[] = '* generate-sprite : génération des sprites';
 $utilisation[] = '* migration-doctrine : effectue une migration doctrine suivi d\'un dm:setup';
 $utilisation[] = '* infos : donne des infos ';
+$utilisation[] = '* permissions : met à jour les permissions sur les dossiers et fichiers';
 $utilisation[] = '* query="SELECT * FROM test : execute une requête SQL (ONLY SELECT, INSERT, UPDATE, and DELETE)';
 $utilisation[] = '* ndd="xxxxx@xxx.com" : search in sites a correspondance and display infos-site';
 $utilisation[] = '       ';
@@ -174,6 +175,11 @@ switch ($argCommande) {
 		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:infos-site;";
 		commandForAllSites($commande);
 		break;
+
+	case 'permissions':
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:permissions;";
+		commandForAllSites($commande);
+		break;		
 
 	default:
 		if (substr($argCommande,0,6) == 'query='){
