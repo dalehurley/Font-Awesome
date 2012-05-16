@@ -49,7 +49,7 @@ EOF;
             $this->runTask('less:compile-all', $arguments, $options);
 
             // sprite init
-            ($verbose)?  $this->logBlock('Generation des sprites', 'COMMENT_LARGE'): '';
+            $this->logBlock('Generation des sprites', 'COMMENT_LARGE');
             $timerTotal = new sfTimer;
             $return['hashMd5'] = null;
             $return['spriteFormat'] = null;
