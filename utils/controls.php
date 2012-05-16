@@ -254,9 +254,9 @@ function executeCommand($file=false){
 		// on crée le fichier
 		$inF = fopen($file,"w");
 
+		$i=0;
 		foreach ($dirContentSites as $dirContentSite) {
 			// on se ballade dans tous les sites pour lancer la task dm:infos-site
-			$i=0;
 			$dirContent = opendir($dirContentSite); 
 			while($dir = readdir($dirContent)) {
 				$command = $dirPhpCommand.'php '.$dirContentSite.'/'.$dir.'/symfony dm:infos-site';  // on envoie '.' à la tache is-ndd (via controls) car tous les ndd ont un '.'
