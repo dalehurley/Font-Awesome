@@ -55,7 +55,7 @@
 	}
 
 	//suppression sprites par défaut
-	&, .email, .faxNumber, .telephone {
+	&, .email, .faxNumber, .telephone, .cellphone {
 		.type {
 			//suppression sprites par défaut
 			@spriteDelete();
@@ -92,7 +92,7 @@
 
 		.type, .separator { display: none; visibility: hidden; margin: 0; }
 
-		&.telephone, &.fax, &.email {
+		&.telephone, &.cellphone, &.fax, &.email {
 			.type, .separator { display: inline; visibility: visible; }
 		}
 	}
