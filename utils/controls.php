@@ -171,16 +171,16 @@ if (isset($_SESSION['loginOK']) && $_SESSION['loginOK']== 'ok'){
 	echo '</div>';
 
 	// formulaire pour la recharge
-	echo '<form class="reload" method="post" name="reloadData" onSubmit="displayLoad();" action="'.$_SERVER['PHP_SELF'].'">';
-	echo '	<ul><li class="repeat"><a onClick="document.reloadData.submit();" href="#">Recharger les données</a></li></ul>';
-	echo '  <span class="infos">(dernière mise à jour le '.date("Y-m-d à H:i:s",filemtime($fileJsonData)).')</span>';
-	echo '	<input type="hidden" name="reloadData" value="true"/>';	
 	if (isset($_POST['reloadData'])){
 		$reloadData = $_POST['reloadData'];
 		if (executeCommand($fileJsonData)) {
 			//echo '<ul><li class="info"><a href="#">Chargement des données ok</a></li></ul>';
 		}
 	}
+	echo '<form class="reload" method="post" name="reloadData" onSubmit="displayLoad();" action="'.$_SERVER['PHP_SELF'].'">';
+	echo '	<ul><li class="repeat"><a onClick="document.reloadData.submit();" href="#">Recharger les données</a></li></ul>';
+	echo '  <span class="infos">dernière mise à jour le '.date("Y-m-d à H:i:s",filemtime($fileJsonData)).'</span>';
+	echo '	<input type="hidden" name="reloadData" value="true"/>';	
 	echo '</form>';
 
 	// deconnexion
