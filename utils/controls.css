@@ -70,6 +70,12 @@ form {
 	color: #888;
   margin: 0;
 }
+form.reload {
+  margin: 0 60px;
+  padding: 5px;
+  float: right;
+}
+
 ul.deconnex {
   float: right;
   position: absolute;
@@ -251,3 +257,7 @@ p {
 	font-style: underline;
 }
 
+span.infos {
+  font-size: 0.6em;
+  font-weight: normal;
+}
