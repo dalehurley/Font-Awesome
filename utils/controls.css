@@ -22,31 +22,31 @@ div.promptFrame {
   margin: 50px;
   background: -webkit-gradient(
     linear,
-    left top, right bottom,
+    right,
     from(#ffffff),
     to(#dddddd),
     color-stop(0.8, #cccccc)
   );
   background: -webkit-linear-gradient(
-    left top,
+    right,
     #ffffff,
     #cccccc 80%,
     #dddddd
   );
   background: -moz-linear-gradient(
-    left top,
+    right,
     #ffffff,
     #cccccc 80%,
     #dddddd
   );
   background: -o-linear-gradient(
-    left top,
+    right,
     #ffffff,
     #cccccc 80%,
     #dddddd
   );
   background: linear-gradient(
-    left top,
+    right,
     #ffffff,
     #cccccc 80%,
     #dddddd
@@ -70,6 +70,12 @@ form {
 	color: #888;
   margin: 0;
 }
+form.reload {
+  margin: 0 60px;
+  padding: 5px;
+  float: right;
+}
+
 ul.deconnex {
   float: right;
   position: absolute;
@@ -140,8 +146,8 @@ form input.deconnexion {
 }
 
 p {
-	padding: 0 10px;
-    margin: 2px;
+	padding: 0 30px;
+  margin: 2px;
 }
 
 .black { 
@@ -166,7 +172,7 @@ p {
 	color: #3C7070;
 }
 .white { 
-	color: #AAA;
+	color: #FFF;
 }
 .lightBlack { 
 	color: #808080;
@@ -251,3 +257,14 @@ p {
 	font-style: underline;
 }
 
+span.infos {
+  font-size: 0.6em;
+  font-weight: normal;
+}
+
+span.num {
+  font-size: 0.8em;
+  font-weight: bold;
+  float: left;
+  margin-left: 5px;
+}

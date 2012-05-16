@@ -52,7 +52,7 @@ default:
 #      "Sitemap":                "/admin.php/seo/sitemap/manage-xml-sitemap/index"
 #      "Search index":           "/admin.php/tools/search-engine/manage-index/index"
       "Console":                 "/admin.php/system/dev/diem-console/index"
-      "Configuration":           "http://sitediem.com/admin.php/tools/configuration/configuration-panel/index"
+      "Configuration":           "/admin.php/tools/configuration/configuration-panel/index"
       "Constants":               "/admin.php/tools/configuration/constantes/index"
       "Media":                   "/admin.php/tools/media/media/path"
       "Google Analytics":        "/admin.php/seo/services/google-analytics/index"
