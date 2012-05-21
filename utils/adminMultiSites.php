@@ -63,7 +63,7 @@ $loginPassword = 'comme une fleur en hiver';
 <title><?php echo $pageTitle; ?></title>
 <meta name="language" content="fr" />
 <style>
-	<?php echo file_get_contents(__DIR__."/controls.css"); ?>
+	<?php echo file_get_contents(__DIR__."/adminMultiSites.css"); ?>
 	<?php echo file_get_contents(__DIR__."/icones.css"); ?>
 </style>
 </head>
@@ -254,9 +254,9 @@ function executeCommand($file=false){
 		// on crée le fichier
 		$inF = fopen($file,"w");
 
+		$i=0;
 		foreach ($dirContentSites as $dirContentSite) {
 			// on se ballade dans tous les sites pour lancer la task dm:infos-site
-			$i=0;
 			$dirContent = opendir($dirContentSite); 
 			while($dir = readdir($dirContent)) {
 				$command = $dirPhpCommand.'php '.$dirContentSite.'/'.$dir.'/symfony dm:infos-site';  // on envoie '.' à la tache is-ndd (via controls) car tous les ndd ont un '.'

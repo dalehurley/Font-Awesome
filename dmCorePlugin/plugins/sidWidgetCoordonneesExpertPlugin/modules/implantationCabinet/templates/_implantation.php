@@ -6,7 +6,7 @@ $i = 1;
 $i_max = count($equipes);
 $class = '';
 // vars  $equipes, $titreBloc, $nomRubrique
-if (count($equipes)) { // si nous avons des actu articles
+if (count($equipes) || $adresse->resume_team != NULL) { // si nous avons des collaborateurs
 // initialisation des variables pour les class first et last
 // initialisation des variables pour les class first et last
     echo _tag('h2', array('class' => 'title'), $titreBloc);
