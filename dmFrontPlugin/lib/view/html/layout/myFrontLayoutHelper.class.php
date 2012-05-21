@@ -96,9 +96,9 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 	{
 		foreach(array('ico', 'png', 'gif') as $extension)
 		{
-			if (file_exists(sfConfig::get('sf_web_dir').'/theme/images/favicon.'.$extension))
+			if (file_exists(sfConfig::get('sf_web_dir').'/uploads/assets/favicon.'.$extension))
 			{
-				return 'theme/images/favicon.'.$extension;
+				return 'uploads/assets/favicon.'.$extension;
 			}
 		}
 	}
@@ -110,9 +110,9 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 		{
 			//composition du nom du fichier
 			if($size != ''){
-				$touchIcon = 'theme/images/apple-touch-icon-'.$size.'.'.$extension;
+				$touchIcon = 'uploads/assets/apple-touch-icon-'.$size.'.'.$extension;
 			}else{
-				$touchIcon = 'theme/images/apple-touch-icon.'.$extension;
+				$touchIcon = 'uploads/assets/apple-touch-icon.'.$extension;
 			}
 			
 			//on ne retourne l'icône que si elle existe

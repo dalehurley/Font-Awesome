@@ -1,6 +1,6 @@
 // AdressesMultiples.less
-// v1.2
-// Last Updated : 2012-02-10 16:05
+// v1.2.5
+// Last Updated : 2012-05-16 12:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -38,8 +38,20 @@
 	.elements {
 		margin: 0;
 		padding: 0;
+
+		//centrage des adresses
+		text-align: center;
+		font-size: 0;
 		
 		.element {
+			display: inline-block;
+			vertical-align: top;
+			text-align: left;
+			white-space: nowrap;
+
+			//pour ie6 et ie7 on réaligne à gauche car inline-block n'est pas géré correctement sur les éléments en block par défaut
+			.ie6 &, .ie7 & { display: block; float: left; }
+
 			//suppression transition
 			.csstransitions & {
 				@transitionNone();
@@ -50,7 +62,7 @@
 			@gridWidth(4);
 			//suppression décalage en début et fin de chaine
 			&.first, &.last { @gridWidth(4; @gridGutter/2); }
-			float: left;
+			
 			//adaptation padding
 			padding: 0 (@gridGutter/2 -1px) 0 @gridGutter/2;
 			//suppression bordure et ajout à droite
