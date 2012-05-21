@@ -63,7 +63,7 @@ $loginPassword = 'comme une fleur en hiver';
 <title><?php echo $pageTitle; ?></title>
 <meta name="language" content="fr" />
 <style>
-	<?php echo file_get_contents(__DIR__."/controls.css"); ?>
+	<?php echo file_get_contents(__DIR__."/adminMultiSites.css"); ?>
 	<?php echo file_get_contents(__DIR__."/icones.css"); ?>
 </style>
 </head>
