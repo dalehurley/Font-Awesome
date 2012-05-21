@@ -9,25 +9,10 @@ class dmWidgetContentLegalNoticesForm extends dmWidgetPluginForm {
         $this->widgetSchema['defaultInfos'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Afficher les infos par défauts'));
         $this->validatorSchema['defaultInfos']  = new sfValidatorBoolean();
         
-        $this->widgetSchema['text'] = new sfWidgetFormTextarea(array('default' => '### Édition
-**SAS SID Presse**  
-**Siège social**  
-16, rue du 4 Septembre - 75002 Paris  
-Capital social : 1 728 750 €  
-RCS 381 123 868 Paris  
-**Production et administratif**  
-15, rue de la Demi-Lune - BP 1119 - 86061 Poitiers Cedex 9  
-Tél. 05 49 60 20 60  -  Fax 05 49 01 87 08
-
-**Directeur de la Publication :** Nicolas Beytout  
-**Directeur de la Rédaction :** Laurent David
-
-### Hébergement
-**Novius**  
-**Siège social**  
-55, avenue Galline - 69100 Villeurbanne  
-RCS 443 207 154 Villeurbanne  '));
+        $this->widgetSchema['text'] = new sfWidgetFormTextarea(array('default' => ''));
         $this->validatorSchema['text'] = new sfValidatorString(array('required' => false));
+
+        $this->widgetSchema->setHelp('defaultInfos', 'sinon ressaisir ENTIEREMENT les notices légales');
         
     }
 
