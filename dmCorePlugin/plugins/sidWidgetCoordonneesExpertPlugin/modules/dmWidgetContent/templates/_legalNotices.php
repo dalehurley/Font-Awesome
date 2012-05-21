@@ -93,10 +93,10 @@ echo _tag('p','16, rue du 4 Septembre - 75002 Paris<br />Capital social : 1 728 
 echo _tag('strong',__('Production and administrative'));
 echo _tag('br');
 echo _tag('p','15, rue de la Demi-Lune - BP 1119 - 86061 Poitiers Cedex 9<br />Tél. 05 49 60 20 60  -  Fax 05 49 01 87 08');
-echo _tag('strong',__('Director of Publication').' :');
+echo _tag('strong',__('Director of Publication').' : ');
 echo _tag('span','Francis Morel');
 echo _tag('br');
-echo _tag('strong',__('Editor').' :');
+echo _tag('strong',__('Editor').' : ');
 echo _tag('span','Laurent David');
 echo _tag('br');
 echo _tag('h3',__('Accommodation'));
