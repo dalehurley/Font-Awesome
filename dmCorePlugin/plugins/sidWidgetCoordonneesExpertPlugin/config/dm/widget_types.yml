@@ -17,3 +17,9 @@ implantationCabinet:
   listImplantation:
     cache: true
     public_name:	(implantationCabinet) listing des implantations du cabinet
+    
+dmWidgetContent:
+  
+  legalNotices:
+    cache: true
+    public_name: Mentions légales du client
