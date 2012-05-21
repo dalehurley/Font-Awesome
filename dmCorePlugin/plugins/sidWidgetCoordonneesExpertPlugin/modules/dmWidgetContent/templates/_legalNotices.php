@@ -4,7 +4,9 @@
 //titre du contenu
 if($titreBloc == NULL) {$titreBloc = __('Legal notices');};
 echo '<h2 class="title">' . $titreBloc . '</h2>';
+
 echo _open('div.wrapper');
+if($defaultInfos == TRUE){
     // composition du bloc perso au cabinet
     echo _tag('h3', __('The office'));
     if ($defaultInfos == TRUE) {
@@ -81,87 +83,30 @@ echo _open('div.wrapper');
         echo _close('div');
         echo _tag('br');
 
-//ouverture du listing
-//    echo _open('ul.elements');
-//	
-//	//compteur
-//	$i = 1;
-//	$i_max = count($adresses);
-//	
-//    foreach($adresses as $adresse) {
-//
-//		$position = '';
-//        switch ($i){
-//            case '1' : 
-//            	if ($i_max == 1) $position = ' first last';
-//            	else $position = ' first';
-//                break;
-//            default : 
-//            	if ($i == $i_max) $position = ' last';
-//            	else $position = '';
-//            	break;
-//        }
-//
-//		$emailSpan = '';
-//		if ($adresse->getEmail()){
-//		$emailSpan = '<span class="itemprop email">'.
-//						'<span class="type" title="Email">Email</span>'.
-//						'<span class="separator">&nbsp;:&nbsp;</span>'.
-//						'<span class="value"><a class="link" href="mailto:'.$adresse->getEmail().'" itemprop="email">'.$adresse->getEmail().'</a></span>'.
-//					'</span>';
-//		}
-//
-//		$telSpan = '';
-//		if ($adresse->getTel()){
-//			$telSpan = '<span class="itemprop telephone">'.
-//						'<span class="type" title="Téléphone">Téléphone</span>'.
-//						'<span class="separator">&nbsp;:&nbsp;</span>'.
-//						'<span class="value" itemprop="telephone">'.$adresse->getTel().'</span>'.
-//					'</span>';
-//		}
-//
-//		$faxSpan = '';
-//		if ($adresse->getFax()){
-//			$faxSpan = '<span class="itemprop faxNumber">'.
-//						'<span class="type" title="Fax">Fax</span>'.
-//						'<span class="separator">&nbsp;:&nbsp;</span>'.
-//						'<span class="value" itemprop="faxNumber">'.$adresse->getFax().'</span>'.
-//					'</span>';
-//		}
-//
-//
-//		echo '	<li class="element itemscope Organization'.$position.'" itemscope="itemscope" itemtype="http://schema.org/Organization">'.
-//					'<span class="itemprop name" itemprop="name">'.
-//						$adresse->getTitle().
-//					'</span>'.
-//					'<div itemprop="address" class="address itemscope PostalAddress" itemscope="itemscope" itemtype="http://schema.org/PostalAddress">'.
-//						'<span class="itemprop streetAddress">'.
-//							'<span class="type" title="Rue">Rue</span>'.
-//							'<span class="separator">&nbsp;:&nbsp;</span>'.
-//							'<span class="value" itemprop="streetAddress">'.$adresse->getAdresse().'</span>'.
-//						'</span>'.
-//						'<span class="subWrapper">'.
-//							'<span class="itemprop postalCode">'.
-//								'<span class="type" title="Postal Code">Postal Code</span>'.
-//								'<span class="separator">&nbsp;:&nbsp;</span>'.
-//								'<span class="value" itemprop="postalCode">'.$adresse->getCodePostal().'</span>'.
-//							'</span> '.
-//							'<span class="itemprop addressLocality">'.
-//								'<span class="type" title="Localité">Localité</span>'.
-//								'<span class="separator">&nbsp;:&nbsp;</span>'.
-//								'<span class="value" itemprop="addressLocality">'.$adresse->getVille().'</span>'.
-//							'</span>'.
-//						'</span>'.
-//					'</div>'.
-//					$emailSpan.
-//					$telSpan.
-//					$faxSpan.
-//				'</li>';
-//
-//		    	$i++;
-//    }
-//	
-//    //fermeture du listing
-//    echo _close('ul.elements');
 
+echo _open('div.wrapper');
+echo _tag('h3',__('Edition'));
+echo _tag('strong','SAS SID Presse');
+echo _tag('br');  
+echo _tag('strong',__('Headquarters'));
+echo _tag('p','16, rue du 4 Septembre - 75002 Paris<br />Capital social : 1 728 750 €<br />RCS 381 123 868 Paris');  
+echo _tag('strong',__('Production and administrative'));
+echo _tag('br');
+echo _tag('p','15, rue de la Demi-Lune - BP 1119 - 86061 Poitiers Cedex 9<br />Tél. 05 49 60 20 60  -  Fax 05 49 01 87 08');
+echo _tag('strong',__('Director of Publication').' :');
+echo _tag('span','Francis Morel');
+echo _tag('br');
+echo _tag('strong',__('Editor').' :');
+echo _tag('span','Laurent David');
+echo _tag('br');
+echo _tag('h3',__('Accommodation'));
+echo _tag('strong','Novius');
+echo _tag('br');
+echo _tag('strong',__('Headquarters'));
+echo _tag('br');
+echo _tag('span','55, avenue Galline - 69100 Villeurbanne<br />RCS 443 207 154 Villeurbanne');
+echo _close('div');
+}
+else {
 echo markdown($text);
+}
