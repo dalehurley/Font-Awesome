@@ -51,7 +51,7 @@
 
 	//lancement automatique de la fonction
 	$(document).ready(function(){
-		$('html').frontTemplate();
+		// $('html').frontTemplate();
 
 		//inversion ordre du wrapper dans les listings (pour passer devant l'image quand présente)
 		// $('.elements .element .imageWrapper').each(function(index) {
@@ -63,7 +63,7 @@
 	$(window).resize(function() {
 		//lancement de la fonction de replacement avec un délai lors du redimenssionnement
 		$.fn.frontFramework.delay(function(){
-			$('html').frontTemplate();
+			// $('html').frontTemplate();
 		}, 500);
 	});
 
