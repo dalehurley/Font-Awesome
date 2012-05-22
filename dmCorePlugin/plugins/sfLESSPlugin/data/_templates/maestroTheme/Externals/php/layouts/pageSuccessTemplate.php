@@ -12,7 +12,7 @@
  */
 //Configuration des zones du template
 $pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' => 'customTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
-$pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
+// $pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 
 //création de zones supplémentaires
 $pageOptionsCustom['areas']['dm_custom_bottom_left'] = array('areaName' => 'customBottomLeft', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
@@ -62,7 +62,7 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 
 					//Maestro : création d'un container contenant deux zones spéfiques
 					// if($html_customBottom != ''){
-					echo '<div id="dm_custom_bottomTempo" class="clearfix dm_area dm_layout_customBottom">' .
+					echo '<div id="dm_custom_bottom" class="clearfix dm_area dm_layout_customBottom">' .
 							'<div class="dm_zones clearfix">' .
 								$html_customBottom .
 							'</div>' .
