@@ -3,7 +3,7 @@
 class CvpForm extends dmForm
 {
 	protected static $listePeriodicite = array(12=>'Mois',1=>'An(s)', 4=>'Trimestre(s)', 2=>'Semestre(s)');
-	protected static $listeVersement = array(0=>'Fin de période', 0=>'Début de période');
+	protected static $listeVersement = array(0=>'Fin de période', 1=>'Début de période');
 
 	 public function setup()
 	{
