@@ -414,11 +414,11 @@ $out = $err = null;
 $this->getFilesystem()->execute('ln -s '.$beDirImages. ' '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/_images', $out, $err);
 
 //-------------------------------------------------------------------------------------
-//    Lien symbolique des images de la base editoriale
+//    Lien symbolique des images des images communes
 //-------------------------------------------------------------------------------------
 $this->logBlock('Lien symbolique images communes.', 'INFO_LARGE');
 $out = $err = null;
-$this->getFilesystem()->execute('ln -s '.$commonDirImages. ' '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/uploads/_images', $out, $err); 
+$this->getFilesystem()->execute('ln -s '.$commonDirImages. ' '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/uploads/_common', $out, $err); 
 
 //-------------------------------------------------------------------------------------
 //    liaison vers le dossier templates contenant les partials du coeur
