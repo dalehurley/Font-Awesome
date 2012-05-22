@@ -1,6 +1,6 @@
 <?php
 //Personnalisation de la mise en page par défaut
-$pageOptionsCustom['areas']['dm_custom_bottom']['isPage'] = true;
+$pageOptionsCustom['areas']['dm_custom_bottom_right']['isPage'] = true;
 
 //Récupération et chargement du template de page
 $pSTInc = spLessCss::pageSuccessTemplateInclude();
