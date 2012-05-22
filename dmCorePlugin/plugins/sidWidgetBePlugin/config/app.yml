@@ -62,6 +62,7 @@ all:
       ec_faq: questions/réponses
       ec_paie: paie
       ec_aides: aides à l'embauche
+      ec_aides_dossiers: dossiers aides à l'embauche
       ec_guidecreation: guide création 
       ec_idees_business: idées business 
       vacances_scolaires: vacances scolaires
