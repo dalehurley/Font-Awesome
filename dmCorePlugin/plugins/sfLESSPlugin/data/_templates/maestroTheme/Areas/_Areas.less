@@ -90,21 +90,40 @@
 	.dm_zones {
 		.dm_zone { position: relative; }
 
-		.dm_zone.left {
-			.isLess & { background-color: fadeout(#A1ADD1, 50%); }
-			//définition de la largeur
-			@gridWidth(@gridCol_SidebarLeft);
-			//placement et hauteur
-			position: absolute;
-			bottom: 0;
-		}
-		.dm_zone.right {
-			.isLess & { background-color: fadeout(#A8A1D1, 50%); }
-			background-color: @colorCouleur3Clair;
-			//définition de la largeur
-			@gridWidth((@gridCol - @gridCol_SidebarLeft));
-			//placement et hauteur
-			float: right;
-		}
+		// .dm_zone.left {
+		// 	.isLess & { background-color: fadeout(#A1ADD1, 50%); }
+		// 	//définition de la largeur
+		// 	@gridWidth(@gridCol_SidebarLeft);
+		// 	//placement et hauteur
+		// 	position: absolute;
+		// 	bottom: 0;
+		// }
+		// .dm_zone.right {
+		// 	.isLess & { background-color: fadeout(#A8A1D1, 50%); }
+		// 	background-color: @colorCouleur3Clair;
+		// 	//définition de la largeur
+		// 	@gridWidth((@gridCol - @gridCol_SidebarLeft));
+		// 	//placement et hauteur
+		// 	float: right;
+		// }
 	}
-}	
+}
+
+#dm_custom_bottom_left {
+	.isLess & { background-color: fadeout(#A1ADD1, 50%); }
+	//définition de la largeur
+	@gridWidth(@gridCol_SidebarLeft);
+	//placement et hauteur
+	position: absolute;
+	bottom: 0;
+}
+
+#dm_custom_bottom_right {
+	.isLess & { background-color: fadeout(#A8A1D1, 50%); }
+	background-color: @colorCouleur3Clair;
+	//définition de la largeur
+	@gridWidth((@gridCol - @gridCol_SidebarLeft));
+	//placement et hauteur
+	position: relative;
+	float: right;
+}
