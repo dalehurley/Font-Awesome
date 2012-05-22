@@ -80,6 +80,7 @@ switch ($numEnv) {
     $dbUser = 'root';
     $dbPwd = 'root';
     $beDirImages = '/data/www/_lib/baseEditoriale/_images/';
+    $commonDirImages = '/data/www/_lib/_common/';      
     break;
 
   case 2:
@@ -90,6 +91,7 @@ switch ($numEnv) {
     $dbUser = 'uSitesv3';
     $dbPwd = 'SADY1234';  
     $beDirImages = '/data/www/_lib/baseEditoriale/_images/';
+    $commonDirImages = '/data/www/_lib/_common/';    
     break;
 
   default:
@@ -407,10 +409,16 @@ $diemLibConfigDir = dirname(__FILE__); // dossier config du corePlugin
 //-------------------------------------------------------------------------------------
 //    Lien symbolique des images de la base editoriale
 //-------------------------------------------------------------------------------------
-$this->logBlock('Lien symbolique images.', 'INFO_LARGE');
+$this->logBlock('Lien symbolique images base éditoriale.', 'INFO_LARGE');
 $out = $err = null;
 $this->getFilesystem()->execute('ln -s '.$beDirImages. ' '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/_images', $out, $err);
- 
+
+//-------------------------------------------------------------------------------------
+//    Lien symbolique des images des images communes
+//-------------------------------------------------------------------------------------
+$this->logBlock('Lien symbolique images communes.', 'INFO_LARGE');
+$out = $err = null;
+$this->getFilesystem()->execute('ln -s '.$commonDirImages. ' '.sfConfig::get('sf_root_dir').'/'.$settings['web_dir_name'].'/uploads/_common', $out, $err); 
 
 //-------------------------------------------------------------------------------------
 //    liaison vers le dossier templates contenant les partials du coeur
