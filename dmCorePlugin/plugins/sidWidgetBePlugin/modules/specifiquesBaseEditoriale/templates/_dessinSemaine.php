@@ -45,7 +45,7 @@
                 <?php
                     $i = 0;
                     foreach ($dessins as $dessin) {
-                        
+                        if ($i == sfConfig::get('app_nb-dessins-affiche',10)) break;
                         //on vérifie que l'image existe
                         $img = sfConfig::get('sf_web_dir') . $dessin['imgLinkBig'];
                         $imgExist = is_file($img);

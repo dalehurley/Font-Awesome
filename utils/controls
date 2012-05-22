@@ -171,7 +171,7 @@ switch ($argCommande) {
 		commandForAllSites($commande);
 		break;
 
-	case 'infos-site':
+	case 'infos':
 		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony dm:infos-site;";
 		commandForAllSites($commande);
 		break;

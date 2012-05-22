@@ -31,9 +31,10 @@ all:
   sections:                    # les sections à tronquer
     truncated: 
       - ec_actualites
-  nb-jours-max-date-article: 180  # nombre de jours maxi pour l'age d'un article qui sera exporté dans le fichier json pour les sections à tronquer
+  nb-jours-max-date-article: 180    # nombre de jours maxi pour l'age d'un article qui sera exporté dans le fichier json pour les sections à tronquer
   nb-articles-min-par-section: 30   # nombre minimum d'articles pour une section donnée pour les sections à tronquer
-
+  nb-dessins-affiche: 10            # nombre de dessins de la semaine affichés
+  
   dm-pages:     
     # les renommages de pages (nom/slug/title/desc)
     # ancien : nouveau
