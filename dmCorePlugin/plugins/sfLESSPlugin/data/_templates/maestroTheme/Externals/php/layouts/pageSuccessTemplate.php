@@ -45,16 +45,16 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 						$areaRole = ($area['areaName'] == "content") ? ' data-role="content"' : null;
 						
 						//affichage de la zone si active
-						if ($area['isActive']) echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
+						// if ($area['isActive']) echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
 
 						//Maestro : exclusion de customBottomLeft et customBottomRight
-						// if ($area['isActive']){
-						// 	if ($area['areaName'] == 'customBottomLeft' || $area['areaName'] == 'customBottomRight'){
-						// 		$html_customBottom.= $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
-						// 	}else{
-						// 		echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
-						// 	}
-						// }
+						if ($area['isActive']){
+							if ($area['areaName'] == 'customBottomLeft' || $area['areaName'] == 'customBottomRight'){
+								$html_customBottom.= $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
+							}else{
+								echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
+							}
+						}
 
 						//div vides de test pour la mise en page
 						// echo '<div id="' . $id . '" class="' . (($area['clearfix']) ? 'clearfix ' . $areaName : $areaName) .'">' . $areaName . '</div>';
@@ -62,16 +62,16 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 
 					//Maestro : création d'un container contenant deux zones spéfiques
 					// if($html_customBottom != ''){
-					// echo '<div id="dm_custom_bottomTempo" class="clearfix dm_area dm_layout_customBottom">' .
-					// 		'<div class="dm_zones clearfix">' .
-					// 			$html_customBottom .
-					// 		'</div>' .
-					// 	'</div>';
+					echo '<div id="dm_custom_bottomTempo" class="clearfix dm_area dm_layout_customBottom">' .
+							'<div class="dm_zones clearfix">' .
+								$html_customBottom .
+							'</div>' .
+						'</div>';
 					// }
 				?>
 			</div>
 		</div>
-		
+
 		<?php echo $helper->renderArea('layout.bottom', '#dm_footer data-role="footer"') ?>
 		
 	</div>
