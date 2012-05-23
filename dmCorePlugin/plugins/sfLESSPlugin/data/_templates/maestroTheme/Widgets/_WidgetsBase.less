@@ -79,6 +79,10 @@
 #dm_page_content, #dm_sidebar_left, #dm_sidebar_right, #dm_custom_bottom {
 	.dm_widget {
 		.dm_widget_inner {
+			padding: @gridBaseline/2 0;
+			//suppression bordures sous niveaux
+			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; } }
+
 			//stylage du titre
 			& > .title {
 				.isLess & { background-color: #5F8FA3; }
@@ -88,6 +92,8 @@
 				font-weight: normal;
 				font-size: @fontGlobalSizePx;
 				line-height: @gridBaseline;
+				//placement du titre
+				margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0;
 				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
 				& + .elements {
 					margin-top: @gridBaseline/-2;
@@ -99,41 +105,32 @@
 }
 
 #dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
-	.dm_widget {
-		margin-bottom: @gridBaseline;
-		.dm_widget_inner {
-			padding: @gridBaseline/2 0;
-			//suppression bordures sous niveaux
-			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; } }
-			//placement du titre
-			& > .title { margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0; }
-		}
-	}
+	.dm_widget { margin-bottom: @gridBaseline; }
 }
 
 #dm_custom_bottom {
 	
-	.dm_zone.left {
-		.dm_widget {
-			.dm_widget_inner {
-				padding: @gridBaseline/2 0;
-				//suppression bordures sous niveaux
-				.dm_widget_inner { padding: 0; }
-				//placement du titre
-				& > .title { margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0; }
-			}
-		}
-	}
+	// .dm_zone.left {
+	// 	.dm_widget {
+	// 		.dm_widget_inner {
+	// 			padding: @gridBaseline/2 0;
+	// 			//suppression bordures sous niveaux
+	// 			.dm_widget_inner { padding: 0; }
+	// 			//placement du titre
+	// 			& > .title { margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0; }
+	// 		}
+	// 	}
+	// }
 
-	.dm_zone.right {
-		.dm_widget {
-			.dm_widget_inner {
-				padding: @gridBaseline/2 @gridGutter/2;
-				//suppression bordures sous niveaux
-				.dm_widget_inner { padding: 0; }
-				//placement du titre
-				& > .title { margin-bottom: @gridBaseline/2; }
-			}
-		}
-	}
+	// .dm_zone.right {
+	// 	.dm_widget {
+	// 		.dm_widget_inner {
+	// 			padding: @gridBaseline/2 @gridGutter/2;
+	// 			//suppression bordures sous niveaux
+	// 			.dm_widget_inner { padding: 0; }
+	// 			//placement du titre
+	// 			& > .title { margin-bottom: @gridBaseline/2; }
+	// 		}
+	// 	}
+	// }
 }
