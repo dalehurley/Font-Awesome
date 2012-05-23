@@ -40,17 +40,18 @@
 		padding: 0;
 
 		//centrage des adresses
-		text-align: center;
-		font-size: 0;
+		// text-align: center;
+		// font-size: 0;
 		
 		.element {
-			display: inline-block;
-			vertical-align: top;
-			text-align: left;
-			white-space: nowrap;
+			float: left;
+			// display: inline-block;
+			// vertical-align: top;
+			// text-align: left;
+			// white-space: nowrap;
 
 			//pour ie6 et ie7 on réaligne à gauche car inline-block n'est pas géré correctement sur les éléments en block par défaut
-			.ie6 &, .ie7 & { display: block; float: left; }
+			// .ie6 &, .ie7 & { display: block; float: left; }
 
 			//suppression transition
 			.csstransitions & {
