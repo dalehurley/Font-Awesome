@@ -32,7 +32,7 @@
 	//gestion ouverture de chaque li
 	$.fn.menuAccordion.toggle = function(li, options) {
 		//on force le déclenchement de l'événement resize sur la page pour replacer les éléments
-		$(window).trigger('resize');
+		$(window).triggerHandler('resize');
 
 		//si le menu est ouvert on le ferme
 		if($(li).hasClass('dm_parent')) {
