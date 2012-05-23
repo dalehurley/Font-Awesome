@@ -51,7 +51,7 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 						if ($area['isActive']) {
 							//rendu de l'area dans une variable
 							$areaRendering = $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
-
+							//supprimer customBottom lorsque terminé
 							if ($area['areaName'] == 'customBottomLeft' || $area['areaName'] == 'customBottomRight' || $area['areaName'] == 'customBottom'){
 								$html_customBottom.= $areaRendering;
 							}else{
