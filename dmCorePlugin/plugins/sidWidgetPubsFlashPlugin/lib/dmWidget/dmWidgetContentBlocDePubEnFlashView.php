@@ -33,13 +33,18 @@ class dmWidgetContentBlocDePubEnFlashView extends dmWidgetPluginView {
      */
     protected function doRender() {
         
+        $listPubsId = "";
         $vars = $this->getViewVars();
+        // création de la chaine de caractères pour requète SQL
+        $listPubsId = "'".implode("','", $vars['pubsId'])."'";
+        // sélection d'une pub aléatoire parmi celles choisies lors de la pose du widget ($vars['pubsId']
         $pubsFlash = dmDb::table('DmMedia')
-                        ->createQuery()
-                        ->Where('dm_media_folder_id = ?', $vars['pubsId'])
+                        ->createQuery('a')
+                        ->Where("a.file IN (".$listPubsId.")")
                         ->orderBy('RAND()')
                         ->limit('1')
                         ->execute();
+        
         return $this->getHelper()->renderPartial('dmWidgetContentBlocDePubEnFlash', 'blocDePubsEnFlash', array(
                     'flash' => $pubsFlash[0]->getWebPath(),
                     'width' => $vars['width'],
