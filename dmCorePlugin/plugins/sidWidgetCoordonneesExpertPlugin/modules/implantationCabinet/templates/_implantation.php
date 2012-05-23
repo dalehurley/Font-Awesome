@@ -6,7 +6,7 @@ $i = 1;
 $i_max = count($equipes);
 $class = '';
 // vars  $equipes, $titreBloc, $nomRubrique
-if (count($equipes)) { // si nous avons des actu articles
+if (count($equipes) || $adresse->resume_team != NULL) { // si nous avons des collaborateurs
 // initialisation des variables pour les class first et last
 // initialisation des variables pour les class first et last
     echo _tag('h2', array('class' => 'title'), $titreBloc);
@@ -84,7 +84,7 @@ echo _open('section', array('class' => 'supWrapper clearfix first last'));
             echo _open('span', array('class' => 'itemprop cellphone'));
             echo _tag('span', array('class' => 'type', 'title' => __('Cellphone')), __('Cellphone'));
             echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
-            echo _tag('span', array('class' => 'value', 'itemprop' => 'cellphone'), $equipe->mobile);
+            echo _tag('span', array('class' => 'value', 'itemprop' => 'telephone'), $equipe->mobile);
             echo _close('span');
         };
         echo _close('span');

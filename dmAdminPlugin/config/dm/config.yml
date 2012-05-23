@@ -24,13 +24,13 @@ default:
 
   console:                                                      # emulate a linux shell
                                                                 # commands available
-    commands:            'sf ls ccc css css-sprite infos'       #'sf man ll ls pwd cat mkdir rm cp mv touch chmod free df find clear php'
+    commands:            'ls ccc css css-sprite infos clear'    #'man ll ls pwd cat mkdir rm cp mv touch chmod free df find clear php'
     aliases:                                                    # aliases available
       'ls':
         command:         'ls -la'
         description:     'List files and directory'
       'ccc':
-        command:         'sf ccc'
+        command:         'sf ccc'                               # put sf before task to call symfony executable
         description:     'Clear cache'
       'css':
         command:         'sf less:compile-all'
@@ -52,7 +52,7 @@ default:
 #      "Sitemap":                "/admin.php/seo/sitemap/manage-xml-sitemap/index"
 #      "Search index":           "/admin.php/tools/search-engine/manage-index/index"
       "Console":                 "/admin.php/system/dev/diem-console/index"
-      "Configuration":           "http://sitediem.com/admin.php/tools/configuration/configuration-panel/index"
+      "Configuration":           "/admin.php/tools/configuration/configuration-panel/index"
       "Constants":               "/admin.php/tools/configuration/constantes/index"
       "Media":                   "/admin.php/tools/media/media/path"
       "Google Analytics":        "/admin.php/seo/services/google-analytics/index"

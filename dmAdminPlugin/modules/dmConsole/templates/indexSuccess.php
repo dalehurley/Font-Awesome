@@ -15,7 +15,7 @@ echo _open('div#dm_console.mt10');
           echo _tag("li.dm_command_intro", "<strong>".$alias.str_repeat('&nbsp;', 30-strlen($alias))." : ".__($aliasDesc['description'])." (".$aliasDesc['command'].")</strong>"); 
      } 
     echo _tag("li.dm_command_intro", __("symfony commands can be run by prefixing with sf")._tag('br').__("Example : sf cc (clear cache)"));
-    echo _tag("li.dm_command_intro", str_repeat("-", 50));
+    echo _tag("li.dm_command_intro", str_repeat("-", 40));
   echo _close('ul');
   echo _open('ul#dm_lines.dm_content_command');
     echo _tag('li','&nbsp;');
