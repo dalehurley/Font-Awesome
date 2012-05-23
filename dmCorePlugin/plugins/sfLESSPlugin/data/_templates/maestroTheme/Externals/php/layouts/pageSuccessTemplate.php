@@ -12,7 +12,7 @@
  */
 //Configuration des zones du template
 $pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' => 'customTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
-// $pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
+// $pageOptionsCustom['areas']['dm_custom_bottomTEST'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 
 //création de zones supplémentaires
 $pageOptionsCustom['areas']['dm_custom_bottom_left'] = array('areaName' => 'customBottomLeft', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
@@ -48,11 +48,14 @@ $pageOptions = spLessCss::pageInit($pageOptionsCustom);
 						// if ($area['isActive']) echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
 
 						//Maestro : exclusion de customBottomLeft et customBottomRight
-						if ($area['isActive']){
-							if ($area['areaName'] == 'customBottomLeft' || $area['areaName'] == 'customBottomRight'){
-								$html_customBottom.= $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
+						if ($area['isActive']) {
+							//rendu de l'area dans une variable
+							$areaRendering = $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
+
+							if ($area['areaName'] == 'customBottomLeft' || $area['areaName'] == 'customBottomRight' || $area['areaName'] == 'customBottom'){
+								$html_customBottom.= $areaRendering;
 							}else{
-								echo $helper->renderArea($areaType . '.' . $areaName, '#' . $id . $areaClass . $areaRole);
+								echo $areaRendering;
 							}
 						}
 
