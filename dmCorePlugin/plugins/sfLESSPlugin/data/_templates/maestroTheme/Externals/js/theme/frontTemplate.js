@@ -34,8 +34,8 @@
 		//on rajoute l'espace manquant à priori en bas à droite afin de combler le manque éventuel
 		var offsetHC = $('#dm_main').height() - $('#dm_main_inner').height();
 
-		//on applique le décalage
-		if(offsetHC > 0) options.offsetHC = offsetHC;
+		//on rajoute le décalage
+		if(offsetHC > 0) options.offsetHC+= offsetHC;
 		// $.fn.frontFramework.debug("offsetHC : " + offsetHC);
 		
 		//on calcul la hauteur de la zone customBottom et de sa sous-zone à gauche
