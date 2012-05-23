@@ -41,7 +41,7 @@
 		//on calcul la hauteur de la zone customBottom et de sa sous-zone à gauche
 		var customBottomHeight = $('#dm_custom_bottom').outerHeight(true);
 		var customBottomLeftHeight = $('#dm_custom_bottom_left').outerHeight(true);
-		$.fn.frontFramework.debug("customBottomHeight : " + customBottomHeight + " customBottomLeftHeight : " + customBottomLeftHeight);
+		// $.fn.frontFramework.debug("customBottomHeight : " + customBottomHeight + " customBottomLeftHeight : " + customBottomLeftHeight);
 		
 		//on ne rajoute de l'espace que si la zone est insuffisamment grande pour le contenir
 		if(customBottomHeight < customBottomLeftHeight) {
