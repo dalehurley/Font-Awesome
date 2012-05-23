@@ -55,7 +55,7 @@ class missionsMissionsListView extends dmWidgetPluginView {
                     ->from('SidCabinetMission a')
                     ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                     ->where('a.is_active = ? ', array(true))
-                    ->orderBy('aTranslation.updated_at DESC')
+                    ->orderBy('a.position ASC')
                     ->limit($nbArticles)
                     ->execute();
         
