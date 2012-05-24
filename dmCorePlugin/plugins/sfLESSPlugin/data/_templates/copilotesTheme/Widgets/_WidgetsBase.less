@@ -128,6 +128,19 @@
 	}
 }
 
+//stylage des widgets images pour la page d'accueil
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.content_image_plus {
+
+		.dm_widget_inner {
+			padding: 0;
+			& > .title {
+				margin: 0;
+			}
+		}
+	}
+}
+
 #dm_sidebar_left, #dm_sidebar_right {
 	.dm_widget {
 		margin-bottom: @gridBaseline/2;
