@@ -108,7 +108,7 @@ ul.menu-dropdown, ul.menu-megadropdown, ul.menu-accordion {
 	//gestion grosseur texte
 	li, ul li.dm_dir {
 		font-weight: bold;
-		text-transform: uppercase;
+		// text-transform: uppercase;
 		word-spacing: -0.025em;
 		letter-spacing: -0.025em;
 	}
@@ -139,7 +139,7 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		//changement taille selon zone
 		#dm_custom_top & { font-size: @fontGlobalSizePx; }
 		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
-		
+
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
 		&.dm_inactive { color: @colorCouleur3; }
 		//LoVe's Hurts Fade Away
@@ -149,6 +149,9 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 
 	//remise de la couleur du bas sur les premiers et derniers de liste
 	.last > .link { border-color: @colorZoneBorder; }
+
+	//Copilotes : agrandissement liens pour le premier niveau
+	#dm_custom_top & > li > .link { font-size: @fontSizeH5Px; }
 }
 
 //mise en couleur des cellules ouvertes
