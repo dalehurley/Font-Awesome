@@ -19,10 +19,22 @@
 	#dm_custom_bottom > .dm_zones { background-color: fadeout(#ccb8cc, 50%); }
 }
 
+//ajout de la couleur de fond générale
+html { background-color: @colorCouleur2ClairSup; }
+
 //couleur de la zone située sous le header jusqu'en bas
 #dm_page {
 	// background-color: @colorWhite;
-	@verticalGradient(@colorCouleur2MoyenSup; @colorCouleur2ClairSup);
+	// @verticalGradient(@colorCouleur2MoyenSup; @colorCouleur2ClairSup);
+	//on fait débuter le dégradé après le header (on suppose qu'il ne changera pas de hauteur)
+	@verticalGradientMulti-4(0%; @gridBaseline*6; @gridBaseline*6; 100%; @colorCouleur2MoyenSup; @colorCouleur2MoyenSup; @colorCouleur2MoyenSup; @colorCouleur2ClairSup);
+}
+
+#dm_page_inner {
+	background-color: transparent;
+	background-image: url("@{urlImagesTemplate}/DemoRef/copilotes-nuage.png");
+	background-repeat: no-repeat;
+	background-position: 50% @gridBaseline;
 }
 
 #dm_main {
@@ -47,13 +59,14 @@
 
 //stylage du header
 #dm_header {
-	background-color: @colorCouleur2MoyenSup;
+	// background-color: @colorCouleur2MoyenSup;
 	.dm_zones {
 		position: relative;
 		@gridSiteWidth();
 		margin-left: auto;
 		margin-right: auto;
-		padding-bottom: @gridBaseline;
+		padding-top: @gridBaseline/2;
+		padding-bottom: @gridBaseline/2;
 	}
 }
 

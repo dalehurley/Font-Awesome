@@ -16,7 +16,7 @@
 			$.fn.frontFramework.debug("frontTemplate copilotesTheme | initialisation");
 
 			//lancement fonction de redimensionnement de la page
-			var offsetWindow = $.fn.frontFramework.globalHeight();
+			// var offsetWindow = $.fn.frontFramework.globalHeight();
 		});
 	}
 
