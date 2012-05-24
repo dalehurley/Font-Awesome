@@ -245,3 +245,8 @@ all:
     aga-base-doc:
     copilotes-site:
       - selection_placement
+
+  pub-flash:
+    rep:
+      - _common/pubotheque
+      - _common/test
