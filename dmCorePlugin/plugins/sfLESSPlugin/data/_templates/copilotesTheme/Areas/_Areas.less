@@ -129,9 +129,17 @@
 			background-color: @colorWhite;
 			.rgba & { background-color: fadeout(@colorWhite, 25%); }
 			@borderRadiusCompress(@offL @offL 0 0);
+
 			padding: @gridBaseline/2 @gridGutter;
 			width: auto;
 			height: @gridBaseline*2;
+
+			//suppression bordure et replacement en mode edition
+			#dm_page.edit & {
+				position: relative;
+				float: none;
+				@borderRadiusCompress(0);
+			}
 		}
 
 		.dm_zone.socialNetwork { right: 0; }
