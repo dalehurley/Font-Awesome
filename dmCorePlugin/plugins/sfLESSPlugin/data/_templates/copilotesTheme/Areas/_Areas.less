@@ -122,16 +122,24 @@
 		//on rajoute un padding en bas pour gérer l'emplacement des icônes sociales
 		padding-bottom: @gridBaseline*4;
 
-
-		//stylage de la zone spéciale pour les partenaires
-		.dm_zone.partners {
-			float: left;
-
+		//stylages des zones spécifiques
+		.dm_zone.partners, .dm_zone.socialNetwork {
+			position: absolute;
+			bottom: 0;
 			background-color: @colorWhite;
 			.rgba & { background-color: fadeout(@colorWhite, 25%); }
 			@borderRadiusCompress(@offL @offL 0 0);
+			padding: @gridBaseline/2 @gridGutter;
+			width: auto;
+			height: @gridBaseline*2;
+		}
 
-			
+		.dm_zone.socialNetwork { right: 0; }
+
+		//stylage de la zone spéciale pour les partenaires
+		.dm_zone.partners {
+			left: 0;
+
 			.dm_widget.content_image.link_partner {
 				background-color: darkgreen;
 				float: left;
@@ -143,7 +151,7 @@
 				@decalH: ((@gridColWidth - @spriteFormat_M)/2 - 1px);
 
 				.dm_widget_inner {
-					background-color: lime;
+					.isLess & { background-color: #CCEBD9; }
 					padding: @decalV @decalH;
 				}
 
@@ -156,11 +164,7 @@
 
 					display: block;
 					//ajout du fond blanc arrondi avec bordure
-					// background-color: darkgreen;
-					// @verticalGradient(@colorCouleur3ClairSup; @colorCouleur3Clair);
 					@verticalGradientMulti-4(0%; 49%; 51%; 100%; @colorWhite; @colorWhite; @colorCouleur3ClairSup; @colorCouleur3ClairSup);
-					// background-color: @colorWhite;
-					// .rgba & { background-color: fadeout(@colorWhite, 25%); }
 					padding: 2px;
 					border: 1px solid @colorWhite;
 					overflow: hidden;
