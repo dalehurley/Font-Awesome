@@ -362,5 +362,4 @@ abstract class PluginDmMedia extends BaseDmMedia
       throw new dmException('Can not delete '.$this->getFullPath());
     }
   }
-
 }
