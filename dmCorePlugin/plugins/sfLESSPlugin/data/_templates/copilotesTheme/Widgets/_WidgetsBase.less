@@ -53,6 +53,13 @@
 
 	.dm_widget.content_gallery {
 		float: left;
+		margin-left: @gridGutter;
+
+		//suppression marges internes
+		ul, ol {
+			margin: 0;
+			padding: 0;
+		}
 
 		//suppression du float en mode édition
 		#dm_page.edit & { float: none; }
@@ -61,7 +68,6 @@
 	.dm_widget.content_image {
 		.isLess & { background-color: #D6B8C4; }
 		float: left;
-		margin-left: @gridGutter;
 
 		//suppression du float en mode édition
 		#dm_page.edit & { float: none; }

@@ -40,7 +40,13 @@
 	}
 
 	//Positionnement à gauche dans le header et le footer
-	#dm_header & { float: right; }
+	#dm_header & {
+		// float: right;
+		//Copilotes : placement spécifique
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
 	#dm_footer & { float: left; }
 	
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header

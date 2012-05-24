@@ -29,13 +29,17 @@ default:
       extraPlugins:       diem
 
       customConfig:       ''
-      
+
       uiColor : '#9AB8F3'
-      
+
       removePlugins : 'elementspath'
-      
-      
-      
+
+# enter P  = 1
+# enter BR = 2
+# enter DIV  = 3
+      enterMode : 2
+      shiftEnterMode :  2
+
     configLite:
 
       toolbar:
@@ -49,3 +53,8 @@ default:
       extraPlugins:       diem
 
       customConfig:       ''      
+# enter P  = 1
+# enter BR = 2
+# enter DIV  = 3
+      enterMode : 2
+      shiftEnterMode :  2      
