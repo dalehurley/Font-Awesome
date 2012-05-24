@@ -22,7 +22,9 @@
 //couleur de la zone située sous le header jusqu'en bas
 #dm_page {
 	// background-color: @colorWhite;
-	@verticalGradient(@colorCouleur2MoyenSup; @colorCouleur2ClairSup);
+	// @verticalGradient(@colorCouleur2MoyenSup; @colorCouleur2ClairSup);
+	//on fait débuter le dégradé après le header (on suppose qu'il ne changera pas de hauteur)
+	@verticalGradientMulti-4(0%; @gridBaseline*6; @gridBaseline*6; 100%; @colorCouleur2MoyenSup; @colorCouleur2MoyenSup; @colorCouleur2MoyenSup; @colorCouleur2ClairSup);
 }
 
 #dm_main {
@@ -53,7 +55,8 @@
 		@gridSiteWidth();
 		margin-left: auto;
 		margin-right: auto;
-		padding-bottom: @gridBaseline;
+		padding-top: @gridBaseline/2;
+		padding-bottom: @gridBaseline/2;
 	}
 }
 
