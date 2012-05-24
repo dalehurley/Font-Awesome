@@ -121,6 +121,69 @@
 		min-height: @gridBaseline*4;
 		//on rajoute un padding en bas pour gérer l'emplacement des icônes sociales
 		padding-bottom: @gridBaseline*4;
+
+
+		//stylage de la zone spéciale pour les partenaires
+		.dm_zone.partners {
+			float: left;
+
+			background-color: @colorWhite;
+			.rgba & { background-color: fadeout(@colorWhite, 25%); }
+			@borderRadiusCompress(@offL @offL 0 0);
+
+			
+			.dm_widget.content_image.link_partner {
+				background-color: darkgreen;
+				float: left;
+				margin-left: @gridGutter;
+				&:first-child { margin-left: 0; }
+
+				//décalage de padding
+				@decalV: ((@gridBaseline*2 - @spriteFormat_M)/2 - 1px);
+				@decalH: ((@gridColWidth - @spriteFormat_M)/2 - 1px);
+
+				.dm_widget_inner {
+					background-color: lime;
+					padding: @decalV @decalH;
+				}
+
+				//stylages des logos
+				.link {
+					//ajout des transitions pour navigateurs récents
+					.csstransitions & {
+						@transitionCompress(all; .2s; ease-out; 0s);
+					}
+
+					display: block;
+					//ajout du fond blanc arrondi avec bordure
+					// background-color: darkgreen;
+					// @verticalGradient(@colorCouleur3ClairSup; @colorCouleur3Clair);
+					@verticalGradientMulti-4(0%; 49%; 51%; 100%; @colorWhite; @colorWhite; @colorCouleur3ClairSup; @colorCouleur3ClairSup);
+					// background-color: @colorWhite;
+					// .rgba & { background-color: fadeout(@colorWhite, 25%); }
+					padding: 2px;
+					border: 1px solid @colorWhite;
+					overflow: hidden;
+
+					//on ne sépare pas le rgba pour l'ombre car si le navigateur gère cette dernière il gère également le rgba
+					@boxShadow(0 0 @offS fadeout(@colorBlack, 50%));
+					@borderRadiusCompress(7px);
+					//dimensions d'une sprite standard (padding déduit)
+					width: (@spriteFormat_M - 4px);
+					height: (@spriteFormat_M - 4px);
+
+					&:hover {
+						margin-top: @offS*-1;
+						margin-bottom: @offS;
+						border-color: @colorCouleur1;
+						@boxShadow(0 @offS @offM fadeout(@colorBlack, 25%));
+					}
+
+					//placement de l'image
+					img { display: block; }
+				}
+			}
+		}
 	}
 }
 
