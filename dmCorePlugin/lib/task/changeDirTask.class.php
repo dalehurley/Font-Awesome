@@ -71,7 +71,7 @@ EOF;
                 exit;
             } else {
                 // delete ol dir
-                $commandRm = 'rm -R '.$actualDir;
+                $commandRm = 'rm -Rf '.$actualDir;
                 $out = $err = null;
                 $this->getFilesystem()->execute($commandRm, $out, $err);
                 // on new dir : cc
