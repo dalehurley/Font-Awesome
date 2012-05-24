@@ -50,10 +50,18 @@
 
 //placement des widgets dans le header
 #dm_header {
+
+	.dm_widget.content_gallery {
+		float: left;
+
+		//suppression du float en mode édition
+		#dm_page.edit & { float: none; }
+	}
 	
 	.dm_widget.content_image {
 		.isLess & { background-color: #D6B8C4; }
 		float: left;
+		margin-left: @gridGutter;
 
 		//suppression du float en mode édition
 		#dm_page.edit & { float: none; }
