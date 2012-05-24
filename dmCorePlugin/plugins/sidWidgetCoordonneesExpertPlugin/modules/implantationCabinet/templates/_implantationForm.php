@@ -14,6 +14,7 @@ _tag('div',
     $form['resume_team']->renderRow().
     $form['withImage']->renderRow() .
     $form['widthImage']->renderRow() .
+    $form['widthImagePhoto']->renderRow() .
     $form['heightImage']->renderRow() .
     $form['cssClass']->renderRow()
     
