@@ -98,10 +98,10 @@ if (count($recrutements)) {
         } 
     }
 }
-else {
-    if($this->context->getPage()->getAction() != 'show'){    
-    echo _tag('h4.title',$titreBloc);
+//else {
+//    if($this->context->getPage()->getAction() != 'show'){    
+//    echo _tag('h4.title',$titreBloc);
 	// sinon on affiche la constante de la page concernée
-        echo $constanteRecrutement;
-    }
-}
+//        echo $constanteRecrutement;
+//    }
+//}
