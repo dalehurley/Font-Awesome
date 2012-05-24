@@ -131,11 +131,31 @@
 //stylage des widgets images pour la page d'accueil
 #dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
 	.dm_widget.content_image_plus {
-
 		.dm_widget_inner {
 			padding: 0;
-			& > .title {
-				margin: 0;
+			& > .title { margin: 0; }
+		}
+	}
+}
+
+//pour le widget bidouille de contact
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.content_ck_editor.contactSpecial {
+		.dm_widget_inner {
+			color: @colorCouleur1;
+			font-size: @fontSizeH5Px;
+			font-weight: bold;
+			padding: @gridBaseline/2 @gridGutter/2;
+			border: 0;
+			@borderRadiusCompress(0);
+
+			//image d'une hauteur de 43px
+			img { padding: 1px 0; }
+
+			.link {
+				font-size: @fontSizeH5Px;
+				font-weight: bold;
+				&, &:visited, &:hover, &:focus, &:active { color: @colorCouleur1; }
 			}
 		}
 	}
