@@ -30,7 +30,7 @@ default:
 
       customConfig:       ''
 
-      uiColor : '#9AB8F3'
+      uiColor : '#867A5B'
 
       removePlugins : 'elementspath'
 
