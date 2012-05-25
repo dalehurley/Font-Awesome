@@ -42,6 +42,8 @@ default:
       enterMode : 2
       shiftEnterMode :  2
 
+      autoGrow_onStartup: true
+
     configLite:    # Config lègere pour les clients
 
       toolbar:
