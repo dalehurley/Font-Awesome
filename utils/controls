@@ -48,7 +48,7 @@ $utilisation[] = '* generate-sprite : génération des sprites';
 $utilisation[] = '* migration-doctrine : effectue une migration doctrine suivi d\'un dm:setup';
 $utilisation[] = '* infos : donne des infos ';
 $utilisation[] = '* permissions : met à jour les permissions sur les dossiers et fichiers';
-$utilisation[] = '* query="SELECT * FROM test : execute une requête SQL (ONLY SELECT, INSERT, UPDATE, and DELETE)';
+$utilisation[] = '* query="SELECT * FROM test" : execute une requête SQL (ONLY SELECT, INSERT, UPDATE, and DELETE). [ATTENTION: remplacer les " par \"]';
 $utilisation[] = '* ndd="xxxxx@xxx.com" : search in sites a correspondance and display infos-site';
 $utilisation[] = '       ';
 $utilisation[] = 'Argument4 (optionnel) : ';
@@ -184,6 +184,8 @@ switch ($argCommande) {
 	default:
 		if (substr($argCommande,0,6) == 'query='){
 			$query = substr($argCommande,6);
+			// on echappe les " avant des les envoyer à la tache sql-query, car il encadrent la requete
+			$query = str_replace('"', '\"', $query);
 			$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony doctrine:sql-query --query=\"".$query."\";";
 			commandForAllSites($commande);
 		} elseif (substr($argCommande,0,4) == 'ndd='){
