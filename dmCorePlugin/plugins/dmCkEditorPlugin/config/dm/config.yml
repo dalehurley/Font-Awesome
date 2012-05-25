@@ -3,11 +3,11 @@ default:
   ckeditor:
     config:
 
-#      toolbar:
-#        - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
-#        - ['PasteText','PasteFromWord']
-#        - ['Undo','Redo']
-#        - ['Image','HorizontalRule','SpecialChar']
+      #      toolbar:
+      #        - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
+      #        - ['PasteText','PasteFromWord']
+      #        - ['Undo','Redo']
+      #        - ['Image','HorizontalRule','SpecialChar']
       toolbar:   
         #- ['Source','-','Save','NewPage','Preview','-','Templates']
         - ['Source','-','NewPage','Preview','-','Templates']
@@ -24,23 +24,25 @@ default:
         - ['TextColor','BGColor']
         - ['Maximize', 'ShowBlocks','-','About']
 
-      resize_enabled:     false
+      resize_enabled:     true
+
+      skin: 'kama'
 
       extraPlugins:       diem
 
       customConfig:       ''
 
-      uiColor : '#787877'
+      uiColor : '#DEDEDE'
 
       removePlugins : 'elementspath'
 
-# enter P  = 1
-# enter BR = 2
-# enter DIV  = 3
+      # enter P  = 1
+      # enter BR = 2
+      # enter DIV  = 3
       enterMode : 2
       shiftEnterMode :  2
 
-    configLite:
+    configLite:    # Config lègere pour les clients
 
       toolbar:
         - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
@@ -48,13 +50,20 @@ default:
         - ['Undo','Redo']
         - ['HorizontalRule','SpecialChar']
 
-      resize_enabled:     false
+      resize_enabled:     true
+
+      skin: 'kama'
 
       extraPlugins:       diem
 
-      customConfig:       ''      
-# enter P  = 1
-# enter BR = 2
-# enter DIV  = 3
+      customConfig:       ''    
+
+      uiColor : '#DEDEDE'   
+
+      removePlugins : 'elementspath'
+
+      # enter P  = 1
+      # enter BR = 2
+      # enter DIV  = 3
       enterMode : 2
       shiftEnterMode :  2      
