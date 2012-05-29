@@ -4,7 +4,7 @@ $html = '';
 
 if(count($articles) != NULL){
 	
-	$html.= get_partial('global/titleWidget', array('title' => __('Related articles')));
+	$html.= get_partial('global/titleWidget', array('title' => __('Read also')));
 	
 	//ouverture du listing
     $html.= _open('ul.elements');
