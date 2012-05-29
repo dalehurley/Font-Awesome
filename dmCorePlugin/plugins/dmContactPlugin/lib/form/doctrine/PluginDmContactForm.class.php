@@ -76,6 +76,7 @@ class PluginDmContactForm extends BaseDmContactForm {
         $this->validatorSchema['captcha'] = new sfValidatorReCaptchaDm(array(
             'private_key' => sfConfig::get('app_recaptcha_private_key')
         ));
+        $this->widgetSchema->setHelp('captcha', 'Thanks to copy words');
     }
     public function isCaptchaEnabled() {
         
