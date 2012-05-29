@@ -86,8 +86,8 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
         ->zoom($vars['zoom'])
         ->style(sprintf(
           'width: %s; height: %s;',
-          dmArray::get($vars, 'width', '350px'),
-          dmArray::get($vars, 'height', '250px')
+          dmArray::get($vars, 'width', '366px'),
+          dmArray::get($vars, 'height', '270px')
         ))
         ->navigationControl($vars['navigationControl'])
         ->mapTypeControl($vars['mapTypeControl'])
