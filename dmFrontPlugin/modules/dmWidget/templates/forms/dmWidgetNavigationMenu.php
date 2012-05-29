@@ -20,7 +20,10 @@ _tag('div#'.$baseTabId.'_items.drop_zone',
     'text_message' => __('Text'),
     'link_message' => __('Link'),
     'groupdisplayed_message' => __('Groups displayed'),
-    'groupdisplayed_help' => __('Groups separate with space'),    
+    'groupdisplayed_help' => _tag('div.dm_help',__('Choisir le groupe pour ce menu : <br/>
+- un libellé de groupe = on affiche les pages ayant ce groupe<br/>
+- * = pour afficher toutes les pages<br/>
+- laisser vide = pour afficher les pages SANS groupe')),    
     'secure_message' => __('Requires authentication'),
     'nofollow_message' => __('No follow'),
     'depth_message' => __('Depth'),

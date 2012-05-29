@@ -57,14 +57,18 @@ class dmWidgetContentImagePlusView extends dmWidgetContentBaseMediaView
     }
     else
     {
-		
-		
       $html = $vars['mediaTag']->render();
     }
 
     if($link = dmArray::get($vars, 'link'))
     {
-      $html = $this->getHelper()->link($link)->text($html)->render();
+      if ($vars['title'] != ''){      
+        $html = '<h4 class="title">'.$vars['title']."</h4>".$this->getHelper()->link($link)->text($html)->render();
+      } else {
+        $html = $this->getHelper()->link($link)->text($html)->render();   
+      }
+    } else {
+      $html = '<h4 class="title">'.$vars['title']."</h4>".$html;
     }
 
     if ($this->isCachable())
@@ -74,7 +78,6 @@ class dmWidgetContentImagePlusView extends dmWidgetContentBaseMediaView
 
 
     return $this->getHelper()->renderPartial('widget', 'dmWidgetContentImage', array(
-        'title' => $vars['title'], 
         'image' => $html          
     ));
 

@@ -56,6 +56,7 @@ class implantationCabinetImplantationView extends dmWidgetPluginView {
         if($vars['titreBloc'] == NULL || $vars['titreBloc'] == " "){
         $vars['titreBloc'] = $dmPage->getName();
         }
+        
         return $this->getHelper()->renderPartial('implantationCabinet', 'implantation', array(
                     'adresse' => $adresse,
                     'equipes' => $equipes,
@@ -64,7 +65,8 @@ class implantationCabinetImplantationView extends dmWidgetPluginView {
                     'withImage' => $vars['withImage'],
                     'width' => $vars['widthImage'],
                     'nomRubrique' => $arrayNomRubrique,
-                    'visible_resume_team' => $vars['resume_team']
+                    'visible_resume_team' => $vars['resume_team'],
+                    'widthImagePhoto' => $vars['widthImagePhoto']
                 ));
     }
 

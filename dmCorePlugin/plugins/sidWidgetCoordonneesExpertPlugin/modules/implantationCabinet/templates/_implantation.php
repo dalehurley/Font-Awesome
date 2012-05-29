@@ -6,16 +6,23 @@ $i = 1;
 $i_max = count($equipes);
 $class = '';
 // vars  $equipes, $titreBloc, $nomRubrique
-if (count($equipes) || $adresse->resume_team != NULL) { // si nous avons des collaborateurs
+if (count($equipes) || $adresse->resume_team != NULL || ($adresse->getImage()->checkFileExists() == true)) { // si nous avons des collaborateurs
 // initialisation des variables pour les class first et last
 // initialisation des variables pour les class first et last
     echo _tag('h2', array('class' => 'title'), $titreBloc);
     
-echo _open('section', array('class' => 'supWrapper clearfix first last'));
-    if($visible_resume_team == TRUE && $adresse->resume_team != ''){
-        echo _tag('div.wrapper', $adresse->resume_team);
+    echo _open('section', array('class' => 'supWrapper clearfix first last'));
+    if($visible_resume_team == TRUE && $adresse->resume_team != '' || ($adresse->getImage()->checkFileExists() == true)){
+        if (($withImage == true) && ($adresse->getImage()->checkFileExists() == true)) {
+            echo _open('div', array('class' => 'imageFullWrapper'));
+                if($widthImagePhoto != null) {echo  _media($adresse->getImage())->width($widthImagePhoto)->set('.image itemprop="image"')->alt($adresse->getTitle());}
+            echo _close('div');
+        }
+        if($adresse->resume_team != ''){
+            echo _tag('div.wrapper', $adresse->resume_team);
+        }
     }
-
+    if (count($equipes)){
     echo _open('ul.elements');
     foreach ($equipes as $equipe) {
         // condition pour gérer les class des listings
@@ -94,6 +101,7 @@ echo _open('section', array('class' => 'supWrapper clearfix first last'));
         $i++;
     };
     echo _close('ul');
+    }
     echo _close('section');
 } else {
     $html.= "Aucun membre de l'équipe n'est présenté.";

@@ -21,6 +21,7 @@ The [doctrine:sql-query|INFO] task that sql query in default database.
 Call it with:
 
   [php symfony doctrine:sql-query "select * from test"|INFO]
+  WARNING: replace " with \" to work
 EOF;
         
     }
