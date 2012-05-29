@@ -67,6 +67,8 @@ class dmWidgetContentImagePlusView extends dmWidgetContentBaseMediaView
       } else {
         $html = $this->getHelper()->link($link)->text($html)->render();   
       }
+    } else {
+      $html = '<h4 class="title">'.$vars['title']."</h4>".$html;
     }
 
     if ($this->isCachable())
