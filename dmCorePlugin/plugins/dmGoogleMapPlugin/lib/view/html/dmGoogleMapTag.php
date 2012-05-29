@@ -153,7 +153,7 @@ class dmGoogleMapTag extends dmHtmlTag {
       // pour afficher ResumeTown sous l'adresse si on est sur la page plan d'accès
       if(($preparedAttributes['withResume'] == TRUE) && ($adresseRequest->getResumeTown() != NULL) && ($preparedAttributes['smartGoogleMap'] == TRUE)){
           $length = ($preparedAttributes['length'] == 0) ? '': $preparedAttributes['length'];
-          $resumeTownInMap = '<span class="itemprop implantation">'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '(...)', true, true).'</span>' ;
+          $resumeTownInMap = '<span class="itemprop description" itemprop="description">'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '(...)', true, true).'</span>' ;
           $resumeTown='';
       }
       else $resumeTownInMap = '';
@@ -173,7 +173,7 @@ class dmGoogleMapTag extends dmHtmlTag {
           }
       else $resumeTown='';
       // construction de la chaîne html
-      $tag = '<h2 class="title">'.$titreBloc.'</h2>'.$resumeTown.'<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>'.$cabinet;
+      $tag = '<h2 class="title">'.$titreBloc.'</h2>' . $resumeTown . $cabinet . '<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>';
       
       return $tag;
     }
