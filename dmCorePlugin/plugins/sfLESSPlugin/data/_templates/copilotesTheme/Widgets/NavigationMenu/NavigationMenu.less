@@ -104,6 +104,8 @@ ul.menu-dropdown, ul.menu-megadropdown, ul.menu-accordion {
 		outline: 0;
 		cursor: pointer;
 		//word-wrap: break-word;
+		//Co-pilotes : déclaration forcée de la taille de police
+		font-size: @fontSizeSmall;
 		
 		//ajout des transitions pour navigateurs récents
 		.csstransitions & {
@@ -113,7 +115,7 @@ ul.menu-dropdown, ul.menu-megadropdown, ul.menu-accordion {
 
 	//gestion grosseur texte
 	li, ul li.dm_dir {
-		font-weight: bold;
+		// font-weight: bold;
 		// text-transform: uppercase;
 		word-spacing: -0.025em;
 		letter-spacing: -0.025em;
@@ -143,8 +145,9 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		color: @colorCouleur3Fonce;
 		
 		//changement taille selon zone
-		#dm_custom_top & { font-size: @fontGlobalSizePx; }
-		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
+		//Co-pilotes : changement de la taille de police
+		#dm_custom_top & { font-size: @fontSizeSmall; }
+		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeMicro; }
 
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
 		&.dm_inactive { color: @colorCouleur3; }
@@ -157,7 +160,7 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	.last > .link { border-color: @colorZoneBorder; }
 
 	//Copilotes : agrandissement liens pour le premier niveau
-	#dm_custom_top & > li > .link { font-size: @fontSizeH5Px; }
+	#dm_custom_top & > li > .link { font-size: @fontSizeH6Px; }
 }
 
 //mise en couleur des cellules ouvertes

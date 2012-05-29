@@ -43,8 +43,7 @@ $nbArticle = 1;
         if ($chapo == 0) {
             $link.= stringTools::str_truncate($article->getResume() , $length, '(...)', true);
         } else if ($chapo == 1) {
-            //$link.= $article->getText();
-            $link.= stringTools::str_truncate($article->getText() , $length, '(...)', true);
+            $link.= $article->getText(); // pas besoin de le tronquer puisqu'il s'agit de html (ckeditor) donc pas de tronquage possible
         }
         $link.= '</span></span>';
         echo _link($article)->set('.link_box')->text($link);
