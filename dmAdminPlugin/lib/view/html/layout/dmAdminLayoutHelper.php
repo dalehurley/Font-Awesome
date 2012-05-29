@@ -55,5 +55,17 @@ class dmAdminLayoutHelper extends dmCoreLayoutHelper
 
     return $config;
   }
+  
+  //Changement chemin vers la favicon
+	protected function getFavicon()
+	{
+		foreach(array('ico', 'png', 'gif') as $extension)
+		{
+			if (file_exists(sfConfig::get('sf_web_dir').'/uploads/assets/favicon.'.$extension))
+			{
+				return 'uploads/assets/favicon.'.$extension;
+			}
+		}
+	}
 
 }

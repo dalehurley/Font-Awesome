@@ -34,8 +34,9 @@ class dmSitemapMenu extends dmMenu
 //    ->where('pTranslation.is_active = ?', true)
      // modif stef le 14/12/2011       
     ->where('pTranslation.is_visible_bread_crumb = ?', true)
+    ->andWhere('(p.module != ? AND p.module != ?) OR ( p.action != ? AND p.action != ? AND p.action != ? AND p.action != ?)', array('article', 'main', 'error404', 'search', 'signin', 'show'))
      // modif stef le 14/12/2011
-    ->andWhere('p.module != ? OR ( p.action != ? AND p.action != ? AND p.action != ?)', array('main', 'error404', 'search', 'signin'))
+    //->andWhere('p.module != ? OR ( p.action != ? AND p.action != ? AND p.action != ?)', array('main', 'error404', 'search', 'signin'))
     ->select('p.*, pTranslation.slug, pTranslation.name, pTranslation.title, pTranslation.is_secure, pTranslation.is_active')
     ->orderBy('p.lft ASC')
     ;

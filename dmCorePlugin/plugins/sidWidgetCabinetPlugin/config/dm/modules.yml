@@ -22,7 +22,7 @@
    
     SelectionPlacement:
       model: SidCabinetSelectionPlacement
-      name: "La Sélection de placement|Les Sélections de placements"
+      name: "Notre Sélection de placements|Nos Sélections de placements"
       page: true
       credentials: selection_placement
 
