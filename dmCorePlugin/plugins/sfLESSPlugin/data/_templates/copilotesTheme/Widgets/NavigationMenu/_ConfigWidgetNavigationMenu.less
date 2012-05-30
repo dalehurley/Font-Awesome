@@ -25,3 +25,13 @@
 //couleur de la flèche
 @menuArrowColor: @colorCouleur1;
 @menuArrowColorSup: @colorCouleur3Clair;
+
+//Copilotes : placement spécial de la flèche par sprite
+
+//calcul dimensions flèche
+@menuArrowSpriteDim: @spriteFormat_S;
+//positionnement initial à droite 
+@menuArrowSpriteOffsetX: @offM;
+@menuArrowSpriteOffsetY: @menuLinkPadV + (@gridBaseline - @menuArrowSpriteDim)/2 + 1px;
+//calcul du padding à rajouter du côté de la flèche
+@menuArrowSpritePadH: @menuArrowSpriteDim + @menuArrowSpriteOffsetX;
