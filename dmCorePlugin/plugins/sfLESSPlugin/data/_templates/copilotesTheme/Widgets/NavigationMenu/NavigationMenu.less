@@ -190,7 +190,9 @@ ul.menu-accordion li.dm_parent li.dm_parent > .link {
 //##################################
 //#### GESTION FLÈCHE OUVERTURE ####
 //##################################
-ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
+//Copilotes : gestion séparée de accordion
+// ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
+ul.menu-dropdown li, ul.menu-megadropdown > li {
 	//création de la flèche avec des bordures
 	&.dm_dir > .link {
 		&:after {
@@ -228,7 +230,9 @@ ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
 }
 
 //Modification des paddings des liens de dossier en présence de la flèche
-ul.menu-dropdown, ul.menu-accordion {
+//Copilotes : gestion séparée de accordion
+// ul.menu-dropdown, ul.menu-accordion {
+ul.menu-dropdown {
 	li.dm_dir > .link {
 		padding-right: @menuArrowPadH + @menuLinkPadH;
 		#dm_sidebar_right & {
@@ -241,7 +245,7 @@ ul.menu-dropdown, ul.menu-accordion {
 //comportement flèche différents selon les types de menu
 ul.menu-dropdown li.dm_dir > .link:hover:after,
 ul.menu-dropdown li.dm_dir:hover > .link:after,
-ul.menu-accordion li.dm_parent > .link:after,
+// ul.menu-accordion li.dm_parent > .link:after, 		//Copilotes : gestion séparée de accordion
 ul.menu-megadropdown > li.dm_dir > .link:hover:after,
 ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;

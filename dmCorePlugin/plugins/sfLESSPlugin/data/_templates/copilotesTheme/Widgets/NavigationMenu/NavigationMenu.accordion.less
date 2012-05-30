@@ -7,6 +7,11 @@
 //Config par défaut des widgets du template
 @import "_templates/copilotesTheme/Widgets/_Widgets.less";
 
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
+
 //Config du widget courant
 @import "_templates/copilotesTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
 
@@ -47,6 +52,8 @@ ul.menu-accordion {
 		}
 	}
 	
+	//Copilotes : désactivation flèche en bordure
+	/*
 	//couleur de la flèche
 	li.dm_dir > .link:after {
 		border-color: transparent transparent transparent @menuArrowColor;
@@ -57,6 +64,7 @@ ul.menu-accordion {
 		.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
 		.csstransitions.csstransforms #dm_sidebar_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
 	}
+	*/
 
 	//Copilotes : personnalisation des liens
 	// .link {
@@ -64,3 +72,68 @@ ul.menu-accordion {
 	// 	#dm_sidebar_right & { text-align: left; }
 	// }
 }
+
+
+//##############################################
+//#### Copilotes : GESTION FLÈCHE OUVERTURE ####
+//##############################################
+//Copilotes : gestion spécifique de la sprite d'ouverture
+ul.menu-accordion li {
+	//création de la flèche avec une sprite
+	&.dm_dir > .link {
+		&:after {
+			position: absolute;
+			z-index: 600;
+			display: block;
+			content:"";
+			background-color: green;
+
+			//chargement de la sprite de base
+			@spriteDefinition("DefaultMono"; "navigation"; "arrowSquareRight"; "S"; @spriteFormat_S; @spriteOffX-DefaultMono-navigation-arrowSquareRight; @spriteOffY-DefaultMono-navigation-arrowSquareRight);
+			
+			//placement sprite
+			right: @menuArrowSpriteOffsetX;
+			top: @menuArrowSpriteOffsetY;
+
+			//inversion de style automatique en fonction du conteneur
+			#dm_sidebar_right & {
+				right: auto !important;
+				left: @menuArrowSpriteOffsetX;
+			}
+
+			//ajout des transitions pour navigateurs récents
+			.csstransitions.csstransforms & {
+				@transitionCompress(all; .15s; ease-in; 0s);
+			}
+		}
+	}
+}
+
+//Modification des paddings des liens de dossier en présence de la flèche
+ul.menu-accordion {
+	li.dm_dir > .link {
+		padding-right: @menuArrowSpritePadH + @menuLinkPadH;
+		#dm_sidebar_right & {
+			padding-left: @menuArrowSpritePadH + @menuLinkPadH + 1px;
+			padding-right: @menuLinkPadH;
+		}
+	}
+}
+
+//comportement flèche différents selon les types de menu
+ul.menu-accordion li.dm_parent > .link:after {
+	//Remplacement de la sprite
+	@spriteDefinition("DefaultLight"; "navigation"; "arrowSquareDown"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-navigation-arrowSquareDown; @spriteOffY-DefaultLight-navigation-arrowSquareDown);
+
+	//ajout des transitions pour navigateurs récents
+	.csstransitions.csstransforms & {
+		@rotate(90deg);
+		//Remplacement de la sprite
+		@spriteBgp(@spriteFormat_S; @spriteOffX-DefaultLight-navigation-arrowSquareRight; @spriteOffY-DefaultLight-navigation-arrowSquareRight);
+	}
+	.csstransitions.csstransforms.svg & {
+		@spriteBgiSvgNoPrefix("DefaultLight"; "navigation"; "arrowSquareRight");
+	}
+}
+//##################################
+//##################################
