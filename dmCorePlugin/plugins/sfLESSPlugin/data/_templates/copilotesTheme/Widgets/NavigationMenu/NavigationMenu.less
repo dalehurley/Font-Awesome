@@ -227,6 +227,17 @@ ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
 	}
 }
 
+//Modification des paddings des liens de dossier en présence de la flèche
+ul.menu-dropdown, ul.menu-accordion {
+	li.dm_dir > .link {
+		padding-right: @menuArrowPadH + @menuDropdownPadH;
+		#dm_sidebar_right & {
+			padding-left: @menuArrowPadH + @menuDropdownPadH + 1px;
+			padding-right: @menuDropdownPadH;
+		}
+	}
+}
+
 //comportement flèche différents selon les types de menu
 ul.menu-dropdown li.dm_dir > .link:hover:after,
 ul.menu-dropdown li.dm_dir:hover > .link:after,

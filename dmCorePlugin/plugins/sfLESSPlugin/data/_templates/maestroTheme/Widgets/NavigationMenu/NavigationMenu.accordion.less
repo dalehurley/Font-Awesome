@@ -65,12 +65,6 @@ ul.menu-accordion {
 		}
 	}
 	
-	//modification des paddings de liens de dossier en présence de la flèche
-	li.dm_dir > .link {
-		#dm_sidebar_left & { padding-right: @menuArrowPadH + @menuDropdownPadH; }
-		#dm_sidebar_right & { padding-left: @menuArrowPadH + @menuDropdownPadH + 1px; }
-	}
-	
 	//couleur de la flèche
 	li.dm_dir > .link:after {
 		border-color: transparent transparent transparent @menuArrowColor;
