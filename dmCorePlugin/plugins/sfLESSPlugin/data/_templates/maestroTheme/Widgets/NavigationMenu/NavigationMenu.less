@@ -200,7 +200,10 @@ ul.menu-megadropdown > li {
 	}
 }
 	
-ul.menu-dropdown li, ul.menu-accordion li {
+ul.menu-dropdown li,
+ul.menu-accordion li {
+//Maestro : gestion séparée de megadropdown
+// ul.menu-megadropdown > li {
 	//création de la flèche avec des bordures
 	&.dm_dir > .link {
 		&:after {
@@ -238,7 +241,8 @@ ul.menu-dropdown li, ul.menu-accordion li {
 }
 
 //Modification des paddings des liens de dossier en présence de la flèche
-ul.menu-dropdown, ul.menu-accordion {
+ul.menu-dropdown,
+ul.menu-accordion {
 	li.dm_dir > .link {
 		padding-right: @menuArrowPadH + @menuLinkPadH;
 		#dm_sidebar_right & {
@@ -252,6 +256,9 @@ ul.menu-dropdown, ul.menu-accordion {
 ul.menu-dropdown li.dm_dir > .link:hover:after,
 ul.menu-dropdown li.dm_dir:hover > .link:after,
 ul.menu-accordion li.dm_parent > .link:after {
+//Maestro : gestion séparée de megadropdown
+// ul.menu-megadropdown > li.dm_dir > .link:hover:after,
+// ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
 	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
