@@ -1,6 +1,6 @@
 // NavigationMenu.accordion.less
-// v1.2
-// Last Updated : 2012-03-09 15:05
+// v1.2.1
+// Last Updated : 2012-05-30 14:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -25,6 +25,7 @@ ul.menu-accordion {
 	//calcul couleur intermédiaire entre la couleur colorCouleur3MoyenSup et colorCouleur3Clair
 	@interCouleur : mix(@colorCouleur3MoyenSup, @colorCouleur3Clair, 33.33%);
 	
+	//stylage des liens parents
 	li.dm_parent {
 		//couleur de fond des autres liens
 		& > ul > li > .link {
@@ -44,6 +45,12 @@ ul.menu-accordion {
 				color: @colorCouleur3Sup;
 			}
 		}
+	}
+	
+	//modification des paddings de liens de dossier en présence de la flèche
+	li.dm_dir > .link {
+		#dm_sidebar_left & { padding-right: @menuArrowPadH + @menuDropdownPadH; }
+		#dm_sidebar_right & { padding-left: @menuArrowPadH + @menuDropdownPadH + 1px; }
 	}
 	
 	//couleur de la flèche
