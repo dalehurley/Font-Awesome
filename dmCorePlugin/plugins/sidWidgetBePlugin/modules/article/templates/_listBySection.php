@@ -3,6 +3,7 @@
 $html = '';
 
 if(count($articlePager)){
+    use_helper('Date');
     
    if(count($articlePager) == 1){
     header("Location: ".$header);
@@ -110,6 +111,9 @@ else{
 				'<span class="subWrapper">'.
 					'<span itemprop="name" class="title itemprop name">'.$article->getTitle().'</span>'.
 					'<meta content="'.$article->createdAt.'" itemprop="datePublished">'.
+                                        '<span class="date">'.__('published on').' '.
+                                            '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'D').'</time>'.
+					'</span>'.
 				'</span>'.
 				'<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>'.
 			'</span>'
