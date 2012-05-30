@@ -250,3 +250,18 @@ all:
     rep:
       - _common/pubotheque
       - _common/test
+      
+  # tableau pour gérer les pages à afficher dans le sitemap
+  pages-for-sitemap:     
+    # array[key] is a name of the page
+    not-visibles:
+      #array[key] is module
+      #array[value] is action
+      article:
+        "article": show
+      404:
+        "main": error404
+      search:
+        "main": search
+      signin:
+        "main": signin
