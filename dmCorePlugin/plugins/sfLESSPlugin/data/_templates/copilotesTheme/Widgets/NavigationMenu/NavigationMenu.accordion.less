@@ -13,7 +13,6 @@
 //Importation des classes de composition du menu
 @import "_framework/SPLessCss/Widgets/NavigationMenu/Accordion/_Accordion.less";
 
-
 ul.menu-accordion {
 	//rajout bordure à gauche sur le menu principal
 	border-left: 1px solid @colorZoneBorder;
@@ -55,5 +54,11 @@ ul.menu-accordion {
 		border-color: @menuDropdownArrowColorSup transparent transparent transparent;
 		.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
 		.csstransitions.csstransforms #dm_sidebar_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
+	}
+
+	//Copilotes : personnalisation des liens
+	.link {
+		text-transform: uppercase;
+		#dm_sidebar_right & { text-align: left; }
 	}
 }

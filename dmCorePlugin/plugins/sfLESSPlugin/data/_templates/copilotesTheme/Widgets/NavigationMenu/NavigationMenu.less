@@ -146,8 +146,8 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		
 		//changement taille selon zone
 		//Co-pilotes : changement de la taille de police
-		#dm_custom_top & { font-size: @fontSizeSmall; }
-		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeMicro; }
+		// #dm_custom_top & { font-size: @fontSizeSmall; }
+		// #dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeMicro; }
 
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
 		&.dm_inactive { color: @colorCouleur3; }
@@ -156,11 +156,12 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		&:active { color: @colorCouleur1; }
 	}
 
-	//remise de la couleur du bas sur les premiers et derniers de liste
+	//Copilotes : remise de la couleur du bas sur les derniers de liste
 	.last > .link { border-color: @colorZoneBorder; }
 
 	//Copilotes : agrandissement liens pour le premier niveau
 	#dm_custom_top & > li > .link { font-size: @fontSizeH6Px; }
+	#dm_sidebar_left & > li > .link, #dm_sidebar_right & > li > .link { font-size: @fontGlobalSizePx; }
 }
 
 //mise en couleur des cellules ouvertes
