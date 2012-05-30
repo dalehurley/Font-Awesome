@@ -112,7 +112,7 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	//gestion des liens
 	.link {
 		background-color: @colorCouleur3ClairSup;
-		padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
+		padding: (@menuDropdownPadV + 1px) @menuLinkPadH @menuDropdownPadV (@menuLinkPadH + 1px);
 		border-style: solid;
 		border-width: 0 1px 1px 0;
 		border-color: @colorZoneBorder;
@@ -188,10 +188,10 @@ ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
 //Modification des paddings des liens de dossier en présence de la flèche
 ul.menu-dropdown, ul.menu-accordion {
 	li.dm_dir > .link {
-		padding-right: @menuArrowPadH + @menuDropdownPadH;
+		padding-right: @menuArrowPadH + @menuLinkPadH;
 		#dm_sidebar_right & {
-			padding-left: @menuArrowPadH + @menuDropdownPadH + 1px;
-			padding-right: @menuDropdownPadH;
+			padding-left: @menuArrowPadH + @menuLinkPadH + 1px;
+			padding-right: @menuLinkPadH;
 		}
 	}
 }
