@@ -12,14 +12,14 @@
 //calcul des paddings
 @menuLinkPadH: (@offS -1px);
 @menuLinkPadHCustomTop: (@offL -1px);
-@menuDropdownPadV: (@gridBaseline/2 - 1px);
+@menuLinkPadV: (@gridBaseline/2 - 1px);
 //calcul dimensions flèche
 @menuArrowDim: 4px;
 //offset de décalage de positionnement
 @menuArrowDecal: @menuArrowDim/2;
 //positionnement initial à droite 
 @menuArrowOffsetX: (@offM - @menuArrowDecal);
-@menuArrowOffsetY: @menuDropdownPadV + (@gridBaseline - @menuArrowDim*2)/2 + 1px;
+@menuArrowOffsetY: @menuLinkPadV + (@gridBaseline - @menuArrowDim*2)/2 + 1px;
 //calcul du padding à rajouter du côté de la flèche
 @menuArrowPadH: @menuArrowDim*2 + @menuArrowOffsetX;
 //couleur de la flèche
