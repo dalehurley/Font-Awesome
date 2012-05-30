@@ -67,10 +67,10 @@ ul.menu-accordion {
 	*/
 
 	//Copilotes : personnalisation des liens
-	// .link {
-	// 	text-transform: uppercase;
-	// 	#dm_sidebar_right & { text-align: left; }
-	// }
+	.link {
+		text-transform: uppercase;
+		#dm_sidebar_right & { text-align: left; }
+	}
 }
 
 
@@ -79,18 +79,17 @@ ul.menu-accordion {
 //##############################################
 //Copilotes : gestion spécifique de la sprite d'ouverture
 ul.menu-accordion li {
-	//création de la flèche avec une sprite
-	&.dm_dir > .link {
+	//rajout des sprites sur tous les liens
+	.link {
 		&:after {
 			position: absolute;
 			z-index: 600;
 			display: block;
 			content:"";
-			background-color: green;
 
 			//chargement de la sprite de base
-			@spriteDefinition("DefaultMono"; "navigation"; "arrowSquareRight"; "S"; @spriteFormat_S; @spriteOffX-DefaultMono-navigation-arrowSquareRight; @spriteOffY-DefaultMono-navigation-arrowSquareRight);
-			
+			@spriteDefinition("DefaultMedium"; "navigation"; "arrowSquare"; "S"; @spriteFormat_S; @spriteOffX-DefaultMedium-navigation-arrowSquare; @spriteOffY-DefaultMedium-navigation-arrowSquare);
+
 			//placement sprite
 			right: @menuArrowSpriteOffsetX;
 			top: @menuArrowSpriteOffsetY;
@@ -100,6 +99,14 @@ ul.menu-accordion li {
 				right: auto !important;
 				left: @menuArrowSpriteOffsetX;
 			}
+		}
+	}
+
+	//création de la flèche avec une sprite
+	&.dm_dir > .link {
+		&:after {
+			//chargement de la sprite de base
+			@spriteDefinition("DefaultMono"; "navigation"; "arrowSquareRight"; "S"; @spriteFormat_S; @spriteOffX-DefaultMono-navigation-arrowSquareRight; @spriteOffY-DefaultMono-navigation-arrowSquareRight);
 
 			//ajout des transitions pour navigateurs récents
 			.csstransitions.csstransforms & {
@@ -109,9 +116,9 @@ ul.menu-accordion li {
 	}
 }
 
-//Modification des paddings des liens de dossier en présence de la flèche
+//Modification des paddings des liens en présence de la flèche ou du carré
 ul.menu-accordion {
-	li.dm_dir > .link {
+	.link {
 		padding-right: @menuArrowSpritePadH + @menuLinkPadH;
 		#dm_sidebar_right & {
 			padding-left: @menuArrowSpritePadH + @menuLinkPadH + 1px;
