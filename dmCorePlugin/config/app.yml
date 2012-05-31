@@ -58,15 +58,15 @@ all:
 
     copilotes-fr:
       "Le cabinet" : "CO-PILOTES en images"
-      "Les missions": Nos valeurs
-      "Les Missions": Nos valeurs
+      "Les missions": Notre offre
+      "Les Missions": Notre offre
       "Description des missions": Description de nos valeurs
-      "Mission|Les Missions": Valeurs|Nos valeurs
+      "Mission|Les Missions": Offre|Nos offres
       "Description du Cabinet": "Description de CO-PILOTES"
       "Présentation du Cabinet": "CO-PILOTES en images"
       "Le Cabinet": "CO-PILOTES en images"
       "Les Actualités du Cabinet": Nos Engagements
-      "Nos Sélections de placements": Nos offres
+      "Nos Sélections de placements": Nos valeurs
       "Actualité du Cabinet": "Description de nos engagements"
 
   # tableau des description des permissions 
@@ -250,3 +250,18 @@ all:
     rep:
       - _common/pubotheque
       - _common/test
+      
+  # tableau pour gérer les pages à afficher dans le sitemap
+  pages-for-sitemap:     
+    # array[key] is a name of the page
+    not-visibles:
+      #array[key] is module
+      #array[value] is action
+      article:
+        "article": show
+      404:
+        "main": error404
+      search:
+        "main": search
+      signin:
+        "main": signin

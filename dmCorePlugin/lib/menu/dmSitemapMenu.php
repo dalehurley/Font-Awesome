@@ -29,12 +29,41 @@ class dmSitemapMenu extends dmMenu
 
   protected function getPagesQuery()
   {
+    $keyImplode = "";
+    $valueImplode = "";
+    $key = "";
+    $value = "";
+    $arrayKeys = array();
+    $arrayValues = array();
+    // pour récupérer les tableaux des pages à exclure du sitemap
+    foreach (sfConfig::get('app_pages-for-sitemap_not-visibles') as $key => $page) {
+        // Récupération des noms des MODULES et ACTIONS
+        foreach ($page as $module => $action) {
+            // Stockage en 1 variable string des noms des modules
+//            if (!strpos($keyImplode, $module)) {
+//                $keyImplode .= "'" . $module . "'";
+//            };
+            $arrayKeys[$module] = $module;
+            
+            // Stockage en 1 variable string des noms des actions
+//            if (!strpos($valueImplode, $action)) {
+//                $valueImplode .= "'" . $action . "'";
+//            };
+            $arrayValues[$action] = $action;
+        };
+//        $key = str_replace("''", "','", $keyImplode);
+//        $value = str_replace("''", "','", $valueImplode);
+    }
+             
+              
     return dmDb::query('DmPage p')
     ->withI18n()
-//    ->where('pTranslation.is_active = ?', true)
+    ->where('pTranslation.is_active = ?', true)
      // modif stef le 14/12/2011       
     ->where('pTranslation.is_visible_bread_crumb = ?', true)
-    ->andWhere('(p.module != ? AND p.module != ?) OR ( p.action != ? AND p.action != ? AND p.action != ? AND p.action != ?)', array('article', 'main', 'error404', 'search', 'signin', 'show'))
+//    ->andWhereNotIn('p.module' , $key)
+//    ->andWhereNotIn('p.action', $value)
+            ->andWhere('(p.module NOT IN ?) OR ( p.action NOT IN ?)', array($arrayKeys, $arrayValues))
      // modif stef le 14/12/2011
     //->andWhere('p.module != ? OR ( p.action != ? AND p.action != ? AND p.action != ?)', array('main', 'error404', 'search', 'signin'))
     ->select('p.*, pTranslation.slug, pTranslation.name, pTranslation.title, pTranslation.is_secure, pTranslation.is_active')

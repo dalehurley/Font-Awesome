@@ -55,14 +55,22 @@ if (!is_file($xml)) {
 					echo $imageHtml;
 					echo '<h1 itemprop="name" class="title itemprop name">'.$article->title.'</h1>';
 					echo '<meta content="'.$articleSection.'" itemprop="articleSection">';
+                                        // Suppression du chapeau pour les articles AGENDA
+                                        if(strtoupper(sfConfig::get('app_article-data-type-agenda')) != ($doc_xml->getElementsByTagName('DataType')->item(0)->nodeValue)){
 					echo '<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>';
+                                        };
+                                        // Suppression de la date de création de l'article pour les pages AGENDA
+                                        if(strtoupper(sfConfig::get('app_article-data-type-agenda')) != ($doc_xml->getElementsByTagName('DataType')->item(0)->nodeValue)){
 					echo '<span class="date">'.__('published on').' ';
 						echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'D').'</time>';
 					echo '</span>';
+                                        };
 				echo '</header>';
 				echo '<section itemprop="articleBody" class="contentBody">';
 					echo $moteurXslt->transformToXML($doc_xml);
 				echo '</section>';
+                                // Suppression de la date si on est sur une page AGENDA
+                                if(strtoupper(sfConfig::get('app_article-data-type-agenda')) != ($doc_xml->getElementsByTagName('DataType')->item(0)->nodeValue)){
 				echo '<footer class="contentFooter">';
 					echo '<span class="meta">';
 						echo '<span class="date">'.__('Article published on').' ';
@@ -76,6 +84,7 @@ if (!is_file($xml)) {
 						echo '</span>';
 					echo '</span>';
 				echo '</footer>';
+                                };
 			echo '</article>';
 
 	} else {
