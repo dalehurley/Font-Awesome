@@ -252,11 +252,11 @@
 	}
 	.link .image { float:none; margin: 0; }
 
-	//placé à gauche dans les sidebars et dans les subwrappers, donc changement sens d'alignement
+	//placé à gauche dans les sidebars et dans les subwrappers, donc marge à droite et aucune marge à gauche
 	#dm_sidebar_left &, #dm_sidebar_right &, .supWrapper & {
 		.image, .link {
-			margin-right: @gridGutter;
 			margin-left: 0;
+			margin-right: @gridGutter;
 			&.last { margin-right: 0; }
 		}
 	}

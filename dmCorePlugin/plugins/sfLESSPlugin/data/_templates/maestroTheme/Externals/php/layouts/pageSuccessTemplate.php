@@ -12,13 +12,13 @@
  */
 //Configuration des zones du template
 $pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' => 'customTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
-// $pageOptionsCustom['areas']['dm_custom_bottomTEST'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 
 //création de zones supplémentaires
 $pageOptionsCustom['areas']['dm_custom_bottom_left'] = array('areaName' => 'customBottomLeft', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 $pageOptionsCustom['areas']['dm_custom_bottom_right'] = array('areaName' => 'customBottomRight', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 
-//à réactiver pour vider cette zone parasite
+//à réactiver pour débuggage
+// $pageOptionsCustom['areas']['dm_custom_bottomTEST'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 // $pageOptionsCustom['areas']['dm_center_bottom'] = array('areaName' => 'centerBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 
 $pageOptionsCustom['areas']['dm_sidebar_right']['isActive'] = false;
