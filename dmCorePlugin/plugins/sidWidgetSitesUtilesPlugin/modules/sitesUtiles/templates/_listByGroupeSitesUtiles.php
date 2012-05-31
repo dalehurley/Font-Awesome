@@ -69,7 +69,7 @@ foreach ($sitesUtilesPager as $article) {
 		$imageHtml = 	
 			'<span class="imageWrapper">'.
 				//_media($media)->height('35px')->method('scale').
-				_media($media)->size(80,80)->method('left').
+				_media($media)->height(80).
 			'</span>';
 	}
 

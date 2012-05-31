@@ -16,8 +16,19 @@
 	//on force la largeur sur le total de la largeur
 	#dm_sidebar_left &, #dm_sidebar_right & { width: 100%; }
 
+	//ajout d'une couleur de fond avec transparence quand située en bas à gauche
+	#dm_custom_bottom_left & {
+		background-color: @colorCouleur3ClairSup;
+		.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 20%); }
+	}
+
 	//changement affichage des élements
 	.elements .element {
+
+		//suppression rollOver quand située en bas à gauche
+		#dm_custom_bottom_left & {
+			&:hover { &, .rgba & { background-color: transparent; } }
+		}
 
 		//remise du texte par défault
 		.name, .title {

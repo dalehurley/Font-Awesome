@@ -1,6 +1,6 @@
 //_SpritesUtils.less
-// v1.4
-// Last Updated : 2012-03-05 10:05
+// v1.4.5
+// Last Updated : 2012-05-30 16:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -23,8 +23,11 @@
 //Chargement de l'image de sprite assemblées
 @spriteBgi(@theme: "Default"; @spriteFormat: "L";) { background-image: url(@{urlImagesClient}/Sprites/@{mainHashMd5}-@{theme}-@{spriteFormat}.png); background-repeat: no-repeat; }
 
+//Chargement de l'icône SVG pour les navigateurs modernes sans prefixe modernizr
+@spriteBgiSvgNoPrefix(@theme: "Default"; @category; @name) { background-image: url(@{urlImagesClient}/Sprites/@{theme}/@{mainHashMd5}-@{category}-@{name}.svg); background-position: 0 0; }
+
 //Chargement de l'icône SVG pour les navigateurs modernes
-@spriteBgiSvg(@theme: "Default"; @category; @name) { .svg & { background-image: url(@{urlImagesClient}/Sprites/@{theme}/@{mainHashMd5}-@{category}-@{name}.svg); background-position: 0 0; } }
+@spriteBgiSvg(@theme: "Default"; @category; @name) { .svg & { @spriteBgiSvgNoPrefix(@theme; @category; @name); } }
 
 //Placement de l'arrière plan
 @spriteBgp(@dim: @spriteFormat_L; @offX: 0; @offY: 0) { background-position: (@offX * @dim * -1px) (@offY * @dim * -1px); }

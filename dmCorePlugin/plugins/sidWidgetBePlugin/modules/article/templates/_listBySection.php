@@ -1,9 +1,9 @@
 <?php // Vars: $articlePager, $parent, $route, $header
 
 $html = '';
-
+$dateHtml = '';
 if(count($articlePager)){
-    
+    use_helper('Date');
    if(count($articlePager) == 1){
     header("Location: ".$header);
     exit;
@@ -22,6 +22,7 @@ $i = 0;
 $i_max = count($articlePager->getResults()); // il faut compter le nombre de resultats pour la page en cours, count($articlePager) renvoie la taille complète du pager	
 
 foreach ($articlePager as $article) {
+    
 	$i++;
 	$position = '';
 	switch ($i){
@@ -102,6 +103,14 @@ else{
 	}
 
 	//ajout de l'article
+        // suppression de la date de création si page AGENDA
+        if($article->Section->getRubrique() != 'ec_echeancier'){
+            $dateHtml = '<meta content="'.$article->createdAt.'" itemprop="datePublished">'.
+            '<span class="date">'.__('published on').' '.
+                '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'D').'</time>'.
+            '</span>';
+        }
+        
 	echo 
 	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">';
 	echo _link($article)->set('.link.link_box')->text(
@@ -109,12 +118,13 @@ else{
 			'<span class="wrapper">'.
 				'<span class="subWrapper">'.
 					'<span itemprop="name" class="title itemprop name">'.$article->getTitle().'</span>'.
-					'<meta content="'.$article->createdAt.'" itemprop="datePublished">'.
+				$dateHtml.	
 				'</span>'.
 				'<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>'.
 			'</span>'
 	);
 	echo '</li>';
+        
 
 }
 

@@ -104,14 +104,14 @@ ul.menu-megadropdown ul li ul li {
 
 //Maestro : différenciation des affichages de liens entres les types des menus
 ul.menu-dropdown .link {
-	padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
+	padding: (@menuLinkPadV + 1px) @menuLinkPadH @menuLinkPadV (@menuLinkPadH + 1px);
 	border-width: 0 1px 1px 0;
 }
 
 #dm_sidebar_left ul.menu-megadropdown > li > .link,
 #dm_sidebar_right ul.menu-megadropdown > li > .link,
 ul.menu-accordion .link {
-	padding: (@menuDropdownPadV + 1px) (@menuDropdownPadH + 1px) @menuDropdownPadV (@menuDropdownPadH + 1px);
+	padding: (@menuLinkPadV + 1px) (@menuLinkPadH + 1px) @menuLinkPadV (@menuLinkPadH + 1px);
 	border-width: 0 0 1px 0;
 }
 
@@ -121,7 +121,7 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	.link {
 		background-color: @colorCouleur3ClairSup;
 		.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 20%); }
-		// padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
+		// padding: (@menuLinkPadV + 1px) @menuLinkPadH @menuLinkPadV (@menuLinkPadH + 1px);
 		border-style: solid;
 		// border-width: 0 1px 1px 0;
 		border-color: @colorZoneBorder;
@@ -200,7 +200,10 @@ ul.menu-megadropdown > li {
 	}
 }
 	
-ul.menu-dropdown li, ul.menu-accordion li {
+ul.menu-dropdown li,
+ul.menu-accordion li {
+//Maestro : gestion séparée de megadropdown
+// ul.menu-megadropdown > li {
 	//création de la flèche avec des bordures
 	&.dm_dir > .link {
 		&:after {
@@ -237,10 +240,25 @@ ul.menu-dropdown li, ul.menu-accordion li {
 	}
 }
 
+//Modification des paddings des liens de dossier en présence de la flèche
+ul.menu-dropdown,
+ul.menu-accordion {
+	li.dm_dir > .link {
+		padding-right: @menuArrowPadH + @menuLinkPadH;
+		#dm_sidebar_right & {
+			padding-left: @menuArrowPadH + @menuLinkPadH + 1px;
+			padding-right: @menuLinkPadH;
+		}
+	}
+}
+
 //comportement flèche différents selon les types de menu
 ul.menu-dropdown li.dm_dir > .link:hover:after,
 ul.menu-dropdown li.dm_dir:hover > .link:after,
 ul.menu-accordion li.dm_parent > .link:after {
+//Maestro : gestion séparée de megadropdown
+// ul.menu-megadropdown > li.dm_dir > .link:hover:after,
+// ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
 	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
