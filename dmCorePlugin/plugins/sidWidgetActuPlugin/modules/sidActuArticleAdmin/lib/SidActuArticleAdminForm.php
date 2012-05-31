@@ -32,12 +32,13 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
       
         if(sfContext::getInstance()->getUser()->isSuperAdmin()){
         $this->widgetSchema['sid_actu_type_list'] = new sfWidgetFormDoctrineChoice(array('multiple' => true, 'model' => 'SidActuType', 'expanded' => true));
-    }
-    else if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
-        $actuType = dmDb::table('SidActuType')->findOne();
-        (!is_object($actuType)) ? $actuTypeId = '':$actuTypeId = $actuType->id;
-        $this->widgetSchema['sid_actu_type_list'] = new sfWidgetFormInputHidden(array(),array('value' => $actuTypeId));
-    }
+        $this->widgetSchema->setHelp('debut_date', 'Utilisé par le widget actuArticleContextuel');
+        }
+        else if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
+            $actuType = dmDb::table('SidActuType')->findOne();
+            (!is_object($actuType)) ? $actuTypeId = '':$actuTypeId = $actuType->id;
+            $this->widgetSchema['sid_actu_type_list'] = new sfWidgetFormInputHidden(array(),array('value' => $actuTypeId));
+        }
     
     $this->widgetSchema->setHelps(array(
             'file_form' => 'Vous pouvez insérer un fichier des formats suivants : .pdf, doc, .docx, .xls, .xlsx, .odt, .ods, .zip.',
@@ -47,6 +48,10 @@ class SidActuArticleAdminForm extends BaseSidActuArticleForm {
             'tags_list' => 'Sélectionnez les mots en rapport avec votre lien pour les faire apparaitre dans les pages les plus adéquates de votre site',
             'fin_date' => 'Assurez-vous que la date de fin soit postérieure à la date de début'
 	       ));
+
+    if(sfContext::getInstance()->getUser()->isSuperAdmin()){
+        $this->widgetSchema->setHelp('debut_date', 'Utilisé par le widget actuArticleContextuel');
+        }
 
 	
     }
