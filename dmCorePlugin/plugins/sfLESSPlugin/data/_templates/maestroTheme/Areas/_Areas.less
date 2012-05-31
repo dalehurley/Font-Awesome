@@ -110,7 +110,12 @@
 }
 
 #dm_custom_bottom_left {
-	.isLess & { background-color: fadeout(#5473D1, 50%); }
+	#dm_page.edit &, .isLess & { background-color: fadeout(#5473D1, 50%); }
+	#dm_page.edit & {
+		position: relative;
+		width: auto;
+		float: none;
+	}
 	//définition de la largeur
 	@gridWidth(@gridCol_SidebarLeft);
 	//placement et hauteur
@@ -119,7 +124,12 @@
 }
 
 #dm_custom_bottom_right {
-	.isLess & { background-color: fadeout(#9D54D1, 50%); }
+	#dm_page.edit &, .isLess & { background-color: fadeout(#9D54D1, 50%); }
+	#dm_page.edit & {
+		position: relative;
+		width: auto;
+		float: none;
+	}
 	background-color: @colorCouleur3Clair;
 	//définition de la largeur
 	@gridWidth((@gridCol - @gridCol_SidebarLeft));
@@ -130,6 +140,8 @@
 
 //à supprimer lorsque terminé
 #dm_custom_bottomTEST {
+	#dm_page.edit &, .isLess & { background-color: fadeout(#54D19D, 50%); }
 	position: relative;
 	float: none;
+	clear: both;
 }
