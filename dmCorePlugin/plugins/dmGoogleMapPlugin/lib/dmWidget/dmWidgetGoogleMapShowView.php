@@ -23,16 +23,17 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
     ));
   }
   public function getStylesheets() {
-	//on créé un nouveau tableau car c'est un nouveau widget (si c'est une extension utiliser $stylesheets = parent::getStylesheets();)
-	$stylesheets = parent::getStylesheets();
+  	//on créé un nouveau tableau car c'est un nouveau widget (si c'est une extension utiliser $stylesheets = parent::getStylesheets();)
+  	$stylesheets = parent::getStylesheets();
 
-	//lien vers le js associé au menu
-	$cssLink = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/GoogleMapShow/GoogleMapShow.css';
-	//chargement de la CSS si existante
-	if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
+  	//lien vers le js associé au menu
+  	$cssLink = '/theme/css/_templates/'.dmConfig::get('site_theme').'/Widgets/GoogleMapShow/GoogleMapShow.css';
+  	//chargement de la CSS si existante
+  	if (is_file(sfConfig::get('sf_web_dir') . $cssLink)) $stylesheets[] = $cssLink;
 
-	return $stylesheets;
+  	return $stylesheets;
   }
+
   protected function doRender()
   {
     $vars = $this->getViewVars();
@@ -58,7 +59,6 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
         else {
             return debugTools::infoDebug(array('Error : no address' => 'recordId: '.$dmPage->record_id.' in Table SidCoordName doesn\'t exist'), 'warning');
         }
-        
     }
     // si il y a quelque chose dans le champ texte on le transmet pour construire la map
     else $adresseCabinet = $vars['address'];
@@ -86,9 +86,11 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
         ->zoom($vars['zoom'])
         ->style(sprintf(
           'width: %s; height: %s;',
-          dmArray::get($vars, 'width', '350px'),
-          dmArray::get($vars, 'height', '250px')
+          dmArray::get($vars, 'width', '366px'),
+          dmArray::get($vars, 'height', '270px')
         ))
+        ->width(dmArray::get($vars, 'width', '366px'))
+        ->height(dmArray::get($vars, 'height', '270px'))
         ->navigationControl($vars['navigationControl'])
         ->mapTypeControl($vars['mapTypeControl'])
         ->scaleControl($vars['scaleControl'])
