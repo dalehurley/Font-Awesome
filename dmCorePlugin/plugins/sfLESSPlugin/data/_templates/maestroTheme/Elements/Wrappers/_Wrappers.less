@@ -222,7 +222,7 @@
 //configuration de base des deux containers d'images
 .imageWrapper, .imageGallery {
 	//placé à gauche dans la zone du bas
-	#dm_custom_bottom .dm_zone.left & { float: left; }
+	#dm_custom_bottom_left & { float: left; }
 }
 
 //container de l'image
@@ -246,7 +246,7 @@
 	}
 
 	//placé à gauche dans la zone du bas
-	#dm_custom_bottom .dm_zone.left & {
+	#dm_custom_bottom_left & {
 		margin-left: 0;
 		margin-right: @gridGutter;
 	}
@@ -254,8 +254,8 @@
 
 //container d'une galerie (à tester et débuggué lorsque implémenté dans le système)
 .imageGallery {
-	//placé à gauche dans la zone du bas, donc changement sens d'alignement
-	#dm_custom_bottom .dm_zone.left & {
+	//placé à gauche dans la zone du bas
+	#dm_custom_bottom_left & {
 		.image, .link {
 			margin-right: @gridGutter;
 			margin-left: 0;
