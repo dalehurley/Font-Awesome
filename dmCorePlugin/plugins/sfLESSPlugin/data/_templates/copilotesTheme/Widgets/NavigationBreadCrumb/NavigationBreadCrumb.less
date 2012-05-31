@@ -16,17 +16,26 @@
 @import "_framework/SPLessCss/Widgets/NavigationBreadCrumb/_NavigationBreadCrumb.less";
 
 .dm_widget.navigation_bread_crumb {
-	float: left;
-	
+
+	//placement dans la zone située sous le header
+	#dm_custom_top & {
+		float: left;
+		margin-right: @gridGutter;
+		margin-bottom: @gridBaseline/2;
+	}
+
 	.dm_widget_inner {
 		//ajout d'une bordure dont l'épaisseur a été déduite
 		background-color: @colorWhite;
 		//Copilotes : ajout arrondi sur le widget
 		@borderRadiusCompress(@offM);
 		border: 1px solid @colorZoneBorder;
-		margin-bottom: @gridBaseline/2;
-		//définitions de la largeur
-		@gridWidth((@gridCol - @gridCol_SidebarRight); 2px);
+
+		//placement dans la zone située sous le header
+		#dm_custom_top & {
+			//définitions de la largeur
+			@gridWidth((@gridCol - @gridCol_SidebarRight); 2px);
+		}
 	}
 	
 	//apparrence des liens
