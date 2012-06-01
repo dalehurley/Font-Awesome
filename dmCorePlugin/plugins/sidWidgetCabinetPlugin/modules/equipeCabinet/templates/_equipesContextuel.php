@@ -1,6 +1,6 @@
 <?php
 
-// vars : $equipes, $titreBloc, $lien, $pageEquipe, $length, $rubrique, $nomRubrique, $linkEquipe, $mailTo
+// vars : $equipes, $titreBloc, $lien, $pageEquipe, $length, $rubrique, $nomRubrique, $linkAllEquipe, $mailTo
 $i = 1;
 $i_max = count($equipes);
 $class = '';
@@ -75,6 +75,7 @@ if (count($equipes)) { // si nous avons des membres de l'article
         $html.= _close('span');
         $html.= _close('span');
         if ($equipe->email == NULL || $mailTo == false) {
+            $linkEquipe = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('renseignements','show',$equipe->coord_name_id);
             echo _link($linkEquipe)->anchor(dmString::slugify($equipe->getFirstName() . '-' . $equipe->getName()))->set('.link_box')->text($html);
         }
         else
@@ -86,7 +87,7 @@ if (count($equipes)) { // si nous avons des membres de l'article
     if ((isset($lien)) AND ($lien != '')) {
         echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
         echo _open('ul', array('class' => 'elements'));
-        echo _tag('li', array('class' => 'element first last'), _link($linkEquipe)->text($lien)
+        echo _tag('li', array('class' => 'element first last'), _link($linkAllEquipe)->text($lien)
         );
         echo _close('ul');
         echo _close('div');
