@@ -23,3 +23,15 @@ ol,ul,dl
 	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
     padding:0 40px;
 }
+h5,h5.title{
+    font-size: 14px
+}
+
+h6,h6.title{
+    font-size: 13px;
+    font-style: italic
+}
+em,em.annotation{
+    font-style: italic
+}
+;
