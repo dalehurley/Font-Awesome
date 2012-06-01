@@ -1137,7 +1137,6 @@ class baseEditorialeTools {
         
         foreach ($bdRubriques as $bdRubrique) {
             $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueId($bdRubrique->id);
-            
             foreach ($sidSections as $sidSection) {
                 $sidArticles = Doctrine_Core::getTable('SidArticle')->findBySectionId($sidSection->id);
                 // on scanne les fichiers du serveurs, les absents sont inactifs
@@ -1147,8 +1146,8 @@ class baseEditorialeTools {
                 foreach ($sidArticles as $sidArticle) {
                     if (!in_array($sidArticle->filename . '.xml', $repArticle)) {
                         if ($sidArticle->isActive) {
-                            $sidArticle->delete();
-                            $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article supprimé'] = $sidArticle->filename;
+                            $sidArticle->setIsActive(false);
+//                            $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article supprimé'] = $sidArticle->filename;
                             $j++;
                         }
                     } elseif (!$sidArticle->getIsActive()) {

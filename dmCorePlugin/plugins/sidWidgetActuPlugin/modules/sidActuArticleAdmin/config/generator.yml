@@ -94,22 +94,22 @@ generator:
          'Publication sur le site': [is_active]
 <?php     
 if(sfContext::getInstance()->getUser()->isSuperAdmin()){ ?>
-         'Type des Articles': [sid_actu_type_list]
-         "Titre de votre article": [title]
+        'Type des Articles': [sid_actu_type_list]
+        "Titre de votre article": [title]
 <?php }
 else if(!sfContext::getInstance()->getUser()->isSuperAdmin()){?>
-         "Titre de votre article": [sid_actu_type_list,title]
+        "Titre de votre article": [sid_actu_type_list,title]
 <?php } ?>
-         'Chapeau de votre article': [resume]
-         Text: [text]
-         Image: [image_form, image_view]
-         Fichier : [ file_form, file_view, title_file]
-         # 'Mots clés': [tags] Syntaxe pour autocomplétion pour tagger les articles (ajout et sélection)
-#         'Mots clés': [tags_list] 
-         # m_sections du nom de la relation declaree dans le schema.yml, + _list
-#         'Section liées': [m_sections_list]   
-         Date du message (Cliquez sur le champ de la date pour faire apparaître le calendrier): [debut_date, fin_date]
-         'Rubriques liées': [m_rubriques_list]
+        'Chapeau de votre article': [resume]
+        Text: [text]
+        Image: [image_form, image_view]
+        Fichier : [ file_form, file_view, title_file]
+        # 'Mots clés': [tags] Syntaxe pour autocomplétion pour tagger les articles (ajout et sélection)
+#        'Mots clés': [tags_list] 
+        # m_sections du nom de la relation declaree dans le schema.yml, + _list
+#        'Section liées': [m_sections_list]  
+        Période pour la mise en avant de votre message (s'applique au widget actuArticlesContextuel): [debut_date, fin_date]
+        'Rubriques liées': [m_rubriques_list]
         class: SidActuArticleAdminForm
 
 
