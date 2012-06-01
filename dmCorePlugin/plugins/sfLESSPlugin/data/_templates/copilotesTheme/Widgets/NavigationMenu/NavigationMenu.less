@@ -138,7 +138,7 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	//gestion des liens
 	.link {
 		background-color: @colorCouleur3ClairSup;
-		padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
+		padding: (@menuLinkPadV + 1px) @menuLinkPadH @menuLinkPadV (@menuLinkPadH + 1px);
 		border-style: solid;
 		border-width: 0 1px 1px 0;
 		border-color: @colorCouleur3Moyen @colorZoneBorder;
@@ -146,8 +146,8 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		
 		//changement taille selon zone
 		//Co-pilotes : changement de la taille de police
-		#dm_custom_top & { font-size: @fontSizeSmall; }
-		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeMicro; }
+		// #dm_custom_top & { font-size: @fontSizeSmall; }
+		// #dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeMicro; }
 
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
 		&.dm_inactive { color: @colorCouleur3; }
@@ -156,11 +156,12 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		&:active { color: @colorCouleur1; }
 	}
 
-	//remise de la couleur du bas sur les premiers et derniers de liste
+	//Copilotes : remise de la couleur du bas sur les derniers de liste
 	.last > .link { border-color: @colorZoneBorder; }
 
 	//Copilotes : agrandissement liens pour le premier niveau
 	#dm_custom_top & > li > .link { font-size: @fontSizeH6Px; }
+	#dm_sidebar_left & > li > .link, #dm_sidebar_right & > li > .link { font-size: @fontGlobalSizePx; }
 }
 
 //mise en couleur des cellules ouvertes
@@ -189,7 +190,11 @@ ul.menu-accordion li.dm_parent li.dm_parent > .link {
 //##################################
 //#### GESTION FLÈCHE OUVERTURE ####
 //##################################
-ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
+//Copilotes : gestion séparée de accordion
+ul.menu-dropdown li,
+//Copilotes : gestion séparée de accordion
+// ul.menu-accordion li,
+ul.menu-megadropdown > li {
 	//création de la flèche avec des bordures
 	&.dm_dir > .link {
 		&:after {
@@ -226,10 +231,24 @@ ul.menu-dropdown li, ul.menu-accordion li, ul.menu-megadropdown > li {
 	}
 }
 
+//Modification des paddings des liens de dossier en présence de la flèche
+ul.menu-dropdown {
+//Copilotes : gestion séparée de accordion
+// ul.menu-accordion {
+	li.dm_dir > .link {
+		padding-right: @menuArrowPadH + @menuLinkPadH;
+		#dm_sidebar_right & {
+			padding-left: @menuArrowPadH + @menuLinkPadH + 1px;
+			padding-right: @menuLinkPadH;
+		}
+	}
+}
+
 //comportement flèche différents selon les types de menu
 ul.menu-dropdown li.dm_dir > .link:hover:after,
 ul.menu-dropdown li.dm_dir:hover > .link:after,
-ul.menu-accordion li.dm_parent > .link:after,
+//Copilotes : gestion séparée de accordion
+// ul.menu-accordion li.dm_parent > .link:after,
 ul.menu-megadropdown > li.dm_dir > .link:hover:after,
 ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;

@@ -8,19 +8,19 @@
 @import "_templates/copilotesTheme/Widgets/_Widgets.less";
 
 .dm_widget.google_map_show {
-	.isLess & { background-color: #E0CBF2; }
+	.isLess & { background-color: fadeout(#E0CBF2, 50%); }
 	
 	//container de l'adresse
 	.mapAddress {
-		.isLess & { background-color: #F2CBF1; }
+		.isLess & { background-color: fadeout(#F2CBF1, 50%); }
 		position: relative;
 		display: block;
 		margin: 0;
-		padding-top: @gridBaseline/2;
+		padding: @gridBaseline/2 @gridGutter 0 0;
 		
 		//placement des éléments internes
 		.itemprop { display: block; }
-		.subWrapper .itemprop { display: inline; }
+		.subWrapper .itemprop { display: inline; vertical-align: top; }
 		
 		//masquage de différents éléments .type
 		#dm_page & { .streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } } }
@@ -29,15 +29,16 @@
 		.name {
 			font-weight: bold;
 			font-size: @fontSizeH6Px;
+			line-height: @gridBaseline;
 		}
 	}
 	
 	.dm_google_map {
-		.isLess & { background-color: #CBD3F2; }
+		.isLess & { background-color: fadeout(#CBD3F2, 50%); }
 		position: relative;
 		display: block;
 		float: right;
-		margin: 0;
-		padding: @gridBaseline/2 0 0 @gridGutter;
+		margin: @gridBaseline/2 0 0 @gridGutter;
+		padding: 0;
 	}
 }

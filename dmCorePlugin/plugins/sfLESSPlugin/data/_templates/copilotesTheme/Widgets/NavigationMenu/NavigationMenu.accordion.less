@@ -1,11 +1,16 @@
 // NavigationMenu.accordion.less
-// v1.2
-// Last Updated : 2012-03-09 15:05
+// v1.2.1
+// Last Updated : 2012-05-30 14:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //Config par défaut des widgets du template
 @import "_templates/copilotesTheme/Widgets/_Widgets.less";
+
+//OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Config du widget courant
 @import "_templates/copilotesTheme/Widgets/NavigationMenu/_ConfigWidgetNavigationMenu.less";
@@ -19,12 +24,13 @@ ul.menu-accordion {
 	border-left: 1px solid @colorZoneBorder;
 	
 	//rajout bordure en haut sur le menu principal et gestion décalage
-	& > li.first > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @colorZoneBorder; }
+	& > li.first > .link { padding-top: @menuLinkPadV; border-top: 1px solid @colorZoneBorder; }
 	margin-top: 0px;
 
 	//calcul couleur intermédiaire entre la couleur colorCouleur3MoyenSup et colorCouleur3Clair
 	@interCouleur : mix(@colorCouleur3MoyenSup, @colorCouleur3Clair, 33.33%);
 	
+	//stylage des liens parents
 	li.dm_parent {
 		//couleur de fond des autres liens
 		& > ul > li > .link {
@@ -46,6 +52,8 @@ ul.menu-accordion {
 		}
 	}
 	
+	//Copilotes : désactivation flèche en bordure
+	/*
 	//couleur de la flèche
 	li.dm_dir > .link:after {
 		border-color: transparent transparent transparent @menuArrowColor;
@@ -56,4 +64,83 @@ ul.menu-accordion {
 		.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
 		.csstransitions.csstransforms #dm_sidebar_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
 	}
+	*/
+
+	//Copilotes : personnalisation des liens
+	.link {
+		text-transform: uppercase;
+		#dm_sidebar_right & { text-align: left; }
+	}
 }
+
+
+//##############################################
+//#### Copilotes : GESTION FLÈCHE OUVERTURE ####
+//##############################################
+//Copilotes : gestion spécifique de la sprite d'ouverture
+ul.menu-accordion li {
+	//rajout des sprites sur tous les liens
+	.link {
+		&:after {
+			position: absolute;
+			z-index: 600;
+			display: block;
+			content:"";
+
+			//chargement de la sprite de base
+			@spriteDefinition("DefaultMedium"; "navigation"; "arrowSquare"; "S"; @spriteFormat_S; @spriteOffX-DefaultMedium-navigation-arrowSquare; @spriteOffY-DefaultMedium-navigation-arrowSquare);
+
+			//placement sprite
+			right: @menuArrowSpriteOffsetX;
+			top: @menuArrowSpriteOffsetY;
+
+			//inversion de style automatique en fonction du conteneur
+			#dm_sidebar_right & {
+				right: auto !important;
+				left: @menuArrowSpriteOffsetX;
+			}
+		}
+	}
+
+	//création de la flèche avec une sprite
+	&.dm_dir > .link {
+		&:after {
+			//chargement de la sprite de base
+			@spriteDefinition("DefaultMono"; "navigation"; "arrowSquareRight"; "S"; @spriteFormat_S; @spriteOffX-DefaultMono-navigation-arrowSquareRight; @spriteOffY-DefaultMono-navigation-arrowSquareRight);
+
+			//ajout des transitions pour navigateurs récents
+			.csstransitions.csstransforms & {
+				@transitionCompress(all; .15s; ease-in; 0s);
+			}
+		}
+	}
+}
+
+//Modification des paddings des liens en présence de la flèche ou du carré
+ul.menu-accordion {
+	.link {
+		padding-right: @menuArrowSpritePadH + @menuLinkPadH;
+		#dm_sidebar_right & {
+			padding-left: @menuArrowSpritePadH + @menuLinkPadH + 1px;
+			padding-right: @menuLinkPadH;
+		}
+	}
+}
+
+//comportement flèche différents selon les types de menu
+ul.menu-accordion li.dm_parent > .link:after {
+	//Remplacement de la sprite
+	@spriteDefinition("DefaultLight"; "navigation"; "arrowSquareDown"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-navigation-arrowSquareDown; @spriteOffY-DefaultLight-navigation-arrowSquareDown);
+
+	//ajout des transitions pour navigateurs récents
+	.csstransitions.csstransforms & {
+		@rotate(90deg);
+		//Remplacement de la sprite
+		@spriteBgp(@spriteFormat_S; @spriteOffX-DefaultLight-navigation-arrowSquareRight; @spriteOffY-DefaultLight-navigation-arrowSquareRight);
+	}
+	.csstransitions.csstransforms.svg & {
+		@spriteBgiSvgNoPrefix("DefaultLight"; "navigation"; "arrowSquareRight");
+	}
+}
+//##################################
+//##################################

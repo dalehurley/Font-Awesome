@@ -95,7 +95,7 @@ ul.menu-dropdown {
 		& > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first,
 		& > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first,
 		& > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first {
-			& > .link { padding-top: @menuDropdownPadV; }
+			& > .link { padding-top: @menuLinkPadV; }
 		}
 	}
 	
@@ -132,8 +132,8 @@ ul.menu-dropdown {
 			color: @colorCouleur3Clair;
 			
 			//personnalisation padding pour menu horizontal
-			padding-right: @menuDropdownPadHCustomTop;
-			padding-left: @menuDropdownPadHCustomTop + 1px;
+			padding-right: @menuLinkPadHCustomTop;
+			padding-left: @menuLinkPadHCustomTop + 1px;
 			
 			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
 			&.dm_inactive { color: @colorCouleur3Moyen; }
@@ -195,7 +195,7 @@ ul.menu-dropdown {
 			&.dm_dir:hover > .link,
 			&.dm_dir > .link:hover,
 			&.dm_dir > .link:focus {
-				padding-bottom: @menuDropdownPadV;
+				padding-bottom: @menuLinkPadV;
 				border-bottom: 1px solid @colorZoneBorder;
 			}
 			

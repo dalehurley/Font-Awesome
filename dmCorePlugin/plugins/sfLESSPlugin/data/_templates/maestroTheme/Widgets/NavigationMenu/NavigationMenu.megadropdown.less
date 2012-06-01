@@ -44,7 +44,7 @@ ul.menu-megadropdown {
 	#dm_sidebar_right & {
 		//pour toutes les premières cellules
 		& > li.first {
-			& > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @colorZoneBorder; }
+			& > .link { padding-top: @menuLinkPadV; border-top: 1px solid @colorZoneBorder; }
 			& > ul { top: 0; padding-top: @gridBaseline; }
 		}
 	}
@@ -284,7 +284,7 @@ ul.menu-megadropdown {
 
 				//personnalisation padding pour menu horizontal
 				@padV: floor(@gridBaseline / 4) + 0px;
-				@padH: @menuDropdownPadHCustomTop;
+				@padH: @menuLinkPadHCustomTop;
 				padding: @padV @padH @padV (@padH +1px);
 			}
 			//pleine hauteur lors du rollOver
