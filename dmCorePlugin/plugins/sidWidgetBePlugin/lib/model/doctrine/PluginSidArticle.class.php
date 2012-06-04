@@ -40,7 +40,7 @@ abstract class PluginSidArticle extends BaseSidArticle {
         //         ->limit(1)
         //         ->execute();
         // return $rubriquePage[0]->title;
-         return $this->getSection()->getRubrique()->getDmPage()->title;
+        return $this->getSection()->getRubrique()->getDmPage()->title;
     }
 
 }
