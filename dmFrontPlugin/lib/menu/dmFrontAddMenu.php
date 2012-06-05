@@ -86,7 +86,7 @@ class dmFrontAddMenu extends dmMenu
       return sprintf('<span class="tipable widget_add move" id="dmwa_%s-%s" title="%s">%s</span>',
         $widgetType->getModule(),
         $widgetType->getAction(),
-        $widgetType->getPublicName() . '&#10;- View Class: ' .$widgetType->getViewClass(). '&#10;- Form Class: ' .$widgetType->getFormClass(),
+        $widgetType->getPublicName() . ' ('.$widgetType->getModule().'-'.$widgetType->getAction().')' . '&#10;- View Class: ' .$widgetType->getViewClass(). '&#10;- Form Class: ' .$widgetType->getFormClass(),
         dmString::strtolower(parent::renderLabel())              
                 );
     }
