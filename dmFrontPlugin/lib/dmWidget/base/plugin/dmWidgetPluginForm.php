@@ -39,8 +39,8 @@ abstract class dmWidgetPluginForm extends dmWidgetBaseForm
                 'required' => false
                 ));
         
-    $this->widgetSchema['chapo'] = new sfWidgetFormSelectRadio(array('choices' => array('chapeau','texte'),'default'=>1));
-    $this->validatorSchema['chapo']  = new sfValidatorChoice(array('choices' =>array(0,1),'multiple' => false,'required' => false));
+    $this->widgetSchema['chapo'] = new sfWidgetFormSelectRadio(array('choices' => array('chapeau','texte','rien'),'default'=>1));
+    $this->validatorSchema['chapo']  = new sfValidatorChoice(array('choices' =>array(0,1,2),'multiple' => false,'required' => false));
     
     $this->widgetSchema->setHelps(array(
                 'widthImage' => 'Largeur de l\'image',
