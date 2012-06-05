@@ -43,7 +43,20 @@ class dmFrontAddMenu extends dmMenu
     //ksort($widgets); // tri par spacename
     $spaceNamesAff = array();
     //var_dump($widgets);
-
+    
+    // chargement du tableau de filtrage des widgets, s'il en existe un ou plusieurs pour le ou les groupes du user en cours
+    if (!sfContext::getInstance()->getUser()->isSuperAdmin()){
+      // récupérration des groups du user
+      $userGroups = sfContext::getInstance()->getUser()->getGroupNames();
+      $globalWidgetsToDisplay = array();
+      foreach ($userGroups as $group) {
+        $widgetsToDisplay = sfConfig::get('app_filtre-affichage-widget-module-action_'.$group);
+        if (is_array($widgetsToDisplay) && count($widgetsToDisplay)>1){ // si le tableau de widget à afficher existe et est rempli
+          $globalWidgetsToDisplay = array_merge($globalWidgetsToDisplay, $widgetsToDisplay); // on l'ajoute au tableau global
+        }
+      }
+    }  
+    
     foreach($widgets as $space => $widgetTypes)
     {
       $spaceName = ($module = $moduleManager->getModuleOrNull($space))
@@ -65,14 +78,9 @@ class dmFrontAddMenu extends dmMenu
       foreach($widgetTypes as $key => $widgetType)
       {
         // affichage de seulement quelques widgets
-        // récupérration des groups du user
         if (!sfContext::getInstance()->getUser()->isSuperAdmin()){
-          echo '>>>'.count(sfContext::getInstance()->getUser()->hasGroup());
-          $widgetsToDisplay = sfConfig::get('app_filtre-affichage-widget_module-action');
-
-
-          if (is_array($widgetsToDisplay) && count($widgetsToDisplay)>1){ // si le tableau de widget à afficher existe et est rempli
-            if (in_array($widgetType->getModule().'-'.$widgetType->getAction(), $widgetsToDisplay)){
+          if (is_array($globalWidgetsToDisplay) && count($globalWidgetsToDisplay)>1){
+            if (in_array($widgetType->getModule().'-'.$widgetType->getAction(), $globalWidgetsToDisplay)){
               $displayWidgetButton = true; // on n'affiche que les widgets listés
             } else {
               $displayWidgetButton = false;
@@ -83,7 +91,6 @@ class dmFrontAddMenu extends dmMenu
         } else {
           $displayWidgetButton = true;
         }
-
 
         if ($displayWidgetButton) {
           $spaceMenu

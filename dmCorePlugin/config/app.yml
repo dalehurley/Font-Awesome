@@ -275,19 +275,18 @@ all:
       - admin
 
   # Filtrage d'affichage de certains widgets (exemple: quand admin-co-pilotes se log sur le front)   
-  filtre-affichage-widget:
-    co-pilotes:
-      module-action:
-        - dmWidgetContent-title
-        - dmWidgetContent-link
-        - dmWidgetContent-text
-        - dmWidgetContent-image
-        - dmWidgetContent-imagePlus
-        - dmWidgetContent-nivoGallery
-        - dmWidgetContent-ckEditor
-        - dmWidgetContent-gallery
-        - dmWidgetContent-flowPlayer
-        - dmWidgetContent-galleryBackground
+  filtre-affichage-widget-module-action:
+    co-pilotes:  # le nom du usergroup 
+      - dmWidgetContent-title
+      - dmWidgetContent-link
+      - dmWidgetContent-text
+      - dmWidgetContent-image
+      - dmWidgetContent-imagePlus
+      - dmWidgetContent-nivoGallery
+      - dmWidgetContent-ckEditor
+      - dmWidgetContent-gallery
+      - dmWidgetContent-flowPlayer
+      - dmWidgetContent-galleryBackground
 
   modules-specifiques:
     cgp-site:
