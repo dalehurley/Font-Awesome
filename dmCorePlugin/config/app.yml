@@ -256,7 +256,20 @@ all:
       - see_chart
       - tool_bar_admin
       - admin
-
+      
+  filtre-affichage-widget:
+    module-action:
+      - dmWidgetContent-title
+      - dmWidgetContent-link
+      - dmWidgetContent-text
+      - dmWidgetContent-image
+      - dmWidgetContent-imagePlus
+      - dmWidgetContent-nivoGallery
+      - dmWidgetContent-ckEditor
+      - dmWidgetContent-gallery
+      - dmWidgetContent-flowPlayer
+      - dmWidgetContent-galleryBackground
+      
   modules-specifiques:
     cgp-site:
       - selection_placement
