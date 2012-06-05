@@ -257,6 +257,7 @@ all:
       - tool_bar_admin
       - admin
       
+  # Modif pour co-pilotes afin d'afficher que certains widgets quand admin-co-pilotes se log sur le front    
   filtre-affichage-widget:
     module-action:
       - dmWidgetContent-title
