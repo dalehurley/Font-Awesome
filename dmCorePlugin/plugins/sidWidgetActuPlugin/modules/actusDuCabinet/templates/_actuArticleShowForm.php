@@ -13,6 +13,7 @@ $form->renderGlobalErrors(),
 _tag('div',
     $form['type']->renderRow().
     $form['titreBloc']->renderRow().
+    $form['withPublishedDate']->renderRow().
     $form['cssClass']->renderRow().
     $form['withImage']->renderRow().
     //$form['widthImage']->renderRow(). on prend pour l'instant que la hauteur en paramètre
