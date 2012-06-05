@@ -89,12 +89,23 @@ if (count($missions)) {
                 $link .= _tag('meta' , array('content' => $mission->createdAt, 'itemprop' => 'datePublished'));
             $link .= _close('span');
             $link .= _open('span', array('class' => array('teaser', 'itemprop', 'description'), 'itemprop' => 'description'));
-                 if ($chapo == 0) {
-                     $link .= stringTools::str_truncate($mission->getResume(), $length, $ellipsis, true);
-                 }
-                 else if ($chapo == 1) {
-                     $link .= $mission->getText();
-                 }
+
+            switch ($chapo) {
+                case 0:
+                    $link .= stringTools::str_truncate($mission->getResume(), $length, $ellipsis, true);
+                    break;
+                case 1:
+                    $link .= $mission->getText();
+                    break;      
+                case 2:
+                    $link .= '';
+                    break;                                  
+                default:
+                    $link .= '';
+                    break;
+            }
+
+
             $link .= _close('span');
         $link .= _close('span');
       
