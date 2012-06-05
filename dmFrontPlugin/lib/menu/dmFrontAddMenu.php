@@ -64,10 +64,33 @@ class dmFrontAddMenu extends dmMenu
       
       foreach($widgetTypes as $key => $widgetType)
       {
-        $spaceMenu
-        ->addChild($widgetType->getName())
-        ->label($this->getI18n()->__($widgetType->getName()))
-        ->setOption('widget_type', $widgetType);
+        // affichage de seulement quelques widgets
+        // récupérration des groups du user
+        if (!sfContext::getInstance()->getUser()->isSuperAdmin()){
+          echo '>>>'.count(sfContext::getInstance()->getUser()->hasGroup());
+          $widgetsToDisplay = sfConfig::get('app_filtre-affichage-widget_module-action');
+
+
+          if (is_array($widgetsToDisplay) && count($widgetsToDisplay)>1){ // si le tableau de widget à afficher existe et est rempli
+            if (in_array($widgetType->getModule().'-'.$widgetType->getAction(), $widgetsToDisplay)){
+              $displayWidgetButton = true; // on n'affiche que les widgets listés
+            } else {
+              $displayWidgetButton = false;
+            }
+          } else { // sinon pas de tableau "filtre-affichage-widget_module-action" dans le app.yml, on affiche tous les widgets
+            $displayWidgetButton = true;
+          }
+        } else {
+          $displayWidgetButton = true;
+        }
+
+
+        if ($displayWidgetButton) {
+          $spaceMenu
+          ->addChild($widgetType->getName())
+          ->label($this->getI18n()->__($widgetType->getName()))
+          ->setOption('widget_type', $widgetType);
+        }
       }
 
       if(!$spaceMenu->hasChildren())
