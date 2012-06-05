@@ -81,6 +81,9 @@ if (!is_file($xml)) {
 			$count = 1;
 			$maxCount = count($linkedArticles) + 1;
 			
+			// compteur d'article ok
+			$nbArticleOk = 0;
+
 			//création d'un tableau de liens à afficher
 			$elements = array();
 			
@@ -91,16 +94,20 @@ if (!is_file($xml)) {
 				
 				//récupérarion du nom de fichier de l'article en question directement dans la base
 				$linkedSidArticle = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($linkedArticle, $article->sectionId);
+
+				if (is_object($linkedSidArticle) && $linkedSidArticle->id !=''){			
+					//remplissage du tableau de navigation
+					$elements[] = array('title' => $linkedSidArticle->title, 'anchor' => dmString::slugify($linkedSidArticle.'-'.$linkedSidArticle->id));
 				
-				//remplissage du tableau de navigation
-				$elements[] = array('title' => $linkedSidArticle->title, 'anchor' => dmString::slugify($linkedSidArticle.'-'.$linkedSidArticle->id));
-				
-				//ajout information de débug
-				//$articleBody.= debugTools::infoDebug(array('ID LEA' => $linkedArticle, 'Section ID' => $article->sectionId));
-				
-				$articleBody.= get_partial('article/showArticleInDossier', array('article' => $linkedSidArticle, 'count' => $count, 'maxCount' => $maxCount));
+					//ajout information de débug
+					//$articleBody.= debugTools::infoDebug(array('ID LEA' => $linkedArticle, 'Section ID' => $article->sectionId));
+					$articleBody.= get_partial('article/showArticleInDossier', array('article' => $linkedSidArticle, 'count' => $count, 'maxCount' => $maxCount));
+					$nbArticleOk++;
+				}
 			}
 		}
+		// si pas d'article fils présent alors on vide $articleBody
+		if ($nbArticleOk==0) $articleBody = '';
 		
 		//insertion du contenu
 		// $articleBody : le texte de l'article père + les articles fils à la suite
