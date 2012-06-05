@@ -10,9 +10,17 @@
  * Ce fichier reste dans le core, il est appelé en include dans les sites par les fichiers XXXXSuccess.php
  * 
  */
+// Si la variable pageOptionsCustom est déjà définie (avec des overrides)
+// alors on la stocke pour la merger après la définition des options de base
+$isOverrided = isset($pageOptionsCustom);
+if($isOverrided) $pageOptionsOverride = $pageOptionsCustom;
+
 //Configuration des zones du template
 $pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' => 'customTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 $pageOptionsCustom['areas']['dm_sidebar_left']['isActive'] = false;
+
+//On fusionne les options d'override si définies
+if($isOverrided) $pageOptionsCustom = spLessCss::pageTemplateCustomOptions($pageOptionsCustom, $pageOptionsOverride);
 
 //Initialisation de la page et récupération des options de la page (avec fusion des options personnalisées)
 $pageOptions = spLessCss::pageInit($pageOptionsCustom);
