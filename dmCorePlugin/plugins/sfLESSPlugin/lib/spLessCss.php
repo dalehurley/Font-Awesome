@@ -525,7 +525,7 @@ class spLessCss {
 	}
 	
 	//fonction d'insertion de nouvelle Area dans le pageTemplateSuccess
-	private static function pageTemplateCustomOptions($options = array(), $customOptions = array()) {
+	public static function pageTemplateCustomOptions($options = array(), $customOptions = array()) {
 		//on parcourt toutes les zones à insérer
 		foreach ($customOptions['areas'] as $id => $area) {
 			//on vérifie si un index est définit pour la zone, sinon on la rajoute à la fin
