@@ -237,7 +237,7 @@ all:
       - see_chart
       - tool_bar_admin
       - admin
-      - ck_editor_co_pilotes
+      - ck_editor_lite
       - admin_bandeau_lite
       - sites_utiles
       - groupe_sites_utiles
@@ -248,6 +248,23 @@ all:
       - mission
       - actualite_contenu
       - contact_me
+      - ck_editor_co_pilotes
+      - page_bar_admin
+      - media_bar_admin
+      - tool_bar_admin
+      - widget_add
+      - widget_edit
+      - widget_delete
+      - widget_edit_fast
+      - widget_edit_fast_record
+      - widget_edit_fast_content_text
+      - widget_edit_fast_navigation_menu
+      - page_add
+      - page_edit
+      - page_delete
+      - page_bar_front
+      - media_bar_front
+      - tool_bar_front
 
   groupes-permissions-base-doc:
     description: "Accès pour le client Base Doc"
