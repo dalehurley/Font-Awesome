@@ -65,9 +65,13 @@ class sfWidgetFormTextareaDmCkEditor extends sfWidgetFormTextarea
 
     if (in_array('ck_editor_lite', $arrayUserPerms)){
         $configCk = sfConfig::get('dm_ckeditor_configLite');
-    } else {
-        $configCk = sfConfig::get('dm_ckeditor_config');
+    } 
+    else if(in_array('ck_editor_co_pilotes', $arrayUserPerms)) {
+        $configCk = sfConfig::get('dm_ckeditor_configCoPilotes');
     }
+    else {
+        $configCk = sfConfig::get('dm_ckeditor_config');
+    };
             
     return array_merge(array(
       'language' => dmDoctrineRecord::getDefaultCulture()
