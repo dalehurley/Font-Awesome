@@ -75,6 +75,7 @@ all:
       # Autorisations particulières sans rapport avec le menu de l'Admin
       system: "Accès au Système d'Administration"
       ck_editor_lite: ckEditor Lite
+      ck_editor_co_pilotes: ckEditor Co-pilotes
       admin_bandeau_lite: 'Administration du bandeau Lite'
       super_admin: 'Acces super Admin'
       admin: "Admin => Accès au compte de l'administrateur"
@@ -216,6 +217,27 @@ all:
       - tool_bar_admin
       - admin
       - ck_editor_lite
+      - admin_bandeau_lite
+      - sites_utiles
+      - groupe_sites_utiles
+      - index_sites_utiles
+      - page_cabinet
+      - equipe
+      - recrutement
+      - mission
+      - actualite_contenu
+      - contact_me
+      
+  groupes-permissions-co-pilotes:
+    description: "Accès pour co-pilotes"
+    permissions:
+      - bandeau
+      - see_accueil
+#      - see_log
+      - see_chart
+      - tool_bar_admin
+      - admin
+      - ck_editor_co_pilotes
       - admin_bandeau_lite
       - sites_utiles
       - groupe_sites_utiles
