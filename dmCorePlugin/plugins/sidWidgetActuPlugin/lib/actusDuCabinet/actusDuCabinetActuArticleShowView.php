@@ -31,9 +31,13 @@ class actusDuCabinetActuArticleShowView extends dmWidgetPluginView {
                         ->execute();
         
         $vars['titreBloc'] = ($vars['titreBloc'] == NULL || $vars['titreBloc'] == ' ') ? $nameParent : $vars['titreBloc'];
+
+        $varWithPublishedDate = (isset($vars['withPublishedDate'])) ?  $vars['withPublishedDate'] : true;
+
         return $this->getHelper()->renderPartial('actusDuCabinet', 'actuArticleShow', array(
                     'articles' => $actuArticles,
                     'titreBloc' => $vars['titreBloc'],
+                    'withPublishedDate' => $varWithPublishedDate,
                     'withImage' => $vars['withImage'],
                     'width' => $vars['widthImage'],
                     'height' => $vars['heightImage']

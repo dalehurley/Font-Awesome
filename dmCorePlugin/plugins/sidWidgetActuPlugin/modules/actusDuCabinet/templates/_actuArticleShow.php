@@ -39,10 +39,14 @@ if(count($articles)){
                 echo _tag('h1', array('class' => 'title itemprop name', 'itemprop' => "name"), $article->getTitle());
                 echo _tag('meta', array('content' => $titreBloc, 'itemprop' => 'articleSection'));
                 echo _tag('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'), $article->getResume());
+
+if ($withPublishedDate){
                 echo _open('span.date');
-                    echo __('Published on').' ';
+                    echo __('published on').' ';
                     echo _tag('time', array('class' => 'datePublished', 'itemprop' => 'datePublished', 'pubdate' => 'pubdate', 'datetime' => format_date($article->createdAt, 'I')), format_date($article->createdAt, 'D' ));
-                echo _close('span');    
+                echo _close('span'); 
+}
+
             echo _close('header');
             echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $article->getText());
             if($article->getFiles()->checkFileExists() == true){
