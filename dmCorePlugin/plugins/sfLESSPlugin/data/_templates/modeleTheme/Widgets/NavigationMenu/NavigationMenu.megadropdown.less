@@ -74,7 +74,9 @@ ul.menu-megadropdown {
 		}
 		
 		//suppression bordure de séparation et marge négative
-		li.first > .link, li.dm_dir > .link { margin-top: 0; border-top: 0; }
+		&.hasDmDir > li > .link,
+		li.first > .link,
+		li.dm_dir > .link { margin-top: 0; border-top: 0; }
 
 		#dm_sidebar_left & {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
