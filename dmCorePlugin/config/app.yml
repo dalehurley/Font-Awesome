@@ -273,10 +273,10 @@ all:
       - see_chart
       - tool_bar_admin
       - admin
-      
-  # Modif pour co-pilotes afin d'afficher que certains widgets quand admin-co-pilotes se log sur le front    
-  filtre-affichage-widget:
-    module-action:
+
+  # Filtrage d'affichage de certains widgets (exemple: quand admin-co-pilotes se log sur le front)   
+  filtre-affichage-widget-module-action:
+    co-pilotes:  # le nom du usergroup 
       - dmWidgetContent-title
       - dmWidgetContent-link
       - dmWidgetContent-text
@@ -287,7 +287,7 @@ all:
       - dmWidgetContent-gallery
       - dmWidgetContent-flowPlayer
       - dmWidgetContent-galleryBackground
-      
+
   modules-specifiques:
     cgp-site:
       - selection_placement
@@ -303,7 +303,7 @@ all:
     rep:
       - _common/pubotheque
       - _common/test
-      
+
   # tableau pour gérer les pages à afficher dans le sitemap
   pages-for-sitemap:     
     # array[key] is a name of the page
