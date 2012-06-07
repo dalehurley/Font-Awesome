@@ -238,7 +238,7 @@ all:
       - see_chart
       - tool_bar_admin
       - admin
-      - ck_editor_lite
+#      - ck_editor_lite
       - admin_bandeau_lite
       - sites_utiles
       - groupe_sites_utiles
