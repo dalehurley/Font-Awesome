@@ -12,6 +12,9 @@ class implantationCabinetImplantationForm extends dmWidgetPluginForm {
         $this->widgetSchema['resume_team'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Affiche la présentation de l\'équipe'));
         $this->validatorSchema['resume_team']  = new sfValidatorBoolean();
 
+        $this->widgetSchema['seeResponsable'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Affiche : Responsable en .......'));
+        $this->validatorSchema['seeResponsable']  = new sfValidatorBoolean();
+
         $this->widgetSchema['widthImagePhoto'] = new sfWidgetFormInputText(array('label' => "Largeur de la photo de l'implantation en px",'default' => 622));
         $this->validatorSchema['widthImagePhoto'] = new dmValidatorCssSize(array(
                   'required' => false
