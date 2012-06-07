@@ -16,6 +16,11 @@ class implantationCabinetImplantationForm extends dmWidgetPluginForm {
         $this->validatorSchema['widthImagePhoto'] = new dmValidatorCssSize(array(
                   'required' => false
                 ));
+
+        $this->widgetSchema->setHelp('withImage','Cocher pour affiche la photo ou la silhouette du collaborateur');
+        $this->widgetSchema->setLabel('withImage','Afficher la photo ou la silhouette');
+        $this->widgetSchema->setHelp('widthImage','largeur en px de la photo du collaborateur');
+        $this->widgetSchema->setLabel('widthImage','largeur de la photo du collaborateur');
     }
 
     public function getStylesheets() {
