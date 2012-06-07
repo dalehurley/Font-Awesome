@@ -89,12 +89,6 @@
 				font-weight: normal;
 				font-size: @fontGlobalSizePx;
 				line-height: @gridBaseline;
-				
-				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
-				& + .elements {
-					margin-top: @gridBaseline/-2;
-					.element.first { padding-top: 0; }
-				}
 			}
 		}
 	}
@@ -109,7 +103,15 @@
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; } }
 			
 			//placement du titre
-			& > .title { margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0; }
+			& > .title {
+				margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0;
+
+				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
+				& + .elements {
+					margin-top: @gridBaseline/-2;
+					.element.first { padding-top: 0; }
+				}
+			}
 		}
 	}
 }
@@ -121,7 +123,15 @@
 			//suppression bordures sous niveaux
 			.dm_widget_inner { padding: 0; }
 			//placement du titre
-			& > .title { margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0; }
+			& > .title {
+				margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0;
+
+				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
+				& + .elements {
+					margin-top: @gridBaseline/-2;
+					.element.first { padding-top: 0; }
+				}
+			}
 		}
 	}
 }
@@ -133,7 +143,12 @@
 			//suppression bordures sous niveaux
 			.dm_widget_inner { padding: 0; }
 			//placement du titre
-			& > .title { margin-bottom: @gridBaseline/2; }
+			& > .title {
+				margin-bottom: @gridBaseline/2;
+
+				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
+				& + .elements { margin-top: @gridBaseline/-2; }
+			}
 		}
 	}
 }
