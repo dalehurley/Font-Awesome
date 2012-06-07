@@ -92,6 +92,10 @@ ul.menu-megadropdown {
 			//reset apparence du lien
 			padding: 0;
 			border: 0;
+			//ajout d'un filet de séparation horizontal avec compensation décalage
+			margin-top: -1px;
+			border-top: 1px dotted @colorCouleur3;
+
 			&, .rgba & { background-color: transparent; }
 
 			//Maestro : personnalisation générale des liens de sous-niveaux
@@ -106,6 +110,11 @@ ul.menu-megadropdown {
 			}
 			&:active { color: @colorCouleur1; }
 		}
+
+		//suppression bordure de séparation et marge négative
+		&.hasDmDir > li > .link,
+		li.first > .link,
+		li.dm_dir > .link { margin-top: 0; border-top: 0; }
 
 		#dm_sidebar_left & {
 			@gridWidth(@gridCol - @gridCol_SidebarLeft + 1; @gridGutter*2);
