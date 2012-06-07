@@ -147,6 +147,12 @@ class dmGoogleMapTag extends dmHtmlTag {
                                 </span>
                             </span>
                         </div>';
+        // vérif si adresse mail existe
+        ($adresseRequest->getEmail() != NULL) ? $cabinet .= '<span class="itemprop email">
+                                                                <span title="'.__('Email').'" class="type">'.__('Email').'</span>
+                                                                <span class="separator">&nbsp;:&nbsp;</span>
+                                                                <a href="mailto:'.$adresseRequest->getEmail().' " itemprop="email" class="value">'.__('Email').'</a>
+                                                            </span>' : $cabinet .= '';           
         // vérif si tél existe
         ($adresseRequest->getTel() != NULL) ? $cabinet .= '<span class="itemprop telephone">
                                                                 <span title="Téléphone" class="type">Téléphone</span>
