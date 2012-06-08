@@ -48,7 +48,7 @@ body { background-color: @bodyBgColor; }
 
 //stylage du footer
 #dm_footer {
-	background-color: @colorCouleur2Moyen;
+	background-color: @footerBgColor;
 	padding: 0;
 	
 	.dm_zones {
@@ -61,7 +61,7 @@ body { background-color: @bodyBgColor; }
 	.content_text {
 		.isLess & { background-color: #B6E0D1; }
 		position: relative;
-		&, .link { color: @colorCouleur3ClairSup; }
+		&, .link { color: @footerTextColor; }
 		.link { text-decoration: none; &:hover { text-decoration: underline; } }
 		float: right;
 		&, .text_content p {
@@ -74,7 +74,7 @@ body { background-color: @bodyBgColor; }
 		.isLess & { background-color: #E0B6D1; }
 		position: relative;
 		&, .link {
-			color: @colorCouleur3ClairSup;
+			color: @footerTextColor;
 			text-decoration: none;
 			&:hover { text-decoration: underline; }
 		}
