@@ -15,7 +15,7 @@ class SidCabinetMissionAdminForm extends BaseSidCabinetMissionForm {
 
     protected function createMediaFormForImage() {
         $form = parent::createMediaFormForImage();
-        unset($form['legend'], $form['author'], $form['license']);
+        unset($form['author'], $form['license']);
         return $form;
     }
     

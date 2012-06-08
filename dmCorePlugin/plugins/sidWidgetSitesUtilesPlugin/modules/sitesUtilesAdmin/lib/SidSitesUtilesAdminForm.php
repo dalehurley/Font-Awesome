@@ -15,7 +15,7 @@ class SidSitesUtilesAdminForm extends BaseSidSitesUtilesForm {
 
     protected function createMediaFormForImageId() {
         $form = parent::createMediaFormForImageId();
-        unset($form['legend'], $form['author'], $form['license']);
+        unset($form['author'], $form['license']);
         return $form;
     }
 
