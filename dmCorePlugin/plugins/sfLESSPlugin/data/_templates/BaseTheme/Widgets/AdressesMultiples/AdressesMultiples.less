@@ -1,6 +1,6 @@
 // AdressesMultiples.less
-// v1.2.5
-// Last Updated : 2012-05-16 12:00
+// v1.2.6
+// Last Updated : 2012-06-11 10:50
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -13,16 +13,17 @@
 
 //AdressesMultiples
 .dm_widget.adresses_multiples {
-	.elements .element {
-		.name, .title, .itemprop, .link { color: @colorCouleur3Fonce; }
-	}
-	
 	//élargissement à toute la largeur
 	#dm_custom_bottom & {
 		//permet d'étendre la zone en débordement de la page
 		margin-left: -100%;
 		margin-right: -100%;
-		background-color: @colorCouleur3Clair;
+		background-color: @bottomBgColor;
+
+		//couleur du texte
+		.elements .element {
+			.name, .title, .itemprop, .link { color: @bottomTextColor; }
+		}
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
