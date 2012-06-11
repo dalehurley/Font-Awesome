@@ -16,21 +16,21 @@
 	//élargissement à toute la largeur
 	#dm_custom_bottom & {
 		//permet d'étendre la zone en débordement de la page
-		margin-left: -100%;
-		margin-right: -100%;
-		background-color: @bottomBgColor;
+		// margin-left: -100%;
+		// margin-right: -100%;
+		// background-color: @bottomBgColor;
 
 		//couleur du texte
-		.elements .element {
-			.name, .title, .itemprop, .link { color: @bottomTextColor; }
-		}
+		// .elements .element {
+		// 	.name, .title, .itemprop, .link { color: @bottomTextColor; }
+		// }
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
-			position: relative;
-			@gridSiteWidth();
-			margin-left: auto;
-			margin-right: auto;
+			// position: relative;
+			// @gridSiteWidth();
+			// margin-left: auto;
+			// margin-right: auto;
 			padding: @gridBaseline/2 0;
 		}
 	}
@@ -89,15 +89,15 @@
 }
 
 //création des fonctions localisées de déclinaisons média
-@templateMedia_TabletPortrait(){
-	#dm_custom_bottom {
-		.adresses_multiples {
-			.dm_widget_inner {
-				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
-			}
-		}
-	}
-}
+// @templateMedia_TabletPortrait(){
+// 	#dm_custom_bottom {
+// 		.adresses_multiples {
+// 			.dm_widget_inner {
+// 				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+// 			}
+// 		}
+// 	}
+// }
 
 //importation des requêtes média
 @import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";
