@@ -1,6 +1,6 @@
 // AdressesMultiples.less
 // v1.2.6
-// Last Updated : 2012-06-11 10:50
+// Last Updated : 2012-06-11 15:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -63,14 +63,20 @@
 			//définition dimension
 			@gridWidth(4);
 			//suppression décalage en début et fin de chaine
-			&.first, &.last { @gridWidth(4; @gridGutter/2); }
+			&.first, &.firstOfRow, &.last, &.lastOfRow { @gridWidth(4; @gridGutter/2); }
 			
 			//adaptation padding
 			padding: 0 (@gridGutter/2 -1px) 0 @gridGutter/2;
+			
+			//ajout marge inférieure
+			margin-bottom: @gridGutter/2;
+			//suppression marge inférieure dans la dernière ligne
+			&.inLastRow { margin-bottom: 0; }
+
 			//suppression bordure et ajout à droite
 			border: 0;
 			border-right: 1px dashed @colorZoneBorder;
-			&.last { border-right: 0; padding-right: @gridGutter/2; }
+			&.last, &.lastOfRow { border-right: 0; padding-right: @gridGutter/2; }
 			
 			//changement taille de police
 			font-size: @fontSizeSmall;
