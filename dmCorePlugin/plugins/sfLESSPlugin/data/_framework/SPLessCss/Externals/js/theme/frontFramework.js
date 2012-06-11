@@ -172,6 +172,42 @@
 
 				//ligne courante
 				var currentRow = 0;
+
+				//boucle sur chacune des lignes
+				for (var i = 0; i < displayNbreRow; i++) {
+
+					//on parcourt chacun des li enfants et on cherche le plus grand en hauteur
+					var highestCol = 0;
+
+					//sélection dans les colonnes
+					var startCol = displayNbreCol * i;
+					var endCol = startCol + displayNbreCol;
+
+					//sélection de la tranche
+					var sliceSelect = selectCol.slice(startCol, endCol);
+
+					//on parcourt la tranche ainsi sélectionnée
+					sliceSelect.each(function() {
+						//récupération de la hauteur
+						var currentColHeight = $(this).height();
+
+						//on actualise la plus grande hauteur détectée dans la ligne
+						if(currentColHeight > highestCol) highestCol = currentColHeight;
+					});
+
+					//application de la hauteur sur la ligne
+					sliceSelect.height(highestCol);
+				};
+
+				//on parcourt toutes les colonnes courantes
+				selectCol.each(function(index) {
+					//ligne courante
+					currentRow = Math.floor(index / displayNbreCol);
+					
+					//on ajoute une classe CSS en fonction de la ligne courante
+					if(currentRow == 0) $(this).addClass('inFirstRow');
+					if(currentRow >= displayNbreRow - 1) $(this).addClass('inLastRow');
+				});
 			}
 		});
 	}
