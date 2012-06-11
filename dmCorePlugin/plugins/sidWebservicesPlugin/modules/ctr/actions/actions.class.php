@@ -35,7 +35,7 @@ class ctrActions extends myFrontModuleActions {
                 $results['valeur'] =$form->getValue('valeur');  
 
                 // envoi soap
-                $results['soap']=$client->__soapCall('calculVACPICPDD',array($results['montant'], $results['depot'], $results['remboursements'], $results['nbloyers'], $results['periodicite'], $results['debut'], $results['valeur']),null,array($authHeader));
+                $results['soap']=$client->__soapCall('calculCTR',array($results['montant'], $results['depot'], $results['remboursements'], $results['nbloyers'], $results['periodicite'], $results['debut'], $results['valeur']),null,array($authHeader));
         
                 $this->getUser()->setFlash('results', $results);
             }
