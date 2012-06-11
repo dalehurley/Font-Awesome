@@ -1,6 +1,6 @@
 // _Areas.less
-// v1.1
-// Last Updated : 2012-01-18 11:00
+// v1.3
+// Last Updated : 2012-06-11 15:45
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -118,12 +118,10 @@ html { background-color: @colorCouleur2ClairSup; }
 	}
 }
 
-//stylage de la zone du bas
-#dm_custom_bottom { min-height: @gridBaseline; }
-
 //stylage de la zone de bas de page
 #dm_custom_bottom {
 	.isLess & { background-color: fadeout(#998A99, 50%); }
+	
 	//permet d'étendre la zone en débordement de la page
 	margin-left: -100%;
 	margin-right: -100%;
@@ -131,6 +129,10 @@ html { background-color: @colorCouleur2ClairSup; }
 	background-image: url("@{urlImagesTemplate}/DemoRef/copilotes-coquelicot.png");
 	background-repeat: no-repeat;
 	background-position: 52.5% 100%;
+	background-color: @bottomBgColor;
+
+	//couleur du texte et des liens
+	&, .name, .link { color: @bottomTextColor; }
 
 	.dm_zones {
 		position: relative;

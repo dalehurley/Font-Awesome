@@ -1,6 +1,6 @@
 // _Areas.less
-// v1.2
-// Last Updated : 2012-01-18 11:00
+// v1.3
+// Last Updated : 2012-06-11 15:45
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -85,15 +85,31 @@ body { background-color: @bodyBgColor; }
 	}
 }
 
-
 //stylage de la zone sous le header
 #dm_custom_top {
 	padding-top: @gridBaseline/2;
 	min-height: @gridBaseline;
 }
 
-//stylage de la zone du bas
-#dm_custom_bottom { min-height: @gridBaseline; }
+//stylage de la zone de bas de page
+#dm_custom_bottom {
+	min-height: @gridBaseline;
+
+	//permet d'étendre la zone en débordement de la page
+	margin-left: -100%;
+	margin-right: -100%;
+	background-color: @bottomBgColor;
+
+	//couleur du texte et des liens
+	&, .name, .link { color: @bottomTextColor; }
+
+	.dm_zones {
+		position: relative;
+		@gridSiteWidth();
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
 
 #dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
 	//meilleure gestion uniformisée des bordures
