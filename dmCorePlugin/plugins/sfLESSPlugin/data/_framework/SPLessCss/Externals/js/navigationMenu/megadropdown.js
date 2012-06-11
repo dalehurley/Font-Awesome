@@ -133,7 +133,6 @@
 						sliceSelect.each(function() {
 							//récupération de la hauteur
 							var currentColHeight = $(this).height();
-							// $(this).addClass('testH-'+currentColHeight);
 
 							//on actualise la plus grande hauteur détectée dans la ligne
 							if(currentColHeight > highestCol) highestCol = currentColHeight;
