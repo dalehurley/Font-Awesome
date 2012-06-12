@@ -18,6 +18,8 @@
 
 ul.menu-default {
 	//Personnalisation menu dans ces zones
+	// #dm_header & li .link { color: @headerTextColor; }
+	// #dm_footer & li .link { color: @footerTextColor; }
 
 	//Copilotes : différenciation couleurs
 	#dm_header & li {
@@ -26,8 +28,8 @@ ul.menu-default {
 	}
 
 	#dm_footer & li {
-		.link { color: @colorCouleur3ClairSup; }
-		&:before { background-color: @colorCouleur3ClairSup; }
+		.link { color: @footerTextColor; }
+		&:before { background-color: @footerTextColor; }
 	}
 
 	#dm_header &, #dm_footer & {

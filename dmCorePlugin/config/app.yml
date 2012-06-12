@@ -8,7 +8,7 @@ all:
       - 91.194.100.238  # IP of EA 
       - 91.194.100.242  # IP of EA SSL
   email:
-    default-sender: "votreconseil@expertinfos.com"    
+    default-sender: "votreconseil@expertinfos.com"
 
   controllers-access:    # param for controller's (dev.php, less.php) access
     ips-allowed:   # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
