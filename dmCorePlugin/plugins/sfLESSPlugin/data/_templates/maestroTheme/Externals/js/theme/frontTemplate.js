@@ -1,6 +1,6 @@
 // frontTemplate.js
-// v1.2.3
-// Last Updated : 2012-06-12 12:40
+// v1.2.4
+// Last Updated : 2012-06-12 14:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -32,12 +32,13 @@
 		//on rajoute l'espace manquant à priori en bas à droite afin de combler le manque éventuel
 		var offsetDecal = $('#dm_main').height() - $('#dm_main_inner').height();
 
-		//on rajoute le décalage aux deux colonnes (pour éviter un bug dans le cas où la colonne de gauche est plus grande)
+		//on rajoute le décalage aux deux colonnes (pour éviter un bug dans le cas où la sidebarLeft est plus grande)
 		if(offsetDecal > 0) {
-			options.offsetHC+= offsetDecal;
-			options.offsetHSL+= offsetDecal;
+			options.offsetHC = options.offsetHSL = offsetDecal;
+			// options.offsetHC+= offsetDecal;
+			// options.offsetHSL+= offsetDecal;
 		}
-		// $.fn.frontFramework.debug("offsetDecal : " + offsetDecal);
+		// $.fn.frontFramework.debug("offsetDecal : " + offsetDecal + " options.offsetHC : " + options.offsetHC + " options.offsetHSL : " + options.offsetHSL);
 
 		//on calcul la hauteur de la zone customBottom et de sa sous-zone à gauche
 		var customBottomHeight = $('#dm_custom_bottom').outerHeight(true);
