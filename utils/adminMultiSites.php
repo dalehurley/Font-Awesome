@@ -62,6 +62,7 @@ $loginPassword = 'comme une fleur en hiver';
 <meta charset="utf-8" />
 <title><?php echo $pageTitle; ?></title>
 <meta name="language" content="fr" />
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
 <style>
 	<?php echo file_get_contents(__DIR__."/adminMultiSites.css"); ?>
 	<?php echo file_get_contents(__DIR__."/icones.css"); ?>

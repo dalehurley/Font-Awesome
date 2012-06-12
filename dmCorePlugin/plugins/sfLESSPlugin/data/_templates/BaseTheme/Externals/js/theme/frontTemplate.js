@@ -1,6 +1,6 @@
 // frontTemplate.js
-// v1.1
-// Last Updated : 2012-04-24 11:00
+// v1.1.1
+// Last Updated : 2012-06-11 15:25
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -17,6 +17,9 @@
 
 			//lancement fonction de redimensionnement de la page
 			var offsetWindow = $.fn.frontFramework.globalHeight();
+
+			//gestion des classes sur les adresses multiples
+			$('.dm_widget.adresses_multiples > .dm_widget_inner > ul.elements').listClassCutter();
 		});
 	}
 

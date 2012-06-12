@@ -44,7 +44,7 @@ foreach ($articles as $article) {
 	$chapeauHtml = '';
 	$textHtml = '';
 	if($justTitle != true) {
-		$chapeauHtml = '<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>';
+		$chapeauHtml = '<span itemprop="description" class="teaser itemprop description">'.stringTools::str_truncate($article->getChapeau(), $length, ' (...)',true).'</span>';
 	}
 	$textHtml = 
 			'<span class="wrapper">'.
