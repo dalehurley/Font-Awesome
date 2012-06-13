@@ -1,6 +1,6 @@
 <?php
 
-// vars : $equipes, $titreBloc, $civ, $withImage, $adresse, $visible_resume_team
+// vars : $equipes, $titreBloc, $civ, $withImage, $adresse, $visible_resume_team, $seeResponsable
 $html = '';
 $i = 1;
 $i_max = count($equipes);
@@ -64,13 +64,15 @@ if (count($equipes) || $adresse->resume_team != NULL || ($adresse->getImage()->c
         echo _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), __($civ) . ' ' . $equipe->getFirstName() . ' ' . $equipe->getName());
         echo _tag('span', array('class' => 'itemprop jobTitle', 'itemprop' => 'jobTitle'), $equipe->getStatut());
         echo _open('span', array('class' => 'contactPoints itemscope ContactPoint', 'itemtype' => 'http://schema.org/ContactPoint', 'itemscope' => 'itemscope', 'itemprop' => 'contactPoints'));
-        if (isset($nomRubrique[$equipe->id])) {
-                                echo _open('span', array('class' => 'itemprop contactType'));
-                                echo _tag('span', array('class' => 'type', 'title' => __('Responsable in')), __('Responsable in'));
-                                echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
-                                echo _tag('span', array('class' => 'value', 'itemprop' => 'contactType'), $nomRubrique[$equipe->id]);
-                                echo _close('span');
-                                };
+        if($seeResponsable == true){
+            if (isset($nomRubrique[$equipe->id])) {
+                echo _open('span', array('class' => 'itemprop contactType'));
+                echo _tag('span', array('class' => 'type', 'title' => __('Responsable in')), __('Responsable in'));
+                echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
+                echo _tag('span', array('class' => 'value', 'itemprop' => 'contactType'), $nomRubrique[$equipe->id]);
+                echo _close('span');
+                };
+        };
         if ($equipe->email != NULL) {
             echo _open('span', array('class' => 'itemprop email'));
             echo _tag('span', array('class' => 'type', 'title' => __('Email')), __('Email'));

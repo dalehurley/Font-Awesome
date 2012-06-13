@@ -283,10 +283,8 @@ class baseEditorialeTools {
                                         // parametre a ajouter
                                         if ($mode == 'total') {
                                             $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditoriale; // (total)
-                                            
                                         } else {
                                             $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditorialeSorted; // (incremental)
-                                            
                                         }
 
                                         $nbInsert = 0;
@@ -334,7 +332,7 @@ class baseEditorialeTools {
                                             $insert = '';
                                         }
                                         if ($nbMajDesactivation != 0) {
-                                            $majDesactivation = $nbMajDesactivation . ' maj désactivation ';
+                                            $majDesactivation = $nbMajDesactivation . ' maj désactivation (suppression)';
                                         } else {
                                             $majDesactivation = '';
                                         }
@@ -422,15 +420,16 @@ class baseEditorialeTools {
                     $article->Translation[$lang]->updated_at = $articleBE->updatedAt->$lang;
                 }
             }
-            // maj des tags de l'article à partir des données Json
-            $article->removeAllTags();
-            $article->setTags($articleBE->tags);
-            $article->save();
-            $articleName = $articleBE->title->$lang;
             if ($articleBE->isActive) {
+                // maj des tags de l'article à partir des données Json
+                $article->removeAllTags();
+                $article->setTags($articleBE->tags);
+                $article->save();
+                $articleName = $articleBE->title->$lang;
                 $return = 'maj';
                 //$return[$i]['MAJ article ' . $article->filename . ' - ' . $article->id] =  $articleName;
             } else {
+                $article->delete();
                 $return = 'majDesactivation';;
                 //$return[$i]['MAJ article (désactivation)' . $article->filename . ' - ' . $article->id] =  $articleName;
             }
@@ -1138,7 +1137,6 @@ class baseEditorialeTools {
         
         foreach ($bdRubriques as $bdRubrique) {
             $sidSections = Doctrine_Core::getTable('SidSection')->findByRubriqueId($bdRubrique->id);
-            
             foreach ($sidSections as $sidSection) {
                 $sidArticles = Doctrine_Core::getTable('SidArticle')->findBySectionId($sidSection->id);
                 // on scanne les fichiers du serveurs, les absents sont inactifs
@@ -1148,8 +1146,8 @@ class baseEditorialeTools {
                 foreach ($sidArticles as $sidArticle) {
                     if (!in_array($sidArticle->filename . '.xml', $repArticle)) {
                         if ($sidArticle->isActive) {
-                            $sidArticle->delete();
-                            $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article supprimé'] = $sidArticle->filename;
+                            $sidArticle->setIsActive(false);
+//                            $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article supprimé'] = $sidArticle->filename;
                             $j++;
                         }
                     } elseif (!$sidArticle->getIsActive()) {
@@ -1158,7 +1156,7 @@ class baseEditorialeTools {
                         $return[$j][$bdRubrique->Translation[$arrayLangs[0]]->title . '/' . $sidSection->Translation[$arrayLangs[0]]->title . ' - ' . $k . ' - Article réactivé'] = $sidArticle->filename;
                         $j++;
                     } else {
-                        //$return[$j][$rubrique . ' - ' . $k . ' - Article déjà actif'] = $sidArticle->filename;
+                        $return[$j][$rubrique . ' - ' . $k . ' - Article déjà actif'] = $sidArticle->filename;
                         
                     }
                     $k++;

@@ -28,7 +28,8 @@ class cjoActions extends myFrontModuleActions {
                 // les valeurs postees
                 $results['nbjours1'] =$form->getValue('nbjours1'); 
                 $results['nbjours2'] =$form->getValue('nbjours2');  
-
+                if ($results['nbjours1']=='') $results['nbjours1']=0;
+                if ($results['nbjours2']=='') $results['nbjours2']=0;
                 // envoi soap
                 $results['soap']=$client->__soapCall('calculCJO',array($results['nbjours1'],$results['nbjours2']),null,array($authHeader));
 

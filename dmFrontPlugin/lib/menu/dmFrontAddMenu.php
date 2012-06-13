@@ -43,7 +43,20 @@ class dmFrontAddMenu extends dmMenu
     //ksort($widgets); // tri par spacename
     $spaceNamesAff = array();
     //var_dump($widgets);
-
+    
+    // chargement du tableau de filtrage des widgets, s'il en existe un ou plusieurs pour le ou les groupes du user en cours
+    if (!sfContext::getInstance()->getUser()->isSuperAdmin()){
+      // récupérration des groups du user
+      $userGroups = sfContext::getInstance()->getUser()->getGroupNames();
+      $globalWidgetsToDisplay = array();
+      foreach ($userGroups as $group) {
+        $widgetsToDisplay = sfConfig::get('app_filtre-affichage-widget-module-action_'.$group);
+        if (is_array($widgetsToDisplay) && count($widgetsToDisplay)>1){ // si le tableau de widget à afficher existe et est rempli
+          $globalWidgetsToDisplay = array_merge($globalWidgetsToDisplay, $widgetsToDisplay); // on l'ajoute au tableau global
+        }
+      }
+    }  
+    
     foreach($widgets as $space => $widgetTypes)
     {
       $spaceName = ($module = $moduleManager->getModuleOrNull($space))
@@ -64,10 +77,27 @@ class dmFrontAddMenu extends dmMenu
       
       foreach($widgetTypes as $key => $widgetType)
       {
-        $spaceMenu
-        ->addChild($widgetType->getName())
-        ->label($this->getI18n()->__($widgetType->getName()))
-        ->setOption('widget_type', $widgetType);
+        // affichage de seulement quelques widgets
+        if (!sfContext::getInstance()->getUser()->isSuperAdmin()){
+          if (is_array($globalWidgetsToDisplay) && count($globalWidgetsToDisplay)>1){
+            if (in_array($widgetType->getModule().'-'.$widgetType->getAction(), $globalWidgetsToDisplay)){
+              $displayWidgetButton = true; // on n'affiche que les widgets listés
+            } else {
+              $displayWidgetButton = false;
+            }
+          } else { // sinon pas de tableau "filtre-affichage-widget_module-action" dans le app.yml, on affiche tous les widgets
+            $displayWidgetButton = true;
+          }
+        } else {
+          $displayWidgetButton = true;
+        }
+
+        if ($displayWidgetButton) {
+          $spaceMenu
+          ->addChild($widgetType->getName())
+          ->label($this->getI18n()->__($widgetType->getName()))
+          ->setOption('widget_type', $widgetType);
+        }
       }
 
       if(!$spaceMenu->hasChildren())
@@ -86,7 +116,7 @@ class dmFrontAddMenu extends dmMenu
       return sprintf('<span class="tipable widget_add move" id="dmwa_%s-%s" title="%s">%s</span>',
         $widgetType->getModule(),
         $widgetType->getAction(),
-        $widgetType->getPublicName() . '&#10;- View Class: ' .$widgetType->getViewClass(). '&#10;- Form Class: ' .$widgetType->getFormClass(),
+        $widgetType->getPublicName() . ' ('.$widgetType->getModule().'-'.$widgetType->getAction().')' . '&#10;- View Class: ' .$widgetType->getViewClass(). '&#10;- Form Class: ' .$widgetType->getFormClass(),
         dmString::strtolower(parent::renderLabel())              
                 );
     }
