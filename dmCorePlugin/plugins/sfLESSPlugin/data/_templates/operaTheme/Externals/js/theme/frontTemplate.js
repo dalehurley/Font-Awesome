@@ -17,6 +17,9 @@
 
 			//lancement fonction de redimensionnement de la page
 			var offsetWindow = $.fn.frontFramework.globalHeight();
+
+			//appel de la fonction de redimenssionnement générale
+			$.fn.frontFramework.resizeCols();
 		});
 	}
 
