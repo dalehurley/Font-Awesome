@@ -1,6 +1,6 @@
 // frontFramework.js
-// v1.2
-// Last Updated : 2012-06-11 15:05
+// v1.2.1
+// Last Updated : 2012-06-13 15:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -58,6 +58,9 @@
 
 	//Gestion de la taille des colonnes
 	$.fn.frontFramework.resizeCols = function (options) {
+
+		//création variable d'options si non défini
+		if(options == null) var options = {};
 
 		//définitions de valeurs par défaut
 		if(options.offsetHC == null) options.offsetHC = 0;
