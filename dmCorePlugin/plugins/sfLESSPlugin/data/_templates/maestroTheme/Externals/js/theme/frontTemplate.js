@@ -1,6 +1,6 @@
 // frontTemplate.js
-// v1.2.2
-// Last Updated : 2012-05-23 12:15
+// v1.2.4
+// Last Updated : 2012-06-12 14:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -17,7 +17,7 @@
 
 			//on fusionne les options courantes avec les options par défaut
 			var getOptions = $.extend({}, $.fn.frontTemplate.defaultOptions, $.fn.frontTemplate.currentOptions);
-
+			
 			//Configuration du redimenssionnement
 			var resultOptions = $.fn.frontTemplate.resizeCols(getOptions);
 
@@ -28,16 +28,18 @@
 
 	//Gestion de la taille des colonnes
 	$.fn.frontTemplate.resizeCols = function (options) {
-		
-		// $.fn.frontFramework.debug("options.offsetHC : " + options.offsetHC);
 
 		//on rajoute l'espace manquant à priori en bas à droite afin de combler le manque éventuel
-		var offsetHC = $('#dm_main').height() - $('#dm_main_inner').height();
+		var offsetDecal = $('#dm_main').height() - $('#dm_main_inner').height();
 
-		//on rajoute le décalage
-		if(offsetHC > 0) options.offsetHC+= offsetHC;
-		// $.fn.frontFramework.debug("offsetHC : " + offsetHC);
-		
+		//on rajoute le décalage aux deux colonnes (pour éviter un bug dans le cas où la sidebarLeft est plus grande)
+		if(offsetDecal > 0) {
+			options.offsetHC = options.offsetHSL = offsetDecal;
+			// options.offsetHC+= offsetDecal;
+			// options.offsetHSL+= offsetDecal;
+		}
+		// $.fn.frontFramework.debug("offsetDecal : " + offsetDecal + " options.offsetHC : " + options.offsetHC + " options.offsetHSL : " + options.offsetHSL);
+
 		//on calcul la hauteur de la zone customBottom et de sa sous-zone à gauche
 		var customBottomHeight = $('#dm_custom_bottom').outerHeight(true);
 		var customBottomLeftHeight = $('#dm_custom_bottom_left').outerHeight(true);
@@ -50,7 +52,7 @@
 			options.isPostHSL = true;
 			options.offsetHSL += (customBottomHeight - customBottomLeftHeight);
 		}
-		
+
 		//appel de la fonction de redimenssionnement générale
 		$.fn.frontFramework.resizeCols(options);
 
