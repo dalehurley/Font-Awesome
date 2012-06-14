@@ -108,7 +108,7 @@ else if(!sfContext::getInstance()->getUser()->isSuperAdmin()){?>
 #        'Mots clés': [tags_list] 
         # m_sections du nom de la relation declaree dans le schema.yml, + _list
 #        'Section liées': [m_sections_list]  
-          Période pour la mise en avant de votre message (s'applique au widget actuArticlesContextuel): [debut_date, fin_date]
+          Période pour la mise en avant de votre message : [debut_date, fin_date]
           'Rubriques liées': [m_rubriques_list]
         class: SidActuArticleAdminForm
 

@@ -98,7 +98,7 @@ class dmAdminToolBarView extends dmToolBarView
 
   protected function renderActiveUsers()
   {
-    if(sfConfig::get('dm_locks_enabled'))
+    if(sfConfig::get('dm_locks_enabled') && sfContext::getInstance()->getUser()->isSuperAdmin())
     {
       return $this->helper->tag('div.dm_active_users', '');
     }
