@@ -19,9 +19,10 @@ class articleComponents extends myFrontModuleComponents
     if(count($articleDossier)>0){
         $query->addWhere('is_dossier = true');
     }
-//    if($this->getPage()->getRecord()->getRubrique()->getTitle() == 'ec_echeancier'){
-//        $query->orderBy('aTranslation.created_at ASC');
-//    };
+
+    if($this->getPage()->getRecord()->getRubrique()->getTitle() == 'ec_echeancier'){
+        $query->orderBy('aTranslation.created_at ASC');
+    };
     
     // construction du header pour envoyer DIRECTEMENT sur la page si il n'y a q'un article
     $articlePager = $this->getPager($query);
