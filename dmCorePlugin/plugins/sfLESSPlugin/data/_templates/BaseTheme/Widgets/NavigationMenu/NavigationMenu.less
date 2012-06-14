@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.3
-// Last Updated : 2012-03-22 11:50
+// v1.3.1
+// Last Updated : 2012-06-14 16:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -37,8 +37,12 @@
 		}
 	}
 
-	//Positionnement à gauche dans le header et le footer
-	#dm_header & { float: right; }
+	//Positionnement à droite dans le header et à gauche le footer
+	#dm_header & {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
 	#dm_footer & { float: left; }
 	
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
