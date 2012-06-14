@@ -373,6 +373,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             
             // sort pageChildren with le record_id corresponding model
             $k=0;
+            //initialisation des variables array
             $childs = array();
             $manualPages = array();
             foreach ($pageChildren as $i => $childPage) {
@@ -383,11 +384,13 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                     $childPos = $childPage->getRecord()->position;
                     $childs[$childPos] = $childPage;
                 } else {
+                    // si ce n'est pas une page automatique, on la met dans un autre tableau
                    $manualPages[] = $childPage;
                 }
                 $k++;
             }
             ksort($childs);
+            // on insère le tableau des pages manuelles à la fin du tableau des pages auto
             foreach ($manualPages as $k=>$value){
                 array_push($childs, $value);
             }
