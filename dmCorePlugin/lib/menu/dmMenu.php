@@ -373,6 +373,8 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             
             // sort pageChildren with le record_id corresponding model
             $k=0;
+            $childs = array();
+            $manualPages = array();
             foreach ($pageChildren as $i => $childPage) {
                 if ($childPage->getIsAutomatic()){
                     // too bad : not use cache object
@@ -381,11 +383,14 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                     $childPos = $childPage->getRecord()->position;
                     $childs[$childPos] = $childPage;
                 } else {
-                   $childs[$k] = $childPage;
+                   $manualPages[] = $childPage;
                 }
                 $k++;
             }
             ksort($childs);
+            foreach ($manualPages as $k=>$value){
+                array_push($childs, $value);
+            }
             $pageChildren = $childs;
 
             // launch render for children pages
