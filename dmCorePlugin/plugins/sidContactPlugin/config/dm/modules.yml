@@ -1,0 +1,35 @@
+"Les contacts":
+
+  "Mes formulaires de contacts":
+
+    ContactForm:
+      model: SidContactForm
+      page: true
+      name: Contact|Contacts
+      credentials: contact
+      components:
+        listContact:
+          cache:              true
+
+    ContactField:
+      model: SidContactField
+      parent: Rubrique
+      page: true
+      name: Section|Sections
+      credentials: section
+      components:
+        listArticles:
+          cache:              true
+
+    Contact:
+      model: SidContact
+      parent: Section
+      page: true
+      name: Article|Articles
+      credentials: article
+      components:
+        listBySection:
+          filters: [ Section ]
+          cache:              true
+        listArticlesAvecMemeTag:
+          cache:              true
