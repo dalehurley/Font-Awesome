@@ -43,8 +43,8 @@ $utilisation[] = '* sitemap-update : met à jour le sitemap';
 $utilisation[] = '* setup : effectue un dm:setup';
 $utilisation[] = '* loadBE : met à jour la base éditoriale';
 $utilisation[] = '* ccc : purge du cache web et APC';
-$utilisation[] = '* less-compile : compilation des fichiers less';
-$utilisation[] = '* generate-sprite : génération des sprites';
+$utilisation[] = '* css : compilation des fichiers less';
+$utilisation[] = '* css-sprite : génération des sprites';
 $utilisation[] = '* migration-doctrine : effectue une migration doctrine suivi d\'un dm:setup';
 $utilisation[] = '* infos : donne des infos ';
 $utilisation[] = '* permissions : met à jour les permissions sur les dossiers et fichiers';
@@ -156,12 +156,12 @@ switch ($argCommande) {
 		commandForAllSites($commande);
 		break;
 
-	case 'less-compile':
+	case 'css':
 		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony less:compile-all";
 		commandForAllSites($commande);
 		break;
 
-	case 'generate-sprite':
+	case 'css-sprite':
 		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony less:sprite";
 		commandForAllSites($commande);
 		break;
