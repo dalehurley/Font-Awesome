@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.3
-// Last Updated : 2012-03-22 11:50
+// v1.3.1
+// Last Updated : 2012-06-14 16:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -39,13 +39,11 @@
 		}
 	}
 
-	//Positionnement à gauche dans le header et le footer
+	///Positionnement à droite dans le header et à gauche le footer
 	#dm_header & {
-		// float: right;
-		//Copilotes : placement spécifique
 		position: absolute;
-		top: 0;
 		right: 0;
+		top: 0;
 	}
 	#dm_footer & { float: left; }
 	
@@ -146,7 +144,7 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		
 		//changement taille selon zone
 		//Co-pilotes : changement de la taille de police
-		// #dm_custom_top & { font-size: @fontSizeSmall; }
+		// #dm_custom_top & { font-size: @fontSizeSmall; border-color: @menuTopBorderColor; }
 		// #dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeMicro; }
 
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
@@ -166,11 +164,16 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 
 //mise en couleur des cellules ouvertes
 ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-accordion li.dm_parent > .link,
 ul.menu-accordion li.dm_parent li.dm_parent > .link {
+	background-color: @colorCouleur1;
+	color: @colorCouleur3Clair;
+	&:hover { color: @colorCouleur3ClairSup; }
+}
+
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link {
 	background-color: @colorCouleur1;
 	color: @colorCouleur3Clair;
 	&:hover { color: @colorCouleur3ClairSup; }

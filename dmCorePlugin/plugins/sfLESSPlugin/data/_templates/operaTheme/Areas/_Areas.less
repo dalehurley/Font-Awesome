@@ -42,9 +42,36 @@
 }
 
 //débordement externes des différentes zones de la page
-#dm_page_content, #dm_sidebar_left, #dm_sidebar_right, #dm_custom_top, #dm_custom_bottom {
-	//meilleure gestion uniformisée des bordures
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
 	.dm_zones { margin: 0 (@zonesOffsetPad * -1) 0 (@zonesOffsetPad * -1); }
+}
+//pleine largeur de page donc débordement sur l'extérieur de la zone centrale
+#dm_custom_top, #dm_custom_bottom {
+	.dm_zones { margin: 0 (@gridPadding * -1) 0 (@gridPadding * -1); }
+}
+
+//gestion des paddings et des marges des sidebars et du contenu
+#dm_page_content {
+	.isLess & { background-color: #b8cccc; }
+
+	.dm_zones {
+		.isLess & { background-color: #8A9999; }
+		padding: 0 @zonesOffsetPad;
+		//on rajoute la bordure à droite uniquement en présence de la sidebarRight
+		.dm_sdbc_right &, .dm_sdbc_two & {
+			padding-right: (@zonesOffsetPad -1px);
+			border-right: 1px dotted @colorZoneBorder;
+		}
+	}
+}
+
+#dm_sidebar_left, #dm_sidebar_right {
+	.isLess & { background-color: #b8ccb8; }
+	
+	.dm_zones {
+		.isLess & { background-color: #8A998A; }
+		padding: 0 @zonesOffsetPad;
+	}
 }
 
 //stylage du header
@@ -113,29 +140,5 @@
 		text-transform: uppercase;
 		float: left;
 		margin-right: @offM;
-	}
-}
-
-//gestion des paddings et des marges des sidebars et du contenu
-#dm_page_content {
-	.isLess & { background-color: #b8cccc; }
-
-	.dm_zones {
-		.isLess & { background-color: #8A9999; }
-		padding: 0 @zonesOffsetPad;
-		//on rajoute la bordure à droite uniquement en présence de la sidebarRight
-		.dm_sdbc_right &, .dm_sdbc_two & {
-			padding-right: (@zonesOffsetPad -1px);
-			border-right: 1px dotted @colorZoneBorder;
-		}
-	}
-}
-
-#dm_sidebar_left, #dm_sidebar_right {
-	.isLess & { background-color: #b8ccb8; }
-	
-	.dm_zones {
-		.isLess & { background-color: #8A998A; }
-		padding: 0 @zonesOffsetPad;
 	}
 }
