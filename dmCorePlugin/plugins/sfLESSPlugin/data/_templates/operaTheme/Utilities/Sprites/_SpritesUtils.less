@@ -62,15 +62,14 @@
 				background-color: @colorWhite;
 				@borderRadiusCompress(@spriteFormat_M);
 			}
+
+			& + .elements > .element.first { padding-top: @gridBaseline/2; }
 		}
 	}
 
 	//ciblage des listings
 	& .elements .element {
 		&:hover { background-color: @colorCouleur3ClairSup; }
-		//ajout padding pour décalage éléments
-		padding-left: @zonesOffsetPad;
-		padding-right: @zonesOffsetPad;
 	}
 
 	//container de l'image
