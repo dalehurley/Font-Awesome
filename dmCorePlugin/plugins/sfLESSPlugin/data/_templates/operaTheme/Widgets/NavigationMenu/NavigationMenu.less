@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.3
-// Last Updated : 2012-03-22 11:50
+// v1.3.1
+// Last Updated : 2012-06-14 16:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -38,8 +38,12 @@
 		}
 	}
 
-	//Positionnement à gauche dans le header et le footer
-	#dm_header & { float: right; }
+	//Positionnement à droite dans le header et à gauche le footer
+	#dm_header & {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
 	#dm_footer & { float: left; }
 	
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
@@ -56,8 +60,8 @@
 		.dm_widget_inner {
 			position: relative;
 			@gridSiteWidth();
-			padding-left: @zonesOffsetPad;
-			padding-right: @zonesOffsetPad;
+			padding-left: @gridPadding;
+			padding-right: @gridPadding;
 			margin-left: auto;
 			margin-right: auto;
 			//ajout de l'ombrage (couleur sans transparence pour IE)
@@ -119,7 +123,7 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		color: @colorCouleur3Fonce;
 		
 		//changement taille selon zone
-		#dm_custom_top & { font-size: @fontGlobalSizePx; }
+		#dm_custom_top & { font-size: @fontGlobalSizePx; border-color: @menuTopBorderColor; }
 		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
 		
 		&.dm_current { &, &:hover { color: @colorCouleur1; } }
@@ -132,8 +136,6 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 
 //mise en couleur des cellules ouvertes
 ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-accordion li.dm_parent > .link,
 ul.menu-accordion li.dm_parent li.dm_parent > .link {
@@ -141,6 +143,14 @@ ul.menu-accordion li.dm_parent li.dm_parent > .link {
 	color: @colorCouleur3Clair;
 	&:hover { color: @colorCouleur3ClairSup; }
 }
+
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link {
+	background-color: @colorCouleur1;
+	color: @colorCouleur3Clair;
+	&:hover { color: @colorCouleur3ClairSup; }
+}
+
 //##################################
 //##################################
 
