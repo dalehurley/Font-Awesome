@@ -152,18 +152,18 @@ ul.menu-dropdown li.dm_dir:hover > .link,
 .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-accordion li.dm_parent > .link,
 ul.menu-accordion li.dm_parent li.dm_parent > .link {
-	background-color: @colorCouleur1;
-	.rgba & { background-color: fadeout(@colorCouleur1, 20%); }
-	color: @colorCouleur3Clair;
-	&:hover { color: @colorCouleur3ClairSup; }
+	background-color: @menuBgOpenColor;
+	.rgba & { background-color: fadeout(@menuBgOpenColor, 20%); }
+	color: @menuBgOpenLinkColor;
+	&:hover { color: @menuBgOpenLinkHoverColor; }
 }
 
 #dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
 #dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link {
-	background-color: @colorCouleur1;
-	.rgba & { background-color: fadeout(@colorCouleur1, 20%); }
-	color: @colorCouleur3Clair;
-	&:hover { color: @colorCouleur3ClairSup; }
+	background-color: @menuTopBgOpenColor;
+	.rgba & { background-color: fadeout(@menuTopBgOpenColor, 20%); }
+	color: @menuTopBgOpenLinkColor;
+	&:hover { color: @menuTopBgOpenLinkHoverColor; }
 }
 
 //##################################
