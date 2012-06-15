@@ -9,7 +9,7 @@
 //##################################
 //####### GESTION DE LA PAGE #######
 //##################################
-@colorZoneBorder: @colorCouleur3Moyen;
+@colorZoneBorder: @colorCouleur3;
 //##################################
 //##################################
 
@@ -32,8 +32,12 @@
 @footerTextColor: @colorCouleur3ClairSup;
 //##################################
 
-//couleur de la bordure de séparation du menu
-@colorZoneBorder: @colorCouleur3;
+//##################################
+//###### GESTION DU MENU TOP #######
+//##################################
+@menuTopSpriteHome(){ @spriteDefinition("DefaultDark"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultDark-internet-home; @spriteOffY-DefaultDark-internet-home); }
+
+//##################################
 
 //IMPORTATION DES COULEURS DES SPRITES (définitions basées sur les couleurs existantes)
 @import "_framework/SPLessCss/Config/Colors/_ConfigColorsSprite.less";
