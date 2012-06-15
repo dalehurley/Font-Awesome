@@ -123,27 +123,27 @@ ul.menu-accordion .link {
 ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	//gestion des liens
 	.link {
-		background-color: @colorCouleur3ClairSup;
-		.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 20%); }
+		background-color: @menuBgColor;
+		.rgba & { background-color: fadeout(@menuBgColor, 20%); }
 		// padding: (@menuLinkPadV + 1px) @menuLinkPadH @menuLinkPadV (@menuLinkPadH + 1px);
 		border-style: solid;
 		// border-width: 0 1px 1px 0;
-		border-color: @colorZoneBorder;
-		color: @colorCouleur3Fonce;
+		border-color: @menuBorderColor;
+		color: @menuLinkColor;
 
 		//changement taille selon zone
 		#dm_custom_top & { font-size: @fontGlobalSizePx; border-color: @menuTopBorderColor; }
 		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
 		
-		&.dm_current { &, &:hover { color: @colorCouleur1; } }
-		&.dm_inactive { color: @colorCouleur3; }
+		&.dm_current { &, &:hover { color: @menuLinkCurrentColor; } }
+		&.dm_inactive { color: @menuLinkInactiveColor; }
 		//LoVe's Hurts Fade Away
 		&:hover, &:focus {
-			color: @colorCouleur3FonceSup;
-			background-color: @colorCouleur3Clair;
-			.rgba & { background-color: fadeout(@colorCouleur3Clair, 20%); }
+			color: @menuLinkHoverColor;
+			background-color: @menuBgHoverColor;
+			.rgba & { background-color: fadeout(@menuBgHoverColor, 20%); }
 		}
-		&:active { color: @colorCouleur1; }
+		&:active { color: @menuLinkActiveColor; }
 	}
 }
 

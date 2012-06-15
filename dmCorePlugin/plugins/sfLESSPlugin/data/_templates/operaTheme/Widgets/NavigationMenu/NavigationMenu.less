@@ -54,7 +54,7 @@
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
 		//ajout dégradé shiny
-		@verticalGradientMultiPie-4(13%;50%;50%;87%;@colorCouleur1Sup;@colorCouleur1;@colorCouleur1MoyenSup;@colorCouleur1Fonce);
+		@verticalGradientMultiPie-4(13%;50%;50%;87%;@menuTopGradientColor1;@menuTopGradientColor2;@menuTopGradientColor3;@menuTopGradientColor4);
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
@@ -115,22 +115,22 @@ ul.menu-megadropdown ul li ul li {
 ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	//gestion des liens
 	.link {
-		background-color: @colorCouleur3ClairSup;
+		background-color: @menuBgColor;
 		padding: (@menuLinkPadV + 1px) @menuLinkPadH @menuLinkPadV (@menuLinkPadH + 1px);
 		border-style: solid;
 		border-width: 0 1px 1px 0;
-		border-color: @colorZoneBorder;
-		color: @colorCouleur3Fonce;
+		border-color: @menuBorderColor;
+		color: @menuLinkColor;
 		
 		//changement taille selon zone
 		#dm_custom_top & { font-size: @fontGlobalSizePx; border-color: @menuTopBorderColor; }
 		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
 		
-		&.dm_current { &, &:hover { color: @colorCouleur1; } }
-		&.dm_inactive { color: @colorCouleur3; }
+		&.dm_current { &, &:hover { color: @menuLinkCurrentColor; } }
+		&.dm_inactive { color: @menuLinkInactiveColor; }
 		//LoVe's Hurts Fade Away
-		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
-		&:active { color: @colorCouleur1; }
+		&:hover, &:focus { color: @menuLinkHoverColor; background-color: @menuBgHoverColor; }
+		&:active { color: @menuLinkActiveColor; }
 	}
 }
 
