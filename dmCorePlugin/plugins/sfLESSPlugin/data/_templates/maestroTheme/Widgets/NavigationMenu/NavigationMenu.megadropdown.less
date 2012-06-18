@@ -106,7 +106,10 @@ ul.menu-megadropdown {
 			border: 0;
 			//ajout d'un filet de séparation horizontal avec compensation décalage
 			margin-top: -1px;
-			border-top: 1px dotted @colorCouleur3;
+
+			//création d'une couleur intermédiaire avec la couleur de fond
+			@interCouleur: mix(@menuBorderColor, @menuBgColor, 50%);
+			border-top: 1px dotted @interCouleur;
 
 			&, .rgba & { background-color: transparent; }
 
