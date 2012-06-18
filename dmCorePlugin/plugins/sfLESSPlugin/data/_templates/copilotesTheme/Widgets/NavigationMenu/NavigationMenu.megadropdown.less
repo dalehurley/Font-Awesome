@@ -63,7 +63,7 @@ ul.menu-megadropdown {
 			border: 0;
 			//ajout d'un filet de séparation horizontal avec compensation décalage
 			margin-top: -1px;
-			
+
 			//création d'une couleur intermédiaire avec la couleur de fond
 			@interCouleur: mix(@menuBorderColor, @menuBgColor, 50%);
 			border-top: 1px dotted @interCouleur;
@@ -238,18 +238,19 @@ ul.menu-megadropdown {
 			& > .link {
 				//Co-pilotes : couleurs spécifiques
 				background-color: transparent;
-				color: @colorCouleur1;
+				color: @menuTopFirstLinkColor;
 				border-color: transparent;
 				margin-left: -1px;
 				border-left-width: 1px;
 				border-left-style: solid;
 				border-right-width: 1px;
 				border-right-style: solid;
-				&:hover, &:focus { color: @colorCouleur1Moyen; background-color: @colorCouleur2Clair; }
+				
+				&:hover, &:focus { color: @menuTopFirstLinkHoverColor; background-color: @menuTopBgColor; }
 
 				//uniformisation couleur de police
-				&.dm_current { &, &:hover { color: @colorCouleur1Moyen; } }
-				&.dm_inactive { color: @colorCouleur1; }
+				&.dm_current { &, &:hover { color: @menuTopFirstLinkHoverColor; } }
+				&.dm_inactive { color: @menuTopFirstLinkColor; }
 				
 				// margin-top: floor(@gridBaseline / 4) + 1px;
 				// margin-bottom: floor(@gridBaseline / 4) + 1px;
