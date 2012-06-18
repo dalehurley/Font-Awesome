@@ -234,8 +234,9 @@ ul.menu-megadropdown {
 		& > li {
 			& > .link {
 				&:hover, &:focus {
-					background-color: @colorCouleur1Moyen;
-					.rgba & { background-color: fadeout(@colorCouleur1Fonce, 33%); }
+					//on reprend la couleur située en bas du dégradé
+					background-color: @menuTopGradientColor4;
+					.rgba & { background-color: fadeout(@menuTopGradientColor4, 33%); }
 				}
 
 				//uniformisation couleur de police
@@ -261,8 +262,9 @@ ul.menu-megadropdown {
 			//Opéra : changement couleur de rollOver avec couleur de fond de la sous partie
 			&.dm_dir > .link {
 				&:hover, &:focus {
-					background-color: mix(@colorCouleur1, @colorCouleur2, 33%);
-					.rgba & { background-color: fadeout(@colorCouleur2, 33%); }
+					//on mixe la couleur principale du dégradé avec la couleur du fond
+					background-color: mix(@menuTopGradientColor2, @menuTopBgColor, 33%);
+					.rgba & { background-color: fadeout(@menuTopBgColor, 33%); }
 				}
 			}
 
