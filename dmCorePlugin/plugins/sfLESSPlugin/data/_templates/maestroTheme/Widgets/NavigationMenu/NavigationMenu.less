@@ -186,7 +186,6 @@ ul.menu-megadropdown > li {
 			height: 0;
 			right: @menuMaestroArrowOffsetX;
 			top: @menuMaestroArrowOffsetY;
-			//border-color: transparent transparent transparent @menuDropdownArrowColor;
 			border-color: transparent;
 			border-style: solid;
 			border-width: @menuMaestroArrowDim 0;
@@ -226,7 +225,6 @@ ul.menu-accordion li {
 			height: 0;
 			right: @menuArrowOffsetX;
 			top: @menuArrowOffsetY;
-			//border-color: transparent transparent transparent @menuDropdownArrowColor;
 			border-color: transparent;
 			border-style: solid;
 			border-width: @menuArrowDim;
@@ -241,7 +239,6 @@ ul.menu-accordion li {
 			#dm_sidebar_right & {
 				right: auto !important;
 				left: @menuArrowOffsetX;
-				//border-color: transparent @menuDropdownArrowColor transparent transparent;
 				
 				.csstransitions.csstransforms & {
 					@origin(75%; 50%);
@@ -272,13 +269,11 @@ ul.menu-accordion li.dm_parent > .link:after {
 // ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
-	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
 	
 	//ajout des transitions pour navigateurs récents
 	.csstransitions.csstransforms & {
 		right: @menuArrowOffsetX;
 		top: @menuArrowOffsetY;
-		//border-color: transparent transparent transparent @menuDropdownArrowColorSup;
 		@rotate(90deg);
 	}
 	
@@ -289,7 +284,6 @@ ul.menu-accordion li.dm_parent > .link:after {
 		
 		.csstransitions.csstransforms & {
 			left: @menuArrowOffsetX;
-			//border-color: transparent @menuDropdownArrowColorSup transparent transparent;
 			@rotate(-90deg);
 		}
 	}
