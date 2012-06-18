@@ -50,24 +50,40 @@ ul.menu-megadropdown {
 	}
 
 	//Maestro : gestion des cellules de premier niveau dans les sidebars
-	#dm_sidebar_left & > li.dm_dir,
-	#dm_sidebar_right & > li.dm_dir {
+	#dm_sidebar_left & > li,
+	#dm_sidebar_right & > li {
+		//Pour tous les liens
 		& > .link {
-			border-top-width: 1px;
-			border-top-color: @menuBorderColor;
-			margin-top: -1px;
+			//Maestro : personnalisation générale des liens de premier niveau
+			background-color: @menuSidebarFirstBgColor;
+			color: @menuSidebarFirstLinkColor;
+			
+			&.dm_current { &, &:hover { color: @menuSidebarFirstLinkCurrentColor; } }
+			&.dm_inactive { color: @menuSidebarFirstLinkInactiveColor; }
+			//LoVe's Hurts Fade Away
+			&:hover, &:focus { color: @menuSidebarFirstLinkHoverColor; background-color: @menuSidebarFirstBgHoverColor; }
+			&:active { color: @menuSidebarFirstLinkActiveColor; }
 		}
-		&.first > .link { margin-top: 0; }
+
+		//Pour les dossiers
+		&.dm_dir {
+			& > .link {
+				border-top-width: 1px;
+				border-top-color: @menuBorderColor;
+				margin-top: -1px;
+			}
+			&.first > .link { margin-top: 0; }
+		}
 	}
 
 	#dm_sidebar_left & > li.dm_dir:hover,
 	#dm_sidebar_right & > li.dm_dir:hover {
 		& > .link {
-			background-color: @colorCouleur2Fonce;
-			// .rgba & { background-color: fadeout(@colorCouleur2Fonce, 20%); }
-			color: @colorCouleur1;
-			&:hover { color: @colorCouleur1Sup; }
-			border-color: @colorCouleur2Fonce;
+			background-color: @menuSidebarFirstBgOpenColor;
+			// .rgba & { background-color: fadeout(@menuSidebarFirstBgOpenColor, 20%); }
+			color: @menuSidebarFirstBgOpenLinkColor;
+			&:hover { color: @menuSidebarFirstBgOpenLinkHoverColor; }
+			border-color: @menuSidebarFirstBgOpenColor;
 		}
 	}
 
@@ -98,17 +114,20 @@ ul.menu-megadropdown {
 
 			&, .rgba & { background-color: transparent; }
 
+			//Couleur de rollOver des liens de sous-niveaux
+			&:hover, &:focus { background-color: @menuBgHoverColor; }
+
 			//Maestro : personnalisation générale des liens de sous-niveaux
-			color: @colorCouleur3Clair;
-			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
-			&.dm_inactive { color: @colorCouleur3Moyen; }
-			//LoVe's Hurts Fade Away
-			&:hover, &:focus {
-				color: @colorCouleur3ClairSup;
-				background-color: @menuBgHoverColor;
-				.rgba & { background-color: fadeout(@menuBgHoverColor, 20%); }
-			}
-			&:active { color: @colorCouleur1; }
+			// color: @colorCouleur3Clair;
+			// &.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
+			// &.dm_inactive { color: @colorCouleur3Moyen; }
+			// //LoVe's Hurts Fade Away
+			// &:hover, &:focus {
+			// 	color: @colorCouleur3ClairSup;
+			// 	background-color: @menuBgHoverColor;
+			// 	.rgba & { background-color: fadeout(@menuBgHoverColor, 20%); }
+			// }
+			// &:active { color: @colorCouleur1; }
 		}
 
 		//suppression bordure de séparation et marge négative
