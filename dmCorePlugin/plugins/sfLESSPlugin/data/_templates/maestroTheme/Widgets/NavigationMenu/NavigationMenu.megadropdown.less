@@ -57,10 +57,10 @@ ul.menu-megadropdown {
 			//Maestro : personnalisation générale des liens de premier niveau
 			background-color: @menuSidebarFirstBgColor;
 			color: @menuSidebarFirstLinkColor;
-			
+
 			&:hover, &:focus { color: @menuSidebarFirstLinkHoverColor; background-color: @menuSidebarFirstBgHoverColor; }
 		}
-		
+
 		//Pour les dossiers
 		&.dm_dir {
 			& > .link {
@@ -226,22 +226,16 @@ ul.menu-megadropdown {
 		}
 	}
 
-	//couleur de la flèche
+	//couleur de la flèche (identique au rollOver)
 	& > li.dm_dir {
 		& > .link:after {
-			border-color: transparent transparent transparent @menuMaestroColor;
-			// .rgba & { border-left-color: fadeout(@menuMaestroColor, 20%); }
+			border-color: transparent transparent transparent @menuSidebarFirstBgOpenColor;
+			// .rgba & { border-left-color: fadeout(@menuSidebarFirstBgOpenColor, 20%); }
 			#dm_sidebar_right & {
-				border-color: transparent @menuMaestroColor transparent transparent;
-				// .rgba & { border-right-color: fadeout(@menuMaestroColor, 20%); }
+				border-color: transparent @menuSidebarFirstBgOpenColor transparent transparent;
+				// .rgba & { border-right-color: fadeout(@menuSidebarFirstBgOpenColor, 20%); }
 			}
 		}
-		// & > .link:hover:after,
-		// &:hover > .link:after {
-		// 	border-color: @menuMaestroColorSup transparent transparent transparent;
-		// 	.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuMaestroColorSup; }
-		// 	.csstransitions.csstransforms #dm_sidebar_right & { border-color: transparent @menuMaestroColorSup transparent transparent; }
-		// }
 	}
 
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
