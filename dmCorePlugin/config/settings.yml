@@ -83,3 +83,7 @@ all:
       - selectionPlacement
       - selectionPlacementAdmin
       - rubriqueCreation
+      - added_page_groups
+      - added_page_level1
+      - added_page_level2
+      - added_page_level3
