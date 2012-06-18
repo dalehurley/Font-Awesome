@@ -77,8 +77,8 @@ ul.menu-megadropdown {
 
 	//configuration des dimensions à différents sous-niveaux
 	ul {
-		background-color: @colorCouleur2;
-		.rgba & { background-color: fadeout(@colorCouleur2, 5%); }
+		background-color: @menuBgColor;
+		.rgba & { background-color: fadeout(@menuBgColor, 5%); }
 		//ajout bordure
 		// border: 1px solid @menuBorderColor;
 		//changement de la pleine largeur au premier sous-niveau
@@ -105,8 +105,8 @@ ul.menu-megadropdown {
 			//LoVe's Hurts Fade Away
 			&:hover, &:focus {
 				color: @colorCouleur3ClairSup;
-				background-color: @colorCouleur2Moyen;
-				.rgba & { background-color: fadeout(@colorCouleur2Moyen, 20%); }
+				background-color: @menuBgHoverColor;
+				.rgba & { background-color: fadeout(@menuBgHoverColor, 20%); }
 			}
 			&:active { color: @colorCouleur1; }
 		}

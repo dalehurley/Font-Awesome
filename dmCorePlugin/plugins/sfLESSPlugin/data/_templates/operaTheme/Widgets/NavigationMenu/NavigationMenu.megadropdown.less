@@ -49,7 +49,7 @@ ul.menu-megadropdown {
 
 	//configuration des dimensions à différents sous-niveaux
 	ul {
-		background-color: @colorCouleur3ClairSup;
+		background-color: @menuBgColor;
 		//ajout bordure
 		border: 1px solid @menuBorderColor;
 		//changement de la pleine largeur au premier sous-niveau
@@ -70,7 +70,7 @@ ul.menu-megadropdown {
 			&, .rgba & { background-color: transparent; }
 
 			//Couleur de rollOver des liens de sous-niveaux
-			&:hover, &:focus { background-color: @colorCouleur3Clair; }
+			&:hover, &:focus { background-color: @menuBgHoverColor; }
 		}
 		
 		//suppression bordure de séparation et marge négative
