@@ -219,12 +219,12 @@ ul.menu-megadropdown {
 			padding: 0;
 			border: 0;
 			
-			color: @colorCouleur3Clair;
-			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
-			&.dm_inactive { color: @colorCouleur3Moyen; }
+			color: @menuTopLinkColor;
+			&.dm_current { &, &:hover { color: @menuTopLinkCurrentColor; } }
+			&.dm_inactive { color: @menuTopLinkInactiveColor; }
 			//LoVe's Hurts Fade Away
-			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Moyen; }
-			&:active { color: @colorCouleur1; }
+			&:hover, &:focus { color: @menuTopLinkHoverColor; background-color: @menuTopBgHoverColor; }
+			&:active { color: @menuTopLinkActiveColor; }
 		}
 
 		//gestion des cellules de premier niveau
