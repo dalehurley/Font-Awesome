@@ -58,13 +58,9 @@ ul.menu-megadropdown {
 			background-color: @menuSidebarFirstBgColor;
 			color: @menuSidebarFirstLinkColor;
 			
-			&.dm_current { &, &:hover { color: @menuSidebarFirstLinkCurrentColor; } }
-			&.dm_inactive { color: @menuSidebarFirstLinkInactiveColor; }
-			//LoVe's Hurts Fade Away
 			&:hover, &:focus { color: @menuSidebarFirstLinkHoverColor; background-color: @menuSidebarFirstBgHoverColor; }
-			&:active { color: @menuSidebarFirstLinkActiveColor; }
 		}
-
+		
 		//Pour les dossiers
 		&.dm_dir {
 			& > .link {
@@ -116,18 +112,6 @@ ul.menu-megadropdown {
 
 			//Couleur de rollOver des liens de sous-niveaux
 			&:hover, &:focus { background-color: @menuBgHoverColor; }
-
-			//Maestro : personnalisation générale des liens de sous-niveaux
-			// color: @colorCouleur3Clair;
-			// &.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
-			// &.dm_inactive { color: @colorCouleur3Moyen; }
-			// //LoVe's Hurts Fade Away
-			// &:hover, &:focus {
-			// 	color: @colorCouleur3ClairSup;
-			// 	background-color: @menuBgHoverColor;
-			// 	.rgba & { background-color: fadeout(@menuBgHoverColor, 20%); }
-			// }
-			// &:active { color: @colorCouleur1; }
 		}
 
 		//suppression bordure de séparation et marge négative
