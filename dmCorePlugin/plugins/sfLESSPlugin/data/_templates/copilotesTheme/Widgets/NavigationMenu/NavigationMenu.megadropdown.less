@@ -216,6 +216,21 @@ ul.menu-megadropdown {
 				//Copilotes : réinitialisation placement
 				margin-top: 0;
 			}
+			
+			//liens des sous niveaux
+			li .link {
+				//ajout d'un filet de séparation horizontal avec compensation décalage
+				margin-top: -1px;
+
+				//création d'une couleur intermédiaire avec la couleur de fond
+				@interCouleur: mix(@menuTopBorderColor, @menuTopBgColor, 50%);
+				border-top: 1px dotted @interCouleur;
+			}
+			
+			//suppression bordure de séparation et marge négative
+			&.hasDmDir > li > .link,
+			li.first > .link,
+			li.dm_dir > .link { margin-top: 0; border-top: 0; }
 		}
 
 		//modification de couleurs du menu
