@@ -57,14 +57,14 @@
 //##################################
 //####### GESTION DU FOOTER ########
 //##################################
+//sprite de séparation
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@footerSpriteSeparator(){ @spriteDefinition("DefaultLight"; "bullet"; "disc"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-bullet-disc; @spriteOffY-DefaultLight-bullet-disc); }
+
 @footerBgColor: @colorCouleur3;
 @footerBgColorClair: @colorCouleur3Sup;
 @footerBgColorFonce: @colorCouleur3;
 @footerTextColor: @colorCouleur3ClairSup;
-//voir pour intégration ultérieure de la sélection de la sprite (MAJ de lessphp utile)
-// @footerMenuSpriteTheme: "DefaultLight";
-// @footerMenuSpriteOffX: @spriteOffX-DefaultLight-bullet-disc;
-// @footerMenuSpriteOffY: @spriteOffY-DefaultLight-bullet-disc;
 //##################################
 //##################################
 
@@ -110,6 +110,7 @@
 //##################################
 
 //sprite pour l'accueil
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
 @menuTopSpriteHome(){ @spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home); }
 
 //Dégradé shiny du menu
