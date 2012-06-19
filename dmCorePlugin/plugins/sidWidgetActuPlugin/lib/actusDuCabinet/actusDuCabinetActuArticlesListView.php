@@ -62,7 +62,7 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
                         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('a.is_active = ? and sata.sid_actu_type_id = ?', array(true, $vars['type']))
-                        ->orderBy('aTranslation.updated_at DESC')
+                        ->orderBy('a.position ASC')
                         ->limit($nbArticles)
                         ->execute();
 
