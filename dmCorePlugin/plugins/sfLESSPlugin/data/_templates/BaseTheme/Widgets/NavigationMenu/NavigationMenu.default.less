@@ -1,6 +1,6 @@
 // NavigationMenu.default.less
-// v1.5
-// Last Updated : 2012-06-19 12:30
+// v1.6
+// Last Updated : 2012-06-19 15:25
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -23,7 +23,7 @@ ul.menu-default {
 			.link { color: @headerTextColor; }
 			&:before {
 				//ajout de la sprite de séparation
-				@headerSpriteSeparator();
+				@spriteDefinition(@headerSpriteTheme; @headerSpriteCategory; @headerSpriteName; "S"; @spriteFormat_S; @headerSpriteOffX; @headerSpriteOffY);
 			}
 		}
 	}
@@ -32,7 +32,7 @@ ul.menu-default {
 			.link { color: @footerTextColor; }
 			&:before {
 				//ajout de la sprite de séparation
-				@footerSpriteSeparator();
+				@spriteDefinition(@footerSpriteTheme; @footerSpriteCategory; @footerSpriteName; "S"; @spriteFormat_S; @footerSpriteOffX; @footerSpriteOffY);
 			}
 		}
 	}
