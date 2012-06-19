@@ -131,6 +131,9 @@
 		.dm_widget_inner {
 			padding: @gridBaseline @gridGutter 0 @gridGutter;
 
+			//on supprime le padding pour les sous-widgets
+			.dm_widget_inner { padding: 0; }
+
 			& > .title {
 				.isLess & { background-color: fadeout(#528733, 25%); }
 				color: @colorCouleur1;
