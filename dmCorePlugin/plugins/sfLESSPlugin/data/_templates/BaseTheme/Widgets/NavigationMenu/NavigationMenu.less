@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.3.1
-// Last Updated : 2012-06-14 16:20
+// v1.3.2
+// Last Updated : 2012-06-19 16:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -250,7 +250,7 @@ ul.menu-dropdown, ul.menu-megadropdown {
 				//suppression du texte
 				text-indent:-9999em;
 				//insertion de la sprite
-				@menuTopSpriteHome();
+				@spriteDefinition(@menuTopSpriteTheme; @menuTopSpriteCategory; @menuTopSpriteName; "M"; @spriteFormat_M; @menuTopSpriteOffX; @menuTopSpriteOffY);
 				//suppression rollOver
 				&, .rgba & {
 					&, &:hover, &:focus { background-color: transparent; }
