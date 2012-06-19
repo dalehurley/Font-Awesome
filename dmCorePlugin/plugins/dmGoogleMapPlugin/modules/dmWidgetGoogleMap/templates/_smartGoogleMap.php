@@ -43,8 +43,19 @@ if (count($adresses)) {
                 $adresseCabinet .='-'.$adresse->getAdresse2();
             };
             $adresseCabinet .= '-'.$adresse->getCodePostal().' '.$adresse->getVille();
-            echo dm_get_widget('dmWidgetGoogleMap', 'show', json_decode('{"address":"'.$adresseCabinet.'","mapTypeId":"roadmap","zoom":"14","width":"366px","height":"270px","splash":"","titreBloc":"'.$adresse->getTitle().'","length":'.$length.',"widthImage":"","heightImage":"","withImage":false,"nbArticles":null,"lien":"","chapo":null,"navigationControl":false,"mapTypeControl":false,"scaleControl":false,"withResume":'.$withResume.',"smartGoogleMap":'.$smartGoogleMap.',"idCabinet":'.$adresse->id.'}',true));
-            
+
+            //en attendant configuration dans les sites: on définit la largeur en fonction des templates
+            //switch beaucoup plus rapide qu'un if/else
+            //intégrer ces valeurs respectives pour chaque template dans la configuration par défaut de smartGoogleMap
+            switch (dmConfig::get('site_theme')) {
+                case 'BaseTheme': $mapWidth = 622; $mapHeight = 324; break;
+                case 'operaTheme': $mapWidth = 686; $mapHeight = 360; break;
+                case 'maestroTheme': $mapWidth = 494; $mapHeight = 252; break;
+                //largeur du plus petit par défaut
+                default: $mapWidth = 494; $mapHeight = 252; break;
+            }
+
+            echo dm_get_widget('dmWidgetGoogleMap', 'show', json_decode('{"address":"'.$adresseCabinet.'","mapTypeId":"roadmap","zoom":"14","width":"' . $mapWidth . 'px","height":"' . $mapHeight . 'px","splash":"","titreBloc":"'.$adresse->getTitle().'","length":'.$length.',"widthImage":"","heightImage":"","withImage":false,"nbArticles":null,"lien":"","chapo":null,"navigationControl":false,"mapTypeControl":false,"scaleControl":false,"withResume":'.$withResume.',"smartGoogleMap":'.$smartGoogleMap.',"idCabinet":'.$adresse->id.'}',true));
             $i++;
 
         echo _close('section');
