@@ -11,7 +11,9 @@
 //##################################
 //sprite de séparation
 //Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
-@headerSpriteSeparator(){ @spriteDefinition("DefaultMono"; "bullet"; "disc"; "S"; @spriteFormat_S; @spriteOffX-DefaultMono-bullet-disc; @spriteOffY-DefaultMono-bullet-disc); }
+@headerSpriteTheme: "DefaultMono";
+@headerSpriteOffX: @spriteOffX-DefaultMono-bullet-disc;
+@headerSpriteOffY: @spriteOffY-DefaultMono-bullet-disc;
 
 @headerBgColor: transparent;
 @headerTextColor: @colorCouleur3Fonce;
@@ -23,7 +25,9 @@
 //##################################
 //sprite de séparation
 //Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
-@footerSpriteSeparator(){ @spriteDefinition("DefaultMono"; "bullet"; "disc"; "S"; @spriteFormat_S; @spriteOffX-DefaultMono-bullet-disc; @spriteOffY-DefaultMono-bullet-disc); }
+@footerSpriteTheme: "DefaultMono";
+@footerSpriteOffX: @spriteOffX-DefaultMono-bullet-disc;
+@footerSpriteOffY: @spriteOffY-DefaultMono-bullet-disc;
 
 @footerBgColor: @colorCouleur2;
 @footerBgColorClair: @colorCouleur2Sup;
