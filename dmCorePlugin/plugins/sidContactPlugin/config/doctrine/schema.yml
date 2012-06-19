@@ -1,7 +1,11 @@
-DmContact:  
-  actAs:              [ Timestampable ]  
+SidContactForm:  
+    DmSortable:
+    I18n:
+      fields: [ title, chapeau ]
+      actAs:
+        Timestampable:
   columns:  
-    title:            { type: string(20), notnull: false }
+    title:            { type: string(30), notnull: false }
     name:             { type: string(255), notnull: true }
     firstname:        { type: string(255), notnull: true }
     function:         { type: string(255), notnull: false }      
@@ -12,3 +16,24 @@ DmContact:
     phone:            { type: string(20), notnull: true }     
     fax:              { type: string(20), notnull: false }     
     body:             { type: clob, notnull: true } 
+
+
+
+SidContactField:  
+    DmSortable:
+    I18n:
+      fields: [ title, chapeau ]
+      actAs:
+        Timestampable:
+  columns: 
+
+
+
+
+SidContact:  
+    DmSortable:
+    I18n:
+      fields: [ title, chapeau ]
+      actAs:
+        Timestampable:
+  columns:   
