@@ -1,6 +1,6 @@
 // _ConfigColorsReference.less
-// v1.2
-// Last Updated : 2012-04-11 14:30
+// v1.3
+// Last Updated : 2012-06-19 15:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -9,8 +9,15 @@
 //##################################
 //####### GESTION DE LA PAGE #######
 //##################################
-@colorZoneBorder: @colorCouleur3Moyen;
+@colorZoneBorder: @colorCouleur3;
 //##################################
+//##################################
+
+//##################################
+//####### GESTION DU HEADER ########
+//##################################
+@headerBgColor: transparent;
+@headerTextColor: @colorCouleur3;
 //##################################
 
 //##################################
@@ -32,8 +39,45 @@
 @footerTextColor: @colorCouleur3ClairSup;
 //##################################
 
-//couleur de la bordure de séparation du menu
-@colorZoneBorder: @colorCouleur3;
+//##################################
+//###### GESTION DU MENU TOP #######
+//##################################
+//sprite pour l'accueil
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@menuTopSpriteTheme: "DefaultDark";
+@menuTopSpriteCategory: "internet";
+@menuTopSpriteName: "home";
+@menuTopSpriteOffX: @spriteOffX-DefaultDark-internet-home;
+@menuTopSpriteOffY: @spriteOffY-DefaultDark-internet-home;
+
+//Dégradé horizontal du menu
+@menuTopGradientColor1: @colorCouleur2Moyen;
+@menuTopGradientColor2: @colorCouleur2Clair;
+@menuTopGradientColor3: @colorCouleur2Clair;
+@menuTopGradientColor4: @colorCouleur2Moyen;
+
+//couleurs de fond du menu
+@menuTopBgColor: @colorCouleur2Clair;
+
+//couleurs des liens
+@menuTopLinkColor: @colorCouleur3;
+@menuTopLinkHoverColor: @colorCouleur3Fonce;
+@menuTopLinkActiveColor: @colorCouleur1Clair;
+@menuTopLinkCurrentColor: @colorCouleur3Fonce;
+@menuTopLinkInactiveColor: @colorCouleur3Moyen;
+
+//Spécial Co-pilotes (premier niveau d'ouverture)
+
+//couleurs d'ouverture des liens parents
+@menuTopFirstBgOpenColor: @colorCouleur2Clair;
+@menuTopFirstBgOpenLinkColor: @colorCouleur1;
+@menuTopFirstBgOpenLinkHoverColor: @colorCouleur1Moyen;
+
+//couleurs des liens de premier niveau
+@menuTopFirstLinkColor: @colorCouleur1;
+@menuTopFirstLinkHoverColor: @colorCouleur1Moyen;
+
+//##################################
 
 //IMPORTATION DES COULEURS DES SPRITES (définitions basées sur les couleurs existantes)
 @import "_framework/SPLessCss/Config/Colors/_ConfigColorsSprite.less";

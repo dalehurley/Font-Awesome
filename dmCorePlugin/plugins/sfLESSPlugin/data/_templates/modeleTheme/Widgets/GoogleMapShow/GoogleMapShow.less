@@ -1,6 +1,6 @@
 // GoogleMapShow.less
-// v1.0
-// Last Updated : 2012-02-14 12:25
+// v1.2
+// Last Updated : 2012-06-19 10:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -12,10 +12,32 @@
 	
 	//container de l'adresse
 	.mapAddress {
-		.isLess & { background-color: fadeout(#F2CBF1, 50%); }
+		position: relative;
+		display: block;
+		margin: 0;
+		padding: 0;
+		
+		//placement des éléments internes
+		.itemprop { display: block; }
+		.subWrapper .itemprop { display: inline; vertical-align: top; }
+		
+		//masquage de différents éléments .type
+		#dm_page & { .streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } } }
+		
+		//stylage du nom
+		.name {
+			font-weight: bold;
+			font-size: @fontSizeH6Px;
+			line-height: @gridBaseline;
+		}
+
+		//décalage de la description (margin-top car pas toujours présente)
+		.description { margin-top: @gridBaseline/2; }
 	}
 	
 	.dm_google_map {
-		.isLess & { background-color: fadeout(#CBD3F2, 50%); }
+		position: relative;
+		margin-bottom: @gridBaseline;
+		padding: 0;
 	}
 }

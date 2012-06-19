@@ -1,6 +1,6 @@
 // NavigationMenu.accordion.less
-// v1.2.1
-// Last Updated : 2012-05-30 14:30
+// v1.2.5
+// Last Updated : 2012-06-18 11:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -16,33 +16,30 @@
 
 ul.menu-accordion {
 	//rajout bordure à gauche sur le menu principal
-	border-left: 1px solid @colorZoneBorder;
+	border-left: 1px solid @menuBorderColor;
 	
 	//rajout bordure en haut sur le menu principal et gestion décalage
-	& > li.first > .link { padding-top: @menuLinkPadV; border-top: 1px solid @colorZoneBorder; }
+	& > li.first > .link { padding-top: @menuLinkPadV; border-top: 1px solid @menuBorderColor; }
 	margin-top: 0px;
-
-	//calcul couleur intermédiaire entre la couleur colorCouleur3MoyenSup et colorCouleur3Clair
-	@interCouleur : mix(@colorCouleur3MoyenSup, @colorCouleur3Clair, 33.33%);
-
+	
 	//stylage des liens parents
 	li.dm_parent {
 		//couleur de fond des autres liens
 		& > ul > li > .link {
-			background-color: @colorCouleur3Clair;
-			color: @colorCouleur3;
+			background-color: @menuSubBgColor;
+			color: @menuSubLinkColor;
 			&:hover {
-				background-color: @interCouleur;
-				color: @colorCouleur3Sup;
+				background-color: @menuSubBgHoverColor;
+				color: @menuSubLinkHoverColor;
 			}
 		}
 		//couleurs de fond des sous parents
 		li.dm_parent > .link {
-			background-color: mix(@colorCouleur3Clair, @colorCouleur1, 80%);
-			color: @colorCouleur3;
+			background-color: mix(@menuSubBgColor, @menuBgOpenColor, 80%);
+			color: @menuSubLinkColor;
 			&:hover {
-				background-color: mix(@interCouleur, @colorCouleur1, 80%);
-				color: @colorCouleur3Sup;
+				background-color: mix(@menuSubBgHoverColor, @menuBgOpenColor, 80%);
+				color: @menuSubLinkHoverColor;
 			}
 		}
 	}
@@ -53,7 +50,7 @@ ul.menu-accordion {
 		#dm_sidebar_right & { border-color: transparent @menuArrowColor transparent transparent; }
 	}
 	li.dm_parent > .link:after {
-		border-color: @menuDropdownArrowColorSup transparent transparent transparent;
+		border-color: @menuArrowColorSup transparent transparent transparent;
 		.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuArrowColorSup; }
 		.csstransitions.csstransforms #dm_sidebar_right & { border-color: transparent @menuArrowColorSup transparent transparent; }
 	}

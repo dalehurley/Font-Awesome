@@ -1,6 +1,6 @@
 // _ConfigColorsReference.less
-// v2.5
-// Last Updated : 2012-06-15 10:00
+// v2.7
+// Last Updated : 2012-06-19 15:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -35,6 +35,14 @@
 //##################################
 //####### GESTION DU HEADER ########
 //##################################
+//sprite de séparation
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@headerSpriteTheme: "DefaultMono";
+@headerSpriteCategory: "bullet";
+@headerSpriteName: "disc";
+@headerSpriteOffX: @spriteOffX-DefaultMono-bullet-disc;
+@headerSpriteOffY: @spriteOffY-DefaultMono-bullet-disc;
+
 @headerBgColor: @colorCouleur3;
 @headerBgColorClair: @colorCouleur3;
 @headerBgColorFonce: @colorCouleur3Fonce;
@@ -57,14 +65,18 @@
 //##################################
 //####### GESTION DU FOOTER ########
 //##################################
+//sprite de séparation
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@footerSpriteTheme: "DefaultMono";
+@footerSpriteCategory: "bullet";
+@footerSpriteName: "disc";
+@footerSpriteOffX: @spriteOffX-DefaultMono-bullet-disc;
+@footerSpriteOffY: @spriteOffY-DefaultMono-bullet-disc;
+
 @footerBgColor: @colorCouleur3;
 @footerBgColorClair: @colorCouleur3Sup;
 @footerBgColorFonce: @colorCouleur3;
 @footerTextColor: @colorCouleur3ClairSup;
-//voir pour intégration ultérieure de la sélection de la sprite (MAJ de lessphp utile)
-// @footerMenuSpriteTheme: "DefaultLight";
-// @footerMenuSpriteOffX: @spriteOffX-DefaultLight-bullet-disc;
-// @footerMenuSpriteOffY: @spriteOffY-DefaultLight-bullet-disc;
 //##################################
 //##################################
 
@@ -72,47 +84,78 @@
 //##################################
 //######## GESTION DU MENU #########
 //##################################
+
+//couleurs de fond du menu
 @menuBgColor: @colorCouleur3ClairSup;
 @menuBgHoverColor: @colorCouleur3Clair;
 
+//couleurs d'ouverture des liens parents
 @menuBgOpenColor: @colorCouleur1;
 @menuBgOpenLinkColor: @colorCouleur3Clair;
 @menuBgOpenLinkHoverColor: @colorCouleur3ClairSup;
 
+//couleur des flèches
 @menuArrowColor: @colorCouleur1;
 @menuArrowColorSup: @colorCouleur3Clair;
 
+//couleur des bordures
 @menuBorderColor: @colorZoneBorder;
 
+//couleurs des liens
 @menuLinkColor: @colorCouleur3Fonce;
 @menuLinkHoverColor: @colorCouleur3FonceSup;
 @menuLinkActiveColor: @colorCouleur1;
 @menuLinkCurrentColor: @colorCouleur1;
 @menuLinkInactiveColor: @colorCouleur3;
+
+//utilisé pour les sous niveaux de accordion
+@menuSubBgColor: @colorCouleur3Clair;
+@menuSubBgHoverColor: mix(@colorCouleur3MoyenSup, @colorCouleur3Clair, 33.33%);
+@menuSubLinkColor: @colorCouleur3;
+@menuSubLinkHoverColor: @colorCouleur3Sup;
+
 //##################################
 //##################################
 
 //##################################
 //###### GESTION DU MENU TOP #######
 //##################################
-@menuTopSpriteHome(){ @spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home); }
+//sprite pour l'accueil
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@menuTopSpriteTheme: "DefaultLight";
+@menuTopSpriteCategory: "internet";
+@menuTopSpriteName: "home";
+@menuTopSpriteOffX: @spriteOffX-DefaultLight-internet-home;
+@menuTopSpriteOffY: @spriteOffY-DefaultLight-internet-home;
 
+//Dégradé shiny du menu
+@menuTopGradientColor1: @colorCouleur1Sup;
+@menuTopGradientColor2: @colorCouleur1;
+@menuTopGradientColor3: @colorCouleur1MoyenSup;
+@menuTopGradientColor4: @colorCouleur1Fonce;
+
+//couleurs de fond du menu
 @menuTopBgColor: @colorCouleur2;
-@menuTopBgHoverColor: @colorCouleur2Sup;
+@menuTopBgHoverColor: @colorCouleur2Moyen;
 
+//couleurs d'ouverture des liens parents
 @menuTopBgOpenColor: @colorCouleur1;
 @menuTopBgOpenLinkColor: @colorCouleur3Clair;
 @menuTopBgOpenLinkHoverColor: @colorCouleur3ClairSup;
 
+//couleur des flèches
 @menuTopArrowColor: @colorCouleur3Moyen;
 @menuTopArrowColorSup: @colorCouleur3Clair;
 
+//couleur des bordures
 @menuTopBorderColor: @colorZoneBorder;
 
+//couleurs des liens
 @menuTopLinkColor: @colorCouleur3Clair;
 @menuTopLinkHoverColor: @colorCouleur3ClairSup;
 @menuTopLinkActiveColor: @colorCouleur1;
 @menuTopLinkCurrentColor: @colorCouleur3MoyenSup;
 @menuTopLinkInactiveColor: @colorCouleur3Moyen;
+
 //##################################
 //##################################

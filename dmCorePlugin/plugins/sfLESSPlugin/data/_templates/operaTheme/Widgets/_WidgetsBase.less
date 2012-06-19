@@ -102,7 +102,10 @@
 				margin: (@gridBaseline/-2) 0 (@gridBaseline/2) 0;
 				padding: @gridBaseline/4 0;
 				//on supprime le décalage du listing suivant pour avoir la superposition de la sprite
-				& + .elements { margin-top: @gridBaseline/-2; }
+				& + .elements {
+					margin-top: @gridBaseline/-2;
+					.element.first { padding-top: 0; }
+				}
 			}
 		}
 	}

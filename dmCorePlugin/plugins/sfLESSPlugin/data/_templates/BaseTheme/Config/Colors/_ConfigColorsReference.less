@@ -1,6 +1,6 @@
 // _ConfigColorsReference.less
-// v1.2
-// Last Updated : 2012-04-11 14:30
+// v1.3
+// Last Updated : 2012-06-19 15:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -9,6 +9,12 @@
 //##################################
 //####### GESTION DU HEADER ########
 //##################################
+//sprite de séparation
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@headerSpriteTheme: "DefaultLight";
+@headerSpriteOffX: @spriteOffX-DefaultLight-bullet-disc;
+@headerSpriteOffY: @spriteOffY-DefaultLight-bullet-disc;
+
 @headerBgColorClair: @colorCouleur1;
 @headerBgColorFonce: @colorCouleur1Fonce;
 @headerTextColor: @colorCouleur3ClairSup;
@@ -18,6 +24,12 @@
 //##################################
 //####### GESTION DU FOOTER ########
 //##################################
+//sprite de séparation
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@footerSpriteTheme: "DefaultLight";
+@footerSpriteOffX: @spriteOffX-DefaultLight-bullet-disc;
+@footerSpriteOffY: @spriteOffY-DefaultLight-bullet-disc;
+
 @footerBgColor: @colorCouleur2Moyen;
 @footerBgColorClair: @colorCouleur2MoyenSup;
 @footerBgColorFonce: @colorCouleur2Moyen;
