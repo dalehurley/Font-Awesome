@@ -42,9 +42,13 @@
 //##################################
 //###### GESTION DU MENU TOP #######
 //##################################
-
 //sprite pour l'accueil
-@menuTopSpriteHome(){ @spriteDefinition("DefaultDark"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultDark-internet-home; @spriteOffY-DefaultDark-internet-home); }
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@menuTopSpriteTheme: "DefaultDark";
+@menuTopSpriteCategory: "internet";
+@menuTopSpriteName: "home";
+@menuTopSpriteOffX: @spriteOffX-DefaultDark-internet-home;
+@menuTopSpriteOffY: @spriteOffY-DefaultDark-internet-home;
 
 //Dégradé horizontal du menu
 @menuTopGradientColor1: @colorCouleur2Moyen;
