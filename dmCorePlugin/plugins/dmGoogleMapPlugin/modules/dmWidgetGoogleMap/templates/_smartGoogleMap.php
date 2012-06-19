@@ -49,13 +49,14 @@ if (count($adresses)) {
             //intégrer ces valeurs respectives pour chaque template dans la configuration par défaut de smartGoogleMap
             switch (dmConfig::get('site_theme')) {
                 case 'BaseTheme': $mapWidth = 622; $mapHeight = 324; break;
+                case 'copilotesTheme': $mapWidth = 650; $mapHeight = 324; break;
                 case 'operaTheme': $mapWidth = 686; $mapHeight = 360; break;
                 case 'maestroTheme': $mapWidth = 494; $mapHeight = 252; break;
                 //largeur du plus petit par défaut
                 default: $mapWidth = 494; $mapHeight = 252; break;
             }
             echo dm_get_widget('dmWidgetGoogleMap', 'show', json_decode('{"address":"'.$adresseCabinet.'","mapTypeId":"roadmap","zoom":"14","width":"' . $mapWidth . 'px","height":"' . $mapHeight . 'px","splash":"","titreBloc":"'.$adresse->getTitle().'","length":'.$length.',"widthImage":"","heightImage":"","withImage":false,"nbArticles":null,"lien":"","chapo":null,"navigationControl":true,"mapTypeControl":false,"scaleControl":false,"withResume":'.$withResume.',"smartGoogleMap":'.$smartGoogleMap.',"idCabinet":'.$adresse->id.'}',true));
-
+            
             $i++;
 
         echo _close('section');
