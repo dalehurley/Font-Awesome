@@ -1,6 +1,6 @@
 // _ConfigColorsReference.less
-// v2.6
-// Last Updated : 2012-06-18 11:30
+// v2.7
+// Last Updated : 2012-06-19 15:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -37,7 +37,11 @@
 //##################################
 //sprite de séparation
 //Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
-@headerSpriteSeparator(){ @spriteDefinition("DefaultLight"; "bullet"; "disc"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-bullet-disc; @spriteOffY-DefaultLight-bullet-disc); }
+@headerSpriteTheme: "DefaultLight";
+@headerSpriteCategory: "bullet";
+@headerSpriteName: "disc";
+@headerSpriteOffX: @spriteOffX-DefaultLight-bullet-disc;
+@headerSpriteOffY: @spriteOffY-DefaultLight-bullet-disc;
 
 @headerBgColor: @colorCouleur3;
 @headerBgColorClair: @colorCouleur3;
@@ -63,7 +67,11 @@
 //##################################
 //sprite de séparation
 //Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
-@footerSpriteSeparator(){ @spriteDefinition("DefaultLight"; "bullet"; "disc"; "S"; @spriteFormat_S; @spriteOffX-DefaultLight-bullet-disc; @spriteOffY-DefaultLight-bullet-disc); }
+@footerSpriteTheme: "DefaultLight";
+@footerSpriteCategory: "bullet";
+@footerSpriteName: "disc";
+@footerSpriteOffX: @spriteOffX-DefaultLight-bullet-disc;
+@footerSpriteOffY: @spriteOffY-DefaultLight-bullet-disc;
 
 @footerBgColor: @colorCouleur3;
 @footerBgColorClair: @colorCouleur3Sup;
@@ -115,6 +123,12 @@
 
 //sprite pour l'accueil
 //Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@menuTopSpriteTheme: "DefaultLight";
+@menuTopSpriteCategory: "internet";
+@menuTopSpriteName: "home";
+@menuTopSpriteOffX: @spriteOffX-DefaultLight-internet-home;
+@menuTopSpriteOffY: @spriteOffY-DefaultLight-internet-home;
+
 @menuTopSpriteHome(){ @spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home); }
 
 //Dégradé shiny du menu
