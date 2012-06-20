@@ -207,17 +207,12 @@
 
 //container de l'image
 .imageWrapper {
-	// //on supprime le décalage lorsque situé dans un listing
-	// .elements .element & { margin-right: @zonesOffsetPad * -1; }
-	// #dm_sidebar_left .elements .element &,
-	// #dm_sidebar_right .elements .element & {
-	// 	margin-left: @zonesOffsetPad * -1;
-	// }
+	//rajout décalage entre l'image et ce qui suit
+	.elements .element & { margin-bottom: @gridBaseline/2; }
 }
 
 //listings d'éléments diverses (article, personnes, organisations, etc) et résultats de recherche
 .elements, .search_results {
-	// margin: 0 (@zonesOffsetPad*-1);
 	margin: 0;
 }
 

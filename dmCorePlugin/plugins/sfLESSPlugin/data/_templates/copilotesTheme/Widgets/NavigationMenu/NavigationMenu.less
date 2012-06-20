@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.3
-// Last Updated : 2012-03-22 11:50
+// v1.3.2
+// Last Updated : 2012-06-19 16:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -39,13 +39,11 @@
 		}
 	}
 
-	//Positionnement à gauche dans le header et le footer
+	///Positionnement à droite dans le header et à gauche le footer
 	#dm_header & {
-		// float: right;
-		//Copilotes : placement spécifique
 		position: absolute;
-		top: 0;
 		right: 0;
+		top: 0;
 	}
 	#dm_footer & { float: left; }
 	
@@ -57,7 +55,9 @@
 		// margin-right: -100%;
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
+		//Copilotes : suppression du fond
 		background-color: transparent;
+		// background-color: @menuTopBgColor;
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
@@ -73,7 +73,7 @@
 			margin-left: @gridGutter/-2;
 			margin-right: @gridGutter/-2;
 
-			@horizontalGradientMulti-4(0%; 49%; 51%; 100%; @colorCouleur2Moyen; @colorCouleur2Clair; @colorCouleur2Clair; @colorCouleur2Moyen);
+			@horizontalGradientMulti-4(0%; 49%; 51%; 100%; @menuTopGradientColor1; @menuTopGradientColor2; @menuTopGradientColor3; @menuTopGradientColor4);
 			@borderRadiusCompress(@offM);
 			@boxShadow(@offS @offS @offS fadeout(@colorBlack, 50%));
 
@@ -137,27 +137,27 @@ ul.menu-megadropdown ul li ul li {
 ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	//gestion des liens
 	.link {
-		background-color: @colorCouleur3ClairSup;
+		background-color: @menuBgColor;
 		padding: (@menuLinkPadV + 1px) @menuLinkPadH @menuLinkPadV (@menuLinkPadH + 1px);
 		border-style: solid;
 		border-width: 0 1px 1px 0;
-		border-color: @colorCouleur3Moyen @colorZoneBorder;
-		color: @colorCouleur3Fonce;
+		border-color: @colorCouleur3Moyen @menuBorderColor;
+		color: @menuLinkColor;
 		
 		//changement taille selon zone
 		//Co-pilotes : changement de la taille de police
-		// #dm_custom_top & { font-size: @fontSizeSmall; }
+		// #dm_custom_top & { font-size: @fontSizeSmall; border-color: @menuTopBorderColor; }
 		// #dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeMicro; }
 
-		&.dm_current { &, &:hover { color: @colorCouleur1; } }
-		&.dm_inactive { color: @colorCouleur3; }
+		&.dm_current { &, &:hover { color: @menuLinkCurrentColor; } }
+		&.dm_inactive { color: @menuLinkInactiveColor; }
 		//LoVe's Hurts Fade Away
-		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
-		&:active { color: @colorCouleur1; }
+		&:hover, &:focus { color: @menuLinkHoverColor; background-color: @menuBgHoverColor; }
+		&:active { color: @menuLinkActiveColor; }
 	}
 
 	//Copilotes : remise de la couleur du bas sur les derniers de liste
-	.last > .link { border-color: @colorZoneBorder; }
+	.last > .link { border-color: @menuBorderColor; }
 
 	//Copilotes : agrandissement liens pour le premier niveau
 	#dm_custom_top & > li > .link { font-size: @fontSizeH6Px; }
@@ -166,22 +166,27 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 
 //mise en couleur des cellules ouvertes
 ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-accordion li.dm_parent > .link,
 ul.menu-accordion li.dm_parent li.dm_parent > .link {
-	background-color: @colorCouleur1;
-	color: @colorCouleur3Clair;
-	&:hover { color: @colorCouleur3ClairSup; }
+	background-color: @menuBgOpenColor;
+	color: @menuBgOpenLinkColor;
+	&:hover { color: @menuBgOpenLinkHoverColor; }
 }
 
-//Co-pilotes : couleurs spécifiques
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link {
+	background-color: @menuTopBgOpenColor;
+	color: @menuTopBgOpenLinkColor;
+	&:hover { color: @menuTopBgOpenLinkHoverColor; }
+}
+
+//Co-pilotes : couleurs spécifiques pour le premier niveau
 #dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown > li.dm_dir:hover > .link,
 #dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown > li.dm_dir:hover > .link {
-	background-color: @colorCouleur2Clair;
-	color: @colorCouleur1;
-	&:hover { color: @colorCouleur1Moyen; }
+	background-color: @menuTopFirstBgOpenColor;
+	color: @menuTopFirstBgOpenLinkColor;
+	&:hover { color: @menuTopFirstBgOpenLinkHoverColor; }
 }
 //##################################
 //##################################
@@ -206,7 +211,6 @@ ul.menu-megadropdown > li {
 			height: 0;
 			right: @menuArrowOffsetX;
 			top: @menuArrowOffsetY;
-			//border-color: transparent transparent transparent @menuDropdownArrowColor;
 			border-color: transparent;
 			border-style: solid;
 			border-width: @menuArrowDim;
@@ -221,7 +225,6 @@ ul.menu-megadropdown > li {
 			#dm_sidebar_right & {
 				right: auto !important;
 				left: @menuArrowOffsetX;
-				//border-color: transparent @menuDropdownArrowColor transparent transparent;
 				
 				.csstransitions.csstransforms & {
 					@origin(75%; 50%);
@@ -253,13 +256,11 @@ ul.menu-megadropdown > li.dm_dir > .link:hover:after,
 ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
-	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
 	
 	//ajout des transitions pour navigateurs récents
 	.csstransitions.csstransforms & {
 		right: @menuArrowOffsetX;
 		top: @menuArrowOffsetY;
-		//border-color: transparent transparent transparent @menuDropdownArrowColorSup;
 		@rotate(90deg);
 	}
 	
@@ -270,7 +271,6 @@ ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 		
 		.csstransitions.csstransforms & {
 			left: @menuArrowOffsetX;
-			//border-color: transparent @menuDropdownArrowColorSup transparent transparent;
 			@rotate(-90deg);
 		}
 	}
@@ -296,7 +296,7 @@ ul.menu-dropdown, ul.menu-megadropdown {
 				//suppression du texte
 				text-indent:-9999em;
 				//insertion de la sprite
-				@spriteDefinition("DefaultDark"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultDark-internet-home; @spriteOffY-DefaultDark-internet-home);
+				@spriteDefinition(@menuTopSpriteTheme; @menuTopSpriteCategory; @menuTopSpriteName; "M"; @spriteFormat_M; @menuTopSpriteOffX; @menuTopSpriteOffY);
 				//suppression rollOver
 				&, .rgba & {
 					&, &:hover, &:focus { background-color: transparent; }

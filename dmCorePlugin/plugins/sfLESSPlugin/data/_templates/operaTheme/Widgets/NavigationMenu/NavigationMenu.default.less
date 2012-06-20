@@ -1,6 +1,6 @@
 // NavigationMenu.default.less
-// v1.1
-// Last Updated : 2012-06-08 15:30
+// v1.6
+// Last Updated : 2012-06-19 15:25
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -8,6 +8,7 @@
 @import "_templates/operaTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //Config du widget courant
@@ -18,9 +19,26 @@
 
 ul.menu-default {
 	//Personnalisation menu dans ces zones
-	#dm_header & li .link { color: @headerTextColor; }
-	#dm_footer & li .link { color: @footerTextColor; }
-	
+	// #dm_header & {
+	// 	li {
+	// 		.link { color: @headerTextColor; }
+	// 		&:before {
+	// 			//ajout de la sprite de séparation
+	// 			@spriteDefinition(@headerSpriteTheme; @headerSpriteCategory; @headerSpriteName; "S"; @spriteFormat_S; @headerSpriteOffX; @headerSpriteOffY);
+	// 		}
+	// 	}
+	// }
+	#dm_footer & {
+		li {
+			.link { color: @footerTextColor; }
+			&:before {
+				//ajout de la sprite de séparation
+				@spriteDefinition(@footerSpriteTheme; @footerSpriteCategory; @footerSpriteName; "S"; @spriteFormat_S; @footerSpriteOffX; @footerSpriteOffY);
+			}
+		}
+	}
+
+	//stylages des liens dans toutes les zones
 	#dm_header &, #dm_footer & {
 		li {
 			//changement apparence des liens
@@ -32,14 +50,41 @@ ul.menu-default {
 				text-decoration: none;
 				&:hover { text-decoration: underline; }
 			}
+		}
+	}
 
+	#dm_header & {
+		li {
+			//alignés à gauche donc marge à gauche
+			margin-left: @offS;
+			&.first { margin-left: 0; }
+
+			//Opéra : personnalisation du fond et des couleurs des liens
+			.link {
+				padding: 0 @offM;
+				color: @colorCouleur3ClairSup;
+			}
+
+			//rollOver avec la transparence lorsque géré
+			background-color: @colorCouleur2;
+			.rgba & {
+				background-color: fadeout(@colorCouleur2, 20%);
+				&:hover { background-color: @colorCouleur2; }
+			}
+			//ajout des transitions pour navigateurs récents
+			.csstransitions & {
+				@transition(background-color; .2s; ease-in-out; 0s);
+			}
+		}
+	}
+	
+	#dm_footer & {
+		li {
 			//alignés à gauche donc rajout bullet à gauche
 			&:before {
 				display: block;
 				content: "";
 				float: left;
-				//ajout de la sprite de bullet collorée
-				@spriteDefinition("DefaultMono"; "bullet"; "disc"; "S"; @spriteFormat_S; @spriteOffX-DefaultMono-bullet-disc; @spriteOffY-DefaultMono-bullet-disc);
 				//décalage de marge
 				@decalV: (@gridBaseline - @spriteFormat_S)/2;
 				// padding: @decalV 0;

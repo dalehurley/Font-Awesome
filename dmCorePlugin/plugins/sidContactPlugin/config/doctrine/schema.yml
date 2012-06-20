@@ -1,0 +1,43 @@
+SidContactForm:  
+  actAs:
+    DmSortable:
+    I18n:
+      fields: [ name ]
+      actAs:
+        DmVersionable:
+        Timestampable:
+  columns:  
+    name:              { type: string(255), notnull: true }
+    title:             { type: string(255), notnull: true }    
+    description:       { type: clob, extra: ckeditor, notnull: false }    
+
+SidContactField:  
+  actAs:
+    DmSortable:
+    I18n:
+      fields: [ label, choices, help ]
+      actAs:
+        DmVersionable:      
+        Timestampable:
+  columns: 
+    label:             { type: string(255), notnull: true }
+    type:              { type: string(255), notnull: true }
+    choices:           { type: string(255), notnull: false }
+    required:          { type: boolean, notnull: true, default: true }
+    help:              { type: clob, extra: ckeditor, notnull: false }
+    form_id:           { type: integer, notnull: true }
+  relations:
+    ContactForm:
+      class: SidContactForm
+      local: form_id
+      foreign: id
+      foreignAlias: SidContactFields
+      onDelete: Cascade
+
+SidContact:   
+  actAs:
+    DmSortable:
+    Timestampable:
+  columns:   
+    email:             { type: string(255), notnull: true }
+    datas:             { type: clob, notnull: true }

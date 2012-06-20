@@ -20,14 +20,14 @@ class cjoForm extends dmForm
 
 	     $this->widgetSchema->setNameFormat('maform[%s]');
 	     $this->setValidators(array(
-	      'nbjours1'    => new sfValidatorNumber(array('required' => true),array(
+	      'nbjours1'    => new sfValidatorNumber(array('required' => false),array(
 	      		'required'=>'Le nombre de jours ouvrables est obligatoire.',
 	      		'invalid'=>'Le nombre de jours ouvrables doit être numérique et 30 jours maxi',
 		      )),
 
-	      'nbjours2'    => new sfValidatorNumber(array('required' => true),array(
+	      'nbjours2'    => new sfValidatorNumber(array('required' => false),array(
 	      		'required'=>'Le nombre de jours ouvrés est obligatoire.',
-	      		'invalid'=>'Le nombre de jours ouvrés doit être numérique (exemple: 12.5) et 25 jours maxi',
+	      		'invalid'=>'Le nombre de jours ouvrés doit être numérique et 25 jours maxi',
 		      )),
     )); 
 

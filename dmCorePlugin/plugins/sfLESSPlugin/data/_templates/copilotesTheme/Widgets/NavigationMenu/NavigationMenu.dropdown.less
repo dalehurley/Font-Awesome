@@ -20,7 +20,10 @@
 
 ul.menu-dropdown {
 	//rajout bordure à gauche sur les menus
-	&, & ul { border-left: 1px solid @colorZoneBorder; }
+	&, & ul {
+		border-left: 1px solid @menuBorderColor;
+		#dm_custom_top & { border-left-color: @menuTopBorderColor; }
+	}
 	
 	//modifications de dimensions pour ajouts de bordures sur les côtés, et compensation décalage
 	ul {

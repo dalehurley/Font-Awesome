@@ -35,7 +35,7 @@ class cldActions extends myFrontModuleActions {
                 $results['taux'] =$form->getValue('taux');  
         
                 // envoi soap
-                $results['soap']=$client->__soapCall('calculCLD',array($results['montant'], $results['depot'], $results['remboursements'], $results['periodicite'], $results['debut'], $results['valeur'], $results['taux']),null,array($authHeader));
+                $results['soap']=$client->__soapCall('calculCLD',array($results['montant'], $results['depot'], $results['remboursements'], $results['taux'], $results['periodicite'], $results['debut'], $results['valeur']),null,array($authHeader));
 
                 $this->getUser()->setFlash('results', $results);
             }

@@ -182,7 +182,7 @@ class dmMediaTagImage extends dmMediaTag
     
     if (!$media->checkFileExists())
     {
-      throw new dmException('The media file does not exist : '.$media->relPath);
+      throw new dmException('[The media file does not exist : '.$media->relPath.']');
     }
     
     $validImage = true;
