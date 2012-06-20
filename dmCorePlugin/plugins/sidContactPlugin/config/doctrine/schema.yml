@@ -8,8 +8,8 @@ SidContactForm:
         Timestampable:
   columns:  
     name:              { type: string(255), notnull: true }
-    title:             { type: string(255), notnull: true }    
-    description:       { type: clob, extra: ckeditor, notnull: false }    
+    title:             { type: string(255), notnull: true }
+    description:       { type: clob, extra: ckeditor, notnull: false }
 
 SidContactField:  
   actAs:
