@@ -48,7 +48,9 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'sidWidgetPubsFlashPlugin',
             'sidWidgetSocialNetworkPlugin',
             'lioshiPlugin',
-            'sidExtraWidgetsPlugin'          
+            'sidExtraWidgetsPlugin',
+//            'sidContactPlugin' ,
+//			'sidWidgetAddedPagesPlugin'
         ));
     }
 
@@ -60,45 +62,47 @@ class dmProjectConfiguration extends sfProjectConfiguration {
         }
 
         foreach (array(
-    'dmUserPlugin',
-    'dmAlternativeHelperPlugin',
-    'sfWebBrowserPlugin',
-    'sfImageTransformPlugin',
-    'sfFeed2Plugin',
-    'sfFormExtraPlugin',
-    'lfKrumoPlugin',
-    'dmWidgetFeedReaderPlugin',
-    'dmWidgetExcelPlugin',
-    'dmWidgetGalleryPlugin',
-    'sfLESSPlugin',
-    'dmContactPlugin',
-    'dmWidgetXmlPlugin',
-    //'dmCkEditorPersoPlugin',
-    'dmFlowPlayerPlugin',
-    'dmMediaUploadifyerPlugin',
-    'dmBotPlugin',
-    'dmWidgetExternalVideoPlugin',
-    'dmCoreTranslatorPlugin',
-    'sidWidgetBePlugin', // la base editoriale
-    'dmWidgetGalleryBackgroundPlugin',
-    'dmTagPlugin',
-    'dmCkEditorPlugin',
-    'dmWidgetNivoGalleryPlugin',
-    'sidWidgetBandeauPlugin',
-    //'sidWidgetBlogPlugin', 
-    'sidWidgetConstantesPlugin',
-    'sidWidgetSitesUtilesPlugin',
-    'dmGoogleMapPlugin',
-    'sidWidgetActuPlugin',
-    'sidWidgetCabinetPlugin',
-    'sidWidgetCoordonneesExpertPlugin',
-    'sidWebservicesPlugin',            
+            'dmUserPlugin',
+            'dmAlternativeHelperPlugin',
+            'sfWebBrowserPlugin',
+            'sfImageTransformPlugin',
+            'sfFeed2Plugin',
+            'sfFormExtraPlugin',
+            'lfKrumoPlugin',
+            'dmWidgetFeedReaderPlugin',
+            'dmWidgetExcelPlugin',
+            'dmWidgetGalleryPlugin',
+            'sfLESSPlugin',
+            'dmContactPlugin',
+            'dmWidgetXmlPlugin',
+            //'dmCkEditorPersoPlugin',
+            'dmFlowPlayerPlugin',
+            'dmMediaUploadifyerPlugin',
+            'dmBotPlugin',
+            'dmWidgetExternalVideoPlugin',
+            'dmCoreTranslatorPlugin',
+            'sidWidgetBePlugin', // la base editoriale
+            'dmWidgetGalleryBackgroundPlugin',
+            'dmTagPlugin',
+            'dmCkEditorPlugin',
+            'dmWidgetNivoGalleryPlugin',
+            'sidWidgetBandeauPlugin',
+            //'sidWidgetBlogPlugin', 
+            'sidWidgetConstantesPlugin',
+            'sidWidgetSitesUtilesPlugin',
+            'dmGoogleMapPlugin',
+            'sidWidgetActuPlugin',
+            'sidWidgetCabinetPlugin',
+            'sidWidgetCoordonneesExpertPlugin',
+            'sidWebservicesPlugin',            
             'ckWebservicePlugin',
             'sidSiteMapPlugin',
             'sidWidgetPubsFlashPlugin',
             'sidWidgetSocialNetworkPlugin',
             'lioshiPlugin',
-            'sidExtraWidgetsPlugin'
+            'sidExtraWidgetsPlugin',
+//            'sidContactPlugin'
+//			'sidWidgetAddedPagesPlugin'
         ) as $embeddedPlugin) {
             $this->setPluginPath($embeddedPlugin, $baseDir . '/dmCorePlugin/plugins/' . $embeddedPlugin);
         }

@@ -1,6 +1,6 @@
 // NavigationMenu.default.less
-// v1.1
-// Last Updated : 2012-06-08 15:30
+// v1.6
+// Last Updated : 2012-06-19 15:25
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -18,8 +18,24 @@
 
 ul.menu-default {
 	//Personnalisation menu dans ces zones
-	#dm_header & li .link { color: @headerTextColor; }
-	#dm_footer & li .link { color: @footerTextColor; }
+	#dm_header & {
+		li {
+			.link { color: @headerTextColor; }
+			&:before {
+				//ajout de la sprite de séparation
+				@spriteDefinition(@headerSpriteTheme; @headerSpriteCategory; @headerSpriteName; "S"; @spriteFormat_S; @headerSpriteOffX; @headerSpriteOffY);
+			}
+		}
+	}
+	#dm_footer & {
+		li {
+			.link { color: @footerTextColor; }
+			&:before {
+				//ajout de la sprite de séparation
+				@spriteDefinition(@footerSpriteTheme; @footerSpriteCategory; @footerSpriteName; "S"; @spriteFormat_S; @footerSpriteOffX; @footerSpriteOffY);
+			}
+		}
+	}
 
 	#dm_header &, #dm_footer & {
 		li {
@@ -37,8 +53,6 @@ ul.menu-default {
 				display: block;
 				content: "";
 				float: left;
-				//ajout de la sprite de bullet collorée
-				@spriteDefinition("DefaultMono"; "bullet"; "disc"; "S"; @spriteFormat_S; @spriteOffX-DefaultMono-bullet-disc; @spriteOffY-DefaultMono-bullet-disc);
 				//décalage de marge
 				@decalV: (@gridBaseline - @spriteFormat_S)/2;
 				// padding: @decalV 0;

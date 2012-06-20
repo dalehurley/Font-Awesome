@@ -93,6 +93,10 @@ all:
       rubrique: "Contenu => Base Editoriale => Rubriques (Gestion des rubriques de la BE)"
       section: "Contenu => Base Editoriale => Sections (Gestion des sections de la BE)"
       article: "Contenu => Base Editoriale => Articles (Gestion des articles de la BE)"
+      added_page_groups: "Contenu => Pages Additionnelles => Groupe de page "
+      added_page_level1: "Contenu => Pages Additionnelles => Page de niveau 1 "
+      added_page_level2: "Contenu => Pages Additionnelles => Page de niveau 2 "
+      added_page_level3: "Contenu => Pages Additionnelles => Page de niveau 3 "
         # Sous-menu Tag
       tags: "Contenu => Tag => Tags (Gestion des tags)"
       # Menu Gestion du bandeau
@@ -228,6 +232,10 @@ all:
       - mission
       - actualite_contenu
       - contact_me
+      - added_page_groups
+      - added_page_level1
+      - added_page_level2
+      - added_page_level3
       
   groupes-permissions-co-pilotes:
     description: "Accès pour co-pilotes"

@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.3.1
-// Last Updated : 2012-06-14 16:20
+// v1.3.2
+// Last Updated : 2012-06-19 16:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -54,7 +54,7 @@
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
 		//ajout dégradé shiny
-		@verticalGradientMultiPie-4(13%;50%;50%;87%;@colorCouleur1Sup;@colorCouleur1;@colorCouleur1MoyenSup;@colorCouleur1Fonce);
+		@verticalGradientMultiPie-4(13%;50%;50%;87%;@menuTopGradientColor1;@menuTopGradientColor2;@menuTopGradientColor3;@menuTopGradientColor4);
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
@@ -115,22 +115,22 @@ ul.menu-megadropdown ul li ul li {
 ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	//gestion des liens
 	.link {
-		background-color: @colorCouleur3ClairSup;
+		background-color: @menuBgColor;
 		padding: (@menuLinkPadV + 1px) @menuLinkPadH @menuLinkPadV (@menuLinkPadH + 1px);
 		border-style: solid;
 		border-width: 0 1px 1px 0;
-		border-color: @colorZoneBorder;
-		color: @colorCouleur3Fonce;
+		border-color: @menuBorderColor;
+		color: @menuLinkColor;
 		
 		//changement taille selon zone
 		#dm_custom_top & { font-size: @fontGlobalSizePx; border-color: @menuTopBorderColor; }
 		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
 		
-		&.dm_current { &, &:hover { color: @colorCouleur1; } }
-		&.dm_inactive { color: @colorCouleur3; }
+		&.dm_current { &, &:hover { color: @menuLinkCurrentColor; } }
+		&.dm_inactive { color: @menuLinkInactiveColor; }
 		//LoVe's Hurts Fade Away
-		&:hover, &:focus { color: @colorCouleur3FonceSup; background-color: @colorCouleur3Clair; }
-		&:active { color: @colorCouleur1; }
+		&:hover, &:focus { color: @menuLinkHoverColor; background-color: @menuBgHoverColor; }
+		&:active { color: @menuLinkActiveColor; }
 	}
 }
 
@@ -139,16 +139,16 @@ ul.menu-dropdown li.dm_dir:hover > .link,
 .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-accordion li.dm_parent > .link,
 ul.menu-accordion li.dm_parent li.dm_parent > .link {
-	background-color: @colorCouleur1;
-	color: @colorCouleur3Clair;
-	&:hover { color: @colorCouleur3ClairSup; }
+	background-color: @menuBgOpenColor;
+	color: @menuBgOpenLinkColor;
+	&:hover { color: @menuBgOpenLinkHoverColor; }
 }
 
 #dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
 #dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link {
-	background-color: @colorCouleur1;
-	color: @colorCouleur3Clair;
-	&:hover { color: @colorCouleur3ClairSup; }
+	background-color: @menuTopBgOpenColor;
+	color: @menuTopBgOpenLinkColor;
+	&:hover { color: @menuTopBgOpenLinkHoverColor; }
 }
 
 //##################################
@@ -172,7 +172,6 @@ ul.menu-megadropdown > li {
 			height: 0;
 			right: @menuArrowOffsetX;
 			top: @menuArrowOffsetY;
-			//border-color: transparent transparent transparent @menuDropdownArrowColor;
 			border-color: transparent;
 			border-style: solid;
 			border-width: @menuArrowDim;
@@ -187,7 +186,6 @@ ul.menu-megadropdown > li {
 			#dm_sidebar_right & {
 				right: auto !important;
 				left: @menuArrowOffsetX;
-				//border-color: transparent @menuDropdownArrowColor transparent transparent;
 				
 				.csstransitions.csstransforms & {
 					@origin(75%; 50%);
@@ -217,13 +215,11 @@ ul.menu-megadropdown > li.dm_dir > .link:hover:after,
 ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
-	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
 	
 	//ajout des transitions pour navigateurs récents
 	.csstransitions.csstransforms & {
 		right: @menuArrowOffsetX;
 		top: @menuArrowOffsetY;
-		//border-color: transparent transparent transparent @menuDropdownArrowColorSup;
 		@rotate(90deg);
 	}
 	
@@ -234,7 +230,6 @@ ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 		
 		.csstransitions.csstransforms & {
 			left: @menuArrowOffsetX;
-			//border-color: transparent @menuDropdownArrowColorSup transparent transparent;
 			@rotate(-90deg);
 		}
 	}
@@ -260,7 +255,7 @@ ul.menu-dropdown, ul.menu-megadropdown {
 				//suppression du texte
 				text-indent:-9999em;
 				//insertion de la sprite
-				@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
+				@spriteDefinition(@menuTopSpriteTheme; @menuTopSpriteCategory; @menuTopSpriteName; "M"; @spriteFormat_M; @menuTopSpriteOffX; @menuTopSpriteOffY);
 				//suppression rollOver
 				&, .rgba & {
 					&, &:hover, &:focus { background-color: transparent; }

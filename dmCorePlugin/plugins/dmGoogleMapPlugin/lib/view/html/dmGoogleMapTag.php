@@ -120,7 +120,8 @@ class dmGoogleMapTag extends dmHtmlTag {
         //     );
     
         //insertion du partial d'organization
-        $cabinet .= '<div xmlns="http://www.w3.org/1999/xhtml" itemtype="http://schema.org/Organization" itemscope="itemscope" class="mapAddress itemscope Organization" style="margin-right:' . $this->options['width'] . 'px;">
+        //suppression de la marge de droite : Organization" style="margin-right:' . $this->options['width'] . 'px;">
+        $cabinet .= '<div xmlns="http://www.w3.org/1999/xhtml" itemtype="http://schema.org/Organization" itemscope="itemscope" class="mapAddress itemscope Organization">
                         <span itemprop="name" class="itemprop name">'.$adresseRequest->getTitle().'</span>';
         // fabrication de l'adresse
         $adresseCabinet = $adresseRequest->getAdresse();
@@ -174,7 +175,7 @@ class dmGoogleMapTag extends dmHtmlTag {
         }
         else $resumeTownInMap = '';
         
-        $cabinet .= $resumeTownInMap.'</div>'; 
+        $cabinet .= $resumeTownInMap.'</div>';
       }
       
       ($preparedAttributes['titreBloc'] == '' ) ? $titreBloc =   sfContext::getInstance()->getI18N()->__('Map') : $titreBloc = $preparedAttributes['titreBloc'] ;

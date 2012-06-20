@@ -1,0 +1,26 @@
+"Les contacts":
+
+  "Mes formulaires de contacts":
+
+    ContactForm:
+      model: SidContactForm
+      page: false
+      name: Formulaire de contact|Formulaires de contact
+      credentials: contact_form
+      components:
+
+    ContactField:
+      model: SidContactField
+      parent: ContactForm
+      page: false
+      name: Champ de formulaire de contact|Champs de formulaire de contact
+      credentials: contact_field
+      components:
+
+    Contact:
+      model: SidContact
+      page: false
+      name: Contact|Contacts
+      credentials: contact
+      components:
+
