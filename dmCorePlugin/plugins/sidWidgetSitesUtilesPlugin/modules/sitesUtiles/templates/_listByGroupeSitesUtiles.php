@@ -65,7 +65,7 @@ foreach ($sitesUtilesPager as $article) {
 
 	$media = $article->getImage();
 	$imageHtml = '';
-	if (is_object($media)){  
+	if ($media->checkFileExists()){  
 		$imageHtml = 	
 			'<span class="imageWrapper">'.
 				//_media($media)->height('35px')->method('scale').
