@@ -17,10 +17,11 @@
       credentials: contact_field
       components:
 
-    Contact:
-      model: SidContact
+    ContactData:
+      model: SidContactData
       page: false
       name: Contact|Contacts
-      credentials: contact
+      credentials: contact_data
       components:
+        form:
 
