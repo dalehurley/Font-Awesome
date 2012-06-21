@@ -7,10 +7,25 @@
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 
 //Mise en page par défaut du widget
 .dm_widget.debug_debug {
 	position: absolute;
+	top: @gridBaseline*4;
+	right: @gridGutter;
+
+	//Test pour jQueryMobile
+	// .debugTemplate {
+	// 	//&:hover		{ background-color: red;		}
+	// 	&.tap		{ background-color: blue;		}
+	// 	&.taphold	{ background-color: purple;		}
+	// 	&.swipe		{ background-color: lime;		}
+	// 	&.swipeleft	{ background-color: teal;		}
+	// 	&.swiperight{ background-color: green;		}
+	// }
+
+
 	//forçage d'affichage au premier plan
 	z-index: 100000;
 	//disparition lorsque désactivé
@@ -28,7 +43,10 @@
 	.dm_widget_inner{
 		background-color: @colorCouleur3Clair;
 		padding: (@gridBaseline -1px) (@gridGutter -1px);
-		border: 1px solid @colorCouleur3Moyen;
+		border: 1px solid @colorZoneBorder;
+
+		//définition largeur
+		@gridWidth(4; @gridGutter*2);
 		
 		//transparence du fond (syntaxe lessPHP v0.3.0)
 		.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 25%); }
@@ -95,6 +113,9 @@
 //Placement personnalisé de la div de debug et de warning flotante
 .debug, .warning {
 	position: absolute;
+	//top: @gridBaseline;
+	right:0;
+	
 	//forçage d'affichage au premier plan
 	z-index: 100000;
 	content: "";
