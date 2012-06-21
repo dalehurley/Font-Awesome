@@ -1,6 +1,6 @@
 // _Grids.less
-// v1.0
-// Last Updated : 2011-05-24 11:33
+// v1.1
+// Last Updated : 2012-06-21 10:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -40,18 +40,33 @@
 }
 
 #less-grid-switch {
+	background-color: @colorRequired;
+	.rgba & {
+		background-color: fadeout(@colorRequired, 25%);
+		&:hover { background-color: @colorRequired; }
+	}
+
+	//ajout transitions
+	.csstransitions & {
+		@transitionCompress(background-color; .2s; ease-out; 0s);
+	}
+
 	position: absolute;
-	top: 0;
 	z-index: 1000;
-	background-color: fadeout(@colorRequired,25%);
+	top: @gridBaseline*3;
+	right: @gridGutter;
+	padding: 1px (@gridGutter -1px);
+	border-color: @colorZoneBorder;
+	border-width: 1px;
+	border-style: solid solid none solid;
+	//définition largeur
+	@gridWidth(4; @gridGutter*2);
+
 	color: @colorCouleur3ClairSup;
 	font-size: @fontSizeSmall;
 	font-weight: bold;
 	line-height: (@gridBaseline - 3px);
+	text-align: center;
 	cursor: pointer;
-	padding: 0px @offM 2px @offM;
-	border-color: @colorCouleur3ClairSup;
-	border-width: 1px;
-	border-style: none solid solid solid;
-	@borderRadiusCompress(0 0 @offS @offS);
+	@borderRadiusCompress(@offS @offS 0 0);
 }
