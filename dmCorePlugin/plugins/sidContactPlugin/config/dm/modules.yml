@@ -23,5 +23,5 @@
       name: Contact|Contacts
       credentials: contact_data
       components:
-        dynamicform:
+        form:  { name: "Formulaire de contact", form_class: myContactDataForm }   # form_class is used to replace dmWidgetFormForm class, file sidContactPlugin/modules/dmWidget/myContactDataForm.php might exists
 
