@@ -1,6 +1,6 @@
 // spLessGrid.js - Pour le framework SPLessCss
-// v1.5
-// Last Updated : 2012-04-27 11:40
+// v1.5.1
+// Last Updated : 2012-06-21 10:00
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
@@ -314,14 +314,14 @@
 	//création du switch
 	$.fn.spLessGrid.createSwitch = function(debug, options) {
 		//calcul positionnement à droite du bouton
-		var switchPositionRight = 100;
-		if ($("#sfWebDebugBar").length > 0){
-			switchPositionRight += $('#sfWebDebugBar').outerWidth();
-		}
+		// var switchPositionRight = 100;
+		// if ($("#sfWebDebugBar").length > 0){
+		// 	switchPositionRight += $('#sfWebDebugBar').outerWidth();
+		// }
 		
 		$('body').append('<span id="less-grid-switch">afficher la grille</span>');
-
-		$('#less-grid-switch').css('right', switchPositionRight);
+		
+		//	$('#less-grid-switch').css('right', switchPositionRight);
 		
 		$('#less-grid-switch').toggle(function() {
 			$.fn.spLessGrid.toggleGrid(debug, options, true);
