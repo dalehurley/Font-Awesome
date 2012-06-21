@@ -1,6 +1,6 @@
 // _SidSPLessCssDebug.less
-// v1.4
-// Last Updated : 2012-06-21 10:15
+// v1.5
+// Last Updated : 2012-06-21 17:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -86,8 +86,11 @@
 				//stylage en bar de progression
 				position: relative;
 				overflow: visible;
-				@verticalGradient(@colorCouleur1Clair; @colorCouleur1);
-				.rgba & { @verticalGradient(fadeout(@colorCouleur1, 25%); fadeout(@colorCouleur1Moyen, 25%)); }
+				//moyenne des couleurs pour anciens navigateurs
+				background-color: mix(@colorCouleur1Clair, @colorCouleur1, 50%);
+				//les navigateurs gérant les dégradés gèrent la transparence
+				@verticalGradient(fadeout(@colorCouleur1, 25%); fadeout(@colorCouleur1Moyen, 25%));
+
 				height: @gridBaseline;
 				width: 100%;
 				
