@@ -68,7 +68,13 @@ class DmMediaForRecordForm extends DmMediaForm
       unset($this->widgetSchema['remove'], $this->validatorSchema['remove']);
     }
     // rajout stef pour indiquer comment supprimer une image
-    $this->widgetSchema->setHelps(array('remove' => 'Cochez la case pour ci-dessus pour supprimer l\'image puis "Enregistrer"'));
+    $configSize = sfConfig::get('app_dm-media_max-upload-size',1000000);
+    $size = ($configSize>999999)? ($configSize/1000000).' Mo': $configSize.' o';
+     
+    $this->widgetSchema->setHelps(array(
+      'remove' => 'Cochez la case pour ci-dessus pour supprimer l\'image puis "Enregistrer"',
+      'file' => 'Maximum : '.$size
+      ));
     // fin rajout stef
   }
   

@@ -34,10 +34,9 @@ SidContactField:
       foreignAlias: SidContactFields
       onDelete: Cascade
 
-SidContact:   
+SidContactData:   
   actAs:
-    DmSortable:
     Timestampable:
   columns:   
     email:             { type: string(255), notnull: true }
-    datas:             { type: clob, notnull: true }
+    infos:             { type: clob, notnull: true }

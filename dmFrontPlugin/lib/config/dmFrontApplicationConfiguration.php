@@ -34,7 +34,7 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
   public function configure()
   {
     $this->dispatcher->connect('dm_contact.saved', array($this, 'listenToContactSavedEvent'));
-    $this->dispatcher->connect('sid_contact.saved', array($this, 'listenToSidContactSavedEvent'));
+    $this->dispatcher->connect('sid_contact_data.saved', array($this, 'listenToSidContactDataSavedEvent'));
   }
 
   public function listenToContactSavedEvent(sfEvent $e)
@@ -64,9 +64,9 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
 
   }
 
-  public function listenToSidContactSavedEvent(sfEvent $e)
+  public function listenToSidContactDataSavedEvent(sfEvent $e)
   {
-    $contact = $e['contact'];
+    $contact = $e['contact_data'];
     dm::enableMailer(); // car  enable_mailer:false dans config.yml (pour des raisons de performance)
     // do something with the freshly saved $contact
     $message = $contact->id;

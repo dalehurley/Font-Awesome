@@ -1,5 +1,8 @@
 # default values
 all:
+  dm-media:
+    max-upload-size: 2000000   # Max upload size for file in form
+
   link-login:      # seeclass BasedmUserAdminActions to understand how it works
     active:  true   # activation du lien de login
     user: client
