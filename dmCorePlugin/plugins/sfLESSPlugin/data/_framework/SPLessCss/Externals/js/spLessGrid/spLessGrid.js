@@ -293,7 +293,7 @@
 	//toggle général de la grille
 	$.fn.spLessGrid.toggleGrid = function(debug, options, toggle) {
 		if(toggle == true) {
-			$('#less-grid-switch').text("x").attr('rel','on');
+			$('#less-grid-switch').text('masquer la grille').attr('rel','on').addClass('on');
 			$('#less-grid').show();
 			$('#less-baseline').show();
 			
@@ -305,7 +305,7 @@
 			param.target = debug;
 			$.fn.spLessGrid.toggleDisplay(param, true);
 		}else{
-			$('#less-grid-switch').text('afficher la grille').attr('rel','off');
+			$('#less-grid-switch').text('afficher la grille').attr('rel','off').removeClass('on');
 			$('#less-grid').hide();
 			$('#less-baseline').hide();
 		}
