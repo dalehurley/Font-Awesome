@@ -1,6 +1,6 @@
 // _ConfigColorsReference.less
-// v2.8
-// Last Updated : 2012-06-20 16:10
+// v2.9
+// Last Updated : 2012-06-21 10:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -171,5 +171,32 @@
 //pour les titres de widget avec une sprite
 @widgetTitleSpriteBgColor: @widgetTitleBgColor;
 @widgetTitleSpriteTextColor: @widgetTitleTextColor;
+//##################################
+//##################################
+
+
+//##################################
+//### GESTION DU BLOCK DE CONACT ###
+//##################################
+//sprite pour le titre
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@widgetLienContactSpriteTheme: "DefaultLight";
+@widgetLienContactSpriteCategory: "cabinet";
+@widgetLienContactSpriteName: "contact";
+@widgetLienContactSpriteOffX: @spriteOffX-DefaultLight-cabinet-contact;
+@widgetLienContactSpriteOffY: @spriteOffY-DefaultLight-cabinet-contact;
+
+//fond du widget
+@widgetLienContactBgColor: @colorCouleur3;
+@widgetLienContactTextColor: @colorCouleur3ClairSup;
+
+//titre du widget
+@widgetLienContactTitleBgColor: @colorCouleur1Moyen;
+@widgetLienContactTitleTextColor: @colorCouleur3ClairSup;
+
+//lien de contact
+@widgetLienContactLinkGradientColor1: @colorCouleur1;
+@widgetLienContactLinkGradientColor2: @colorCouleur1Moyen;
+@widgetLienContactLinkColor: @colorCouleur3ClairSup;
 //##################################
 //##################################
