@@ -1,6 +1,6 @@
 // LienContactBlocVersPageContact.less
-// v1.1
-// Last Updated : 2012-06-21 10:35
+// v1.3
+// Last Updated : 2012-06-21 11:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -11,6 +11,7 @@
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 @import "_templates/BaseTheme/Utilities/Sprites/_SpritesUtils.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 
 .dm_widget.lien_contact_bloc_vers_page_contact {
 	
@@ -55,6 +56,8 @@
 				line-height: @gridBaseline;
 				.link {
 					@verticalGradient(@widgetLienContactLinkGradientColor1; @widgetLienContactLinkGradientColor2);
+					@boxShadow(0 0 @offS fadeout(@colorBlack, 75%));
+
 					color: @widgetLienContactLinkColor;
 					padding: 0 @offS;
 					line-height: @gridBaseline;
@@ -63,6 +66,7 @@
 					text-shadow: 0 1px 1px @colorBlack;
 					&:hover {
 						@verticalGradient(@widgetLienContactLinkGradientColor2; @widgetLienContactLinkGradientColor1);
+						@boxShadow(0 0 @offS/2 fadeout(@colorBlack, 50%));
 					}
 				}
 			}
