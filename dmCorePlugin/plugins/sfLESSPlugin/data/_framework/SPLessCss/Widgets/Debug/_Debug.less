@@ -1,10 +1,11 @@
 // _SidSPLessCssDebug.less
-// v1.3
-// Last Updated : 2011-11-25 14:35
+// v1.4
+// Last Updated : 2012-06-21 10:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
@@ -110,12 +111,83 @@
 	}
 }
 
+//Debug baseline (utilisé en dev par le script JS de previz de la grille)
+.debugBaseline {
+	//on affiche la baseline qu'en mode Less pour éviter la confusion en mode DEV
+	.isLess &.isBl {
+		background-color: transparent;
+		background-image: url(@{urlImagesFramework}/Grids/baseline-@{gridBaseline}.png);
+		background-repeat: repeat;
+	}
+}
+
+//grille générale placée en superposition
+#less-grid {
+	.col {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		background-color: fadeout(@colorCouleur1Fonce,75%);
+		padding-top: @gridBaseline*2;
+		width: @gridColWidth;
+	}
+	.info {
+		display: block;
+		background-color: fadeout(@colorCouleur1Fonce,25%);
+		color: @colorRequired;
+		font-weight: bold;
+		line-height: @gridBaseline;
+	}
+}
+
+//switch permettant d'afficher la grille
+#less-grid-switch {
+	background-color: @colorValidate;
+	.rgba & {
+		background-color: fadeout(@colorValidate, 25%);
+		&:hover { background-color: @colorValidate; }
+	}
+
+	//changement de couleur avec la grille affichée
+	&.on {
+		background-color: @colorRequired;
+		.rgba & {
+			background-color: fadeout(@colorRequired, 25%);
+			&:hover { background-color: @colorRequired; }
+		}
+	}
+
+	//ajout transitions
+	.csstransitions & {
+		@transitionCompress(background-color; .5s; ease-out; 0s);
+	}
+
+	position: absolute;
+	z-index: 1000;
+	top: @gridBaseline*3;
+	right: @gridGutter;
+	padding: 1px (@gridGutter -1px);
+	border-color: @colorZoneBorder;
+	border-width: 1px;
+	border-style: solid solid none solid;
+	//définition largeur
+	@gridWidth(4; @gridGutter*2);
+
+	color: @colorCouleur3ClairSup;
+	font-size: @fontSizeSmall;
+	font-weight: bold;
+	line-height: (@gridBaseline - 3px);
+	text-align: center;
+	cursor: pointer;
+	@borderRadiusCompress(@offS @offS 0 0);
+}
+
 //Placement personnalisé de la div de debug et de warning flotante
 .debug, .warning {
 	position: absolute;
 	//top: @gridBaseline;
 	right:0;
-	
+
 	//forçage d'affichage au premier plan
 	z-index: 100000;
 	content: "";

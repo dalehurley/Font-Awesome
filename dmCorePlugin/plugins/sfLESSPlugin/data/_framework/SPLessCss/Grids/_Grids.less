@@ -1,5 +1,5 @@
 // _Grids.less
-// v1.1
+// v1.2
 // Last Updated : 2012-06-21 10:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
@@ -10,63 +10,3 @@
 //Grille : importation initialisation
 @importGridInit();
 @importTemplateGridInit();
-
-//Debug baseline (utilisé en dev par le script JS de previz de la grille)
-.debugBaseline {
-	//on affiche la baseline qu'en mode Less pour éviter la confusion en mode DEV
-	.isLess &.isBl {
-		background-color: transparent;
-		background-image: url(@{urlImagesFramework}/Grids/baseline-@{gridBaseline}.png);
-		background-repeat: repeat;
-	}
-}
-
-#less-grid {
-	.col {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		background-color: fadeout(@colorCouleur1Fonce,75%);
-		padding-top: @gridBaseline*2;
-		width: @gridColWidth;
-	}
-	.info {
-		display: block;
-		background-color: fadeout(@colorCouleur1Fonce,25%);
-		color: @colorRequired;
-		font-weight: bold;
-		line-height: @gridBaseline;
-	}
-}
-
-#less-grid-switch {
-	background-color: @colorRequired;
-	.rgba & {
-		background-color: fadeout(@colorRequired, 25%);
-		&:hover { background-color: @colorRequired; }
-	}
-
-	//ajout transitions
-	.csstransitions & {
-		@transitionCompress(background-color; .2s; ease-out; 0s);
-	}
-
-	position: absolute;
-	z-index: 1000;
-	top: @gridBaseline*3;
-	right: @gridGutter;
-	padding: 1px (@gridGutter -1px);
-	border-color: @colorZoneBorder;
-	border-width: 1px;
-	border-style: solid solid none solid;
-	//définition largeur
-	@gridWidth(4; @gridGutter*2);
-
-	color: @colorCouleur3ClairSup;
-	font-size: @fontSizeSmall;
-	font-weight: bold;
-	line-height: (@gridBaseline - 3px);
-	text-align: center;
-	cursor: pointer;
-	@borderRadiusCompress(@offS @offS 0 0);
-}
