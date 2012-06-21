@@ -1,6 +1,6 @@
 // _Css3Gradient.less
-// v1.3.5
-// Last Updated : 2012-06-21 16:10
+// v1.3.6
+// Last Updated : 2012-06-21 17:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -24,7 +24,7 @@
 
 @verticalGradient(@top: #FFF; @bottom: #000) {
 	//Application couleur moyenne
-	@gradientBgColorMid-2(@top; @bottom);
+	// @gradientBgColorMid-2(@top; @bottom);
 
 	//déclaration du dégradé
 	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, @top),color-stop(1, @bottom));	//Chrome 1-9 and Safari 4-5
@@ -43,7 +43,7 @@
 
 @horizontalGradient(@left: #FFF; @right: #000) {
 	//Application couleur moyenne
-	@gradientBgColorMid-2(@left; @right);
+	// @gradientBgColorMid-2(@left; @right);
 
 	//déclaration du dégradé
 	background-image: -webkit-gradient(linear,left top,right top,color-stop(0, @left),color-stop(1, @right));		//Chrome 1-9 and Safari 4-5
@@ -83,7 +83,7 @@
 
 @verticalGradientMulti-4(@stop1: 0%; @stop2: 33.33%; @stop3: 66.67%; @stop4: 100%; @color1: #f00; @color2: #f0f; @color3: #0f0; @color4: #00f) {
 	//Application couleur moyenne
-	@gradientBgColorMid-4(@color1; @color2; @color3; @color4);
+	// @gradientBgColorMid-4(@color1; @color2; @color3; @color4);
 
 	//déclaration du dégradé
 	background-image: -webkit-gradient(								//Chrome 1-9 and Safari 4-5
@@ -146,7 +146,7 @@
 
 @horizontalGradientMulti-4(@stop1: 0%; @stop2: 33.33%; @stop3: 66.67%; @stop4: 100%; @color1: #f00; @color2: #f0f; @color3: #0f0; @color4: #00f) {
 	//Application couleur moyenne
-	@gradientBgColorMid-4(@color1; @color2; @color3; @color4);
+	// @gradientBgColorMid-4(@color1; @color2; @color3; @color4);
 
 	//déclaration du dégradé
 	background-image: -webkit-gradient(								//Chrome 1-9 and Safari 4-5
