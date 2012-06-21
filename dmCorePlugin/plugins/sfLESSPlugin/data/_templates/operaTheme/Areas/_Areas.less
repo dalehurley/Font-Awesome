@@ -1,6 +1,6 @@
 // _Areas.less
-// v1.1
-// Last Updated : 2012-01-18 11:00
+// v1.4
+// Last Updated : 2012-06-21 14:35
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -24,6 +24,11 @@ body { background-color: @bodyBgColor; }
 
 //couleur de la zone située sous le header jusqu'en bas
 #dm_main_inner { background-color: @mainBgColor; }
+
+//dégradé de la page
+#dm_page {
+	@verticalGradient(@bodyGradientColor1; @bodyGradientColor2);
+}
 
 //couleur de la zone de contenu
 #dm_page_content { background-color: @contentBgColor; }
