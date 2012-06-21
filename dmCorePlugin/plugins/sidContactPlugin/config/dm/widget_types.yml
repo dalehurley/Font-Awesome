@@ -1,11 +1,9 @@
-dmWidgetSidContact:
-  formulaire:
-    cache:              false
-    public_name:        Formulaire
+# dmWidgetSidContact:
+#   formulaire:
+#     cache:              false
+#     public_name:        Formulaire
 
-contactData:
-  form:
-    form_class:         dmWidgetSidContactFormulaireForm
+
 
 # dmWidgetNavigation:
 #   breadCrumb:

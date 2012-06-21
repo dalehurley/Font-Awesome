@@ -23,5 +23,5 @@
       name: Contact|Contacts
       credentials: contact_data
       components:
-        form:
+        dynamicform:
 

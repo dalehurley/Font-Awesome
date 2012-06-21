@@ -7,9 +7,9 @@
 class contactDataComponents extends myFrontModuleComponents
 {
 
-  public function executeForm(dmWebRequest $request)
+  public function executeDynamicform(dmWebRequest $request)
   {
-    $this->form = $this->forms['SidContactData'];
+    // Your code here
   }
 
 
