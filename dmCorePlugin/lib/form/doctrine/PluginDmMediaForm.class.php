@@ -18,7 +18,8 @@ abstract class PluginDmMediaForm extends BaseDmMediaForm
 
 		$this->widgetSchema['file'] = new sfWidgetFormDmInputFile();
 		$this->validatorSchema['file'] = new sfValidatorFile(array(
-      'required' => false //@todo this is weir bugfix as we don't check if a media has been defined using d&d from  media bar
+      'required' => false, //@todo this is weir bugfix as we don't check if a media has been defined using d&d from  media bar
+      'max_size' => sfConfig::get('app_dm-media_max-upload-size',1000000)
 		));
 
 		$this->changeToHidden('dm_media_folder_id');
