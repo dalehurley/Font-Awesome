@@ -19,8 +19,14 @@
 	#dm_custom_bottom > .dm_zones { background-color: #ccb8cc; }
 }
 
-//couleur de fond de la page
-#dm_main, #dm_main_inner { background-color: @colorWhite; }
+//couleur du fond général de la page
+body { background-color: @bodyBgColor; }
+
+//couleur de la zone située sous le header jusqu'en bas
+#dm_main_inner { background-color: @mainBgColor; }
+
+//couleur de la zone de contenu
+#dm_page_content { background-color: @contentBgColor; }
 
 //couleur de la zone située sous le header jusqu'en bas
 #dm_main {
