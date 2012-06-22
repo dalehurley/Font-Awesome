@@ -1,0 +1,6 @@
+# default values
+all:
+  pub-flash:
+    rep:
+      - _common/pubotheque
+      - _common/test## YAML Template.
