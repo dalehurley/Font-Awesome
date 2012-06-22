@@ -30,7 +30,7 @@ echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http:
     
     echo _open('header', array('class' => 'contentHeader'));
         
-        if ($pageCabinet->getImage()->checkFileExists() == true) {
+        if ($pageCabinet->getImage()->checkFileExists() == true && $withImage == true) {
             echo _open('div', array('class' => 'imageFullWrapper'));
                 if($width != null) {echo  _media($pageCabinet->getImage())->width($width)->set('.image itemprop="image"')->alt($pageCabinet->getTitle());}
             echo _close('div');
