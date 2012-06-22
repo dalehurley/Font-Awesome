@@ -1,14 +1,25 @@
 <?php
 
+/**
+ * le formulaire de paramètrage du widget "form"
+ */
 class myContactDataForm extends dmWidgetProjectForm
 {
   public function configure()
   {
+    
     parent::configure();
 
-    $this->widgetSchema['ww']     = new sfWidgetFormInputText(array('label' => 'ww'));
-    $this->validatorSchema['ww']  = new dmValidatorCssClasses(array('required' => false));
-    
+    $this->widgetSchema['contactForm']  = new sfWidgetFormDoctrineChoice(
+    	array(	'multiple' => false, 
+    			'model' => 'sidContactForm'
+    			));
+
+    $this->validatorSchema['contactForm'] = new sfValidatorDoctrineChoice(
+    	array(	'multiple' => true, 
+    			'model' => 'sidContactForm', 
+    			'required' => false
+    			));
 
   }
 }
