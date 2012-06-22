@@ -2,6 +2,9 @@
 
 if ($form->count() > 1 ){   // if 1 its only the submit button
 
+// message de succes
+if($sf_user->hasFlash('sid_contact_form_valid')) echo _tag('p.form_valid', __('Thank you, your contact request has been sent.'));
+
 //ajout du javascript pour le captcha
 if($form->isCaptchaEnabled()) {
 	echo '<script type="text/javascript">
