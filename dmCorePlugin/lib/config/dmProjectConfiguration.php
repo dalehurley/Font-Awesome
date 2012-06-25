@@ -39,9 +39,9 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'sidWidgetConstantesPlugin', // plugin de gestion des constantes du site
             'sidWidgetSitesUtilesPlugin',
             'dmGoogleMapPlugin',
+            'sidWidgetCoordonneesExpertPlugin',
             'sidWidgetActuPlugin',
             'sidWidgetCabinetPlugin',
-            'sidWidgetCoordonneesExpertPlugin',
             'sidWebservicesPlugin',
             'ckWebservicePlugin',
             'sidSiteMapPlugin',
@@ -50,7 +50,7 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'lioshiPlugin',
             'sidExtraWidgetsPlugin',
 //            'sidContactPlugin' ,
-//			'sidWidgetAddedPagesPlugin'
+            'sidWidgetAddedPagesPlugin'
         ));
     }
 
@@ -91,9 +91,9 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'sidWidgetConstantesPlugin',
             'sidWidgetSitesUtilesPlugin',
             'dmGoogleMapPlugin',
+            'sidWidgetCoordonneesExpertPlugin',
             'sidWidgetActuPlugin',
             'sidWidgetCabinetPlugin',
-            'sidWidgetCoordonneesExpertPlugin',
             'sidWebservicesPlugin',            
             'ckWebservicePlugin',
             'sidSiteMapPlugin',
@@ -101,8 +101,8 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'sidWidgetSocialNetworkPlugin',
             'lioshiPlugin',
             'sidExtraWidgetsPlugin',
-//           'sidContactPlugin'
-//			'sidWidgetAddedPagesPlugin'
+            //'sidContactPlugin',
+            'sidWidgetAddedPagesPlugin'
         ) as $embeddedPlugin) {
             $this->setPluginPath($embeddedPlugin, $baseDir . '/dmCorePlugin/plugins/' . $embeddedPlugin);
         }
