@@ -6,10 +6,12 @@ $class = '';
 
 if (count($sidAddedPagesLevel3Pager)) { // si nous avons un listing de pages à afficher
     //gestion affichage du titre
+    // si on est sur une page de niveau3 on affiche dans le libellé "À lire également"
     if($this->context->getPage()->getModule().'/'.$this->context->getPage()->getAction() == 'sidAddedPagesLevel3/show'){
         echo _tag('h4.title', __('Read also '));
     }
     else {
+    // sinon on affiche "En savoir plus"
     echo _tag('h4.title', __('Learn more'));
     }
         echo $sidAddedPagesLevel3Pager->renderNavigationTop();

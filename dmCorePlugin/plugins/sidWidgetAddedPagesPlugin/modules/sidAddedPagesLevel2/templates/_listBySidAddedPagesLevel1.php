@@ -1,31 +1,17 @@
 <?php // Vars: $sidAddedPagesLevel2Pager, $theme
 
-//echo $sidAddedPagesLevel2Pager->renderNavigationTop();
-//
-//echo _open('ul.elements');
-//
-//foreach ($sidAddedPagesLevel2Pager as $sidAddedPagesLevel2)
-//{
-//  echo _open('li.element');
-//
-//    echo _link($sidAddedPagesLevel2);
-//
-//  echo _close('li');
-//}
-//
-//echo _close('ul');
-//
-//echo $sidAddedPagesLevel2Pager->renderNavigationBottom();
 $i = 1;
 $i_max = count($sidAddedPagesLevel2Pager);
 $class = '';
 
 if (count($sidAddedPagesLevel2Pager)) { // si nous avons un listing de pages à afficher
     //gestion affichage du titre
+    // si on est sur une page de niveau2 on affiche dans le libellé "À lire également"
     if($this->context->getPage()->getModule().'/'.$this->context->getPage()->getAction() == 'sidAddedPagesLevel2/show'){
         echo _tag('h4.title', __('Read also '));
     }
     else {
+    // sinon on affiche "En savoir plus"
     echo _tag('h4.title', __('Learn more'));
     }
 

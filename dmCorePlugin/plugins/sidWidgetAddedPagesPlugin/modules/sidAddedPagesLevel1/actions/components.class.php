@@ -12,6 +12,7 @@ class sidAddedPagesLevel1Components extends myFrontModuleComponents
   public function executeListBySidAddedPagesGroups(dmWebRequest $request)
   {
     $query = $this->getListQuery();
+    // si on est sur une page de niveau1, on affiche en listing tous les articles du même niveau sauf celui de la page (record_id)
     if($this->context->getPage()->getModule().'/'.$this->context->getPage()->getAction() == 'sidAddedPagesLevel1/show'){
     $query->addWhere('id <> ?', $this->context->getPage()->getRecordId());
     };

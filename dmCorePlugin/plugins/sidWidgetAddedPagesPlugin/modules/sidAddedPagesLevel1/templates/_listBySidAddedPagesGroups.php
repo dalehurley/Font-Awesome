@@ -5,16 +5,14 @@ $class = '';
 
 if (count($sidAddedPagesLevel1Pager)) { // si nous avons un listing de pages à afficher
     //gestion affichage du titre
+    // si on est sur une page de niveau1 on affiche dans le libellé du bloc le titre de la page
     if($this->context->getPage()->getModule().'/'.$this->context->getPage()->getAction() == 'sidAddedPagesGroups/show'){
         echo _tag('h4.title', $this->context->getPage()->getTitle());
     }
     else {
+    // sinon on affiche "À lire également"
     echo _tag('h4.title', __('Read also '));
     }
-    if (count($sidAddedPagesLevel1Pager) == 1 && ($redirect == true)) {
-        header("Location: " . $header);
-        exit;
-    } else {
         echo $sidAddedPagesLevel1Pager->renderNavigationTop();
         echo _open('ul', array('class' => 'elements'));
 
@@ -54,11 +52,3 @@ if (count($sidAddedPagesLevel1Pager)) { // si nous avons un listing de pages à 
         echo _close('ul');
         echo $sidAddedPagesLevel1Pager->renderNavigationBottom();
     }
-}
-//else {
-//    if($this->context->getPage()->getAction() != 'show'){    
-//    echo _tag('h4.title',$titreBloc);
-//	// sinon on affiche la constante de la page concernée
-//        echo $constanteActuCabinet;
-//    }
-//}
