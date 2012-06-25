@@ -13,6 +13,9 @@
 @widgetTitleSprite(@theme: "Default"; @category; @name) {
 	//ciblage du titre du widget
 	& .dm_widget_inner > .title {
+		background-color: @widgetTitleSpriteBgColor;
+		color: @widgetTitleSpriteTextColor;
+		
 		//que si l'élément :after est géré (éviter un mélange avec .svg), on rajoute de l'espace à gauche pour caler la sprite
 		.generatedcontent & { padding-left: (@spriteFormat_M + @zonesOffsetPad -1px + @offS); }
 		

@@ -10,12 +10,6 @@ class contactDataComponents extends myFrontModuleComponents
   public function executeForm(dmWebRequest $request)
   {
 
-    // recuperer l'id du widget qui appelle le component
-  	$this->test = 'ttt';
-
-
-  	
-
     $this->form = $this->forms['SidContactData'];
 
   }

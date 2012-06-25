@@ -44,9 +44,8 @@
 		background-color: @colorCouleur3Clair;
 
 		& > .title {
-			background-color: @colorWhite;
-			//changement couleur et disposition du texte
-			color: @colorCouleur2;
+			background-color: @widgetTitleSpriteBgColor;
+			color: @widgetTitleSpriteTextColor;
 			font-size: @fontSizeH3Px;
 			line-height: @gridBaseline;
 			
@@ -59,7 +58,7 @@
 			}
 
 			&:after {
-				background-color: @colorWhite;
+				background-color: @widgetTitleSpriteBgColor;
 				@borderRadiusCompress(@spriteFormat_M);
 			}
 

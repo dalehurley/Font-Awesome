@@ -13,10 +13,11 @@ generator:
       fields: {  }
       list:
         display:
-          - '=id'
+          - '=name'
           - form_id
           - type
           - required
+          - is_active
           - label
           - choices
           - help
@@ -31,7 +32,9 @@ generator:
       filter:
         display:
           - id
+          - name
           - required
+          - is_active
           - type
           - form_id
           - label
@@ -41,7 +44,7 @@ generator:
           - updated_at
       form:
         display:
-          NONE: [required, form_id]
+          NONE: [is_active, name, required, form_id]
           Help: [help]
           Others: [type, label, choices]
         class: SidContactFieldAdminForm
