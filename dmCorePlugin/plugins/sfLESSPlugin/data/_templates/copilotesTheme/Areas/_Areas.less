@@ -1,6 +1,6 @@
 // _Areas.less
-// v1.3
-// Last Updated : 2012-06-11 15:45
+// v1.4
+// Last Updated : 2012-06-21 14:35
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -19,15 +19,25 @@
 	#dm_custom_bottom > .dm_zones { background-color: fadeout(#ccb8cc, 50%); }
 }
 
-//ajout de la couleur de fond générale
-html { background-color: @colorCouleur2ClairSup; }
+//couleur du fond général de la page
+body { background-color: @bodyBgColor; }
 
 //couleur de la zone située sous le header jusqu'en bas
+#dm_main_inner { background-color: @mainBgColor; }
+
+//dégradé de la page
 #dm_page {
-	// background-color: @colorWhite;
-	// @verticalGradient(@colorCouleur2MoyenSup; @colorCouleur2ClairSup);
 	//on fait débuter le dégradé après le header (on suppose qu'il ne changera pas de hauteur)
-	@verticalGradientMulti-4(0%; @gridBaseline*6; @gridBaseline*6; 100%; @colorCouleur2MoyenSup; @colorCouleur2MoyenSup; @colorCouleur2MoyenSup; @colorCouleur2ClairSup);
+	@verticalGradientMulti-4(0%; @gridBaseline*6; @gridBaseline*6; 100%; @bodyGradientColor1; @bodyGradientColor1; @bodyGradientColor1; @bodyGradientColor2);
+}
+
+//couleur de la zone de contenu
+#dm_page_content {
+	background-color: @contentBgColor;
+	//ajout coins arrondis an haut
+	@borderRadiusCompress(@offL @offL 0 0);
+	//suppression du fond sur la page d'accueil
+	.page_main_root & { background-color: transparent; }
 }
 
 #dm_page_inner {
@@ -41,20 +51,6 @@ html { background-color: @colorCouleur2ClairSup; }
 	background-image: url("@{urlImagesTemplate}/DemoRef/copilotes-coccinelle.png");
 	background-repeat: no-repeat;
 	background-position: -180px 430px;
-}
-
-#dm_main_inner {
-}
-
-#dm_page_content {
-	& > .dm_zones {
-		background-color: @colorWhite;
-		//ajout coins arrondis an haut
-		@borderRadiusCompress(@offL @offL 0 0);
-
-		//suppression du fond blanc sur la page d'accueil
-		.page_main_root & { background-color: transparent; }
-	}
 }
 
 //stylage du header
@@ -192,6 +188,7 @@ html { background-color: @colorCouleur2ClairSup; }
 
 					display: block;
 					//ajout du fond blanc arrondi avec bordure
+					background-color: mix(@colorWhite, @colorCouleur3ClairSup, 50%);
 					@verticalGradientMulti-4(0%; 49%; 51%; 100%; @colorWhite; @colorWhite; @colorCouleur3ClairSup; @colorCouleur3ClairSup);
 					padding: 2px;
 					border: 1px solid @colorWhite;

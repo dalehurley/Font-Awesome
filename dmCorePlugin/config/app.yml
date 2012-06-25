@@ -277,6 +277,10 @@ all:
       - page_bar_front
       - media_bar_front
       - tool_bar_front
+      - added_page_groups
+      - added_page_level1
+      - added_page_level2
+      - added_page_level3
 
   groupes-permissions-base-doc:
     description: "Accès pour le client Base Doc"
@@ -311,11 +315,6 @@ all:
     copilotes-site:
       - selection_placement
 
-  pub-flash:
-    rep:
-      - _common/pubotheque
-      - _common/test
-
   # tableau pour gérer les pages à afficher dans le sitemap
   pages-for-sitemap:     
     # array[key] is a name of the page
@@ -330,3 +329,5 @@ all:
         "main": search
       signin:
         "main": signin
+        
+  

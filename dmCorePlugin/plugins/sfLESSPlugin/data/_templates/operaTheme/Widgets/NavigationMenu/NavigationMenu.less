@@ -53,6 +53,8 @@
 		margin-right: -100%;
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
+		//couleur de fond en cas de non prise en compte du dégradé
+		background-color: mix(mix(@menuTopGradientColor1, @menuTopGradientColor2, 50%), mix(@menuTopGradientColor3, @menuTopGradientColor4, 50%), 50%);
 		//ajout dégradé shiny
 		@verticalGradientMultiPie-4(13%;50%;50%;87%;@menuTopGradientColor1;@menuTopGradientColor2;@menuTopGradientColor3;@menuTopGradientColor4);
 		

@@ -1,6 +1,6 @@
 // _ConfigColorsReference.less
-// v2.7
-// Last Updated : 2012-06-19 15:20
+// v2.9
+// Last Updated : 2012-06-21 10:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -23,9 +23,15 @@
 //##################################
 //####### GESTION DE LA PAGE #######
 //##################################
+//couleur de fond des zones principales
 @bodyBgColor: @colorWhite;
 @mainBgColor: transparent;
 @contentBgColor: transparent;
+
+//dégradé général de la page (utilisé dans Copilotes)
+@bodyGradientColor1: transparent;
+@bodyGradientColor2: transparent;
+
 //couleur utilisée pour les différents filets présents sur le site
 @colorZoneBorder: @colorCouleur3Moyen;
 //##################################
@@ -58,6 +64,7 @@
 @bottomBgColorClair: @colorCouleur3ClairSup;
 @bottomBgColorFonce: @colorCouleur3Clair;
 @bottomTextColor: @colorCouleur3Fonce;
+@bottomBorderColor: @colorCouleur3Moyen;
 //##################################
 //##################################
 
@@ -99,7 +106,7 @@
 @menuArrowColorSup: @colorCouleur3Clair;
 
 //couleur des bordures
-@menuBorderColor: @colorZoneBorder;
+@menuBorderColor: @colorCouleur3Moyen;
 
 //couleurs des liens
 @menuLinkColor: @colorCouleur3Fonce;
@@ -128,7 +135,7 @@
 @menuTopSpriteOffX: @spriteOffX-DefaultLight-internet-home;
 @menuTopSpriteOffY: @spriteOffY-DefaultLight-internet-home;
 
-//Dégradé shiny du menu
+//Dégradé du menu (Opéra : shiny vertical, Copilotes : horizontal)
 @menuTopGradientColor1: @colorCouleur1Sup;
 @menuTopGradientColor2: @colorCouleur1;
 @menuTopGradientColor3: @colorCouleur1MoyenSup;
@@ -148,7 +155,7 @@
 @menuTopArrowColorSup: @colorCouleur3Clair;
 
 //couleur des bordures
-@menuTopBorderColor: @colorZoneBorder;
+@menuTopBorderColor: @colorCouleur3Moyen;
 
 //couleurs des liens
 @menuTopLinkColor: @colorCouleur3Clair;
@@ -157,5 +164,46 @@
 @menuTopLinkCurrentColor: @colorCouleur3MoyenSup;
 @menuTopLinkInactiveColor: @colorCouleur3Moyen;
 
+//##################################
+//##################################
+
+
+//##################################
+//## GESTION DES TITRES DE WIDGET ##
+//##################################
+//pour tous les titres de widgets
+@widgetTitleBgColor: @colorCouleur3Clair;
+@widgetTitleTextColor: @colorCouleur1;
+
+//pour les titres de widget avec une sprite
+@widgetTitleSpriteBgColor: @widgetTitleBgColor;
+@widgetTitleSpriteTextColor: @widgetTitleTextColor;
+//##################################
+//##################################
+
+
+//##################################
+//## GESTION DU BLOCK DE CONTACT ###
+//##################################
+//sprite pour le titre
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@widgetLienContactSpriteTheme: "DefaultLight";
+@widgetLienContactSpriteCategory: "cabinet";
+@widgetLienContactSpriteName: "contact";
+@widgetLienContactSpriteOffX: @spriteOffX-DefaultLight-cabinet-contact;
+@widgetLienContactSpriteOffY: @spriteOffY-DefaultLight-cabinet-contact;
+
+//fond du widget
+@widgetLienContactBgColor: @colorCouleur3;
+@widgetLienContactTextColor: @colorCouleur3ClairSup;
+
+//titre du widget
+@widgetLienContactTitleBgColor: @colorCouleur1Moyen;
+@widgetLienContactTitleTextColor: @colorCouleur3ClairSup;
+
+//lien de contact
+@widgetLienContactLinkGradientColor1: @colorCouleur1;
+@widgetLienContactLinkGradientColor2: @colorCouleur1Moyen;
+@widgetLienContactLinkColor: @colorCouleur3ClairSup;
 //##################################
 //##################################

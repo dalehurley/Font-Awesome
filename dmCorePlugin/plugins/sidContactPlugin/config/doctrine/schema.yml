@@ -20,12 +20,14 @@ SidContactField:
         DmVersionable:      
         Timestampable:
   columns: 
+    name:              { type: string(255), notnull: true }
     label:             { type: string(255), notnull: true }
     type:              { type: string(255), notnull: true }
     choices:           { type: string(255), notnull: false }
     required:          { type: boolean, notnull: true, default: true }
     help:              { type: clob, extra: ckeditor, notnull: false }
     form_id:           { type: integer, notnull: true }
+    is_active:         { type: boolean, notnull: true, default: true }
   relations:
     ContactForm:
       class: SidContactForm

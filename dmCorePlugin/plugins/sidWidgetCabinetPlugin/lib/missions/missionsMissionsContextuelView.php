@@ -174,7 +174,8 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                     'length' => $vars['length'],
                     'chapo' => $vars['chapo'],
                     'width' => $vars['widthImage'],
-                    'height' => $vars['heightImage']
+                    'height' => $vars['heightImage'],
+                    'withImage' => $vars['withImage']
                 ));
 
 //        return $this->getHelper()->renderPartial('missions', 'missionsContextuel', array(

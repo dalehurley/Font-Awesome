@@ -1,16 +1,32 @@
 // _SidSPLessCssDebug.less
-// v1.3
-// Last Updated : 2011-11-25 14:35
+// v1.5
+// Last Updated : 2012-06-21 17:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Border.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 
 //Mise en page par défaut du widget
 .dm_widget.debug_debug {
 	position: absolute;
+	top: @gridBaseline*4;
+	right: @gridGutter;
+
+	//Test pour jQueryMobile
+	// .debugTemplate {
+	// 	//&:hover		{ background-color: red;		}
+	// 	&.tap		{ background-color: blue;		}
+	// 	&.taphold	{ background-color: purple;		}
+	// 	&.swipe		{ background-color: lime;		}
+	// 	&.swipeleft	{ background-color: teal;		}
+	// 	&.swiperight{ background-color: green;		}
+	// }
+
+
 	//forçage d'affichage au premier plan
 	z-index: 100000;
 	//disparition lorsque désactivé
@@ -28,7 +44,10 @@
 	.dm_widget_inner{
 		background-color: @colorCouleur3Clair;
 		padding: (@gridBaseline -1px) (@gridGutter -1px);
-		border: 1px solid @colorCouleur3Moyen;
+		border: 1px solid @colorZoneBorder;
+
+		//définition largeur
+		@gridWidth(4; @gridGutter*2);
 		
 		//transparence du fond (syntaxe lessPHP v0.3.0)
 		.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 25%); }
@@ -67,8 +86,11 @@
 				//stylage en bar de progression
 				position: relative;
 				overflow: visible;
-				@verticalGradient(@colorCouleur1Clair; @colorCouleur1);
-				.rgba & { @verticalGradient(fadeout(@colorCouleur1, 25%); fadeout(@colorCouleur1Moyen, 25%)); }
+				//moyenne des couleurs pour anciens navigateurs
+				background-color: mix(@colorCouleur1Clair, @colorCouleur1, 50%);
+				//les navigateurs gérant les dégradés gèrent la transparence
+				@verticalGradient(fadeout(@colorCouleur1, 25%); fadeout(@colorCouleur1Moyen, 25%));
+
 				height: @gridBaseline;
 				width: 100%;
 				
@@ -92,9 +114,83 @@
 	}
 }
 
+//Debug baseline (utilisé en dev par le script JS de previz de la grille)
+.debugBaseline {
+	//on affiche la baseline qu'en mode Less pour éviter la confusion en mode DEV
+	.isLess &.isBl {
+		background-color: transparent;
+		background-image: url(@{urlImagesFramework}/Grids/baseline-@{gridBaseline}.png);
+		background-repeat: repeat;
+	}
+}
+
+//grille générale placée en superposition
+#less-grid {
+	.col {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		background-color: fadeout(@colorCouleur1Fonce,75%);
+		padding-top: @gridBaseline*2;
+		width: @gridColWidth;
+	}
+	.info {
+		display: block;
+		background-color: fadeout(@colorCouleur1Fonce,25%);
+		color: @colorRequired;
+		font-weight: bold;
+		line-height: @gridBaseline;
+	}
+}
+
+//switch permettant d'afficher la grille
+#less-grid-switch {
+	background-color: @colorValidate;
+	.rgba & {
+		background-color: fadeout(@colorValidate, 25%);
+		&:hover { background-color: @colorValidate; }
+	}
+
+	//changement de couleur avec la grille affichée
+	&.on {
+		background-color: @colorRequired;
+		.rgba & {
+			background-color: fadeout(@colorRequired, 25%);
+			&:hover { background-color: @colorRequired; }
+		}
+	}
+
+	//ajout transitions
+	.csstransitions & {
+		@transitionCompress(background-color; .5s; ease-out; 0s);
+	}
+
+	position: absolute;
+	z-index: 1000;
+	top: @gridBaseline*3;
+	right: @gridGutter;
+	padding: 1px (@gridGutter -1px);
+	border-color: @colorZoneBorder;
+	border-width: 1px;
+	border-style: solid solid none solid;
+	//définition largeur
+	@gridWidth(4; @gridGutter*2);
+
+	color: @colorCouleur3ClairSup;
+	font-size: @fontSizeSmall;
+	font-weight: bold;
+	line-height: (@gridBaseline - 3px);
+	text-align: center;
+	cursor: pointer;
+	@borderRadiusCompress(@offS @offS 0 0);
+}
+
 //Placement personnalisé de la div de debug et de warning flotante
 .debug, .warning {
 	position: absolute;
+	//top: @gridBaseline;
+	right:0;
+
 	//forçage d'affichage au premier plan
 	z-index: 100000;
 	content: "";
