@@ -22,7 +22,12 @@ $class = '';
 
 if (count($sidAddedPagesLevel2Pager)) { // si nous avons un listing de pages à afficher
     //gestion affichage du titre
-    echo _tag('h4.title', __("Learn more"));
+    if($this->context->getPage()->getModule().'/'.$this->context->getPage()->getAction() == 'sidAddedPagesLevel2/show'){
+        echo _tag('h4.title', __('Read also '));
+    }
+    else {
+    echo _tag('h4.title', __('Learn more'));
+    }
 
         echo $sidAddedPagesLevel2Pager->renderNavigationTop();
         echo _open('ul', array('class' => 'elements'));

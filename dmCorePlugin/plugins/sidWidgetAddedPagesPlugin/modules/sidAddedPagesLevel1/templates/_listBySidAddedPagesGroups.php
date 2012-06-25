@@ -5,7 +5,12 @@ $class = '';
 
 if (count($sidAddedPagesLevel1Pager)) { // si nous avons un listing de pages à afficher
     //gestion affichage du titre
-    echo _tag('h4.title', sfContext::getInstance()->getPage()->getName());
+    if($this->context->getPage()->getModule().'/'.$this->context->getPage()->getAction() == 'sidAddedPagesGroups/show'){
+        echo _tag('h4.title', $this->context->getPage()->getTitle());
+    }
+    else {
+    echo _tag('h4.title', __('Read also '));
+    }
     if (count($sidAddedPagesLevel1Pager) == 1 && ($redirect == true)) {
         header("Location: " . $header);
         exit;

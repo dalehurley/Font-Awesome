@@ -6,11 +6,12 @@ $class = '';
 
 if (count($sidAddedPagesLevel3Pager)) { // si nous avons un listing de pages à afficher
     //gestion affichage du titre
-    echo _tag('h4.title', __("Learn more"));
-    if (count($sidAddedPagesLevel3Pager) == 1 && ($redirect == true)) {
-        header("Location: " . $header);
-        exit;
-    } else {
+    if($this->context->getPage()->getModule().'/'.$this->context->getPage()->getAction() == 'sidAddedPagesLevel3/show'){
+        echo _tag('h4.title', __('Read also '));
+    }
+    else {
+    echo _tag('h4.title', __('Learn more'));
+    }
         echo $sidAddedPagesLevel3Pager->renderNavigationTop();
         echo _open('ul', array('class' => 'elements'));
 
@@ -49,7 +50,7 @@ if (count($sidAddedPagesLevel3Pager)) { // si nous avons un listing de pages à 
         }
         echo _close('ul');
         echo $sidAddedPagesLevel3Pager->renderNavigationBottom();
-    }
+    
 }
 //else {
 //    if($this->context->getPage()->getAction() != 'show'){    
