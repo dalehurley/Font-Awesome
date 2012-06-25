@@ -13,13 +13,14 @@ generator:
       fields: {  }
       list:
         display:
-          - '=name'
+          - '=label'
           - form_id
           - type
-          - required
+          - widget_options   
+          - widget_attributes
+          - validator_options
+          - validator_messages        
           - is_active
-          - label
-          - choices
           - help
           - created_at
           - updated_at
@@ -32,21 +33,22 @@ generator:
       filter:
         display:
           - id
-          - name
-          - required
-          - is_active
-          - type
-          - form_id
           - label
-          - choices
+          - form_id
+          - type
+          - widget_options   
+          - widget_attributes
+          - validator_options
+          - validator_messages    
+          - is_active
           - help
           - created_at
           - updated_at
       form:
         display:
-          NONE: [is_active, name, required, form_id]
+          NONE: [is_active, label, type, form_id]
           Help: [help]
-          Others: [type, label, choices]
+          Parameters: [widget_options, widget_attributes, validator_options, validator_messages]
         class: SidContactFieldAdminForm
         fields: {  }
       edit: ~

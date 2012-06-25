@@ -8,56 +8,25 @@ class contactDataActions extends myFrontModuleActions
   public function executeFormWidget(dmWebRequest $request)
   {
 
-    // recuperer l'id du widget qui appelle l'action
-    $contactDataWidgets = array();
-    foreach ($this->getPage()->getWidgets() as $widget) {
-      if ($widget->getModule() == 'contactData' && $widget->getAction() == 'form'){
-            $contactDataWidgets[] = $widget; 
-          }
-    }
     // s'il y'a plusieurs widgets de ce type sur la page alors on ne saura pas où trouver les paramètres du widget 
-    // l'action executeFormWidget ne connait que la page, elle ne connait pas le widget qui l'a lancé 
-    
+    // l'action executeFormWidget ne connait que la page, elle ne connait pas le widget qui l'a lancé   
     $form = new dmForm;
     $this->forms['SidContactData'] = $form;  // on renvoie un dmForm vide
 
-    // si c'est possible on fabrique un form
-    if (count($contactDataWidgets) == 1){  // s'il n'y a qu'un seul widget contactData Form dans la page
+    $contactDataWidget = $this->getPage()->isWidgetUnique('contactData','form');
+    if ($contactDataWidget){  // s'il n'y a qu'un seul widget contactData Form dans la page
 
       $form = new SidContactDataForm();
       // 1) unset infos field
       unset($form['infos']);
-      // 2) add fields present in contactField table
-      $widgetValues = $contactDataWidgets[0]->getValues(); // seulement un widget contactData/form dans la page, donc on peut récupérer ses paramètres
-      $idContactForm = $widgetValues['contactForm'][0];
-      $fields = dmDb::table('SidContactField')->findByFormIdAndIsActive($idContactForm,true); // seulement les champs actifs
+      
+      // 2) get form fields if exist
+      $fields = self::getContactFields($contactDataWidget);
+      
 
-      if (count($fields)){  // s'il y'a des champs définis en base dans la table contactField
-
-        // intégration dans le formulaire des champs actifs
-        // en fonction du type / required / choices
-        $form->setWidget('tel', new sfWidgetFormTextarea());
-        $form->setValidator('tel', new sfValidatorString());
-        $form->setWidget('fax', new sfWidgetFormTextarea());
-        $form->setValidator('fax', new sfValidatorString());
-
-
-        // $this->widgetSchema['title'] = new sfWidgetFormSelect(array(
-        //     'choices' => array('' => 'Choose') + $titles
-        // ));
-        // $this->validatorSchema['title'] = new sfValidatorChoice(array(
-        //     'choices' => array_keys($titles),
-        //     'required' => true),
-        //      array(   
-        //     'required' => 'Choose civility',
-        // ));
-
-        // if ($request->hasParameter($form->getName()) && $form->bindAndValid($request))
-        // {
-        //   $form->save();
-        //   $this->redirectBack();
-        // }
-
+      // 3) add fields present in contactField table, if present
+      if ($fields){  // s'il y'a des champs définis en base dans la table contactField
+        $form = self::addContactFields($form, $fields);
 
         if ($request->hasParameter($form->getName()))
         {
@@ -130,4 +99,97 @@ class contactDataActions extends myFrontModuleActions
   }
 
 
+  public function getContactFields($contactDataWidget){
+      $widgetValues = $contactDataWidget->getValues(); // seulement un widget contactData/form dans la page, donc on peut récupérer ses paramètres
+      if (isset($widgetValues['contactForm'])){
+        $idContactForm = $widgetValues['contactForm'][0];
+        if ($idContactForm != ''){
+          $fields = dmDb::table('SidContactField')->findByFormIdAndIsActive($idContactForm,true); // seulement les champs actifs
+          return $fields;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+  }
+
+
+  public function addContactFields($form, $fields){
+    foreach ($fields as $field) {
+      // field's widget
+      switch ($field->type) {
+        case 'text':
+          $form->setWidget(dmString::slugify($field->name), new sfWidgetFormInput(
+            json_decode($field->widget_options,true),
+            json_decode($field->widget_attributes,true)   
+            )
+          );
+          break;
+        
+        case 'textarea':
+          # code...
+          break;
+
+        case 'radio':
+          # code...
+          break;
+
+        case 'checkbox':
+          # code...
+          break;
+
+        case 'select':
+          # code...
+          break;
+
+                                              
+        default:
+          # code...
+          break;
+      }
+      
+      // field's help
+      $form->getWidgetSchema()->setHelps(array(dmString::slugify($field->name) => $field->help));          
+
+      // field's validator
+      $form->setWidget( new sfValidatorChoice(
+        json_decode($field->validator_options,true),
+        json_decode($field->validator_messages,true)    
+        )
+      );
+
+
+    }
+
+
+
+// $form->setWidget('tel'.$fields[0]->type, new sfWidgetFormTextarea());
+//           $form->setValidator('tel', new sfValidatorString());
+
+//           $form->setWidget('fax', new sfWidgetFormTextarea());
+//           $form->setValidator('fax', new sfValidatorString());
+
+    return $form;
+
+
+
+        // $this->widgetSchema['title'] = new sfWidgetFormSelect(array(
+        //     'choices' => array('' => 'Choose') + $titles
+        // ));
+        // $this->validatorSchema['title'] = new sfValidatorChoice(array(
+        //     'choices' => array_keys($titles),
+        //     'required' => true),
+        //      array(   
+        //     'required' => 'Choose civility',
+        // ));
+
+        // if ($request->hasParameter($form->getName()) && $form->bindAndValid($request))
+        // {
+        //   $form->save();
+        //   $this->redirectBack();
+        // }
+
+        //
+  }
 }
