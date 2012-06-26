@@ -23,7 +23,6 @@ class contactDataActions extends myFrontModuleActions
       // 2) get form fields if exist
       $fields = self::getContactFields($contactDataWidget);
       
-
       // 3) add fields present in contactField table, if present
       if ($fields){  // s'il y'a des champs définis en base dans la table contactField
         $form = self::addContactFields($form, $fields);
@@ -42,32 +41,28 @@ class contactDataActions extends myFrontModuleActions
 
           $form->bind($data, $request->getFiles($form->getName()));
 
-
           if ($form->isValid())
           {
             // on supprimer les champs ajoutés dynamiquement pour les concaténer dans un json qui ira dans le champ "infos"
             $infos = array();
-            $infos['tel'] = $data['tel'];
-            $infos['fax'] = $data['fax'];
-            unset($data['tel']);
-            unset($form['tel']);
-            unset($data['fax']);
-            unset($form['fax']);
+            foreach ($fields as $field) {
+              $infos[dmString::slugify($field->label)] = $data[dmString::slugify($field->label)];
+              unset($data[dmString::slugify($field->label)]);
+              unset($form[dmString::slugify($field->label)]);
+            }
+
             // on supprime le captcha qui est déjà validé
             unset($data['captcha']);
             unset($form['captcha']);
+
             // ajout du champ "infos" dans les données à mettre dans le form
-
-
             $data['infos'] = json_encode($infos);
-
-
 
             // réintégration du champ infos avant le bind
             $form->setWidget('infos', new sfWidgetFormTextarea());
             $form->setValidator('infos', new sfValidatorString());
 
-            // on refait un bind pour mettre infos
+            // on refait un bind pour mettre infos et supprimer les champs additionnels
             $form->bind($data, $request->getFiles($form->getName()));
 
             $form->save();
@@ -78,22 +73,12 @@ class contactDataActions extends myFrontModuleActions
             //   'contact_data' => $form->getObject()
             // )));
 
-
             $this->redirectBack();
           }
         }
-
-
-
-
-
-
-
         
         $this->forms['SidContactData'] = $form;
       } 
-
-          
 
     }
   }
@@ -116,80 +101,66 @@ class contactDataActions extends myFrontModuleActions
 
 
   public function addContactFields($form, $fields){
+
+    $fieldsPositions = array(
+        0 => 'id',
+        1 => 'email',
+        2 => '_csrf_token'
+      );
+
     foreach ($fields as $field) {
-      // field's widget
-      switch ($field->type) {
-        case 'text':
-          $form->setWidget(dmString::slugify($field->name), new sfWidgetFormInput(
-            json_decode($field->widget_options,true),
-            json_decode($field->widget_attributes,true)   
-            )
-          );
-          break;
-        
-        case 'textarea':
-          # code...
-          break;
+      /************* get position field ***********/
+      if ($field->position){
+        $fieldsPositions[$field->position + 4] = dmString::slugify($field->label);
+      } 
 
-        case 'radio':
-          # code...
-          break;
+      /************* field's widget ***************/
+      $widgetOptions = json_decode($field->widget_options,true);
+      $widgetAttributes = json_decode($field->widget_attributes,true);
+      if (!is_array($widgetOptions)) $widgetOptions = array();
+      if (!is_array($widgetAttributes)) $widgetAttributes = array();
 
-        case 'checkbox':
-          # code...
-          break;
-
-        case 'select':
-          # code...
-          break;
-
-                                              
-        default:
-          # code...
-          break;
-      }
-      
-      // field's help
-      $form->getWidgetSchema()->setHelps(array(dmString::slugify($field->name) => $field->help));          
-
-      // field's validator
-      $form->setWidget( new sfValidatorChoice(
-        json_decode($field->validator_options,true),
-        json_decode($field->validator_messages,true)    
+      $form->setWidget(dmString::slugify($field->label), new $field->widget_type(
+        $widgetOptions,
+        $widgetAttributes  
         )
       );
 
+      /************** field's label *************/
+      $form->getWidgetSchema()->setLabel(dmString::slugify($field->label), $field->label);
 
+      /************** field's help **************/
+      $form->getWidgetSchema()->setHelps(array(dmString::slugify($field->label) => $field->help));          
+
+      /************** field's validator *************/
+      $validatorOptions = json_decode($field->validator_options,true);
+      $validatorMessages = json_decode($field->validator_messages,true);
+      if (!is_array($validatorOptions)) $validatorOptions = array();
+      if (!is_array($validatorMessages)) $validatorMessages = array();
+
+      // add required field
+      if ($field->is_required) { 
+        $validatorOptions = array_merge($validatorOptions,array('required' => true));
+      } else {
+        $validatorOptions = array_merge($validatorOptions,array('required' => false));
+      }
+
+      $form->setValidator( dmString::slugify($field->label), new $field->validator_type(
+        $validatorOptions,
+        $validatorMessages    
+        )
+      );
     }
 
-
-
-// $form->setWidget('tel'.$fields[0]->type, new sfWidgetFormTextarea());
-//           $form->setValidator('tel', new sfValidatorString());
-
-//           $form->setWidget('fax', new sfWidgetFormTextarea());
-//           $form->setValidator('fax', new sfValidatorString());
+    // sort fields with contactField's position value
+    // add captacha at the end if exists
+    
+    if ($form->isCaptchaEnabled()) {
+      $fieldsPositions[] = 'captcha';
+    }
+    $form->getWidgetSchema()->setPositions($fieldsPositions);
 
     return $form;
 
-
-
-        // $this->widgetSchema['title'] = new sfWidgetFormSelect(array(
-        //     'choices' => array('' => 'Choose') + $titles
-        // ));
-        // $this->validatorSchema['title'] = new sfValidatorChoice(array(
-        //     'choices' => array_keys($titles),
-        //     'required' => true),
-        //      array(   
-        //     'required' => 'Choose civility',
-        // ));
-
-        // if ($request->hasParameter($form->getName()) && $form->bindAndValid($request))
-        // {
-        //   $form->save();
-        //   $this->redirectBack();
-        // }
-
-        //
   }
 }

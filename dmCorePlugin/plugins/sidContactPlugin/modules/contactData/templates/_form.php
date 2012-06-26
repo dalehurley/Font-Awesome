@@ -34,7 +34,13 @@ if($form->isCaptchaEnabled()) {
 
 	echo $form;
 } else {
-	echo debugTools::infoDebug(array('Error' => '1) Form selected? 2) No fields in this form contactField ? Multiple same contact widget in page ?'), 'warning');
+	echo debugTools::infoDebug(
+        array(
+            '1 - Possible error: ' => 'No contactForm is selected',
+            '2 - Possible error: ' => 'No fields in this contactForm',
+            '3 - Possible error: ' => 'Multiple contact widget in this page'        
+        )
+    , 'warning');
 
 
 

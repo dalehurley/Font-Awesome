@@ -15,20 +15,23 @@ SidContactField:
   actAs:
     DmSortable:
     I18n:
-      fields: [ label, validator_messages, help ]
+      fields: [ label, help ]
       actAs:
         DmVersionable:      
         Timestampable:
+        DmSortable:
   columns: 
     label:              { type: string(255), notnull: true }
-    type:               { type: string(255), notnull: true }
-    widget_options:     { type: clob, extra: markdown, notnull: false }
-    widget_attributes:  { type: clob, extra: markdown, notnull: false }
-    validator_options:  { type: clob, extra: markdown, notnull: false }
-    validator_messages: { type: clob, extra: markdown, notnull: false }
+    widget_type:        { type: string(255), notnull: true }
+    widget_options:     { type: text, notnull: false }
+    widget_attributes:  { type: text, notnull: false }
+    validator_type:     { type: string(255), notnull: true }
+    validator_options:  { type: text, notnull: false }
+    validator_messages: { type: text, notnull: false }
     help:               { type: clob, extra: ckeditor, notnull: false }
     form_id:            { type: integer, notnull: true }
     is_active:          { type: boolean, notnull: true, default: true }
+    is_required:        { type: boolean, notnull: true, default: false }
   relations:
     ContactForm:
       class: SidContactForm
