@@ -15,13 +15,13 @@ SidContactField:
   actAs:
     DmSortable:
     I18n:
-      fields: [ label, help ]
+      fields: [ name, help ]
       actAs:
         DmVersionable:      
         Timestampable:
         DmSortable:
   columns: 
-    label:              { type: string(255), notnull: true }
+    name:              { type: string(255), notnull: true }
     widget_type:        { type: string(255), notnull: true }
     widget_options:     { type: text, notnull: false }
     widget_attributes:  { type: text, notnull: false }

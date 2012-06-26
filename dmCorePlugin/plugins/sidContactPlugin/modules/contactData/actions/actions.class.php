@@ -25,7 +25,7 @@ class contactDataActions extends myFrontModuleActions
       
       // 3) add fields present in contactField table, if present
       if ($fields){  // s'il y'a des champs définis en base dans la table contactField
-        $form = self::addContactFields($form, $fields);
+        $form = self::addContactFields($form, $fields, $request);
 
         if ($request->hasParameter($form->getName()))
         {
@@ -46,9 +46,23 @@ class contactDataActions extends myFrontModuleActions
             // on supprimer les champs ajoutés dynamiquement pour les concaténer dans un json qui ira dans le champ "infos"
             $infos = array();
             foreach ($fields as $field) {
-              $infos[dmString::slugify($field->label)] = $data[dmString::slugify($field->label)];
-              unset($data[dmString::slugify($field->label)]);
-              unset($form[dmString::slugify($field->label)]);
+              
+              $infos[dmString::slugify($field->name)] = $data[dmString::slugify($field->name)]; // le tableau "$infos" reçoit chaque contactField
+              
+              /*********** debut gestion du champ "destinataire"  **************/
+              // on ajoute l'adresse email plutot que l'id
+              if (dmString::slugify($field->name) == 'destinataire'){  // si un champ se nomme "destinataire"
+                // on vérifie que le model SidCabinetEquipe existe
+                $tableSidCabinetEquipe = dmDb::table('SidCabinetEquipe');
+                if (isset($tableSidCabinetEquipe)){
+                  $equipe = $tableSidCabinetEquipe->findOneById($data[dmString::slugify($field->name)]); // on récupère l'objet equipe correspondant
+                  $infos[dmString::slugify($field->name)] = $equipe->email;  // on stocke dans infos l'email plutot que l'id de l'objet equipe
+                }
+              }
+              /*********** fin gestion du champ "destinataire"  **************/
+
+              unset($data[dmString::slugify($field->name)]);
+              unset($form[dmString::slugify($field->name)]);
             }
 
             // on supprime le captcha qui est déjà validé
@@ -68,6 +82,7 @@ class contactDataActions extends myFrontModuleActions
             $form->save();
 
             $this->getUser()->setFlash('sid_contact_form_valid', true);
+
 
             // $this->getService('dispatcher')->notify(new sfEvent($this, 'sid_contact_data.saved', array(
             //   'contact_data' => $form->getObject()
@@ -100,7 +115,7 @@ class contactDataActions extends myFrontModuleActions
   }
 
 
-  public function addContactFields($form, $fields){
+  public function addContactFields($form, $fields, $request){
 
     $fieldsPositions = array(
         0 => 'id',
@@ -110,9 +125,15 @@ class contactDataActions extends myFrontModuleActions
 
     foreach ($fields as $field) {
       /************* get position field ***********/
-      if ($field->position){
-        $fieldsPositions[$field->position + 4] = dmString::slugify($field->label);
-      } 
+      // abs(position) >= 0. So we add 3 because 2 is the position of _crsf_token
+      $fieldsPositions[abs($field->position) + 3] = dmString::slugify($field->name); 
+
+
+      /************* selected destinataire passed in request by get ************/
+
+*********************
+
+
 
       /************* field's widget ***************/
       $widgetOptions = json_decode($field->widget_options,true);
@@ -120,17 +141,17 @@ class contactDataActions extends myFrontModuleActions
       if (!is_array($widgetOptions)) $widgetOptions = array();
       if (!is_array($widgetAttributes)) $widgetAttributes = array();
 
-      $form->setWidget(dmString::slugify($field->label), new $field->widget_type(
+      $form->setWidget(dmString::slugify($field->name), new $field->widget_type(
         $widgetOptions,
         $widgetAttributes  
         )
       );
 
       /************** field's label *************/
-      $form->getWidgetSchema()->setLabel(dmString::slugify($field->label), $field->label);
+      $form->getWidgetSchema()->setLabel(dmString::slugify($field->name), $field->name);
 
       /************** field's help **************/
-      $form->getWidgetSchema()->setHelps(array(dmString::slugify($field->label) => $field->help));          
+      $form->getWidgetSchema()->setHelp(dmString::slugify($field->name), $field->help);          
 
       /************** field's validator *************/
       $validatorOptions = json_decode($field->validator_options,true);
@@ -145,7 +166,7 @@ class contactDataActions extends myFrontModuleActions
         $validatorOptions = array_merge($validatorOptions,array('required' => false));
       }
 
-      $form->setValidator( dmString::slugify($field->label), new $field->validator_type(
+      $form->setValidator( dmString::slugify($field->name), new $field->validator_type(
         $validatorOptions,
         $validatorMessages    
         )
@@ -154,7 +175,6 @@ class contactDataActions extends myFrontModuleActions
 
     // sort fields with contactField's position value
     // add captacha at the end if exists
-    
     if ($form->isCaptchaEnabled()) {
       $fieldsPositions[] = 'captcha';
     }
