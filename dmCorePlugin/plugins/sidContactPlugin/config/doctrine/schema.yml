@@ -1,14 +1,48 @@
-DmContact:  
-  actAs:              [ Timestampable ]  
+SidContactForm:  
+  actAs:
+    DmSortable:
+    I18n:
+      fields: [ name ]
+      actAs:
+        DmVersionable:
+        Timestampable:
   columns:  
-    title:            { type: string(20), notnull: false }
-    name:             { type: string(255), notnull: true }
-    firstname:        { type: string(255), notnull: true }
-    function:         { type: string(255), notnull: false }      
-    adresse:          { type: string(255), notnull: true } 
-    postalcode:       { type: string(20), notnull: true }    
-    ville:            { type: string(255), notnull: true } 
-    email:            { type: string(255), notnull: true }
-    phone:            { type: string(20), notnull: true }     
-    fax:              { type: string(20), notnull: false }     
-    body:             { type: clob, notnull: true } 
+    name:              { type: string(255), notnull: true }
+    title:             { type: string(255), notnull: true }
+    description:       { type: clob, extra: ckeditor, notnull: false }
+
+SidContactField:  
+  actAs:
+    DmSortable:
+    I18n:
+      fields: [ label, help ]
+      actAs:
+        DmVersionable:      
+        Timestampable:
+        DmSortable:
+  columns: 
+    label:              { type: string(255), notnull: true }
+    widget_type:        { type: string(255), notnull: true }
+    widget_options:     { type: text, notnull: false }
+    widget_attributes:  { type: text, notnull: false }
+    validator_type:     { type: string(255), notnull: true }
+    validator_options:  { type: text, notnull: false }
+    validator_messages: { type: text, notnull: false }
+    help:               { type: clob, extra: ckeditor, notnull: false }
+    form_id:            { type: integer, notnull: true }
+    is_active:          { type: boolean, notnull: true, default: true }
+    is_required:        { type: boolean, notnull: true, default: false }
+  relations:
+    ContactForm:
+      class: SidContactForm
+      local: form_id
+      foreign: id
+      foreignAlias: SidContactFields
+      onDelete: Cascade
+
+SidContactData:   
+  actAs:
+    Timestampable:
+  columns:   
+    email:             { type: string(255), notnull: true }
+    infos:             { type: clob, notnull: true }

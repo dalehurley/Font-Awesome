@@ -27,11 +27,13 @@ $nbArticle = 1;
        <li class="element itemscope Article <?php echo $class; ?>" itemtype="http://schema.org/Article" itemscope="itemscope">
         
        <?php
-        if ($article->getImage()->checkFileExists() and ($i <= sfConfig::get('app_nb-image'))) {
-            $link.= '<span class="imageWrapper">';
-            $link.= _media($article->getImage())->width($width)->set('.image');
-            $link.= '</span>';
-        };
+       if ($withImage == TRUE) {
+                   if ($article->getImage()->checkFileExists() and ($i <= sfConfig::get('app_nb-image'))) {
+                       $link.= '<span class="imageWrapper">';
+                       $link.= _media($article->getImage())->width($width)->set('.image');
+                       $link.= '</span>';
+                   };
+               }
         $link.= '<span class="wrapper">
                 <span class="subWrapper">';
         if ($titreBloc != $article->getTitle()) {

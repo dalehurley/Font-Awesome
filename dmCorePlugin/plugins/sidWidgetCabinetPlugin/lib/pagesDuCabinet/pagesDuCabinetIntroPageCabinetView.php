@@ -6,7 +6,7 @@ class pagesDuCabinetIntroPageCabinetView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-            'page',
+//            'page',
             'length',	
             'titreBloc',
             'lien',
@@ -27,7 +27,7 @@ class pagesDuCabinetIntroPageCabinetView extends dmWidgetPluginView {
         $vars = $this->getViewVars();
         $arrayArticle = array();
 
-        $pageCabinets = dmDb::table('SidCabinetPageCabinet')->findById($vars['page']);
+        $pageCabinets = dmDb::table('SidCabinetPageCabinet')->createQuery()->orderBy('position ASC')->limit(1)->execute();
 //        $pageCabinets = dmDb::table('SidCabinetPageCabinet')->createQuery('a')->where('a.id = ? and a.is_active = ?',array($vars['page'],true))->execute();
         //echo count($pageCabinets);
 //        ($vars['withImage'] == true) ? (($pageCabinet->getImage()->checkFileExists() == true) ? $image = $pageCabinet->getImage() : $image = ''): $image = '';

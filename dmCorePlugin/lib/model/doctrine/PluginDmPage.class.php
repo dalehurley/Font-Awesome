@@ -385,6 +385,55 @@ LIMIT 1')->getStatement();
     return $stmt->fetchColumn();
   }
 
-  
+  /**
+   * get all widgets present in page
+   * @return array array of widgets
+   */
+  public function getWidgets()
+  {
+    $areasPage = $this->getPageView()->getAreas();  // de type page
+    $areasLayout = $this->getPageView()->getLayout()->getAreas();  // de type layout
+    $widgetsArray = array();
+
+    foreach($areasPage as $areaArray){
+      foreach($areaArray['Zones'] as $zoneArray){
+        foreach($zoneArray['Widgets'] as $widget){
+            $widgetsArray[] = $widget; 
+        }
+      }
+    }
+    foreach($areasLayout as $areaArray){
+      foreach($areaArray['Zones'] as $zoneArray){
+        foreach($zoneArray['Widgets'] as $widget){
+            $widgetsArray[] = $widget; 
+        }
+      }
+    } 
+
+    return $widgetsArray;
+  }
+
+  /**
+   * is widget unique in page
+   * usefull for widget which have form / action system
+   * @return false or widget object unique
+   */
+  public function isWidgetUnique($module,$action)
+  {
+    $contactDataWidgets = array();
+    foreach ($this->getWidgets() as $widget) {
+      if ($widget->getModule() == $module && $widget->getAction() == $action){
+            $contactDataWidgets[] = $widget; 
+          }
+    }
+    if (count($contactDataWidgets) == 1){  
+      return $contactDataWidgets[0];
+    } else {
+      return false;
+    }
+  }
+
+
+
         
 }

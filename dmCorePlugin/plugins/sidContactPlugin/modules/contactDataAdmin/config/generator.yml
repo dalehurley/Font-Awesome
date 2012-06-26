@@ -1,0 +1,41 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidContactData
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: contact_data
+    with_doctrine_route: false
+    i18n_catalogue: dm
+    config:
+      actions: ~
+      fields: {  }
+      list:
+        display:
+          - '=id'
+          - email
+          - infos
+          - created_at
+          - updated_at
+        sort:
+          - created_at
+          - desc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: false
+      filter:
+        display:
+          - id
+          - email
+          - infos
+          - created_at
+          - updated_at
+      form:
+        display:
+          Infos: [infos]
+          Others: [email]
+        class: SidContactDataAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

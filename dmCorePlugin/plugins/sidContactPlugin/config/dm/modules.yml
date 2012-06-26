@@ -4,32 +4,24 @@
 
     ContactForm:
       model: SidContactForm
-      page: true
-      name: Contact|Contacts
-      credentials: contact
+      page: false
+      name: Formulaire de contact|Formulaires de contact
+      credentials: contact_form
       components:
-        listContact:
-          cache:              true
 
     ContactField:
       model: SidContactField
-      parent: Rubrique
-      page: true
-      name: Section|Sections
-      credentials: section
+      parent: ContactForm
+      page: false
+      name: Champ de formulaire de contact|Champs de formulaire de contact
+      credentials: contact_field
       components:
-        listArticles:
-          cache:              true
 
-    Contact:
-      model: SidContact
-      parent: Section
-      page: true
-      name: Article|Articles
-      credentials: article
+    ContactData:
+      model: SidContactData
+      page: false
+      name: Contact|Contacts
+      credentials: contact_data
       components:
-        listBySection:
-          filters: [ Section ]
-          cache:              true
-        listArticlesAvecMemeTag:
-          cache:              true
+        form:  { name: "Formulaire de contact", form_class: myContactDataForm }   # form_class is used to replace dmWidgetFormForm class, file sidContactPlugin/modules/dmWidget/myContactDataForm.php might exists
+

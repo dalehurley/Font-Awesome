@@ -70,7 +70,7 @@ class dmMediaSynchronizer
       // File does not exist, media exists: delete media
       try
       {
-        $media->delete();
+        //$media->delete();  lioshi: no more media delete
       }
       catch(Doctrine_Connection_Exception $e)
       {
@@ -132,7 +132,7 @@ class dmMediaSynchronizer
     {
       try
       {
-        $child->getNode()->delete();
+        //$child->getNode()->delete(); // lioshi: no more delete in this case. Incomprehensible case... 'Not unsetted folders...' 
       }
       catch(Doctrine_Connection_Exception $e)
       {

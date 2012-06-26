@@ -39,7 +39,7 @@ if (count($articles)) { // si nous avons des actu articles
                 }
             };
             $link .= _open('span', array('class' => 'wrapper'));
-            _open('span', array('class' => 'subWrapper'));
+            $link .=_open('span', array('class' => 'subWrapper'));
 
             if ($titreBloc != $article->getTitle()) {
                 $link .= _tag('span', array('class' => 'title itemprop name', 'itemprop' => 'name'), $article->getTitle());

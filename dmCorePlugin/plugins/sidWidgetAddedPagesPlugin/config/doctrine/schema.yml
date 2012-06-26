@@ -1,0 +1,279 @@
+SidAddedPagesGroups:
+  actAs:
+    DmSortable:
+    I18n:
+      fields: [ title ]
+      actAs:
+        Timestampable:
+  columns:
+    title:
+      type: string(40)
+      notnull: true
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+
+SidAddedPagesLevel1:
+  actAs:
+#    DmTaggable:
+    DmBlameable:
+    DmSortable:
+    I18n:
+      fields: [ title, text, resume ]
+      actAs:
+        DmVersionable:
+        Timestampable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    group_id:
+      type: integer
+      notnull: true
+    resume:
+      type: clob
+      notnull: false
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    image:
+      type: integer
+    file1:
+      type: integer
+    file2:
+      type: integer
+    file3:
+      type: integer
+    file4:
+      type: integer
+    file5:
+      type: integer
+    title_file1:
+      type: string(255)
+    title_file2:
+      type: string(255)
+    title_file3:
+      type: string(255)
+    title_file4:
+      type: string(255)
+    title_file5:
+      type: string(255)
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+  relations:
+    Groupe:
+      class: SidAddedPagesGroups
+      local: group_id
+      foreign: id
+      foreignAlias: SidAddedPagesLevel1
+      onDelete: Cascade
+    Image:
+      class:          DmMedia
+      local:          image
+      foreignAlias:   SidAddedPagesLevel1
+      onDelete: Cascade
+    Files1:
+      class:          DmMedia
+      local:          file1
+      foreignAlias:   SidAddedPagesLevel1
+      onDelete: Cascade
+    Files2:
+      class:          DmMedia
+      local:          file2
+      foreignAlias:   SidAddedPagesLevel1
+      onDelete: Cascade
+    Files3:
+      class:          DmMedia
+      local:          file3
+      foreignAlias:   SidAddedPagesLevel1
+      onDelete: Cascade
+    Files4:
+      class:          DmMedia
+      local:          file4
+      foreignAlias:   SidAddedPagesLevel1
+      onDelete: Cascade
+    Files5:
+      class:          DmMedia
+      local:          file5
+      foreignAlias:   SidAddedPagesLevel1
+      onDelete: Cascade
+
+SidAddedPagesLevel2:
+  actAs:
+#    DmTaggable:
+    DmBlameable:
+    DmSortable:
+    I18n:
+      fields: [ title, text, resume ]
+      actAs:
+        DmVersionable:
+        Timestampable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    level1_id:
+      type: integer
+      notnull: true
+    resume:
+      type: clob
+      notnull: false
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    image:
+      type: integer
+    file1:
+      type: integer
+    file2:
+      type: integer
+    file3:
+      type: integer
+    file4:
+      type: integer
+    file5:
+      type: integer
+    title_file1:
+      type: string(255)
+    title_file2:
+      type: string(255)
+    title_file3:
+      type: string(255)
+    title_file4:
+      type: string(255)
+    title_file5:
+      type: string(255)
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+  relations:
+    Level1:
+      class: SidAddedPagesLevel1
+      local: level1_id
+      foreign: id
+      foreignAlias: SidAddedPagesLevel2
+      onDelete: Cascade
+    Image:
+      class:          DmMedia
+      local:          image
+      foreignAlias:   SidAddedPagesLevel2
+      onDelete: Cascade
+    Files1:
+      class:          DmMedia
+      local:          file1
+      foreignAlias:   SidAddedPagesLevel2
+      onDelete: Cascade
+    Files2:
+      class:          DmMedia
+      local:          file2
+      foreignAlias:   SidAddedPagesLevel2
+      onDelete: Cascade
+    Files3:
+      class:          DmMedia
+      local:          file3
+      foreignAlias:   SidAddedPagesLevel2
+      onDelete: Cascade
+    Files4:
+      class:          DmMedia
+      local:          file4
+      foreignAlias:   SidAddedPagesLevel2
+      onDelete: Cascade
+    Files5:
+      class:          DmMedia
+      local:          file5
+      foreignAlias:   SidAddedPagesLevel2
+      onDelete: Cascade
+
+SidAddedPagesLevel3:
+  actAs:
+#    DmTaggable:
+    DmBlameable:
+    DmSortable:
+    I18n:
+      fields: [ title, text, resume ]
+      actAs:
+        DmVersionable:
+        Timestampable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+    level2_id:
+      type: integer
+      notnull: true
+    resume:
+      type: clob
+      notnull: false
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    image:
+      type: integer
+    file1:
+      type: integer
+    file2:
+      type: integer
+    file3:
+      type: integer
+    file4:
+      type: integer
+    file5:
+      type: integer
+    title_file1:
+      type: string(255)
+    title_file2:
+      type: string(255)
+    title_file3:
+      type: string(255)
+    title_file4:
+      type: string(255)
+    title_file5:
+      type: string(255)
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+  relations:
+    Level2:
+      class: SidAddedPagesLevel2
+      local: level2_id
+      foreign: id
+      foreignAlias: SidAddedPagesLevel3
+      onDelete: Cascade
+    Image:
+      class:          DmMedia
+      local:          image
+      foreignAlias:   SidAddedPagesLevel3
+      onDelete: Cascade
+    Files1:
+      class:          DmMedia
+      local:          file1
+      foreignAlias:   SidAddedPagesLevel3
+      onDelete: Cascade
+    Files2:
+      class:          DmMedia
+      local:          file2
+      foreignAlias:   SidAddedPagesLevel3
+      onDelete: Cascade
+    Files3:
+      class:          DmMedia
+      local:          file3
+      foreignAlias:   SidAddedPagesLevel3
+      onDelete: Cascade
+    Files4:
+      class:          DmMedia
+      local:          file4
+      foreignAlias:   SidAddedPagesLevel3
+      onDelete: Cascade
+    Files5:
+      class:          DmMedia
+      local:          file5
+      foreignAlias:   SidAddedPagesLevel3
+      onDelete: Cascade

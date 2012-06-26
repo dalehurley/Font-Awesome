@@ -1,0 +1,114 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidAddedPagesLevel2
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: sid_added_pages_level2
+    with_doctrine_route: false
+    i18n_catalogue: dm
+    config:
+      actions:
+        new:
+          credentials: [[ super_admin , admin ]]
+        delete:
+          credentials: [super_admin]
+        save:
+          credentials: [[ super_admin , admin ]]
+        history:
+          credentials: [[ super_admin , admin ]]
+        list:
+          credentials: [[ super_admin , admin ]]
+        _save_and_list:
+          credentials: [ super_admin ]
+        _save_and_next:
+          credentials: [ super_admin ]
+        _save_and_add:
+          credentials: [ super_admin ]
+        _view_page:
+          credentials: [ super_admin ]
+        _delete:
+          credentials: [ super_admin ]
+        _sort:
+          credentials: [super_admin]
+      fields:
+        is_active:
+          label: Active
+        resume:
+          label: 'Résumé'
+        file1:
+          label: Fichier N°1
+        file2:
+          label: Fichier N°2
+        file3:
+          label: Fichier N°3
+        file4:
+          label: Fichier N°4
+        file5:
+          label: Fichier N°5
+        title_file1:
+          label: 'Nom du fichier N°1'
+        title_file2:
+          label: 'Nom du fichier N°2'
+        title_file3:
+          label: 'Nom du fichier N°3'
+        title_file4:
+          label: 'Nom du fichier N°4'
+        title_file5:
+          label: 'Nom du fichier N°5'
+        file1_form:
+          label: 'Choisir un fichier'
+        file2_form:
+          label: 'Choisir un fichier'
+        file3_form:
+          label: 'Choisir un fichier'
+        file4_form:
+          label: 'Choisir un fichier'
+        file5_form:
+          label: 'Choisir un fichier'
+        image_form:
+          label: 'Choisir une image'
+        level1_id:
+          label: 'Page mère'
+        sid_added_pages_level3_list:
+          label: 'Pages enfants'
+      list:
+        display:
+          - '=title'
+          - level1_id
+          - sid_added_pages_level3_list
+          - is_active
+          - created_at
+          - updated_at
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - title
+          - is_active
+          - level1_id
+          - created_at
+          - updated_at
+      form:
+        display:
+          'Publication sur le site': [is_active]
+          'Titre de la page': [title]
+          'Page mère': [level1_id]
+          Resume: [resume]
+          Text: [text]
+          Image: [image_form, image_view]
+          Fichier N°1: [file1_form, file1_view, title_file1]
+          Fichier N°2: [file2_form, file2_view, title_file2]
+          Fichier N°3: [file3_form, file3_view, title_file3]
+          Fichier N°4: [file4_form, file4_view, title_file4]
+          Fichier N°5: [file5_form, file5_view, title_file5]
+          'Pages enfants': [sid_added_pages_level3_list]
+        class: SidAddedPagesLevel2AdminForm
+        fields: {  }
+      edit: ~
+      new: ~

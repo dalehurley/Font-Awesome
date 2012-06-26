@@ -27,6 +27,16 @@ class dmModuleComponent extends dmConfigurable
     return $this->getOption('type');
   }
 
+/**
+ * Return the form class use for form and view
+ * Example: if form_class in modules.yml is myClass then dmwidgetTypeManager try to use myClassForm for the module render widget form
+ * @return [type] [description]
+ */
+  public function getFormClass()
+  {
+    return $this->getOption('form_class');
+  }
+
   public function getKey()
   {
     return $this->key;

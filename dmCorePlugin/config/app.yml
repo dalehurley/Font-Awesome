@@ -1,5 +1,8 @@
 # default values
 all:
+  dm-media:
+    max-upload-size: 2000000   # Max upload size for file in form
+
   link-login:      # seeclass BasedmUserAdminActions to understand how it works
     active:  true   # activation du lien de login
     user: client
@@ -94,6 +97,10 @@ all:
       rubrique: "Contenu => Base Editoriale => Rubriques (Gestion des rubriques de la BE)"
       section: "Contenu => Base Editoriale => Sections (Gestion des sections de la BE)"
       article: "Contenu => Base Editoriale => Articles (Gestion des articles de la BE)"
+      added_page_groups: "Contenu => Pages Additionnelles => Groupe de page "
+      added_page_level1: "Contenu => Pages Additionnelles => Page de niveau 1 "
+      added_page_level2: "Contenu => Pages Additionnelles => Page de niveau 2 "
+      added_page_level3: "Contenu => Pages Additionnelles => Page de niveau 3 "
         # Sous-menu Tag
       tags: "Contenu => Tag => Tags (Gestion des tags)"
       # Menu Gestion du bandeau
@@ -229,6 +236,10 @@ all:
       - mission
       - actualite_contenu
       - contact_me
+      - added_page_groups
+      - added_page_level1
+      - added_page_level2
+      - added_page_level3
       
   groupes-permissions-co-pilotes:
     description: "Accès pour co-pilotes"
@@ -267,6 +278,10 @@ all:
       - page_bar_front
       - media_bar_front
       - tool_bar_front
+      - added_page_groups
+      - added_page_level1
+      - added_page_level2
+      - added_page_level3
 
   groupes-permissions-base-doc:
     description: "Accès pour le client Base Doc"
@@ -301,11 +316,6 @@ all:
     copilotes-site:
       - selection_placement
 
-  pub-flash:
-    rep:
-      - _common/pubotheque
-      - _common/test
-
   # tableau pour gérer les pages à afficher dans le sitemap
   pages-for-sitemap:     
     # array[key] is a name of the page
@@ -320,3 +330,5 @@ all:
         "main": search
       signin:
         "main": signin
+        
+  
