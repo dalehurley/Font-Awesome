@@ -24,7 +24,7 @@ class contactDataActions extends myFrontModuleActions
       unset($form['infos']);
       
       // 2) get form fields if exist
-      $fields = self::getContactFields($contactDataWidget);
+      $fields = self::getContactFieldsOrderedByPosition($contactDataWidget);
       
       // 3) add fields present in contactField table, if present
       if ($fields){  // s'il y'a des champs définis en base dans la table contactField
@@ -50,22 +50,28 @@ class contactDataActions extends myFrontModuleActions
             $infos = array();
             foreach ($fields as $field) {
               
-              $infos[dmString::slugify($field->name)] = $data[dmString::slugify($field->name)]; // le tableau "$infos" reçoit chaque contactField
+              $addField = true;
+
+              $infos[dmString::slugify($field->name)] = $data[dmString::slugify($field->name)]; // le tableau "$infos" reçoit la valeur de chaque contactField
               
               /*********** debut gestion du champ "destinataire"  **************/
               // on ajoute l'adresse email plutot que l'id
               if (dmString::slugify($field->name) == 'destinataire'){  // si un champ se nomme "destinataire"
-                // on vérifie que le model SidCabinetEquipe existe
-                $tableSidCabinetEquipe = dmDb::table('SidCabinetEquipe');
-                if (isset($tableSidCabinetEquipe)){
-                  $equipe = $tableSidCabinetEquipe->findOneById($data[dmString::slugify($field->name)]); // on récupère l'objet equipe correspondant
+                // y'a t-il des object equipes actif et avec une adresse email?
+                if (!self::hasCabinetEquipe()) {
+                  $addField = false;
+                } else {
+                  $equipe = dmDb::table('SidCabinetEquipe')->findOneById($data[dmString::slugify($field->name)]); // on récupère l'objet equipe correspondant
                   $infos[dmString::slugify($field->name)] = $equipe->email;  // on stocke dans infos l'email plutot que l'id de l'objet equipe
                 }
               }
               /*********** fin gestion du champ "destinataire"  **************/
 
-              unset($data[dmString::slugify($field->name)]);
-              unset($form[dmString::slugify($field->name)]);
+              if ($addField){
+                // on supprime le field de data et du formulaire, ne restera que infos dans le formulaire
+                unset($data[dmString::slugify($field->name)]);
+                unset($form[dmString::slugify($field->name)]);
+              }
             }
 
             // on supprime le captcha qui est déjà validé
@@ -88,9 +94,9 @@ class contactDataActions extends myFrontModuleActions
 
             $this->getUser()->setFlash('sid_contact_form_valid', true);
 
-            // $this->getService('dispatcher')->notify(new sfEvent($this, 'sid_contact_data.saved', array(
-            //   'contact_data' => $form->getObject()
-            // )));
+            $this->getService('dispatcher')->notify(new sfEvent($this, 'sid_contact_data.saved', array(
+              'contact_data' => $form->getObject()
+            )));
 
             $this->redirectBack();
           }
@@ -110,12 +116,19 @@ class contactDataActions extends myFrontModuleActions
   }
 
 
-  public function getContactFields($contactDataWidget){
+  public function getContactFieldsOrderedByPosition($contactDataWidget){
       $widgetValues = $contactDataWidget->getValues(); // seulement un widget contactData/form dans la page, donc on peut récupérer ses paramètres
       if (isset($widgetValues['contactForm'])){
         $idContactForm = $widgetValues['contactForm'][0];
         if ($idContactForm != ''){
-          $fields = dmDb::table('SidContactField')->findByFormIdAndIsActive($idContactForm,true); // seulement les champs actifs
+          // seulement les champs actifs et triés par position
+          $fields = dmDb::table('SidContactField')
+          ->createQuery('a')
+          ->where('a.form_id = ? ',$idContactForm)
+          ->addWhere('a.is_active = ?',true)
+          ->orderBy('a.position ASC')
+          ->execute();
+
           return $fields;
         } else {
           return false;
@@ -135,55 +148,65 @@ class contactDataActions extends myFrontModuleActions
       );
 
     foreach ($fields as $field) {
-      /************* get position field ***********/
-      // abs(position) >= 0. So we add 3 because 2 is the position of _crsf_token
-      $fieldsPositions[abs($field->position) + 3] = dmString::slugify($field->name); 
-
-      /************* selected destinataire in list choice if passed in request like "example.com/?destinataire=8" ************/
-      if (dmString::slugify($field->name) == 'destinataire'){  // si un champ se nomme "destinataire"
-        if ($request->hasParameter('dest'))
-        {
-          $idEquipe = $request->getParameter('dest');
-          $form->setDefault('destinataire', $idEquipe);
-        }
-      }
+      $addField = true;
 
       /************* field's widget ***************/
       $widgetOptions = json_decode($field->widget_options,true);
       $widgetAttributes = json_decode($field->widget_attributes,true);
-      if (!is_array($widgetOptions)) $widgetOptions = array();
-      if (!is_array($widgetAttributes)) $widgetAttributes = array();
 
-      $form->setWidget(dmString::slugify($field->name), new $field->widget_type(
-        $widgetOptions,
-        $widgetAttributes  
-        )
-      );
-
-      /************** field's label *************/
-      $form->getWidgetSchema()->setLabel(dmString::slugify($field->name), $field->name);
-
-      /************** field's help **************/
-      $form->getWidgetSchema()->setHelp(dmString::slugify($field->name), $field->help);          
-
-      /************** field's validator *************/
       $validatorOptions = json_decode($field->validator_options,true);
-      $validatorMessages = json_decode($field->validator_messages,true);
-      if (!is_array($validatorOptions)) $validatorOptions = array();
-      if (!is_array($validatorMessages)) $validatorMessages = array();
+      $validatorMessages = json_decode($field->validator_messages,true);      
 
-      // add required field
-      if ($field->is_required) { 
-        $validatorOptions = array_merge($validatorOptions,array('required' => true));
-      } else {
-        $validatorOptions = array_merge($validatorOptions,array('required' => false));
+      // on ajoute le champ destinataire de façon spécifique
+      if (dmString::slugify($field->name) == 'destinataire'){
+        // y'a t-il des object equipes actif et avec une adresse email?
+        if (!self::hasCabinetEquipe()) $addField = false;
+        $arrayFormWidgetOptions = self::addDestinataireField($form,$request, $widgetOptions, $validatorOptions, $field);
+        $form = $arrayFormWidgetOptions['form'];
+        $widgetOptions = $arrayFormWidgetOptions['widgetOptions'];
+        $validatorOptions = $arrayFormWidgetOptions['validatorOptions'];
+        $field = $arrayFormWidgetOptions['field'];
       }
 
-      $form->setValidator( dmString::slugify($field->name), new $field->validator_type(
-        $validatorOptions,
-        $validatorMessages    
-        )
-      );
+      if ($addField){
+
+        if (!is_array($widgetOptions)) $widgetOptions = array();
+        if (!is_array($widgetAttributes)) $widgetAttributes = array();
+
+        $form->setWidget(dmString::slugify($field->name), new $field->widget_type(
+          $widgetOptions,
+          $widgetAttributes  
+          )
+        );
+
+        /************** field's label *************/
+        $form->getWidgetSchema()->setLabel(dmString::slugify($field->name), $field->name);
+
+        /************** field's help **************/
+        $form->getWidgetSchema()->setHelp(dmString::slugify($field->name), $field->help);          
+
+        /************** field's validator *************/
+        if (!is_array($validatorOptions)) $validatorOptions = array();
+        if (!is_array($validatorMessages)) $validatorMessages = array();
+
+        // add required field
+        if ($field->is_required) { 
+          $validatorOptions = array_merge($validatorOptions,array('required' => true));
+        } else {
+          $validatorOptions = array_merge($validatorOptions,array('required' => false));
+        }
+
+        $form->setValidator( dmString::slugify($field->name), new $field->validator_type(
+          $validatorOptions,
+          $validatorMessages    
+          )
+        );
+
+        /************* get position field ***********/
+        // fields are sorted by position, we just push after the 3 first fields (id, email & csrf)
+        $fieldsPositions[] = dmString::slugify($field->name);         
+
+      }
     }
 
     // sort fields with contactField's position value
@@ -196,4 +219,43 @@ class contactDataActions extends myFrontModuleActions
     return $form;
 
   }
+
+  public function addDestinataireField($form, $request, $widgetOptions, $validatorOptions, $field){
+    
+    // 1) selected destinataire in list choice if passed in request like "example.com/?destinataire=8" 
+    if ($request->hasParameter('dest'))
+    {
+      $idEquipe = $request->getParameter('dest');
+      $form->setDefault('destinataire', $idEquipe); // on met le select sur l'idEquipe
+    }
+
+    // 2) on ajoute l'option query pour n'avoir que les objets equipe qui ont une adresse email
+    $query = Doctrine_Query::create()->from('SidCabinetEquipe e')->withI18n()->where('e.is_active = ?', true)->addWhere('eTranslation.email <> ?', '');
+    $widgetOptions['query'] = $query;
+    $widgetOptions['model'] = 'SidCabinetEquipe';
+    $widgetOptions['add_empty'] = '';
+    $widgetOptions['method'] = 'infoEquipe';
+    $validatorOptions['model'] = 'SidCabinetEquipe';
+
+    // 3) $field->widget_type doit etre sfWidgetFormDoctrineChoice
+    $field->widget_type = 'sfWidgetFormDoctrineChoice';
+    $field->validator_type = 'sfValidatorDoctrineChoice';    
+
+    return array('form' => $form, 'widgetOptions' => $widgetOptions, 'validatorOptions' => $validatorOptions, 'field' => $field);
+  }
+
+  public function hasCabinetEquipe(){
+    
+    $cabinetEquipe = array();
+    $tableSidCabinetEquipe = dmDb::table('SidCabinetEquipe');
+    if (isset($tableSidCabinetEquipe)){
+      $cabinetEquipe = Doctrine_Query::create()->from('SidCabinetEquipe e')->withI18n()->where('e.is_active = ?', true)->addWhere('eTranslation.email <> ?', '')->execute();
+    } else {
+      return false;
+    }
+
+    return count($cabinetEquipe);
+  }
+
+
 }

@@ -83,14 +83,10 @@ Si expanded = true et multiple = true, on aura une liste de checkboxes<br/>
 <br/>
 
 <h2>Exemples d\'utilisation spécifique:</h2>
-<b><u>Mettre la liste des destinataires (issus du model SidCabinetEquipe)</u></b><br/>
-1) Choisir sfWidgetFormDoctrineChoice et mettre dans widget options:<br/>
-{"model" : "SidCabinetEquipe"}<br/>
-2) Choisir sfValidatorDoctrineChoice et mettre dans validator options:<br/>
-{"model" : "SidCabinetEquipe"}<br/>
-3) <b>IMPORTANT</b>: Ecrire "Destinataire" dans le nom du champ pour que le champ soit reconnu et que l\'on puisse déclencher un évènement qui connait le destinataire (l\'objet du modele SidCabinetEquipe)<br/>
+<b><u>Mettre la liste des destinataires</u></b><br/>
+<b>Mettre "Destinataire" dans le nom du champ</b> (l\'ajout du champ est automatique, lié au modèle SidCabinetEquipe pour les objets actifs et ayant un email)
 <br/>
-<h3>Pour accèder à un destinataire précis (object de SidCabinetEquipe) il faut appeler la page comme suit:</h3>
+<h3>Pour accèder à un destinataire précis (objet de SidCabinetEquipe) il faut appeler la page comme suit:</h3>
 http://www.example.com/contact?dest=8  (où SidCabinetEquipe.id = 8)<br/>
 <br/>
 ';
