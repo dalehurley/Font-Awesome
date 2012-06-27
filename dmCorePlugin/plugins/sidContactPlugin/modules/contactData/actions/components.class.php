@@ -11,8 +11,9 @@ class contactDataComponents extends myFrontModuleComponents
   {
 
     $this->form = $this->forms['SidContactData'];
+    $this->name = $this->getRequest()->getAttribute('name');
+    $this->description = $this->getRequest()->getAttribute('description');
 
   }
-
 
 }

@@ -13,6 +13,9 @@ class contactDataActions extends myFrontModuleActions
     $form = new dmForm;
     $this->forms['SidContactData'] = $form;  // on renvoie un dmForm vide
 
+    // récupération du widget qui appelle l'action
+    // Actuellement on vérifie qu'il n'y a qu'un seul widget "contactData form" dans la page pour récupérer ses infos
+    // @TODO: le faire proprement, càd trouver le moyen de connaitre l'id du widget appelant ici
     $contactDataWidget = $this->getPage()->isWidgetUnique('contactData','form');
     if ($contactDataWidget){  // s'il n'y a qu'un seul widget contactData Form dans la page
 
@@ -76,13 +79,14 @@ class contactDataActions extends myFrontModuleActions
             $form->setWidget('infos', new sfWidgetFormTextarea());
             $form->setValidator('infos', new sfValidatorString());
 
-            // on refait un bind pour mettre infos et supprimer les champs additionnels
+            // on refait un bind pour :
+            // - mettre infos 
+            // - supprimer les champs additionnels
             $form->bind($data, $request->getFiles($form->getName()));
 
             $form->save();
 
             $this->getUser()->setFlash('sid_contact_form_valid', true);
-
 
             // $this->getService('dispatcher')->notify(new sfEvent($this, 'sid_contact_data.saved', array(
             //   'contact_data' => $form->getObject()
@@ -92,6 +96,13 @@ class contactDataActions extends myFrontModuleActions
           }
         }
         
+        // envoi des données du contactForm au component
+        $widgetValues = $contactDataWidget->getValues(); // seulement un widget contactData/form dans la page, donc on peut récupérer ses paramètres
+        $contactForm = dmDb::table('SidContactForm')->findOneById($widgetValues['contactForm'][0]); 
+        $this->getRequest()->setAttribute('name', $contactForm->name);
+        $this->getRequest()->setAttribute('description', $contactForm->description);
+
+        // envoi du formulaire au component
         $this->forms['SidContactData'] = $form;
       } 
 

@@ -1,4 +1,6 @@
 <?php // Vars: $form
+echo _tag('h2.title',$name);
+echo $description;
 
 if ($form->count() > 1 ){   // if 1 its only the submit button
 

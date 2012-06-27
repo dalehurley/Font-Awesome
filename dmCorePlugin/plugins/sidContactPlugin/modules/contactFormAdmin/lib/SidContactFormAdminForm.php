@@ -12,5 +12,6 @@ class SidContactFormAdminForm extends BaseSidContactFormForm
   public function configure()
   {
     parent::configure();
+
   }
 }

@@ -15,8 +15,7 @@ generator:
         display:
           - '=name'
           - sid_contact_fields_list
-          - title
-          - description
+#          - description
           - created_at
           - updated_at
         sort:
@@ -28,7 +27,6 @@ generator:
       filter:
         display:
           - name
-          - title
           - description
           - created_at
           - updated_at
@@ -37,7 +35,6 @@ generator:
           NONE: [name]
           Description: [description]
           'Champs de formulaire de contact': [sid_contact_fields_list]
-          Others: [title]
         class: SidContactFormAdminForm
         fields: {  }
       edit: ~
