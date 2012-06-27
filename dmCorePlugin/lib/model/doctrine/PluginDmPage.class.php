@@ -412,5 +412,28 @@ LIMIT 1')->getStatement();
 
     return $widgetsArray;
   }
+
+  /**
+   * is widget unique in page
+   * usefull for widget which have form / action system
+   * @return false or widget object unique
+   */
+  public function isWidgetUnique($module,$action)
+  {
+    $contactDataWidgets = array();
+    foreach ($this->getWidgets() as $widget) {
+      if ($widget->getModule() == $module && $widget->getAction() == $action){
+            $contactDataWidgets[] = $widget; 
+          }
+    }
+    if (count($contactDataWidgets) == 1){  
+      return $contactDataWidgets[0];
+    } else {
+      return false;
+    }
+  }
+
+
+
         
 }

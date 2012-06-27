@@ -87,8 +87,8 @@ all:
       - contactForm
       - contactFieldAdmin
       - contactField
-      - contactAdmin
-      - contact
+      - contactDataAdmin
+      - contactData
       - sidAddedPagesGroups
       - sidAddedPagesGroupsAdmin
       - sidAddedPagesLevel1
