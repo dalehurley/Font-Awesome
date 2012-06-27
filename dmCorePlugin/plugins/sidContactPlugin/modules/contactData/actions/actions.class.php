@@ -128,12 +128,14 @@ class contactDataActions extends myFrontModuleActions
       // abs(position) >= 0. So we add 3 because 2 is the position of _crsf_token
       $fieldsPositions[abs($field->position) + 3] = dmString::slugify($field->name); 
 
-
-      /************* selected destinataire passed in request by get ************/
-
-//*********************
-
-
+      /************* selected destinataire in list choice if passed in request like "example.com/?destinataire=8" ************/
+      if (dmString::slugify($field->name) == 'destinataire'){  // si un champ se nomme "destinataire"
+        if ($request->hasParameter('dest'))
+        {
+          $idEquipe = $request->getParameter('dest');
+          $form->setDefault('destinataire', $idEquipe);
+        }
+      }
 
       /************* field's widget ***************/
       $widgetOptions = json_decode($field->widget_options,true);
