@@ -107,7 +107,7 @@ else{
         if($article->Section->getRubrique() != 'ec_echeancier'){
             $dateHtml = '<meta content="'.$article->createdAt.'" itemprop="datePublished">'.
             '<span class="date">'.__('published on').' '.
-                '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'D').'</time>'.
+                '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->updated_at.'">'.format_date($article->updated_at, 'D').'</time>'.
             '</span>';
         }
         
