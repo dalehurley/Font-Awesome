@@ -1,15 +1,8 @@
 SidContactForm:  
   actAs:
-    DmSortable:
-    I18n:
-      fields: [ name ]
-      actAs:
-        DmVersionable:
-        Timestampable:
+    Timestampable:
   columns:  
     name:              { type: string(255), notnull: true }
-    title:             { type: string(255), notnull: true }
-    description:       { type: clob, extra: ckeditor, notnull: false }
 
 SidContactField:  
   actAs:

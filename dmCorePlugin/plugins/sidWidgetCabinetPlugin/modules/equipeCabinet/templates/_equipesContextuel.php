@@ -55,6 +55,7 @@ if (count($equipes)) { // si nous avons des membres de l'article
             $html.= _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
             $html.= _open('span', array('class' => 'value'));
             $html.= _link('mailto:' . $equipe->email)->set(' itemprop="email"')->text('mail');
+            //$html.= _link('/contact?dest=' . $equipe->id)->set(' itemprop="email"')->text('e-mail');   lien pour sidContactPlugin
             $html.= _close('span');
             $html.= _close('span');
         };

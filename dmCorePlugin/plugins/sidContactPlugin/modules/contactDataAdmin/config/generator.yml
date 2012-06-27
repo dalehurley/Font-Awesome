@@ -9,15 +9,44 @@ generator:
     with_doctrine_route: false
     i18n_catalogue: dm
     config:
-      actions: ~
+      actions:
+        new:
+          credentials: [[ super_admin , admin ]]
+        edit:
+          credentials: [[ super_admin , admin ]]          
+        delete:
+          credentials: [super_admin]
+        save:
+          credentials: [[ super_admin , admin ]]
+        history:
+          credentials: [[ super_admin , admin ]]
+        list:
+          credentials: [[ super_admin , admin ]]
+        _save_and_list:
+          credentials: [ super_admin ]
+        _save_and_next:
+          credentials: [ super_admin ]
+        _save_and_add:
+          credentials: [ super_admin ]
+        _view_page:
+          credentials: [ super_admin ]
+        _delete:
+          credentials: [ super_admin ]
+        _edit:
+          credentials: [ super_admin ]          
+        _sort:
+          credentials: [super_admin]
       fields: {  }
       list:
+        # batch_actions:
+        #   delete:
+        #     credentials: [ super_admin ]  # il faut les permissions super_admin ET admin
         display:
           - '=id'
           - email
-          - infos
+          - _infos
           - created_at
-          - updated_at
+#          - updated_at
         sort:
           - created_at
           - desc
