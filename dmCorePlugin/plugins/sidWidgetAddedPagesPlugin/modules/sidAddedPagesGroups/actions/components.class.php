@@ -6,9 +6,17 @@
  * 
  * 
  * 
+ * 
  */
 class sidAddedPagesGroupsComponents extends myFrontModuleComponents
 {
+
+  public function executeListPagesLevel1s(dmWebRequest $request)
+  {
+    $query = $this->getListQuery();
+    
+    $this->sidAddedPagesGroupsPager = $this->getPager($query);
+  }
 
 
 }

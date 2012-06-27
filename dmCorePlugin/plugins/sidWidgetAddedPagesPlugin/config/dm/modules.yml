@@ -7,6 +7,9 @@ Content:
       page: true
       name: Page Additionnelle|Pages Additionnelles
       credentials: added_page_groups
+      components:
+        listPagesLevel1s:
+          cache:              true
 
     SidAddedPagesLevel1:
       model: SidAddedPagesLevel1
