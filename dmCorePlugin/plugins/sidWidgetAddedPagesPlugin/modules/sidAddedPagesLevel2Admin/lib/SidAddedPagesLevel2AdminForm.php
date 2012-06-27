@@ -9,9 +9,41 @@
  */
 class SidAddedPagesLevel2AdminForm extends BaseSidAddedPagesLevel2Form
 {
+  protected static $addedPageGroup = array(); // variable pour récupérer les groupes
+  protected static $addedPageLevel1 = array(); // variable pour récupérer les niveau1 d'un groupe
+  protected static $validateAddedPageLevel1 = array(); // variable pour récupérer les id des pages de niveau 1 pour le validator
+  
   public function configure()
   {
     parent::configure();
+            // Récupération des différents groupes
+            $groupPages = dmDb::table('SidAddedPagesGroups')
+                    ->createQuery('a')
+                    ->where('a.is_active =?', true)
+                    ->orderBy('a.position')
+                    ->execute();
+            foreach ($groupPages as $groupId) {
+                // récupération des noms des pages de niveau 1 du groupe
+                $level1Page = dmDb::table('SidAddedPagesLevel1')
+                        ->createQuery('p')
+                        ->where('p.is_active = ? AND p.group_id = ?', array(true, $groupId->id))
+                        ->orderBy('p.position')
+                        ->execute();
+
+                foreach ($level1Page as $title) {
+                    self::$addedPageLevel1[$title->id] = ucfirst($title->getTitle());
+                    self::$validateAddedPageLevel1[$title->id] = $title->id;
+                    };
+          echo '22222<pre>';print_r(self::$addedPageLevel1);echo'</pre>';
+                self::$addedPageGroup[$groupId->getTitle()] = self::$addedPageLevel1; 
+                self::$addedPageLevel1 = array();
+                }
+            
+        echo '33333<pre>';print_r(self::$addedPageGroup);echo'</pre>'; 
+            $this->widgetSchema['level1_id'] = new sfWidgetFormChoice(array(
+                    'choices' => self::$addedPageGroup,
+                ));
+            $this->validatorSchema['level1_id'] = new sfValidatorChoice(array('choices' => array_keys(self::$validateAddedPageLevel1)));
   }
 
     protected function createMediaFormForImage() {
