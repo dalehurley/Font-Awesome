@@ -18,8 +18,8 @@ Content:
         listBySidAddedPagesGroups:
           filters: [ SidAddedPagesGroups ]
           cache:              true
-        list:
-          cache:              true
+#        list:
+#          cache:              true
         show:
 
     SidAddedPagesLevel2:
@@ -32,8 +32,8 @@ Content:
         listBySidAddedPagesLevel1:
           filters: [ SidAddedPagesLevel1 ]
           cache:              true
-        list:
-          cache:              true
+#        list:
+#          cache:              true
         show:
 
     SidAddedPagesLevel3:
@@ -46,6 +46,6 @@ Content:
         listBySidAddedPagesLevel2:
           filters: [ SidAddedPagesLevel2 ]
           cache:              true
-        list:
-          cache:              true
+#        list:
+#          cache:              true
         show:
