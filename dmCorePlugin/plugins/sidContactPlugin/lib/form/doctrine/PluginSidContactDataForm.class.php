@@ -17,15 +17,12 @@ abstract class PluginSidContactDataForm extends BaseSidContactDataForm
     /*
      * Here, the plugin form code
      */
-    
-	$this->changeToEmail('email');
+    $this->changeToEmail('email');
     $this->widgetSchema->setHelp('email', 'Your email will never be published');
-
-
 
     if ($this->isCaptchaEnabled()) {
             $this->addCaptcha();
-    }
+      }
   }
 
 	public function addCaptcha() {
@@ -36,9 +33,10 @@ abstract class PluginSidContactDataForm extends BaseSidContactDataForm
             'private_key' => sfConfig::get('app_sid-recaptcha_private_key')
         ));
         $this->widgetSchema->setHelp('captcha', 'Thanks to copy words');
-    }
-    public function isCaptchaEnabled() {
+  }
+  
+  public function isCaptchaEnabled() {
         
         return sfConfig::get('app_sid-recaptcha_enabled');
-    }  
+  }  
 }
