@@ -24,6 +24,7 @@ all:
       - 88.175.117.82     # Ip fixe Marie Laure Nauleau 
       - 93.10.138.101     # Ip fluctuante d'Alicia
       - 217.128.36.230    # Ip fixe co-pilotes
+      - 89.89.143.127     # Ip Sébastien
     ips-message:                       # message display on admin.php if client's ip is not allowed (in list above)
       "91.194.100.239": "Afin de vous connecter merci de vous rendre dans votre <a href=\"http://abonnes.expert-infos.com\">espace abonné</a>."  # ip of server which run sites      
 
