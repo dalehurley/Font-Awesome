@@ -1,4 +1,8 @@
 <?php
 
-echo 'tooto';
-echo $sid_contact_data->id;
+$infos = json_decode($sid_contact_data->infos, true);
+foreach ($infos as $key => $value) {
+	echo '<b>'.$key.'</b> : '.$value.'<br/>';
+}
+
+

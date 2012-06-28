@@ -4,7 +4,7 @@ class dmFrontBaseComponents extends dmBaseComponents
 {
   protected
   $forms;
-  
+
   /**
    * Initializes this component.
    *
