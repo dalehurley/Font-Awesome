@@ -89,11 +89,5 @@ all:
       - contactField
       - contactDataAdmin
       - contactData
-      - sidAddedPagesGroups
-      - sidAddedPagesGroupsAdmin
-      - sidAddedPagesLevel1
-      - sidAddedPagesLevel1Admin
-      - sidAddedPagesLevel2
-      - sidAddedPagesLevel2Admin
-      - sidAddedPagesLevel3
-      - sidAddedPagesLevel3Admin
+      - sidAddedPages
+      - sidAddedPagesAdmin

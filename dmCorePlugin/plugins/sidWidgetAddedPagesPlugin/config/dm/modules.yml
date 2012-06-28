@@ -1,54 +1,19 @@
 Content:
-
-  "Added Pages":
-
-    SidAddedPagesGroups:
-      model: SidAddedPagesGroups
+  "Additional Pages":
+    SidAddedPages:
+      model: SidAddedPages
       page: true
-      name: Page Additionnelle|Pages Additionnelles
-      credentials: added_page_groups
+#      parent: SidAddedPagesGroups
+      name: Gestion de la page|Gestion des pages
+      credentials: added_page
       components:
-        listPagesLevel1s:
+        list:
           cache:              true
-
-    SidAddedPagesLevel1:
-      model: SidAddedPagesLevel1
-      parent: SidAddedPagesGroups
-      page: true
-      name: Page de niveau 1 | Pages de niveau 1
-      credentials: added_page_level1
-      components:
-        listBySidAddedPagesGroups:
-          filters: [ SidAddedPagesGroups ]
+        listChildren:
+          name: Liste des pages enfants
           cache:              true
-#        list:
-#          cache:              true
+        listRoot:
+          name: Liste des pages level 0
+          cache:              true
         show:
-
-    SidAddedPagesLevel2:
-      model: SidAddedPagesLevel2
-      parent: SidAddedPagesLevel1
-      page: true
-      name: Page de niveau 2 | Pages de niveau 2
-      credentials: added_page_level2
-      components:
-        listBySidAddedPagesLevel1:
-          filters: [ SidAddedPagesLevel1 ]
           cache:              true
-#        list:
-#          cache:              true
-        show:
-
-    SidAddedPagesLevel3:
-      model: SidAddedPagesLevel3
-      parent: SidAddedPagesLevel2
-      page: true
-      name: Page de niveau 3 | Pages de niveau 3
-      credentials: added_page_level3
-      components:
-        listBySidAddedPagesLevel2:
-          filters: [ SidAddedPagesLevel2 ]
-          cache:              true
-#        list:
-#          cache:              true
-        show:
