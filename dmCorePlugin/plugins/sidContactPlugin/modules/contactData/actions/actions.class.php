@@ -152,7 +152,7 @@ class contactDataActions extends myFrontModuleActions
     foreach ($fields as $field) {
       $addField = true;
 
-      /************* field's widget ***************/
+      // on récupère les options, attributs et messages du field
       $widgetOptions = json_decode($field->widget_options,true);
       $widgetAttributes = json_decode($field->widget_attributes,true);
 
@@ -161,7 +161,7 @@ class contactDataActions extends myFrontModuleActions
 
       // on ajoute le champ destinataire de façon spécifique
       if (dmString::slugify($field->name) == 'destinataire'){
-        // y'a t-il des object equipes actif et avec une adresse email?
+        // y'a t-il des objets equipes actifs et avec une adresse email?
         if (!self::hasCabinetEquipe()) $addField = false;
         $arrayFormWidgetOptions = self::addDestinataireField($form,$request, $widgetOptions, $validatorOptions, $field);
         $form = $arrayFormWidgetOptions['form'];
@@ -175,6 +175,7 @@ class contactDataActions extends myFrontModuleActions
         if (!is_array($widgetOptions)) $widgetOptions = array();
         if (!is_array($widgetAttributes)) $widgetAttributes = array();
 
+        /************* field's widget ***************/
         $form->setWidget(dmString::slugify($field->name), new $field->widget_type(
           $widgetOptions,
           $widgetAttributes  
@@ -211,15 +212,14 @@ class contactDataActions extends myFrontModuleActions
       }
     }
 
-    // sort fields with contactField's position value
     // add captacha at the end if exists
     if ($form->isCaptchaEnabled()) {
       $fieldsPositions[] = 'captcha';
     }
+    // sort fields with contactField's position value
     $form->getWidgetSchema()->setPositions($fieldsPositions);
 
     return $form;
-
   }
 
   public function addDestinataireField($form, $request, $widgetOptions, $validatorOptions, $field){
