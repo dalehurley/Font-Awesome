@@ -25,7 +25,7 @@ class dmFrontHtmlSitemap
   {
     $html = $this->helper->link($page);
     
-    if (count($children = $page->get('__children')))
+    if (count($children = $page->get('__children')) )
     {
       $html .= '<ul>'."\n";
       
@@ -51,7 +51,9 @@ class dmFrontHtmlSitemap
     ->withI18n($this->culture)
     ->where('pTranslation.is_active = ?', true)
     ->andWhere('pTranslation.is_secure = ?', false)
-    ->andWhere('p.module != ? OR ( p.action != ? AND p.action != ? AND p.action != ?)', array('main', 'error404', 'search', 'signin'))
+//    ->andWhere('pTranslation.is_visible_bread_crumb = ?', true)        
+    ->andWhere('(p.module NOT IN ?) OR ( p.action NOT IN ?)', array($arrayKeys, $arrayValues))
+//    ->andWhere('p.module != ? OR ( p.action != ? AND p.action != ? AND p.action != ?)', array('main', 'error404', 'search', 'signin'))
     ->orderBy('p.lft');
   }
   
