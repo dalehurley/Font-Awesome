@@ -49,8 +49,8 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'sidWidgetSocialNetworkPlugin',
             'lioshiPlugin',
             'sidExtraWidgetsPlugin',
-           'sidContactPlugin' ,
-//            'sidWidgetAddedPagesPlugin'
+//            'sidContactPlugin' ,
+            'sidWidgetAddedPagesPlugin'
         ));
     }
 
