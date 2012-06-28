@@ -377,12 +377,20 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             $childs = array();
             $manualPages = array();
             foreach ($pageChildren as $i => $childPage) {
-                if ($childPage->getIsAutomatic()){
+                if ($childPage->getIsAutomatic()) {
                     // too bad : not use cache object
                     // $childPos = $childPage->getDmModule()->getTable()->createQuery('m')->where('m.id = ? ', $childPage->get('record_id'))->execute();
                     // $childs[$childPos[0]->position] = $childPage;
-                    $childPos = $childPage->getRecord()->position;
-                    $childs[$childPos] = $childPage;
+                    // test pour savoir si la table est "nestedSet" ou pas afin de déterminer la colonne à utiliser pour l'ordre d'affichage
+                    if ($childPage->getRecord()->getTable()->isNestedSet() == false) {
+                        // si pas nestedSet
+                        $childPos = $childPage->getRecord()->position;
+                        $childs[$childPos] = $childPage;
+                    } else {
+                        // si nestedSet
+                        $childPos = $childPage->getRecord()->lft;
+                        $childs[$childPos] = $childPage;
+                    }
                 } else {
                     // si ce n'est pas une page automatique, on la met dans un autre tableau
                    $manualPages[] = $childPage;
