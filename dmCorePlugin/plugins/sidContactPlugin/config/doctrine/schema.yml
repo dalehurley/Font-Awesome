@@ -1,8 +1,14 @@
-SidContactForm:  
+SidContactForm:
   actAs:
-    Timestampable:
-  columns:  
-    name:              { type: string(255), notnull: true }
+    DmSortable:
+    I18n:
+      fields: [ name, description ]
+      actAs:
+        DmVersionable:
+        Timestampable:
+  columns:
+    name: { type: string(255), notnull: true }
+    description: { type: clob, extra: ckeditor, notnull: false }
 
 SidContactField:  
   actAs:
@@ -16,11 +22,11 @@ SidContactField:
   columns: 
     name:              { type: string(255), notnull: true }
     widget_type:        { type: string(255), notnull: true }
-    widget_options:     { type: text, notnull: false }
-    widget_attributes:  { type: text, notnull: false }
+    widget_options:     { type: string(10000), notnull: false }
+    widget_attributes:  { type: string(10000), notnull: false }
     validator_type:     { type: string(255), notnull: true }
-    validator_options:  { type: text, notnull: false }
-    validator_messages: { type: text, notnull: false }
+    validator_options:  { type: string(10000), notnull: false }
+    validator_messages: { type: string(10000), notnull: false }
     help:               { type: clob, extra: ckeditor, notnull: false }
     form_id:            { type: integer, notnull: true }
     is_active:          { type: boolean, notnull: true, default: true }
