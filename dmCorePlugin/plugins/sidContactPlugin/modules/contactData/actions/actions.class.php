@@ -87,51 +87,58 @@ class contactDataActions extends myFrontModuleActions
       )));
     }
 
+    // analyse et traitement des validateurs du formulaire
     $form->bind($data, $request->getFiles($form->getName()));
-    if ($form->isValid())
-    {
-      // on supprimer les champs ajoutés dynamiquement pour les concaténer dans un json qui ira dans le champ "infos"
+
+    if ($form->isValid()){
+      self::recordForm($form, $data, $fields, $request);
+    }
+  }
+
+  public function recordForm($form, $data, $fields, $request){
+      // on supprime les champs ajoutés dynamiquement pour les concaténer dans un json qui ira dans le champ "infos"
       $infos = array();
+      
       foreach ($fields as $field) {
-        $addField = true;
         $infos[dmString::slugify($field->name)] = $data[dmString::slugify($field->name)]; // le tableau "$infos" reçoit la valeur de chaque contactField
-        /*********** debut gestion du champ "destinataire"  **************/
+        
         // on ajoute l'adresse email plutot que l'id
         if (dmString::slugify($field->name) == 'destinataire'){  // si un champ se nomme "destinataire"
-          // y'a t-il des object equipes actif et avec une adresse email?
-          if (!self::hasCabinetEquipe()) {
-            $addField = false;
-          } else {
+          if (isset($data[dmString::slugify($field->name)])){
             $equipe = dmDb::table('SidCabinetEquipe')->findOneById($data[dmString::slugify($field->name)]); // on récupère l'objet equipe correspondant
             $infos[dmString::slugify($field->name)] = $equipe->email;  // on stocke dans infos l'email plutot que l'id de l'objet equipe
           }
         }
-        /*********** fin gestion du champ "destinataire"  **************/
-        if ($addField){
-          // on supprime le field de data et du formulaire, ne restera que infos dans le formulaire
-          unset($data[dmString::slugify($field->name)]);
-          unset($form[dmString::slugify($field->name)]);
-        }
+
+        // on supprime le field de data et du formulaire, ne restera que infos dans le formulaire
+        unset($data[dmString::slugify($field->name)]);
+        unset($form[dmString::slugify($field->name)]);
       }
+
       // on supprime le captcha qui est déjà validé
       unset($data['captcha']);
       unset($form['captcha']);
+
       // ajout du champ "infos" dans les données à mettre dans le form
       $data['infos'] = json_encode($infos);
+
       // réintégration du champ infos avant le bind
       $form->setWidget('infos', new sfWidgetFormTextarea());
       $form->setValidator('infos', new sfValidatorString());
+      
       // on refait un bind pour :
       // - mettre infos 
       // - supprimer les champs additionnels
       $form->bind($data, $request->getFiles($form->getName()));
       $form->save();
+
+      // on previent le template que c'est ok par un flash
       $this->getUser()->setFlash('sid_contact_form_valid', true);
+      // on crée l'event qui sera tracké dans dmFrontApplicationConfiguration
       $this->getService('dispatcher')->notify(new sfEvent($this, 'sid_contact_data.saved', array(
         'contact_data' => $form->getObject()
       )));
       $this->redirectBack();
-    }
   }
 
   public function addContactFields($form, $fields, $request){
