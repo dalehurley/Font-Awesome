@@ -40,7 +40,7 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
   public function listenToContactSavedEvent(sfEvent $e)
   {
     $contact = $e['contact'];
-    dm::enableMailer(); // car  enable_mailer:false dans config.yml (pour des raisons de performance)
+    //dm::enableMailer(); // car  enable_mailer:false dans config.yml (pour des raisons de performance)
     // do something with the freshly saved $contact
     $message = '';
     $message .= "Contact ".$contact->id."
@@ -70,7 +70,7 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
   {
     $contact = $e['contact_data'];
 
-    dm::enableMailer(); // car  enable_mailer:false dans config.yml (pour des raisons de performance)
+    //dm::enableMailer(); // car  enable_mailer:false dans config.yml (pour des raisons de performance)
     // do something with the freshly saved $contact
     $message = '';
     $infos = json_decode($contact->infos, true);
@@ -92,9 +92,9 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
       $destEmail = dmConfig::get('site_email'); // sinon on envoie au site_email
     }
 
-    if (sfConfig::get('sf_environment') == 'prod') {
+    //if (sfConfig::get('sf_environment') == 'prod') {
       sfContext::getInstance()->getMailer()->composeAndSend(array(dmConfig::get('site_email_sender') => dmConfig::get('site_name')),$destEmail, dmConfig::get('site_name').' - Contact', $message);
-    }
+    //}
 
   }
 
