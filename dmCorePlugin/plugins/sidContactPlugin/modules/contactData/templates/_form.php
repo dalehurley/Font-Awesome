@@ -1,6 +1,6 @@
 <?php // Vars: $form
 
-if ($form->count() > 1 ){   // if 1 its only the submit button
+if (!$error){   // if 1 its only the submit button
 
     echo _tag('h2.title',$name);
     echo $description;
@@ -37,11 +37,7 @@ if ($form->count() > 1 ){   // if 1 its only the submit button
 
 } else {
 	echo debugTools::infoDebug(
-        array(
-            '1 - Possible error: ' => 'No contactForm is selected',
-            '2 - Possible error: ' => 'No fields in this contactForm',
-            '3 - Possible error: ' => 'Multiple contact widget in this page'        
-        )
+        $error
     , 'warning');
 }
 

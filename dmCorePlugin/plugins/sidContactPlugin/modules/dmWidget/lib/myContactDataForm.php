@@ -11,15 +11,20 @@ class myContactDataForm extends dmWidgetProjectForm
     parent::configure();
 
     $this->widgetSchema['contactForm']  = new sfWidgetFormDoctrineChoice(
-    	array(	'multiple' => false, 
-    			'model' => 'sidContactForm'
-    			));
+    	array(	  
+        'multiple' => false, 
+    		'model' => 'sidContactForm',
+        'add_empty' => ''
+    	)
+    );
 
     $this->validatorSchema['contactForm'] = new sfValidatorDoctrineChoice(
-    	array(	'multiple' => true, 
-    			'model' => 'sidContactForm', 
-    			'required' => false
-    			));
+    	array(	
+        'multiple' => true, 
+    		'model' => 'sidContactForm', 
+    		'required' => false
+    	)
+    );
 
   }
 }
