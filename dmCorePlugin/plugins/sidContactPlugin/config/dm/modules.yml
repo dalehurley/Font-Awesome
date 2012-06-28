@@ -21,7 +21,7 @@
       model: SidContactData
       page: false
       name: Contact|Contacts
-      credentials: contact_me  # meme credential que le dmContactPlugin
+      credentials: contact_me  
       components:
         form:  { name: "Formulaire de contact", form_class: myContactDataForm }   # form_class is used to replace dmWidgetFormForm class, file sidContactPlugin/modules/dmWidget/myContactDataForm.php might exists
 

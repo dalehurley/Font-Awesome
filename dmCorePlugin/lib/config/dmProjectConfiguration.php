@@ -49,7 +49,7 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'sidWidgetSocialNetworkPlugin',
             'lioshiPlugin',
             'sidExtraWidgetsPlugin',
-           'sidContactPlugin' ,
+            'sidContactPlugin' ,
 //            'sidWidgetAddedPagesPlugin'
         ));
     }
