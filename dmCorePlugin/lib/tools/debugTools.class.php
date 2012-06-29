@@ -12,18 +12,19 @@ class debugTools {
      *
      */
     public static function infoDebug($infos, $type = 'debug') {
+
+        sfContext::getInstance()->getResponse()->addStylesheet('/dmCorePlugin/lib/symfony/debug.css');
         $return = '';
-        if (sfConfig::get('sf_environment') == 'dev' || sfConfig::get('sf_environment') == 'less') {
+        if (sfConfig::get('sf_environment') == 'dev' || sfConfig::get('sf_environment') == 'less' || sfContext::getInstance()->getUser()->isSuperAdmin()) {
             $listInfos = "";
             
             foreach ($infos as $label => $info) {
                 $listInfos.= _tag('span.info', $label) . ' ' . _tag('span.value', $info) . "<br>";
             }
-        }
-        $return.= _tag('div.' . $type, array(
-            'onClick' => '$(this).hide();'
-        ) , $listInfos);
-        
+            $return.= _tag('div.' . $type, array(
+                'onClick' => '$(this).hide();'
+            ) , $listInfos);
+        }        
         return $return;
     }
 }
