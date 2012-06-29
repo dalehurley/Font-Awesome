@@ -96,6 +96,9 @@ body { background-color: @bodyBgColor; }
 	background-repeat: no-repeat;
 	background-position: 50% bottom;
 
+	//ajout ombage sous le header
+	@dropShadowPie(0; @headerShadowBlur; @headerShadowBlur; 0; @headerShadowColor; @headerShadowPieColor);
+
 	.dm_zones {
 		position: relative;
 		@gridSiteWidth();

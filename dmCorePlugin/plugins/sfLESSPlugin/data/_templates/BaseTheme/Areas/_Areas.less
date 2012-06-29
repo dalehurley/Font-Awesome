@@ -41,7 +41,9 @@ body { background-color: @bodyBgColor; }
 #dm_header {
 	background-color: @headerBgColor;
 	@verticalGradient(@headerBgColorClair; @headerBgColorFonce);
-	@dropShadowPie(0; @gridBaseline/4; @gridBaseline/4; 0; fadeout(@colorBlack, 50%); @colorBlack);
+
+	//ajout ombage sous le header
+	@dropShadowPie(0; @headerShadowBlur; @headerShadowBlur; 0; @headerShadowColor; @headerShadowPieColor);
 	
 	//bordure ici pour prendre toute la largeur du site
 	border-bottom: 1px solid @colorCouleur1Clair;

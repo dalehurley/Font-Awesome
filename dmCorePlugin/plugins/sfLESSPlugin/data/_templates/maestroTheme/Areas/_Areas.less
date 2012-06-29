@@ -48,6 +48,9 @@ body { background-color: @bodyBgColor; }
 //stylage du header
 #dm_header {
 	background-color: @headerBgColor;
+
+	//ajout ombage sous le header
+	@dropShadowPie(0; @headerShadowBlur; @headerShadowBlur; 0; @headerShadowColor; @headerShadowPieColor);
 	
 	.dm_zones {
 		position: relative;
