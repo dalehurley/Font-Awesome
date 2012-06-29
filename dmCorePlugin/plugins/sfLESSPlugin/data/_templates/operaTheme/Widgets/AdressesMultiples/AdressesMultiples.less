@@ -1,6 +1,6 @@
 // AdressesMultiples.less
-// v1.4
-// Last Updated : 2012-06-29 11:50
+// v1.4.1
+// Last Updated : 2012-06-29 14:35
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -78,9 +78,7 @@
 	.itemprop:before, .subWrapper:before {
 		display: inline;
 		color: @colorCouleur3;
-		content: "-";
-		padding-left: @offS;
-		padding-right: @offS;
+		content: " - ";
 		font-weight: normal;
 		//pour forcer la coupure au niveau du tiret si nécessaire
 		white-space: normal;
@@ -93,10 +91,7 @@
 	}
 
 	//suppression coupure du mot à l'intérieur des itemprops
-	.subWrapper, .itemprop.email, .itemprop.telephone, .itemprop.cellphone, .itemprop.faxNumber {
-		white-space: normal;
-		.type, .separator, .value { white-space: nowrap; }
-	}
+	.subWrapper, .itemprop.email, .itemprop.telephone, .itemprop.cellphone, .itemprop.faxNumber { white-space: nowrap; }
 
 	.itemprop {
 		//on rajoute juste une marge à droite pour les navigateurs ne gérant pas les pseudo éléments
