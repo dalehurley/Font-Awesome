@@ -27,8 +27,12 @@ body { background-color: @bodyBgColor; }
 	@verticalGradient(@bodyGradientColor1; @bodyGradientColor2);
 }
 
-//couleur de la zone située sous le header jusqu'en bas
-#dm_main_inner { background-color: @mainBgColor; }
+#dm_main_inner {
+	//couleur de la zone située sous le header jusqu'en bas
+	background-color: @mainBgColor;
+	//ombrage de la zone centrale
+	@dropShadowPie(0; 0; @mainShadowBlur; 0; @mainShadowColor; @mainShadowPieColor);
+}
 
 //couleur de la zone de contenu
 #dm_page_content { background-color: @contentBgColor; }
