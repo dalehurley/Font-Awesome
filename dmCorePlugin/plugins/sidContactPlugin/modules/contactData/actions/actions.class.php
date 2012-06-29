@@ -176,8 +176,8 @@ class contactDataActions extends myFrontModuleActions
           $destEmail, 
           dmConfig::get('site_name').' - Contact', $message
         );
-      $swiftSend = ($result)? 'swiftSend ok' : 'swiftSend no';
-      sfContext::getInstance()->getUser()->setFlash('mail', 'ok -> '.$swiftSend);
+      $swiftSend = ($result)? 'send ok' : 'send no';
+      sfContext::getInstance()->getUser()->setFlash('mail', 'connect ok -> '.$swiftSend);
     }
     catch (Exception $e) {
       $exceptionMessage = 'Error '.$e->getMessage().'<br/>Code: '.$e->getCode().'<br/>File: '.$e->getFile().':'.$e->getLine();
