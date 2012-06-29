@@ -13,9 +13,8 @@ $sendMailStatut = (sfContext::getInstance()->getUser()->getFlash('mail'))? sfCon
 $typeDebug = 'debug';
 if ($sendMailStatut == 'error'){
     $typeDebug = 'warning';
-    $sendMailStatut .= '['.sfContext::getInstance()->getUser()->getFlash('mail_exception').']';
+    $sendMailStatut .= '<br/>'.sfContext::getInstance()->getUser()->getFlash('mail_exception');
 }
-
 
 echo debugTools::infoDebug(array(
     'Delivery Strategy : ' => sfContext::getInstance()->getMailer()->getDeliveryStrategy(),

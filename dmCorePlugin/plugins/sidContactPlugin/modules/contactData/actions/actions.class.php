@@ -134,19 +134,59 @@ class contactDataActions extends myFrontModuleActions
 
       // on previent le template que c'est ok par un flash
       $this->getUser()->setFlash('sid_contact_form_valid', true);
-      // on crée l'event qui sera tracké dans dmFrontApplicationConfiguration
-      $this->getService('dispatcher')->notify(new sfEvent($this, 'sid_contact_data.saved', array(
-        'contact_data' => $form->getObject()
-      )));
-      // dans dmFrontApplicationConfiguration il faut ajouter:
-      //  // envoi d'email quand un dmContact est envoyé
-          // public function configure()
-          // {
-          //   $this->dispatcher->connect('sid_contact_data.saved', array('sidContactEnvent', 'listenToSidContactDataSavedEvent'));
-          // }
+      
+      // on crée l'event qui sera tracké dans dmFrontApplicationConfiguration !!! Ne fonction pas sur le serveur de production!!!!
+      // $this->getService('dispatcher')->notify(new sfEvent($this, 'sid_contact_data.saved', array(
+      //   'contact_data' => $form->getObject()
+      // )));
+      self::sendEmail($form->getObject());
 
       $this->redirectBack();
   }
+
+
+  public function sendEmail($contact)
+  {
+    // do something with the freshly saved $contact
+    $message = '';
+    $infos = json_decode($contact->infos, true);
+    
+    // calcul de la plus longue $key
+    $keysArray = array_keys($infos);
+    $lengthsKeysArray = array_map('strlen', $keysArray);
+    $longuestKey = max($lengthsKeysArray);
+    // ajout d'espace après le libellé du champ pour aligner les ":"
+    foreach ($infos as $key => $value) {
+      $message .= $key.str_repeat(' ', $longuestKey - strlen($key))." :".$value."
+";
+    }
+
+    // si le champ "destinataire" est présent dans le contact alors 
+    if (isset($infos['destinataire']) && $infos['destinataire'] != '') {
+      $destEmail = $infos['destinataire'];  // on l'envoie au destinataire choisi dan sle formulaire de contact
+    } else {
+      $destEmail = dmConfig::get('site_email'); // sinon on envoie au site_email
+    }
+
+    dm::enableMailer();
+    try {
+      sfContext::getInstance()->getMailer()->composeAndSend(
+        array(
+          dmConfig::get('site_email_sender') => dmConfig::get('site_name')),
+          $destEmail, 
+          dmConfig::get('site_name').' - Contact', $message
+        );
+      sfContext::getInstance()->getUser()->setFlash('mail', 'ok');
+    }
+    catch (Exception $e) {
+      $exceptionMessage = 'Error '.$e->getMessage().'<br/>Code: '.$e->getCode().'<br/>File: '.$e->getFile().':'.$e->getLine();
+      sfContext::getInstance()->getUser()->setFlash('mail', 'error');
+      sfContext::getInstance()->getUser()->setFlash('mail_exception', $exceptionMessage);
+    }
+  }
+
+
+
 
   public function addContactFields($form, $fields, $request){
 
