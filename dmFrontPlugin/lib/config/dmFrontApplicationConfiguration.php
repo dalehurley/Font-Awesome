@@ -34,37 +34,12 @@ abstract class dmFrontApplicationConfiguration extends dmApplicationConfiguratio
   public function configure()
   {
     //$this->dispatcher->connect('dm_contact.saved', array($this, 'listenToContactSavedEvent'));
-    $this->dispatcher->connect('sid_contact_data.saved', array('sidContactEnvent', 'listenToSidContactDataSavedEvent'));
+
   }
 
+  public function listenToContactSavedEvent(sfEvent $e)
+  {
 
-//   public function listenToContactSavedEvent(sfEvent $e)
-//   {
-//     $contact = $e['contact'];
-//     //dm::enableMailer(); // car  enable_mailer:false dans config.yml (pour des raisons de performance)
-//     // do something with the freshly saved $contact
-//     $message = '';
-//     $message .= "Contact ".$contact->id."
-// ";
-//     $message .= $contact->title.' '.$contact->name.' '.$contact->firstname."
-// ";
-//     $message .= $contact->adresse.' '.$contact->postalcode.' '.$contact->ville.' '."
-// ";
-//     $message .= $contact->email."
-// ";
-//     $message .= "Téléphone: ".$contact->phone."
-// ";
-//     $message .= "Fax: ".$contact->fax."
-// ";
-//     $message .= "Fonction: ".$contact->function."
-// ";
-//     $message .= "Message: ".$contact->body."
-// ";
-    
-//     if (sfConfig::get('sf_environment') == 'prod') {
-//       sfContext::getInstance()->getMailer()->composeAndSend(array(dmConfig::get('site_email_sender') => dmConfig::get('site_name')),dmConfig::get('site_email'), dmConfig::get('site_name').' - Contact', $message);
-//     }
-    
-//   }  
+  }  
 
 }
