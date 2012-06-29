@@ -9,7 +9,15 @@
 //##################################
 //####### GESTION DE LA PAGE #######
 //##################################
+//couleur de fond des zones principales
 @mainBgColor: @colorWhite;
+
+//couleur de l'ombrage de la zone principale
+//couleur Pie utilisée sous IE et ne devant pas être transparente
+@mainShadowColor: fadeout(@colorBlack, 50%);
+@mainShadowPieColor: @colorBlack;
+//largeur de l'ombre
+@mainShadowBlur: @gridGutter*4;
 //##################################
 //##################################
 
