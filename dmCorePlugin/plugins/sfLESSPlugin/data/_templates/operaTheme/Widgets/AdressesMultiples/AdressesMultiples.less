@@ -1,6 +1,6 @@
 // AdressesMultiples.less
-// v1.3
-// Last Updated : 2012-03-05 11:25
+// v1.4
+// Last Updated : 2012-06-29 11:50
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -39,6 +39,9 @@
 			.isLess & { background-color: fadeout(#AD88BA, 25%); }
 			padding: 0;
 			border: 0;
+
+			// white-space: nowrap;
+			// word-break: break-all;
 			
 			//changement taille de police (avec override du titre de l'adresse )
 			&, .name {
@@ -51,11 +54,17 @@
 				display: inline;
 				vertical-align: top;
 			}
+
+			//couleurs de débugs pour les itemprops de premiers niveaux
+			.isLess & > * {
+				&:nth-of-type(odd) { background-color: #EBBEBE; }
+				&:nth-of-type(even) { background-color: #EBDDBE; }
+			}
 		}
 	}
 
 	//suppression sprites par défaut
-	&, .email, .faxNumber, .telephone, .cellphone {
+	&, .email, .telephone, .cellphone, .faxNumber {
 		.type {
 			//suppression sprites par défaut
 			@spriteDelete();
@@ -64,35 +73,42 @@
 			margin: inherit;
 		}
 	}
+
+	//ajout des tirets en pseudo élément
+	.itemprop:before, .subWrapper:before {
+		display: inline;
+		color: @colorCouleur3;
+		content: "-";
+		padding-left: @offS;
+		padding-right: @offS;
+		font-weight: normal;
+		//pour forcer la coupure au niveau du tiret si nécessaire
+		white-space: normal;
+	}
 	
-	//masquage de tous les itemprops type et separator sauf pour l'email
+	//masquage des tirets en trop
+	.itemprop.name,
+	.subWrapper .itemprop {
+		&:before { display: none; visibility: hidden; }
+	}
+
+	//suppression coupure du mot à l'intérieur des itemprops
+	.subWrapper, .itemprop.email, .itemprop.telephone, .itemprop.cellphone, .itemprop.faxNumber {
+		white-space: normal;
+		.type, .separator, .value { white-space: nowrap; }
+	}
 
 	.itemprop {
-		.isLess & { background-color: #EBBEBE; }
-
 		//on rajoute juste une marge à droite pour les navigateurs ne gérant pas les pseudo éléments
 		.no-generatedcontent & { margin-right: @offS; }
 
-		//ajout des tirets en pseudo élément
-		&:before {
-			display: inline;
-			color: @colorCouleur3;
-			content: "-";
-			padding-left: @offS;
-			padding-right: @offS;
-			font-weight: normal;
-		}
-		//suppression sur le premier élément (cad le titre)
+		//mise en couleur du nom
 		&.name { color: @colorCouleur3; }
 
-		//masquage des tirets en trop
-		&.name, &.addressLocality {
-			&:before { display: none; visibility: hidden; }
-		}
-
+		//suppression des labels et des séparators par défaut
 		.type, .separator { display: none; visibility: hidden; margin: 0; }
 
-		&.telephone, &.cellphone, &.fax, &.email {
+		&.email, &.telephone, &.cellphone, &.faxNumber {
 			.type, .separator { display: inline; visibility: visible; }
 		}
 	}
