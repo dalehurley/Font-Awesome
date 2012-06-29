@@ -33,7 +33,7 @@
 //exemple: @mainShadowColor: fadeout(@colorBlack, 75%); @mainShadowPieColor: @colorBlack;
 @mainShadowColor: transparent;
 @mainShadowPieColor: transparent;
-//largeur de l'ombre
+//épaisseur de l'ombre
 @mainShadowBlur: @gridGutter;
 
 //dégradé général de la page (utilisé dans Copilotes)
@@ -61,6 +61,14 @@
 @headerBgColorClair: @colorCouleur3;
 @headerBgColorFonce: @colorCouleur3Fonce;
 @headerTextColor: @colorCouleur3ClairSup;
+
+//couleur de l'ombrage sous le header
+//couleur Pie utilisée sous IE et ne devant pas être transparente
+//exemple: @mainShadowColor: fadeout(@colorBlack, 75%); @mainShadowPieColor: @colorBlack;
+@headerShadowColor: transparent;
+@headerShadowPieColor: transparent;
+//épaisseur de l'ombre
+@headerShadowBlur: @gridBaseline/4;
 //##################################
 //##################################
 
