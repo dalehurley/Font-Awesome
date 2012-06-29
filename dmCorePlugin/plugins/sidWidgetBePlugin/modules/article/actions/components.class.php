@@ -25,7 +25,7 @@ class articleComponents extends myFrontModuleComponents
     };
     
     // construction du header pour envoyer DIRECTEMENT sur la page si il n'y a q'un article
-    $articlePager = $this->getPager($query);
+    //$articlePager = $this->getPager($query);
     if(count($articlePager) == 1){
         foreach($articlePager as $article){
             $page = dmDb::table('DmPage')->findOneByModuleAndActionAndRecordId('article','show', $article->id );

@@ -69,6 +69,7 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
                 foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
                     $arrayArticle[$actuArticle->id] = $actuArticle;
                 }
+                
                 $constanteActuCabinet = '{{actualites_du_cabinet}}';
         }
         $vars['titreBloc'] = ($vars['titreBloc'] == NULL || $vars['titreBloc'] == ' ') ? $dmPage->getName() : $vars['titreBloc'];
@@ -110,7 +111,7 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
                     'withImage' => $vars['withImage'],
                     'chapo' => $vars['chapo'],
                     'redirect' => $redirect,
-                    'constanteActuCabinet' => $constanteActuCabinet
+                    'constanteActuCabinet' => $constanteActuCabinet,
                 ));
         }
     }
