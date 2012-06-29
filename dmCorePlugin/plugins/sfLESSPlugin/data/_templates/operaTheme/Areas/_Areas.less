@@ -48,7 +48,7 @@ body { background-color: @bodyBgColor; }
 		margin-right: auto;
 		margin-bottom: (@gridBaseline * -30);
 		//ombre répétée dans NavigationMenu sur le dm_widget_inner
-		@dropShadowPie(0; 0; @gridGutter*4; 0; fadeout(@colorBlack, 50%); @colorBlack);
+		@dropShadowPie(0; 0; @mainShadowBlur; 0; @mainShadowColor; @mainShadowPieColor);
 	}
 }
 
