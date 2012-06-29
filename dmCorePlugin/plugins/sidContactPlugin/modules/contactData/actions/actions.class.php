@@ -170,13 +170,14 @@ class contactDataActions extends myFrontModuleActions
 
     dm::enableMailer();
     try {
-      sfContext::getInstance()->getMailer()->composeAndSend(
+      $result = sfContext::getInstance()->getMailer()->composeAndSend(
         array(
           dmConfig::get('site_email_sender') => dmConfig::get('site_name')),
           $destEmail, 
           dmConfig::get('site_name').' - Contact', $message
         );
-      sfContext::getInstance()->getUser()->setFlash('mail', 'ok');
+      $swiftSend = ($result)? 'swiftSend ok' : 'swiftSend no';
+      sfContext::getInstance()->getUser()->setFlash('mail', 'ok -> '.$swiftSend);
     }
     catch (Exception $e) {
       $exceptionMessage = 'Error '.$e->getMessage().'<br/>Code: '.$e->getCode().'<br/>File: '.$e->getFile().':'.$e->getLine();
