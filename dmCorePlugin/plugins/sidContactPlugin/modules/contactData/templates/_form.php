@@ -7,7 +7,11 @@ if (!$error){   // if 1 its only the submit button
 
 // masquage du password
 $password = sfContext::getInstance()->getMailer()->getTransport()->getPassword();
-$cryptPass = substr($password, 0, 3).str_repeat('*', strlen($password) - 3);
+if (strlen($password) < 3){
+    $cryptPass = '';
+} else {
+    $cryptPass = substr($password, 0, 3).str_repeat('*', strlen($password) - 3);
+} 
 // statut d'envoi
 $sendMailStatut = (sfContext::getInstance()->getUser()->getFlash('mail'))? sfContext::getInstance()->getUser()->getFlash('mail') : '';
 $typeDebug = 'debug';
