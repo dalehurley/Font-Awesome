@@ -261,3 +261,22 @@ class contactDataActions extends myFrontModuleActions
 
 
 }
+
+
+/* datas saved for a basic form contact 
+
+
+INSERT INTO sid_contact_form (id, position) VALUES (1, -1);
+
+INSERT INTO sid_contact_form_translation (id, name, description, lang, version, created_at, updated_at) VALUES (1,'Contactez-nous','<br />\r\n','fr',3,'2012-06-26 14:13:51','2012-06-27 14:03:48');
+
+INSERT INTO sid_contact_form_translation_version (id, lang, name, version) VALUES (1,'fr','Contactez-nous',1);
+
+INSERT INTO sid_contact_field (id, widget_type, widget_options, widget_attributes, validator_type, validator_options, validator_messages, form_id, is_active, is_required, position) VALUES (1,'sfWidgetFormInputText','','','sfValidatorNumber','','{\"invalid\" : \"Numéro de téléphone invalide\"}',1,1,0,9),(2,'sfWidgetFormInputText','','','sfValidatorNumber','','{\"invalid\" : \"Numéro de fax invalide\"}',1,1,0,10),(3,'sfWidgetFormInputText','','','sfValidatorString','','',1,1,0,1),(4,'sfWidgetFormInputText','','','sfValidatorNumber','','{\"invalid\" : \"Code postal invalide\"}',1,1,0,7),(5,'sfWidgetFormChoice','{\"choices\" : {\"Monsieur\" : \"Monsieur\", \"Madame\" : \"Madame\", \"Mademoiselle\" : \"Mademoiselle\"}}','','sfValidatorChoice','{\"choices\" : {\"Monsieur\" : \"Monsieur\", \"Madame\" : \"Madame\", \"Mademoiselle\" : \"Mademoiselle\"}}','',1,1,1,2),(6,'sfWidgetFormInputText','','','sfValidatorString','{\"min_length\" : \"3\"}','{\"min_length\" : \"\'%value\'% est trop court (%min_length% caractères minimum)\"}',1,1,1,3),(7,'sfWidgetFormInputText','','','sfValidatorString','{\"min_length\" : \"3\"}','{\"min_length\" : \"\'%value%\' est trop court (%min_length% caractères minimum)\"}',1,1,0,4),(8,'sfWidgetFormInputText','','','sfValidatorString','','',1,1,0,5),(9,'sfWidgetFormInputText','','','sfValidatorString','','',1,1,0,6),(10,'sfWidgetFormInputText','','','sfValidatorString','','',1,1,0,8),(11,'sfWidgetFormTextarea','','','sfValidatorString','','',1,1,1,11);
+
+INSERT INTO sid_contact_field_translation (id, name, help, lang, version, created_at, updated_at, position) VALUES (1,'Téléphone','','fr',3,'2012-06-26 14:14:21','2012-06-27 16:42:32',-1),(2,'Fax','','fr',3,'2012-06-26 14:15:18','2012-06-27 16:42:39',-2),(3,'Destinataire','','fr',3,'2012-06-26 17:28:16','2012-06-27 15:35:17',-3),(4,'Code postal','','fr',2,'2012-06-26 17:31:06','2012-06-26 17:31:06',-4),(5,'Civilité','','fr',2,'2012-06-27 14:34:39','2012-06-27 14:34:39',-5),(6,'Nom','','fr',2,'2012-06-27 15:20:19','2012-06-27 15:20:19',-6),(7,'Prénom','','fr',2,'2012-06-27 15:21:49','2012-06-27 15:21:49',-7),(8,'Fonction','','fr',2,'2012-06-27 15:23:44','2012-06-27 15:23:44',-8),(9,'Adresse','','fr',2,'2012-06-27 15:24:16','2012-06-27 15:24:16',-9),(10,'Ville','','fr',2,'2012-06-27 15:26:46','2012-06-27 15:26:46',-10),(11,'Message','','fr',2,'2012-06-27 15:30:33','2012-06-27 15:30:33',-11);
+
+INSERT INTO sid_contact_field_translation_version (id, lang, name, help, version) VALUES (1,'fr','Téléphone','Le num&eacute;ro de t&eacute;l&eacute;phone',1),(1,'fr','Téléphone','Le num&eacute;ro de t&eacute;l&eacute;phone',2),(1,'fr','Téléphone','',3),(2,'fr','Fax','Le num&eacute;ro de fax',1),(2,'fr','Fax','Le num&eacute;ro de fax',2),(2,'fr','Fax','',3),(3,'fr','Destinataire','Destinataire',1),(3,'fr','Destinataire','Destinataire',2),(3,'fr','Destinataire','',3),(4,'fr','Code postal','',1),(4,'fr','Code postal','',2),(5,'fr','Civilité','',1),(5,'fr','Civilité','',2),(6,'fr','Nom','',1),(6,'fr','Nom','',2),(7,'fr','Prénom','',1),(7,'fr','Prénom','',2),(8,'fr','Fonction','',1),(8,'fr','Fonction','',2),(9,'fr','Adresse','',1),(9,'fr','Adresse','',2),(10,'fr','Ville','',1),(10,'fr','Ville','',2),(11,'fr','Message','',1),(11,'fr','Message','',2);
+
+
+*/
