@@ -138,6 +138,13 @@ class contactDataActions extends myFrontModuleActions
       $this->getService('dispatcher')->notify(new sfEvent($this, 'sid_contact_data.saved', array(
         'contact_data' => $form->getObject()
       )));
+      // dans dmFrontApplicationConfiguration il faut ajouter:
+      //  // envoi d'email quand un dmContact est envoyé
+          // public function configure()
+          // {
+          //   $this->dispatcher->connect('sid_contact_data.saved', array('sidContactEnvent', 'listenToSidContactDataSavedEvent'));
+          // }
+
       $this->redirectBack();
   }
 
@@ -280,3 +287,4 @@ INSERT INTO sid_contact_field_translation_version (id, lang, name, help, version
 
 
 */
+
