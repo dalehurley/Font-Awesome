@@ -48,16 +48,23 @@ body { background-color: @bodyBgColor; }
 //stylage du header
 #dm_header {
 	background-color: @headerBgColor;
+	@verticalGradient(@headerBgColorClair; @headerBgColorFonce);
 
 	//ajout ombage sous le header
 	@dropShadowPie(0; @headerShadowBlur; @headerShadowBlur; 0; @headerShadowColor; @headerShadowPieColor);
-	
+
 	.dm_zones {
+		//gestion du fond
+		background-color: @headerCenterBgColor;
+		@verticalGradient(@headerCenterBgColorClair; @headerCenterBgColorFonce);
+
 		position: relative;
-		@gridSiteWidth();
+		//largeur du site avec les débordements pris en compte
+		@gridSiteWidth(@gridScreen; @gridCol; @gridPadding);
 		margin-left: auto;
 		margin-right: auto;
-		padding: @gridBaseline/2 0;
+		padding-top: @gridBaseline/2;
+		padding-bottom: @gridBaseline/2;
 	}
 }
 
