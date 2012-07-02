@@ -50,7 +50,7 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'lioshiPlugin',
             'sidExtraWidgetsPlugin',
             'sidContactPlugin' ,
-//            'sidWidgetAddedPagesPlugin'
+            'sidWidgetAddedPagesPlugin'
         ));
     }
 
@@ -102,7 +102,7 @@ class dmProjectConfiguration extends sfProjectConfiguration {
             'lioshiPlugin',
             'sidExtraWidgetsPlugin',
             'sidContactPlugin',
-//            'sidWidgetAddedPagesPlugin'
+            'sidWidgetAddedPagesPlugin'
         ) as $embeddedPlugin) {
             $this->setPluginPath($embeddedPlugin, $baseDir . '/dmCorePlugin/plugins/' . $embeddedPlugin);
         }
