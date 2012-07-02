@@ -10,9 +10,21 @@ class dmWidgetGoogleMapSmartGoogleMapForm extends dmWidgetPluginForm
       $this->widgetSchema['smartGoogleMap'] = new sfWidgetFormInputHidden(array(),array('value' => 'true'));
       $this->validatorSchema['smartGoogleMap'] = new sfValidatorBoolean(array('required' => false));
       
-      $this->widgetSchema['withResume'] = new sfWidgetFormInputCheckbox(array('default' => true));
+      $this->widgetSchema['withResume'] = new sfWidgetFormInputCheckbox(array('label' => 'Afficher le résumé de l\'implantation', 'default' => true));
       $this->validatorSchema['withResume'] = new sfValidatorBoolean(array('required' => false));
-      $this->widgetSchema['withResume']->setLabel('Afficher le résumé de l\'implantation');
+//      $this->widgetSchema['withResume']->setLabel('Afficher le résumé de l\'implantation');
+      
+      $this->widgetSchema['mapWidth'] = new sfWidgetFormInputText(array('label' => 'Largeur de la carte', 'default' => 0));
+      $this->validatorSchema['mapWidth'] = new sfValidatorInteger(array(
+                'required' => false,
+                ));
+      $this->widgetSchema->setHelp('mapWidth','Largeur de la carte : <br /> - Maestro : 494 <br /> - Tenor : 622 <br /> - Co-pilote : 650 <br /> - Opera : 686');
+      $this->widgetSchema->setHelp('mapHeight','Hauteur de la carte : <br /> - Maestro : 252 <br /> - Tenor : 324 <br /> - Co-pilote : 324 <br /> - Opera : 360');
+      
+      $this->widgetSchema['mapHeight'] = new sfWidgetFormInputText(array('label' => 'Hauteur de la carte', 'default' => 0));
+      $this->validatorSchema['mapHeight'] = new sfValidatorInteger(array(
+                'required' => false,
+                ));
   }
 
   public function getStylesheets()
