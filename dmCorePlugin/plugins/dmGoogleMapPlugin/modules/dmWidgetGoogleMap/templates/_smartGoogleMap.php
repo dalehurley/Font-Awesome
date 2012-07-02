@@ -1,6 +1,6 @@
 <?php
 
-//var = $adresses, $titreBloc, $smartGoogleMap, $length, withResume
+//var = $adresses, $titreBloc, $smartGoogleMap, $length, withResume, $mapWidth, $mapHeight
 $i = 1;
 $a = 1; // ancre
 $i_max = count($adresses);
@@ -47,13 +47,36 @@ if (count($adresses)) {
             //en attendant configuration dans les sites: on définit la largeur en fonction des templates
             //switch beaucoup plus rapide qu'un if/else
             //intégrer ces valeurs respectives pour chaque template dans la configuration par défaut de smartGoogleMap
-            switch (dmConfig::get('site_theme')) {
-                case 'BaseTheme': $mapWidth = 622; $mapHeight = 324; break;
-                case 'copilotesTheme': $mapWidth = 650; $mapHeight = 324; break;
-                case 'operaTheme': $mapWidth = 686; $mapHeight = 360; break;
-                case 'maestroTheme': $mapWidth = 494; $mapHeight = 252; break;
-                //largeur du plus petit par défaut
-                default: $mapWidth = 494; $mapHeight = 252; break;
+            if ($mapWidth == 0) {
+                switch (dmConfig::get('site_theme')) {
+                    case 'BaseTheme': $mapWidth = 622;
+                        break;
+                    case 'copilotesTheme': $mapWidth = 650;
+                        break;
+                    case 'operaTheme': $mapWidth = 686;
+                        break;
+                    case 'maestroTheme': $mapWidth = 494;
+                        break;
+                    //largeur du plus petit par défaut
+                    default: $mapWidth = 494;
+                        break;
+                }
+            }
+            
+            if ($mapHeight == 0) {
+                switch (dmConfig::get('site_theme')) {
+                    case 'BaseTheme': $mapHeight = 324;
+                        break;
+                    case 'copilotesTheme': $mapHeight = 324;
+                        break;
+                    case 'operaTheme': $mapHeight = 360;
+                        break;
+                    case 'maestroTheme': $mapHeight = 252;
+                        break;
+                    //largeur du plus petit par défaut
+                    default: $mapHeight = 252;
+                        break;
+                }
             }
             echo dm_get_widget('dmWidgetGoogleMap', 'show', json_decode('{"address":"'.$adresseCabinet.'","mapTypeId":"roadmap","zoom":"14","width":"' . $mapWidth . 'px","height":"' . $mapHeight . 'px","splash":"","titreBloc":"'.$adresse->getTitle().'","length":'.$length.',"widthImage":"","heightImage":"","withImage":false,"nbArticles":null,"lien":"","chapo":null,"navigationControl":true,"mapTypeControl":false,"scaleControl":false,"withResume":'.$withResume.',"smartGoogleMap":'.$smartGoogleMap.',"idCabinet":'.$adresse->id.'}',true));
             
