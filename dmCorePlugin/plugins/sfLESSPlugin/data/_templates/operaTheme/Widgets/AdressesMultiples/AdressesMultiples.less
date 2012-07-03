@@ -1,6 +1,6 @@
 // AdressesMultiples.less
-// v1.4.2
-// Last Updated : 2012-07-03 14:05
+// v1.4.5
+// Last Updated : 2012-07-03 15:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -8,8 +8,9 @@
 @import "_templates/operaTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
-@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
+@import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //AdressesMultiples
@@ -36,18 +37,29 @@
 		margin-right: auto;
 	}
 
-	&, .link { color: @colorCouleur3; }
+	&, .link { color: @bottomTextColor; }
 	.link { text-decoration: none; &:hover { text-decoration: underline; } }
 	
 	.elements {
 		.isLess & { background-color: fadeout(#9BD0D1, 25%); }
 		.element {
 			.isLess & { background-color: fadeout(#AD88BA, 25%); }
+
+			//couleurs de débugs pour les itemprops de premiers niveaux
+			.isLess & > * {
+				&:nth-of-type(odd) { background-color: #EBBEBE; }
+				&:nth-of-type(even) { background-color: #EBDDBE; }
+			}
+
+			//suppression transition
+			.csstransitions & {
+				@transitionNone();
+			}
+			&:hover { background-color: transparent; }
+
+			//suppression bordure et padding
 			padding: 0;
 			border: 0;
-
-			// white-space: nowrap;
-			// word-break: break-all;
 			
 			//changement taille de police (avec override du titre de l'adresse )
 			&, .name {
@@ -56,16 +68,7 @@
 			}
 
 			//mise en ligne de tous les éléments
-			.subWrapper, .itemscope, .itemprop {
-				display: inline;
-				vertical-align: top;
-			}
-
-			//couleurs de débugs pour les itemprops de premiers niveaux
-			.isLess & > * {
-				&:nth-of-type(odd) { background-color: #EBBEBE; }
-				&:nth-of-type(even) { background-color: #EBDDBE; }
-			}
+			.subWrapper, .itemscope, .itemprop { display: inline; vertical-align: top; }
 		}
 	}
 
@@ -83,7 +86,7 @@
 	//ajout des tirets en pseudo élément
 	.itemprop:before, .subWrapper:before {
 		display: inline;
-		color: @colorCouleur3;
+		color: @bottomTextColor;
 		content: " - ";
 		font-weight: normal;
 		//pour forcer la coupure au niveau du tiret si nécessaire
@@ -104,13 +107,25 @@
 		.no-generatedcontent & { margin-right: @offS; }
 
 		//mise en couleur du nom
-		&.name { color: @colorCouleur3; }
+		&.name { color: @bottomTextColor; }
 
 		//suppression des labels et des séparators par défaut
 		.type, .separator { display: none; visibility: hidden; margin: 0; }
 
+		//rajout des labels et séparators sur certains éléments
 		&.email, &.telephone, &.cellphone, &.faxNumber {
 			.type, .separator { display: inline; visibility: visible; }
+		}
+	}
+}
+
+//création des fonctions localisées de déclinaisons média
+@templateMedia_TabletPortrait(){
+	#dm_footer {
+		.adresses_multiples {
+			.dm_widget_inner {
+				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; @gridPadding);
+			}
 		}
 	}
 }

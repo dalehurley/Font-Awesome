@@ -1,6 +1,6 @@
 // AdressesMultiples.less
-// v1.2
-// Last Updated : 2012-02-10 16:05
+// v1.4.5
+// Last Updated : 2012-07-03 15:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -8,48 +8,48 @@
 @import "_templates/maestroTheme/Widgets/_Widgets.less";
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 
 //AdressesMultiples
 .dm_widget.adresses_multiples {
+	position: relative;
+	display: block;
+	clear: both;
+	//permet d'étendre la zone en débordement de la page
+	margin-left: -100%;
+	margin-right: -100%;
+	background-color: @bottomBgColor;
+	@verticalGradient(@bottomBgColorClair; @bottomBgColorFonce);
 
 	.dm_widget_inner {
+		.isLess & { background-color: fadeout(#DECA8E, 50%); }
+		//gestion du fond
+		background-color: @bottomCenterBgColor;
+		@verticalGradient(@bottomCenterBgColorClair; @bottomCenterBgColorFonce);
 
-	}
-	
-	//on change la couleur de fond lorsque contenu dans le footer
-	#dm_footer & {
-		//pour passer en desssous tous les éléments du footer
 		position: relative;
-		clear: both;
-		float: none;
-		//permet d'étendre la zone en débordement de la page
-		margin-left: -100%;
-		margin-right: -100%;
-		background-color: @colorWhite;
-
-		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
-		.dm_widget_inner {
-			.isLess & { background-color: #807BD1; }
-			position: relative;
-			@gridSiteWidth();
-			margin-left: auto;
-			margin-right: auto;
-			padding: 0;
-		}
+		//largeur du site avec les débordements pris en compte
+		@gridSiteWidth(@gridScreen; @gridCol; @gridPadding);
+		margin-left: auto;
+		margin-right: auto;
 	}
 
-	//placement des éléments
+	&, .link { color: @bottomTextColor; }
+	.link { text-decoration: none; &:hover { text-decoration: underline; } }
+	
 	.elements {
-		margin: 0;
-		padding: 0;
-
+		.isLess & { background-color: fadeout(#9BD0D1, 25%); }
 		.element {
-			//ajout de couleur de débug intercalées
-			.isLess &:nth-of-type(odd) { background-color: #C5A1E6; }
-			.isLess &:nth-of-type(even) { background-color: #E6A1E0; }
+			.isLess & { background-color: fadeout(#AD88BA, 25%); }
+
+			//couleurs de débugs pour les itemprops de premiers niveaux
+			.isLess & > * {
+				&:nth-of-type(odd) { background-color: #EBBEBE; }
+				&:nth-of-type(even) { background-color: #EBDDBE; }
+			}
 
 			//suppression transition
 			.csstransitions & {
@@ -57,66 +57,64 @@
 			}
 			&:hover { background-color: transparent; }
 
-			//adaptation padding
+			//suppression bordure et padding
 			padding: 0;
-			//suppression bordure et ajout à droite
 			border: 0;
-
-			//changement taille de police
-			&, #dm_page & .name, #dm_page & .itemprop, #dm_page & .link {
-				font-size: @fontSizeMicro;
-				line-height: @gridBaseline;
-				vertical-align: top;
-				//changement de la couleur
-				color: @colorCouleur2ClairSup;
-			}
-
-			//inversion style des liens
-			.link {
-				text-decoration: none;
-				&:hover{ text-decoration: underline; }
-			}
 			
-			#dm_page & {
-				//masquage de différents éléments .type
-				.streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } }
-
-				//changement comportemant par défaut (cf itemprop.less)
-				.email, .faxNumber, .telephone, .cellphone {
-					//réaparition du séparateur
-					.separator { display: inline; visibility: visible; vertical-align: top; }
-
-					//suppression des sprites
-					.type {
-						@spriteDelete();
-						padding: 0;
-						margin: 0;
-						text-indent: inherit;
-					}
-				}
-
-				//remise police par défault sur le nom
-				.itemprop.name { font-family: @fontGlobalFamilySansSerif; margin-left: 0; }
-
-				//mise en ligne de tous les éléments
-				.itemprop, .itemscope, .subWrapper { display: inline; vertical-align: top; }
-
-				//ajout marges à droite
-				.itemprop, .subWrapper { margin-left: @offS; }
-				.subWrapper .itemprop { margin-left: 0; }
-
-				//ajout de tiret sur certains éléments
-				.streetAddress, .subWrapper, .email, .telephone, .cellphone, .faxNumber {
-					//suppression marge à droite car on rajoute un tiret
-					margin-left: 0;
-					&:before {
-						display: inline;
-						content: "\002013";
-						padding: 0 @offS;
-						font-size: @fontSizeSmall;
-					}
-				}
+			//changement taille de police (avec override du titre de l'adresse )
+			&, .name {
+				font-size: @fontSizeSmall;
+				line-height: @gridBaseline;
 			}
+
+			//mise en ligne de tous les éléments
+			.subWrapper, .itemscope, .itemprop { display: inline; vertical-align: top; }
+		}
+	}
+
+	//suppression sprites par défaut
+	&, .email, .telephone, .cellphone, .faxNumber {
+		.type {
+			//suppression sprites par défaut
+			@spriteDelete();
+			text-indent: inherit;
+			padding: inherit;
+			margin: inherit;
+		}
+	}
+
+	//ajout des tirets en pseudo élément
+	.itemprop:before, .subWrapper:before {
+		display: inline;
+		color: @bottomTextColor;
+		content: " - ";
+		font-weight: normal;
+		//pour forcer la coupure au niveau du tiret si nécessaire
+		white-space: normal;
+	}
+	
+	//masquage des tirets en trop
+	.itemprop.name,
+	.subWrapper .itemprop {
+		&:before { display: none; visibility: hidden; }
+	}
+
+	//suppression coupure du mot à l'intérieur des itemprops
+	.subWrapper, .itemprop.email, .itemprop.telephone, .itemprop.cellphone, .itemprop.faxNumber { white-space: nowrap; }
+
+	.itemprop {
+		//on rajoute juste une marge à droite pour les navigateurs ne gérant pas les pseudo éléments
+		.no-generatedcontent & { margin-right: @offS; }
+
+		//mise en couleur du nom
+		&.name { color: @bottomTextColor; }
+
+		//suppression des labels et des séparators par défaut
+		.type, .separator { display: none; visibility: hidden; margin: 0; }
+
+		//rajout des labels et séparators sur certains éléments
+		&.email, &.telephone, &.cellphone, &.faxNumber {
+			.type, .separator { display: inline; visibility: visible; }
 		}
 	}
 }
@@ -126,7 +124,7 @@
 	#dm_footer {
 		.adresses_multiples {
 			.dm_widget_inner {
-				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; @gridPadding);
 			}
 		}
 	}
