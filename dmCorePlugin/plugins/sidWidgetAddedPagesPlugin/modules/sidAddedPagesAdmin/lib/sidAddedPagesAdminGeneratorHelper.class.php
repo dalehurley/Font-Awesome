@@ -10,5 +10,4 @@
  */
 class sidAddedPagesAdminGeneratorHelper extends BaseSidAddedPagesAdminGeneratorHelper
 {
-    
 }
