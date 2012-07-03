@@ -163,7 +163,7 @@ class contactDataActions extends myFrontModuleActions
 
     // si le champ "destinataire" est présent dans le contact alors 
     if (isset($infos['destinataire']) && $infos['destinataire'] != '') {
-      $destEmail = $infos['destinataire'];  // on l'envoie au destinataire choisi dan sle formulaire de contact
+      $destEmail = $infos['destinataire'];  // on l'envoie au destinataire choisi dans le formulaire de contact
     } else {
       $destEmail = dmConfig::get('site_email'); // sinon on envoie au site_email
     }
@@ -177,7 +177,7 @@ class contactDataActions extends myFrontModuleActions
           dmConfig::get('site_name').' - Contact', $message
         );
       $swiftSend = ($result)? 'send ok' : 'send no';
-      sfContext::getInstance()->getUser()->setFlash('mail', 'connect ok -> '.$swiftSend);
+      sfContext::getInstance()->getUser()->setFlash('mail', 'connect ok, send to -> '.$destEmail.' ('.$swiftSend.')');
     }
     catch (Exception $e) {
       $exceptionMessage = 'Error '.$e->getMessage().'<br/>Code: '.$e->getCode().'<br/>File: '.$e->getFile().':'.$e->getLine();
@@ -197,6 +197,8 @@ class contactDataActions extends myFrontModuleActions
         2 => '_csrf_token'
       );
 
+    $listDest = '<br/>';
+
     foreach ($fields as $field) {
       $addField = true;
 
@@ -210,12 +212,22 @@ class contactDataActions extends myFrontModuleActions
       // on ajoute le champ destinataire de façon spécifique
       if (dmString::slugify($field->name) == 'destinataire'){
         // y'a t-il des objets equipes actifs et avec une adresse email?
-        if (!self::hasCabinetEquipe()) $addField = false;
-        $arrayFormWidgetOptions = self::addDestinataireField($form,$request, $widgetOptions, $validatorOptions, $field);
-        $form = $arrayFormWidgetOptions['form'];
-        $widgetOptions = $arrayFormWidgetOptions['widgetOptions'];
-        $validatorOptions = $arrayFormWidgetOptions['validatorOptions'];
-        $field = $arrayFormWidgetOptions['field'];
+        if (!self::hasCabinetEquipe()) {
+          $addField = false;
+        } else {
+          // ajout pour le composant de la liste des destinataires
+          $query = Doctrine_Query::create()->from('SidCabinetEquipe e')->withI18n()->where('e.is_active = ?', true)->addWhere('eTranslation.email <> ?', '');
+          $dests = $query->execute();
+          foreach ($dests as $dest) {
+            $listDest .= '&nbsp;&nbsp;'.$dest->email.'<br/>';
+          }
+          // on parametre le widget destinataire
+          $arrayFormWidgetOptions = self::addDestinataireField($form, $request, $widgetOptions, $validatorOptions, $field);
+          $form = $arrayFormWidgetOptions['form'];
+          $widgetOptions = $arrayFormWidgetOptions['widgetOptions'];
+          $validatorOptions = $arrayFormWidgetOptions['validatorOptions'];
+          $field = $arrayFormWidgetOptions['field'];
+        }
       }
 
       if ($addField){
@@ -259,6 +271,9 @@ class contactDataActions extends myFrontModuleActions
 
       }
     }
+
+    // list des destinaires concaténée
+    $this->getRequest()->setAttribute('destinataires', $listDest);
 
     // add captacha at the end if exists
     if ($form->isCaptchaEnabled()) {

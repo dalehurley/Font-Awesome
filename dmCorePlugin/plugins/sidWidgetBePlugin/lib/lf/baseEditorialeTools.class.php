@@ -441,26 +441,6 @@ class baseEditorialeTools {
     }
 
 
-
-    /*
-     * Mise à jour des pages automatiques
-    */
-    public static function syncPages() {
-        // mise à jour des pages automatiques sur le site
-        $return[]['Sync pages'] = exec('php symfony dm:sync-pages');
-        
-        return $return;
-    }
-
-    /*
-     * purge ccc
-    */
-    public static function ccc() {
-        $return[]['Purge cache APC et web'] = exec('php symfony ccc');
-        
-        return $return;
-    }    
-
     /**
      * purge des articles en fonction de leur date et nombre par section
      * X derniers jours et Y articles

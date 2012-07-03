@@ -389,7 +389,11 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                     } else {
                         // si nestedSet
                         $childPos = $childPage->getRecord()->lft;
-                        $childs[$childPos] = $childPage;
+                        if (isset($childs[$childPos])){
+                            $childs[] = $childPage;
+                        } else {
+                            $childs[$childPos] = $childPage;
+                        }
                     }
                 } else {
                     // si ce n'est pas une page automatique, on la met dans un autre tableau
@@ -433,6 +437,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             $html = $this->renderUlOpenTag();
             
             foreach ($this->children as $child) {
+                //echo $child->getLevel().' - '.$child->getName().'<br/>' ;
 
                 $display = true;
 

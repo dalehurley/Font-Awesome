@@ -5,36 +5,37 @@ if (!$error){   // if 1 its only the submit button
     echo _tag('h2.title',$name);
     echo $description;
 
-// masquage du password
-$password = sfContext::getInstance()->getMailer()->getTransport()->getPassword();
-if (strlen($password) < 3){
-    $cryptPass = '';
-} else {
-    $cryptPass = substr($password, 0, 3).str_repeat('*', strlen($password) - 3);
-} 
-// statut d'envoi
-$sendMailStatut = (sfContext::getInstance()->getUser()->getFlash('mail'))? sfContext::getInstance()->getUser()->getFlash('mail') : '';
-$typeDebug = 'debug';
-if ($sendMailStatut == 'error'){
-    $typeDebug = 'warning';
-    $sendMailStatut .= '<br/>'.sfContext::getInstance()->getUser()->getFlash('mail_exception');
-}
+    // masquage du password
+    $password = sfContext::getInstance()->getMailer()->getTransport()->getPassword();
+    if (strlen($password) < 3){
+        $cryptPass = '';
+    } else {
+        $cryptPass = substr($password, 0, 3).str_repeat('*', strlen($password) - 3);
+    } 
+    // statut d'envoi
+    $sendMailStatut = (sfContext::getInstance()->getUser()->getFlash('mail'))? sfContext::getInstance()->getUser()->getFlash('mail') : '';
+    $typeDebug = 'debug';
+    if ($sendMailStatut == 'error'){
+        $typeDebug = 'warning';
+        $sendMailStatut .= '<br/>'.sfContext::getInstance()->getUser()->getFlash('mail_exception');
+    }
 
-echo debugTools::infoDebug(array(
-    'Delivery Strategy : ' => sfContext::getInstance()->getMailer()->getDeliveryStrategy(),
-    'Mail send : ' => $sendMailStatut,
-    'Transport class' => get_class(sfContext::getInstance()->getMailer()->getTransport()),
-    'Transport - host' => sfContext::getInstance()->getMailer()->getTransport()->getHost(),
-    'Transport - port' => sfContext::getInstance()->getMailer()->getTransport()->getPort(),
-    'Transport - encryption' => sfContext::getInstance()->getMailer()->getTransport()->getEncryption(),
-    'Transport - username' => sfContext::getInstance()->getMailer()->getTransport()->getUsername(),
-    'Transport - password' => $cryptPass,    
-    ), $typeDebug
-);
+    echo debugTools::infoDebug(array(
+        'Delivery Strategy : ' => sfContext::getInstance()->getMailer()->getDeliveryStrategy(),
+        'Mail send : ' => $sendMailStatut,
+        'Transport class' => get_class(sfContext::getInstance()->getMailer()->getTransport()),
+        'Transport - host' => sfContext::getInstance()->getMailer()->getTransport()->getHost(),
+        'Transport - port' => sfContext::getInstance()->getMailer()->getTransport()->getPort(),
+        'Transport - encryption' => sfContext::getInstance()->getMailer()->getTransport()->getEncryption(),
+        'Transport - username' => sfContext::getInstance()->getMailer()->getTransport()->getUsername(),
+        'Transport - password' => $cryptPass, 
+        'Destinataires disponibles: ' => $destinataires   
+        ), $typeDebug
+    );
 
-// echo "<pre style=\"line-height: 18px;font-size: 10px;\">";
-// print_r(sfContext::getInstance()->getMailer()->getTransport()->getClass());
-// echo "</pre>";
+    // echo "<pre style=\"line-height: 18px;font-size: 10px;\">";
+    // print_r(sfContext::getInstance()->getMailer()->getTransport()->getClass());
+    // echo "</pre>";
 
 
     // message de succes
