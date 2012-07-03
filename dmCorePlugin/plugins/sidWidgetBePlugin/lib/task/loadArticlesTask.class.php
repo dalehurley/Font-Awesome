@@ -173,7 +173,8 @@ EOF;
             //------------------------------------------------------------------------------------------------------------
             //    Synchronisation des pages automatiques
             //------------------------------------------------------------------------------------------------------------            
-            $results = baseEditorialeTools::syncPages();
+            // $results = baseEditorialeTools::syncPages();
+            $results = $this->runTask('dm:sync-pages');
 
             if (!in_array("quiet", $arguments)) {
                 $this->logSection('### loadArticles', 'Synchronisation des pages automatiques.');
@@ -228,7 +229,8 @@ EOF;
             //------------------------------------------------------------------------------------------------------------
             //    purge cache APC et web
             //------------------------------------------------------------------------------------------------------------            
-            $results = baseEditorialeTools::ccc();
+            //$results = baseEditorialeTools::ccc();
+            $results = $this->runTask('ccc');
 
             if (!in_array("quiet", $arguments)) {
                 $this->logSection('### loadArticles', 'Purge du cache APC et web.');

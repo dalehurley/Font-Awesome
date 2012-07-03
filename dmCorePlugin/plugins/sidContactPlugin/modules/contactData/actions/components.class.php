@@ -18,6 +18,16 @@ class contactDataComponents extends myFrontModuleComponents
     } else {
     	$this->error = '';
     }
+
+    if ($this->getRequest()->getAttribute('destinataires')){
+      $this->destinataires = $this->getRequest()->getAttribute('destinataires');  
+    } else {
+      $this->destinataires = '';
+    }
+
+
+
+
   }
 
 }

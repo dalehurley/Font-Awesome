@@ -41,7 +41,7 @@
 	//Positionnement à droite dans le header et à gauche le footer
 	#dm_header & {
 		position: absolute;
-		right: 0;
+		right: @gridPadding;
 		top: 0;
 	}
 	#dm_footer & { float: left; }
@@ -67,7 +67,7 @@
 			margin-left: auto;
 			margin-right: auto;
 			//ajout de l'ombrage (couleur sans transparence pour IE)
-			@dropShadowPie(0; 0; @gridGutter/2; 0; fadeout(@colorBlack, 50%); @colorBlack);
+			@dropShadowPie(0; 0; @mainShadowBlur/2; 0; @mainShadowColor; @mainShadowPieColor);
 		}
 	}
 }
