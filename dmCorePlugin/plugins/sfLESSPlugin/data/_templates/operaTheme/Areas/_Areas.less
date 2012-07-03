@@ -41,7 +41,7 @@ body { background-color: @bodyBgColor; }
 		display: block;
 		z-index: -10;
 		content: "";
-		@gridSiteWidth();
+		@gridSiteWidth(@gridScreen; @gridCol; @gridPadding);
 		@gridHeight(30);
 		//on force la hauteur de l'élément et on la soustrait en margin-bottom négatif par la suite
 		margin-left: auto;
