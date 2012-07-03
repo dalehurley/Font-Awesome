@@ -25,7 +25,13 @@ abstract class PluginSidArticle extends BaseSidArticle {
         //         ->limit(1)
         //         ->execute();
         // return $sectionPage[0]->title;
-        return $this->getSection()->getDmPage()->title;
+        
+        if (is_object($this->getSection())) {
+            if (is_object($this->getSection()->getDmPage())) {
+                return $this->getSection()->getDmPage()->title;
+            }
+        }
+        return '';
     }
     
      /**
@@ -40,7 +46,14 @@ abstract class PluginSidArticle extends BaseSidArticle {
         //         ->limit(1)
         //         ->execute();
         // return $rubriquePage[0]->title;
-         return $this->getSection()->getRubrique()->getDmPage()->title;
+        if (is_object($this->getSection())) {
+            if (is_object($this->getSection()->getRubrique())) {
+                if (is_object($this->getSection()->getRubrique()->getDmPage())) {
+                    return $this->getSection()->getRubrique()->getDmPage()->title;
+                }
+            }
+        }
+        return '';
     }
 
 }

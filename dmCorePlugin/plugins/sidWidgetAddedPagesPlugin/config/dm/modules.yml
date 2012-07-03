@@ -1,0 +1,19 @@
+Content:
+  "Additional Pages":
+    SidAddedPages:
+      model: SidAddedPages
+      page: true
+#      parent: SidAddedPagesGroups
+      name: Gestion de la page|Gestion des pages
+      credentials: added_page
+      components:
+        list:
+          cache:              true
+        listChildren:
+          name: Liste des pages enfants
+          cache:              true
+        listRoot:
+          name: Liste des pages level 0
+          cache:              true
+        show:
+          cache:              true

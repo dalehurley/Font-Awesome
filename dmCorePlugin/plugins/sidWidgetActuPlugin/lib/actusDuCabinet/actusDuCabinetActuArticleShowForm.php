@@ -16,6 +16,11 @@ class actusDuCabinetActuArticleShowForm extends dmWidgetPluginForm {
                     'model' => 'SidActuType'
                 ));
         $this->widgetSchema->setHelp('type' , 'Le type de l\'article');
+
+        $this->widgetSchema['withPublishedDate'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Date de publication visible'));
+        $this->validatorSchema['withPublishedDate']  = new sfValidatorBoolean();
+        $this->widgetSchema->setHelp('withPublishedDate' , 'Affichage de la date de publication');
+
     }
 
     public function getStylesheets() {

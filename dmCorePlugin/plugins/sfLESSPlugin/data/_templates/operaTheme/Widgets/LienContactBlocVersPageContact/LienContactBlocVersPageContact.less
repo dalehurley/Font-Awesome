@@ -1,6 +1,6 @@
 // LienContactBlocVersPageContact.less
-// v1.0
-// Last Updated : 2012-01-18 11:50
+// v1.3
+// Last Updated : 2012-06-21 11:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -11,27 +11,28 @@
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
 @import "_templates/operaTheme/Utilities/Sprites/_SpritesUtils.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 
 .dm_widget.lien_contact_bloc_vers_page_contact {
 	
 	//appel de la fonction de placement de la sprite
 	#dm_sidebar_left &, #dm_sidebar_right & {
-		@widgetTitleSprite("DefaultLight"; "cabinet"; "contact");
+		@widgetTitleSprite(@widgetLienContactSpriteTheme; @widgetLienContactSpriteCategory; @widgetLienContactSpriteName);
 	}
 	
 	.dm_widget_inner {
-		background-color: @colorCouleur3;
+		background-color: @widgetLienContactBgColor;
 		& > .title {
 			//override couleur du lien
 			#dm_page_content &, #dm_sidebar_left &, #dm_sidebar_right & {
-				background-color: @colorCouleur1Moyen;
-				color: @colorCouleur3ClairSup;
-				border-bottom-color: @colorCouleur1Moyen;
+				background-color: @widgetLienContactTitleBgColor;
+				color: @widgetLienContactTitleTextColor;
+				border-bottom-color: @widgetLienContactTitleBgColor;
 			}
 			
 			//complément de l'appel de la sprite sur le titre
 			#dm_sidebar_left &:after, #dm_sidebar_right &:after {
-				@spriteBgp(@spriteFormat_M; @spriteOffX-DefaultLight-cabinet-contact; @spriteOffY-DefaultLight-cabinet-contact);
+				@spriteBgp(@spriteFormat_M; @widgetLienContactSpriteOffX; @widgetLienContactSpriteOffY);
 			}
 		}
 	}
@@ -40,7 +41,7 @@
 	.wrapper {
 		font-weight: normal;
 		text-align: center;
-		color: @colorCouleur3ClairSup;
+		color: @widgetLienContactTextColor;
 		word-spacing: -0.05em;
 		letter-spacing: -0.05em;
 		//ajout padding pour décalage éléments
@@ -57,15 +58,19 @@
 				font-size: @fontSizeSmall;
 				line-height: @gridBaseline;
 				.link {
-					@verticalGradient(@colorCouleur1; @colorCouleur1Moyen);
-					color: @colorCouleur3ClairSup;
+					background-color: mix(@widgetLienContactLinkGradientColor1, @widgetLienContactLinkGradientColor2, 50%);
+					@verticalGradient(@widgetLienContactLinkGradientColor1; @widgetLienContactLinkGradientColor2);
+					@boxShadow(0 0 @offS fadeout(@colorBlack, 75%));
+					
+					color: @widgetLienContactLinkColor;
 					padding: 0 @offS;
 					line-height: @gridBaseline;
 					text-decoration: none;
 					text-transform: none;
 					text-shadow: 0 1px 1px @colorBlack;
 					&:hover {
-						@verticalGradient(@colorCouleur1Moyen; @colorCouleur1);
+						@verticalGradient(@widgetLienContactLinkGradientColor2; @widgetLienContactLinkGradientColor1);
+						@boxShadow(0 0 @offS/2 fadeout(@colorBlack, 50%));
 					}
 				}
 			}

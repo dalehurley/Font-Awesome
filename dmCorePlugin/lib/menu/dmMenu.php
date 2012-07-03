@@ -373,19 +373,39 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             
             // sort pageChildren with le record_id corresponding model
             $k=0;
+            //initialisation des variables array
+            $childs = array();
+            $manualPages = array();
             foreach ($pageChildren as $i => $childPage) {
-                if ($childPage->getIsAutomatic()){
+                if ($childPage->getIsAutomatic()) {
                     // too bad : not use cache object
                     // $childPos = $childPage->getDmModule()->getTable()->createQuery('m')->where('m.id = ? ', $childPage->get('record_id'))->execute();
                     // $childs[$childPos[0]->position] = $childPage;
-                    $childPos = $childPage->getRecord()->position;
-                    $childs[$childPos] = $childPage;
+                    // test pour savoir si la table est "nestedSet" ou pas afin de déterminer la colonne à utiliser pour l'ordre d'affichage
+                    if ($childPage->getRecord()->getTable()->isNestedSet() == false) {
+                        // si pas nestedSet
+                        $childPos = $childPage->getRecord()->position;
+                        $childs[$childPos] = $childPage;
+                    } else {
+                        // si nestedSet
+                        $childPos = $childPage->getRecord()->lft;
+                        if (isset($childs[$childPos])){
+                            $childs[] = $childPage;
+                        } else {
+                            $childs[$childPos] = $childPage;
+                        }
+                    }
                 } else {
-                   $childs[$k] = $childPage;
+                    // si ce n'est pas une page automatique, on la met dans un autre tableau
+                   $manualPages[] = $childPage;
                 }
                 $k++;
             }
             ksort($childs);
+            // on insère le tableau des pages manuelles à la fin du tableau des pages auto
+            foreach ($manualPages as $k=>$value){
+                array_push($childs, $value);
+            }
             $pageChildren = $childs;
 
             // launch render for children pages
@@ -417,6 +437,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             $html = $this->renderUlOpenTag();
             
             foreach ($this->children as $child) {
+                //echo $child->getLevel().' - '.$child->getName().'<br/>' ;
 
                 $display = true;
 

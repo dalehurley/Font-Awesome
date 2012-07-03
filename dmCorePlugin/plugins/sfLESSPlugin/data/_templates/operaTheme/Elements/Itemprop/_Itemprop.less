@@ -42,12 +42,12 @@
 		color: @colorText;
 		#dm_page_content & {
 			font-weight: normal;
-			font-size: @fontSizeH4Px;
-			line-height: @gridBaseline;
+			font-size: @fontSizeH3Px;
+			line-height: @gridBaseline*1.5;
 		}
 		#dm_sidebar_left &, #dm_sidebar_right & {
 			font-weight: normal;
-			font-size: @fontSizeH5Px;
+			font-size: @fontSizeH4Px;
 			line-height: @gridBaseline;
 		}
 	}
@@ -104,7 +104,7 @@
 }
 
 //ajout sprites pour certains éléments
-.email, .faxNumber, .telephone {
+.email, .faxNumber, .telephone, .cellphone {
 	//masquage separateur
 	.separator { display: none; visibility: hidden; }
 	
@@ -164,6 +164,13 @@
 	}
 }
 
+.cellphone {
+	.isLess & { background-color: fadeout(#D7FF73, 50%); }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-cellphone; @spriteOffY-communication-cellphone);
+		@spriteBgiSvg("Default"; "communication"; "cellphone");
+	}
+}
 
 
 //POSTALADDRESS

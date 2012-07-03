@@ -83,3 +83,11 @@ all:
       - selectionPlacement
       - selectionPlacementAdmin
       - rubriqueCreation
+      - contactFormAdmin
+      - contactForm
+      - contactFieldAdmin
+      - contactField
+      - contactDataAdmin
+      - contactData
+      - sidAddedPages
+      - sidAddedPagesAdmin

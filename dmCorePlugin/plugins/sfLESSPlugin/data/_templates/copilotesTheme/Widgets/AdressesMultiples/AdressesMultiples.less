@@ -1,6 +1,6 @@
 // AdressesMultiples.less
-// v1.2
-// Last Updated : 2012-02-10 16:05
+// v1.2.6
+// Last Updated : 2012-06-11 15:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -13,23 +13,24 @@
 
 //AdressesMultiples
 .dm_widget.adresses_multiples {
-	.elements .element {
-		.name, .title, .itemprop, .link { color: @colorCouleur3Fonce; }
-	}
-	
 	//élargissement à toute la largeur
 	#dm_custom_bottom & {
 		//permet d'étendre la zone en débordement de la page
-		margin-left: -100%;
-		margin-right: -100%;
-		background-color: transparent;
+		// margin-left: -100%;
+		// margin-right: -100%;
+		// background-color: @bottomBgColor;
 		
+		//couleur du texte
+		// .elements .element {
+		// 	.name, .title, .itemprop, .link { color: @bottomTextColor; }
+		// }
+
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
-			position: relative;
-			@gridSiteWidth();
-			margin-left: auto;
-			margin-right: auto;
+			// position: relative;
+			// @gridSiteWidth();
+			// margin-left: auto;
+			// margin-right: auto;
 			padding: @gridBaseline/2 0;
 		}
 	}
@@ -38,8 +39,21 @@
 	.elements {
 		margin: 0;
 		padding: 0;
+
+		//centrage des adresses
+		// text-align: center;
+		// font-size: 0;
 		
 		.element {
+			float: left;
+			// display: inline-block;
+			// vertical-align: top;
+			// text-align: left;
+			// white-space: nowrap;
+
+			//pour ie6 et ie7 on réaligne à gauche car inline-block n'est pas géré correctement sur les éléments en block par défaut
+			// .ie6 &, .ie7 & { display: block; float: left; }
+
 			//suppression transition
 			.csstransitions & {
 				@transitionNone();
@@ -49,14 +63,20 @@
 			//définition dimension
 			@gridWidth(4);
 			//suppression décalage en début et fin de chaine
-			&.first, &.last { @gridWidth(4; @gridGutter/2); }
-			float: left;
+			&.first, &.firstOfRow, &.last, &.lastOfRow { @gridWidth(4; @gridGutter/2); }
+
 			//adaptation padding
 			padding: 0 (@gridGutter/2 -1px) 0 @gridGutter/2;
+			
+			//ajout marge inférieure
+			margin-bottom: @gridGutter/2;
+			//suppression marge inférieure dans la dernière ligne
+			&.inLastRow { margin-bottom: 0; }
+
 			//suppression bordure et ajout à droite
 			border: 0;
-			border-right: 1px dashed @colorZoneBorder;
-			&.last { border-right: 0; padding-right: @gridGutter/2; }
+			border-right: 1px dashed @bottomBorderColor;
+			&.last, &.lastOfRow { border-right: 0; padding-right: @gridGutter/2; }
 			
 			//changement taille de police
 			font-size: @fontSizeSmall;
@@ -69,15 +89,15 @@
 }
 
 //création des fonctions localisées de déclinaisons média
-@templateMedia_TabletPortrait(){
-	#dm_custom_bottom {
-		.adresses_multiples {
-			.dm_widget_inner {
-				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
-			}
-		}
-	}
-}
+// @templateMedia_TabletPortrait(){
+// 	#dm_custom_bottom {
+// 		.adresses_multiples {
+// 			.dm_widget_inner {
+// 				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+// 			}
+// 		}
+// 	}
+// }
 
 //importation des requêtes média
 @import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";

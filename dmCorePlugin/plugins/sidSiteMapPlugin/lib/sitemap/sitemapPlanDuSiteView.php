@@ -12,7 +12,7 @@ class sitemapPlanDuSiteView extends dmWidgetPluginView {
 
     protected function doRender() {
         $vars = $this->getViewVars();
-       $menu = $this->context->get('sitemap_menu')->build();
+        $menu = $this->context->get('sitemap_menu')->build();
         return $this->getHelper()->renderPartial('sitemap', 'planDuSite', array(
                     'menu' => $menu
                 ));

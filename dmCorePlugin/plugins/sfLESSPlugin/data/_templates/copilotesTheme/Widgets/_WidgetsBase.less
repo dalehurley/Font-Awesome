@@ -50,6 +50,20 @@
 
 //placement des widgets dans le header
 #dm_header {
+
+	.dm_widget.content_gallery {
+		float: left;
+		margin-left: @gridGutter;
+
+		//suppression marges internes
+		ul, ol {
+			margin: 0;
+			padding: 0;
+		}
+
+		//suppression du float en mode édition
+		#dm_page.edit & { float: none; }
+	}
 	
 	.dm_widget.content_image {
 		.isLess & { background-color: #D6B8C4; }
@@ -101,8 +115,8 @@
 			& > .title {
 				margin-bottom: @gridBaseline/2;
 				font-weight: normal;
-				word-spacing: 0.05em;
-				letter-spacing: 0.05em;
+				// word-spacing: 0.05em;
+				// letter-spacing: 0.05em;
 				//on supprime le décalage situé entre le titre et une liste d'éléments quand ils sont suivi l'un par l'autre
 				& ~ .elements { margin-top: @gridBaseline/-2; }
 			}
@@ -117,12 +131,49 @@
 		.dm_widget_inner {
 			padding: @gridBaseline @gridGutter 0 @gridGutter;
 
+			//on supprime le padding pour les sous-widgets
+			.dm_widget_inner { padding: 0; }
+
 			& > .title {
 				.isLess & { background-color: fadeout(#528733, 25%); }
-				color: @colorCouleur1;
+				background-color: @widgetTitleBgColor;
+				color: @widgetTitleTextColor;
 				text-transform: uppercase;
 				padding-bottom: (@gridBaseline/2 -1px);
 				border-bottom: 1px solid @colorZoneBorder;
+			}
+		}
+	}
+}
+
+//stylage des widgets images pour la page d'accueil
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.content_image_plus {
+		.dm_widget_inner {
+			padding: 0;
+			& > .title { margin: 0; }
+		}
+	}
+}
+
+//pour le widget bidouille de contact
+#dm_page_content, #dm_sidebar_left, #dm_sidebar_right {
+	.dm_widget.content_ck_editor.contactSpecial {
+		.dm_widget_inner {
+			color: @colorCouleur1;
+			font-size: @fontSizeH5Px;
+			font-weight: bold;
+			padding: @gridBaseline/2 @gridGutter/2;
+			border: 0;
+			@borderRadiusCompress(0);
+
+			//image d'une hauteur de 43px
+			img { padding: 1px 0; }
+
+			.link {
+				font-size: @fontSizeH5Px;
+				font-weight: bold;
+				&, &:visited, &:hover, &:focus, &:active { color: @colorCouleur1; }
 			}
 		}
 	}
@@ -143,8 +194,8 @@
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
 			
 			& > .title {
-				background-color: @colorZoneBorder;
-				color: @colorCouleur3ClairSup;
+				background-color: @widgetTitleSpriteBgColor;
+				color: @widgetTitleSpriteTextColor;
 				margin: (@gridBaseline/-2 +1px) (@gridGutter/-2 +1px) (@gridBaseline/2) (@gridGutter/-2 +1px);
 				padding: (@gridBaseline/2 - 1px) (@gridGutter/2 - 1px + @offS);
 				border-bottom: 1px solid @colorZoneBorder;

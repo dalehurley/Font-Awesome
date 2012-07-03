@@ -27,11 +27,13 @@ $nbArticle = 1;
        <li class="element itemscope Article <?php echo $class; ?>" itemtype="http://schema.org/Article" itemscope="itemscope">
         
        <?php
-        if ($article->getImage()->checkFileExists() and ($i <= sfConfig::get('app_nb-image'))) {
-            $link.= '<span class="imageWrapper">';
-            $link.= _media($article->getImage())->width($width)->set('.image');
-            $link.= '</span>';
-        };
+       if ($withImage == TRUE) {
+                   if ($article->getImage()->checkFileExists() and ($i <= sfConfig::get('app_nb-image'))) {
+                       $link.= '<span class="imageWrapper">';
+                       $link.= _media($article->getImage())->width($width)->set('.image');
+                       $link.= '</span>';
+                   };
+               }
         $link.= '<span class="wrapper">
                 <span class="subWrapper">';
         if ($titreBloc != $article->getTitle()) {
@@ -43,7 +45,7 @@ $nbArticle = 1;
         if ($chapo == 0) {
             $link.= stringTools::str_truncate($article->getResume() , $length, '(...)', true);
         } else if ($chapo == 1) {
-            $link.= $article->getText();
+            $link.= $article->getText(); // pas besoin de le tronquer puisqu'il s'agit de html (ckeditor) donc pas de tronquage possible
         }
         $link.= '</span></span>';
         echo _link($article)->set('.link_box')->text($link);

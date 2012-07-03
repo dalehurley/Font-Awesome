@@ -1,6 +1,6 @@
 // NavigationMenu.megadropdown.less
-// v1.6
-// Last Updated : 2012-04-17 15:45
+// v1.7
+// Last Updated : 2012-06-18 16:10
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -22,7 +22,7 @@
 
 ul.menu-megadropdown {
 	//rajout bordure à gauche sur le premier niveau
-	& { border-left: 1px solid @colorZoneBorder; }
+	& { border-left: 1px solid @menuBorderColor; }
 
 	#dm_sidebar_left & {
 		//largeur en fonction de la zone
@@ -38,16 +38,20 @@ ul.menu-megadropdown {
 	#dm_sidebar_right & {
 		//pour toutes les premières cellules
 		& > li.first {
-			& > .link { padding-top: @menuDropdownPadV; border-top: 1px solid @colorZoneBorder; }
+			& > .link { padding-top: @menuLinkPadV; border-top: 1px solid @menuBorderColor; }
 			& > ul { top: 0; padding-top: (@gridBaseline -1px); }
 		}
 	}
 
+	//Gestion de la couleurs des liens des dossiers
+	ul li.dm_dir > .link,
+	& > li.dm_dir > ul.hasDmDir > li > .link { color: @menuBgOpenColor; }
+
 	//configuration des dimensions à différents sous-niveaux
 	ul {
-		background-color: @colorCouleur3ClairSup;
+		background-color: @menuBgColor;
 		//ajout bordure
-		border: 1px solid @colorZoneBorder;
+		border: 1px solid @menuBorderColor;
 		//changement de la pleine largeur au premier sous-niveau
 		padding: @gridBaseline (@gridGutter -1px) (@gridBaseline -1px) (@gridGutter -1px);
 		@gridWidth(@gridCol; (@gridGutter*2 + @zonesOffsetPad*-2));
@@ -59,8 +63,23 @@ ul.menu-megadropdown {
 			//reset apparence du lien
 			padding: 0;
 			border: 0;
+			//ajout d'un filet de séparation horizontal avec compensation décalage
+			margin-top: -1px;
+			
+			//création d'une couleur intermédiaire avec la couleur de fond
+			@interCouleur: mix(@menuBorderColor, @menuBgColor, 50%);
+			border-top: 1px dotted @interCouleur;
+			
 			&, .rgba & { background-color: transparent; }
+
+			//Couleur de rollOver des liens de sous-niveaux
+			&:hover, &:focus { background-color: @menuBgHoverColor; }
 		}
+		
+		//suppression bordure de séparation et marge négative
+		&.hasDmDir > li > .link,
+		li.first > .link,
+		li.dm_dir > .link { margin-top: 0; border-top: 0; }
 
 		#dm_sidebar_left & {
 			//décalage manuel (largeur niveau supérieur ; décalage supérieur)
@@ -98,17 +117,9 @@ ul.menu-megadropdown {
 			&, .rgba & { background-color: transparent; }
 		}
 		
-		li {
-			//sous-dossiers
-			&.dm_dir {
-				//configuration titre des sous parties
-				& > .link { color: @colorCouleur1; }
-			}
-		}
-		
 		//sous parties de niveau 2 et + contenues dans un ul contenant des sous-dossiers
 		&.hasDmDir li {
-			border-right: 1px dotted @colorZoneBorder;
+			border-right: 1px dotted @menuBorderColor;
 			padding: 0 (@gridGutter/2 -1px) 0 (@gridGutter/2);
 			margin-bottom: @gridBaseline;
 			//on suprimme les bordures et marges inférieures pour les sous parties
@@ -191,8 +202,8 @@ ul.menu-megadropdown {
 
 		//ajout ombre et couleur de fond
 		ul {
-			background-color: @colorCouleur2;
-			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 fadeout(@colorBlack, 50%));
+			background-color: @menuTopBgColor;
+			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @menuTopShadowColor);
 			//suppression bordure du haut
 			border-top: 0;
 			//niveau 2 et +
@@ -200,6 +211,21 @@ ul.menu-megadropdown {
 				&, .rgba & { background-color: transparent; }
 				@boxShadow(none);
 			}
+			
+			//liens des sous niveaux
+			li .link {
+				//ajout d'un filet de séparation horizontal avec compensation décalage
+				margin-top: -1px;
+
+				//création d'une couleur intermédiaire avec la couleur de fond
+				@interCouleur: mix(@menuTopBorderColor, @menuTopBgColor, 50%);
+				border-top: 1px dotted @interCouleur;
+			}
+			
+			//suppression bordure de séparation et marge négative
+			&.hasDmDir > li > .link,
+			li.first > .link,
+			li.dm_dir > .link { margin-top: 0; border-top: 0; }
 		}
 
 		//modification de couleurs du menu
@@ -209,29 +235,29 @@ ul.menu-megadropdown {
 			padding: 0;
 			border: 0;
 			
-			color: @colorCouleur3Clair;
-			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
-			&.dm_inactive { color: @colorCouleur3Moyen; }
+			color: @menuTopLinkColor;
+			&.dm_current { &, &:hover { color: @menuTopLinkCurrentColor; } }
+			&.dm_inactive { color: @menuTopLinkInactiveColor; }
 			//LoVe's Hurts Fade Away
-			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Sup; }
-			&:active { color: @colorCouleur1; }
+			&:hover, &:focus { color: @menuTopLinkHoverColor; background-color: @menuTopBgHoverColor; }
+			&:active { color: @menuTopLinkActiveColor; }
 		}
 
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
 				//uniformisation couleur de police
-				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
-				&.dm_inactive { color: @colorCouleur3Clair; }
+				&.dm_current { &, &:hover { color: @menuTopLinkHoverColor; } }
+				&.dm_inactive { color: @menuTopLinkColor; }
 				
 				margin-top: floor(@gridBaseline / 4) + 1px;
 				margin-bottom: floor(@gridBaseline / 4) + 1px;
 				//ajout bordure à droite
-				border-right: 1px solid @colorZoneBorder;
+				border-right: 1px solid @menuBorderColor;
 
 				//personnalisation padding pour menu horizontal
 				@padV: floor(@gridBaseline / 4) + 0px;
-				@padH: @menuDropdownPadHCustomTop;
+				@padH: @menuLinkPadHCustomTop;
 				padding: @padV @padH @padV (@padH +1px);
 			}
 			//pleine hauteur lors du rollOver
@@ -243,14 +269,14 @@ ul.menu-megadropdown {
 				padding-top: @gridBaseline/2;
 				padding-bottom: @gridBaseline/2;
 				margin-left: -1px;
-				border-left: 1px solid @colorZoneBorder;
+				border-left: 1px solid @menuBorderColor;
 			}
 
 			//rajout bordure à gauche sur la première cellule
 			//et correction de la cellule suivant dm_root (qui contient une icône link_root)
 			&.first,
 			&.dm_root + li {
-				& > .link { border-left: 1px solid @colorZoneBorder; }
+				& > .link { border-left: 1px solid @menuBorderColor; }
 				//suppression décalage lors du rollOver
 				&:hover > .link,
 				& > .link:hover,

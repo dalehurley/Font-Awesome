@@ -55,14 +55,14 @@ EOF;
         $fileConf = sfConfig::get('sf_root_dir').'/conf/httpd.conf';   // httpd.conf interne au site
         if (file_exists($fileConf)) {
             // on modifie l'ancien NDD par le nouveau
-            $this->getFilesystem()->execute('find ' . $dirTheme . ' "'.$fileConf.'" -print | xargs perl -pi -e \'s/'.$actualNdd.'/' . $ndd . '/g\'');
+            $this->getFilesystem()->execute('find "'.$fileConf.'" -print | xargs perl -pi -e \'s/'.$actualNdd.'/' . $ndd . '/g\'');
             $this->logBlock('APACHE : Le fichier "'.$fileConf.'" est modifie.', 'INFO_LARGE');
         }
 
         $fileConfExt = '/data/conf/httpd-'.dmProject::getKey().'.conf';   // httpd.conf externe au site 
         if (file_exists($fileConfExt)) {
             // on modifie l'ancien NDD par le nouveau
-            $this->getFilesystem()->execute('find ' . $dirTheme . ' "'.$fileConfExt.'" -print | xargs perl -pi -e \'s/'.$actualNdd.'/' . $ndd . '/g\'');
+            $this->getFilesystem()->execute('find "'.$fileConfExt.'" -print | xargs perl -pi -e \'s/'.$actualNdd.'/' . $ndd . '/g\'');
             $this->logBlock('APACHE : Le fichier "'.$fileConfExt.'" est modifie.', 'INFO_LARGE');
         }
 

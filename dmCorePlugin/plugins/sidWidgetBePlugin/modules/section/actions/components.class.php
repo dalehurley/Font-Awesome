@@ -4,6 +4,7 @@
  * 
  * No redirection nor database manipulation ( insert, update, delete ) here
  * 
+ * 
  */
 class sectionComponents extends myFrontModuleComponents
 {
@@ -13,8 +14,7 @@ class sectionComponents extends myFrontModuleComponents
     $query = $this->getListQuery();
     
     $this->sectionPager = $this->getPager($query);
-    $this->namePage = $this->getPage()->getName(); 
-    
+    $this->namePage = $this->getPage()->getName();
   }
 
   public function executeList()
@@ -40,8 +40,14 @@ class sectionComponents extends myFrontModuleComponents
             $sections[] = $section;
         }
     }
-//    echo '<pre>';print_r($sections);echo '</pre>';
+    //    echo '<pre>';print_r($sections);echo '</pre>';
     $this->sections = $sections;
+  }
+
+  public function executeListArticles(dmWebRequest $request)
+  {
+    $query = $this->getListQuery();
+    $this->sectionPager = $this->getPager($query);
   }
 
 

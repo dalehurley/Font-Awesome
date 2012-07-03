@@ -21,8 +21,8 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
         $arrayArticle = array();
         $dmPage = sfContext::getInstance()->getPage();
         
-        $ancestors = $dmPage->getNode()->getAncestors();
-        $recordId = $ancestors[count($ancestors) - 1]->getRecordId();
+        //$ancestors = $dmPage->getNode()->getAncestors();
+        //$recordId = $ancestors[count($ancestors) - 1]->getRecordId();
 
         $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars["nbArticles"];
         
@@ -31,8 +31,11 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
             case 'article/show':
                 $orderBy ='';
                 $andWhere ='';
+
+                $ancestors = $dmPage->getNode()->getAncestors();
+                $recordId = $ancestors[count($ancestors) - 1]->getRecordId();
                 if($this->context->getPage()->getRecord()->Section->Rubrique->getTitle() == 'ec_echeancier'){
-                    $orderBy = 'a.position DESC';
+                    $orderBy = 'aTranslation.created_at ASC';
                     $andWhere = 'and aTranslation.created_at > CURRENT_DATE';
                 }
                 else $orderBy = 'aTranslation.updated_at DESC';

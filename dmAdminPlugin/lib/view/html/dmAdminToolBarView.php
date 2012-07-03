@@ -81,21 +81,24 @@ class dmAdminToolBarView extends dmToolBarView
 
   protected function renderExpressLinks()
   {
-    $links = sfConfig::get('dm_express_links', array());
+    if ($this->user->can('systeme'))
+    {
+      $links = sfConfig::get('dm_express_links', array());
 
-    $return = '<select class="expressLinks" size="1" onChange="location = this.options[this.selectedIndex].value;">';
-    $return .= '<option value="#" >-- '.__('Express links').' --</option>';
-    foreach ($links as $title => $url) {
-      $return .= '<option value="'.$url.'" >'.__($title).'</option>';
+      $return = '<select class="expressLinks" size="1" onChange="location = this.options[this.selectedIndex].value;">';
+      $return .= '<option value="#" >-- '.__('Express links').' --</option>';
+      foreach ($links as $title => $url) {
+        $return .= '<option value="'.$url.'" >'.__($title).'</option>';
+      }
+      $return .= '</select>' ;         
+
+      return $return;
     }
-    $return .= '</select>' ;         
-
-    return $return;
   }
 
   protected function renderActiveUsers()
   {
-    if(sfConfig::get('dm_locks_enabled'))
+    if(sfConfig::get('dm_locks_enabled') && sfContext::getInstance()->getUser()->isSuperAdmin())
     {
       return $this->helper->tag('div.dm_active_users', '');
     }

@@ -62,13 +62,14 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
                         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                         ->leftJoin('a.SidActuTypeArticle sata')
                         ->where('a.is_active = ? and sata.sid_actu_type_id = ?', array(true, $vars['type']))
-                        ->orderBy('aTranslation.updated_at DESC')
+                        ->orderBy('a.position ASC')
                         ->limit($nbArticles)
                         ->execute();
 
                 foreach ($actuArticles as $actuArticle) { // on stock les NB actu article 
                     $arrayArticle[$actuArticle->id] = $actuArticle;
                 }
+                
                 $constanteActuCabinet = '{{actualites_du_cabinet}}';
         }
         $vars['titreBloc'] = ($vars['titreBloc'] == NULL || $vars['titreBloc'] == ' ') ? $dmPage->getName() : $vars['titreBloc'];
@@ -110,7 +111,7 @@ class actusDuCabinetActuArticlesListView extends dmWidgetPluginView {
                     'withImage' => $vars['withImage'],
                     'chapo' => $vars['chapo'],
                     'redirect' => $redirect,
-                    'constanteActuCabinet' => $constanteActuCabinet
+                    'constanteActuCabinet' => $constanteActuCabinet,
                 ));
         }
     }

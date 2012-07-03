@@ -49,7 +49,7 @@ EOF;
             $this->runTask('less:compile-all', $arguments, $options);
 
             // sprite init
-            ($verbose)?  $this->logBlock('Generation des sprites', 'COMMENT_LARGE'): '';
+            $this->logBlock('Generation des sprites', 'COMMENT_LARGE');
             $timerTotal = new sfTimer;
             $return['hashMd5'] = null;
             $return['spriteFormat'] = null;
@@ -60,6 +60,15 @@ EOF;
                 if ($return){
                     ($verbose)? $this->logSection(' Sprite init ', $return['hashMd5'] . ' ' . $return['spriteFormat'] . ' ' . $return['prct'].'% (' . round($timer->getElapsedTime() , 3) . ' s)'): '';
                 }
+            }
+
+            // A la fin du traitement on donne accès à tous les fichiers propriété d'apache: chmod 777 sur toute l'arborescence juste créée par le mkdir recursif
+            $dir = sfConfig::get('sf_web_dir').'/theme/images';
+            if (is_dir($dir)){
+                $dirFinder = sfFinder::type('dir');
+                $fileFinder = sfFinder::type('file');
+                @$this->getFilesystem()->chmod($dirFinder->in($dir), 0777);
+                @$this->getFilesystem()->chmod($fileFinder->in($dir), 0666);
             }
 
             // génération des fichiers less et du fichier des variables less

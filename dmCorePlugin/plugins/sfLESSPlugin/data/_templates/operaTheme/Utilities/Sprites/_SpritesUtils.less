@@ -1,6 +1,6 @@
 //_SpritesUtils.less
-// v1.1
-// Last Updated : 2012-02-01 14:25
+// v1.2
+// Last Updated : 2012-06-18 17:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -44,9 +44,8 @@
 		background-color: @colorCouleur3Clair;
 
 		& > .title {
-			background-color: @colorWhite;
-			//changement couleur et disposition du texte
-			color: @colorCouleur2;
+			background-color: @widgetTitleSpriteBgColor;
+			color: @widgetTitleSpriteTextColor;
 			font-size: @fontSizeH3Px;
 			line-height: @gridBaseline;
 			
@@ -59,18 +58,20 @@
 			}
 
 			&:after {
-				background-color: @colorWhite;
+				background-color: @widgetTitleSpriteBgColor;
 				@borderRadiusCompress(@spriteFormat_M);
 			}
-		}
-	}
 
-	//ciblage des listings
-	& .elements .element {
-		&:hover { background-color: @colorCouleur3ClairSup; }
-		//ajout padding pour décalage éléments
-		padding-left: @zonesOffsetPad;
-		padding-right: @zonesOffsetPad;
+			& + .elements > .element.first { padding-top: @gridBaseline; }
+		}
+
+		//ciblage des listings
+		& > .elements > .element {
+			&:hover { background-color: @colorCouleur3ClairSup; }
+			//ajout padding pour décalage éléments
+			padding-left: @zonesOffsetPad;
+			padding-right: @zonesOffsetPad;
+		}
 	}
 
 	//container de l'image

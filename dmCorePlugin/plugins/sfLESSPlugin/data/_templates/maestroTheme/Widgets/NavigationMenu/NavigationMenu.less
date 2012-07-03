@@ -1,6 +1,6 @@
 // NavigationMenu.less
-// v1.3
-// Last Updated : 2012-03-22 11:50
+// v1.3.2
+// Last Updated : 2012-06-19 16:00
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -9,7 +9,6 @@
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
-@import "_framework/SPLessCss/Utilities/Css3/_Css3Shadow.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
@@ -37,8 +36,12 @@
 		}
 	}
 
-	//Positionnement à gauche dans le header et le footer
-	#dm_header & { float: right; }
+	//Positionnement à droite dans le header et à gauche le footer
+	#dm_header & {
+		position: absolute;
+		right: @gridPadding;
+		top: 0;
+	}
 	#dm_footer & { float: left; }
 	
 	//Mise en page et themage personnalisé du menu de navigation dans la zone du header
@@ -48,8 +51,8 @@
 		margin-right: -100%;
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
-		background-color: @colorCouleur2;
-		.rgba & { background-color: fadeout(@colorCouleur2, 20%); }
+		background-color: @menuTopBgColor;
+		.rgba & { background-color: fadeout(@menuTopBgColor, 20%); }
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
@@ -104,14 +107,14 @@ ul.menu-megadropdown ul li ul li {
 
 //Maestro : différenciation des affichages de liens entres les types des menus
 ul.menu-dropdown .link {
-	padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
+	padding: (@menuLinkPadV + 1px) @menuLinkPadH @menuLinkPadV (@menuLinkPadH + 1px);
 	border-width: 0 1px 1px 0;
 }
 
 #dm_sidebar_left ul.menu-megadropdown > li > .link,
 #dm_sidebar_right ul.menu-megadropdown > li > .link,
 ul.menu-accordion .link {
-	padding: (@menuDropdownPadV + 1px) (@menuDropdownPadH + 1px) @menuDropdownPadV (@menuDropdownPadH + 1px);
+	padding: (@menuLinkPadV + 1px) (@menuLinkPadH + 1px) @menuLinkPadV (@menuLinkPadH + 1px);
 	border-width: 0 0 1px 0;
 }
 
@@ -119,42 +122,49 @@ ul.menu-accordion .link {
 ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 	//gestion des liens
 	.link {
-		background-color: @colorCouleur3ClairSup;
-		.rgba & { background-color: fadeout(@colorCouleur3ClairSup, 20%); }
-		// padding: (@menuDropdownPadV + 1px) @menuDropdownPadH @menuDropdownPadV (@menuDropdownPadH + 1px);
+		background-color: @menuBgColor;
+		.rgba & { background-color: fadeout(@menuBgColor, 20%); }
+		// padding: (@menuLinkPadV + 1px) @menuLinkPadH @menuLinkPadV (@menuLinkPadH + 1px);
 		border-style: solid;
 		// border-width: 0 1px 1px 0;
-		border-color: @colorZoneBorder;
-		color: @colorCouleur3Fonce;
+		border-color: @menuBorderColor;
+		color: @menuLinkColor;
 
 		//changement taille selon zone
-		#dm_custom_top & { font-size: @fontGlobalSizePx; }
+		#dm_custom_top & { font-size: @fontGlobalSizePx; border-color: @menuTopBorderColor; }
 		#dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
 		
-		&.dm_current { &, &:hover { color: @colorCouleur1; } }
-		&.dm_inactive { color: @colorCouleur3; }
+		&.dm_current { &, &:hover { color: @menuLinkCurrentColor; } }
+		&.dm_inactive { color: @menuLinkInactiveColor; }
 		//LoVe's Hurts Fade Away
 		&:hover, &:focus {
-			color: @colorCouleur3FonceSup;
-			background-color: @colorCouleur3Clair;
-			.rgba & { background-color: fadeout(@colorCouleur3Clair, 20%); }
+			color: @menuLinkHoverColor;
+			background-color: @menuBgHoverColor;
+			.rgba & { background-color: fadeout(@menuBgHoverColor, 20%); }
 		}
-		&:active { color: @colorCouleur1; }
+		&:active { color: @menuLinkActiveColor; }
 	}
 }
 
 //mise en couleur des cellules ouvertes
 ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
-#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
-ul.menu-megadropdown li.dm_dir:hover > .link,
+.dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link,
 ul.menu-accordion li.dm_parent > .link,
 ul.menu-accordion li.dm_parent li.dm_parent > .link {
-	background-color: @colorCouleur1;
-	.rgba & { background-color: fadeout(@colorCouleur1, 20%); }
-	color: @colorCouleur3Clair;
-	&:hover { color: @colorCouleur3ClairSup; }
+	background-color: @menuBgOpenColor;
+	.rgba & { background-color: fadeout(@menuBgOpenColor, 20%); }
+	color: @menuBgOpenLinkColor;
+	&:hover { color: @menuBgOpenLinkHoverColor; }
 }
+
+#dm_custom_top .dm_widget.navigation_menu ul.menu-dropdown li.dm_dir:hover > .link,
+#dm_custom_top .dm_widget.navigation_menu ul.menu-megadropdown li.dm_dir:hover > .link {
+	background-color: @menuTopBgOpenColor;
+	.rgba & { background-color: fadeout(@menuTopBgOpenColor, 20%); }
+	color: @menuTopBgOpenLinkColor;
+	&:hover { color: @menuTopBgOpenLinkHoverColor; }
+}
+
 //##################################
 //##################################
 
@@ -175,7 +185,6 @@ ul.menu-megadropdown > li {
 			height: 0;
 			right: @menuMaestroArrowOffsetX;
 			top: @menuMaestroArrowOffsetY;
-			//border-color: transparent transparent transparent @menuDropdownArrowColor;
 			border-color: transparent;
 			border-style: solid;
 			border-width: @menuMaestroArrowDim 0;
@@ -200,7 +209,10 @@ ul.menu-megadropdown > li {
 	}
 }
 	
-ul.menu-dropdown li, ul.menu-accordion li {
+ul.menu-dropdown li,
+ul.menu-accordion li {
+//Maestro : gestion séparée de megadropdown
+// ul.menu-megadropdown > li {
 	//création de la flèche avec des bordures
 	&.dm_dir > .link {
 		&:after {
@@ -212,7 +224,6 @@ ul.menu-dropdown li, ul.menu-accordion li {
 			height: 0;
 			right: @menuArrowOffsetX;
 			top: @menuArrowOffsetY;
-			//border-color: transparent transparent transparent @menuDropdownArrowColor;
 			border-color: transparent;
 			border-style: solid;
 			border-width: @menuArrowDim;
@@ -227,7 +238,6 @@ ul.menu-dropdown li, ul.menu-accordion li {
 			#dm_sidebar_right & {
 				right: auto !important;
 				left: @menuArrowOffsetX;
-				//border-color: transparent @menuDropdownArrowColor transparent transparent;
 				
 				.csstransitions.csstransforms & {
 					@origin(75%; 50%);
@@ -237,19 +247,32 @@ ul.menu-dropdown li, ul.menu-accordion li {
 	}
 }
 
+//Modification des paddings des liens de dossier en présence de la flèche
+ul.menu-dropdown,
+ul.menu-accordion {
+	li.dm_dir > .link {
+		padding-right: @menuArrowPadH + @menuLinkPadH;
+		#dm_sidebar_right & {
+			padding-left: @menuArrowPadH + @menuLinkPadH + 1px;
+			padding-right: @menuLinkPadH;
+		}
+	}
+}
+
 //comportement flèche différents selon les types de menu
 ul.menu-dropdown li.dm_dir > .link:hover:after,
 ul.menu-dropdown li.dm_dir:hover > .link:after,
 ul.menu-accordion li.dm_parent > .link:after {
+//Maestro : gestion séparée de megadropdown
+// ul.menu-megadropdown > li.dm_dir > .link:hover:after,
+// ul.menu-megadropdown > li.dm_dir:hover > .link:after {
 	right: @menuArrowOffsetX + @menuArrowDecal;
 	top: @menuArrowOffsetY + @menuArrowDecal;
-	//border-color: @menuDropdownArrowColorSup transparent transparent transparent;
 	
 	//ajout des transitions pour navigateurs récents
 	.csstransitions.csstransforms & {
 		right: @menuArrowOffsetX;
 		top: @menuArrowOffsetY;
-		//border-color: transparent transparent transparent @menuDropdownArrowColorSup;
 		@rotate(90deg);
 	}
 	
@@ -260,7 +283,6 @@ ul.menu-accordion li.dm_parent > .link:after {
 		
 		.csstransitions.csstransforms & {
 			left: @menuArrowOffsetX;
-			//border-color: transparent @menuDropdownArrowColorSup transparent transparent;
 			@rotate(-90deg);
 		}
 	}
@@ -304,7 +326,7 @@ ul.menu-dropdown, ul.menu-megadropdown {
 				//suppression du texte
 				text-indent:-9999em;
 				//insertion de la sprite
-				@spriteDefinition("DefaultLight"; "internet"; "home"; "M"; @spriteFormat_M; @spriteOffX-DefaultLight-internet-home; @spriteOffY-DefaultLight-internet-home);
+				@spriteDefinition(@menuTopSpriteTheme; @menuTopSpriteCategory; @menuTopSpriteName; "M"; @spriteFormat_M; @menuTopSpriteOffX; @menuTopSpriteOffY);
 				//suppression rollOver
 				&, .rgba & {
 					&, &:hover, &:focus { background-color: transparent; }

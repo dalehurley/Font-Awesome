@@ -1,6 +1,6 @@
 // frontTemplate.js
-// v1.1
-// Last Updated : 2012-04-24 11:00
+// v1.2
+// Last Updated : 2012-06-26 15:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -17,6 +17,17 @@
 
 			//lancement fonction de redimensionnement de la page
 			var offsetWindow = $.fn.frontFramework.globalHeight();
+			
+			//on applique le décalage que si la zone existe et que l'offset est significatif
+			if($('#dm_custom_bottom').length > 0 && offsetWindow >= 0) {
+				$('#dm_page_content, #dm_sidebar_left, #dm_sidebar_right').css('marginBottom', offsetWindow);
+			}
+			
+			//Replacement des adresses multiples
+			$('.dm_widget.adresses_multiples').each(function(){
+				//gestion des classes sur le listing
+				$(this).children('.dm_widget_inner').children('ul.elements').listClassCutter();
+			});
 		});
 	}
 

@@ -1,0 +1,110 @@
+#SidAddedPagesGroups:
+#  actAs:
+#    DmSortable:
+#    I18n:
+#      fields: [ title ]
+#      actAs:
+#        Timestampable:
+#  columns:
+#    title:
+#      type: string(40)
+#      notnull: true
+#    is_active:
+#      type: boolean
+#      notnull: true
+#      default: true
+#      
+SidAddedPages:
+  actAs:
+#    DmTaggable:
+    DmBlameable:
+#    DmSortable:
+    NestedSet:
+      hasManyRoots: true
+      rootColumnName: root_id
+    I18n:
+      fields: [ title, text, resume ]
+      actAs:
+        DmVersionable:
+        Timestampable:
+  columns:
+    title:
+      type: string(255)
+      notnull: true
+#    group_id:
+#      type: integer
+#    parent_id:
+#      type: integer
+#      unsigned: true
+#      notnull: true
+#      default: 0
+    resume:
+      type: clob
+      notnull: false
+    text:
+      type: clob
+      extra: ckeditor
+      notnull: false
+    image:
+      type: integer
+    file1:
+      type: integer
+    file2:
+      type: integer
+    file3:
+      type: integer
+    file4:
+      type: integer
+    file5:
+      type: integer
+    title_file1:
+      type: string(255)
+    title_file2:
+      type: string(255)
+    title_file3:
+      type: string(255)
+    title_file4:
+      type: string(255)
+    title_file5:
+      type: string(255)
+    is_active:
+      type: boolean
+      notnull: true
+      default: true
+  relations:
+#    Groupe:
+#      class: SidAddedPagesGroups
+#      local: group_id
+#      foreign: id
+#      foreignAlias: SidAddedPages
+#      onDelete: Cascade
+    Image:
+      class:          DmMedia
+      local:          image
+      foreignAlias:   SidAddedPages
+      onDelete: Cascade
+    Files1:
+      class:          DmMedia
+      local:          file1
+      foreignAlias:   SidAddedPages
+      onDelete: Cascade
+    Files2:
+      class:          DmMedia
+      local:          file2
+      foreignAlias:   SidAddedPages
+      onDelete: Cascade
+    Files3:
+      class:          DmMedia
+      local:          file3
+      foreignAlias:   SidAddedPages
+      onDelete: Cascade
+    Files4:
+      class:          DmMedia
+      local:          file4
+      foreignAlias:   SidAddedPages
+      onDelete: Cascade
+    Files5:
+      class:          DmMedia
+      local:          file5
+      foreignAlias:   SidAddedPages
+      onDelete: Cascade

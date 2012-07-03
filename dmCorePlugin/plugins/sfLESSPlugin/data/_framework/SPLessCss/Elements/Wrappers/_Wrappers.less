@@ -136,6 +136,96 @@
 	//dans un listing ou un résultat de recherche
 	.elements .element &, .search_results .search_result & { margin-bottom: 0; }
 
+	//insertion de la sprite de silhouette en cas d'absence d'image dans les parties équipes
+	&.noImage.buddy {
+		//suppression dépassement éventuel de la sprite
+		overflow: hidden;
+		//couleur de fond pour cadrer très légèrement la silhouette
+		background-color: @colorCouleur3Clair;
+
+		.image {
+			position: absolute;
+			display: block;
+			text-indent:-9999em;
+			//placement à mi-largeur
+			left: 50%;
+			bottom: 0;
+		}
+		
+		//configuration en fonction du format de sprite sélectionné
+		&.spriteFormat_S {
+			height: @gridBaseline;
+			.image {
+				margin-left: @spriteFormat_S/-2;
+				@spriteDimension(@spriteFormat_S);
+				@spriteBgi("Default"; "S");
+				//insertion des sprites
+				&.female {
+					@spriteBgiSvg("Default"; "internet"; "buddyFemale");
+					@spriteBgp(@spriteFormat_S; @spriteOffX-internet-buddyFemale; @spriteOffY-internet-buddyFemale);
+				}
+				&.male {
+					@spriteBgiSvg("Default"; "internet"; "buddyMale");
+					@spriteBgp(@spriteFormat_S; @spriteOffX-internet-buddyMale; @spriteOffY-internet-buddyMale);
+				}
+			}
+		}
+
+		&.spriteFormat_M {
+			height: @gridBaseline*2;
+			.image {
+				margin-left: @spriteFormat_M/-2;
+				@spriteDimension(@spriteFormat_M);
+				@spriteBgi("Default"; "M");
+				//insertion des sprites
+				&.female {
+					@spriteBgiSvg("Default"; "internet"; "buddyFemale");
+					@spriteBgp(@spriteFormat_M; @spriteOffX-internet-buddyFemale; @spriteOffY-internet-buddyFemale);
+				}
+				&.male {
+					@spriteBgiSvg("Default"; "internet"; "buddyMale");
+					@spriteBgp(@spriteFormat_M; @spriteOffX-internet-buddyMale; @spriteOffY-internet-buddyMale);
+				}
+			}
+		}
+
+		&.spriteFormat_L {
+			height: @gridBaseline*3.5;
+			.image {
+				margin-left: @spriteFormat_L/-2;
+				@spriteDimension(@spriteFormat_L);
+				@spriteBgi("Default"; "L");
+				//insertion des sprites
+				&.female {
+					@spriteBgiSvg("Default"; "internet"; "buddyFemale");
+					@spriteBgp(@spriteFormat_L; @spriteOffX-internet-buddyFemale; @spriteOffY-internet-buddyFemale);
+				}
+				&.male {
+					@spriteBgiSvg("Default"; "internet"; "buddyMale");
+					@spriteBgp(@spriteFormat_L; @spriteOffX-internet-buddyMale; @spriteOffY-internet-buddyMale);
+				}
+			}
+		}
+
+		&.spriteFormat_X {
+			height: @gridBaseline*7;
+			.image {
+				margin-left: @spriteFormat_X/-2;
+				@spriteDimension(@spriteFormat_X);
+				@spriteBgi("Default"; "X");
+				//insertion des sprites
+				&.female {
+					@spriteBgiSvg("Default"; "internet"; "buddyFemale");
+					@spriteBgp(@spriteFormat_X; @spriteOffX-internet-buddyFemale; @spriteOffY-internet-buddyFemale);
+				}
+				&.male {
+					@spriteBgiSvg("Default"; "internet"; "buddyMale");
+					@spriteBgp(@spriteFormat_X; @spriteOffX-internet-buddyMale; @spriteOffY-internet-buddyMale);
+				}
+			}
+		}
+	}
+
 	//placé à gauche dans les sidebars et dans les subwrappers, donc marge à droite et aucune marge à gauche
 	#dm_sidebar_left &, #dm_sidebar_right &, .supWrapper & {
 		margin-left: 0;
@@ -162,11 +252,11 @@
 	}
 	.link .image { float:none; margin: 0; }
 
-	//placé à gauche dans les sidebars et dans les subwrappers, donc changement sens d'alignement
+	//placé à gauche dans les sidebars et dans les subwrappers, donc marge à droite et aucune marge à gauche
 	#dm_sidebar_left &, #dm_sidebar_right &, .supWrapper & {
 		.image, .link {
-			margin-right: @gridGutter;
 			margin-left: 0;
+			margin-right: @gridGutter;
 			&.last { margin-right: 0; }
 		}
 	}

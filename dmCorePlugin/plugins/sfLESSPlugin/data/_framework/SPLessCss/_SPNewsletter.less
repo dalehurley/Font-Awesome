@@ -1,0 +1,124 @@
+// _SPNewsletter.less
+// v1.0
+// Last Updated : 2012-05-21 17:10
+// Copyright : SID Presse
+// Author : Arnaud GAUDIN
+
+//importation des librairies externes de fonctions
+@import "_framework/SPLessCss/Utilities/_Utilities.less";
+
+//importation des fichiers de config
+@import "_framework/SPLessCss/Config/_ConfigInit.less";
+
+//application du debug pour le framework et le template sélectionné
+.debugFramework{@Debug("SPLessCss";@frameworkVersion;@frameworkDate;@frameworkCopyright;@frameworkAuthor);}
+.debugTemplate{@Debug(@mainTemplate;@templateVersion;@templateDate;@templateCopyright;@templateAuthor);}
+
+
+//newsletter basée sur la version 1.4.1 de Concerto
+body {
+	font-family: @fontGlobalFamilySansSerif;
+	padding: 0;
+	margin: 0;
+}
+
+body,
+a,
+a:hover { color: @colorBlack; } 
+
+// rub "à la une", "les autres actus", "et aussi" 
+.titrerub,
+.titrerub2 {
+	color: @colorCouleur1;
+	line-height: 30px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+// rub "le cabinet vous informe" 
+.titrerub2 {
+	color: @colorWhite;
+}
+
+// titre des articles 
+.titre {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+// LE chiffre et LA date de la semaine, titre de l'article à la une 
+.titre2 {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+// les titre de rub à droite 
+.titre3 {
+	font-size: 14px;
+	line-height: 24px;
+	font-weight: bold;
+}
+
+// le texte 
+.texte { font-size: 12px;	}
+.texte2 { font-size: 11px;	}
+.texte3 { font-size: 10px;	}
+.textegris { color: @colorCouleur3FonceSup; }
+
+// couleurs des flèches 
+.puce { color: @colorCouleur1;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+// couleur de la flèche pour le bloc question 
+.fond_titre_droite span.puce { color: @colorCouleur1; }
+
+// les fonds de cellule 
+.fond_body { background-color: @colorCouleur3; }
+.fond_header { background-color: @colorCouleur3; }
+.fond_cabinetinforme { background-color: @colorCouleur3FonceSup; }
+.fond_alaune { background-color: @colorCouleur3Moyen;}
+.fond_normal,
+.fond_droite { background-color: @colorWhite; }
+.fond_titre_droite { background-color: @colorCouleur3Clair; }
+.fond_footer { background-color: @colorCouleur3Moyen; }
+.fond_footer2 { background-color: @colorCouleur3FonceSup; }
+
+// header 
+.fond_header span.titre {
+	font-size: 14px;
+	line-height: 40px;
+	font-weight: bold;
+}
+
+.fond_header { color: @colorCouleur3Moyen; }
+.fond_header a,
+.fond_header a:hover { color: @colorCouleur3Moyen; }
+
+// droite
+.fond_titre_droite .titre {
+	color: @colorCouleur1;
+	line-height: 26px;
+}
+
+// lecabinet vous informe 
+.fond_cabinetinforme,
+.fond_cabinetinforme a,
+.fond_cabinetinforme a:hover { color: @colorWhite; }
+
+// bordure des images des articles 
+.fond_normal img { border: 1px solid @colorCouleur3FonceSup; }
+
+// footer 
+.fond_footer,
+.fond_footer a,
+.fond_footer a:hover { color: @colorCouleur3FonceSup; }
+
+// footer
+.fond_footer2,
+.fond_footer2 a,
+.fond_footer2 a:hover { color: @colorCouleur3Clair; }
+
+// filet entre les articles "et aussi
+.filet { border-bottom: 1px dotted @colorCouleur3Sup; }

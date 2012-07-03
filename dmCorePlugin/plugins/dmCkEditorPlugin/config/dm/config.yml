@@ -3,11 +3,11 @@ default:
   ckeditor:
     config:
 
-#      toolbar:
-#        - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
-#        - ['PasteText','PasteFromWord']
-#        - ['Undo','Redo']
-#        - ['Image','HorizontalRule','SpecialChar']
+      #      toolbar:
+      #        - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
+      #        - ['PasteText','PasteFromWord']
+      #        - ['Undo','Redo']
+      #        - ['Image','HorizontalRule','SpecialChar']
       toolbar:   
         #- ['Source','-','Save','NewPage','Preview','-','Templates']
         - ['Source','-','NewPage','Preview','-','Templates']
@@ -24,19 +24,27 @@ default:
         - ['TextColor','BGColor']
         - ['Maximize', 'ShowBlocks','-','About']
 
-      resize_enabled:     false
+      resize_enabled:     true
+
+      skin: 'kama'
 
       extraPlugins:       diem
 
       customConfig:       ''
-      
-      uiColor : '#9AB8F3'
-      
+
+      uiColor : '#DEDEDE'
+
       removePlugins : 'elementspath'
-      
-      
-      
-    configLite:
+
+      # enter P  = 1
+      # enter BR = 2
+      # enter DIV  = 3
+      enterMode : 2
+      shiftEnterMode :  2
+
+      autoGrow_onStartup: true
+
+    configLite:    # Config lègere pour les clients
 
       toolbar:
         - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
@@ -44,8 +52,48 @@ default:
         - ['Undo','Redo']
         - ['HorizontalRule','SpecialChar']
 
-      resize_enabled:     false
+      resize_enabled:     true
+
+      skin: 'kama'
 
       extraPlugins:       diem
 
-      customConfig:       ''      
+      customConfig:       ''    
+
+      uiColor : '#DEDEDE'   
+
+      removePlugins : 'elementspath'
+
+      # enter P  = 1
+      # enter BR = 2
+      # enter DIV  = 3
+      enterMode : 2
+      shiftEnterMode :  2
+      
+    configCoPilotes:    # Config pour co-pilotes
+
+      toolbar:
+        - ['Source']
+        - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
+        - ['PasteText','PasteFromWord']
+        - ['Undo','Redo']
+        - ['HorizontalRule','SpecialChar']
+        - ['TextColor','BGColor']
+
+      resize_enabled:     true
+
+      skin: 'kama'
+
+      extraPlugins:       diem
+
+      customConfig:       ''    
+
+      uiColor : '#DEDEDE'   
+
+      removePlugins : 'elementspath'
+
+      # enter P  = 1
+      # enter BR = 2
+      # enter DIV  = 3
+      enterMode : 2
+      shiftEnterMode :  2

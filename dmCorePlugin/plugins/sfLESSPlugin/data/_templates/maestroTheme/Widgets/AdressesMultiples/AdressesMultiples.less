@@ -82,7 +82,7 @@
 				.streetAddress, .postalCode, .addressLocality { .type, .separator { display: none; visibility: hidden; } }
 
 				//changement comportemant par défaut (cf itemprop.less)
-				.email, .faxNumber, .telephone {
+				.email, .faxNumber, .telephone, .cellphone {
 					//réaparition du séparateur
 					.separator { display: inline; visibility: visible; vertical-align: top; }
 
@@ -106,7 +106,7 @@
 				.subWrapper .itemprop { margin-left: 0; }
 
 				//ajout de tiret sur certains éléments
-				.streetAddress, .subWrapper, .email, .telephone, .faxNumber {
+				.streetAddress, .subWrapper, .email, .telephone, .cellphone, .faxNumber {
 					//suppression marge à droite car on rajoute un tiret
 					margin-left: 0;
 					&:before {

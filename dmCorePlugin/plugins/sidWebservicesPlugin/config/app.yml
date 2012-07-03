@@ -1,8 +1,8 @@
 #all:
 all:
  identification:
-  login: test
-  password: secret
+  login: usw
+  password: FDbXp12
  soapService:
   wsdl: applicatifs.wsdl
   adr: http://applicatifs.expert-infos.com/

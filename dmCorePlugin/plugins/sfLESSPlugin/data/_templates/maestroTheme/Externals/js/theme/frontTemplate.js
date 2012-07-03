@@ -1,6 +1,6 @@
 // frontTemplate.js
-// v1.2
-// Last Updated : 2012-05-02 15:20
+// v1.2.4
+// Last Updated : 2012-06-12 14:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -15,63 +15,38 @@
 			//Affichage debug initialisation
 			$.fn.frontFramework.debug("frontTemplate maestroTheme | initialisation");
 
+			//on fusionne les options courantes avec les options par défaut
+			var getOptions = $.extend({}, $.fn.frontTemplate.defaultOptions, $.fn.frontTemplate.currentOptions);
+			
 			//Configuration du redimenssionnement
-			$.fn.frontTemplate.resizeCols({
-										offsetHC: 0,
-										offsetHSL: 0,
-										offsetHSR: 0
-										});
+			var resultOptions = $.fn.frontTemplate.resizeCols(getOptions);
+
+			//on fusionne les options résultantes avec les options courantes
+			$.extend($.fn.frontTemplate.currentOptions, resultOptions);
 		});
 	}
 
 	//Gestion de la taille des colonnes
 	$.fn.frontTemplate.resizeCols = function (options) {
 
-		//changement des valeurs des options
-		//on vérifie la présence de différents widgets à placer en bas dans la sidebarLeft
-		/*
-		//sélection de diverses widgets à placer en bas de la colonne
-		// var widgetFollowingMenu = $('#dm_sidebar_left > .dm_zones > .dm_zone > .dm_widgets > .dm_widget.navigation_menu ~ .dm_widget:not(.navigation_menu)');
-		// notation ne nécessitant pas de parser, donc plus rapide
-		// cf. http://aahacreative.com/2010/07/19/jquery-fastest-method-find-descendents
-		var widgetFollowingMenu = $('#dm_sidebar_left').find('.dm_widget.navigation_menu').siblings('.dm_widget').not('.navigation_menu');
+		//on rajoute l'espace manquant à priori en bas à droite afin de combler le manque éventuel
+		var offsetDecal = $('#dm_main').height() - $('#dm_main_inner').height();
 
-		//initialisation hauteur totale
-		var fullHeight = 0;
-
-		//on parcourt la sélection de widgets
-		widgetFollowingMenu.each(function(index) {
-			//incrémentation hauteur courante (marge comprise)
-			fullHeight += $(this).outerHeight(true);
-
-			//replacement en absolu du widget
-			$(this).css({
-						'position' : 'absolute',
-						'bottom' : (fullHeight*-1)
-					});
-			
-			// $.fn.frontFramework.debug(index + " widget : " + $(this).attr('class') + ' fullHeight ' + fullHeight + ' outerHeight ' + $(this).outerHeight(true));
-		});
-
-		//on ajoute du padding bottom à la sidebar pour loger les widgets précisemment, et on change le position des zones
-		$('#dm_sidebar_left').css('paddingBottom', fullHeight).children('.dm_zones').css('position', 'relative');
-
-		//on soustrait la hauteur au calcul à posteriori
-		options.isPostHSL = true;
-		options.offsetHSL -= fullHeight;
-		// $.fn.frontFramework.debug("widgetFollowingMenu fullHeight : " + fullHeight);
-		*/
-
-		//on rajoute l'espace manquant en bas à droite à priori afin de combler le manque éventuel
-		options.offsetHC += $('#dm_main').height() - $('#dm_main_inner').height();
+		//on rajoute le décalage aux deux colonnes (pour éviter un bug dans le cas où la sidebarLeft est plus grande)
+		if(offsetDecal > 0) {
+			options.offsetHC = options.offsetHSL = offsetDecal;
+			// options.offsetHC+= offsetDecal;
+			// options.offsetHSL+= offsetDecal;
+		}
+		// $.fn.frontFramework.debug("offsetDecal : " + offsetDecal + " options.offsetHC : " + options.offsetHC + " options.offsetHSL : " + options.offsetHSL);
 
 		//on calcul la hauteur de la zone customBottom et de sa sous-zone à gauche
 		var customBottomHeight = $('#dm_custom_bottom').outerHeight(true);
-		var customBottomLeftHeight = $('#dm_custom_bottom').find('.dm_zone.left').outerHeight(true);
+		var customBottomLeftHeight = $('#dm_custom_bottom_left').outerHeight(true);
 		// $.fn.frontFramework.debug("customBottomHeight : " + customBottomHeight + " customBottomLeftHeight : " + customBottomLeftHeight);
-
+		
 		//on ne rajoute de l'espace que si la zone est insuffisamment grande pour le contenir
-		if(customBottomHeight != null && customBottomLeftHeight!= null && customBottomHeight < customBottomLeftHeight) {
+		if(customBottomHeight < customBottomLeftHeight) {
 			//on ne rajoute que l'espace manquant
 			//en soustrayant la hauteur de la zone située en bas à gauche au calcul à posteriori
 			options.isPostHSL = true;
@@ -80,7 +55,20 @@
 
 		//appel de la fonction de redimenssionnement générale
 		$.fn.frontFramework.resizeCols(options);
+
+		//on retourne les options
+		return options;
 	}
+
+	//Paramètres par défaut
+	$.fn.frontTemplate.defaultOptions = {
+		offsetHC: 0,
+		offsetHSL: 0,
+		offsetHSR: 0
+	};
+
+	//Paramètres appliqués actuellement
+	$.fn.frontTemplate.currentOptions = {};
 
 	//lancement automatique de la fonction
 	$(document).ready(function(){

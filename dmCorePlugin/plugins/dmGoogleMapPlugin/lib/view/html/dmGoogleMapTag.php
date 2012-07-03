@@ -18,8 +18,10 @@ class dmGoogleMapTag extends dmHtmlTag {
             'center' => null,
             'idCabinet' => null,
             'length' => null,
-            'withResume' => null,
-//            'smartGoogleMap' => false
+            'width' => null,
+            'height' => null,
+            'withResume' => null
+            // 'smartGoogleMap' => false
         ));
     }
     /*
@@ -65,6 +67,14 @@ class dmGoogleMapTag extends dmHtmlTag {
         
         return $this->setOption('length', (int)$length);
     }
+    public function width($width) {
+        
+        return $this->setOption('width', (int)$width);
+    }
+    public function height($height) {
+        
+        return $this->setOption('height', (int)$height);
+    }
     public function withResume($withResume) {
         
         return $this->setOption('withResume', (bool)$withResume);
@@ -100,65 +110,72 @@ class dmGoogleMapTag extends dmHtmlTag {
 
       $adresseRequest = DmDb::table('SidCoordName')->findOneByIdAndIsActive($preparedAttributes['idCabinet'],true);
       if(is_object($adresseRequest)){
-//      $addressOpts = array(
-//            'name' => $adresseRequest->getTitle(),
-//            'addressLocality' => $adresseRequest->getVille(),
-//            'postalCode' => $adresseRequest->getCodePostal(),
-//            'faxNumber' => $adresseRequest->getFax(),
-//            'telephone' => $adresseRequest->getTel(),
-//            'container' => 'div.mapAddress'
-//          );
+        // $addressOpts = array(
+        //       'name' => $adresseRequest->getTitle(),
+        //       'addressLocality' => $adresseRequest->getVille(),
+        //       'postalCode' => $adresseRequest->getCodePostal(),
+        //       'faxNumber' => $adresseRequest->getFax(),
+        //       'telephone' => $adresseRequest->getTel(),
+        //       'container' => 'div.mapAddress'
+        //     );
     
-      //insertion du partial d'organization
-      $cabinet .= '<div xmlns="http://www.w3.org/1999/xhtml" itemtype="http://schema.org/Organization" itemscope="itemscope" class="mapAddress itemscope Organization">
-                      <span itemprop="name" class="itemprop name">'.$adresseRequest->getTitle().'</span>';
-      // fabrication de l'adresse
-      $adresseCabinet = $adresseRequest->getAdresse();
-      //vérification de adresse2
-      ($adresseRequest->getAdresse2() != NULL) ? $adresseCabinet .='-'.$adresseRequest->getAdresse2() : $adresseCabinet .='';
-      // fin de la fabrication de l'adresse
-      $cabinet .= '   <div itemtype="http://schema.org/PostalAddress" itemscope="itemscope" class="address itemscope PostalAddress" itemprop="address">
-                          <span class="itemprop streetAddress">
-                              <span title="Rue" class="type">'.sfContext::getInstance()->getI18N()->__("Street").'</span>
-                              <span class="separator">&nbsp;:&nbsp;</span>
-                              <span itemprop="streetAddress" class="value">'.$adresseCabinet.'</span>
-                          </span>';
-      //$adresseCabinet .= ' - '.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
-      $cabinet .= '       <span class="subWrapper">
-                              <span class="itemprop postalCode">
-                                  <span class="type" title="Postal Code">'.sfContext::getInstance()->getI18N()->__("Postal Code").'</span>
-                                  <span class="separator">&nbsp;:&nbsp;</span>
-                                  <span class="value" itemprop="postalCode">'.$adresseRequest->getCodePostal().'</span>
-                              </span>';
-      $cabinet .= '           <span class="itemprop addressLocality">
-                                  <span title="Localité" class="type"> '.sfContext::getInstance()->getI18N()->__("Locality").'</span>
-                                  <span class="separator">&nbsp;:&nbsp;</span>
-                                  <span itemprop="addressLocality" class="value">'.$adresseRequest->getVille().'</span>
-                              </span>
-                          </span>
-                      </div>';
-      // vérif si tél existe
-      ($adresseRequest->getTel() != NULL) ? $cabinet .= '<span class="itemprop telephone">
-                                                              <span title="Téléphone" class="type">Téléphone</span>
-                                                              <span class="separator">&nbsp;:&nbsp;</span>
-                                                              <span itemprop="telephone" class="value">'.$adresseRequest->getTel().'</span>
-                                                          </span>' : $cabinet .= '';
-      // vérif si fax existe
-      ($adresseRequest->getFax() !=NULL) ? $cabinet .= '<span class="itemprop faxNumber">
-                                                          <span class="type" title="Fax">Fax</span>
-                                                          <span class="separator">&nbsp;:&nbsp;</span>
-                                                          <span class="value" itemprop="faxNumber">'.$adresseRequest->getFax().'</span>
-                                                      </span>' : $cabinet .= '';
-      
-      // pour afficher ResumeTown sous l'adresse si on est sur la page plan d'accès
-      if(($preparedAttributes['withResume'] == TRUE) && ($adresseRequest->getResumeTown() != NULL) && ($preparedAttributes['smartGoogleMap'] == TRUE)){
-          $length = ($preparedAttributes['length'] == 0) ? '': $preparedAttributes['length'];
-          $resumeTownInMap = '<span class="itemprop implantation">'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '(...)', true, true).'</span>' ;
-          $resumeTown='';
-      }
-      else $resumeTownInMap = '';
-      
-      $cabinet .= $resumeTownInMap.'</div>'; 
+        //insertion du partial d'organization
+        //suppression de la marge de droite : Organization" style="margin-right:' . $this->options['width'] . 'px;">
+        $cabinet .= '<div xmlns="http://www.w3.org/1999/xhtml" itemtype="http://schema.org/Organization" itemscope="itemscope" class="mapAddress itemscope Organization">
+                        <span itemprop="name" class="itemprop name">'.$adresseRequest->getTitle().'</span>';
+        // fabrication de l'adresse
+        $adresseCabinet = $adresseRequest->getAdresse();
+        //vérification de adresse2
+        ($adresseRequest->getAdresse2() != NULL) ? $adresseCabinet .='-'.$adresseRequest->getAdresse2() : $adresseCabinet .='';
+        // fin de la fabrication de l'adresse
+        $cabinet .= '   <div itemtype="http://schema.org/PostalAddress" itemscope="itemscope" class="address itemscope PostalAddress" itemprop="address">
+                            <span class="itemprop streetAddress">
+                                <span title="Rue" class="type">'.sfContext::getInstance()->getI18N()->__("Street").'</span>
+                                <span class="separator">&nbsp;:&nbsp;</span>
+                                <span itemprop="streetAddress" class="value">'.$adresseCabinet.'</span>
+                            </span>';
+        //$adresseCabinet .= ' - '.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
+        $cabinet .= '       <span class="subWrapper">
+                                <span class="itemprop postalCode">
+                                    <span class="type" title="Postal Code">'.sfContext::getInstance()->getI18N()->__("Postal Code").'</span>
+                                    <span class="separator">&nbsp;:&nbsp;</span>
+                                    <span class="value" itemprop="postalCode">'.$adresseRequest->getCodePostal().'</span>
+                                </span>';
+        $cabinet .= '           <span class="itemprop addressLocality">
+                                    <span title="Localité" class="type"> '.sfContext::getInstance()->getI18N()->__("Locality").'</span>
+                                    <span class="separator">&nbsp;:&nbsp;</span>
+                                    <span itemprop="addressLocality" class="value">'.$adresseRequest->getVille().'</span>
+                                </span>
+                            </span>
+                        </div>';
+        // vérif si adresse mail existe
+        ($adresseRequest->getEmail() != NULL) ? $cabinet .= '<span class="itemprop email">
+                                                                <span title="'.__('Email').'" class="type">'.__('Email').'</span>
+                                                                <span class="separator">&nbsp;:&nbsp;</span>
+                                                                <a href="mailto:'.$adresseRequest->getEmail().' " itemprop="email" class="value">'.__('Email').'</a>
+                                                            </span>' : $cabinet .= '';           
+        // vérif si tél existe
+        ($adresseRequest->getTel() != NULL) ? $cabinet .= '<span class="itemprop telephone">
+                                                                <span title="Téléphone" class="type">Téléphone</span>
+                                                                <span class="separator">&nbsp;:&nbsp;</span>
+                                                                <span itemprop="telephone" class="value">'.$adresseRequest->getTel().'</span>
+                                                            </span>' : $cabinet .= '';
+        // vérif si fax existe
+        ($adresseRequest->getFax() !=NULL) ? $cabinet .= '<span class="itemprop faxNumber">
+                                                            <span class="type" title="Fax">Fax</span>
+                                                            <span class="separator">&nbsp;:&nbsp;</span>
+                                                            <span class="value" itemprop="faxNumber">'.$adresseRequest->getFax().'</span>
+                                                        </span>' : $cabinet .= '';
+        
+        // pour afficher ResumeTown sous l'adresse si on est sur la page plan d'accès
+        if(($preparedAttributes['withResume'] == TRUE) && ($adresseRequest->getResumeTown() != NULL) && ($preparedAttributes['smartGoogleMap'] == TRUE)) {
+            $length = ($preparedAttributes['length'] == 0) ? '': $preparedAttributes['length'];
+            $resumeTownInMap = '<span class="itemprop description" itemprop="description">'. stringTools::str_truncate($adresseRequest->getResumeTown(), $length, '(...)', true, true).'</span>' ;
+            $resumeTown='';
+        }
+        else $resumeTownInMap = '';
+        
+        $cabinet .= $resumeTownInMap.'</div>';
       }
       
       ($preparedAttributes['titreBloc'] == '' ) ? $titreBloc =   sfContext::getInstance()->getI18N()->__('Map') : $titreBloc = $preparedAttributes['titreBloc'] ;
@@ -173,7 +190,7 @@ class dmGoogleMapTag extends dmHtmlTag {
           }
       else $resumeTown='';
       // construction de la chaîne html
-      $tag = '<h2 class="title">'.$titreBloc.'</h2>'.$resumeTown.'<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>'.$cabinet;
+      $tag = '<h2 class="title">'.$titreBloc.'</h2>' . $resumeTown . '<div'.$this->convertAttributesToHtml($preparedAttributes).'>'.$splash.'</div>' . $cabinet;
       
       return $tag;
     }

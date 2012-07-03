@@ -78,14 +78,21 @@ class dmWidgetTypeManager extends dmConfigurable
 
           foreach($module->getComponents() as $componentKey => $component)
           {
-            $baseClass = 'dmWidget'.dmString::camelize($component->getType());
+            $formClass = 'dmWidget'.dmString::camelize($component->getType()).'Form';
+            $viewClass = 'dmWidget'.dmString::camelize($component->getType()).'View';
+
+            if ($component->getFormClass()){  // optionnal parameter in modules.yml for form components
+              $formClass = $component->getFormClass();
+            }
 
             $widgetTypeConfig = array(
               'full_key'   => $moduleKey.ucfirst($componentKey),
               'name'       => $component->getName(),
               'public_name' => $module->getName().' '.dmString::humanize($component->getName()),
-              'form_class' => $baseClass.'Form',
-              'view_class' => $baseClass.'View',
+              // 'form_class' => $baseClass.'Form',
+              // 'view_class' => $baseClass.'View',
+              'form_class' => $formClass,
+              'view_class' => $viewClass,               
               'use_component' => dmArray::get($component, 'use_component', false) || $this->componentExists($moduleKey, $componentKey),
               'cache'      => $component->isCachable(),
               'assets'     => dmArray::get($action, 'assets', array())

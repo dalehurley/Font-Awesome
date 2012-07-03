@@ -1,6 +1,6 @@
 // _Areas.less
-// v1.1
-// Last Updated : 2012-01-18 11:00
+// v1.4
+// Last Updated : 2012-06-21 14:35
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -19,9 +19,27 @@
 	#dm_custom_bottom > .dm_zones { background-color: fadeout(#CC7ACC, 50%); }
 }
 
+//couleur du fond général de la page
+body { background-color: @bodyBgColor; }
+
+//couleur de la zone située sous le header jusqu'en bas
+#dm_main_inner {
+	background-color: @mainBgColor;
+	//ombrage de la zone centrale
+	@dropShadowPie(0; 0; @mainShadowBlur; 0; @mainShadowColor; @mainShadowPieColor);
+}
+
+//dégradé de la page
+#dm_page {
+	@verticalGradient(@bodyGradientColor1; @bodyGradientColor2);
+}
+
+//couleur de la zone de contenu
+#dm_page_content { background-color: @contentBgColor; }
+
 //couleur de la zone située sous le header jusqu'en bas
 #dm_main {
-	//taille par défaut : 1262*630
+	//taille par défaut : 1262*630 (largeur minimale 1006px)
 	background-image: url(@{mainBgImageUrl});
 	background-repeat: no-repeat;
 	background-position: 50% top;
@@ -29,19 +47,31 @@
 
 //stylage du header
 #dm_header {
+	background-color: @headerBgColor;
+	@verticalGradient(@headerBgColorClair; @headerBgColorFonce);
+
+	//ajout ombage sous le header
+	@dropShadowPie(0; @headerShadowBlur; @headerShadowBlur; 0; @headerShadowColor; @headerShadowPieColor);
+
 	.dm_zones {
+		//gestion du fond
+		background-color: @headerCenterBgColor;
+		@verticalGradient(@headerCenterBgColorClair; @headerCenterBgColorFonce);
+
 		position: relative;
-		@gridSiteWidth();
+		//largeur du site avec les débordements pris en compte
+		@gridSiteWidth(@gridScreen; @gridCol; @gridPadding);
 		margin-left: auto;
 		margin-right: auto;
-		padding: @gridBaseline/2 0;
+		padding-top: @gridBaseline/2;
+		padding-bottom: @gridBaseline/2;
 	}
 }
 
 //stylage du footer
 #dm_footer {
-	background-color: @colorCouleur2;
-	.rgba & { background-color: fadeout(@colorCouleur2, 20%); }
+	background-color: @footerBgColor;
+	.rgba & { background-color: fadeout(@footerBgColor, 20%); }
 	padding: 0;
 
 	.dm_zones {
@@ -54,7 +84,7 @@
 	.content_text {
 		.isLess & { background-color: #B6E0D1; }
 		position: relative;
-		&, .link { color: @colorCouleur3Clair; }
+		&, .link { color: @footerTextColor; }
 		.link { text-decoration: none; &:hover { text-decoration: underline; } }
 		float: right;
 		&, .text_content p {
@@ -67,7 +97,7 @@
 		.isLess & { background-color: #E0B6D1; }
 		position: relative;
 		&, .link {
-			color: @colorCouleur3;
+			color: @footerTextColor;
 			text-decoration: none;
 			&:hover { text-decoration: underline; }
 		}
@@ -90,21 +120,58 @@
 	.dm_zones {
 		.dm_zone { position: relative; }
 
-		.dm_zone.left {
-			.isLess & { background-color: fadeout(#A1ADD1, 50%); }
-			//définition de la largeur
-			@gridWidth(@gridCol_SidebarLeft);
-			//placement et hauteur
-			position: absolute;
-			bottom: 0;
-		}
-		.dm_zone.right {
-			.isLess & { background-color: fadeout(#A8A1D1, 50%); }
-			background-color: @colorCouleur3Clair;
-			//définition de la largeur
-			@gridWidth((@gridCol - @gridCol_SidebarLeft));
-			//placement et hauteur
-			float: right;
-		}
+		// .dm_zone.left {
+		// 	.isLess & { background-color: fadeout(#A1ADD1, 50%); }
+		// 	//définition de la largeur
+		// 	@gridWidth(@gridCol_SidebarLeft);
+		// 	//placement et hauteur
+		// 	position: absolute;
+		// 	bottom: 0;
+		// }
+		// .dm_zone.right {
+		// 	.isLess & { background-color: fadeout(#A8A1D1, 50%); }
+		// 	background-color: @colorCouleur3Clair;
+		// 	//définition de la largeur
+		// 	@gridWidth((@gridCol - @gridCol_SidebarLeft));
+		// 	//placement et hauteur
+		// 	float: right;
+		// }
 	}
-}	
+}
+
+#dm_custom_bottom_left {
+	#dm_page.edit &, .isLess & { background-color: fadeout(#5473D1, 50%); }
+	#dm_page.edit & {
+		position: relative;
+		width: auto;
+		float: none;
+	}
+	//définition de la largeur
+	@gridWidth(@gridCol_SidebarLeft);
+	//placement et hauteur
+	position: absolute;
+	bottom: 0;
+}
+
+#dm_custom_bottom_right {
+	#dm_page.edit &, .isLess & { background-color: fadeout(#9D54D1, 50%); }
+	#dm_page.edit & {
+		position: relative;
+		width: auto;
+		float: none;
+	}
+	background-color: @colorCouleur3Clair;
+	//définition de la largeur
+	@gridWidth((@gridCol - @gridCol_SidebarLeft));
+	//placement et hauteur
+	position: relative;
+	float: right;
+}
+
+//à supprimer lorsque terminé
+#dm_custom_bottomTEST {
+	#dm_page.edit &, .isLess & { background-color: fadeout(#54D19D, 50%); }
+	position: relative;
+	float: none;
+	clear: both;
+}

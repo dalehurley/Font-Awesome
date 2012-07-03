@@ -1,13 +1,234 @@
 // _ConfigColorsReference.less
-// v1.1
-// Last Updated : 2012-04-11 14:30
+// v2.9.3
+// Last Updated : 2012-07-02 11:35
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //CONFIGURATION DES COULEURS DE REFERENCE DONT LES VALEURS SONT BASÉES SUR DES COULEURS EXISTANTES
+//Cf http://twitter.github.com/bootstrap/less.html pour inspiration
 
+//##################################
+//######## GESTION DU TEXTE ########
+//##################################
 //couleur de sélection du texte
 @colorSelection: @colorCouleur3;
 
+//couleurs des liens
+@colorLink: @colorCouleur3FonceSup;
+@colorLinkHover: @colorCouleur3Fonce;
+//##################################
+//##################################
+
+
+//##################################
+//####### GESTION DE LA PAGE #######
+//##################################
+//couleur de fond des zones principales
+@bodyBgColor: @colorWhite;
+@mainBgColor: transparent;
+@contentBgColor: transparent;
+
+//couleur de l'ombrage de la zone principale (impossible avec Copilotes)
+//couleur Pie utilisée sous IE et ne devant pas être transparente
+//exemple: @mainShadowColor: fadeout(@colorBlack, 75%); @mainShadowPieColor: @colorBlack;
+@mainShadowColor: transparent;
+@mainShadowPieColor: transparent;
+//épaisseur de l'ombre
+@mainShadowBlur: @gridGutter;
+
+//dégradé général de la page (utilisé dans Copilotes)
+@bodyGradientColor1: transparent;
+@bodyGradientColor2: transparent;
+
 //couleur utilisée pour les différents filets présents sur le site
 @colorZoneBorder: @colorCouleur3Moyen;
+//##################################
+//##################################
+
+
+//##################################
+//####### GESTION DU HEADER ########
+//##################################
+//sprite de séparation
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@headerSpriteTheme: "DefaultMono";
+@headerSpriteCategory: "bullet";
+@headerSpriteName: "disc";
+@headerSpriteOffX: @spriteOffX-DefaultMono-bullet-disc;
+@headerSpriteOffY: @spriteOffY-DefaultMono-bullet-disc;
+
+//gestion du fond en pleine largeur et des polices
+@headerBgColor: @colorCouleur3;
+@headerBgColorClair: @colorCouleur3;
+@headerBgColorFonce: @colorCouleur3Fonce;
+@headerTextColor: @colorCouleur3ClairSup;
+
+//gestion du fond sur la zone centrale
+@headerCenterBgColor: transparent;
+@headerCenterBgColorClair: transparent;
+@headerCenterBgColorFonce: transparent;
+
+//couleur de l'ombrage sous le header
+//couleur Pie utilisée sous IE et ne devant pas être transparente
+//exemple: @mainShadowColor: fadeout(@colorBlack, 75%); @mainShadowPieColor: @colorBlack;
+@headerShadowColor: transparent;
+@headerShadowPieColor: transparent;
+//épaisseur de l'ombre
+@headerShadowBlur: @gridBaseline/4;
+//##################################
+//##################################
+
+
+//##################################
+//####### GESTION DU BOTTOM ########
+//##################################
+@bottomBgColor: @colorCouleur3Clair;
+@bottomBgColorClair: @colorCouleur3ClairSup;
+@bottomBgColorFonce: @colorCouleur3Clair;
+@bottomTextColor: @colorCouleur3Fonce;
+@bottomBorderColor: @colorCouleur3Moyen;
+//##################################
+//##################################
+
+
+//##################################
+//####### GESTION DU FOOTER ########
+//##################################
+//sprite de séparation
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@footerSpriteTheme: "DefaultMono";
+@footerSpriteCategory: "bullet";
+@footerSpriteName: "disc";
+@footerSpriteOffX: @spriteOffX-DefaultMono-bullet-disc;
+@footerSpriteOffY: @spriteOffY-DefaultMono-bullet-disc;
+
+@footerBgColor: @colorCouleur3;
+@footerBgColorClair: @colorCouleur3Sup;
+@footerBgColorFonce: @colorCouleur3;
+@footerTextColor: @colorCouleur3ClairSup;
+//##################################
+//##################################
+
+
+//##################################
+//######## GESTION DU MENU #########
+//##################################
+
+//couleurs de fond du menu
+@menuBgColor: @colorCouleur3ClairSup;
+@menuBgHoverColor: @colorCouleur3Clair;
+
+//couleurs d'ouverture des liens parents
+@menuBgOpenColor: @colorCouleur1;
+@menuBgOpenLinkColor: @colorCouleur3Clair;
+@menuBgOpenLinkHoverColor: @colorCouleur3ClairSup;
+
+//couleur des flèches
+@menuArrowColor: @colorCouleur1;
+@menuArrowColorSup: @colorCouleur3Clair;
+
+//couleur des bordures
+@menuBorderColor: @colorCouleur3Moyen;
+
+//couleurs des liens
+@menuLinkColor: @colorCouleur3Fonce;
+@menuLinkHoverColor: @colorCouleur3FonceSup;
+@menuLinkActiveColor: @colorCouleur1;
+@menuLinkCurrentColor: @colorCouleur1;
+@menuLinkInactiveColor: @colorCouleur3;
+
+//utilisé pour les sous niveaux de accordion
+@menuSubBgColor: @colorCouleur3Clair;
+@menuSubBgHoverColor: mix(@colorCouleur3MoyenSup, @colorCouleur3Clair, 33.33%);
+@menuSubLinkColor: @colorCouleur3;
+@menuSubLinkHoverColor: @colorCouleur3Sup;
+
+//##################################
+//##################################
+
+//##################################
+//###### GESTION DU MENU TOP #######
+//##################################
+//sprite pour l'accueil
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@menuTopSpriteTheme: "DefaultLight";
+@menuTopSpriteCategory: "internet";
+@menuTopSpriteName: "home";
+@menuTopSpriteOffX: @spriteOffX-DefaultLight-internet-home;
+@menuTopSpriteOffY: @spriteOffY-DefaultLight-internet-home;
+
+//Dégradé du menu (Opéra : shiny vertical, Copilotes : horizontal)
+@menuTopGradientColor1: @colorCouleur1Sup;
+@menuTopGradientColor2: @colorCouleur1;
+@menuTopGradientColor3: @colorCouleur1MoyenSup;
+@menuTopGradientColor4: @colorCouleur1Fonce;
+
+//couleurs de fond du menu
+@menuTopBgColor: @colorCouleur2;
+@menuTopBgHoverColor: @colorCouleur2Moyen;
+
+//couleur de l'ombre du menu sur les sous-niveaux
+@menuTopShadowColor: fadeout(@colorBlack, 50%);
+
+//couleurs d'ouverture des liens parents
+@menuTopBgOpenColor: @colorCouleur1;
+@menuTopBgOpenLinkColor: @colorCouleur3Clair;
+@menuTopBgOpenLinkHoverColor: @colorCouleur3ClairSup;
+
+//couleur des flèches
+@menuTopArrowColor: @colorCouleur3Moyen;
+@menuTopArrowColorSup: @colorCouleur3Clair;
+
+//couleur des bordures
+@menuTopBorderColor: @colorCouleur3Moyen;
+
+//couleurs des liens
+@menuTopLinkColor: @colorCouleur3Clair;
+@menuTopLinkHoverColor: @colorCouleur3ClairSup;
+@menuTopLinkActiveColor: @colorCouleur1;
+@menuTopLinkCurrentColor: @colorCouleur3MoyenSup;
+@menuTopLinkInactiveColor: @colorCouleur3Moyen;
+
+//##################################
+//##################################
+
+
+//##################################
+//## GESTION DES TITRES DE WIDGET ##
+//##################################
+//pour tous les titres de widgets
+@widgetTitleBgColor: @colorCouleur3Clair;
+@widgetTitleTextColor: @colorCouleur1;
+
+//pour les titres de widget avec une sprite
+@widgetTitleSpriteBgColor: @colorCouleur3Clair;
+@widgetTitleSpriteTextColor: @colorCouleur1;
+//##################################
+//##################################
+
+
+//##################################
+//## GESTION DU BLOCK DE CONTACT ###
+//##################################
+//sprite pour le titre
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@widgetLienContactSpriteTheme: "DefaultLight";
+@widgetLienContactSpriteCategory: "cabinet";
+@widgetLienContactSpriteName: "contact";
+@widgetLienContactSpriteOffX: @spriteOffX-DefaultLight-cabinet-contact;
+@widgetLienContactSpriteOffY: @spriteOffY-DefaultLight-cabinet-contact;
+
+//fond du widget
+@widgetLienContactBgColor: @colorCouleur3;
+@widgetLienContactTextColor: @colorCouleur3ClairSup;
+
+//titre du widget
+@widgetLienContactTitleBgColor: @colorCouleur1Moyen;
+@widgetLienContactTitleTextColor: @colorCouleur3ClairSup;
+
+//lien de contact
+@widgetLienContactLinkGradientColor1: @colorCouleur1;
+@widgetLienContactLinkGradientColor2: @colorCouleur1Moyen;
+@widgetLienContactLinkColor: @colorCouleur3ClairSup;
+//##################################
+//##################################

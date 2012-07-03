@@ -1,0 +1,41 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidContactForm
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: contact_form
+    with_doctrine_route: false
+    i18n_catalogue: dm
+    config:
+      actions: ~
+      fields: {  }
+      list:
+        display:
+          - '=name'
+          - sid_contact_fields_list
+#          - description
+          - created_at
+          - updated_at
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - name
+          - description
+          - created_at
+          - updated_at
+      form:
+        display:
+          NONE: [name]
+          Description: [description]
+          'Champs de formulaire de contact': [sid_contact_fields_list]
+        class: SidContactFormAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

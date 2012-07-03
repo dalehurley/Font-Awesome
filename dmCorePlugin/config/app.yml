@@ -1,24 +1,32 @@
 # default values
 all:
+  dm-media:
+    max-upload-size: 1000000   # Max upload size for file in form
+
   link-login:      # seeclass BasedmUserAdminActions to understand how it works
     active:  true   # activation du lien de login
     user: client
     ips-allowed:    # ips allowed to call autologin func in site. Complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
       - 127.0.0.1
       - 91.194.100.238  # IP of EA 
-      
+      - 91.194.100.242  # IP of EA SSL
   email:
-    default-sender: "contact@expert-clients.fr"    
+    default-sender: "votreconseil@expertinfos.com"
 
   controllers-access:    # param for controller's (dev.php, less.php) access
-    ips-allowed:   # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
+    ips-allowed:   # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give access to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
       - 127.0.0.1
       - 217.108.240.193
       - 217.108.240.209
       - 217.108.240.217
       - 217.108.240.225
       - 192.168.81.220
-      - 88.175.117.82   # Ip fixe Marie Laure Nauleau 
+      - 89.89.143.127     # Ip fixe Seb Rocca      
+      - 192.168.81.220    # Ip SIDPresse réseau local de Arnaud
+      - 192.168.81.127    # Ip SIDPresse réseau local de Gilles
+      - 88.175.117.82     # Ip fixe Marie Laure Nauleau 
+      - 93.10.138.101     # Ip fluctuante d'Alicia
+      - 217.128.36.230    # Ip fixe co-pilotes
     ips-message:                       # message display on admin.php if client's ip is not allowed (in list above)
       "91.194.100.239": "Afin de vous connecter merci de vous rendre dans votre <a href=\"http://abonnes.expert-infos.com\">espace abonné</a>."  # ip of server which run sites      
 
@@ -35,7 +43,7 @@ all:
     # changement des noms des rubriques en fonction du client_type (ec ou cgp)
     # ancien : nouveau
     cgp-fr:
-      "Gestion des pages des missions": Gestion des pages des services
+      "Les missions": Les services
       "Les Missions": Les Services
       "Description des missions": Description des services
       "Mission|Les Missions": Service|Les Services
@@ -44,8 +52,8 @@ all:
       "Actualité du Cabinet": "Notre Actualité"
 
     aga-fr:
-      "Gestion des pages du cabinet": "Gestion des pages de l'Association"
-      "Gestion des pages des missions": Gestion des pages des prestations
+      "Le cabinet": "L'Association"
+      "Les missions": Les prestations
       "Les Missions": Les Prestations
       "Description des missions": Description des prestations
       "Mission|Les Missions": Prestation|Les Prestations
@@ -56,16 +64,16 @@ all:
       "Actualité du Cabinet": "Actualités de l'association"
 
     copilotes-fr:
-      "Gestion des pages du cabinet" : "Gestion de CO-PILOTES en images"
-      "Gestion des pages des missions": Gestion des pages de nos valeurs
-      "Les Missions": Nos valeurs
+      "Le cabinet" : "CO-PILOTES en images"
+      "Les missions": Notre offre
+      "Les Missions": Notre offre
       "Description des missions": Description de nos valeurs
-      "Mission|Les Missions": Valeurs|Nos valeurs
+      "Mission|Les Missions": Offre|Nos offres
       "Description du Cabinet": "Description de CO-PILOTES"
       "Présentation du Cabinet": "CO-PILOTES en images"
       "Le Cabinet": "CO-PILOTES en images"
       "Les Actualités du Cabinet": Nos Engagements
-      "Les Sélections de placements": Nos offres
+      "Nos Sélections de placements": Nos valeurs
       "Actualité du Cabinet": "Description de nos engagements"
 
   # tableau des description des permissions 
@@ -74,6 +82,7 @@ all:
       # Autorisations particulières sans rapport avec le menu de l'Admin
       system: "Accès au Système d'Administration"
       ck_editor_lite: ckEditor Lite
+      ck_editor_co_pilotes: ckEditor Co-pilotes
       admin_bandeau_lite: 'Administration du bandeau Lite'
       super_admin: 'Acces super Admin'
       admin: "Admin => Accès au compte de l'administrateur"
@@ -90,6 +99,8 @@ all:
       rubrique: "Contenu => Base Editoriale => Rubriques (Gestion des rubriques de la BE)"
       section: "Contenu => Base Editoriale => Sections (Gestion des sections de la BE)"
       article: "Contenu => Base Editoriale => Articles (Gestion des articles de la BE)"
+        # Sous-menu Page additionnelles
+      added_page: "Contenu => Pages Additionnelles"
         # Sous-menu Tag
       tags: "Contenu => Tag => Tags (Gestion des tags)"
       # Menu Gestion du bandeau
@@ -225,6 +236,45 @@ all:
       - mission
       - actualite_contenu
       - contact_me
+      
+  groupes-permissions-co-pilotes:
+    description: "Accès pour co-pilotes"
+    permissions:
+      - bandeau
+      - see_accueil
+#      - see_log
+      - see_chart
+      - tool_bar_admin
+      - admin
+#      - ck_editor_lite
+      - admin_bandeau_lite
+      - sites_utiles
+      - groupe_sites_utiles
+      - index_sites_utiles
+      - page_cabinet
+      - equipe
+      - recrutement
+      - mission
+      - actualite_contenu
+      - contact_me
+      - ck_editor_co_pilotes
+      - page_bar_admin
+      - media_bar_admin
+      - tool_bar_admin
+      - widget_add
+      - widget_edit
+      - widget_delete
+      - widget_edit_fast
+      - widget_edit_fast_record
+      - widget_edit_fast_content_text
+      - widget_edit_fast_navigation_menu
+      - page_add
+      - page_edit
+      - page_delete
+      - page_bar_front
+      - media_bar_front
+      - tool_bar_front
+      - added_page
 
   groupes-permissions-base-doc:
     description: "Accès pour le client Base Doc"
@@ -233,6 +283,20 @@ all:
       - see_chart
       - tool_bar_admin
       - admin
+
+  # Filtrage d'affichage de certains widgets (exemple: quand admin-co-pilotes se log sur le front)   
+  filtre-affichage-widget-module-action:
+    co-pilotes:  # le nom du usergroup 
+      - dmWidgetContent-title
+      - dmWidgetContent-link
+      - dmWidgetContent-text
+      - dmWidgetContent-image
+      - dmWidgetContent-imagePlus
+      - dmWidgetContent-nivoGallery
+      - dmWidgetContent-ckEditor
+      - dmWidgetContent-gallery
+      - dmWidgetContent-flowPlayer
+      - dmWidgetContent-galleryBackground
 
   modules-specifiques:
     cgp-site:
@@ -244,3 +308,20 @@ all:
     aga-base-doc:
     copilotes-site:
       - selection_placement
+
+  # tableau pour gérer les pages à afficher dans le sitemap
+  pages-for-sitemap:     
+    # array[key] is a name of the page
+    not-visibles:
+      #array[key] is module
+      #array[value] is action
+      article:
+        "article": show
+      404:
+        "main": error404
+      search:
+        "main": search
+      signin:
+        "main": signin
+        
+  

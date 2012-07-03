@@ -10,37 +10,21 @@
  * Ce fichier reste dans le core, il est appelé en include dans les sites par les fichiers XXXXSuccess.php
  * 
  */
-//Debug ancienne zone pour déplacement anciens widgets
-//$pageOptionsCustom['areas']['centerTop'] = array('index' => 0, 'areaName' => 'centerTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
+// Si la variable pageOptionsCustom est déjà définie (avec des overrides)
+// alors on la stocke pour la merger après la définition des options de base
+$isOverrided = isset($pageOptionsCustom);
+if($isOverrided) $pageOptionsOverride = $pageOptionsCustom;
 
 //Configuration des zones du template
 $pageOptionsCustom['areas']['dm_custom_top'] = array('index' => 0, 'areaName' => 'customTop', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 $pageOptionsCustom['areas']['dm_custom_bottom'] = array('areaName' => 'customBottom', 'isActive' => true, 'isPage' => false, 'clearfix' => true);
 $pageOptionsCustom['areas']['dm_sidebar_left']['isActive'] = false;
 
+//On fusionne les options d'override si définies
+if($isOverrided) $pageOptionsCustom = spLessCss::pageTemplateCustomOptions($pageOptionsCustom, $pageOptionsOverride);
+
 //Initialisation de la page et récupération des options de la page (avec fusion des options personnalisées)
 $pageOptions = spLessCss::pageInit($pageOptionsCustom);
-
-// <div class="testOrig">
-// 	<div class="testColor colorCouleur1">colorCouleur1</div>
-// 	<div class="testColor colorCouleur1Clair">colorCouleur1Clair</div>
-// 	<div class="testColor colorCouleur1ClairSup">colorCouleur1ClairSup</div>
-// 	<div class="testColor colorCouleur1Moyen">colorCouleur1Moyen</div>
-// 	<div class="testColor colorCouleur1MoyenSup">colorCouleur1MoyenSup</div>
-// 	<div class="testColor colorCouleur1Sup">colorCouleur1Sup</div>
-// 	<div class="testColor colorCouleur1Fonce">colorCouleur1Fonce</div>
-// 	<div class="testColor colorCouleur1FonceSup">colorCouleur1FonceSup</div>
-// </div>
-// <div class="testComp">
-// 	<div class="testColor colorCouleur1">colorCouleur1</div>
-// 	<div class="testColor colorCouleur1Clair">colorCouleur1Clair</div>
-// 	<div class="testColor colorCouleur1ClairSup">colorCouleur1ClairSup</div>
-// 	<div class="testColor colorCouleur1Moyen">colorCouleur1Moyen</div>
-// 	<div class="testColor colorCouleur1MoyenSup">colorCouleur1MoyenSup</div>
-// 	<div class="testColor colorCouleur1Sup">colorCouleur1Sup</div>
-// 	<div class="testColor colorCouleur1Fonce">colorCouleur1Fonce</div>
-// 	<div class="testColor colorCouleur1FonceSup">colorCouleur1FonceSup</div>
-// </div>
 ?>
 <div id="dm_page" data-role="page">
 	<div id="dm_page_inner">

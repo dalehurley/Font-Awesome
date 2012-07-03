@@ -23,9 +23,9 @@
 		bottom: @gridBaseline;
 	}
 	#dm_custom_bottom & {
-		position: absolute;
-		left: 0;
-		bottom: @gridBaseline;
+		// position: absolute;
+		// right: 0;
+		// bottom: @gridBaseline;
 	}
 	
 	//décalage de padding
@@ -84,6 +84,14 @@
 		&.link_twitter {
 			@spriteBgiSvg("Default"; "socialnetwork"; "twitter");
 			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-twitter; @spriteOffY-socialnetwork-twitter);
+		}
+		&.link_vimeo {
+			@spriteBgiSvg("Default"; "socialnetwork"; "vimeo");
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-vimeo; @spriteOffY-socialnetwork-vimeo);
+		}
+		&.link_youtube {
+			@spriteBgiSvg("Default"; "socialnetwork"; "youtube");
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-youtube; @spriteOffY-socialnetwork-youtube);
 		}
 	}
 }

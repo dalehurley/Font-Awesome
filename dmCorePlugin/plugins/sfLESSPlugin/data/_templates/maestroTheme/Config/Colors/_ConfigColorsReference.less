@@ -1,16 +1,67 @@
 // _ConfigColorsReference.less
-// v1.0
-// Last Updated : 2012-04-06 09:50
+// v1.3.2
+// Last Updated : 2012-06-29 15:40
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //CONFIGURATION DES COULEURS DE REFERENCE DONT LES VALEURS SONT BASÉES SUR DES COULEURS EXISTANTES
 
-//couleur de la bordure de séparation du menu
-// @colorZoneBorder: @colorCouleur2ClairSup;
-
-//configuration du header de Maestro
+//##################################
+//####### GESTION DU HEADER ########
+//##################################
+//gestion du fond en pleine largeur et des polices
+@headerBgColor: @colorWhite;
+@headerBgColorClair: transparent;
+@headerBgColorFonce: transparent;
 @headerTextColor: @colorCouleur3Fonce;
+//##################################
+//##################################
 
-//IMPORTATION DES COULEURS DES SPRITES (définitions basées sur les couleurs existantes)
-@import "_framework/SPLessCss/Config/Colors/_ConfigColorsSprite.less";
+//##################################
+//####### GESTION DU FOOTER ########
+//##################################
+@footerBgColor: @colorCouleur2;
+@footerBgColorClair: @colorCouleur2Sup;
+@footerBgColorFonce: @colorCouleur2;
+@footerTextColor: @colorCouleur3Clair;
+//##################################
+
+//##################################
+//######## GESTION DU MENU #########
+//##################################
+
+//couleurs de fond du menu
+@menuBgColor: @colorCouleur2;
+@menuBgHoverColor: @colorCouleur2Moyen;
+
+//couleurs des liens
+@menuLinkColor: @colorCouleur3Clair;
+@menuLinkHoverColor: @colorCouleur3ClairSup;
+@menuLinkActiveColor: @colorCouleur1;
+@menuLinkCurrentColor: @colorCouleur3MoyenSup;
+@menuLinkInactiveColor: @colorCouleur3Moyen;
+
+//Spécial Maestro (premier niveau d'ouverture dans les sidebars)
+
+//couleurs de fond du menu dans les sidebars
+@menuSidebarFirstBgColor: @colorCouleur3ClairSup;
+@menuSidebarFirstBgHoverColor: @colorCouleur2Fonce;
+
+//couleurs d'ouverture des liens parents dans les sidebars
+@menuSidebarFirstBgOpenColor: @colorCouleur2Fonce;
+@menuSidebarFirstBgOpenLinkColor: @colorCouleur1;
+@menuSidebarFirstBgOpenLinkHoverColor: @colorCouleur1Sup;
+
+//couleurs des liens de premier niveau situés dans les sidebars
+@menuSidebarFirstLinkColor: @colorCouleur3Fonce;
+@menuSidebarFirstLinkHoverColor: @colorCouleur1;
+
+//##################################
+//##################################
+
+//##################################
+//## GESTION DES TITRES DE WIDGET ##
+//##################################
+//pour tous les titres de widgets
+@widgetTitleBgColor: transparent;
+//##################################

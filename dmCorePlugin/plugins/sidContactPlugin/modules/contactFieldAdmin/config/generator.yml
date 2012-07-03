@@ -1,0 +1,62 @@
+generator:
+  class: dmAdminDoctrineGenerator
+  param:
+    model_class: SidContactField
+    theme: dmAdmin
+    non_verbose_templates: true
+    with_show: false
+    route_prefix: contact_field
+    with_doctrine_route: false
+    i18n_catalogue: dm
+    config:
+      actions: ~
+      fields: {  }
+      list:
+        display:
+          - '=name'
+          - form_id
+          - is_active
+          - is_required
+          - widget_type
+          - widget_options   
+          - widget_attributes
+          - validator_type          
+          - validator_options
+          - validator_messages        
+          - help
+          - created_at
+          - updated_at
+        sort:
+          - position
+          - asc
+        table_method: getAdminListQuery
+        table_count_method: ~
+        sortable: true
+      filter:
+        display:
+          - id
+          - name
+          - form_id
+          - is_active
+          - is_required
+          - widget_type             
+          - widget_options   
+          - widget_attributes
+          - validator_type             
+          - validator_options
+          - validator_messages    
+          - help
+          - created_at
+          - updated_at
+      form:
+        display:
+          NONE: [name, is_active, form_id, is_required]
+          Help: [help]
+          WidgetType: [widget_type]
+          WidgetParameters: [widget_options, widget_attributes]
+          ValidatorType: [validator_type]
+          ValidatorParameters: [validator_options, validator_messages]
+        class: SidContactFieldAdminForm
+        fields: {  }
+      edit: ~
+      new: ~

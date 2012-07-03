@@ -41,7 +41,7 @@ class SidCabinetEquipeAdminForm extends BaseSidCabinetEquipeForm {
     protected function createMediaFormForImage() {
         
         $form = parent::createMediaFormForImage();
-        unset($form['legend'], $form['author'], $form['license']);
+        unset($form['author'], $form['license']);
 //        if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
 //            unset($form['file']);
 //        }

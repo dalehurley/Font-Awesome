@@ -16,6 +16,7 @@ _tag('div',
     $form['length']->renderRow().
     $form['chapo']->renderRow().
     $form['withImage']->renderRow().
+    $form['nbImagesMissions']->renderRow().
     $form['widthImage']->renderRow().
     $form['heightImage']->renderRow().
     $form['cssClass']->renderRow()

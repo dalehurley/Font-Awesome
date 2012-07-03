@@ -519,6 +519,7 @@ class dmDataLoad
         if(count($permission) == 0) $permission = array();
         $permissionsClientWeb = array_merge(sfConfig::get('app_groupes-permissions-client-web_permissions'),$permission);
         $permissionsBaseDoc = array_merge(sfConfig::get('app_groupes-permissions-base-doc_permissions'),$permission);
+        $permissionsCoPilotes = array_merge(sfConfig::get('app_groupes-permissions-co-pilotes_permissions'),$permission);
       
       $array = array(
 /*      "developer" => array(
@@ -639,6 +640,11 @@ class dmDataLoad
         "basedoc_client" => array(
                 'description' => sfConfig::get('app_groupes-permissions-base-doc_description'),
                 'permissions' => $permissionsBaseDoc
+            ),
+        // droit pour les bases doc
+        "co-pilotes" => array(
+                'description' => sfConfig::get('app_groupes-permissions-co-pilotes_description'),
+                'permissions' => $permissionsCoPilotes
             ),
         );
       

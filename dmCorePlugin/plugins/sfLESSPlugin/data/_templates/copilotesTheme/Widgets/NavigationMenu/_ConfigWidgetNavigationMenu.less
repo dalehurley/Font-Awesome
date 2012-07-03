@@ -1,6 +1,6 @@
 // _ConfigWidgetNavigationMenu.less
-// v1.0
-// Last Updated : 2011-12-01 14:45
+// v1.2
+// Last Updated : 2012-06-18 15:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -10,16 +10,25 @@
 //nombre de colonnes pour le contenu des cellules
 @menuDropdownCols: 3;
 //calcul des paddings
-@menuDropdownPadH: (@offS -1px);
-@menuDropdownPadHCustomTop: (@offL -1px);
-@menuDropdownPadV: (@gridBaseline/2 - 1px);
+@menuLinkPadH: (@offS -1px);
+@menuLinkPadHCustomTop: (@offL -1px);
+@menuLinkPadV: (@gridBaseline/2 - 1px);
 //calcul dimensions flèche
 @menuArrowDim: 4px;
 //offset de décalage de positionnement
 @menuArrowDecal: @menuArrowDim/2;
 //positionnement initial à droite 
 @menuArrowOffsetX: (@offM - @menuArrowDecal);
-@menuArrowOffsetY: @menuDropdownPadV + (@gridBaseline - @menuArrowDim*2)/2 + 1px;
-//couleur de la flèche
-@menuArrowColor: @colorCouleur1;
-@menuArrowColorSup: @colorCouleur3Clair;
+@menuArrowOffsetY: @menuLinkPadV + (@gridBaseline - @menuArrowDim*2)/2 + 1px;
+//calcul du padding à rajouter du côté de la flèche
+@menuArrowPadH: @menuArrowDim*2 + @menuArrowOffsetX;
+
+//Copilotes : placement spécial de la flèche par sprite
+
+//calcul dimensions flèche
+@menuArrowSpriteDim: @spriteFormat_S;
+//positionnement initial à droite 
+@menuArrowSpriteOffsetX: @offM;
+@menuArrowSpriteOffsetY: @menuLinkPadV + (@gridBaseline - @menuArrowSpriteDim)/2 + 1px;
+//calcul du padding à rajouter du côté de la flèche
+@menuArrowSpritePadH: @menuArrowSpriteDim + @menuArrowSpriteOffsetX;

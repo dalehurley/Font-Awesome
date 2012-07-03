@@ -89,7 +89,7 @@
 }
 
 //ajout sprites pour certains éléments
-.email, .faxNumber, .telephone {
+.email, .faxNumber, .telephone, .cellphone {
 	//masquage separateur
 	.separator { display: none; visibility: hidden; }
 	
@@ -146,6 +146,14 @@
 	.type {
 		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-telephone; @spriteOffY-communication-telephone);
 		@spriteBgiSvg("Default"; "communication"; "telephone");
+	}
+}
+
+.cellphone {
+	.isLess & { background-color: fadeout(#D7FF73, 50%); }
+	.type {
+		@spriteBgp(@spriteFormat_S; @spriteOffX-communication-cellphone; @spriteOffY-communication-cellphone);
+		@spriteBgiSvg("Default"; "communication"; "cellphone");
 	}
 }
 

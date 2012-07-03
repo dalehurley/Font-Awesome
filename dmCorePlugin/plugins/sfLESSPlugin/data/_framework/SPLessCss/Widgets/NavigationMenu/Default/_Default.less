@@ -5,7 +5,7 @@
 // Author : Arnaud GAUDIN
 
 ul.menu-default {
-	.isLess & { background-color: #A9DDE8; }
+	.isLess & { background-color: fadeout(#A9DDE8, 50%); }
 	position: relative;
 
 	//Par défaut, mise en place des éléments en block alignés à gauche
@@ -14,13 +14,13 @@ ul.menu-default {
 		@getClearfix();
 
 		li {
-			.isLess & { background-color: #95BBE8; }
+			.isLess & { background-color: fadeout(#95BBE8, 50%); }
 			display: block;
 			float: left;
 
 			//placement des liens
 			.link {
-				.isLess & { background-color: #36574D; }
+				.isLess & { background-color: fadeout(#627B99, 50%); }
 			}
 		}
 	}

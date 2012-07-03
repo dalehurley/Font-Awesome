@@ -6,6 +6,7 @@ actusDuCabinet:
     
   actuArticlesList:
     cache:              true
+    type:               list
     public_name:        (actusDuCabinet) Liste des actus du Cabinet
     
   actuArticleShow:

@@ -12,5 +12,7 @@
  */
 abstract class PluginSidCabinetEquipe extends BaseSidCabinetEquipe
 {
-
+	public function infoEquipe(){
+		return $this->title.' '.$this->name.' '.$this->first_name.' - '.$this->statut;
+	}
 }

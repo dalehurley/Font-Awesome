@@ -138,7 +138,7 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                 $actuMissions = dmDb::table('SidCabinetMission')
                         ->createQuery('a')
                         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
-                        ->orderBy('aTranslation.updated_at DESC')
+                        ->orderBy('a.position')
                         ->where('a.is_active = ?', array(true))
                         ->limit($nbArticles)
                         ->execute();
@@ -174,7 +174,8 @@ class missionsMissionsContextuelView extends dmWidgetPluginView {
                     'length' => $vars['length'],
                     'chapo' => $vars['chapo'],
                     'width' => $vars['widthImage'],
-                    'height' => $vars['heightImage']
+                    'height' => $vars['heightImage'],
+                    'withImage' => $vars['withImage']
                 ));
 
 //        return $this->getHelper()->renderPartial('missions', 'missionsContextuel', array(

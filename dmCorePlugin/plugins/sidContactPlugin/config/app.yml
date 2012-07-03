@@ -1,0 +1,6 @@
+all:
+  sid-recaptcha:
+    # get your recaptcha keys on http://recaptcha.net/api/getkey
+    public_key: 6LfpJ8ISAAAAAHx_gUVtepnvcXq5EuXGplwY-B5H
+    private_key: 6LfpJ8ISAAAAABHKXS71Q2mmrjgizL9REOkNXZ_S
+    enabled:      true

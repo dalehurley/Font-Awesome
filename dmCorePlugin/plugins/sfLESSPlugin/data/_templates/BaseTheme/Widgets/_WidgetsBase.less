@@ -41,9 +41,47 @@
 	.dm_widget.content_image {
 		.isLess & { background-color: #D6B8C4; }
 		float: left;
+
+		//suppression du float en mode édition
+		#dm_page.edit & { float: none; }
+	}
+
+	.dm_widget.content_image_plus {
+		.isLess & { background-color: #CAB8D6; }
 		
 		//suppression du float en mode édition
 		#dm_page.edit & { float: none; }
+
+		//pour le placement du logo infinitis
+		&.infinitis {
+			.isLess & { background-color: #CAB8D6; }
+			position: absolute;
+			right: 0;
+			top: @gridBaseline;
+
+			.dm_widget_inner {
+				//ajout du clearfix car enfants en float
+				@getClearfix();
+
+				& > .title {
+					.isLess & { background-color: #9DE3CB; }
+					display: block;
+					float: left;
+					color: @headerTextColor;
+					font-family: @fontGlobalFamilySansSerif;
+					font-size: @fontSizeMicro;
+					font-weight: normal;
+					margin-right: @offS;
+					@gridWidth(2);
+				}
+
+				& > .link {
+					&, img { display: block; }
+					float: left;
+					margin-right: @offS;
+				}
+			}
+		}
 	}
 	
 	.dm_widget.content_ck_editor {
@@ -92,8 +130,8 @@
 			.dm_widget { margin-bottom: 0; .dm_widget_inner { padding: 0; border: 0; } }
 			
 			& > .title {
-				background-color: @colorCouleur3Clair;
-				color: @colorCouleur1;
+				background-color: @widgetTitleBgColor;
+				color: @widgetTitleTextColor;
 				margin: (@gridBaseline/-2 +1px) (@zonesOffsetPad * -1 +1px) (@gridBaseline/2) (@zonesOffsetPad * -1 +1px);
 				padding: (@gridBaseline/2 - 1px) (@zonesOffsetPad - 1px);
 				border-bottom: 1px solid @colorZoneBorder;

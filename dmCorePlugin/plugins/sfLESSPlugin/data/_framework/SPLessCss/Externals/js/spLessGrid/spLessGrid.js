@@ -1,6 +1,6 @@
 // spLessGrid.js - Pour le framework SPLessCss
-// v1.5
-// Last Updated : 2012-04-27 11:40
+// v1.5.1
+// Last Updated : 2012-06-21 10:00
 // Copyright : SID Presse | Arnau March http://arnaumarch.com/en/lessgrid.html, freely distributable under the terms of the MIT license.
 // Author : Arnaud GAUDIN | Arnau March
 
@@ -116,7 +116,7 @@
 		var indexWrapper = 0;
 
 		//application paramètres
-		$('.imageWrapper, .imageFullWrapper, .dm_widget_nivo_gallery_container, .dm_widget.content_image > .dm_widget_inner, .dm_widget_content_gallery').each(function(index){
+		$('.imageWrapper:not(.noImage), .imageFullWrapper:not(.noImage), .dm_widget_nivo_gallery_container, .dm_widget.content_image > .dm_widget_inner, .dm_widget_content_gallery').each(function(index){
 			//ciblage des éléments
 			var wrapper = this;
 			var getImg = $(wrapper).find("img");
@@ -293,7 +293,7 @@
 	//toggle général de la grille
 	$.fn.spLessGrid.toggleGrid = function(debug, options, toggle) {
 		if(toggle == true) {
-			$('#less-grid-switch').text("x").attr('rel','on');
+			$('#less-grid-switch').text('masquer la grille').attr('rel','on').addClass('on');
 			$('#less-grid').show();
 			$('#less-baseline').show();
 			
@@ -305,7 +305,7 @@
 			param.target = debug;
 			$.fn.spLessGrid.toggleDisplay(param, true);
 		}else{
-			$('#less-grid-switch').text('afficher la grille').attr('rel','off');
+			$('#less-grid-switch').text('afficher la grille').attr('rel','off').removeClass('on');
 			$('#less-grid').hide();
 			$('#less-baseline').hide();
 		}
@@ -314,14 +314,14 @@
 	//création du switch
 	$.fn.spLessGrid.createSwitch = function(debug, options) {
 		//calcul positionnement à droite du bouton
-		var switchPositionRight = 100;
-		if ($("#sfWebDebugBar").length > 0){
-			switchPositionRight += $('#sfWebDebugBar').outerWidth();
-		}
+		// var switchPositionRight = 100;
+		// if ($("#sfWebDebugBar").length > 0){
+		// 	switchPositionRight += $('#sfWebDebugBar').outerWidth();
+		// }
 		
 		$('body').append('<span id="less-grid-switch">afficher la grille</span>');
-
-		$('#less-grid-switch').css('right', switchPositionRight);
+		
+		//	$('#less-grid-switch').css('right', switchPositionRight);
 		
 		$('#less-grid-switch').toggle(function() {
 			$.fn.spLessGrid.toggleGrid(debug, options, true);

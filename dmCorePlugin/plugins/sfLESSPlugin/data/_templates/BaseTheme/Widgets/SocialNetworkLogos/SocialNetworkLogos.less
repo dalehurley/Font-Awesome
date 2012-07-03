@@ -19,7 +19,7 @@
 .dm_widget.social_network_logos {
 	#dm_header & {
 		position: absolute;
-		right: 0;
+		right: @gridPadding;
 		bottom: @gridBaseline;
 	}
 	
@@ -79,6 +79,14 @@
 		&.link_twitter {
 			@spriteBgiSvg("Default"; "socialnetwork"; "twitter");
 			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-twitter; @spriteOffY-socialnetwork-twitter);
+		}
+		&.link_vimeo {
+			@spriteBgiSvg("Default"; "socialnetwork"; "vimeo");
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-vimeo; @spriteOffY-socialnetwork-vimeo);
+		}
+		&.link_youtube {
+			@spriteBgiSvg("Default"; "socialnetwork"; "youtube");
+			@spriteBgp(@spriteFormat_M; @spriteOffX-socialnetwork-youtube; @spriteOffY-socialnetwork-youtube);
 		}
 	}
 }

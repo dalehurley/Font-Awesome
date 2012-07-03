@@ -80,6 +80,7 @@ EOF;
             mkdir($dirTheme);
             $this->getFilesystem()->execute('cp -r ' . $pluginDataDir . '/theme/* ' . $dirTheme, $out, $err);
             // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
+            // $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs sed -i \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
             $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
             
             // on cree le lien symbolique vers le dossier des _templates/$nomTemplateChoisi
@@ -105,6 +106,7 @@ EOF;
             mkdir($dirTheme);
             $this->getFilesystem()->execute('cp -r ' . $pluginLibDir . '/theme/* ' . $dirTheme, $out, $err);
             // on remplace dans le dossier $dirTheme les ##THEME## par le $nomTemplateChoisi
+            // $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs sed -i \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');  Fonctionne aussi
             $this->getFilesystem()->execute('find ' . $dirTheme . ' -name "*.less" -print | xargs perl -pi -e \'s/##THEME##/' . $nomTemplateChoisi . '/g\'');
 
             // on cree le lien symbolique vers le dossier des _templates/$nomTemplateChoisi

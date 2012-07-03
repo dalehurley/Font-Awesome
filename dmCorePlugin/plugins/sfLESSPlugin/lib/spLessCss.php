@@ -103,9 +103,6 @@ class spLessCss {
 		//Génération du fichier less de sortie
 		self::spriteLessGenerate($prct, $lessDefinitions);
 		
-		// A la fin du traitement on donne accès à tous les fichiers propriété d'apache: chmod 777 sur toute l'arborescence juste créée par le mkdir recursif
-		if ($prct >= 100) exec('chmod 777 -R '.sfConfig::get('sf_web_dir').'/theme/images');
-		
 		//Renvoi de valeurs pour l'affichage
 		return array(
 			'hashMd5'			=> $hashMd5,
@@ -525,7 +522,7 @@ class spLessCss {
 	}
 	
 	//fonction d'insertion de nouvelle Area dans le pageTemplateSuccess
-	private static function pageTemplateCustomOptions($options = array(), $customOptions = array()) {
+	public static function pageTemplateCustomOptions($options = array(), $customOptions = array()) {
 		//on parcourt toutes les zones à insérer
 		foreach ($customOptions['areas'] as $id => $area) {
 			//on vérifie si un index est définit pour la zone, sinon on la rajoute à la fin

@@ -20,7 +20,10 @@
 
 ul.menu-dropdown {
 	//rajout bordure à gauche sur les menus
-	&, & ul { border-left: 1px solid @colorZoneBorder; }
+	&, & ul {
+		border-left: 1px solid @menuBorderColor;
+		#dm_custom_top & { border-left-color: @menuTopBorderColor; }
+	}
 	
 	//modifications de dimensions pour ajouts de bordures sur les côtés, et compensation décalage
 	ul {
@@ -70,7 +73,7 @@ ul.menu-dropdown {
 		margin-top: -1px;
 		//pour toutes les premières cellules
 		li.first {
-			& > .link { padding-top: @gridBaseline/2; border-top: 1px solid @colorZoneBorder; }
+			& > .link { padding-top: @gridBaseline/2; border-top: 1px solid @menuBorderColor; }
 			& > ul { margin-top: 0; }
 		}
 	}
@@ -88,7 +91,7 @@ ul.menu-dropdown {
 		& > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first,
 		& > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first,
 		& > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first > ul > li.first {
-			& > .link { padding-top: @menuDropdownPadV; }
+			& > .link { padding-top: @menuLinkPadV; }
 		}
 	}
 	
@@ -115,34 +118,34 @@ ul.menu-dropdown {
 		//ajout ombre
 		ul {
 			border-right: 0;
-			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 fadeout(@colorBlack, 50%));
+			@boxShadow(@gridBaseline/8 @gridBaseline/8 @gridBaseline/8 @menuTopShadowColor);
 		}
 		
 		//modification de couleurs du menu
 		.link {
-			background-color: @colorCouleur2;
-			color: @colorCouleur3Clair;
+			background-color: @menuTopBgColor;
+			color: @menuTopLinkColor;
 			
 			//personnalisation padding pour menu horizontal
-			padding-right: @menuDropdownPadHCustomTop;
-			padding-left: @menuDropdownPadHCustomTop + 1px;
+			padding-right: @menuLinkPadHCustomTop;
+			padding-left: @menuLinkPadHCustomTop + 1px;
 			
-			&.dm_current { &, &:hover { color: @colorCouleur3MoyenSup; } }
-			&.dm_inactive { color: @colorCouleur3Moyen; }
+			&.dm_current { &, &:hover { color: @menuTopLinkCurrentColor; } }
+			&.dm_inactive { color: @menuTopLinkInactiveColor; }
 			//LoVe's Hurts Fade Away
-			&:hover, &:focus { color: @colorCouleur3ClairSup; background-color: @colorCouleur2Sup; }
-			&:active { color: @colorCouleur1; }
+			&:hover, &:focus { color: @menuTopLinkHoverColor; background-color: @menuTopBgHoverColor; }
+			&:active { color: @menuTopLinkActiveColor; }
 		}
 		
 		//modification de la couleur de la flèche
 		li.dm_dir {
 			& > .link:after {
-				border-color: transparent transparent transparent @colorCouleur3Moyen;
+				border-color: transparent transparent transparent @menuTopArrowColor;
 			}
 			& > .link:hover:after,
 			&:hover > .link:after {
-				border-color: @colorCouleur3Clair transparent transparent transparent;
-				.csstransitions.csstransforms & { border-color: transparent transparent transparent @colorCouleur3Clair; }
+				border-color: @menuTopArrowColorSup transparent transparent transparent;
+				.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuTopArrowColorSup; }
 			}
 		}
 		
@@ -150,8 +153,8 @@ ul.menu-dropdown {
 		& > li {
 			& > .link {
 				//uniformisation couleur de police
-				&.dm_current { &, &:hover { color: @colorCouleur3ClairSup; } }
-				&.dm_inactive { color: @colorCouleur3Clair; }
+				&.dm_current { &, &:hover { color: @menuTopLinkHoverColor; } }
+				&.dm_inactive { color: @menuTopLinkColor; }
 				
 				margin-top: floor(@gridBaseline / 4) + 1px;
 				margin-bottom: floor(@gridBaseline / 4) + 1px;
@@ -168,22 +171,22 @@ ul.menu-dropdown {
 				padding-top: @gridBaseline/2;
 				padding-bottom: @gridBaseline/2;
 				margin-left: -1px;
-				border-left: 1px solid @colorZoneBorder;
+				border-left: 1px solid @menuTopBorderColor;
 			}
 			
 			//élargissement en pleine hauteur pour les dossiers
 			&.dm_dir:hover > .link,
 			&.dm_dir > .link:hover,
 			&.dm_dir > .link:focus {
-				padding-bottom: @menuDropdownPadV;
-				border-bottom: 1px solid @colorZoneBorder;
+				padding-bottom: @menuLinkPadV;
+				border-bottom: 1px solid @menuTopBorderColor;
 			}
 			
 			//rajout bordure à gauche sur la première cellule
 			//et correction de la cellule suivant dm_root (qui contient une icône link_root)
 			&.first,
 			&.dm_root + li {
-				& > .link { border-left: 1px solid @colorZoneBorder; }
+				& > .link { border-left: 1px solid @menuTopBorderColor; }
 				//suppression décalage lors du rollOver
 				&:hover > .link,
 				& > .link:hover,
