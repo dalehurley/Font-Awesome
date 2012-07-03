@@ -13,4 +13,10 @@ require_once dirname(__FILE__).'/../lib/sidAddedPagesAdminGeneratorHelper.class.
  */
 class sidAddedPagesAdminActions extends autoSidAddedPagesAdminActions
 {
+    public function executeSortTree(sfWebRequest $request)
+	{
+        parent::executeSortTree($request);
+        $this->getService('filesystem')->sf('dm:sync-pages');
+        
+    }
 }
