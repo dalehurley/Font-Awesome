@@ -116,13 +116,19 @@ body { background-color: @bodyBgColor; }
 	margin-left: -100%;
 	margin-right: -100%;
 	background-color: @bottomBgColor;
+	@verticalGradient(@bottomBgColorClair; @bottomBgColorFonce);
 
 	//couleur du texte et des liens
 	&, .name, .link { color: @bottomTextColor; }
 
 	.dm_zones {
+		//gestion du fond
+		background-color: @bottomCenterBgColor;
+		@verticalGradient(@bottomCenterBgColorClair; @bottomCenterBgColorFonce);
+		
 		position: relative;
-		@gridSiteWidth();
+		//largeur du site avec les débordements pris en compte
+		@gridSiteWidth(@gridScreen; @gridCol; @gridPadding);
 		margin-left: auto;
 		margin-right: auto;
 	}
