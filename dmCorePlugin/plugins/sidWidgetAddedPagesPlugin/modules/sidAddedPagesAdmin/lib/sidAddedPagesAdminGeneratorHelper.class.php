@@ -10,4 +10,10 @@
  */
 class sidAddedPagesAdminGeneratorHelper extends BaseSidAddedPagesAdminGeneratorHelper
 {
+    public function executeSortTree(sfWebRequest $request)
+	{
+        parent::executeSortTree();
+        $this->getService('filesystem')->sf('dm:sync-pages');
+        
+    }
 }
