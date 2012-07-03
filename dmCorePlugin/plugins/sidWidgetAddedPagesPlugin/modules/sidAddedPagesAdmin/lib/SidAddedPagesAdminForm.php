@@ -26,7 +26,7 @@ class SidAddedPagesAdminForm extends BaseSidAddedPagesForm
     parent::configure();
     
     $this->widgetSchema['nested_set_parent_id']->setOption('query',Doctrine_Core::getTable('SidAddedPages')->createQuery()->addWhere('id <> ?',$this->object->getPrimaryKey()));
-    if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
+    if(!sfContext::getInstance()->getUser()->isSuperAdmin() || sfContext::getInstance()->getUser->getUsername() != 'admin-co-pilotes'){
         $this->widgetSchema['nested_set_parent_id']->setOption('add_empty',false);
     };
     $this->widgetSchema->setHelps(array(
