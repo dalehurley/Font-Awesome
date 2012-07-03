@@ -9,13 +9,14 @@ class missionsMissionsListForm extends dmWidgetPluginForm {
 /*        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText();
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => false
-                ));
+                ));*/
 
-        $this->widgetSchema['nbMissions'] = new sfWidgetFormInputText(array('default' => 0));
-        $this->validatorSchema['nbMissions'] = new sfValidatorInteger(array(
-                    'required' => true,
+        $this->widgetSchema['nbImagesMissions'] = new sfWidgetFormInputText(array('label' => 'Nb d\'images à afficher pour listing'));
+        $this->validatorSchema['nbImagesMissions'] = new sfValidatorInteger(array(
+                    'required' => false,
                 ));
-        
+        $this->widgetSchema->setHelp('nbImagesMissions', '0 pour afficher toutes les images');
+/*        
         $this->widgetSchema['longueurTexte'] = new sfWidgetFormInputText(array('default' => 0));
         $this->validatorSchema['longueurTexte'] = new sfValidatorInteger(array(
                     'required' => false

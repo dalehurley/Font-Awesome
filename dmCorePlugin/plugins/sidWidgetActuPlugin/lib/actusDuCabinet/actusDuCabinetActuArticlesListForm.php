@@ -7,7 +7,7 @@ class actusDuCabinetActuArticlesListForm extends dmWidgetPluginForm {
         parent::configure();
         
 //        // Max per page
-//        $this->widgetSchema['maxPerPage']     = new sfWidgetFormInputText(array('label' => 'Nb par page'), array(
+//        $this->widgetSchema['maxPerPage']     = new sfWidgetFormInputText(array('label' => 'Nb par page', 'default' => 10), array(
 //          'size' => 3          
 //        ));
 //        $this->validatorSchema['maxPerPage']  = new sfValidatorInteger(array(
@@ -20,7 +20,7 @@ class actusDuCabinetActuArticlesListForm extends dmWidgetPluginForm {
 //        $this->widgetSchema['navTop']       = new sfWidgetFormInputCheckbox(array('label' => 'Navigation en haut'));
 //        $this->validatorSchema['navTop']    = new sfValidatorBoolean();
 //
-//        $this->widgetSchema['navBottom']    = new sfWidgetFormInputCheckbox(array('label' => 'Navigation en bas'));
+//        $this->widgetSchema['navBottom']    = new sfWidgetFormInputCheckbox(array('label' => 'Navigation en bas', 'default' => true));
 //        $this->validatorSchema['navBottom'] = new sfValidatorBoolean();
 
 

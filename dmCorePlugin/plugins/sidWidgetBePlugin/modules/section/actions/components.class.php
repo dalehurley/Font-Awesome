@@ -47,7 +47,6 @@ class sectionComponents extends myFrontModuleComponents
   public function executeListArticles(dmWebRequest $request)
   {
     $query = $this->getListQuery();
-    
     $this->sectionPager = $this->getPager($query);
   }
 
