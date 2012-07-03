@@ -2,6 +2,7 @@
 
 $html = '';
 $dateHtml = '';
+$chapeau='';
 if(count($articlePager)){
     use_helper('Date');
    if(count($articlePager) == 1){
@@ -111,6 +112,8 @@ else{
             '</span>';
         }
         
+        if($article->getSection() != 'ec_chiffres'){$chapeau = '<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>';}
+        else $chapeau ='';
 	echo 
 	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">';
 	echo _link($article)->set('.link.link_box')->text(
@@ -120,7 +123,7 @@ else{
 					'<span itemprop="name" class="title itemprop name">'.$article->getTitle().'</span>'.
 				$dateHtml.	
 				'</span>'.
-				'<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>'.
+				$chapeau.
 			'</span>'
 	);
 	echo '</li>';

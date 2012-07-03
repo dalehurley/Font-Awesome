@@ -51,11 +51,20 @@ class dmWidgetGoogleMapShowView extends dmWidgetPluginView
         // si on trouve un cabinet avec le même id que la page en cours, on construit l'adresse
         // sinon on affiche un debugTools d'erreur
         
-        if(is_object($adresseRequest)){
-            $adresseCabinet = $adresseRequest->getAdresse();
-            if($adresseRequest->getAdresse2() != NULL) {$adresseCabinet .='-'.$adresseRequest->getAdresse2();};
-            $adresseCabinet .= '-'.$adresseRequest->getCodePostal().' '.$adresseRequest->getVille();
-        }
+        if (is_object($adresseRequest)) {
+            // si on met une adresse Google facultative, on la prend en compte
+                if ($adresseRequest->getAdresseGoogle() != NULL) {
+                    $adresseCabinet = $adresseRequest->getAdresseGoogle();
+                } 
+                // sinon on construit l'adresse
+                else {
+                    $adresseCabinet = $adresseRequest->getAdresse();
+                    if ($adresseRequest->getAdresse2() != NULL) {
+                        $adresseCabinet .='-' . $adresseRequest->getAdresse2();
+                    };
+                    $adresseCabinet .= '-' . $adresseRequest->getCodePostal() . ' ' . $adresseRequest->getVille();
+                }
+            }
         else {
             return debugTools::infoDebug(array('Error : no address' => 'recordId: '.$dmPage->record_id.' in Table SidCoordName doesn\'t exist'), 'warning');
         }
