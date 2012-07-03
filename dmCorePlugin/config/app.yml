@@ -14,7 +14,7 @@ all:
     default-sender: "votreconseil@expertinfos.com"
 
   controllers-access:    # param for controller's (dev.php, less.php) access
-    ips-allowed:   # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give acces to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
+    ips-allowed:   # complete or incomplete IP's accepted. WARNING: The parameter "268.235.247." give access to all ip's begin by, like "268.235.247.1", "268.235.247.2" etc...
       - 127.0.0.1
       - 217.108.240.193
       - 217.108.240.209
@@ -22,6 +22,8 @@ all:
       - 217.108.240.225
       - 192.168.81.220
       - 89.89.143.127     # Ip fixe Seb Rocca      
+      - 192.168.81.220    # Ip SIDPresse réseau local de Arnaud
+      - 192.168.81.127    # Ip SIDPresse réseau local de Gilles
       - 88.175.117.82     # Ip fixe Marie Laure Nauleau 
       - 93.10.138.101     # Ip fluctuante d'Alicia
       - 217.128.36.230    # Ip fixe co-pilotes

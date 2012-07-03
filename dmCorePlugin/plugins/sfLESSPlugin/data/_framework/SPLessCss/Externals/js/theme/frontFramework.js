@@ -1,6 +1,6 @@
 // frontFramework.js
-// v1.2.1
-// Last Updated : 2012-06-13 15:40
+// v1.2.2
+// Last Updated : 2012-06-26 15:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -25,15 +25,15 @@
 		var hB = $('body').height();
 
 		//sélection des éléments de page
-		var dmHeader = $('#dm_header');
-		var dmMain = $('#dm_main');
-		var dmFooter = $('#dm_footer');
+		// var dmHeader = $('#dm_header');
+		// var dmFooter = $('#dm_footer');
+		var dmMain = $('#dm_main_inner');
 
 		//Calcul des différentes hauteurs composant le site
-		var hH = (dmHeader.length > 0) ? dmHeader.height() : 0;
 		var hM = (dmMain.length > 0) ? dmMain.height() : 0;
-		var hF = (dmFooter.length > 0) ? dmFooter.height() : 0;
-
+		// var hH = (dmHeader.length > 0) ? dmHeader.height() : 0;
+		// var hF = (dmFooter.length > 0) ? dmFooter.height() : 0;
+		
 		//calcul de la différence entre le contenu et la fenetre
 		var offsetWindow = hW - hB;
 
