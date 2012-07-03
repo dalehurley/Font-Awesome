@@ -1,6 +1,6 @@
 // _Areas.less
-// v1.4
-// Last Updated : 2012-06-21 14:35
+// v1.4.1
+// Last Updated : 2012-06-29 12:15
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -22,13 +22,13 @@
 //couleur du fond général de la page
 body { background-color: @bodyBgColor; }
 
-//couleur de la zone située sous le header jusqu'en bas
-#dm_main_inner { background-color: @mainBgColor; }
-
 //dégradé de la page
-#dm_page {
+#dm_main {
 	@verticalGradient(@bodyGradientColor1; @bodyGradientColor2);
 }
+
+//couleur de la zone située sous le header jusqu'en bas
+#dm_main_inner { background-color: @mainBgColor; }
 
 //couleur de la zone de contenu
 #dm_page_content { background-color: @contentBgColor; }
@@ -48,7 +48,7 @@ body { background-color: @bodyBgColor; }
 		margin-right: auto;
 		margin-bottom: (@gridBaseline * -30);
 		//ombre répétée dans NavigationMenu sur le dm_widget_inner
-		@dropShadowPie(0; 0; @gridGutter*4; 0; fadeout(@colorBlack, 50%); @colorBlack);
+		@dropShadowPie(0; 0; @mainShadowBlur; 0; @mainShadowColor; @mainShadowPieColor);
 	}
 }
 
@@ -96,12 +96,21 @@ body { background-color: @bodyBgColor; }
 	background-repeat: no-repeat;
 	background-position: 50% bottom;
 
+	//ajout ombage sous le header
+	@dropShadowPie(0; @headerShadowBlur; @headerShadowBlur; 0; @headerShadowColor; @headerShadowPieColor);
+
 	.dm_zones {
+		//gestion du fond
+		background-color: @headerCenterBgColor;
+		@verticalGradient(@headerCenterBgColorClair; @headerCenterBgColorFonce);
+
 		position: relative;
-		@gridSiteWidth();
+		//largeur du site avec les débordements pris en compte
+		@gridSiteWidth(@gridScreen; @gridCol; @gridPadding);
 		margin-left: auto;
 		margin-right: auto;
-		padding: @gridBaseline 0;
+		padding-top: @gridBaseline;
+		padding-bottom: @gridBaseline;
 		//on réapplique la hauteur minimale pour le placement des icônes en bas à droite (on soustrait le padding)
 		&, #dm_page.edit & { @gridMinHeight(@headerHeight_bl; (@gridBaseline*2)); }
 	}
