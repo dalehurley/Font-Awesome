@@ -60,7 +60,7 @@ class dmSitemapMenu extends dmMenu
     ->withI18n()
     ->where('pTranslation.is_active = ?', true)
      // modif stef le 14/12/2011       
-    ->where('pTranslation.is_visible_bread_crumb = ?', true)
+//    ->where('pTranslation.is_visible_bread_crumb = ?', true)
 //    ->andWhereNotIn('p.module' , $key)
 //    ->andWhereNotIn('p.action', $value)
             ->andWhere('(p.module NOT IN ?) OR ( p.action NOT IN ?)', array($arrayKeys, $arrayValues))

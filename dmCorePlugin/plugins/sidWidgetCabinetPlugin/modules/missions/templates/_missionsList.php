@@ -1,5 +1,5 @@
 <?php
-// vars : $missions, $titreBloc, $lenght
+// vars : $missions, $titreBloc, $lenght, $nbImagesMissions
 /*$html = '';
 
 if (count($missions)) { // si nous avons des actu articles
@@ -66,7 +66,7 @@ if (count($missions)) {
     echo _open('ul', array('class' => 'elements'));
     foreach ($missions as $mission) {  
         $link = '';
-
+        if($nbImagesMissions == 0) $i=0;
         //définition des options du li
         $ctnOpts = array('class' => array('element', 'itemscope', 'Article'), 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope');
         if($i == 1)         $ctnOpts['class'][] = 'first';
@@ -75,7 +75,7 @@ if (count($missions)) {
         echo _open('li', $ctnOpts);
         
         if ($withImage == true) {
-            if (($mission->getImage()->checkFileExists() == true) && ($i <= sfConfig::get('app_nb-image'))) {
+            if (($mission->getImage()->checkFileExists() == true) && ($i <= $nbImagesMissions)) {
                 $link .= _open('span', array('class' => 'imageWrapper'));
                     $link .= _media($mission->getImage())->width($width)->set('.image itemprop="image"')->alt($mission->getTitle());
                 $link .= _close('span');

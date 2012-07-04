@@ -2,6 +2,7 @@
 
 $html = '';
 $dateHtml = '';
+$chapeau='';
 if(count($articlePager)){
     use_helper('Date');
    if(count($articlePager) == 1){
@@ -107,10 +108,12 @@ else{
         if($article->Section->getRubrique() != 'ec_echeancier'){
             $dateHtml = '<meta content="'.$article->createdAt.'" itemprop="datePublished">'.
             '<span class="date">'.__('published on').' '.
-                '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'D').'</time>'.
+                '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->updated_at.'">'.format_date($article->updated_at, 'D').'</time>'.
             '</span>';
         }
         
+        if($article->getSection() != 'ec_chiffres'){$chapeau = '<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>';}
+        else $chapeau ='';
 	echo 
 	'<li itemtype="http://schema.org/Article" itemscope="itemscope" class="element itemscope Article'.$position.'">';
 	echo _link($article)->set('.link.link_box')->text(
@@ -120,7 +123,7 @@ else{
 					'<span itemprop="name" class="title itemprop name">'.$article->getTitle().'</span>'.
 				$dateHtml.	
 				'</span>'.
-				'<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>'.
+				$chapeau.
 			'</span>'
 	);
 	echo '</li>';

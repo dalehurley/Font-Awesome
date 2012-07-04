@@ -88,7 +88,7 @@ EOF;
                 } else {
                   $this->logBlock('-- Clear APC cache from apache user via wget failed', 'ERROR');          
                 }
-                unlink($fileCcApc);
+                if (is_file($fileCcApc)) unlink($fileCcApc);
             }
         } else { // no base_urls fields
             $this->logBlock('-- Clear APC cache from apache user via wget failed - no base_urls field in dm_setting_translation table', 'ERROR'); 

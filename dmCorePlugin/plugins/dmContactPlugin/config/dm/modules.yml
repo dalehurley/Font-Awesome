@@ -4,6 +4,6 @@
 
     dmContact:
       name:            "Ma demande de contacts|Mes demandes de contacts"
-      credentials: contact_me
+      credentials: contact_dm
       actions:
         form:

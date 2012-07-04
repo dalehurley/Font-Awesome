@@ -27,6 +27,7 @@ class dmWidgetGoogleMapSmartGoogleMapView extends dmWidgetPluginView
   protected function doRender()
   {
     $vars = $this->getViewVars();
+    
     $dmPage = $dmPage = sfContext::getInstance()->getPage();
     $titreBloc = ($vars['titreBloc'] == NULL || $vars['titreBloc'] == ' ') ? $dmPage->getName() : $vars['titreBloc'];
     // requète pour construire l'adresse du cabinet
@@ -34,8 +35,9 @@ class dmWidgetGoogleMapSmartGoogleMapView extends dmWidgetPluginView
           ->where('a.is_active = ?', true)
           ->orderBy('a.siege_social DESC')
           ->execute();
-    
     // pour le passage dans le get_widget, il faut donner une valeur 'false' si le boolean est à zéro, sinon l'argument dans le get_widget est incomplet
+    $vars['mapWidth'] = isset($vars['mapWidth']) ?$vars['mapWidth'] : 0;
+    $vars['mapHeight'] = isset($vars['mapHeight']) ?$vars['mapHeight'] : 0;
     $withResume = ($vars['withResume'] == false) ? 'false' : $vars['withResume'];
     $length = ($vars['length'] == 0) ? '': $vars['length'];
     return $this->getHelper()->renderPartial('dmWidgetGoogleMap', 'smartGoogleMap', array(
@@ -43,7 +45,9 @@ class dmWidgetGoogleMapSmartGoogleMapView extends dmWidgetPluginView
                     'titreBloc' => $titreBloc,
                     'smartGoogleMap' => $vars['smartGoogleMap'],
                     'length' => $vars['length'],
-                    'withResume' => $withResume
+                    'withResume' => $withResume,
+                    'mapWidth' => $vars['mapWidth'],
+                    'mapHeight' => $vars['mapHeight'],
                 ));
   }
   
@@ -51,6 +55,6 @@ class dmWidgetGoogleMapSmartGoogleMapView extends dmWidgetPluginView
 //  {
 //    $vars = $this->getViewVars();
 //    return $vars['address'];
-//  }
+//  }   
 
 }

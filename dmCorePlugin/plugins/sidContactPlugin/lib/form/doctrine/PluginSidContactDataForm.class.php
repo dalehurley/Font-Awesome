@@ -19,6 +19,7 @@ abstract class PluginSidContactDataForm extends BaseSidContactDataForm
      */
     $this->changeToEmail('email');
     $this->widgetSchema->setHelp('email', 'Your email will never be published');
+    $this->widgetSchema->setLabel('email', 'Your email');
 
     if ($this->isCaptchaEnabled()) {
             $this->addCaptcha();

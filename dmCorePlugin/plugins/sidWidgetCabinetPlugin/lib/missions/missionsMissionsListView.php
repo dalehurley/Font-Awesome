@@ -31,6 +31,7 @@ class missionsMissionsListView extends dmWidgetPluginView {
         $ancestors = $dmPage->getNode()->getAncestors();
         $nameParent = $ancestors[count($ancestors) - 1]->getName();
         $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars['nbArticles'];
+        if(!isset ($vars['nbImagesMissions'])){ $vars['nbImagesMissions'] = sfConfig::get('app_nb-image');}
         switch ($dmPage->module.'/'.$dmPage->action){
             
             case 'mission/show':
@@ -40,7 +41,7 @@ class missionsMissionsListView extends dmWidgetPluginView {
                     ->from('SidCabinetMission a')
                     ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                     ->where('a.is_active = ? and a.id <> ?', array(true,$dmPage->record_id))
-                    ->orderBy('aTranslation.updated_at DESC')
+                    ->orderBy('a.position ASC')
                     ->limit($nbArticles)
                     ->execute();
         
@@ -74,7 +75,8 @@ class missionsMissionsListView extends dmWidgetPluginView {
                     'length' => $vars['length'],
                     'chapo' => $vars['chapo'],
                     'withImage' => $vars['withImage'],
-                    'width' => $vars['widthImage']
+                    'width' => $vars['widthImage'],
+                    'nbImagesMissions' => $vars['nbImagesMissions']
             
                 ));
     }

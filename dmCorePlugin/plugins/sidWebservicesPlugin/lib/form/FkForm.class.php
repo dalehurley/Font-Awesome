@@ -26,7 +26,7 @@ class FkForm extends dmForm
 	    ));
 
 	    $this->widgetSchema->setLabels(array(
-		  'puissance'    => 'P&eacute;riodicit&eacute;',
+		  'puissance'    => 'Puissance administrative',
 		  'distance'   => 'Distance parcourue',
 		));
 

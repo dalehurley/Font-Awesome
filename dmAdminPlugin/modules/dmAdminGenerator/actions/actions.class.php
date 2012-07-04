@@ -157,6 +157,9 @@ class dmAdminGeneratorActions extends dmAdminBaseActions
       $this->forward404('Bad operation');
     }
 
+    // add sync pages before move, to refresh dmPage
+    $this->getService('filesystem')->sf('dm:sync-pages');
+
     return $this->renderText('ok');
   }
 }

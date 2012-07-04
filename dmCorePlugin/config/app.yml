@@ -1,7 +1,7 @@
 # default values
 all:
   dm-media:
-    max-upload-size: 2000000   # Max upload size for file in form
+    max-upload-size: 1000000   # Max upload size for file in form
 
   link-login:      # seeclass BasedmUserAdminActions to understand how it works
     active:  true   # activation du lien de login
@@ -20,6 +20,8 @@ all:
       - 217.108.240.209
       - 217.108.240.217
       - 217.108.240.225
+      - 192.168.81.220
+      - 89.89.143.127     # Ip fixe Seb Rocca      
       - 192.168.81.220    # Ip SIDPresse réseau local de Arnaud
       - 192.168.81.127    # Ip SIDPresse réseau local de Gilles
       - 192.168.81.132    # IP SIDPresse réseau local de l'iPad
@@ -63,17 +65,6 @@ all:
       "Actualité du Cabinet": "Actualités de l'association"
 
     copilotes-fr:
-      "Le cabinet" : "CO-PILOTES en images"
-      "Les missions": Notre offre
-      "Les Missions": Notre offre
-      "Description des missions": Description de nos valeurs
-      "Mission|Les Missions": Offre|Nos offres
-      "Description du Cabinet": "Description de CO-PILOTES"
-      "Présentation du Cabinet": "CO-PILOTES en images"
-      "Le Cabinet": "CO-PILOTES en images"
-      "Les Actualités du Cabinet": Nos Engagements
-      "Nos Sélections de placements": Nos valeurs
-      "Actualité du Cabinet": "Description de nos engagements"
 
   # tableau des description des permissions 
   permissions:
@@ -98,10 +89,8 @@ all:
       rubrique: "Contenu => Base Editoriale => Rubriques (Gestion des rubriques de la BE)"
       section: "Contenu => Base Editoriale => Sections (Gestion des sections de la BE)"
       article: "Contenu => Base Editoriale => Articles (Gestion des articles de la BE)"
-      added_page_groups: "Contenu => Pages Additionnelles => Groupe de page "
-      added_page_level1: "Contenu => Pages Additionnelles => Page de niveau 1 "
-      added_page_level2: "Contenu => Pages Additionnelles => Page de niveau 2 "
-      added_page_level3: "Contenu => Pages Additionnelles => Page de niveau 3 "
+        # Sous-menu Page additionnelles
+      added_page: "Contenu => Pages Additionnelles"
         # Sous-menu Tag
       tags: "Contenu => Tag => Tags (Gestion des tags)"
       # Menu Gestion du bandeau
@@ -215,8 +204,7 @@ all:
       see_request: 'See the requests window'
       see_event: 'See the events window'
       interface_settings: 'Manage interface settings like default image resize method'
-      
-  
+
   groupes-permissions-client-web:
     description: "Accès pour le client Web"
     permissions:
@@ -237,11 +225,26 @@ all:
       - mission
       - actualite_contenu
       - contact_me
-      - added_page_groups
-      - added_page_level1
-      - added_page_level2
-      - added_page_level3
-      
+
+  groupes-permissions-client-web-co-pilotes:
+    description: "Accès pour le client Web - Co-pilotes"
+    permissions:
+      - bandeau
+      - see_accueil
+#      - see_log
+      - see_chart
+      - tool_bar_admin
+      - admin
+      - ck_editor_lite
+      - admin_bandeau_lite
+      - sites_utiles
+      - groupe_sites_utiles
+      - index_sites_utiles
+      - equipe
+      - recrutement
+      - contact_me
+      - added_page
+
   groupes-permissions-co-pilotes:
     description: "Accès pour co-pilotes"
     permissions:
@@ -251,16 +254,12 @@ all:
       - see_chart
       - tool_bar_admin
       - admin
-#      - ck_editor_lite
       - admin_bandeau_lite
       - sites_utiles
       - groupe_sites_utiles
       - index_sites_utiles
-      - page_cabinet
       - equipe
       - recrutement
-      - mission
-      - actualite_contenu
       - contact_me
       - ck_editor_co_pilotes
       - page_bar_admin
@@ -279,10 +278,8 @@ all:
       - page_bar_front
       - media_bar_front
       - tool_bar_front
-      - added_page_groups
-      - added_page_level1
-      - added_page_level2
-      - added_page_level3
+      - added_page
+      - media_library
 
   groupes-permissions-base-doc:
     description: "Accès pour le client Base Doc"
@@ -315,7 +312,7 @@ all:
     aga-site:
     aga-base-doc:
     copilotes-site:
-      - selection_placement
+#      - selection_placement
 
   # tableau pour gérer les pages à afficher dans le sitemap
   pages-for-sitemap:     

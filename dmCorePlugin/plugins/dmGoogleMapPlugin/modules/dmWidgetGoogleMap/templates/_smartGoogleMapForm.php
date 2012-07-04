@@ -10,10 +10,12 @@ $form->renderGlobalErrors(),
 
 _tag('div',
  
-    //$form['nbArticles']->renderRow().   
+    //$form['nbArticles']->renderRow().
     $form['titreBloc']->renderRow().
     $form['cssClass']->renderRow().
     $form['length']->renderRow().
+    $form['mapWidth']->renderRow().
+    $form['mapHeight']->renderRow().
     $form['withResume']->renderRow().
     $form['smartGoogleMap']->render()
 ); 
