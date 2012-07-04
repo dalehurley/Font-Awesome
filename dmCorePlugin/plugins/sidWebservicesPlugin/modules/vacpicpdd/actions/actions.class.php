@@ -35,8 +35,8 @@ class vacpicpddActions extends myFrontModuleActions {
                 // envoi soap
                 $results['soap'] = $client->__soapCall('calculVACPICPDD', array(
                     $results['capital'],
-                    $results['duree'],
                     $results['periodicite'],
+                    $results['duree'],
                     $results['debut'],
                     $results['taux']
                 ) , null, array(
