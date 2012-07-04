@@ -64,10 +64,6 @@ all:
       "Actualité du Cabinet": "Actualités de l'association"
 
     copilotes-fr:
-      "Les missions": Notre offre
-      "Les Missions": Notre offre
-      "Description des missions": Description de notre offre
-      "Mission|Les Missions": Offre|Nos offres
 
   # tableau des description des permissions 
   permissions:
@@ -243,11 +239,8 @@ all:
       - sites_utiles
       - groupe_sites_utiles
       - index_sites_utiles
-      - page_cabinet
       - equipe
       - recrutement
-      - mission
-      - actualite_contenu
       - contact_me
       - added_page
 
@@ -264,11 +257,8 @@ all:
       - sites_utiles
       - groupe_sites_utiles
       - index_sites_utiles
-      - page_cabinet
-      - actualite_contenu      
       - equipe
       - recrutement
-      - mission
       - contact_me
       - ck_editor_co_pilotes
       - page_bar_admin
