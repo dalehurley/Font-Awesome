@@ -13,6 +13,6 @@
 abstract class PluginSidCabinetEquipe extends BaseSidCabinetEquipe
 {
 	public function infoEquipe(){
-		return $this->title.' '.$this->name.' '.$this->first_name.' - '.$this->statut;
+		return sfContext::getInstance()->getI18N()->__($this->title).' '.$this->name.' '.$this->first_name.' - '.$this->statut;
 	}
 }
