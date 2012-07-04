@@ -64,17 +64,10 @@ all:
       "Actualité du Cabinet": "Actualités de l'association"
 
     copilotes-fr:
-      "Le cabinet" : "CO-PILOTES en images"
       "Les missions": Notre offre
       "Les Missions": Notre offre
-      "Description des missions": Description de nos valeurs
+      "Description des missions": Description de notre offre
       "Mission|Les Missions": Offre|Nos offres
-      "Description du Cabinet": "Description de CO-PILOTES"
-      "Présentation du Cabinet": "CO-PILOTES en images"
-      "Le Cabinet": "CO-PILOTES en images"
-      "Les Actualités du Cabinet": Nos Engagements
-      "Nos Sélections de placements": Nos valeurs
-      "Actualité du Cabinet": "Description de nos engagements"
 
   # tableau des description des permissions 
   permissions:
@@ -214,8 +207,7 @@ all:
       see_request: 'See the requests window'
       see_event: 'See the events window'
       interface_settings: 'Manage interface settings like default image resize method'
-      
-  
+
   groupes-permissions-client-web:
     description: "Accès pour le client Web"
     permissions:
@@ -236,9 +228,9 @@ all:
       - mission
       - actualite_contenu
       - contact_me
-      
-  groupes-permissions-co-pilotes:
-    description: "Accès pour co-pilotes"
+
+  groupes-permissions-client-web-co-pilotes:
+    description: "Accès pour le client Web - Co-pilotes"
     permissions:
       - bandeau
       - see_accueil
@@ -246,7 +238,7 @@ all:
       - see_chart
       - tool_bar_admin
       - admin
-#      - ck_editor_lite
+      - ck_editor_lite
       - admin_bandeau_lite
       - sites_utiles
       - groupe_sites_utiles
@@ -256,6 +248,27 @@ all:
       - recrutement
       - mission
       - actualite_contenu
+      - contact_me
+      - added_page
+
+  groupes-permissions-co-pilotes:
+    description: "Accès pour co-pilotes"
+    permissions:
+      - bandeau
+      - see_accueil
+#      - see_log
+      - see_chart
+      - tool_bar_admin
+      - admin
+      - admin_bandeau_lite
+      - sites_utiles
+      - groupe_sites_utiles
+      - index_sites_utiles
+      - page_cabinet
+      - actualite_contenu      
+      - equipe
+      - recrutement
+      - mission
       - contact_me
       - ck_editor_co_pilotes
       - page_bar_admin
@@ -275,6 +288,7 @@ all:
       - media_bar_front
       - tool_bar_front
       - added_page
+      - media_library
 
   groupes-permissions-base-doc:
     description: "Accès pour le client Base Doc"
@@ -307,7 +321,7 @@ all:
     aga-site:
     aga-base-doc:
     copilotes-site:
-      - selection_placement
+#      - selection_placement
 
   # tableau pour gérer les pages à afficher dans le sitemap
   pages-for-sitemap:     
