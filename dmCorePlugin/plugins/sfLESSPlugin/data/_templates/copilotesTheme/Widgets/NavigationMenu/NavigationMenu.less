@@ -145,11 +145,12 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		// border-color: @colorCouleur3Moyen @menuBorderColor;
 		border-color: @menuBorderColor;
 		color: @menuLinkColor;
-		
+
 		//changement taille selon zone
-		//Co-pilotes : changement de la taille de police
-		// #dm_custom_top & { font-size: @fontSizeSmall; border-color: @menuTopBorderColor; }
-		// #dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeMicro; }
+		//Co-pilotes : désactivation changement taille de police
+		#dm_custom_top & { border-color: @menuTopBorderColor; }
+		// #dm_custom_top & { font-size: @fontGlobalSizePx; border-color: @menuTopBorderColor; }
+		// #dm_sidebar_left &, #dm_sidebar_right & { font-size: @fontSizeSmall; }
 
 		&.dm_current { &, &:hover { color: @menuLinkCurrentColor; } }
 		&.dm_inactive { color: @menuLinkInactiveColor; }
