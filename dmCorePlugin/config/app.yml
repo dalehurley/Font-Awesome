@@ -241,6 +241,7 @@ all:
       - recrutement
       - contact_me
       - added_page
+      - clear_cache      
 
   groupes-permissions-co-pilotes:
     description: "Accès pour admin Co-pilotes"
