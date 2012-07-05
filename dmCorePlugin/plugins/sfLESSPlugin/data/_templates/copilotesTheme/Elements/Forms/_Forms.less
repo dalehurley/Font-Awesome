@@ -32,7 +32,7 @@ form {
 		
 		textarea {
 			//padding horizontal soustrait à la largeur
-			@padHSub: (@offS + 1px) * 2;
+			@padHSub: (@offS + 1px + @gridGutter) * 2;
 			
 			//application largeur (largeur contenu moins largeur label)
 			.dm_sdbc_none &	{ @gridWidth((@gridCol - 3); @padHSub); }
@@ -62,10 +62,10 @@ form {
 		//stylage par défaut du captcha
 		#recaptcha_widget_div, #recaptcha_area #recaptcha_table.recaptchatable {
 			//application largeur (largeur contenu moins largeur label)
-			.dm_sdbc_none &	{ @gridWidth((@gridCol - 3)); }
-			.dm_sdbc_left &	{ @gridWidth((@gridCol - @gridCol_SidebarLeft - 3)); }
-			.dm_sdbc_right & { @gridWidth((@gridCol - @gridCol_SidebarRight - 3)); }
-			.dm_sdbc_two & { @gridWidth((@gridCol_Content - 3)); }
+			.dm_sdbc_none &	{ @gridWidth((@gridCol - 3); @gridGutter*2); }
+			.dm_sdbc_left &	{ @gridWidth((@gridCol - @gridCol_SidebarLeft - 3); @gridGutter*2); }
+			.dm_sdbc_right & { @gridWidth((@gridCol - @gridCol_SidebarRight - 3); @gridGutter*2); }
+			.dm_sdbc_two & { @gridWidth((@gridCol_Content - 3); @gridGutter*2); }
 		}
 
 		#recaptcha_widget_div {
