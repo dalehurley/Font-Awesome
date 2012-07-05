@@ -65,7 +65,6 @@
 			@gridSiteWidth();
 			// margin-left: auto;
 			// margin-right: auto;
-			// background-color: @colorCouleur2Clair;
 
 			//Copilotes : changement dimension pour caler sur débord et éviter que les liens ne touchent le bords
 			padding-left: @gridGutter/2;
@@ -143,7 +142,8 @@ ul.menu-dropdown, ul.menu-accordion, ul.menu-megadropdown {
 		padding: (@menuLinkPadV + 1px) @menuLinkPadH @menuLinkPadV (@menuLinkPadH + 1px);
 		border-style: solid;
 		border-width: 0 1px 1px 0;
-		border-color: @colorCouleur3Moyen @menuBorderColor;
+		// border-color: @colorCouleur3Moyen @menuBorderColor;
+		border-color: @menuBorderColor;
 		color: @menuLinkColor;
 		
 		//changement taille selon zone
