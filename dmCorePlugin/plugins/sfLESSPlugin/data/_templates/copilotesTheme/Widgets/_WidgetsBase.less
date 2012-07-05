@@ -190,14 +190,13 @@
 			& > .title {
 				background-color: transparent;
 				background-image: url(@{urlImagesAssets}/logo-label-ec.png);
-				background-position: center center;
+				background-position: center top;
 				background-repeat: no-repeat;
 
-				//suppression du texte
-				text-indent: -9999em;
-				height: @gridBaseline*3;
+				//Stylage du texte
 				color: @colorCouleur3Fonce;
-				padding: 0;
+				padding: @gridBaseline*3 (@gridGutter/2 + @offS) @gridBaseline/2 (@gridGutter/2 + @offS);
+
 				//suppression des marges en compensation de la suppression de la bordure
 				margin: (@gridBaseline/-2) (@gridGutter/-2) (@gridBaseline/2) (@gridGutter/-2);
 				border-bottom: 0;
@@ -232,7 +231,7 @@
 			display: none;
 			visibility: hidden;
 			margin-bottom: @gridBaseline/2;
-			
+
 			&.email, &.telephone { display: block; visibility: visible; }
 			//on réaffiche le label pour le téléphone
 			&.telephone {
