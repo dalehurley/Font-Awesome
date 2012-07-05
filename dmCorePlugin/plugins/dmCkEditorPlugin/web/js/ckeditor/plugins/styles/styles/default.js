@@ -103,35 +103,59 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 //    }
 //}]);
 CKEDITOR.addStylesSet('default',[{
-    name:'Titre paragraphe',
-    element:'h5',
-    attributes : {
-        'class' : 'title'
-    }
-},{
-    name:'Titre annotation',
-    element:'h6',
-    attributes : {
-        'class' : 'title'
-    }
-},{
-    name:'Texte',
-    element:'p'
-},{
-    name:'Image on Left',
+//    name:'Bloc image à gauche + texte',
+//    element:'div',
+//    attributes : {
+//        'class' : 'blocImageLeft'
+//    }
+//},{
+//    name:'Bloc image à droite + texte',
+//    element:'div',
+//    attributes : {
+//        'class' : 'blocImageRight'
+//    }
+//}
+//},{
+//    name:'Titre paragraphe',
+//    element:'h5',
+//    attributes : {
+//        'class' : 'title'
+//    }
+//},{
+//    name:'Texte paragraphe',
+//    element:'p'
+//},{
+//    name:'Titre annotation',
+//    element:'h6',
+//    attributes : {
+//        'class' : 'title'
+//    }
+//},{
+//    name:'Texte annotation',
+//    element:'em'
+//},{
+//    name:'Texte',
+//    element:'p'
+//}
+//,{
+    name:'Image alignée à gauche',
     element:'img',
     attributes:{
         style:'padding: 5px; margin-right: 5px',
-        border:'2',
+//        border:'2',
+        border:0,
         align:'left'
     }
 },{
-    name:'Image on Right',
+    name:'Image aligneé à droite',
     element:'img',
     attributes:{
         style:'padding: 5px; margin-left: 5px',
-        border:'2',
+//        border:'2',
+        border:0,
         align:'right'
     }
 }]);
+
+
 
