@@ -18,7 +18,7 @@ class dmClearCacheTask extends dmContextTask {
             'ccc'
         );
         $this->namespace = 'dm';
-        $this->name = 'clear-cache and APC cache';
+        $this->name = 'clear-cache-apc';
         $this->briefDescription = 'Remove all cache dir content and APC cache';
         $this->detailedDescription = <<<EOF
 Will remove all cache dir content
