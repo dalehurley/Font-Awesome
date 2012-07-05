@@ -179,6 +179,69 @@
 	}
 }
 
+.dm_widget.adresses_siege_social {
+	#dm_sidebar_right & {
+		.dm_widget_inner {
+			padding: @gridBaseline/2 @gridGutter/2;
+			border: 0;
+			@borderRadiusCompress(0);
+
+			//changement du titrage
+			& > .title {
+				background-color: transparent;
+				background-image: url(@{urlImagesAssets}/logo-label-ec.png);
+				background-position: center center;
+				background-repeat: no-repeat;
+
+				//suppression du texte
+				text-indent: -9999em;
+				height: @gridBaseline*3;
+				color: @colorCouleur3Fonce;
+				padding: 0;
+				//suppression des marges en compensation de la suppression de la bordure
+				margin: (@gridBaseline/-2) (@gridGutter/-2) (@gridBaseline/2) (@gridGutter/-2);
+				border-bottom: 0;
+				@borderRadiusCompress(0);
+			}
+
+			//application d'un style sur le texte
+			color: @colorCouleur1;
+			font-size: @fontSizeH6Px;
+			line-height: @gridBaseline;
+			font-weight: bold;
+
+			.link {
+				font-size: @fontSizeH6Px;
+				font-weight: bold;
+				&, &:visited, &:hover, &:focus, &:active { color: @colorCouleur1; }
+			}
+		}
+
+		//suppression sprites et labels par défaut
+		.type {
+			@spriteDelete();
+			display: none;
+			visibility: hidden;
+			text-indent: inherit;
+			padding: inherit;
+			margin: inherit;
+		}
+
+		//on masque tout sauf l'email et le téléphone
+		.itemprop {
+			display: none;
+			visibility: hidden;
+			margin-bottom: @gridBaseline/2;
+			
+			&.email, &.telephone { display: block; visibility: visible; }
+			//on réaffiche le label pour le téléphone
+			&.telephone {
+				.type, .separator { display: inline; visibility: visible; }
+			}
+		}
+	}
+}
+
 #dm_sidebar_left, #dm_sidebar_right {
 	.dm_widget {
 		margin-bottom: @gridBaseline/2;
