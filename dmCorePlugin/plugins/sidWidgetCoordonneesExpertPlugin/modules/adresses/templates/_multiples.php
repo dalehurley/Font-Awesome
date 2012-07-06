@@ -27,13 +27,13 @@ if (count($adresses)) {
         }
 
 		$emailSpan = '';
-		if ($adresse->getEmail()){
-		$emailSpan = '<span class="itemprop email">'.
-						'<span class="type" title="Email">Email</span>'.
-						'<span class="separator">&nbsp;:&nbsp;</span>'.
-						'<span class="value"><a class="link" href="mailto:'.$adresse->getEmail().'" itemprop="email">'.$adresse->getEmail().'</a></span>'.
-					'</span>';
-		}
+		// if ($adresse->getEmail()){
+		// $emailSpan = '<span class="itemprop email">'.
+		// 				'<span class="type" title="Email">Email</span>'.
+		// 				'<span class="separator">&nbsp;:&nbsp;</span>'.
+		// 				'<span class="value"><a class="link" href="mailto:'.$adresse->getEmail().'" itemprop="email">'.$adresse->getEmail().'</a></span>'.
+		// 			'</span>';
+		// }
 
 		$telSpan = '';
 		if ($adresse->getTel()){
