@@ -216,8 +216,8 @@ class dmDataLoad
         'credentials' => 'manual_metas'
       ),
       'title_suffix' => array(
-        //'default_value' => ' | '.dmString::humanize(dmProject::getKey()),
-        'default_value' => ' | '.dmString::humanize(dmConfig::get('site_name')),
+        'default_value' => ' | '.dmString::humanize(dmProject::getKey()),
+        //'default_value' => ' | '.dmString::humanize(dmConfig::get('site_name')),
         'description' => 'Append something at the end of all pages title',
         'group_name' =>'seo',
         'credentials' => 'manual_metas'

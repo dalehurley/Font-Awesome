@@ -22,6 +22,7 @@ Call it with:
 
   [php symfony doctrine:sql-query "select * from test"|INFO]
   WARNING: replace " with \" to work
+  NB: you can use {{site_name}} or {{site_ndd}} or all dmSetting.name 
 EOF;
         
     }
@@ -61,6 +62,16 @@ EOF;
 
 // • Queries that select rows (SELECT) and return a result set with rows and columns are sent with the query() method. In case of error, returns FALSE.
 // $res = $conn->query("SQL Query");
+ 
+        // ajout de variable de dmConfig dans la requete: sous la forme {{nom_variable_dmConfig}}
+        if (preg_match_all('/\{\{[A-Za-z0-9_]*\}\}/', $query, $matches)) {   // on récupère le nom de la base de données à dumper, la base locale au site
+            foreach ($matches[0] as $match) {
+                $matchDmConfig = str_replace('{{', '', $match);
+                $matchDmConfig = str_replace('}}', '', $matchDmConfig);
+                // on recherche la variable de dmConfig 
+                $query = str_replace($match, dmConfig::get($matchDmConfig) , $query);
+            }
+        }
 
         switch (strtolower(substr($query,0,6))) {
             case 'select':

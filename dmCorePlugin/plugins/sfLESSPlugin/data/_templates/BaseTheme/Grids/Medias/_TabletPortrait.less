@@ -1,6 +1,6 @@
 // _TabletPortrait.less
-// v1.1
-// Last Updated : 2012-06-11 16:00
+// v1.2
+// Last Updated : 2012-07-03 16:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -9,17 +9,14 @@
 	//chargement fonction automatique de replacement en mode portrait
 	@gridAutoLayoutPortrait(@gridScreen_TabletPortrait;@gridCol_TabletPortrait);
 	
-	#dm_main_inner {
-		@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; @gridPadding);
-	}
-	
 	//redimenssionnement de zones dont la largeur est affectée de façon forcée
+	#dm_main_inner,
 	#dm_header .dm_zones,
 	#dm_footer .dm_zones,
 	#dm_custom_bottom .dm_zones {
-		@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
+		@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; @gridPadding);
 	}
-
+	
 	//on affiche les widgets sur 4 colonnes dans la sidebar-right
 	#dm_sidebar_right {
 		.dm_widget {

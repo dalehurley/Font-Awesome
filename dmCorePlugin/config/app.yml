@@ -24,6 +24,7 @@ all:
       - 89.89.143.127     # Ip fixe Seb Rocca      
       - 192.168.81.220    # Ip SIDPresse réseau local de Arnaud
       - 192.168.81.127    # Ip SIDPresse réseau local de Gilles
+      - 192.168.81.132    # IP SIDPresse réseau local de l'iPad
       - 88.175.117.82     # Ip fixe Marie Laure Nauleau 
       - 93.10.138.101     # Ip fluctuante d'Alicia
       - 217.128.36.230    # Ip fixe co-pilotes
@@ -241,6 +242,7 @@ all:
       - recrutement
       - contact_me
       - added_page
+      - clear_cache      
 
   groupes-permissions-co-pilotes:
     description: "Accès pour admin Co-pilotes"

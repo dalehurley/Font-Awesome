@@ -59,10 +59,7 @@ if (!$error){   // if 1 its only the submit button
                         incorrect_captcha_sol   : "' . __('Help') . '",
                         incorrect_try_again : "' . __('Incorrect. Please try again.') . '", 
                     },
-
-                    //theme : \'custom\',
                     theme : \'clean\',
-                    //custom_theme_widget: \'recaptcha_widget\',
                     lang : \'' . $sf_user->getCulture() . '\',
                 };
             </script>';
