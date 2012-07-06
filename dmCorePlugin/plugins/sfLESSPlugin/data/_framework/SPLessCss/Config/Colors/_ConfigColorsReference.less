@@ -7,6 +7,23 @@
 //CONFIGURATION DES COULEURS DE REFERENCE DONT LES VALEURS SONT BASÉES SUR DES COULEURS EXISTANTES
 //Cf http://twitter.github.com/bootstrap/less.html pour inspiration
 
+// RECOMMENDATIONS IMPORTANTES :
+
+// Pour les appels de sprites :
+// Attention : le theme "Default" ne doit pas être précisé dans les noms de variables d'offset de placement.
+// Cependant, il doit obligatoirement l'être pour tous les autres thèmes.
+// Par exemple on a avec le theme Default :
+// @widgetNivoGallerySpriteArrowLeftOffX: @spriteOffX-navigation-squareArrowLeft;
+// @widgetNivoGallerySpriteArrowLeftOffY: @spriteOffY-navigation-squareArrowLeft;
+// Une fois passé avec le thème DefaultMono :
+// @widgetNivoGallerySpriteArrowLeftOffX: @spriteOffX-DefaultMono-navigation-squareArrowLeft;
+// @widgetNivoGallerySpriteArrowLeftOffY: @spriteOffY-DefaultMono-navigation-squareArrowLeft;
+// Cette règle est applicable pour tous les appels de sprite.
+
+//######################################################################################################
+//######################################################################################################
+
+
 //##################################
 //######## GESTION DU TEXTE ########
 //##################################
@@ -249,17 +266,8 @@
 //##################################
 //###### GESTION DU DIAPORAMA ######
 //##################################
-// Attention : le theme "Default" ne doit pas être précisé dans les noms de variables d'offset de placement.
-// Cependant, il doit obligatoirement l'être pour tous les autres thèmes.
-// Par exemple on a avec le theme Default :
-// @widgetNivoGallerySpriteArrowLeftOffX: @spriteOffX-navigation-squareArrowLeft;
-// @widgetNivoGallerySpriteArrowLeftOffY: @spriteOffY-navigation-squareArrowLeft;
-// Une fois passé avec le thème DefaultMono :
-// @widgetNivoGallerySpriteArrowLeftOffX: @spriteOffX-DefaultMono-navigation-squareArrowLeft;
-// @widgetNivoGallerySpriteArrowLeftOffY: @spriteOffY-DefaultMono-navigation-squareArrowLeft;
-// Cette règle est applicable pour tous les appels de sprite.
-
 //sprite pour les bullets de navigation
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
 @widgetNivoGallerySpriteBulletTheme: "Default";
 @widgetNivoGallerySpriteBulletCategory: "internet";
 //sprite bullet état standard
@@ -271,8 +279,8 @@
 @widgetNivoGallerySpriteBulletOverOffX: @spriteOffX-internet-bulletOver;
 @widgetNivoGallerySpriteBulletOverOffY: @spriteOffY-internet-bulletOver;
 
-
 //sprite pour les flèches de navigation
+//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
 @widgetNivoGallerySpriteArrowTheme: "Default";
 @widgetNivoGallerySpriteArrowCategory: "navigation";
 //sprite de navigation gauche
