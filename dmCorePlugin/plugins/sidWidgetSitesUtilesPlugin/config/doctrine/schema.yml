@@ -79,16 +79,32 @@ SidSitesUtiles:
       type: integer
     url:
       type: string(255)
-      notnull: true
+      notnull: false
       extra: link
     description:
       type: clob
       extra: ckeditor
       notnull: true
-#    on_home:
-#      type: boolean
-#      notnull: true
-#      default: false
+    file1:
+      type: integer
+    file2:
+      type: integer
+    file3:
+      type: integer
+    file4:
+      type: integer
+    file5:
+      type: integer
+    title_file1:
+      type: string(255)
+    title_file2:
+      type: string(255)
+    title_file3:
+      type: string(255)
+    title_file4:
+      type: string(255)
+    title_file5:
+      type: string(255)
   relations:
     GroupeSitesUtiles:
       class: SidGroupeSitesUtiles
@@ -99,4 +115,29 @@ SidSitesUtiles:
     Image:
       class: DmMedia
       local: image_id
-      foreignAlias: Photos      
+      foreignAlias: Photos
+    Files1:
+      class:          DmMedia
+      local:          file1
+      foreignAlias:   SidSitesUtiles
+      onDelete: Cascade
+    Files2:
+      class:          DmMedia
+      local:          file2
+      foreignAlias:   SidSitesUtiles
+      onDelete: Cascade
+    Files3:
+      class:          DmMedia
+      local:          file3
+      foreignAlias:   SidSitesUtiles
+      onDelete: Cascade
+    Files4:
+      class:          DmMedia
+      local:          file4
+      foreignAlias:   SidSitesUtiles
+      onDelete: Cascade
+    Files5:
+      class:          DmMedia
+      local:          file5
+      foreignAlias:   SidSitesUtiles
+      onDelete: Cascade
