@@ -1,6 +1,6 @@
 // _ContentNivoGallery.less
-// v1.2
-// Last Updated : 2012-02-29 15:55
+// v1.3
+// Last Updated : 2012-07-06 14:20
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -37,7 +37,7 @@
 			float:left;
 			
 			//chargement sprite entière avec dimension et SVG
-			@spriteDefinition("Default"; "internet"; "bullet"; "S"; @spriteFormat_S; @spriteOffX-internet-bullet; @spriteOffY-internet-bullet);
+			@spriteDefinition(@widgetNivoGallerySpriteBulletTheme; @widgetNivoGallerySpriteBulletCategory; @widgetNivoGallerySpriteBulletName; "S"; @spriteFormat_S; @widgetNivoGallerySpriteBulletOffX; @widgetNivoGallerySpriteBulletOffY);
 			//décalage de marge
 			@decalV: (@gridBaseline - @spriteFormat_S) / 2;
 			@decalH: (@gridGutter - @spriteFormat_S) / 2;
@@ -45,8 +45,8 @@
 			margin: 0 @decalH;
 			
 			&.active {
-				@spriteBgiSvg("Default"; "internet"; "bulletOver");
-				@spriteBgp(@spriteFormat_S; @spriteOffX-internet-bulletOver; @spriteOffY-internet-bulletOver);
+				@spriteBgiSvg(@widgetNivoGallerySpriteBulletTheme; @widgetNivoGallerySpriteBulletCategory; @widgetNivoGallerySpriteBulletOverName);
+				@spriteBgp(@spriteFormat_S; @widgetNivoGallerySpriteBulletOverOffX; @widgetNivoGallerySpriteBulletOverOffY);
 			}
 		}
 	}
@@ -68,18 +68,18 @@
 			//gestion dimension sprite
 			@spriteDimension(@spriteFormat_M);
 			//chargement thème de sprite
-			@spriteBgi("Default"; "M");
+			@spriteBgi(@widgetNivoGallerySpriteArrowTheme; "M");
 			//décalage pour alignement grille
 			@decalH: @gridColWidth - @spriteFormat_M;
 			
 			&.nivo-prevNav {
-				@spriteBgiSvg("Default"; "navigation"; "squareArrowLeft");
-				@spriteBgp(@spriteFormat_M; @spriteOffX-navigation-squareArrowLeft; @spriteOffY-navigation-squareArrowLeft);
+				@spriteBgiSvg(@widgetNivoGallerySpriteArrowTheme; @widgetNivoGallerySpriteArrowCategory; @widgetNivoGallerySpriteArrowLeftName);
+				@spriteBgp(@spriteFormat_M; @widgetNivoGallerySpriteArrowLeftOffX; @widgetNivoGallerySpriteArrowLeftOffY);
 				left: @decalH;
 			}
 			&.nivo-nextNav {
-				@spriteBgiSvg("Default"; "navigation"; "squareArrowRight");
-				@spriteBgp(@spriteFormat_M; @spriteOffX-navigation-squareArrowRight; @spriteOffY-navigation-squareArrowRight);
+				@spriteBgiSvg(@widgetNivoGallerySpriteArrowTheme; @widgetNivoGallerySpriteArrowCategory; @widgetNivoGallerySpriteArrowRightName);
+				@spriteBgp(@spriteFormat_M; @widgetNivoGallerySpriteArrowRightOffX; @widgetNivoGallerySpriteArrowRightOffY);
 				right: @decalH;
 			}
 		}
