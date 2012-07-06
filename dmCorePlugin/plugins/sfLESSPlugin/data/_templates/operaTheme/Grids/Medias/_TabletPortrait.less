@@ -1,17 +1,34 @@
 // _TabletPortrait.less
-// v1.0
-// Last Updated : 2011-08-22 15:00
+// v1.2
+// Last Updated : 2012-07-03 16:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //Requête média pour adapter le design en fonction du support
-/*
 @templateMedia_TabletPortrait() {
 	//chargement fonction automatique de replacement en mode portrait
 	@gridAutoLayoutPortrait(@gridScreen_TabletPortrait;@gridCol_TabletPortrait);
 	
-	#dm_main_inner {
+	//redimenssionnement de zones dont la largeur est affectée de façon forcée
+	#dm_main_inner,
+	#dm_main:before,
+	#dm_header .dm_zones,
+	#dm_footer .dm_zones {
 		@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; @gridPadding);
 	}
+	
+	//on affiche les widgets sur 4 colonnes dans la sidebar-right
+	#dm_sidebar_right {
+		.dm_widget {
+			float: left;
+			margin-left: @zonesOffsetPad;
+			@gridWidth(@gridCol_SidebarRight; (@zonesOffsetPad * -2));
+			
+			//on pase à la ligne un widget sur 2
+			&:first-child, &:nth-child(odd) {
+				clear: left;
+				margin-left: 0;
+			}
+		}
+	}
 }
-*/

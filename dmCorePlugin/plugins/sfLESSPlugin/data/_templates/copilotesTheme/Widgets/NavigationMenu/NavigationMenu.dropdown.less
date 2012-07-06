@@ -73,7 +73,7 @@ ul.menu-dropdown {
 		margin-top: -1px;
 		//pour toutes les premières cellules
 		li.first {
-			& > .link { padding-top: @gridBaseline/2; border-top: 1px solid @colorZoneBorder; }
+			& > .link { padding-top: @gridBaseline/2; border-top: 1px solid @menuBorderColor; }
 			& > ul { margin-top: 0; }
 		}
 	}
@@ -123,47 +123,49 @@ ul.menu-dropdown {
 		
 		//modification de couleurs du menu
 		.link {
-			background-color: @colorCouleur2Clair;
-			color: @colorCouleur3;
+			background-color: @menuTopBgColor;
+			color: @menuTopLinkColor;
 			
 			//personnalisation padding pour menu horizontal
 			padding-right: @menuLinkPadHCustomTop;
 			padding-left: @menuLinkPadHCustomTop + 1px;
 			
-			&.dm_current { &, &:hover { color: @colorCouleur3Fonce; } }
-			&.dm_inactive { color: @colorCouleur3Moyen; }
+			&.dm_current { &, &:hover { color: @menuTopLinkCurrentColor; } }
+			&.dm_inactive { color: @menuTopLinkInactiveColor; }
 			//LoVe's Hurts Fade Away
-			&:hover, &:focus { color: @colorCouleur3Fonce; background-color: @colorCouleur2Moyen; }
-			&:active { color: @colorCouleur1Clair; }
+			&:hover, &:focus { color: @menuTopLinkHoverColor; background-color: @menuTopBgHoverColor; }
+			&:active { color: @menuTopLinkActiveColor; }
 		}
 		
 		//modification de la couleur de la flèche
 		li.dm_dir {
 			& > .link:after {
-				border-color: transparent transparent transparent @colorCouleur3Fonce;
+				border-color: transparent transparent transparent @menuTopArrowColor;
 			}
 			& > .link:hover:after,
 			&:hover > .link:after {
-				border-color: @colorCouleur3Clair transparent transparent transparent;
-				.csstransitions.csstransforms & { border-color: transparent transparent transparent @colorCouleur3Clair; }
+				border-color: @menuTopArrowColorSup transparent transparent transparent;
+				.csstransitions.csstransforms & { border-color: transparent transparent transparent @menuTopArrowColorSup; }
 			}
 		}
 		
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
-				//Co-pilotes : couleurs spécifiques
+				//suppression couleur de fond
 				background-color: transparent;
-				color: @colorCouleur1;
+
+				//Co-pilotes : couleurs spécifiques
+				color: @menuTopFirstLinkColor;
 				border-color: transparent;
 				margin-left: -1px;
 				border-left-width: 1px;
 				border-left-style: solid;
-				&:hover, &:focus { color: @colorCouleur1Moyen; background-color: @colorCouleur2Clair; }
+				&:hover, &:focus { color: @menuTopFirstLinkHoverColor; background-color: @menuTopBgColor; }
 				
 				//uniformisation couleur de police
-				&.dm_current { &, &:hover { color: @colorCouleur1Moyen; } }
-				&.dm_inactive { color: @colorCouleur1; }
+				&.dm_current { &, &:hover { color: @menuTopFirstLinkHoverColor; } }
+				&.dm_inactive { color: @menuTopFirstLinkColor; }
 
 				// margin-top: floor(@gridBaseline / 4) + 1px;
 				// margin-bottom: floor(@gridBaseline / 4) + 1px;
@@ -186,10 +188,10 @@ ul.menu-dropdown {
 				// padding-top: @gridBaseline/2;
 				// padding-bottom: @gridBaseline/2;
 				// margin-left: -1px;
-				// border-left: 1px solid @colorZoneBorder;
+				// border-left: 1px solid @menuTopBorderColor;
 				
 				//Co-pilotes : couleurs spécifiques
-				border-color: @colorZoneBorder;
+				border-color: @menuTopBorderColor;
 			}
 			
 			//élargissement en pleine hauteur pour les dossiers
@@ -197,7 +199,7 @@ ul.menu-dropdown {
 			&.dm_dir > .link:hover,
 			&.dm_dir > .link:focus {
 				padding-bottom: @menuLinkPadV;
-				border-bottom: 1px solid @colorZoneBorder;
+				border-bottom: 1px solid @menuTopBorderColor;
 			}
 			
 			//rajout bordure à gauche sur la première cellule
@@ -207,7 +209,7 @@ ul.menu-dropdown {
 				//Co-pilotes : corrections de marge et couleur de bordure
 				& > .link { margin-left: 0; }
 
-				// & > .link { border-left: 1px solid @colorZoneBorder; }
+				// & > .link { border-left: 1px solid @menuTopBorderColor; }
 				//suppression décalage lors du rollOver
 				// &:hover > .link,
 				// & > .link:hover,

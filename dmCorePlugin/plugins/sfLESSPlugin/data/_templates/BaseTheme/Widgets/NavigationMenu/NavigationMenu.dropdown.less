@@ -152,6 +152,9 @@ ul.menu-dropdown {
 		//gestion des cellules de premier niveau
 		& > li {
 			& > .link {
+				//suppression couleur de fond
+				background-color: transparent;
+
 				//uniformisation couleur de police
 				&.dm_current { &, &:hover { color: @menuTopLinkHoverColor; } }
 				&.dm_inactive { color: @menuTopLinkColor; }

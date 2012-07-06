@@ -9,6 +9,7 @@
 
 //OPTIMISATION : n'inclure que les utilitaires réellement utilisés dans ce widget (cf dossiers Utilities)
 @import "_framework/SPLessCss/Utilities/Grids/_GridsUtils.less";
+@import "_framework/SPLessCss/Utilities/Css3/_Css3Gradient.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transform2D.less";
 @import "_framework/SPLessCss/Utilities/Css3/_Css3Transition.less";
 @import "_framework/SPLessCss/Utilities/Sprites/_SpritesUtils.less";
@@ -54,6 +55,8 @@
 		//rajout décalage en dessous
 		margin-bottom: @gridBaseline/2;
 		background-color: @menuTopBgColor;
+		//ajout dégradé vertical
+		@verticalGradient(@menuTopGradientColor1; @menuTopGradientColor2);
 		
 		//positionnement (à décliner pour toutes les résolutions et à déplacer dans gestion grille)
 		.dm_widget_inner {
