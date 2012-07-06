@@ -78,14 +78,20 @@
 @import "_themes/##THEME##/menus/accordion/menu.less";   // Modify this for custom colors in ##THEME##, font-sizes, etc
 @import "menus/accordion/menu.less";                     // Modify this for custom colors in site, font-sizes, etc
 
+// Menu default
+@import "bootstrap/less/menus/default/menu.less"; 
+@import "_themes/##THEME##/menus/default/menu.less";   // Modify this for custom colors in ##THEME##, font-sizes, etc
+@import "menus/default/menu.less";                     // Modify this for custom colors in site, font-sizes, etc
+
 // Utility classes
 @import "bootstrap/less/utilities.less"; // Has to be last to override when necessary
 
+// the theme ##THEME## less file
 @import "_themes/##THEME##/theme.less";
-@import "theme.less";
 
 // debug style : style added to put infos on web debug 
 // must be here to catch LESS variables which can be overriden on core, theme or site
+// See : sfWebDebugPanelLESS.class.php
 dd.less_debug_grid-columns:after { content: "@{gridColumns}"; }
 dd.less_debug_grid-column-width:after { content: "@{gridColumnWidth}"; }
 dd.less_debug_grid-gutter-width:after { content: "@{gridGutterWidth}"; }
@@ -99,8 +105,10 @@ dd.less_debug_base-line-height:after { content: "@{baseLineHeight}"; }
 
 dd.less_debug_link-color span.swatch { background-color: @linkColor; } 
 dd.less_debug_link-color:after { content: "@{linkColor}";  }
+
 dd.less_debug_link-color-hover span.swatch { background-color: @linkColorHover; } 
 dd.less_debug_link-color-hover:after { content: "@{linkColorHover}";  }
+
 dd.less_debug_text-color span.swatch { background-color: @textColor; } 
 dd.less_debug_text-color:after { content: "@{textColor}";  }
 
