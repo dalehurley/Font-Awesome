@@ -139,8 +139,8 @@ $countVille = count($arrayVilles);
                                 echo _tag('span', array('class' => 'type', 'title' => __('Email')), __('Email'));
                                 echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
                                 echo _open('span', array('class' => 'value'));
-                                echo _link('mailto:' . $equipe->email)->set(' itemprop="email"')->text($equipe->email);
-                                //echo _link('/contact?dest=' . $equipe->id)->set(' itemprop="email"')->text('Contact');  lien pour sidContactPlugin
+                                //echo _link('mailto:' . $equipe->email)->set(' itemprop="email"')->text($equipe->email);
+                                echo _link('/contact?dest=' . $equipe->id)->set(' itemprop="email"')->text('E-mail');  //lien pour sidContactPlugin
                                 echo _close('span');
                                 echo _close('span');
                             };
