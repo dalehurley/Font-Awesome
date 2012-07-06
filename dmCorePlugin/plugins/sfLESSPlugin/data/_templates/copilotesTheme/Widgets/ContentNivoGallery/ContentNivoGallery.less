@@ -76,11 +76,21 @@
 				@spriteBgiSvg(@widgetNivoGallerySpriteArrowTheme; @widgetNivoGallerySpriteArrowCategory; @widgetNivoGallerySpriteArrowLeftName);
 				@spriteBgp(@spriteFormat_M; @widgetNivoGallerySpriteArrowLeftOffX; @widgetNivoGallerySpriteArrowLeftOffY);
 				left: @decalH;
+
+				//on passe sur une sprite différente pour le rollOver
+				&:hover {
+					@spriteDefinition(@widgetNivoGallerySpriteArrowOverTheme; @widgetNivoGallerySpriteArrowOverCategory; @widgetNivoGallerySpriteArrowOverLeftName; "M"; @spriteFormat_M; @widgetNivoGallerySpriteArrowOverLeftOffX; @widgetNivoGallerySpriteArrowOverLeftOffY;);
+				}
 			}
 			&.nivo-nextNav {
 				@spriteBgiSvg(@widgetNivoGallerySpriteArrowTheme; @widgetNivoGallerySpriteArrowCategory; @widgetNivoGallerySpriteArrowRightName);
 				@spriteBgp(@spriteFormat_M; @widgetNivoGallerySpriteArrowRightOffX; @widgetNivoGallerySpriteArrowRightOffY);
 				right: @decalH;
+
+				//on passe sur une sprite différente pour le rollOver
+				&:hover {
+					@spriteDefinition(@widgetNivoGallerySpriteArrowOverTheme; @widgetNivoGallerySpriteArrowOverCategory; @widgetNivoGallerySpriteArrowOverRightName; "M"; @spriteFormat_M; @widgetNivoGallerySpriteArrowOverRightOffX; @widgetNivoGallerySpriteArrowOverRightOffY;);
+				}
 			}
 		}
 	}
