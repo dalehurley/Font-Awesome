@@ -1,17 +1,25 @@
 <?php
 
-echo
-$form->open('.clearfix action=main/search method=get'),
+if (dmConfig::get('site_theme_version') == 'v1'){
+	echo
+	$form->open('.clearfix action=main/search method=get'),
 
-//$form['query']->label()->field('.query'),
-$form['query']->render(array('placeholder' => __('Search').'...', 'class' => 'query')),	
+	//$form['query']->label()->field('.query'),
+	$form['query']->render(array('placeholder' => __('Search').'...', 'class' => 'query')),	
 
-$form->submit(__('Search')),
+	$form->submit(__('Search')),
 
-$form->close();
+	$form->close();
+} else {  // bootstrap HTML
 
-echo '
-<form class="form-search">
-    <input type="text" class="input-medium search-query">
-    <button type="submit" class="btn">Search</button>
-    </form>';
+	echo
+	$form->open('.form-search action=main/search method=get'),
+
+	//$form['query']->label()->field('.query'),
+	$form['query']->render(array('placeholder' => __('Search').'...', 'class' => 'input-medium search-query')),	
+
+	$form->renderSubmitTag(__('Search'), 'class=btn'),
+
+	$form->close();
+}
+
