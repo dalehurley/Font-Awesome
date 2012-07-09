@@ -62,7 +62,7 @@ generator:
           - ville
           - tel
           - fax
-#          - email
+          - email
           - is_active
           - siege_social
           - image
@@ -83,7 +83,7 @@ generator:
           - ville
           - tel
           - fax
-#          - email
+          - email
           - region_ec
           - region_cc
           - created_at
@@ -91,7 +91,7 @@ generator:
       form:
         display:
           Nom du cabinet: [title, is_active, siege_social]
-          Coordonnées: [adresse, adresse2, code_postal, ville, tel, fax, adresse_google]
+          Coordonnées: [adresse, adresse2, code_postal, ville, tel, fax, adresse_google, email]
           Renseignement supplémentaires : [rcs, rcs_locality]
           Renseignement supplémentaires pour EC: [region_ec, region_cc]
           Renseignement supplémentaires pour CGP : [orias, cif, carte_pro, carte_pro_locality]
