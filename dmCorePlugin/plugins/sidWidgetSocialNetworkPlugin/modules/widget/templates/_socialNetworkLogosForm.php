@@ -5,5 +5,7 @@ $form->renderGlobalErrors(),
 		 $form['facebook']->renderRow().
 		 $form['googleplus']->renderRow().
 		 $form['linkedin']->renderRow().
-		 $form['twitter']->renderRow()
+		 $form['twitter']->renderRow().
+		 $form['viadeo']->renderRow().
+		 $form['vimeo']->renderRow()
 );

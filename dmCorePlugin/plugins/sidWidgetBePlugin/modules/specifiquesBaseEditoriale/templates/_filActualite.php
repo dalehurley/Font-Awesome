@@ -76,9 +76,9 @@ if (count($articles)) { // si nous avons des actu articles
                     $imageLink = $imageLink;
                 }
             }
-else{
+    else {
     
-    $imageLink = '/_images/lea' . $article->filename . '-p.jpg';
+        $imageLink = '/_images/lea' . $article->filename . '-p.jpg';
     }
 
 		// gestion de l'image    	

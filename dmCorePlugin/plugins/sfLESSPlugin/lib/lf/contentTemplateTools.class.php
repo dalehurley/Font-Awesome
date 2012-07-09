@@ -78,7 +78,7 @@ class contentTemplateTools {
      *  - dbname
      */
     public static function ndd() {
-        return dmConfig::get('site_name','xxx');
+        return dmConfig::get('site_name');
     }
     /**
      * 

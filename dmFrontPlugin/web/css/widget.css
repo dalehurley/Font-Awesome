@@ -21,12 +21,10 @@
 
 #dm_page.edit .dm_widget > .dm_widget_edit {
     display: block;
-    /* position: absolute; */
     margin: 0;
     line-height: 10px;
     height: 10px; 
 }
-
 
 #dm_page.edit .dm_widget:hover > .dm_widget_inner {
   border:0;
@@ -45,18 +43,21 @@
     position: relative;
 }
 #dm_page .dm_widget > .dm_widget_edit {
-    margin-top: 3px;
     background: url(../images/zone_widget_sprite.png) no-repeat;
     background-position: -32px 0px;    
     width: 32px;
-    height: 19px;
-    display: none;
-    margin-bottom:-1px;
-  position: absolute;  
-  right: 50%;  /* l'étiquette d'édition "widget" au milieu du widget pour éviter des soucis d'affichage sur des widget_inner prenant 100%  */
-  z-index: 1001;
+    position: absolute;  
+    right: 50%;  /* l'étiquette d'édition "widget" au milieu du widget pour éviter des soucis d'affichage sur des widget_inner prenant 100%  */
+    z-index: 1001;
 }
-
+#dm_page .dm_widget.navigation_menu > .dm_widget_edit {
+    background: url(../images/zone_widget_sprite.png) no-repeat;
+    background-position: -32px 0px;    
+    width: 32px;
+    position: absolute;  
+    right: 75%;  
+    z-index: 1001;
+}
 
 
 .dm_widget_placeholder {

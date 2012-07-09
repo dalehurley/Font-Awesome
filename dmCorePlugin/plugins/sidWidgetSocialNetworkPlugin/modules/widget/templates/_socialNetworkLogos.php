@@ -20,12 +20,23 @@ foreach ($logos as $logoName => $logoLink) {
 	if($count >= $maxCount)	$elementOpt['class'][] = 'last';
 	
 	//création du lien
-	if ($logoLink != ''){
-		$htmlLink = _link($logoLink)->text($logoName)->title(__('Follow us on') . ' ' . $logoName)->set('.link_' . dmString::slugify($logoName))->target('blank');
-		//insertion du lien dans un li
-		$html.= _tag('li.element', $elementOpt, $htmlLink);
-	} 
+	
+	if (dmConfig::get('site_theme_version') == 'v1'){
+		if ($logoLink != ''){
+			$htmlLink = _link($logoLink)->text($logoName)->title(__('Follow us on') . ' ' . $logoName)->set('.link_' . dmString::slugify($logoName))->target('blank');
+			//insertion du lien dans un li
+			$html.= _tag('li.element', $elementOpt, $htmlLink);
+		} 
+	} else {
+		if ($logoLink != ''){
 
+
+
+			$htmlLink = _link($logoLink)->text('<i class="icon-'.$logoName.'-sign icon-large"></i>')->title(__('Follow us on') . ' ' . $logoName)->set('.link_' . dmString::slugify($logoName))->target('blank');
+			//insertion du lien dans un li
+			$html.= _tag('li.element', $elementOpt, $htmlLink);
+		} 
+	}
 }
 
 //fermeture du listing

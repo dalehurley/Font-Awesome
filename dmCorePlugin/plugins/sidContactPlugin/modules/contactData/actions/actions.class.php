@@ -216,7 +216,11 @@ class contactDataActions extends myFrontModuleActions
           $addField = false;
         } else {
           // ajout pour le composant de la liste des destinataires
-          $query = Doctrine_Query::create()->from('SidCabinetEquipe e')->withI18n()->where('e.is_active = ?', true)->addWhere('eTranslation.email <> ?', '');
+          $query = Doctrine_Query::create()
+            ->from('SidCabinetEquipe e')
+            ->withI18n()
+            ->where('e.is_active = ?', true)
+            ->addWhere('eTranslation.email <> ?', '');
           $dests = $query->execute();
           foreach ($dests as $dest) {
             $listDest .= '&nbsp;&nbsp;'.$dest->email.'<br/>';

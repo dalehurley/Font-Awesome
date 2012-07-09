@@ -5,11 +5,11 @@ class socialNetworkLogosView extends dmWidgetPluginView {
     public function configure() {
         parent::configure();
 
-        $this->addRequiredVar(array(
-            'twitter',
-            'facebook',
-            'googleplus'
-        ));
+        // $this->addRequiredVar(array(
+        //     'twitter',
+        //     'facebook',
+        //     'googleplus'
+        // ));
     }
 	
 	public function getStylesheets() {
@@ -31,7 +31,9 @@ class socialNetworkLogosView extends dmWidgetPluginView {
             'facebook' => $vars['facebook'],
             'googleplus' => $vars['googleplus'],
             'linkedin' => $vars['linkedin'],
-            'twitter' => $vars['twitter']
+            'twitter' => $vars['twitter'],
+            'viadeo' => $vars['viadeo'],
+            'vimeo' => $vars['vimeo']                        
             );
 
        return $this->getHelper()->renderPartial('widget', 'socialNetworkLogos', array(

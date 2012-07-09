@@ -64,8 +64,6 @@ all:
       "L'Actualité du Cabinet|Les Actualités du Cabinet": "Notre Actualité|Nos Actualités"
       "Actualité du Cabinet": "Actualités de l'association"
 
-    copilotes-fr:
-
   # tableau des description des permissions 
   permissions:
     list:
@@ -244,9 +242,10 @@ all:
       - recrutement
       - contact_me
       - added_page
+      - clear_cache      
 
   groupes-permissions-co-pilotes:
-    description: "Accès pour co-pilotes"
+    description: "Accès pour admin Co-pilotes"
     permissions:
       - bandeau
       - see_accueil
@@ -280,6 +279,7 @@ all:
       - tool_bar_front
       - added_page
       - media_library
+      - clear_cache
 
   groupes-permissions-base-doc:
     description: "Accès pour le client Base Doc"

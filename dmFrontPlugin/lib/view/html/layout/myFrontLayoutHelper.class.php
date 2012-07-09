@@ -37,8 +37,8 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 			if($pageOptions['isLess']) $options['class'][] = 'isLess';
 		}
 		// ajout des class relatives aux type de site et client
-		$options['class'][] = dmConfig::get('site_type','');
-		$options['class'][] = dmConfig::get('client_type','');
+		$options['class'][] = dmConfig::get('site_type');
+		$options['class'][] = dmConfig::get('client_type');
 
 		// lioshi : on ajout la class correspondant au nom du layout en cours
         $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');

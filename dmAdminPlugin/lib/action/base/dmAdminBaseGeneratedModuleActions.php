@@ -458,7 +458,6 @@ class dmAdminBaseGeneratedModuleActions extends dmAdminBaseActions
 		$this->dm_module = $this->getDmModule();
 
 		$this->tree = $this->getService('model_tree_view', 'dmAdminModelTreeView');
-
 	}
 
 	public function executeSortReferers(sfWebRequest $request)
