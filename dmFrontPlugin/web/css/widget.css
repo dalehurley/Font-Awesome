@@ -48,7 +48,7 @@
     width: 32px;
     position: absolute;  
     right: 50%;  /* l'étiquette d'édition "widget" au milieu du widget pour éviter des soucis d'affichage sur des widget_inner prenant 100%  */
-    z-index: 1001;
+    z-index: 1010;
 }
 #dm_page .dm_widget.navigation_menu > .dm_widget_edit {
     background: url(../images/zone_widget_sprite.png) no-repeat;
@@ -56,7 +56,7 @@
     width: 32px;
     position: absolute;  
     right: 75%;  
-    z-index: 1001;
+    z-index: 1010;
 }
 
 

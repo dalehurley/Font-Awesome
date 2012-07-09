@@ -9,3 +9,9 @@ $form['query']->render(array('placeholder' => __('Search').'...', 'class' => 'qu
 $form->submit(__('Search')),
 
 $form->close();
+
+echo '
+<form class="form-search">
+    <input type="text" class="input-medium search-query">
+    <button type="submit" class="btn">Search</button>
+    </form>';
