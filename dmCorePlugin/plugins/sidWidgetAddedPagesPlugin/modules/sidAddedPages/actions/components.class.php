@@ -54,8 +54,8 @@ class sidAddedPagesComponents extends myFrontModuleComponents
   public function executeListChildren(dmWebRequest $request)
   {
     $query = $this->getListQuery();
-    $query->addWhere('level = ?',$this->context->getPage()->getRecord()->level+1);   // level n+1
-    $query->addWhere('root_id = ?',$this->context->getPage()->getRecord()->root_id); // même root
+    $query->addWhere('level = ? AND lft > ? AND rgt < ?',array($this->context->getPage()->getRecord()->level+1,$this->context->getPage()->getRecord()->lft, $this->context->getPage()->getRecord()->rgt));   // level n+1
+//    $query->andWhere('root_id = ?',$this->context->getPage()->getRecord()->root_id); // même root
     
     $this->sidAddedPagesPager = $this->getPager($query);
     

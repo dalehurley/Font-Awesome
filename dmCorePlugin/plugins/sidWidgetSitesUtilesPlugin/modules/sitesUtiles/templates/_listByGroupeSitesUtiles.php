@@ -89,8 +89,64 @@ foreach ($sitesUtilesPager as $article) {
 			'</span>'
 	;
 	echo '
-</a>
-	</li>';
+</a>';
+        
+            if($article->getFiles1()->checkFileExists() == true){
+            echo _open('footer', array('class' => 'contentFooter'));
+                echo _open('div', array('class' => 'fileWrapper'));
+                    echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
+                    if($article->getTitleFile1() != NULL){
+                    echo _link($article->getFiles1())->text($article->getTitleFile1());
+                }
+                else echo _link($article->getFiles1());
+                echo _close('div');
+            echo _close('footer');
+            }
+            if($article->getFiles2()->checkFileExists() == true){
+            echo _open('footer', array('class' => 'contentFooter'));
+                echo _open('div', array('class' => 'fileWrapper'));
+                    echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
+                    if($article->getTitleFile2() != NULL){
+                    echo _link($article->getFiles2())->text($article->getTitleFile2());
+                }
+                else echo _link($article->getFiles2());
+                echo _close('div');
+            echo _close('footer');
+            }
+            if($article->getFiles3()->checkFileExists() == true){
+            echo _open('footer', array('class' => 'contentFooter'));
+                echo _open('div', array('class' => 'fileWrapper'));
+                    echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
+                    if($article->getTitleFile3() != NULL){
+                    echo _link($article->getFiles3())->text($article->getTitleFile3());
+                }
+                else echo _link($article->getFiles3());
+                echo _close('div');
+            echo _close('footer');
+            }
+            if($article->getFiles4()->checkFileExists() == true){
+            echo _open('footer', array('class' => 'contentFooter'));
+                echo _open('div', array('class' => 'fileWrapper'));
+                    echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
+                    if($article->getTitleFile4() != NULL){
+                    echo _link($article->getFiles4())->text($article->getTitleFile4());
+                }
+                else echo _link($article->getFiles4());
+                echo _close('div');
+            echo _close('footer');
+            }
+            if($article->getFiles5()->checkFileExists() == true){
+            echo _open('footer', array('class' => 'contentFooter'));
+                echo _open('div', array('class' => 'fileWrapper'));
+                    echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
+                    if($article->getTitleFile5() != NULL){
+                    echo _link($article->getFiles5())->text($article->getTitleFile5());
+                }
+                else echo _link($article->getFiles5());
+                echo _close('div');
+            echo _close('footer');
+            }
+	echo '</li>';
 
 }
 	
