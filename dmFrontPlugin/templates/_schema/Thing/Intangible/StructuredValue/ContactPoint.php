@@ -52,7 +52,7 @@ if(isset($email) && $email != null) {
 				'isLight'	=> $isLight
 			);
 	//si l'URL n'est pas définit pour la personne ou désactivé alors on peut rajouter l'email dans l'affichage
-	// if(!isset($url) || (isset($url) && $url == null)) $emailOpt['url'] = 'mailto:' . $email;
+	if(!isset($url) || (isset($url) && $url == null)) $emailOpt['url'] = 'mailto:' . $email;
 		
 	$html.= get_partial('global/schema/DataType/Text', $emailOpt);
 }

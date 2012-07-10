@@ -41,7 +41,9 @@ echo $html;*/
 $i = 1;
 $i_max = count($groupeSitesUtilesPager);
 $class = '';
-echo _tag('h4', array('class' => 'title'), __('Different groups of useful sites'));
+$title = 'Different groups of useful sites';
+if (dmConfig::get('client_type') == 'aga'){$title = 'Different groups of docs and useful sites';};
+echo _tag('h4', array('class' => 'title'), __($title));
 echo _open('ul', array('class' => 'elements'));
 
 

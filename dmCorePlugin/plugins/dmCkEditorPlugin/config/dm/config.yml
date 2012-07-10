@@ -44,10 +44,13 @@ default:
 
       autoGrow_onStartup: true
 
+      templates_files : [ '/dmCkEditorPlugin/js/mytemplates/mytemplates.js' ];
+
+
     configLite:    # Config lègere pour les clients
 
       toolbar:
-        - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
+        - ['Format', 'Bold', 'Italic','Subscript','Superscript','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
         - ['PasteText','PasteFromWord']
         - ['Undo','Redo']
         - ['HorizontalRule','SpecialChar']
@@ -69,12 +72,13 @@ default:
       # enter DIV  = 3
       enterMode : 2
       shiftEnterMode :  2
-      
+
+
     configCoPilotes:    # Config pour co-pilotes
 
       toolbar:
         - ['Source']
-        - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
+        - ['Styles','Format', 'Bold', 'Italic','Subscript','Superscript','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
         - ['PasteText','PasteFromWord']
         - ['Undo','Redo']
         - ['HorizontalRule','SpecialChar']
@@ -97,3 +101,5 @@ default:
       # enter DIV  = 3
       enterMode : 2
       shiftEnterMode :  2
+
+      templates_files : [ '/dmCkEditorPlugin/js/mytemplates/mytemplates.js' ];

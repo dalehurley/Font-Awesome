@@ -7205,6 +7205,12 @@ i.format_h6={
 i.format_em={
     element:'em',attributes : {'class' : 'annotation'}
 };
+//i.format_blocLeft={
+//    element:'span',attributes : {'class' : 'blocImageLeft'}
+//};
+//i.format_blocRight={
+//    element:'span',attributes : {'class' : 'blocImageRight'}
+//};
 // rajout stef
 i.format_sup={
     element:'sup'
