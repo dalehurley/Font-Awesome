@@ -198,7 +198,7 @@ class dmForm extends sfFormSymfony
       'type' => 'submit'
     ), dmString::toArray($attributes));
     
-    //$attributes['class'] = dmArray::toHtmlCssClasses(array_merge(dmArray::get($attributes, 'class', array()), array('submit')));
+    $attributes['class'] = dmArray::toHtmlCssClasses(array_merge(dmArray::get($attributes, 'class', array()), array('submit')));
 
     return sprintf('<input%s />', $this->getWidgetSchema()->attributesToHtml($attributes));
   }

@@ -18,7 +18,7 @@ if (dmConfig::get('site_theme_version') == 'v1'){
 	//$form['query']->label()->field('.query'),
 	$form['query']->render(array('placeholder' => __('Search').'...', 'class' => 'input-medium search-query')),	
 
-	$form->renderSubmitTag(__('Search'), 'class=btn'),
+	$form->renderSubmitTag(__('Search'), array('class' => array('btn'))),
 
 	$form->close();
 }
