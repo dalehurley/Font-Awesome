@@ -454,7 +454,8 @@ templates:{
 },
 showBlocks:'Afficher les blocs',
 stylesCombo:{
-    label:'Styles',
+//    label:'Styles',
+    label:"Aligné l'image",
     panelTitle:'Styles de mise en page',
     panelTitle1:'Styles de blocs',
     panelTitle2:'Styles en ligne',
@@ -493,7 +494,7 @@ format:{
     tag_h6:'Titre Annotation',
     tag_em:'Texte Annotation',
     tag_p:'Texte paragraphe',
-    tag_sup:'Exposant',
+//    tag_sup:'Exposant',
 //modif stef
     tag_div:'Normal (DIV)'
 },

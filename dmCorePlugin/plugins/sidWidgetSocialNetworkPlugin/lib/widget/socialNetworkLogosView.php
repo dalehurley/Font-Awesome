@@ -25,15 +25,22 @@ class socialNetworkLogosView extends dmWidgetPluginView {
 	}
 
     protected function doRender() {
+        $viadeo ='';
+        $vimeo = '';
         $vars = $this->getViewVars();
-
+        if(!isset($vars['viadeo']))
+        {$viadeo == 'http://www.viadeo.com';}
+        else $viadeo == $vars['viadeo'];
+        if(!isset($vars['vimeo']))
+        {$vimeo == 'http://www.vimeo.com';}
+        else $vimeo == $vars['viadeo'];
         $arrayLogos = array(
             'facebook' => $vars['facebook'],
             'googleplus' => $vars['googleplus'],
             'linkedin' => $vars['linkedin'],
             'twitter' => $vars['twitter'],
-            'viadeo' => $vars['viadeo'],
-            'vimeo' => $vars['vimeo']                        
+            'viadeo' => $viadeo,
+            'vimeo' => $vimeo                       
             );
 
        return $this->getHelper()->renderPartial('widget', 'socialNetworkLogos', array(
