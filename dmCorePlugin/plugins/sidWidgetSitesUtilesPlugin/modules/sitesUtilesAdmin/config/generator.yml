@@ -34,8 +34,38 @@ generator:
       fields:
         is_active:
           label: Active
-#        on_home:
-#          label: "Publié sur la page d'accueil"
+        file1:
+          label: Fichier N°1
+        file2:
+          label: Fichier N°2
+        file3:
+          label: Fichier N°3
+        file4:
+          label: Fichier N°4
+        file5:
+          label: Fichier N°5
+        title_file1:
+          label: 'Nom du fichier N°1'
+        title_file2:
+          label: 'Nom du fichier N°2'
+        title_file3:
+          label: 'Nom du fichier N°3'
+        title_file4:
+          label: 'Nom du fichier N°4'
+        title_file5:
+          label: 'Nom du fichier N°5'
+        file1_form:
+          label: 'Choisir un fichier'
+        file2_form:
+          label: 'Choisir un fichier'
+        file3_form:
+          label: 'Choisir un fichier'
+        file4_form:
+          label: 'Choisir un fichier'
+        file5_form:
+          label: 'Choisir un fichier'
+        image_form:
+          label: 'Choisir une image'
       list:
         batch_actions:
           delete:
@@ -78,9 +108,15 @@ generator:
           'Publication sur le site': [is_active]
           'Titre du site utile': [title]
           'Choix du groupe de ce site utile': [groupe_sites_utiles_id]
-          Image: [image_id_form, image_id_view]
           Description: [description]
-          Others: [url]
+          URL: [url]
+          Image: [image_id_form, image_id_view]
+          Fichier N°1: [file1_form, file1_view, title_file1]
+          Fichier N°2: [file2_form, file2_view, title_file2]
+          Fichier N°3: [file3_form, file3_view, title_file3]
+          Fichier N°4: [file4_form, file4_view, title_file4]
+          Fichier N°5: [file5_form, file5_view, title_file5]
+          URL: [url]
 #          'Mots clés': [tags_list]
         class: SidSitesUtilesAdminForm
         fields: {  }

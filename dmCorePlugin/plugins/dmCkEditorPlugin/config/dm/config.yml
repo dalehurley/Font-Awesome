@@ -50,7 +50,7 @@ default:
     configLite:    # Config lègere pour les clients
 
       toolbar:
-        - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
+        - ['Format', 'Bold', 'Italic','Subscript','Superscript','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
         - ['PasteText','PasteFromWord']
         - ['Undo','Redo']
         - ['HorizontalRule','SpecialChar']
@@ -78,7 +78,7 @@ default:
 
       toolbar:
         - ['Source']
-        - ['Format', 'Bold', 'Italic','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
+        - ['Styles','Format', 'Bold', 'Italic','Subscript','Superscript','Strike','Blockquote', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
         - ['PasteText','PasteFromWord']
         - ['Undo','Redo']
         - ['HorizontalRule','SpecialChar']

@@ -34,4 +34,11 @@ h6,h6.title{
 em,em.annotation{
     font-style: italic
 }
-;
+
+/*.blocImageRight{position: relative}
+.blocImageRight img {position: absolute;right: 0}
+.blocImageRight p {position: absolute;left: 0}
+
+.blocImageLeft{position:relative}
+.blocImageLeft img {position: absolute;left:0}
+.blocImageLeft p {position: absolute;right:0}*/
