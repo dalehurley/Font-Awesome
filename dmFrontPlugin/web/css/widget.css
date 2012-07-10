@@ -1,10 +1,10 @@
-/* 
-99c3ff    
+ 
+/*99c3ff    
 0062eb    hover
+ */
 
-*/
-#dm_page.edit .dm_widgets {
-    min-height: 20px;
+#dm_page.edit .dm_widget {
+    min-height: 15px;  /* afin de voir les etiquettes WIDGET sur les widget en float*/
 }
 #dm_page.edit .dm_widget, #dm_page .dm_widget.mouseOver {
      position: relative; 
@@ -38,7 +38,6 @@
     background-position: -32px -19px;
 }
 
-
 .dm_widgets, .dm_zone, .dm_zones {
     position: relative;
 }
@@ -50,14 +49,14 @@
     right: 50%;  /* l'étiquette d'édition "widget" au milieu du widget pour éviter des soucis d'affichage sur des widget_inner prenant 100%  */
     z-index: 1010;
 }
-#dm_page .dm_widget.navigation_menu > .dm_widget_edit {
+/*#dm_page .dm_widget.navigation_menu > .dm_widget_edit {
     background: url(../images/zone_widget_sprite.png) no-repeat;
     background-position: -32px 0px;    
     width: 32px;
     position: absolute;  
     right: 75%;  
     z-index: 1010;
-}
+}*/
 
 
 .dm_widget_placeholder {
