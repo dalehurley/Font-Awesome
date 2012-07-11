@@ -28,7 +28,7 @@
     dialog: function(options)
     {
       var opt = $.extend($.ui.dialog.defaults, {
-        zIndex: 1000,
+        zIndex: 1100,   // lioshi: 1000 to 1100 to have bootstrap z-index working
         dragStart: function(e)
         {
           $(e.target).hide().parent().css('opacity', 0.5);

@@ -392,7 +392,7 @@
     content: "";
     padding: 2px 15px;
     position: absolute;
-    z-index: 100000;
+    z-index: 1000;
 }
 .debug:after, .warning:after {
     content: "X";
