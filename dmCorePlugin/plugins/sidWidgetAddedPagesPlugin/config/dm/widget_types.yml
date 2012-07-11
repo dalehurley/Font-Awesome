@@ -1,4 +1,6 @@
 affichageAddedPages:
   affichagePage:
     public_name: Afficher la page
+  listPageChildren:
+    public_name: Lister les pages enfants
     
