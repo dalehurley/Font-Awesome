@@ -1,5 +1,5 @@
 <?php
-class affichageAddedPagesAffichagePageView extends dmWidgetPluginView {
+class affichageAddedPagesListPageChildrenView extends dmWidgetPluginView {
 
     public function configure() {
         parent::configure();
@@ -13,21 +13,13 @@ class affichageAddedPagesAffichagePageView extends dmWidgetPluginView {
     }
     protected function doRender() {
         $vars = $this->getViewVars();
-        if ($vars['recordId'] == '') { // donc page contextuel
-            $record = sfcontext::getInstance()->getPage() ? sfcontext::getInstance()->getPage()->getRecord() : false;
-            $recordId = $record->id;
-        } else {
-            $recordId = $vars['recordId'];
-        }
-        
-//        if(!isset($vars['titreBloc']) || $vars['titreBloc']==''){
-//            $titreBloc = '';
-//        }
-//        else $titreBloc = $vars['titreBloc'];
+        $nbArticles = ($vars['nbArticles'] == 0) ? '' : $vars['nbArticles'];
+        $length = ($vars['length'] == 0) ? '' : $vars['length'];
         $sidAddedPages = dmDb::table('SidAddedPages') 
                 ->createQuery('a')
                 ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
-                ->where('a.id = ? ', $recordId)
+                ->where('a.root_id = ? AND a.level = ? AND a.lft > ? AND a.rgt < ?',array($this->context->getPage()->getRecord()->root_id,$this->context->getPage()->getRecord()->level+1,$this->context->getPage()->getRecord()->lft, $this->context->getPage()->getRecord()->rgt))
+                ->limit($nbArticles)
                 ->execute();
         // récupération des dimensions des images pour l'affichage
         $theme = array();
@@ -39,20 +31,17 @@ class affichageAddedPagesAffichagePageView extends dmWidgetPluginView {
                 break;
             }
         }
-        
-        if(!isset($vars['titreBloc']) || $vars['titreBloc'] == ''){
-            $titreBloc = '';
-        }
-        else $titreBloc = $vars['titreBloc'];
-        return $this->getHelper()->renderPartial('affichageAddedPages', 'affichagePage', array(
-                    'sidAddedPages' => $sidAddedPages[0],
+        return $this->getHelper()->renderPartial('affichageAddedPages', 'listPageChildren', array(
+                    'sidAddedPages' => $sidAddedPages,
                     'withImage'     => $vars['withImage'],
                     'widthImage'    => $vars['widthImage'],
                     'heightImage'    => $vars['heightImage'],
                     'withDate'      => $vars['withDate'],
                     'withResume'    => $vars['withResume'],
                     'theme'         => $theme,
-                    'titreBloc'     => $titreBloc
+                    'titreBloc'     => $vars['titreBloc'],
+                    'length'        => $length,
+                    'nbImages'      => $vars['nbImages']
                 ));
     }
 
