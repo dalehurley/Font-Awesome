@@ -1,6 +1,6 @@
 // _SearchForm.less
-// v1.6.2
-// Last Updated : 2012-06-19 12:00
+// v1.7
+// Last Updated : 2012-07-11 10:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -26,201 +26,111 @@
 		margin: 0 (@gridGutter - @zonesOffsetPad) 0 @zonesOffsetPad*-1;
 	}
 
-	//placement et stylage lorsque placé dans le header
-	#dm_header & {
-		//permet d'étendre la zone en débordement de la page
-		margin-left: -100%;
-		margin-right: -100%;
-		width: auto;
-		margin-bottom: @gridBaseline;
-		padding: 0;
-		//hauteur imposée par le placement
-		height: (@gridBaseline * 2 -1px);
-		
-		//ajout fond
-		background-color: @colorCouleur2Fonce;
-		//bordure de séparation
-		border-bottom: 1px solid @colorCouleur3Clair;
-	}
-
 	.dm_widget_inner {
 		.isLess & { background-color: fadeout(#8ED4D4, 75%); }
 
-		//stylage lorsque placé dans la zone située sous le header
-		#dm_custom_top & {
-			// margin-bottom: @gridBaseline/2;
+		//placement formulaire
+		form {
+			position: relative;
+			background-color: @colorCouleur1;
 
-			//placement formulaire
-			form {
-				position: relative;
-				background-color: @colorCouleur1;
+			//application largeur (soustraction bordure)
+			@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2));
+			padding-bottom: @gridBaseline/2;
 
-				//application largeur (soustraction bordure)
-				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2));
-				padding-bottom: @gridBaseline/2;
+			//Ajout transition sur la couleur de fond
+			.csstransitions & {
+				@transitionCompress(background-color; .2s; ease-out; 0s);
+			}
 
-				//Ajout transition sur la couleur de fond
-				.csstransitions & {
-					@transitionCompress(background-color; .2s; ease-out; 0s);
-				}
-
-				//ajout de la sprite avec l'icône de recherche
-				&:before {
-					position: absolute;
-					display: block;
-					visibility: visible;
-					z-index: 2;
-					content: "";
-					//décalage de marge
-					@decalV: (@gridBaseline - @spriteFormat_S -2px)/2;
-					// margin: @decalV 0 0 @offS;
-					left: @offS;
-					top: @decalV;
-					//chargement sprite entière avec dimension et SVG
-					@spriteDefinition(@widgetSearchFormSpriteSearchTheme; @widgetSearchFormSpriteSearchCategory; @widgetSearchFormSpriteSearchName; "S"; @spriteFormat_S; @widgetSearchFormSpriteSearchOffX; @widgetSearchFormSpriteSearchOffY);
-					
-					//animation apparition de la sprite
-					.csstransitions.opacity & {
-						opacity: 1;
-						@transition(visibility, top, opacity; .05s, .2s, .2s; ease-out; .05s, .1s, .1s);
-					}
-				}
-
-				//classe CSS focus ajoutée en JS
-				&.focus {
-					background-color: @colorCouleur1Moyen;
-					&:before {
-						//animation disparition de la sprite
-						visibility: hidden;
-						display: none;
-						.csstransitions.opacity & {
-							//on réaffiche la sprite pour gérer l'animation
-							display: block;
-							//replacement et disparition de la sprite
-							// left: @spriteFormat_S*-1;
-							top: @gridBaseline;
-							opacity: 0;
-
-							//changement délai
-							@transitionDelay(.2s, .05s, .05s);
-						}
-					}
+			//ajout de la sprite avec l'icône de recherche
+			&:before {
+				position: absolute;
+				display: block;
+				visibility: visible;
+				z-index: 2;
+				content: "";
+				//décalage de marge
+				@decalV: (@gridBaseline - @spriteFormat_S -2px)/2;
+				// margin: @decalV 0 0 @offS;
+				left: @offS;
+				top: @decalV;
+				//chargement sprite entière avec dimension et SVG
+				@spriteDefinition(@widgetSearchFormSpriteSearchTheme; @widgetSearchFormSpriteSearchCategory; @widgetSearchFormSpriteSearchName; "S"; @spriteFormat_S; @widgetSearchFormSpriteSearchOffX; @widgetSearchFormSpriteSearchOffY);
+				
+				//animation apparition de la sprite
+				.csstransitions.opacity & {
+					opacity: 1;
+					@transition(visibility, top, opacity; .05s, .2s, .2s; ease-out; .05s, .1s, .1s);
 				}
 			}
 
-			//masquage du label et du bouton de validation
-			.label, .submit { display: none; visibility: hidden; }
-			
-			//champ de saisie de la recherche
-			.query {
-				//ajout du padding-left et width au propriétés animées par défaut
-				.csstransitions & {
-					@transitionProperty(padding-left, width);
-					@transitionDelay(0s);
-					&:focus{
-						@transitionDelay(.1s);
+			//classe CSS focus ajoutée en JS
+			&.focus {
+				background-color: @colorCouleur1Moyen;
+				&:before {
+					//animation disparition de la sprite
+					visibility: hidden;
+					display: none;
+					.csstransitions.opacity & {
+						//on réaffiche la sprite pour gérer l'animation
+						display: block;
+						//replacement et disparition de la sprite
+						// left: @spriteFormat_S*-1;
+						top: @gridBaseline;
+						opacity: 0;
+
+						//changement délai
+						@transitionDelay(.2s, .05s, .05s);
 					}
 				}
-
-				//placement et stylage de l'élément
-				display: block;
-				z-index: 1;
-				//changement couleur et transparence du fond
-				&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
-				//suppression outline parasite sous webkit
-				outline: 0;
-				border-color: @colorZoneBorder;
-
-				//suppression des ombres internes
-				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
-
-				//application largeur
-				&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 2px)); }
-
-				//ajout du décalage à gauche si pseudo élément affiché
-				.generatedcontent & {
-					padding-left: @spriteFormat_S + @offS*2;
-					@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 2px));
-
-					//suppression padding left lors du focus
-					&:focus { padding-left: @offS; }
-				}
-
-				//couleur des placeHolders
-				//ciblage natif
-				&::-webkit-input-placeholder { color: @colorText; }
-				&:-moz-placeholder { color: @colorText; }
-				//utilisé avec jQuery-placeholder
-				&.placeholder { color: @colorText; }
 			}
 		}
 
-		//stylage lorsque placé dans le header
-		#dm_header & {
-			//centrage au centre du site
-			position: relative;
-			@gridSiteWidth();
-			margin-left: auto;
-			margin-right: auto;
+		//masquage du label et du bouton de validation
+		.label, .submit { display: none; visibility: hidden; }
+		
+		//champ de saisie de la recherche
+		.query {
+			//ajout du padding-left et width au propriétés animées par défaut
+			.csstransitions & {
+				@transitionProperty(padding-left, width);
+				@transitionDelay(0s);
+				&:focus{
+					@transitionDelay(.1s);
+				}
+			}
 
-			//placement formulaire
-			form {
-				position: relative;
-				display: block;
-				float: right;
-				margin: 0;
+			//placement et stylage de l'élément
+			display: block;
+			z-index: 1;
+			//changement couleur et transparence du fond
+			&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
+			//suppression outline parasite sous webkit
+			outline: 0;
+			border-color: @colorZoneBorder;
+
+			//suppression des ombres internes
+			.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
+
+			//application largeur
+			&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 2px)); }
+
+			//ajout du décalage à gauche si pseudo élément affiché
+			.generatedcontent & {
+				padding-left: @spriteFormat_S + @offS*2;
+				@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 2px));
+
+				//suppression padding left lors du focus
+				&:focus { padding-left: @offS; }
 			}
-			
-			//stylage du formulaire spécifique à la zone (refaire un style spécifique pour intégration dans contenu)
-			label.label {
-				display: none;
-				visibility: hidden;
-			}
-			input.query {
-				position: absolute;
-				display: block;
-				right: (@spriteFormat_S + @offM / 2 + 1px);
-				border-color: @colorCouleur2FonceSup;
-				background-color: @colorWhite;
-				//padding horizontal soustrait à la largeur
-				@padHSub: (@offS + 1px) * 2 + (@spriteFormat_S + @offM / 2 + 1px);
-				//application largeur
-				@gridWidth(@gridCol_SidebarRight; @padHSub);
-				//réduction taille pour maintien baseline
-				line-height: (@gridBaseline - 10px);		//on soustrait la différence de padding et de bordure (4*2 + 2)
-				//placement sur deux lignes
-				padding-top: 4px;
-				padding-bottom: 3px;
-				margin-top: (@gridBaseline - @gridBaseline/2 - 2px - 1px);
-				margin-bottom: (@gridBaseline - @gridBaseline/2 - 2px);			//on enlève 1px à cause de la border-bottom de search_form
-				//arrondissement des coins
-				@borderRadiusCompress(@gridBaseline 0 0 @gridBaseline);
-			}
-			
-			input.submit {
-				position: absolute;
-				display: block;
-				right: 0;
-				//suppression du dégradé
-				&, .cssgradients & { background-color: @colorCouleur3Clair; }
-				//changement couleur d'appui
-				.boxshadow &:active { @insetShadow(0; 0; @offM; @offS; @colorCouleur3Sup); }
-				//suppression texte
-				text-indent: -9999em;
-				//suppression bordure de gauche
-				border-left: 0;
-				//bordure sur le côté droit
-				@borderRadiusCompress(0 @gridBaseline @gridBaseline 0);
-				//ajout sprite de recherche
-				@spriteDefinition("Default"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-internet-search; @spriteOffY-internet-search);
-				//ajout différence d'épaisseur
-				padding-top: (@gridBaseline - @spriteFormat_S) / 2 + 10px;
-				padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 8px;
-				padding-left: @offM;
-				padding-right: @offM + 2px;
-				margin-top: (@gridBaseline - @gridBaseline/2 - 2px - 1px);
-				margin-bottom: (@gridBaseline - @gridBaseline/2 - 2px);			//on enlève 1px à cause de la border-bottom de search_form
-			}
+
+			//couleur des placeHolders
+			//ciblage natif
+			&::-webkit-input-placeholder { color: @colorText; }
+			&:-moz-placeholder { color: @colorText; }
+			//utilisé avec jQuery-placeholder
+			&.placeholder { color: @colorText; }
 		}
 	}
 }
@@ -229,61 +139,17 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 	.dm_widget.search_form {
 		.dm_widget_inner {
-			//stylage lorsque placé dans la zone située sous le header
-			#dm_custom_top & {
-				//correction du bug sur le champ de saisi
-				.query {
-					//on enlève l'épaisseur de la bordure non prise en compte dans le calcul de la largeur
-					&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 1px)); }
-					.generatedcontent & { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 1px)); }
+			//correction du bug sur le champ de saisi
+			.query {
+				//on enlève l'épaisseur de la bordure non prise en compte dans le calcul de la largeur
+				&, .generatedcontent &:focus { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*2 + 1px)); }
+				.generatedcontent & { @gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2 + @offS*3 + @spriteFormat_S + 1px)); }
 
-					//suppression du délai car l'animation n'est pas gérée sur les pseudos éléments
-					.csstransitions &:focus {
-						@transitionDelay(0s);
-					}
+				//suppression du délai car l'animation n'est pas gérée sur les pseudos éléments
+				.csstransitions &:focus {
+					@transitionDelay(0s);
 				}
 			}
 		}
-
-		//stylage lorsque placé dans le header
-		#dm_header & {
-			//correction du bug sur le champ de saisi
-			input.query { padding-bottom: 4px; }
-			input.submit { padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 9px; }
-		}
 	}
 }
-
-//création des fonctions localisées de déclinaisons média
-@templateMedia_TabletLandscape() {
-	.dm_widget.search_form {
-		//stylage lorsque placé dans le header
-		#dm_header & {
-			//correction du bug sur le champ de saisi
-			input.query { padding-bottom: 3px; }
-			input.submit { padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 8px; }
-		}
-	}
-}
-
-@templateMedia_TabletPortrait(){
-	.dm_widget.search_form {
-		//stylage lorsque placé dans le header
-		#dm_header & {
-			//correction du bug sur le champ de saisi
-			input.query { padding-bottom: 3px; }
-			input.submit { padding-bottom: (@gridBaseline - @spriteFormat_S) / 2 + 8px; }
-		}
-
-		.dm_widget_inner {
-			//stylage lorsque placé dans le header
-			#dm_header & {
-				@gridSiteWidth(@gridScreen_TabletPortrait; @gridCol_TabletPortrait; 0);
-			}
-		}
-	}
-}
-
-//importation des requêtes média
-@import "_framework/SPLessCss/Grids/Medias/_TabletLandscape.less";
-@import "_framework/SPLessCss/Grids/Medias/_TabletPortrait.less";

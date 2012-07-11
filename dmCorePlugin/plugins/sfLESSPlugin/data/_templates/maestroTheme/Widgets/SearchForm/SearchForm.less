@@ -1,6 +1,6 @@
 // _SearchForm.less
-// v1.5
-// Last Updated : 2012-03-27 16:45
+// v1.7
+// Last Updated : 2012-07-11 10:30
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -38,115 +38,111 @@
 	
 	.dm_widget_inner {
 		.isLess & { background-color: fadeout(#8ED4D4, 75%); }
+		
+		//placement formulaire
+		form {
+			position: relative;
+			background-color: mix(@colorCouleur2ClairSup, @colorWhite, 50%);
+			.rgba & { background-color: fadeout(@colorCouleur2ClairSup, 50%); }
 
-		//stylage lorsque placé dans le header ou dans la zone située sous ce dernier
-		#dm_header &, #dm_custom_top &  {
+			//application largeur (soustraction bordure)
+			@gridWidth(@formCol);
+			overflow: hidden;
+			margin: 0;
+			padding: 0;
 
-			//placement formulaire
-			form {
-				position: relative;
-				background-color: mix(@colorCouleur2ClairSup, @colorWhite, 50%);
-				.rgba & { background-color: fadeout(@colorCouleur2ClairSup, 50%); }
+			//ajout de la bordure arrondie
+			@borderRadiusCompress(@offL);
 
-				//application largeur (soustraction bordure)
-				@gridWidth(@formCol);
-				overflow: hidden;
-				margin: 0;
-				padding: 0;
+			//ajout de la sprite avec l'icône de recherche
+			&:before {
+				position: absolute;
+				display: block;
+				visibility: visible;
+				z-index: 1;
+				content: "";
+				//décalage de marge
+				@decalV: (@gridBaseline*1.5 - @spriteFormat_S)/2;
+				// margin: @decalV 0 0 @offS;
+				left: @offS;
+				top: @decalV;
+				//chargement sprite entière avec dimension et SVG
+				@spriteDefinition("DefaultDark"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultDark-internet-search; @spriteOffY-DefaultDark-internet-search);
+				
+				//animation apparition de la sprite
+				.csstransitions.opacity & {
+					opacity: 1;
+					@transition(visibility, left, opacity; .05s, .2s, .2s; ease-out; .05s, .1s, .1s);
+				}
+			}
+
+			//classe CSS focus ajoutée en JS
+			&.focus {
+				
+				&:before{
+					//animation disparition de la sprite
+					visibility: hidden;
+					display: none;
+					.csstransitions.opacity & {
+						//on réaffiche la sprite pour gérer l'animation
+						display: block;
+						//replacement et disparition de la sprite
+						left: @offS + @spriteFormat_S;
+						opacity: 0;
+
+						//changement délai
+						@transitionDelay(.2s, .05s, .05s);
+					}
+				}
+			}
+		}
+
+		//masquage du label et du bouton de validation
+		.label, .submit { display: none; visibility: hidden; }
+		
+		//champ de saisie de la recherche
+		.query {
+			//ajout du padding-left et width au propriétés animées par défaut
+			.csstransitions & {
+				@transitionProperty(width);
+				@transitionDelay(0s);
+				&:focus{
+					@transitionDelay(.1s);
+				}
+			}
+
+			//placement et stylage de l'élément
+			display: block;
+			float: right;
+			z-index: 2;
+			//changement couleur et transparence du fond
+			&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
+			//suppression outline parasite sous webkit
+			outline: 0;
+			border: 1px solid @colorCouleur2ClairSup;
+			//ajustement du padding sans les bordures
+			padding: (@gridBaseline/4 + 1px) @offS;
+
+			//suppression des ombres internes
+			.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
+			
+			//application largeur
+			&, .generatedcontent &:focus { @gridWidth(@formCol; (@offS*2 + 2px)); }
+
+			//ajout du décalage à gauche si pseudo élément affiché
+			.generatedcontent & {
+				@gridWidth(@formCol; (@offS*3 + @spriteFormat_S + 2px));
 
 				//ajout de la bordure arrondie
-				@borderRadiusCompress(@offL);
-
-				//ajout de la sprite avec l'icône de recherche
-				&:before {
-					position: absolute;
-					display: block;
-					visibility: visible;
-					z-index: 1;
-					content: "";
-					//décalage de marge
-					@decalV: (@gridBaseline*1.5 - @spriteFormat_S)/2;
-					// margin: @decalV 0 0 @offS;
-					left: @offS;
-					top: @decalV;
-					//chargement sprite entière avec dimension et SVG
-					@spriteDefinition("DefaultDark"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultDark-internet-search; @spriteOffY-DefaultDark-internet-search);
-					
-					//animation apparition de la sprite
-					.csstransitions.opacity & {
-						opacity: 1;
-						@transition(visibility, left, opacity; .05s, .2s, .2s; ease-out; .05s, .1s, .1s);
-					}
-				}
-
-				//classe CSS focus ajoutée en JS
-				&.focus {
-					
-					&:before{
-						//animation disparition de la sprite
-						visibility: hidden;
-						display: none;
-						.csstransitions.opacity & {
-							//on réaffiche la sprite pour gérer l'animation
-							display: block;
-							//replacement et disparition de la sprite
-							left: @offS + @spriteFormat_S;
-							opacity: 0;
-
-							//changement délai
-							@transitionDelay(.2s, .05s, .05s);
-						}
-					}
-				}
+				@borderRadiusCompress((@offL +1px));
 			}
 
-			//masquage du label et du bouton de validation
-			.label, .submit { display: none; visibility: hidden; }
-			
-			//champ de saisie de la recherche
-			.query {
-				//ajout du padding-left et width au propriétés animées par défaut
-				.csstransitions & {
-					@transitionProperty(width);
-					@transitionDelay(0s);
-					&:focus{
-						@transitionDelay(.1s);
-					}
-				}
-
-				//placement et stylage de l'élément
-				display: block;
-				float: right;
-				z-index: 2;
-				//changement couleur et transparence du fond
-				&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
-				//suppression outline parasite sous webkit
-				outline: 0;
-				border: 1px solid @colorCouleur2ClairSup;
-				//ajustement du padding sans les bordures
-				padding: (@gridBaseline/4 + 1px) @offS;
-
-				//suppression des ombres internes
-				.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
-				
-				//application largeur
-				&, .generatedcontent &:focus { @gridWidth(@formCol; (@offS*2 + 2px)); }
-
-				//ajout du décalage à gauche si pseudo élément affiché
-				.generatedcontent & {
-					@gridWidth(@formCol; (@offS*3 + @spriteFormat_S + 2px));
-
-					//ajout de la bordure arrondie
-					@borderRadiusCompress((@offL +1px));
-				}
-
-				//couleur des placeHolders
-				//ciblage natif
-				&::-webkit-input-placeholder { color: @colorCouleur2ClairSup; text-transform: uppercase; }
-				&:-moz-placeholder { color: @colorCouleur2ClairSup; text-transform: uppercase; }
-				//utilisé avec jQuery-placeholder
-				&.placeholder { color: @colorCouleur2ClairSup; text-transform: uppercase; }
-			}
+			//couleur des placeHolders
+			//ciblage natif
+			&::-webkit-input-placeholder { color: @colorCouleur2ClairSup; text-transform: uppercase; }
+			&:-moz-placeholder { color: @colorCouleur2ClairSup; text-transform: uppercase; }
+			//utilisé avec jQuery-placeholder
+			&.placeholder { color: @colorCouleur2ClairSup; text-transform: uppercase; }
 		}
 	}
 }
