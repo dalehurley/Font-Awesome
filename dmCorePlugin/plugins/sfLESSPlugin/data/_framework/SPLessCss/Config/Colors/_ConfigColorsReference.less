@@ -321,26 +321,27 @@
 
 //sprites de la zone de recherche pour l'état focus (utilisé uniquement dans Opéra)
 //Thèmes disponibles : Default, DefaultLight, DefaultDark, DefaultMedium, DefaultMono
-@widgetSearchFormSpriteSearchActiveTheme: "Default";
-@widgetSearchFormSpriteSearchActiveCategory: "internet";
-@widgetSearchFormSpriteSearchActiveName: "search";
-@widgetSearchFormSpriteSearchActiveOffX: @spriteOffX-internet-search;
-@widgetSearchFormSpriteSearchActiveOffY: @spriteOffY-internet-search;
+@widgetSearchFormSpriteSearchFocusTheme: "Default";
+@widgetSearchFormSpriteSearchFocusCategory: "internet";
+@widgetSearchFormSpriteSearchFocusName: "search";
+@widgetSearchFormSpriteSearchFocusOffX: @spriteOffX-internet-search;
+@widgetSearchFormSpriteSearchFocusOffY: @spriteOffY-internet-search;
 
 //couleur de fond du widget
 @widgetSearchFormBgColor: @colorCouleur1;
-//utilisé seulement dans BaseTheme
+//utilisé seulement dans BaseTheme et Opéra
 @widgetSearcgFormBgFocusColor: @colorCouleur1Moyen;
 
 //couleur de fond de la zone de saisie
 @widgetSearchFormInputColor: @colorWhite;
 
-//couleur de la bordure de la zone de saisie
+//couleur de la bordure de la zone de saisie (sauf pour Opéra qui n'a pas de bordure)
 @widgetSearchFormBorderColor: @colorCouleur3Moyen;
 
 //couleurs du texte de la zone de saisie
-@widgetSearchFormTextColor: @colorText;
-//utilisés uniquement dans Opéra et Maestro
-@widgetSearchFormTextFocusColor: @colorText;
+// @widgetSearchFormTextColor: @colorText;
+@widgetSearchFormTextColor: #f00;
+// @widgetSearchFormTextFocusColor: @colorText;
+@widgetSearchFormTextFocusColor: #0f0;
 //##################################
 //##################################
