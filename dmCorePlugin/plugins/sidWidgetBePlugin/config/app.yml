@@ -88,6 +88,15 @@ all:
       ec_09_partenaires_conseils: partenaires
       ec_10_aides_creation: aides
       ec_11_formalites: formalités
+      aga_fiscal: fiscal
+      aga_actualites: actualités
+      aga_chiffres: chiffres
+      aga_juridique: juridique
+      aga_social: social
+      aga_paie: paie
+      aga_aides_dossiers: dossiers aides à l'embauche
+      aga_aides: aides à l'embauche
+      aga_faq: questions/réponses
 
 
 
