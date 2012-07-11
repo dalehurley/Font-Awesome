@@ -100,6 +100,24 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
         // récupération du Layout de la page en cours
         $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
 
+        // recuperation des variables du fichier /theme/css/config/style.css
+        // le config/style.less doit générer un fichier css ainsi formaté:
+        // 
+        //    less_config {
+        //      grid_columns: 12;
+        //      grid_column_width: 60px;
+        //      grid_gutter_width: 20px;
+        //      grid_row_width: 940px;
+        //    }
+        // 
+        // 
+        $file=sfConfig::get('sf_web_dir').'/theme/css/config/style.css';; 
+        $tabfile=file($file); 
+        for( $i = 1 ; $i < count($tabfile) ; $i++ )
+        {
+        echo $tabfile[$i];
+        }
+
         //  array of info
         $tabInfos['Site theme'] = dmConfig::get('site_theme');
         $tabInfos['site theme version'] = dmConfig::get('site_theme_version');
@@ -111,16 +129,9 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
         $tabInfos['Grid Column Width'] = '';
         $tabInfos['Grid Gutter Width'] = '';  
         $tabInfos['Grid Row Width'] = '';  
-
         $tabInfos['Fluid Grid Column Width'] = '';
         $tabInfos['Fluid Grid Gutter Width'] = '';  
-        $tabInfos['Base Font Size'] = '';  
-//        $tabInfos['Base Font Family'] = '';  
-        $tabInfos['Base Line Height'] = '';                  
-        // les couleurs affichent une span swatch qui est colorisée en css dans import.less
-        $tabInfos['Link Color'] = '<span class="swatch"></span>';  
-        $tabInfos['Link Color Hover'] = '<span class="swatch"></span>'; 
-        $tabInfos['text Color'] = '<span class="swatch"></span>'; 
+
 
         $panel .= '<dl style="" id="less_debug_infos">';
         foreach ($tabInfos as $lib => $value) {
