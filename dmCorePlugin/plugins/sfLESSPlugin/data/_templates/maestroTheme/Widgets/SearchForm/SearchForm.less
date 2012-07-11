@@ -38,12 +38,13 @@
 	
 	.dm_widget_inner {
 		.isLess & { background-color: fadeout(#8ED4D4, 75%); }
-		
+
 		//placement formulaire
 		form {
 			position: relative;
-			background-color: mix(@colorCouleur2ClairSup, @colorWhite, 50%);
-			.rgba & { background-color: fadeout(@colorCouleur2ClairSup, 50%); }
+			//on mixe avec la couleur de fond du header lorsque le rgba n'est pas géré
+			background-color: mix(@widgetSearchFormBgColor, @headerBgColor, 50%);
+			.rgba & { background-color: fadeout(@widgetSearchFormBgColor, 50%); }
 
 			//application largeur (soustraction bordure)
 			@gridWidth(@formCol);
@@ -67,7 +68,7 @@
 				left: @offS;
 				top: @decalV;
 				//chargement sprite entière avec dimension et SVG
-				@spriteDefinition("DefaultDark"; "internet"; "search"; "S"; @spriteFormat_S; @spriteOffX-DefaultDark-internet-search; @spriteOffY-DefaultDark-internet-search);
+				@spriteDefinition(@widgetSearchFormSpriteSearchTheme; @widgetSearchFormSpriteSearchCategory; @widgetSearchFormSpriteSearchName; "S"; @spriteFormat_S; @widgetSearchFormSpriteSearchOffX; @widgetSearchFormSpriteSearchOffY);
 				
 				//animation apparition de la sprite
 				.csstransitions.opacity & {
@@ -102,6 +103,10 @@
 		
 		//champ de saisie de la recherche
 		.query {
+			//suppression styles par défaut du champ
+			&, &:focus, &:disabled, &:hover { &, .rgba & { background-color: @widgetSearchFormInputColor; } }
+
+
 			//ajout du padding-left et width au propriétés animées par défaut
 			.csstransitions & {
 				@transitionProperty(width);
@@ -114,12 +119,13 @@
 			//placement et stylage de l'élément
 			display: block;
 			float: right;
+			color: @widgetSearchFormTextColor;
+			&:focus{ color: @widgetSearchFormTextFocusColor; }
 			z-index: 2;
-			//changement couleur et transparence du fond
-			&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
+			
 			//suppression outline parasite sous webkit
 			outline: 0;
-			border: 1px solid @colorCouleur2ClairSup;
+			border: 1px solid @widgetSearchFormBorderColor;
 			//ajustement du padding sans les bordures
 			padding: (@gridBaseline/4 + 1px) @offS;
 
@@ -139,10 +145,10 @@
 
 			//couleur des placeHolders
 			//ciblage natif
-			&::-webkit-input-placeholder { color: @colorCouleur2ClairSup; text-transform: uppercase; }
-			&:-moz-placeholder { color: @colorCouleur2ClairSup; text-transform: uppercase; }
+			&::-webkit-input-placeholder { color: @widgetSearchFormTextColor; text-transform: uppercase; }
+			&:-moz-placeholder { color: @widgetSearchFormTextColor; text-transform: uppercase; }
 			//utilisé avec jQuery-placeholder
-			&.placeholder { color: @colorCouleur2ClairSup; text-transform: uppercase; }
+			&.placeholder { color: @widgetSearchFormTextColor; text-transform: uppercase; }
 		}
 	}
 }
