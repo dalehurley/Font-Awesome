@@ -32,8 +32,8 @@
 		//placement formulaire
 		form {
 			position: relative;
-			background-color: @colorCouleur1;
-
+			background-color: @widgetSearchFormBgColor;
+			
 			//application largeur (soustraction bordure)
 			@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2));
 			padding-bottom: @gridBaseline/2;
@@ -67,7 +67,7 @@
 
 			//classe CSS focus ajoutée en JS
 			&.focus {
-				background-color: @colorCouleur1Moyen;
+				background-color: @widgetSearcgFormBgFocusColor;
 				&:before {
 					//animation disparition de la sprite
 					visibility: hidden;
@@ -105,10 +105,10 @@
 			display: block;
 			z-index: 1;
 			//changement couleur et transparence du fond
-			&, &:focus, &:disabled { &, .rgba & { background-color: @colorWhite; } }
+			&, &:focus, &:disabled { &, .rgba & { background-color: @widgetSearchFormInputColor; } }
 			//suppression outline parasite sous webkit
 			outline: 0;
-			border-color: @colorZoneBorder;
+			border-color: @widgetSearchFormBorderColor;
 
 			//suppression des ombres internes
 			.boxshadow & { &, &:focus, &:disabled { @boxShadowNone(); } }
@@ -127,10 +127,10 @@
 
 			//couleur des placeHolders
 			//ciblage natif
-			&::-webkit-input-placeholder { color: @colorText; }
-			&:-moz-placeholder { color: @colorText; }
+			&::-webkit-input-placeholder { color: @widgetSearchFormTextColor; }
+			&:-moz-placeholder { color: @widgetSearchFormTextColor; }
 			//utilisé avec jQuery-placeholder
-			&.placeholder { color: @colorText; }
+			&.placeholder { color: @widgetSearchFormTextColor; }
 		}
 	}
 }
