@@ -115,7 +115,7 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
         $tabInfos['Fluid Grid Column Width'] = '';
         $tabInfos['Fluid Grid Gutter Width'] = '';  
         $tabInfos['Base Font Size'] = '';  
-        $tabInfos['Base Font Family'] = '';  
+//        $tabInfos['Base Font Family'] = '';  
         $tabInfos['Base Line Height'] = '';                  
         // les couleurs affichent une span swatch qui est colorisée en css dans import.less
         $tabInfos['Link Color'] = '<span class="swatch"></span>';  
