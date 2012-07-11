@@ -1,9 +1,14 @@
-<?php // Vars: $sidAddedPages, $theme, $withImage, $withDate, $withResume, $widthImage, $heightImage
+<?php // Vars: $sidAddedPages, $theme, $withImage, $withDate, $withResume, $widthImage, $heightImage, $titreBloc
 //chargement de l'helper pour la date
 use_helper('Date');
 //titre du contenu
-if(($sidAddedPages->getResume() != NULL) || $sidAddedPages->getText() != NULL){       
+if(($sidAddedPages->getResume() != NULL) || $sidAddedPages->getText() != NULL){
+    if($titreBloc == ''){
         echo _tag('h1', array('class' => 'title itemprop name', 'itemprop' => "name"), ucfirst($sidAddedPages->getTitle()));
+    }
+    else {
+        echo _tag('h2', array('class' => 'title itemprop name', 'itemprop' => "name"), ucfirst($titreBloc));
+    }
 
         echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));  
             echo _open('header', array('class' => 'contentHeader'));
@@ -16,8 +21,10 @@ if(($sidAddedPages->getResume() != NULL) || $sidAddedPages->getText() != NULL){
                                 ->alt($sidAddedPages->getTitle());
                     echo _close('div');
                 }
-//                echo _tag('h1', array('class' => 'title itemprop name', 'itemprop' => "name"), $sidAddedPages->getTitle());
-//                echo _tag('meta', array('content' => $sidAddedPages->getTitle(), 'itemprop' => 'articleSection'));
+                if($titreBloc != ''){
+                    echo _tag('h1', array('class' => 'title itemprop name', 'itemprop' => "name"), $sidAddedPages->getTitle());
+                    echo _tag('meta', array('content' => $sidAddedPages->getTitle(), 'itemprop' => 'articleSection'));
+                }
                 if($withResume == true){
                 echo _tag('span', array('class' => 'teaser itemprop description', 'itemprop' => 'description'), $sidAddedPages->getResume());
                 }
