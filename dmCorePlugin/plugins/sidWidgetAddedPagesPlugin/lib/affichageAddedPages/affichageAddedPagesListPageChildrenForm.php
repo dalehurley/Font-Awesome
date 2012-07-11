@@ -1,22 +1,12 @@
 <?php
 
-class affichageAddedPagesAffichagePageForm extends dmWidgetPluginForm {
+class affichageAddedPagesListPageChildrenForm extends dmWidgetPluginForm {
     public function configure() {
         
         parent::configure();
-        /*
-         * Record id
-        */
-        $this->widgetSchema['recordId'] = new sfWidgetFormDoctrineChoice(array(
-            'model' => 'SidAddedPages',
-            'add_empty' => sprintf('(%s) %s', $this->__('contextual') , $this->getAutoRecord()->__toString()) // affichage du libellé de l'objet
-       ));
-        $this->widgetSchema['recordId']->setLabel('Page');
-        $this->validatorSchema['recordId'] = new sfValidatorDoctrineChoice(array(
-            'model' => 'SidAddedPages',
-            'required' => false
-        ));
-        $this->widgetSchema['titreBloc']->setDefault('');
+        
+        $this->widgetSchema['nbArticles']->setDefault(0);
+        $this->widgetSchema->setHelp('nbArticles','0 pour tout afficher');
         $this->widgetSchema['withDate'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Date de publication visible'));
         $this->validatorSchema['withDate']  = new sfValidatorBoolean();
         $this->widgetSchema->setHelp('withDate' , 'Affichage de la date de publication');
@@ -24,18 +14,24 @@ class affichageAddedPagesAffichagePageForm extends dmWidgetPluginForm {
         $this->widgetSchema['withResume'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Résumé visible'));
         $this->validatorSchema['withResume']  = new sfValidatorBoolean();
         $this->widgetSchema->setHelp('withResume' , 'Affichage du résumé');
+        
+        $this->widgetSchema['nbImages'] = new sfWidgetFormInputText(array('label' => 'Nbre d\'image dans les listing', 'default' => 0));
+        $this->validatorSchema['nbImages'] = new sfValidatorInteger(array(
+                'required' => false,
+                ));
+        $this->widgetSchema->setHelp('nbImages','0 pour mettre des images à tous les lists');
        
         switch (dmConfig::get('site_theme')) {
-                    case 'BaseTheme': $mapWidth = 622;$mapHeight = 324;
+                    case 'BaseTheme': $mapWidth = 238;$mapHeight = 85;
                         break;
-                    case 'copilotesTheme': $mapWidth = 650;$mapHeight = 324;
+                    case 'copilotesTheme': $mapWidth = 238;$mapHeight = 85;
                         break;
-                    case 'operaTheme': $mapWidth = 686;$mapHeight = 360;
+                    case 'operaTheme': $mapWidth = 238;$mapHeight = 101;
                         break;
-                    case 'maestroTheme': $mapWidth = 494;$mapHeight = 252;
+                    case 'maestroTheme': $mapWidth = 174;$mapHeight = 73;
                         break;
                     //largeur du plus petit par défaut
-                    default: $mapWidth = 494;$mapHeight = 252;
+                    default: $mapWidth = 238;$mapHeight = 85;
                         break;
                 }
             
@@ -67,7 +63,7 @@ class affichageAddedPagesAffichagePageForm extends dmWidgetPluginForm {
     }
     protected function renderContent($attributes) {
         
-        return $this->getHelper()->renderPartial('affichageAddedPages', 'affichagePageForm', array(
+        return $this->getHelper()->renderPartial('affichageAddedPages', 'listPageChildrenForm', array(
             'form' => $this,
             'id' => 'sid_widget_added_pages' . $this->dmWidget->get('id')
         ));

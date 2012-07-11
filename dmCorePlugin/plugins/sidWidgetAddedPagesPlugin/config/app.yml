@@ -6,6 +6,7 @@ all:
       tenor: BaseTheme
       opera: operaTheme
       maestro: maestroTheme
+      copilotes: copilotesTheme
     
   added-pages:
     tenor:
@@ -23,5 +24,10 @@ all:
       width-image: 494
       thumbs-height-image: 73
       thumbs-width-image: 174
+    copilotes:
+      height-image: 264
+      width-image: 622
+      thumbs-height-image: 85
+      thumbs-width-image: 238
       
   length-resume: 200

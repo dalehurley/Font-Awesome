@@ -2,6 +2,8 @@ all:
   .settings:
     enabled_modules:
       - dmWidgetGoogleMap
+      - renseignements
+      - renseignementsAdmin
       - sidActuArticle
       - sidActuArticleAdmin
       - sidActuRubrique
@@ -18,8 +20,6 @@ all:
       - pageCabinetAdmin
       - recrutement
       - recrutementAdmin
-      - renseignements
-      - renseignementsAdmin
       - sitesUtiles
       - groupeSitesUtiles
       - indexSitesUtiles      
