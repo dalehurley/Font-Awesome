@@ -77,7 +77,7 @@ if(isset($streetAddress))	$addressOpt['streetAddress']	= $streetAddress;
 $html.= get_partial('global/schema/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress', $addressOpt);
 
 //ajout d'élément exteralisés
-// if(isset($email) && $email != null)			$html.= get_partial('global/schema/DataType/Text', array('type' => __('Email'),			'value' => $email,			'itemprop' => 'email', 'url' => 'mailto:' . $email));
+if(isset($email) && $email != null)			$html.= get_partial('global/schema/DataType/Text', array('type' => __('Email'),			'value' => $email,			'itemprop' => 'email', 'url' => 'mailto:' . $email));
 if(isset($telephone) && $telephone != null)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Phone'),			'value' => $telephone,		'itemprop' => 'telephone'));
 if(isset($faxNumber) && $faxNumber != null)	$html.= get_partial('global/schema/DataType/Text', array('type' => __('Fax'),			'value' => $faxNumber,		'itemprop' => 'faxNumber'));
 

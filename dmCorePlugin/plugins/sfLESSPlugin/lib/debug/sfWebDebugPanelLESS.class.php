@@ -92,7 +92,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
 
 if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2'){
 
-            // affichage de la page courante
+        // affichage de la page courante
         $idDmPage = sfContext::getInstance()->getPage()->id;
         $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
         $pageCurrent =  $dmPage->module.'/'.$dmPage->action;
@@ -122,15 +122,14 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
         $tabInfos['Link Color Hover'] = '<span class="swatch"></span>'; 
         $tabInfos['text Color'] = '<span class="swatch"></span>'; 
 
-        $panel .= '<dl style="" id="less_debug">';
+        $panel .= '<dl style="" id="less_debug_infos">';
         foreach ($tabInfos as $lib => $value) {
           $panel .= '<dt style="float:left; width: 200px"><strong>'.$lib.'</strong></dt><dd class="less_debug_'.dmString::slugify($lib).'">'.$value.'</dd>';
         }
         $panel .= '</dl>';
-}
-
-
-
+        // ajout de less-grid-4.js display
+        $panel .= '<script src="/theme/less/bootstrap/js/less-grid-4.js"></script>';
+  }
 
     return $panel;
   }
