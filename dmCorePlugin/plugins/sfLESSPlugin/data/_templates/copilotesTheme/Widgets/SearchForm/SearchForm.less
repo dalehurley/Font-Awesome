@@ -25,7 +25,7 @@
 		float: left;
 		margin-bottom: @gridBaseline/2;
 	}
-
+	
 	.dm_widget_inner {
 		.isLess & { background-color: fadeout(#8ED4D4, 75%); }
 			
@@ -103,6 +103,8 @@
 
 			//placement et stylage de l'élément
 			display: block;
+			color: @widgetSearchFormTextColor;
+			&:focus{ color: @widgetSearchFormTextFocusColor; }
 			z-index: 1;
 			//changement couleur et transparence du fond
 			&, &:focus, &:disabled { &, .rgba & { background-color: @widgetSearchFormInputColor; } }

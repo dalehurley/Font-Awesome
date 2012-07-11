@@ -33,7 +33,7 @@
 		form {
 			position: relative;
 			background-color: @widgetSearchFormBgColor;
-			
+
 			//application largeur (soustraction bordure)
 			@gridWidth(@gridCol_SidebarLeft; (@zonesOffsetPad*-2));
 			padding-bottom: @gridBaseline/2;
@@ -103,6 +103,8 @@
 
 			//placement et stylage de l'élément
 			display: block;
+			color: @widgetSearchFormTextColor;
+			&:focus{ color: @widgetSearchFormTextFocusColor; }
 			z-index: 1;
 			//changement couleur et transparence du fond
 			&, &:focus, &:disabled { &, .rgba & { background-color: @widgetSearchFormInputColor; } }
