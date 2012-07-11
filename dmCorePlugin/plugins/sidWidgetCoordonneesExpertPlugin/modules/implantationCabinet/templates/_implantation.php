@@ -79,7 +79,7 @@ if (count($equipes) || $adresse->resume_team != NULL || ($adresse->getImage()->c
             echo _tag('span', array('class' => 'separator'), '&nbsp;:&nbsp;');
             echo _open('span', array('class' => 'value'));
             //echo _link('mailto:' . $equipe->email)->set(' itemprop="email"')->text($equipe->email);
-            echo _link('/contact?dest=' . $equipe->id)->set(' itemprop="email"')->text('E-mail');            
+            echo _link('/contact?dest=' . $equipe->id)->set(' itemprop="email"')->text('Contact');            
             echo _close('span');
             echo _close('span');
         };
