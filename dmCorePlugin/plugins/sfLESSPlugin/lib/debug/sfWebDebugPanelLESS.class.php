@@ -130,6 +130,7 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
         }
 
         //  array of info
+        $tabInfos['&nbsp;  ']               = '&nbsp;';   
         $tabInfos['SITE CONFIGURATION']    = '&nbsp;';        
         $tabInfos['Site theme']         = dmConfig::get('site_theme');
         $tabInfos['Site theme version'] = dmConfig::get('site_theme_version');
