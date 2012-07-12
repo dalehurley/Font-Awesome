@@ -59,7 +59,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
    */
   public function getPanelTitle()
   {
-    return 'LESS parameters';
+    return 'Infos';
   }
 
   /**
@@ -67,7 +67,7 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
    */
   public function getPanelContent()
   {
-    $panel = $this->getConfigurationContent();
+    $panel = ''; //$this->getLessConfigurationContent();
 /*
     . '<table class="sfWebDebugLogs" style="width: 300px"><tr><th>less file</th><th>css file</th><th style="text-align:center;">time (ms)</th></tr>';
     
@@ -100,27 +100,55 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
         // récupération du Layout de la page en cours
         $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
 
-        //  array of info
-        $tabInfos['Site theme'] = dmConfig::get('site_theme');
-        $tabInfos['site theme version'] = dmConfig::get('site_theme_version');
-        $tabInfos['Current page'] = $pageCurrent;
-        $tabInfos['Layout'] = $layoutPage;
-        $tabInfos['Page recordId'] = ($recordId==0)?'No auto page' : $recordId;
-        $tabInfos['Directory of Site'] = $directorySite = substr(dirname(getcwd()),  strrpos(dirname(getcwd()), '/')+1);
-        $tabInfos['Grid Columns'] = '';
-        $tabInfos['Grid Column Width'] = '';
-        $tabInfos['Grid Gutter Width'] = '';  
-        $tabInfos['Grid Row Width'] = '';  
+        // recuperation des variables du fichier /theme/css/config/style.css
+        // le config/style.less doit générer un fichier css ainsi formaté:
+        // 
+        //    less_config {
+        //      grid_columns: 12;
+        //      grid_column_width: 60px;
+        //      grid_gutter_width: 20px;
+        //      grid_row_width: 940px;
+        //    }
+        // 
+        // 
+        $file=sfConfig::get('sf_web_dir').'/theme/css/config/style.css';; 
+        $tabfile=file($file); 
+        $varsJson = array();
+        for( $i = 1 ; $i < count($tabfile) ; $i++ )
+        {
+          $prefixeTabJson = 'content: "';
+          $pos = strpos($tabfile[$i],$prefixeTabJson);
+          if ( $pos === false){
+            // continue
+          } else {
+            $lenghtJson = strrpos($tabfile[$i],'"') - strlen($prefixeTabJson) - $pos;
+            $varsJson = substr($tabfile[$i], $pos+strlen($prefixeTabJson), $lenghtJson);
+            $varsJson = str_replace('|', '"', $varsJson);
+            $varsJson = json_decode($varsJson, true);
+            break;
+          }
+        }
 
-        $tabInfos['Fluid Grid Column Width'] = '';
-        $tabInfos['Fluid Grid Gutter Width'] = '';  
-        $tabInfos['Base Font Size'] = '';  
-        $tabInfos['Base Font Family'] = '';  
-        $tabInfos['Base Line Height'] = '';                  
-        // les couleurs affichent une span swatch qui est colorisée en css dans import.less
-        $tabInfos['Link Color'] = '<span class="swatch"></span>';  
-        $tabInfos['Link Color Hover'] = '<span class="swatch"></span>'; 
-        $tabInfos['text Color'] = '<span class="swatch"></span>'; 
+        //  array of info
+        $tabInfos['SITE CONFIGURATION']    = '&nbsp;';        
+        $tabInfos['Site theme']         = dmConfig::get('site_theme');
+        $tabInfos['Site theme version'] = dmConfig::get('site_theme_version');
+        $tabInfos['Current page']       = $pageCurrent;
+        $tabInfos['Layout']             = $layoutPage;
+        $tabInfos['Page recordId']      = ($recordId==0)?'No auto page' : $recordId;
+        $tabInfos['Directory of Site']  = $directorySite = substr(dirname(getcwd()),  strrpos(dirname(getcwd()), '/')+1);
+
+        // foreach ($varsJson as $key => $value) {
+        //   $tabInfos[$key] = $value;
+        // }
+        $tabInfos['&nbsp;']               = '&nbsp;'; 
+        $tabInfos['GRID CONFIGURATION']    = '&nbsp;';
+        $tabInfos['@gridColumns']          = $varsJson['@gridColumns'];
+        $tabInfos['@gridColumnWidth (px)']      = $varsJson['@gridColumnWidth'];
+        $tabInfos['@gridGutterWidth (px)']      = $varsJson['@gridGutterWidth'];  
+        $tabInfos['@gridRowWidth (px)']         = $varsJson['@gridRowWidth'];  
+        $tabInfos['@fluidGridColumnWidth (%)'] = $varsJson['@fluidGridColumnWidth'];
+        $tabInfos['@fluidGridGutterWidth (%)'] = $varsJson['@fluidGridGutterWidth'];  
 
         $panel .= '<dl style="" id="less_debug_infos">';
         foreach ($tabInfos as $lib => $value) {
@@ -139,7 +167,7 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
    *
    * @return  string
    */
-  protected function getConfigurationContent()
+  protected function getLessConfigurationContent()
   {
     $debugInfo = '<dl id="less_debug" style="display: none;">';
     $this->config = sfLESS::getConfig();
@@ -151,7 +179,7 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
     $debugInfo .= '</dl>';
 
     return sprintf(<<<EOF
-      <h2>configuration %s</h2>
+      <h2>Less configuration %s</h2>
       %s<br/>
 EOF
       ,$this->getToggler('less_debug', 'Toggle debug info')

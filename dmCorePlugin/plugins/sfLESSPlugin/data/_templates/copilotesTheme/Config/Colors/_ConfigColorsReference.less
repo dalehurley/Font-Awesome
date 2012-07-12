@@ -1,6 +1,6 @@
 // _ConfigColorsReference.less
-// v2.9.5
-// Last Updated : 2012-07-03 16:00
+// v2.9.8
+// Last Updated : 2012-07-10 15:45
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
@@ -10,23 +10,30 @@
 //####### GESTION DE LA PAGE #######
 //##################################
 //couleur de fond des zones principales
-@bodyBgColor: @colorCouleur2ClairSup;
+@bodyBgColor: @colorWhite;
 @contentBgColor: @colorWhite;
-@colorZoneBorder: @colorCouleur3;
 
 //dégradé général de la page (utilisé dans Copilotes)
-@bodyGradientColor1: @colorCouleur2MoyenSup;
-@bodyGradientColor2: @colorCouleur2ClairSup;
+@bodyGradientColor1: @colorCouleur1ClairSup;
+@bodyGradientColor2: @colorWhite;
+
+//couleur utilisée pour les différents filets présents sur le site
+@colorZoneBorder: @colorCouleur2;
 //##################################
 //##################################
+
 
 //##################################
 //####### GESTION DU HEADER ########
 //##################################
 //gestion du fond en pleine largeur et des polices
 @headerBgColor: transparent;
-@headerTextColor: @colorCouleur3;
+@headerBgColorClair: transparent;
+@headerBgColorFonce: transparent;
+@headerTextColor: @colorCouleur3Fonce;
 //##################################
+//##################################
+
 
 //##################################
 //####### GESTION DU BOTTOM ########
@@ -38,74 +45,72 @@
 //##################################
 //##################################
 
+
 //##################################
 //####### GESTION DU FOOTER ########
 //##################################
-@footerBgColor: @colorCouleur2Fonce;
-@footerBgColorClair: @colorCouleur2FonceSup;
-@footerBgColorFonce: @colorCouleur2Fonce;
+@footerBgColor: @colorCouleur2;
+@footerBgColorClair: @colorCouleur2Sup;
+@footerBgColorFonce: @colorCouleur2;
 @footerTextColor: @colorCouleur3ClairSup;
 //##################################
+//##################################
+
 
 //##################################
 //######## GESTION DU MENU #########
 //##################################
 //couleur des bordures
-@menuBorderColor: @colorCouleur3Sup;
+@menuBorderColor: @colorCouleur3Moyen;
 //##################################
+//##################################
+
 
 //##################################
 //###### GESTION DU MENU TOP #######
 //##################################
-//sprite pour l'accueil
-//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
-@menuTopSpriteTheme: "DefaultDark";
-@menuTopSpriteCategory: "internet";
-@menuTopSpriteName: "home";
-@menuTopSpriteOffX: @spriteOffX-DefaultDark-internet-home;
-@menuTopSpriteOffY: @spriteOffY-DefaultDark-internet-home;
-
 //Dégradé horizontal du menu
-@menuTopGradientColor1: @colorCouleur2Moyen;
-@menuTopGradientColor2: @colorCouleur2Clair;
-@menuTopGradientColor3: @colorCouleur2Clair;
-@menuTopGradientColor4: @colorCouleur2Moyen;
+@menuTopGradientColor1: @colorCouleur1MoyenSup;
+@menuTopGradientColor2: @colorCouleur1Clair;
+@menuTopGradientColor3: @colorCouleur1Clair;
+@menuTopGradientColor4: @colorCouleur1MoyenSup;
 
 //couleurs de fond du menu
-@menuTopBgColor: @colorCouleur2Clair;
-@menuTopBgHoverColor: @colorCouleur2Moyen;
+@menuTopBgColor: @colorCouleur1MoyenSup;
+@menuTopBgHoverColor: @colorCouleur1Moyen;
 
 //couleurs d'ouverture des liens parents
-@menuTopBgOpenColor: @colorCouleur2Moyen;
-@menuTopBgOpenLinkColor: @colorCouleur3Fonce;
-@menuTopBgOpenLinkHoverColor: @colorCouleur3FonceSup;
+@menuTopBgOpenColor: @colorCouleur1Moyen;
+@menuTopBgOpenLinkColor: @colorCouleur3Clair;
+@menuTopBgOpenLinkHoverColor: @colorCouleur3ClairSup;
 
 //couleur des flèches
-@menuTopArrowColor: @colorCouleur3;
-@menuTopArrowColorSup: @colorCouleur3Fonce;
+@menuTopArrowColor: @colorCouleur1FonceSup;
+@menuTopArrowColorSup: @colorCouleur3Clair;
 
 //couleur des bordures
-@menuTopBorderColor: @colorCouleur3Sup;
+@menuTopBorderColor: @colorCouleur1FonceSup;
 
 //couleurs des liens
-@menuTopLinkColor: @colorCouleur3;
-@menuTopLinkHoverColor: @colorCouleur3Fonce;
+@menuTopLinkColor: @colorCouleur3Clair;
+@menuTopLinkHoverColor: @colorCouleur3ClairSup;
 @menuTopLinkActiveColor: @colorCouleur1Clair;
-@menuTopLinkCurrentColor: @colorCouleur3Fonce;
+@menuTopLinkCurrentColor: @colorCouleur3MoyenSup;
 @menuTopLinkInactiveColor: @colorCouleur3Moyen;
 
 //Spécial Co-pilotes (premier niveau d'ouverture)
 
 //couleurs d'ouverture des liens parents
-@menuTopFirstBgOpenColor: @colorCouleur2Clair;
-@menuTopFirstBgOpenLinkColor: @colorCouleur1;
-@menuTopFirstBgOpenLinkHoverColor: @colorCouleur1Moyen;
+@menuTopFirstBgOpenColor: @colorCouleur1MoyenSup;
+@menuTopFirstBgOpenLinkColor: @colorCouleur3Clair;
+@menuTopFirstBgOpenLinkHoverColor: @colorCouleur3ClairSup;
 
 //couleurs des liens de premier niveau
-@menuTopFirstLinkColor: @colorCouleur1;
-@menuTopFirstLinkHoverColor: @colorCouleur1Moyen;
-
+@menuTopFirstLinkColor: @colorCouleur3Clair;
+@menuTopFirstLinkHoverColor: @colorCouleur3ClairSup;
 //##################################
+//##################################
+
 
 //##################################
 //## GESTION DES TITRES DE WIDGET ##
@@ -114,6 +119,48 @@
 @widgetTitleBgColor: transparent;
 
 //pour les titres de widget avec une sprite
-@widgetTitleSpriteBgColor: @colorZoneBorder;
+@widgetTitleSpriteBgColor: @colorCouleur2;
 @widgetTitleSpriteTextColor: @colorWhite;
+//##################################
+//##################################
+
+
+//##################################
+//####### GESTION DU TAGCLOUD ######
+//##################################
+//spéficique pour Co-pilotes en page d'accueil
+
+//couleur des titres en police webfont
+@widgetTagCloudTitleColor: @colorCouleur1;
+
+//couleurs des liens
+@widgetTagCloudLinkColor: @colorCouleur2;
+@widgetTagCloudLinkHoverColor: @colorCouleur2Clair;
+//##################################
+//##################################
+
+
+//##################################
+//##### GESTION DU SIÈGE SOCIAL ####
+//##################################
+//spéficique pour Co-pilotes
+
+//couleur du titre et du texte
+@widgetAdressesSiegeSocialTitleColor: @colorCouleur2;
+@widgetAdressesSiegeSocialTextColor: @colorCouleur1;
+//##################################
+//##################################
+
+
+//##################################
+//###### GESTION DU SEARCHFORM #####
+//##################################
+//couleur de fond du widget
+@widgetSearchFormBgColor: transparent;
+//utilisé seulement dans BaseTheme
+@widgetSearcgFormBgFocusColor: transparent;
+
+//couleur de la bordure de la zone de saisie
+@widgetSearchFormBorderColor: @colorCouleur2;
+//##################################
 //##################################

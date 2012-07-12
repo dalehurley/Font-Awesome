@@ -18,14 +18,13 @@
 
 ?>
 
-<div id="dm_page"<?php $isEditMode && print ' class="edit"' ?>>
+<div id="dm_page">
 
 	<div class="dm_layout container">
 		<div class="row">	
-	      		<?php echo $helper->renderArea('layout.top', '#dm_header.span3') ?>
-
+	      	<?php echo $helper->renderArea('layout.top', '#dm_header.span3') ?>
 			<?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.span9') ?>
-          	</div>
+        </div>
 		<div class="row">
 			<?php echo $helper->renderArea('layout.left','#dm_sidebar_left.span4') ?>
 			<?php echo $helper->renderArea('page.content','#dm_page_content.span6') ?>

@@ -1,11 +1,28 @@
 // _ConfigColorsReference.less
-// v2.9.5
-// Last Updated : 2012-07-03 16:00
+// v2.9.8
+// Last Updated : 2012-07-11 12:25
 // Copyright : SID Presse
 // Author : Arnaud GAUDIN
 
 //CONFIGURATION DES COULEURS DE REFERENCE DONT LES VALEURS SONT BASÉES SUR DES COULEURS EXISTANTES
 //Cf http://twitter.github.com/bootstrap/less.html pour inspiration
+
+// RECOMMENDATIONS IMPORTANTES :
+
+// Pour les appels de sprites :
+// Attention : le theme "Default" ne doit pas être précisé dans les noms de variables d'offset de placement.
+// Cependant, il doit obligatoirement l'être pour tous les autres thèmes.
+// Par exemple on a avec le theme Default :
+// @widgetNivoGallerySpriteArrowLeftOffX: @spriteOffX-navigation-squareArrowLeft;
+// @widgetNivoGallerySpriteArrowLeftOffY: @spriteOffY-navigation-squareArrowLeft;
+// Une fois passé avec le thème DefaultMono :
+// @widgetNivoGallerySpriteArrowLeftOffX: @spriteOffX-DefaultMono-navigation-squareArrowLeft;
+// @widgetNivoGallerySpriteArrowLeftOffY: @spriteOffY-DefaultMono-navigation-squareArrowLeft;
+// Cette règle est applicable pour tous les appels de sprite.
+
+//######################################################################################################
+//######################################################################################################
+
 
 //##################################
 //######## GESTION DU TEXTE ########
@@ -50,7 +67,7 @@
 //####### GESTION DU HEADER ########
 //##################################
 //sprite de séparation
-//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+//Thèmes disponibles : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
 @headerSpriteTheme: "DefaultMono";
 @headerSpriteCategory: "bullet";
 @headerSpriteName: "disc";
@@ -67,6 +84,9 @@
 @headerCenterBgColor: transparent;
 @headerCenterBgColorClair: transparent;
 @headerCenterBgColorFonce: transparent;
+
+//gestion de la bordure situé en bas du header (uniquement dans BaseTheme)
+@headerBorderBottomColor: @colorCouleur1Clair;
 
 //couleur de l'ombrage sous le header
 //couleur Pie utilisée sous IE et ne devant pas être transparente
@@ -106,7 +126,7 @@
 //####### GESTION DU FOOTER ########
 //##################################
 //sprite de séparation
-//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+//Thèmes disponibles : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
 @footerSpriteTheme: "DefaultMono";
 @footerSpriteCategory: "bullet";
 @footerSpriteName: "disc";
@@ -161,7 +181,7 @@
 //###### GESTION DU MENU TOP #######
 //##################################
 //sprite pour l'accueil
-//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+//Thèmes disponibles : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
 @menuTopSpriteTheme: "DefaultLight";
 @menuTopSpriteCategory: "internet";
 @menuTopSpriteName: "home";
@@ -223,7 +243,7 @@
 //## GESTION DU BLOCK DE CONTACT ###
 //##################################
 //sprite pour le titre
-//Remplacer le thème par un des suivants : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+//Thèmes disponibles : DefaultLight, DefaultDark, DefaultMedium, DefaultMono
 @widgetLienContactSpriteTheme: "DefaultLight";
 @widgetLienContactSpriteCategory: "cabinet";
 @widgetLienContactSpriteName: "contact";
@@ -242,5 +262,96 @@
 @widgetLienContactLinkGradientColor1: @colorCouleur1;
 @widgetLienContactLinkGradientColor2: @colorCouleur1Moyen;
 @widgetLienContactLinkColor: @colorCouleur3ClairSup;
+//##################################
+//##################################
+
+
+//##################################
+//###### GESTION DU DIAPORAMA ######
+//##################################
+//sprite pour les bullets de navigation
+//Thèmes disponibles : Default, DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@widgetNivoGallerySpriteBulletTheme: "Default";
+@widgetNivoGallerySpriteBulletCategory: "internet";
+//sprite bullet état standard
+@widgetNivoGallerySpriteBulletName: "bullet";
+@widgetNivoGallerySpriteBulletOffX: @spriteOffX-internet-bullet;
+@widgetNivoGallerySpriteBulletOffY: @spriteOffY-internet-bullet;
+//sprite bullet état active
+@widgetNivoGallerySpriteBulletActiveName: "bulletOver";
+@widgetNivoGallerySpriteBulletActiveOffX: @spriteOffX-internet-bulletOver;
+@widgetNivoGallerySpriteBulletActiveOffY: @spriteOffY-internet-bulletOver;
+
+//sprite pour les flèches de navigation
+//Thèmes disponibles : Default, DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@widgetNivoGallerySpriteArrowTheme: "Default";
+@widgetNivoGallerySpriteArrowCategory: "navigation";
+//sprite de navigation gauche
+@widgetNivoGallerySpriteArrowLeftName: "squareArrowLeft";
+@widgetNivoGallerySpriteArrowLeftOffX: @spriteOffX-navigation-squareArrowLeft;
+@widgetNivoGallerySpriteArrowLeftOffY: @spriteOffY-navigation-squareArrowLeft;
+//sprite de navigation droite
+@widgetNivoGallerySpriteArrowRightName: "squareArrowRight";
+@widgetNivoGallerySpriteArrowRightOffX: @spriteOffX-navigation-squareArrowRight;
+@widgetNivoGallerySpriteArrowRightOffY: @spriteOffY-navigation-squareArrowRight;
+
+//sprite pour les flèches de navigation état over
+//Thèmes disponibles : Default, DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@widgetNivoGallerySpriteArrowOverTheme: "DefaultMono";
+@widgetNivoGallerySpriteArrowOverCategory: "navigation";
+//sprite de navigation gauche
+@widgetNivoGallerySpriteArrowOverLeftName: "squareArrowLeft";
+@widgetNivoGallerySpriteArrowOverLeftOffX: @spriteOffX-DefaultMono-navigation-squareArrowLeft;
+@widgetNivoGallerySpriteArrowOverLeftOffY: @spriteOffY-DefaultMono-navigation-squareArrowLeft;
+//sprite de navigation droite
+@widgetNivoGallerySpriteArrowOverRightName: "squareArrowRight";
+@widgetNivoGallerySpriteArrowOverRightOffX: @spriteOffX-DefaultMono-navigation-squareArrowRight;
+@widgetNivoGallerySpriteArrowOverRightOffY: @spriteOffY-DefaultMono-navigation-squareArrowRight;
+//##################################
+//##################################
+
+
+//##################################
+//###### GESTION DU SEARCHFORM #####
+//##################################
+//sprites de la zone de recherche
+//Thèmes disponibles : Default, DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@widgetSearchFormSpriteSearchTheme: "Default";
+@widgetSearchFormSpriteSearchCategory: "internet";
+@widgetSearchFormSpriteSearchName: "search";
+@widgetSearchFormSpriteSearchOffX: @spriteOffX-internet-search;
+@widgetSearchFormSpriteSearchOffY: @spriteOffY-internet-search;
+
+//sprites de la zone de recherche pour l'état focus (utilisé uniquement dans Opéra)
+//Thèmes disponibles : Default, DefaultLight, DefaultDark, DefaultMedium, DefaultMono
+@widgetSearchFormSpriteSearchFocusTheme: "Default";
+@widgetSearchFormSpriteSearchFocusCategory: "internet";
+@widgetSearchFormSpriteSearchFocusName: "search";
+@widgetSearchFormSpriteSearchFocusOffX: @spriteOffX-internet-search;
+@widgetSearchFormSpriteSearchFocusOffY: @spriteOffY-internet-search;
+
+//couleur de fond du widget
+@widgetSearchFormBgColor: @colorCouleur1;
+//utilisé seulement dans BaseTheme et Opéra
+@widgetSearcgFormBgFocusColor: @colorCouleur1Moyen;
+
+//couleur de fond de la zone de saisie
+@widgetSearchFormInputColor: @colorWhite;
+
+//couleur de la bordure de la zone de saisie (sauf pour Opéra qui n'a pas de bordure)
+@widgetSearchFormBorderColor: @colorCouleur3Moyen;
+
+//couleurs du texte de la zone de saisie
+@widgetSearchFormTextColor: @colorText;
+@widgetSearchFormTextFocusColor: @colorText;
+//##################################
+//##################################
+
+
+//##################################
+//##### GESTION DU SMARTBANDEAU ####
+//##################################
+//couleur du texte défilant
+@widgetSmartBandeauTextColor: @colorCouleur3Fonce;
 //##################################
 //##################################
