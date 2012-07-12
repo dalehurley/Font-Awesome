@@ -4,7 +4,7 @@
  */
 
 use_helper('Date');
-
+$nbArticleOk=0;
 //récupération de la section et de la rubrique
 $section = $article->getSectionPageTitle();
 $rubrique = $article->getRubriquePageTitle();
@@ -58,7 +58,7 @@ if (!is_file($xml)) {
                     $multimediaImages = $multimediaInserts->item(0)->getElementsByTagName('MultimediaInsert');
                     foreach ($multimediaImages as $multimediaImage) {
                         $multimediaImage = $multimediaImages->item(0)->getElementsByTagName('FileName')->item(0)->nodeValue;
-                        if (strpos($multimediaImage, '-e.jpg'))
+                        if (strpos($multimediaImage, '-g.jpg'))
                             break;
                     }
                 }

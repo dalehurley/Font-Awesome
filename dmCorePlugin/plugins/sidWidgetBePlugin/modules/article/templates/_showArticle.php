@@ -42,8 +42,25 @@ if (!is_file($xml)) {
 		$moteurXslt = new xsltProcessor();
 		$moteurXslt->importstylesheet($doc_xsl);
 
-		//affichage du contenu
-		$imageLink = '/_images/lea' . $article->filename . '-g.jpg';
+                if ($article->getSection()->getRubrique() == 'aga_profession') {
+                    //récupération de l'image au dossier affiché
+                    $multimediaImage = '';
+                    $multimediaInserts = $doc_xml->getElementsByTagName("MultimediaInserts");
+                    if (count($multimediaInserts) > 0) {
+                        $multimediaImages = $multimediaInserts->item(0)->getElementsByTagName('MultimediaInsert');
+                        foreach ($multimediaImages as $multimediaImage) {
+                            $multimediaImage = $multimediaImages->item(0)->getElementsByTagName('FileName')->item(0)->nodeValue;
+                            $imageLink = '/_images/images' . $multimediaImage;
+//                            if (strpos($multimediaImage, '-g.jpg')){
+//                                break;
+//                            }
+                        }
+                    }
+                }
+                else {
+                    //affichage du contenu
+                    $imageLink = '/_images/lea' . $article->filename . '-g.jpg';
+                }
 		$imageHtml = '';
 		if (is_file(sfConfig::get('sf_web_dir').$imageLink) && $withImage){
 			$imageHtml = 	'<div class="imageFullWrapper">'.
