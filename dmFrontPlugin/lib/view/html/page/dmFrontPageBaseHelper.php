@@ -244,12 +244,8 @@ abstract class dmFrontPageBaseHelper extends dmConfigurable
 
 		$html .= $this->helper->open($tagName, $options);
 
-		if (dmConfig::get('site_theme_version') == 'v1'){
-			$html .= '<div class="dm_zones clearfix">';
-		} else {
-			$html .= '<div class="dm_zones">'; // ajout lioshi pour bootstrap : ainsi on peut utiliser les spanX et offsetX dans les parametres de zones du front
-		}
-
+		$html .= '<div class="dm_zones clearfix">';
+		
 		$html .= $this->renderAreaInner($area);
 
 		$html .= '</div>';
