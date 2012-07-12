@@ -46,6 +46,10 @@ class contactDataActions extends myFrontModuleActions
       $this->getRequest()->setAttribute('description', $contactForm->description);
       // envoi du formulaire au component
       $this->forms['SidContactData'] = $form;
+      // envoi du titre au component
+      if($widgetValues['titreBloc'] == '' || !isset($widgetValues['titreBloc'])){$titreBloc = '';}
+      else $titreBloc = $widgetValues['titreBloc'];
+      $this->getRequest()->setAttribute('titreBloc', $titreBloc);
 
     } else {
       $this->getRequest()->setAttribute('error', array('Error' => 'There\'s no form selected or no fields in the selected form.'));

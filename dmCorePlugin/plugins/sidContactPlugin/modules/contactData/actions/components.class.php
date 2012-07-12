@@ -9,6 +9,7 @@ class contactDataComponents extends myFrontModuleComponents
 
   public function executeForm(dmWebRequest $request)
   {
+    $this->titreBloc = $this->getRequest()->getAttribute('titreBloc');
     $this->form = $this->forms['SidContactData'];
     $this->name = $this->getRequest()->getAttribute('name');
     $this->description = $this->getRequest()->getAttribute('description');

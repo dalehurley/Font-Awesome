@@ -52,8 +52,8 @@ No option.<br/>
 
 <u>sfWidgetFormChoice:</u><br/>
 <b>choices</b>:  Un tableau des choix, exemple <i>{"choices" : {choix1":"Je choisis ça", "choix2":"Je choisis plutôt ça"}}</i><br/>
-<b>multiple</b>: Permet le choix multiple, exemple <i>{"multiple" : "true"}</i> <br/>
-<b>expanded</b>: Affichage d\'un widget étendu, exemple <i>{"expanded" : "false"}</i><br/>
+<b>multiple</b>: Permet le choix multiple, exemple <i>{"multiple" : true}</i> <br/>
+<b>expanded</b>: Affichage d\'un widget étendu, exemple <i>{"expanded" : false}</i><br/>
 Si expanded = false, alors le widget est un select<br/>
 Si expanded = true et multiple = false, on aura une liste de boutons radio<br/>
 Si expanded = true et multiple = true, on aura une liste de checkboxes<br/>
