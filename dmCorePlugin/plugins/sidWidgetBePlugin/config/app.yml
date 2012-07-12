@@ -97,6 +97,7 @@ all:
       aga_aides_dossiers: dossiers aides à l'embauche
       aga_aides: aides à l'embauche
       aga_faq: questions/réponses
+      aga_profession: professions
 
 
 
