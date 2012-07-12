@@ -29,6 +29,12 @@ class myContactDataForm extends dmWidgetFormForm
     		'required' => false
     	)
     );
+    
+    $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText();
+    $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
+                'required' => false
+                ));
+    $this->widgetSchema->setHelp('titreBloc', 's\'affichera dans le bloc titre de la page');
 
   }
 }

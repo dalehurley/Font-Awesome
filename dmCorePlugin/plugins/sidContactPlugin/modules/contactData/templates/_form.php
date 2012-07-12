@@ -1,9 +1,16 @@
-<?php // Vars: $form
+<?php // Vars: $form, $titreBloc
 
 if (!$error){   // if 1 its only the submit button
 
-    echo _tag('h2.title',$name);
-    echo $description;
+    if($titreBloc == ''){
+        $titreBloc = __('ContactUs');
+    }
+    echo _tag('h2.title',$titreBloc);
+    echo _tag('header', array('class'=>'contentHeader'),
+            _tag('span', array('class'=>'wrapper'), 
+                    _tag('span', array('class'=>'teaser'),$description)
+                )
+            );
 
     // masquage du password
     $password = sfContext::getInstance()->getMailer()->getTransport()->getPassword();
