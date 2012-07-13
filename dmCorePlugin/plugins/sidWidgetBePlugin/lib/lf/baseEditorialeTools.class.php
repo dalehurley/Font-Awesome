@@ -218,13 +218,17 @@ class baseEditorialeTools {
         if (count($rubriques) == 0) {
             $return[$i]['ERROR'] = 'Aucune rubrique. Veuillez lancer la commande "php symfony loadArticles rubriques verbose"';
         }
+
+        // repertoire loacl des json
+        $repBaseEditoriale = sfConfig::get('app_rep-local-json');        
+
         if (sfConfig::get('app_rep-local-json') == '') {
             $return[$i]['ERROR'] = 'Merci de spécifier la variable app_rep-local-json dans le app.yml.';
+        } elseif (!is_dir($repBaseEditoriale)){
+            $return[$i]['ERROR'] = 'Le dossier '.$repBaseEditoriale.' est introuvable.';
         } else {
             // les languages
             $arrayLangs = sfConfig::get('dm_i18n_cultures');
-            // repertoire loacl des json
-            $repBaseEditoriale = sfConfig::get('app_rep-local-json');
 
             foreach ($arrayLangs as $lang) {
                 // boucle sur les rubriques
