@@ -177,27 +177,31 @@ class baseEditorialeTools {
         // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
         $bdRubriques = Doctrine_Core::getTable('SidRubrique')->findByIsActive(true);
         
-        foreach ($bdRubriques as $key => $bdRubrique) {
-            // POUR INTERROGER le rep local de la base editoriale : sections de la rubrique en cours
-            $localSectionsJson = transfertTools::scandirServeur(sfConfig::get('app_rep-local-json') . '/' . $bdRubrique->getTitle());
-            
-            foreach ($localSectionsJson as $k => $localSection) {
-                // Formatage de la section
-                if (substr($localSection, -5) == '.json') {
-                    $localSection = substr($localSection, 0, -5);
-                    // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
-                    $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($localSection, $bdRubrique->id);
-                    if ($bdSection->isNew()) { // création de la section en base
-                        $bdSection->Translation[$arrayLangs[0]]->title = $localSection; // On insère dans la langue par défaut
-                        //$bdSection->Translation[$arrayLangs[0]]->created_at = date('Y-m-d h:m:s');
-                        //$bdSection->Translation[$arrayLangs[0]]->updated_at = date('Y-m-d h:m:s');
-                        $bdSection->rubrique_id = $bdRubrique->id;
-                        $bdSection->save();
-                        $return[$i]['SECTION+'] = $bdRubrique->getTitle() . '/' . $localSection;
-                    } else {
-                        $return[$i]['Section existe dejà en base'] = $bdRubrique->getTitle() . '/' . $localSection;
+        if (!is_dir(sfConfig::get('app_rep-local-json'))){
+            $return[$i]['ERROR'] = 'Le dossier '.sfConfig::get('app_rep-local-json').' est introuvable.';
+        } else {
+            foreach ($bdRubriques as $key => $bdRubrique) {
+                // POUR INTERROGER le rep local de la base editoriale : sections de la rubrique en cours
+                $localSectionsJson = transfertTools::scandirServeur(sfConfig::get('app_rep-local-json') . '/' . $bdRubrique->getTitle());
+                
+                foreach ($localSectionsJson as $k => $localSection) {
+                    // Formatage de la section
+                    if (substr($localSection, -5) == '.json') {
+                        $localSection = substr($localSection, 0, -5);
+                        // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
+                        $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($localSection, $bdRubrique->id);
+                        if ($bdSection->isNew()) { // création de la section en base
+                            $bdSection->Translation[$arrayLangs[0]]->title = $localSection; // On insère dans la langue par défaut
+                            //$bdSection->Translation[$arrayLangs[0]]->created_at = date('Y-m-d h:m:s');
+                            //$bdSection->Translation[$arrayLangs[0]]->updated_at = date('Y-m-d h:m:s');
+                            $bdSection->rubrique_id = $bdRubrique->id;
+                            $bdSection->save();
+                            $return[$i]['SECTION+'] = $bdRubrique->getTitle() . '/' . $localSection;
+                        } else {
+                            $return[$i]['Section existe dejà en base'] = $bdRubrique->getTitle() . '/' . $localSection;
+                        }
+                        $i++;
                     }
-                    $i++;
                 }
             }
         }
