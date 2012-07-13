@@ -472,7 +472,12 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         }
     }
 
-    public function render() {
+    /**
+     * render Menu
+     * @param  string $menuType type of menu in dmWidgetNavigationMenuForm.php
+     * @return [type]           [description]
+     */
+    public function render($menuType = '') {
 
         $html = '';
         if ($this->checkUserAccess() && $this->hasChildren()) {
@@ -548,7 +553,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                         $class = '';
                         break;
                 }
-                $html.= $childToRender->renderChild($class);
+                $html.= $childToRender->renderChild($class, $menuType);
                 $i++;
             }
 
@@ -564,12 +569,12 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         return '<ul' . ($id ? ' id="' . $id . '"' : '') . ($class ? ' class="' . $class . '"' : '') . '>';
     }
 
-    public function renderChild($class='') {
+    public function renderChild($class='', $menuType = '') {
         $html = '';
 
         if ($this->checkUserAccess()) {
             $html.= $this->renderLiOpenTag($class);
-            $html.= $this->renderChildBody();
+            $html.= $this->renderChildBody($menuType);
             if ($this->hasChildren() && $this->getOption('show_children')) {
                 $html.= $this->render();
             }
@@ -625,12 +630,13 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         return '<li' . ($id ? ' id="' . $id . '"' : '') . (!empty($classes) ? ' class="' . implode(' ', $classes) . '"' : '') . '>';
     }
 
-    public function renderChildBody() {
+    public function renderChildBody($menuType = '') {
 
-        return $this->getLink() ? $this->renderLink() : $this->renderLabel();
+        return $this->getLink() ? $this->renderLink($menuType) : $this->renderLabel();
     }
 
-    public function renderLink() {
+    public function renderLink($menuType = '') {
+        // suffixe à la classe link
         if ($this->getLink() instanceof dmFrontLinkTagPage) {
             $recupName = ($this->getLink()->getPage()->module . '_' . $this->getLink()->getPage()->action == 'main_root') ? '_root' : '';
             $title = ' ' . $this->getLink()->getPage()->getTitle() . ' '; // lioshi : BUG, sans les espaces qui encadrent ça ne fonctionne pas...
@@ -638,7 +644,27 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             $recupName = '';
             $title = '';
         }
-        return $this->getLink()->addClass('link' . $recupName)->title($title)->currentSpan(false)->text($this->__($this->getLabel()))->render();
+
+        switch ($menuType) {
+            case 'navbar':
+
+            // ajouter array("data-toggle" => "dropdown")
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+                return $this->getLink()->addClass('dropdown-toggle' . $recupName)->title($title)->currentSpan(false)->text($this->__($this->getLabel()))->render();
+                break;
+            
+            default:
+                return $this->getLink()->addClass('link' . $recupName)->title($title)->currentSpan(false)->text($this->__($this->getLabel()))->render();
+                break;
+        }
+        
     }
 
     public function renderLabel() {
