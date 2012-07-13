@@ -42,7 +42,8 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
         'default'      => 'default',
         'dropdown'     => 'dropdown', 
         'megadropdown' => 'megadropdown', 
-        'accordion'    => 'accordion'
+        'accordion'    => 'accordion',
+        'navbar'       => 'navbar'
     ); 
  
   	$this->widgetSchema['menuType'] = new sfWidgetFormChoice(array(

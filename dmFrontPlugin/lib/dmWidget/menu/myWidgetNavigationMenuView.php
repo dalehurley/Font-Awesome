@@ -55,18 +55,28 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         $vars['menu']->ulClass('menu-'.$vars['menuType']);
 		
 		//ajout des classes CSS de dossier
-        $vars['menu'] = $this->menuAddDir($vars['menu']);
+        $vars['menu'] = $this->menuAddClass($vars['menu'], $vars['menuType']);
 		
 		return $vars;
 	}
 	
-	//Ajout automatique des classes de dossier
-    protected function menuAddDir($currentMenu) {
+	//Ajout automatique des classes en fonction du type de menu
+    protected function menuAddClass($currentMenu, $menuType) {
+    	switch ($menuType) {
+    		case 'navbar':
+    			$classAdded = 'dropdown';
+    			break;
+    		
+    		default:
+    			$classAdded = 'dm_dir';
+    			break;
+    	}
+        
         foreach ($currentMenu as $key => $value) {
             //ajout de la classe css
-            if (count($value) > 0) $value->liClass('dm_dir');
+            if (count($value) > 0) $value->liClass($classAdded);
             //récursivité de la fonction
-            $this->menuAddDir($value);
+            $this->menuAddClass($value, $menuType);
         }
         //retour de la valeur de la fonction
         return $currentMenu;
@@ -85,6 +95,17 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		$helper = $this->getHelper();
 		//récupération des variables
 		$vars = $this->getViewVars();
+
+
+		// ajout balises pour navbar
+		if($vars['menuType'] == 'navbar' ){
+			$html = $helper->tag('div.navbar', 
+						$helper->tag('div.navbar-inner',  
+							$helper->tag('div.container', $html
+								)
+							)
+					);
+		}
 		
 		//génération des paramètres du menu en fonction de son type (à voir pour intégration propre avec chaque type de menu, cf dmWidgetContentNivoGallery pour méthode)
 		$menuParam = array();

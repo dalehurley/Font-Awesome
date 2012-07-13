@@ -58,7 +58,7 @@ class dmWidgetNavigationMenuView extends dmWidgetPluginView {
 
         $vars = $this->getViewVars();
 
-        $html = $vars['menu']->render();
+        $html = $vars['menu']->render($vars['menuType']);
 
         if ($this->isCachable()) {
             $this->setCache($html);
