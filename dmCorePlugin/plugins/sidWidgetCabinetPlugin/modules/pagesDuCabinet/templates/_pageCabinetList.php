@@ -52,7 +52,10 @@ if (count($pageCabinets)) { // si nous avons des actu articles
     }
 }
 else {
-    echo debugTools::infoDebug(array('Error : no page cabinet created in admin' => 'Please add a page cabinet '), 'warning');
+    echo debugTools::infoDebug(array(
+            'no page cabinet created in admin' => 'Please add a page cabinet',
+            'just one (this page)' => 'Nothing to do'
+        ), 'debug');
  //    if($this->context->getPage()->getAction() != 'show'){    
  //    echo _tag('h4.title',$titreBloc);
 	// // sinon on affiche la constante de la page concernée
