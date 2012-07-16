@@ -277,7 +277,7 @@ class dmPageSynchronizer
       $showPages[$_showPage['record_id']] = $_showPage;
     }
 
-    if ($module->hasListPage())
+    if ($module->hasListPage())      // automatic pages module
     {
       $parentModule = $module;
 
@@ -292,7 +292,14 @@ class dmPageSynchronizer
       }
       else
       {
-        $records = dmDb::pdo('SELECT r.id FROM '.$module->getTable()->getTableName().' r', array(), $module->getTable()->getConnection())->fetchAll(PDO::FETCH_ASSOC);
+        // lioshi : Ajout d'un ordre pour les pages issuent d'un objet nested set
+        if ($module->getTable()->isNestedSet() && $module->getTable()->hasColumn('root_id')){
+          $orderForNestedSet = ' order by r.root_id, r.level, r.lft';
+        } else {
+          $orderForNestedSet = '';
+        }
+        
+        $records = dmDb::pdo('SELECT r.id FROM '.$module->getTable()->getTableName().' r'.$orderForNestedSet, array(), $module->getTable()->getConnection())->fetchAll(PDO::FETCH_ASSOC);
       }
 
       /*
@@ -366,6 +373,8 @@ class dmPageSynchronizer
 
       try
       {
+        // lioshi : add infos to pages in sync
+        //echo $page['id']. ' - ' .$page['record_id']. ' - ' .$page['module'].'';
         $this->updatePageFromRecord($page, $record, $module, $parentModule, $parentPageIds, $parentRecordIds);
       }
       catch(dmPageMustNotExistException $e)
