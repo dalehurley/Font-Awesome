@@ -146,21 +146,10 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                     }
                 
                 break;
-           case 'mission/show':
+            case 'mission/show':
                // on cherche la rubrique de l'article
                $rubriques = dmDb::table('SidCabinetMissionSidRubrique')->findBySidCabinetMissionId($dmPage->record_id);
-               // on parcourt les sections pour extraire les articles
-               foreach ($rubriques as $rubrique) {
-                   $equipes = dmDb::table('SidCabinetEquipe')
-                           ->createQuery('p')
-                           ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
-                           ->leftJoin('sas.SidRubrique s')
-                           ->where('s.id = ? and p.is_active = ?', array($rubrique->sidRubriqueId,true))
-                           ->limit($nbArticles)
-                           ->execute();
-               }
-                   if (count($rubriques) == 0) {
-                       
+               if (count($rubriques) == 0) {
                        $actuEquipes = '';
                        $actuEquipes = dmDb::table('SidCabinetEquipe')
                                ->createQuery('p')
@@ -168,7 +157,18 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                                ->orderBy('RANDOM()')
                                ->limit($nbArticles)
                                ->execute();
-                   }
+                } else {
+                    // on parcourt les sections pour extraire les articles
+                    foreach ($rubriques as $rubrique) {
+                        $equipes = dmDb::table('SidCabinetEquipe')
+                               ->createQuery('p')
+                               ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
+                               ->leftJoin('sas.SidRubrique s')
+                               ->where('s.id = ? and p.is_active = ?', array($rubrique->sidRubriqueId,true))
+                               ->limit($nbArticles)
+                               ->execute();
+                    }
+                }
                
                break;
             case 'pageCabinet/list':
