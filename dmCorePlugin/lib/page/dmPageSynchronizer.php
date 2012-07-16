@@ -379,6 +379,8 @@ class dmPageSynchronizer
       }
       catch(dmPageMustNotExistException $e)
       {
+        // lioshi : not thrown by doctrine exception ... useless
+        //dmDb::pdo('DELETE FROM dm_page p WHERE p.module = ? AND p.action = ?', array($parentModule->getKey(), 'show'), dmDb::table('DmPage')->getConnection());
         if ($page['id'])
         {
           dmDb::table('DmPage')->find($page['id'])->getNode()->delete();
