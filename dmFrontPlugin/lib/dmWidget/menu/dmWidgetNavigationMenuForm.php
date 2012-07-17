@@ -37,14 +37,17 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
     $this->validatorSchema['liClass']   = new dmValidatorCssClasses(array('required' => false));
     
 
-    // ajout lionel: ajout du champ menuType pour le menu (ajout Arnaud : choix par défaut)
+    // champ menuType pour le menu 
     $typeChoice = array(
         'default'      => 'default',
         'dropdown'     => 'dropdown', 
         'megadropdown' => 'megadropdown', 
-        'accordion'    => 'accordion',
-        'navbar'       => 'navbar'
+        'accordion'    => 'accordion'        
     ); 
+
+    if (dmConfig::get('site_theme_version') == 'v2'){
+      $typeChoice = array_merge($typeChoice, array('navbar' => 'navbar'));
+    }
  
   	$this->widgetSchema['menuType'] = new sfWidgetFormChoice(array(
   		'choices' => $typeChoice,
