@@ -147,7 +147,12 @@ $.widget('ui.dmZone', {
         invoker = $.type(invoker) == 'undefined' ? ui.item : invoker;
         if (sortEvents.update && sortEvents.receive && sortEvents.remove)
         {
-          sortEvents.receive.dmZone('moveWidget', invoker);
+          // if (confirm('move ok')){
+            sortEvents.receive.dmZone('moveWidget', invoker);
+          // } else {
+          //   // refresh page
+          //   location.reload();
+          // }
         }
         else if (sortEvents.update && sortEvents.receive)
         {
