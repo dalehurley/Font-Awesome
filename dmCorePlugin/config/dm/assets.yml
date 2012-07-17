@@ -16,7 +16,7 @@ js:
     
   lib:
     symfony_debug:            symfony/debug
-    jquery:                   jquery/jquery-1.6.4.min
+    jquery:                   jquery/jquery-1.7.2.min
     mobile-core:              jquery-mobile/js/jquery.mobile-1.0.min
     ui-core:                  jquery-ui/js/minified/jquery.ui.core.min
     ui-widget:                jquery-ui/js/minified/jquery.ui.widget.min

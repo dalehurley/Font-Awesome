@@ -10,7 +10,7 @@ default:
     compress:             true          # (RECOMMENDED) Performance : Minifies javascripts and put them into a single compressed file
     cdn:
       enabled:            true         # Will use cdn to load javascript libraries
-      lib.jquery:         '//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'
+      lib.jquery:         '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'
 #      lib.mobile-core:    '//ajax.aspnetcdn.com/ajax/jquery.mobile/1.0/jquery.mobile-1.0.min.js'
 #    head_inclusion:       [lib.jquery, lib.mobile-core]           # If you want some libraries to be included in the <head> section,
     head_inclusion:       [lib.jquery]           # If you want some libraries to be included in the <head> section,
