@@ -51,7 +51,11 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
    */
   public function getTitle()
   {
-    return '<img src="/sfLESSPlugin/images/css_go.png" alt="LESS helper" height="16px"/> ';
+    if (dmConfig::get('site_theme_version') == 'v2'){
+      return '<img src="/sfLESSPlugin/images/css_go.png" alt="LESS helper" height="16px"/> ';
+    } else {
+      return '';
+    }  
   }
 
   /**
