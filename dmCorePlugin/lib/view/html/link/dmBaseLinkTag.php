@@ -96,6 +96,15 @@ abstract class dmBaseLinkTag extends dmHtmlTag
   }
 
   /**
+   * Set link data-toggle
+   * @return dmLinkTag $this
+   */
+  public function dataToggle($v)
+  {
+    return $this->setOption('data-toggle', strtolower($v));
+  }
+
+  /**
    * Add an anchor
    * @return dmLinkTag $this
    */

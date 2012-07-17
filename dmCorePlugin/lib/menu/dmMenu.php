@@ -481,7 +481,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
         $html = '';
         if ($this->checkUserAccess() && $this->hasChildren()) {
-            $html = $this->renderUlOpenTag();
+            $html = $this->renderUlOpenTag($menuType);
 
             foreach ($this->children as $child) {
                 //echo $child->getLevel().' - '.$child->getName().'<br/>' ;
@@ -562,9 +562,30 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         return $html;
     }
 
-    protected function renderUlOpenTag() {
+    protected function renderUlOpenTag($menuType = '') {
         $class = $this->getOption('ul_class');
         $id = $this->getOption('show_id') ? dmString::slugify($this->name . '-menu') : null;
+        $id = $this->getLevel();
+
+        switch ($menuType) {
+            case 'navbar':
+                if ($this->hasChildren() && $this->getOption('show_children') && $this->getLevel() <> -1) {
+                    if ($class == ''){
+                        $class = 'dropdown-menu';
+                    } else {
+                        $class .= ' dropdown-menu';
+                    }
+                } else {
+                    if ($class == ''){
+                        $class = 'nav';
+                    } else {
+                        $class .= ' nav';
+                    }                    
+                }
+                break;
+            default:
+                break;
+        }
 
         return '<ul' . ($id ? ' id="' . $id . '"' : '') . ($class ? ' class="' . $class . '"' : '') . '>';
     }
@@ -573,10 +594,10 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         $html = '';
 
         if ($this->checkUserAccess()) {
-            $html.= $this->renderLiOpenTag($class);
+            $html.= $this->renderLiOpenTag($class, $menuType);
             $html.= $this->renderChildBody($menuType);
             if ($this->hasChildren() && $this->getOption('show_children')) {
-                $html.= $this->render();
+                $html.= $this->render($menuType);
             }
             $html.= '</li>';
         }
@@ -584,7 +605,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         return $html;
     }
 
-    protected function renderLiOpenTag($class='') {
+    protected function renderLiOpenTag($class='', $menuType = '') {
 
         if (is_object($this->getLink())) {
             if (method_exists($this->getLink(), 'getPage')) { // method exist for page in front only...
@@ -647,21 +668,16 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
         switch ($menuType) {
             case 'navbar':
-
-            // ajouter array("data-toggle" => "dropdown")
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-                return $this->getLink()->addClass('dropdown-toggle' . $recupName)->title($title)->currentSpan(false)->text($this->__($this->getLabel()))->render();
+                if ($this->hasChildren()){
+                    $caret = '<b class="caret"></b>';
+                } else {
+                    $caret = '';
+                }
+                return $this->getLink()->addClass('dropdown-toggle')->dataToggle('dropdown')->title($title)->currentSpan(false)->text($this->__($this->getLabel()).$caret)->render($menuType);
                 break;
             
             default:
-                return $this->getLink()->addClass('link' . $recupName)->title($title)->currentSpan(false)->text($this->__($this->getLabel()))->render();
+                return $this->getLink()->addClass('link' . $recupName)->title($title)->currentSpan(false)->text($this->__($this->getLabel()))->render($menuType);
                 break;
         }
         
