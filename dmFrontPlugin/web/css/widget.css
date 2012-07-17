@@ -3,9 +3,11 @@
 0062eb    hover
  */
 
-#dm_page.edit .dm_widget {
-    min-height: 15px;  /* afin de voir les etiquettes WIDGET sur les widget en float*/
+/* unfloat mode */
+#dm_page.unfloatwidget * {
+  float: none !important;
 }
+
 #dm_page.edit .dm_widget, #dm_page .dm_widget.mouseOver {
      position: relative; 
 }
