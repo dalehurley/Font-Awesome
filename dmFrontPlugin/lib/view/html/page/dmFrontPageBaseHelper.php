@@ -330,6 +330,8 @@ abstract class dmFrontPageBaseHelper extends dmConfigurable
 			{
 				$html .= $this->renderWidget($widget);
 			}
+		} else {
+			$html = '&nbsp;';  // lioshi : fixed : move widget if zone is empty
 		}
 
 		return $html;
