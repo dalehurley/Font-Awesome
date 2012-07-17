@@ -208,6 +208,13 @@ class BasedmFrontActions extends dmFrontBaseActions
 		return $this->renderText('ok');
 	}
 
+	public function executeUnfloatwidgetToggle(sfWebRequest $request)
+	{
+		$this->getUser()->setIsUnfloatwidgetMode($request->getParameter('active'));
+
+		return $this->renderText('ok');
+	}
+
 	public function executeShowToolBarToggle(sfWebRequest $request)
 	{
 		$this->getUser()->setShowToolBar($request->getParameter('active'));
