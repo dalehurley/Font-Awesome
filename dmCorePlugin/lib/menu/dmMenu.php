@@ -565,7 +565,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
     protected function renderUlOpenTag($menuType = '') {
         $class = $this->getOption('ul_class');
         $id = $this->getOption('show_id') ? dmString::slugify($this->name . '-menu') : null;
-        $id = $this->getLevel();
+        //$id = $this->getLevel();
 
         switch ($menuType) {
             case 'navbar':

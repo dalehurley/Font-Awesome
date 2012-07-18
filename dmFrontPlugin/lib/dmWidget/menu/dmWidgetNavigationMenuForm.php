@@ -46,7 +46,11 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
     ); 
 
     if (dmConfig::get('site_theme_version') == 'v2'){
-      $typeChoice = array_merge($typeChoice, array('navbar' => 'navbar'));
+      $typeChoice = array(
+        'default'      => 'default',
+        'navbar'       => 'navbar',
+        'navbar-mega'  => 'navbar-mega'        
+      );
     }
  
   	$this->widgetSchema['menuType'] = new sfWidgetFormChoice(array(
