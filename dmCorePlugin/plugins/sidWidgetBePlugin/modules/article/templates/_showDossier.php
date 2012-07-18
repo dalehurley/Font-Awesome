@@ -177,7 +177,7 @@ if (!is_file($xml)) {
 					echo '<meta content="'.$articleSection.'" itemprop="articleSection">';
 					echo '<span itemprop="description" class="teaser itemprop description">'.$article->getChapeau().'</span>';
 					echo '<span class="date">'.__('published on').' ';
-						echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'D').'</time>';
+						echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->updated_at.'">'.format_date($article->updated_at, 'D').'</time>';
 					echo '</span>';
 					echo $articleFilsNavigation;
 				echo '</header>';
@@ -187,13 +187,13 @@ if (!is_file($xml)) {
 				echo '<footer class="contentFooter">';
 					echo '<span class="meta">';
 						echo '<span class="date">'.__('Article published on').' ';
-							echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'd').'</time>';
+							echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->updated_at.'">'.format_date($article->updated_at, 'd').'</time>';
 						echo '</span>';
 						echo '<span class="dash">&nbsp;-&nbsp;</span>';
 						echo '<span class="copyright">&copy;&nbsp;';
 							echo '<span itemprop="copyrightHolder" class="itemprop copyrightHolder">'.sfConfig::get('app_copyright-holder').'</span>';
 							echo '<span class="dash">&nbsp;-&nbsp;</span>';
-							echo '<span itemprop="copyrightYear" class="itemprop copyrightYear">'.format_date($article->created_at, 'y ').'</span>';
+							echo '<span itemprop="copyrightYear" class="itemprop copyrightYear">'.format_date($article->updated_at, 'y ').'</span>';
 						echo '</span>';
 					echo '</span>';
 				echo '</footer>';
