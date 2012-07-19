@@ -6,6 +6,7 @@
 /* unfloat mode */
 #dm_page.unfloatwidget * {
   float: none !important;
+  position: static !important;
 }
 
 #dm_page.edit .dm_widget, #dm_page .dm_widget.mouseOver {

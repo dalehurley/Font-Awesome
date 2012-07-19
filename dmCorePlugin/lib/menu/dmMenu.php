@@ -24,7 +24,8 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             'li_class' => null,
             'show_id' => false,
             'show_children' => true,
-            'translate' => true
+            'translate' => true,
+            'menu_name' => ''
         );
     }
 
@@ -94,6 +95,11 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
         return $this->setOption('ul_class', $class);
     }
+
+    public function menuName($name) {
+
+        return $this->setOption('menu_name', $name);
+    }    
 
     public function liClass($class) {
 
@@ -482,6 +488,9 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         $html = '';
         if ($this->checkUserAccess() && $this->hasChildren()) {
             $html = $this->renderUlOpenTag($menuType);
+           
+            // add nameMenu   
+            if ($this->getOption('menu_name') != '') $html .= '<a class="brand" href="#">'.$this->getOption('menu_name').'</a>';
 
             foreach ($this->children as $child) {
                 //echo $child->getLevel().' - '.$child->getName().'<br/>' ;
@@ -567,6 +576,10 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         $id = $this->getOption('show_id') ? dmString::slugify($this->name . '-menu') : null;
         //$id = $this->getLevel();
 
+        // navbars
+        if (substr($menuType,0,6) == 'navbar'){
+            $menuType = 'navbar';
+        } 
         switch ($menuType) {
             case 'navbar':
                 if ($this->hasChildren() && $this->getOption('show_children') && $this->getLevel() <> -1) {
@@ -666,14 +679,19 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             $title = '';
         }
 
+        // navbars
+        if (substr($menuType,0,6) == 'navbar'){
+            $menuType = 'navbar';
+        } 
         switch ($menuType) {
             case 'navbar':
                 if ($this->hasChildren()){
                     $caret = '<b class="caret"></b>';
+                    return $this->getLink()->addClass('dropdown-toggle')->dataToggle('dropdown')->title($title)->currentSpan(false)->text($this->__($this->getLabel()).$caret)->render($menuType);
                 } else {
                     $caret = '';
                 }
-                return $this->getLink()->addClass('dropdown-toggle')->dataToggle('dropdown')->title($title)->currentSpan(false)->text($this->__($this->getLabel()).$caret)->render($menuType);
+                return $this->getLink()->title($title)->currentSpan(false)->text($this->__($this->getLabel()).$caret)->render($menuType);
                 break;
             
             default:

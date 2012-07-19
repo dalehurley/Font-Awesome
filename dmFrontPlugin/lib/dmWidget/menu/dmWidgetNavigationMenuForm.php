@@ -29,7 +29,7 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
       'label' => 'Menu name'
     ));
     $this->validatorSchema['menuName']   = new sfValidatorString(array('required' => false));
-    $this->widgetSchema->setHelp('menuName', 'Used for id generation');
+    $this->widgetSchema->setHelp('menuName', 'Brand name');
     
     $this->widgetSchema['liClass']      = new sfWidgetFormInputText(array(
       'label' => 'LI CSS class'
@@ -47,9 +47,11 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
 
     if (dmConfig::get('site_theme_version') == 'v2'){
       $typeChoice = array(
-        'default'      => 'default',
-        'navbar'       => 'navbar',
-        'navbar-mega'  => 'navbar-mega'        
+        'default'         => 'default',
+        'navbar'          => 'navbar',
+        'navbar-top'      => 'navbar-top', 
+        'navbar-bottom'   => 'navbar-bottom',
+        'navbar-vertical' => 'navbar-vertical'              
       );
     }
  
