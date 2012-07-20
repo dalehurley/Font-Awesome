@@ -31,7 +31,7 @@ $.fn.extend({
       .html('\
 <a class="item_text s16 s16_layer" title="'+metadata.click_message+'">'+item.text+'</a> \
 <ul class="item_form"> \
-<li class="clearfix"><label>'+metadata.text_message+':</label><input class="text" type="text" name="'+formName+'[text]['+itemIndex+']" /></li> \
+<li class="clearfix"><label>'+metadata.text_message+':</label><input class="text" type="text" name="'+formName+'[text]['+itemIndex+']" /><br/>'+metadata.text_help+'</li> \
 <li class="clearfix"><label>'+metadata.link_message+':</label><input class="link" type="text" name="'+formName+'[link]['+itemIndex+']" /></li> \
 <li class="clearfix"><label>'+metadata.groupdisplayed_message+':</label><input class="groupdisplayed" type="text" name="'+formName+'[groupdisplayed]['+itemIndex+']" /><br/>'+metadata.groupdisplayed_help+'</li> \
 <li class="clearfix" style="padding-top: 5px;"> \

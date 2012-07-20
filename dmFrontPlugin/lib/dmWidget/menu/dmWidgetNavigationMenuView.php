@@ -28,6 +28,16 @@ class dmWidgetNavigationMenuView extends dmWidgetPluginView {
 
         foreach ($vars['items'] as $index => $item) {
 
+            if (dmConfig::get('site_theme_version') == 'v2'){
+                if (dmArray::get($item, 'depth', 0) > 1) {
+                    $depth = 1;
+                } else {
+                    $depth = dmArray::get($item, 'depth', 0);
+                }
+            } else {
+                $depth = dmArray::get($item, 'depth', 0);
+            }
+            
             $groupdisplayed = (isset($item['groupdisplayed']))? $item['groupdisplayed']:'';
             $menuItem = $vars['menu']
                     ->addChild($index . '-' . dmString::slugify($item['text']), $item['link'])
@@ -35,7 +45,7 @@ class dmWidgetNavigationMenuView extends dmWidgetPluginView {
                     ->secure(!empty($item['secure']))
                     ->liClass($vars['liClass'])
                     ->groupdisplayed($groupdisplayed)
-                    ->addRecursiveChildren(dmArray::get($item, 'depth', 0));
+                    ->addRecursiveChildren($depth);
             
             if (!empty($item['nofollow']) && $menuItem->getLink()) {
                 $menuItem->getLink()->set('rel', 'nofollow');

@@ -490,7 +490,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
             $html = $this->renderUlOpenTag($menuType);
            
             // add nameMenu   
-            if ($this->getOption('menu_name') != '') $html .= '<a class="brand" href="#">'.$this->getOption('menu_name').'</a>';
+            //if ($this->getOption('menu_name') != '') $html .= '<a class="brand" href="#">'.$this->getOption('menu_name').'</a>';  already make in myWidgetNavigationMenuView.php
 
             foreach ($this->children as $child) {
                 //echo $child->getLevel().' - '.$child->getName().'<br/>' ;
@@ -511,7 +511,8 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                 /**
                  * Gestion des champs groupPage de dmPage, en fonction du champ groupdisplayed de chaque item
                  */
-                if ($display                        // si on doit afficher le child alors on vérifie le champ groupdisplayed
+                if (    dmConfig::get('site_theme_version') != 'v2'    // on ne le fait pas en V2 graphique (un seul niveau de menu en v2)
+                        && $display                        // si on doit afficher le child alors on vérifie le champ groupdisplayed
                         && $child->getLevel() > 0) {      // on ne traite pas le niveau 0 qui est gérable à la main dans le formulaire du widget
                     $groupdisplayed = $child->getParentLevel0()->getOption('groupdisplayed');  // on récupère le param groupdisplayed du menu de level 0 : le niveau qui est gérable dans le form du widget
 
@@ -550,7 +551,8 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
 
             // childs to render
             $i = 1;
-            foreach ($childToRenders as $childToRender) {
+            if (isset($childToRenders)){
+                foreach ($childToRenders as $childToRender) {
                 switch ($i) {
                     case 1:
                         $class = 'first';
@@ -564,6 +566,7 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                 }
                 $html.= $childToRender->renderChild($class, $menuType);
                 $i++;
+                }
             }
 
             $html.= '</ul>';
@@ -660,6 +663,8 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                 $classes[] = 'dm_root';
             }
         }
+
+        if ($this->getLabel() == '') $classes = array('divider-vertical');
 
         return '<li' . ($id ? ' id="' . $id . '"' : '') . (!empty($classes) ? ' class="' . implode(' ', $classes) . '"' : '') . '>';
     }
