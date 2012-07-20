@@ -133,22 +133,19 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		// ajout balises pour navbar
 		if($varMenuType == 'navbar' ){
 
+			// add responsive navbar HTML code
+			$responsiveHtmlBegin = '<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</a>
+			 
+			<a class="brand" href="/">'.$vars['menuName'].'</a>
+			 
+			<div class="nav-collapse">
+			';
 
-
-$responsiveHtmlBegin = '<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</a>
- 
-<!-- Be sure to leave the brand out there if you want it shown -->
-<a class="brand" href="#">'.$vars['menuName'].'</a>
- 
-<!-- Everything you want hidden at 940px or less, place within here -->
-<div class="nav-collapse">
-';
-
-$responsiveHtmlEnd = '</div>';
+			$responsiveHtmlEnd = '</div>';
 
 
 
