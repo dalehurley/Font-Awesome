@@ -99,9 +99,10 @@ all:
       aga_faq: questions/réponses
       aga_profession: professions
       cgp_ecofi: économie et finances
+      cgp_chiffres_cles: chiffres clés
       cgp_chiffres: chiffres
       cgp_social: social
-      cgp_chiffres_cles: chiffres clés 
+ 
 
   # nom des sessions pour le bloc articleBySectionContextuel
   article-data-type-article : Article
