@@ -22,16 +22,12 @@
 
 	<div class="dm_layout container-fluid">
 		<div class="row-fluid">	
-	    	<?php echo $helper->renderArea('layout.top', '#dm_header.span3') ?>
-			<?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.span9') ?>
-        </div>
+	    	<?php echo $helper->renderArea('layout.top', '#dm_header.span12') ?>
+      </div>
 		<div class="row-fluid">
 			<?php echo $helper->renderArea('layout.left','#dm_sidebar_left.span2') ?>
 			<?php echo $helper->renderArea('page.content','#dm_page_content.span6') ?>
 			<?php echo $helper->renderArea('layout.right','#dm_sidebar_right.span4') ?>
-		</div>
-		<div class="row-fluid">		
-			<?php echo $helper->renderArea('layout.customBottom', '#dm_custom_bottom.span12') ?>      
 		</div>
 		<div class="row-fluid">
 			<?php echo $helper->renderArea('layout.bottom', '#dm_footer.span12') ?>	
