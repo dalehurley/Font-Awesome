@@ -52,7 +52,14 @@ if (count($adresses)) {
 						'<span class="value" itemprop="faxNumber">'.$adresse->getFax().'</span>'.
 					'</span>';
 		}
-
+		$adresse2 = '';
+		if($adresse->getAdresse2() != NULL){
+						$adresse2 =	'<span class="itemprop streetAddress">'.
+										'<span class="type" title="Rue">Rue</span>'.
+										'<span class="separator">&nbsp;:&nbsp;</span>'.
+										'<span class="value" itemprop="streetAddress">'.$adresse->getAdresse2().'</span>'.
+									'</span>';
+						}
 
 		echo '	<li class="element itemscope Organization'.$position.'" itemscope="itemscope" itemtype="http://schema.org/Organization">'.
 					'<span class="itemprop name" itemprop="name">'.
@@ -64,6 +71,7 @@ if (count($adresses)) {
 							'<span class="separator">&nbsp;:&nbsp;</span>'.
 							'<span class="value" itemprop="streetAddress">'.$adresse->getAdresse().'</span>'.
 						'</span>'.
+						$adresse2.
 						'<span class="subWrapper">'.
 							'<span class="itemprop postalCode">'.
 								'<span class="type" title="Postal Code">Postal Code</span>'.
