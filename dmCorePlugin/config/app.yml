@@ -27,7 +27,7 @@ all:
       - 192.168.81.141    # Ip SIDPresse réseau local de Lionel
       - 192.168.81.132    # IP SIDPresse réseau local de l'iPad
       - 88.175.117.82     # Ip fixe Marie Laure Nauleau 
-      - 93.10.138.101     # Ip fluctuante d'Alicia
+      - 93.10.138.44      # Ip fluctuante d'Alicia
       - 217.128.36.230    # Ip fixe co-pilotes
     ips-message:                       # message display on admin.php if client's ip is not allowed (in list above)
       "91.194.100.239": "Afin de vous connecter merci de vous rendre dans votre <a href=\"http://abonnes.expert-infos.com\">espace abonné</a>."  # ip of server which run sites      
