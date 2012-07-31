@@ -210,6 +210,7 @@ class baseEditorialeTools {
     public static function loadArticlesJson($mode = 'total') {
         ini_set("memory_limit", self::memoryNeeded); // allocation de mémoire nécessaire pour init des articles (beaucoup d'insert)
         $return = array();
+        $listeArticlePourSuppression = '';
         $timeBegin = microtime(true);
         $i = 1;
         $return[$i]['MODE'] = $mode;
@@ -269,7 +270,15 @@ class baseEditorialeTools {
                                         
                                         foreach ($arrayArticlesBaseEditoriale as $article) { // on ne garde que les articles récents
                                             //$return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate->updatedAt;
-
+                                            
+                                            //**********************************************
+                                            //******************stef************************
+                                            //**********************************************
+                                            // ***** modif pour construire "tableau" des filenames des articles *****
+                                            $listeArticlePourSuppression .= "'".$article->filename."',";
+                                            //**********************************************
+                                            //******************stef************************
+                                            //**********************************************
                                             if ($article->updatedAt->$lang > $lastUpdatedDate) {
                                                 $arrayArticlesBaseEditorialeSorted[] = $article;
                                                 // $return[$i]['-------------------->'.$k] = $article->updatedAt .'>'. $lastUpdatedDate .' =>'.$article->filename;
@@ -286,7 +295,14 @@ class baseEditorialeTools {
                                         } else {
                                             $arrayArticlesBaseEditorialeChoice = $arrayArticlesBaseEditorialeSorted; // (incremental)
                                         }
-
+                                        $listFilename = substr($listeArticlePourSuppression,0,-1);
+                                        $q = Doctrine_Manager::getInstance()->getCurrentConnection();
+                                        $query = " UPDATE sid_article SET is_active = false
+                                                WHERE
+                                                filename not in (".$listFilename.")
+                                                and section_id= ".$sidSection->id;
+                                        $result = $q->execute($query);
+                                        
                                         $nbInsert = 0;
                                         $nbMaj = 0;
                                         $nbInchange = 0;
@@ -472,7 +488,6 @@ class baseEditorialeTools {
                                         $listId .= $article->id.',';
                                     }
                                     $listId = substr($listId,0,-1);
-      
                                     // purge des autres articles que les Y derniers articles
                                     $q = Doctrine_Manager::getInstance()->getCurrentConnection();
                                     $query = " DELETE FROM sid_article
@@ -1095,6 +1110,8 @@ class baseEditorialeTools {
                                         
                                     }
                                 }
+                                // suppression des articles qui n'existent plus
+                                
                                 // enregistrement des tags
                                 $article->removeAllTags();
                                 $article->setTags($tagsString)->save();
