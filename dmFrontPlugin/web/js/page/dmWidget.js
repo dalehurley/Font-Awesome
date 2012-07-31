@@ -27,9 +27,10 @@ $.widget('ui.dmWidget', {
       title:        $('a.dm_widget_edit', widget.element).tipsyTitle(),
       width:        '600', // this should be revised and if possible - made dependant on content's width
       height:       '500',
-//      overflow:     'scroll',
+      overflow:     'scroll',
       'class':      'dm_widget_edit_dialog_wrap '+dialogClass,
       resizable:    true,
+      draggable:    true,
       resize:       function(event, ui)
       {
         $dialog.maximizeContent('textarea.markItUpEditor');

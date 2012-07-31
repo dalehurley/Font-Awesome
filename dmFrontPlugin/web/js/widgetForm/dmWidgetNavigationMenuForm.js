@@ -31,7 +31,7 @@ $.fn.extend({
       .html('\
 <a class="item_text s16 s16_layer" title="'+metadata.click_message+'">'+item.text+'</a> \
 <ul class="item_form"> \
-<li class="clearfix"><label>'+metadata.text_message+':</label><input class="text" type="text" name="'+formName+'[text]['+itemIndex+']" /></li> \
+<li class="clearfix"><label>'+metadata.text_message+':</label><input class="text" type="text" name="'+formName+'[text]['+itemIndex+']" /><br/>'+metadata.text_help+'</li> \
 <li class="clearfix"><label>'+metadata.link_message+':</label><input class="link" type="text" name="'+formName+'[link]['+itemIndex+']" /></li> \
 <li class="clearfix"><label>'+metadata.groupdisplayed_message+':</label><input class="groupdisplayed" type="text" name="'+formName+'[groupdisplayed]['+itemIndex+']" /><br/>'+metadata.groupdisplayed_help+'</li> \
 <li class="clearfix" style="padding-top: 5px;"> \
@@ -41,7 +41,7 @@ $.fn.extend({
 <ul> \
 <li class="clearfix"><label>'+metadata.secure_message+':</label><input class="secure" type="checkbox" name="'+formName+'[secure]['+itemIndex+']" value="1" /></li> \
 <li class="clearfix"><label>'+metadata.nofollow_message+':</label><input class="nofollow" type="checkbox" name="'+formName+'[nofollow]['+itemIndex+']" value="1" /></li> \
-<li class="clearfix for_depth"><label>'+metadata.depth_message+':</label><select class="depth" name="'+formName+'[depth]['+itemIndex+']">'+self.getDepthOptions(item.depth)+'</select></li>\
+<li class="clearfix for_depth"><label>'+metadata.depth_message+':</label><select class="depth" name="'+formName+'[depth]['+itemIndex+']">'+self.getDepthOptions(item.depth)+'</select><br/>'+metadata.depth_help+'</li>\
 <li class="clearfix"><label>'+metadata.target_message+':</label><input class="target" type="text" name="'+formName+'[target]['+itemIndex+']" /></li> \
 </ul> \
 </div> \

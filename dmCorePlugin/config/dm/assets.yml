@@ -16,7 +16,7 @@ js:
     
   lib:
     symfony_debug:            symfony/debug
-    jquery:                   jquery/jquery-1.6.4.min
+    jquery:                   jquery/jquery-1.7.2.min
     mobile-core:              jquery-mobile/js/jquery.mobile-1.0.min
     ui-core:                  jquery-ui/js/minified/jquery.ui.core.min
     ui-widget:                jquery-ui/js/minified/jquery.ui.widget.min
@@ -31,6 +31,7 @@ js:
     ui-resizable:             jquery-ui/js/minified/jquery.ui.resizable.min
     ui-tabs:                  jquery-ui/js/minified/jquery.ui.tabs.min
     ui-dialog:                jquery-ui/js/minified/jquery.ui.dialog.min
+#    ui-dialog:                jquery-ui/js/source/jquery.ui.dialog    
     ui-accordion:             jquery-ui/js/minified/jquery.ui.accordion.min
     ui-slider:                jquery-ui/js/minified/jquery.ui.slider.min
     ui-i18n:                  jquery-ui/js/i18n/jquery.ui.datepicker-%culture%

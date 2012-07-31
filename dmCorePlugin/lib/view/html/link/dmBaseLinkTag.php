@@ -19,7 +19,7 @@ abstract class dmBaseLinkTag extends dmHtmlTag
   public function getDefaultOptions()
   {
     return array_merge(parent::getDefaultOptions(), array(
-      'current_class' => 'dm_current',
+      'current_class' => 'dm_current active',  // lioshi add active for grafic themes V2
       'parent_class'  => 'dm_parent',
       'current_span'  => false,
       'use_beaf'      => false,
@@ -93,6 +93,15 @@ abstract class dmBaseLinkTag extends dmHtmlTag
     }
 
     return $this->setOption('target', strtolower($v));
+  }
+
+  /**
+   * Set link data-toggle
+   * @return dmLinkTag $this
+   */
+  public function dataToggle($v)
+  {
+    return $this->setOption('data-toggle', strtolower($v));
   }
 
   /**

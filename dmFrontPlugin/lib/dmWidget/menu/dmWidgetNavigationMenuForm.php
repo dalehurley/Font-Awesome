@@ -29,7 +29,7 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
       'label' => 'Menu name'
     ));
     $this->validatorSchema['menuName']   = new sfValidatorString(array('required' => false));
-    $this->widgetSchema->setHelp('menuName', 'Used for id generation');
+    $this->widgetSchema->setHelp('menuName', 'Brand name');
     
     $this->widgetSchema['liClass']      = new sfWidgetFormInputText(array(
       'label' => 'LI CSS class'
@@ -37,13 +37,23 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
     $this->validatorSchema['liClass']   = new dmValidatorCssClasses(array('required' => false));
     
 
-    // ajout lionel: ajout du champ menuType pour le menu (ajout Arnaud : choix par défaut)
+    // champ menuType pour le menu 
     $typeChoice = array(
         'default'      => 'default',
         'dropdown'     => 'dropdown', 
         'megadropdown' => 'megadropdown', 
-        'accordion'    => 'accordion'
+        'accordion'    => 'accordion'        
     ); 
+
+    if (dmConfig::get('site_theme_version') == 'v2'){
+      $typeChoice = array(
+        'default'         => 'default',
+        'navbar'          => 'navbar',
+        'navbar-top'      => 'navbar-top', 
+        'navbar-bottom'   => 'navbar-bottom',
+        'navbar-vertical' => 'navbar-vertical'              
+      );
+    }
  
   	$this->widgetSchema['menuType'] = new sfWidgetFormChoice(array(
   		'choices' => $typeChoice,

@@ -131,7 +131,7 @@ EOF;
                     $this->log($dispoTemplateDump);
                 }
                 // on demande le nom du fichier choisi
-                $dumpNameAuto = dmConfig::get('site_name').'-'.dmConfig::get('site_theme').'-'.date("Y-m-d-H-i-s") ; // nom automatique dans le suffixe Theme
+                $dumpNameAuto = dmString::slugify(dmConfig::get('site_name').'-'.dmConfig::get('site_theme').'-'.date("Y-m-d-H-i-s")) ; // nom automatique dans le suffixe Theme
                 $dumpName = $this->ask(array(
                     '',
                     'Nom du dump a effectuer, sans extension .'.contentTemplateTools::dumpExtension.'? (par defaut: ' . $dumpNameAuto . ')',

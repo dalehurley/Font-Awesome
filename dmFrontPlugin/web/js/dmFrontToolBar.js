@@ -8,6 +8,8 @@ $.widget('ui.dmFrontToolBar', $.extend({}, $.dm.coreToolBar, {
     this.initToolBar();
     
     this.editToggle();
+
+    this.unfloatwidgetToggle();
     
     this.showToolBarToggle();
 
@@ -148,6 +150,47 @@ $.widget('ui.dmFrontToolBar', $.extend({}, $.dm.coreToolBar, {
     {
       $.ajax({
         url: $.dm.ctrl.getHref('+/dmFront/editToggle') + "?active=" + (activate ? 1 : 0)
+      });
+    }, 500);
+  },
+
+  unfloatwidgetToggle: function()
+  {
+    var self = this;
+
+    $('a.unfloatwidget', this.element).click(function()
+    {
+      self.activateUnfloatwidget(!$(this).hasClass('s24_unfloatwidget_on'));
+
+    });
+  },
+
+  activateUnfloatwidget: function(activate)
+  {
+    var self = this, $toggle = $('a.unfloatwidget', this.element);
+
+    if($toggle.hasClass('s24_unfloatwidget_on') == activate)
+    {
+      return;
+    }
+
+    if (activate)
+    {
+      $toggle.addClass('s24_unfloatwidget_on').removeClass('s24_unfloatwidget_off');
+      $('#dm_page').addClass('unfloatwidget');
+
+      setTimeout(function() { $('#dm_page .ui-sortable').sortable('refresh'); }, 200);
+    }
+    else
+    {
+      $toggle.addClass('s24_unfloatwidget_off').removeClass('s24_unfloatwidget_on');
+      $('#dm_page').removeClass('unfloatwidget');
+    }
+
+    setTimeout(function()
+    {
+      $.ajax({
+        url: $.dm.ctrl.getHref('+/dmFront/unfloatwidgetToggle') + "?active=" + (activate ? 1 : 0)
       });
     }, 500);
   },

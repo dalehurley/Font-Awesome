@@ -158,7 +158,7 @@ class dmAdminGeneratorActions extends dmAdminBaseActions
     }
 
     // add sync pages before move, to refresh dmPage
-    $this->getService('filesystem')->sf('dm:sync-pages');
+    //$this->getService('filesystem')->sf('dm:sync-pages');
 
     return $this->renderText('ok');
   }

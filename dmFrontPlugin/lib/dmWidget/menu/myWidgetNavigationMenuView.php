@@ -19,9 +19,8 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 	        if (is_file(sfConfig::get('sf_web_dir') . $cssLink1)) $stylesheets[] = $cssLink1;
 	        if (is_file(sfConfig::get('sf_web_dir') . $cssLink2)) $stylesheets[] = $cssLink2;
 		} else {
-	  		// no style in specific file for menu, style of menus import in import.less
+	  		// no style for menu, inherit BS and Theme
 		}
-
 		
 		return $stylesheets;
 	}
@@ -36,7 +35,14 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         if (dmConfig::get('site_theme_version') == 'v1'){
         	$jsLink = '/theme/less/_framework/SPLessCss/Externals/js/navigationMenu/' . $vars['menuType'] . '.js'; 
         } else { 
-        	$jsLink = '/theme/less/bootstrap/js/menus/' . $vars['menuType'] . '/menu.js'; 
+        	// all suffixed navbar menu type (navbar-top, navbar-bottom...etc) use the same js
+        	if (substr($vars['menuType'],0,6) == 'navbar'){
+        		$varMenuType = 'navbar';
+        	} else {
+        		$varMenuType = $vars['menuType'];
+        	}
+
+        	$jsLink = '/theme/less/bootstrap/js/menus/' . $varMenuType . '/menu.js'; 
         }
         //chargement du JS si existant
         if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) $javascripts[] = $jsLink;
@@ -55,18 +61,36 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         $vars['menu']->ulClass('menu-'.$vars['menuType']);
 		
 		//ajout des classes CSS de dossier
-        $vars['menu'] = $this->menuAddDir($vars['menu']);
+        $vars['menu'] = $this->menuAddClass($vars['menu'], $vars['menuType']);
+
+        // ajout menuName
+        $vars['menu']->menuName($vars['menuName']);
 		
 		return $vars;
 	}
 	
-	//Ajout automatique des classes de dossier
-    protected function menuAddDir($currentMenu) {
+	//Ajout automatique des classes en fonction du type de menu
+    protected function menuAddClass($currentMenu, $menuType) {
+    	
+    	if (substr($menuType,0,6) == 'navbar'){
+        		$menuType = 'navbar';
+        } 
+
+    	switch ($menuType) {
+    		case 'navbar':
+    			$classAdded = 'dropdown';
+    			break;
+    		
+    		default:
+    			$classAdded = 'dm_dir';
+    			break;
+    	}
+        
         foreach ($currentMenu as $key => $value) {
             //ajout de la classe css
-            if (count($value) > 0) $value->liClass('dm_dir');
+            if (count($value) > 0) $value->liClass($classAdded);
             //récursivité de la fonction
-            $this->menuAddDir($value);
+            $this->menuAddClass($value, $menuType);
         }
         //retour de la valeur de la fonction
         return $currentMenu;
@@ -85,6 +109,53 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		$helper = $this->getHelper();
 		//récupération des variables
 		$vars = $this->getViewVars();
+
+
+		// navbars
+        if (substr($vars['menuType'],0,6) == 'navbar'){
+        	$varMenuType = 'navbar';
+        } else {
+        	$varMenuType = $vars['menuType'];
+        }
+        switch ($vars['menuType']) {
+        	case 'navbar-top':
+        		$addedNavbarClass = '.navbar-fixed-top';
+        		break;
+        	case 'navbar-bottom':
+        		$addedNavbarClass = '.navbar-fixed-bottom';
+        		break;        		
+        	
+        	default:
+        		$addedNavbarClass = '';
+        		break;
+        }
+
+		// ajout balises pour navbar
+		if($varMenuType == 'navbar' ){
+
+			// add responsive navbar HTML code
+			$responsiveHtmlBegin = '<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</a>
+			 
+			<a class="brand" href="/">'.$vars['menuName'].'</a>
+			 
+			<div class="nav-collapse">
+			';
+
+			$responsiveHtmlEnd = '</div>';
+
+
+
+			$html = $helper->tag('div.navbar'.$addedNavbarClass, 
+						$helper->tag('div.navbar-inner',  
+							$helper->tag('div.container', $responsiveHtmlBegin.$html.$responsiveHtmlEnd
+								)
+							)
+					);
+		}
 		
 		//génération des paramètres du menu en fonction de son type (à voir pour intégration propre avec chaque type de menu, cf dmWidgetContentNivoGallery pour méthode)
 		$menuParam = array();

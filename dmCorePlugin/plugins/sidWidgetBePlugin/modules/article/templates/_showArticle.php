@@ -79,7 +79,7 @@ if (!is_file($xml)) {
                                         // Suppression de la date de création de l'article pour les pages AGENDA
                                         if(strtoupper(sfConfig::get('app_article-data-type-agenda')) != ($doc_xml->getElementsByTagName('DataType')->item(0)->nodeValue)){
 					echo '<span class="date">'.__('published on').' ';
-						echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'D').'</time>';
+						echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->updated_at.'">'.format_date($article->updated_at, 'D').'</time>';
 					echo '</span>';
                                         };
 				echo '</header>';
@@ -91,13 +91,13 @@ if (!is_file($xml)) {
 				echo '<footer class="contentFooter">';
 					echo '<span class="meta">';
 						echo '<span class="date">'.__('Article published on').' ';
-							echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->created_at.'">'.format_date($article->created_at, 'd').'</time>';
+							echo '<time itemprop="datePublished" class="datePublished" pubdate="pubdate" datetime="'.$article->updated_at.'">'.format_date($article->updated_at, 'd').'</time>';
 						echo '</span>';
 						echo '<span class="dash">&nbsp;-&nbsp;</span>';
 						echo '<span class="copyright">&copy;&nbsp;';
 							echo '<span itemprop="copyrightHolder" class="itemprop copyrightHolder">'.sfConfig::get('app_copyright-holder').'</span>';
 							echo '<span class="dash">&nbsp;-&nbsp;</span>';
-							echo '<span itemprop="copyrightYear" class="itemprop copyrightYear">'.substr(format_date($article->created_at, 'y '), 0, 4).'</span>';
+							echo '<span itemprop="copyrightYear" class="itemprop copyrightYear">'.substr(format_date($article->updated_at, 'y '), 0, 4).'</span>';
 						echo '</span>';
 					echo '</span>';
 				echo '</footer>';

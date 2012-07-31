@@ -146,30 +146,31 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                     }
                 
                 break;
-//            case 'mission/show':
-//                // on cherche la rubrique de l'article
-//                $rubriques = dmDb::table('SidCabinetMissionSidRubrique')->findBySidCabinetMissionId($dmPage->record_id);
-//                // on parcourt les sections pour extraire les articles
-//                foreach ($rubriques as $rubrique) {
-//                    $rubriqueEquipes = dmDb::table('SidCabinetEquipe')
-//                            ->createQuery('p')
-//                            ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
-//                            ->leftJoin('sas.SidRubrique s')
-//                            ->where('s.id = ? and p.is_active = ?', array($rubrique->sidRubriqueId,true))
-//                            ->execute();
-//                }
-//                    if (count($rubriques) == 0) {
-//                        
-//                        $actuEquipes = '';
-//                        $actuEquipes = dmDb::table('SidCabinetEquipe')
-//                                ->createQuery('p')
-//                                ->where('p.is_active = ? ', array(true))
-//                                ->orderBy('RANDOM()')
-//                                ->limit($vars['nbArticles'])
-//                                ->execute();
-//                    }
-//                
-//                break;
+            case 'mission/show':
+               // on cherche la rubrique de l'article
+               $rubriques = dmDb::table('SidCabinetMissionSidRubrique')->findBySidCabinetMissionId($dmPage->record_id);
+               if (count($rubriques) == 0) {
+                       $actuEquipes = '';
+                       $actuEquipes = dmDb::table('SidCabinetEquipe')
+                               ->createQuery('p')
+                               ->where('p.is_active = ? ', array(true))
+                               ->orderBy('RANDOM()')
+                               ->limit($nbArticles)
+                               ->execute();
+                } else {
+                    // on parcourt les sections pour extraire les articles
+                    foreach ($rubriques as $rubrique) {
+                        $equipes = dmDb::table('SidCabinetEquipe')
+                               ->createQuery('p')
+                               ->leftJoin('p.SidCabinetEquipeSidRubrique sas')
+                               ->leftJoin('sas.SidRubrique s')
+                               ->where('s.id = ? and p.is_active = ?', array($rubrique->sidRubriqueId,true))
+                               ->limit($nbArticles)
+                               ->execute();
+                    }
+                }
+               
+               break;
             case 'pageCabinet/list':
                 $equipes = dmDb::table('SidCabinetEquipe')
                         ->createQuery('p')

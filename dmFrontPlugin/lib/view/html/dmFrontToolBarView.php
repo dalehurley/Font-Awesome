@@ -13,6 +13,7 @@ class dmFrontToolBarView extends dmToolBarView
     $this->renderPageAdd().
     $this->renderPageEdit().
     $this->renderShowPageStructure().
+    $this->renderUnfloatWidget().
     $this->renderWidgetAdd().
     $this->renderGoToAdmin().
     $this->renderUserLinks().
@@ -102,6 +103,16 @@ class dmFrontToolBarView extends dmToolBarView
       return $this->helper->tag('a.tipable.edit_toggle.widget24.s24block.s24_view_off', array('title' => $this->i18n->__('Show page structure')), '');
     }
   }
+
+  protected function renderUnfloatWidget()
+  {
+    if ($this->user->can('zone_add, widget_add'))
+    {
+      //return $this->helper->tag('a.tipable.edit_toggle.widget24.s24block.s24_view_'.($this->user->getIsEditMode() ? 'on' : 'off'), array('title' => $this->i18n->__('Show page structure')), '');
+      // lioshi: at the refresh of page the edit toggle button must be off
+      return $this->helper->tag('a.tipable.unfloatwidget.widget24.s24block.s24_unfloatwidget_off', array('title' => $this->i18n->__('Unfloat all widgets')), '');
+    }
+  }  
 
   protected function renderWidgetAdd()
   {

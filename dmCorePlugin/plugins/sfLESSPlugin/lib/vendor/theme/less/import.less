@@ -64,17 +64,27 @@
 @import "bootstrap/less/carousel.less";
 @import "bootstrap/less/hero-unit.less";
 
-// Menu dropdown
-@import "bootstrap/less/menus/dropdown/menu.less"; 
 
-// Menu megadropdown
-@import "bootstrap/less/menus/megadropdown/menu.less"; 
+// RESPONSIVE CLASSES - ALL
+// ------------------------
 
-// Menu accordion
-@import "bootstrap/less/menus/accordion/menu.less"; 
+@import "bootstrap/less/responsive-all.less";
+
+
+// MENUS
+// ------------------
 
 // Menu default
 @import "bootstrap/less/menus/default/menu.less"; 
+
+// Menu default
+@import "bootstrap/less/menus/navbar/menu.less"; 
+
+// Menu default
+@import "bootstrap/less/menus/navbar-mega/menu.less"; 
+
+// WIDGETS
+// ------------------
 
 // Various widgets style
 @import "bootstrap/less/widgets/various.less"; 
@@ -82,35 +92,9 @@
 // Utility classes
 @import "bootstrap/less/utilities.less"; // Has to be last to override when necessary
 
+
+// THEME ##THEME##
+// ------------------
+
 // the theme ##THEME## less file
-@import "_themes/##THEME##/theme.less";
-
-// 
-// No more use. Generate /theme/css/config/style.css with usefull less variables
-// 
-// 
-// // debug style : style added to put infos on web debug 
-// // must be here to catch LESS variables which can be overriden on core, theme or site
-// // See : sfWebDebugPanelLESS.class.php
-// dd.less_debug_grid-columns:after { content: "@{gridColumns}"; }
-// dd.less_debug_grid-column-width:after { content: "@{gridColumnWidth}"; }
-// dd.less_debug_grid-gutter-width:after { content: "@{gridGutterWidth}"; }
-// dd.less_debug_grid-row-width:after { content: "@{gridRowWidth}"; }
-// dd.less_debug_fluid-grid-column-width:after { content: "@{fluidGridColumnWidth}"; }
-// dd.less_debug_fluid-grid-gutter-width:after { content: "@{fluidGridGutterWidth}"; }
-
-// dd.less_debug_base-font-size:after { content: "@{baseFontSize}"; }
-// //dd.less_debug_base-font-family:after { content: '@{baseFontFamily}'; }
-// dd.less_debug_base-line-height:after { content: "@{baseLineHeight}"; }
-
-// dd.less_debug_link-color span.swatch { background-color: @linkColor; } 
-// dd.less_debug_link-color:after { content: "@{linkColor}";  }
-
-// dd.less_debug_link-color-hover span.swatch { background-color: @linkColorHover; } 
-// dd.less_debug_link-color-hover:after { content: "@{linkColorHover}";  }
-
-// dd.less_debug_text-color span.swatch { background-color: @textColor; } 
-// dd.less_debug_text-color:after { content: "@{textColor}";  }
-
-
-
+@import "_themes/##THEME##/theme.less";  // to overide all

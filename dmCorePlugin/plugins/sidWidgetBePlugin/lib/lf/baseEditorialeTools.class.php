@@ -177,27 +177,31 @@ class baseEditorialeTools {
         // VERIFICATION SI LE NOM DE LA RUBRIQUE EXISTE EN BASE
         $bdRubriques = Doctrine_Core::getTable('SidRubrique')->findByIsActive(true);
         
-        foreach ($bdRubriques as $key => $bdRubrique) {
-            // POUR INTERROGER le rep local de la base editoriale : sections de la rubrique en cours
-            $localSectionsJson = transfertTools::scandirServeur(sfConfig::get('app_rep-local-json') . '/' . $bdRubrique->getTitle());
-            
-            foreach ($localSectionsJson as $k => $localSection) {
-                // Formatage de la section
-                if (substr($localSection, -5) == '.json') {
-                    $localSection = substr($localSection, 0, -5);
-                    // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
-                    $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($localSection, $bdRubrique->id);
-                    if ($bdSection->isNew()) { // création de la section en base
-                        $bdSection->Translation[$arrayLangs[0]]->title = $localSection; // On insère dans la langue par défaut
-                        //$bdSection->Translation[$arrayLangs[0]]->created_at = date('Y-m-d h:m:s');
-                        //$bdSection->Translation[$arrayLangs[0]]->updated_at = date('Y-m-d h:m:s');
-                        $bdSection->rubrique_id = $bdRubrique->id;
-                        $bdSection->save();
-                        $return[$i]['SECTION+'] = $bdRubrique->getTitle() . '/' . $localSection;
-                    } else {
-                        $return[$i]['Section existe dejà en base'] = $bdRubrique->getTitle() . '/' . $localSection;
+        if (!is_dir(sfConfig::get('app_rep-local-json'))){
+            $return[$i]['ERROR'] = 'Le dossier '.sfConfig::get('app_rep-local-json').' est introuvable.';
+        } else {
+            foreach ($bdRubriques as $key => $bdRubrique) {
+                // POUR INTERROGER le rep local de la base editoriale : sections de la rubrique en cours
+                $localSectionsJson = transfertTools::scandirServeur(sfConfig::get('app_rep-local-json') . '/' . $bdRubrique->getTitle());
+                
+                foreach ($localSectionsJson as $k => $localSection) {
+                    // Formatage de la section
+                    if (substr($localSection, -5) == '.json') {
+                        $localSection = substr($localSection, 0, -5);
+                        // VERIFICATION SI LE NOM DE LA Section EXISTE EN BASE
+                        $bdSection = Doctrine_Core::getTable('SidSection')->findOneByTitleAndRubriqueId($localSection, $bdRubrique->id);
+                        if ($bdSection->isNew()) { // création de la section en base
+                            $bdSection->Translation[$arrayLangs[0]]->title = $localSection; // On insère dans la langue par défaut
+                            //$bdSection->Translation[$arrayLangs[0]]->created_at = date('Y-m-d h:m:s');
+                            //$bdSection->Translation[$arrayLangs[0]]->updated_at = date('Y-m-d h:m:s');
+                            $bdSection->rubrique_id = $bdRubrique->id;
+                            $bdSection->save();
+                            $return[$i]['SECTION+'] = $bdRubrique->getTitle() . '/' . $localSection;
+                        } else {
+                            $return[$i]['Section existe dejà en base'] = $bdRubrique->getTitle() . '/' . $localSection;
+                        }
+                        $i++;
                     }
-                    $i++;
                 }
             }
         }
@@ -219,13 +223,17 @@ class baseEditorialeTools {
         if (count($rubriques) == 0) {
             $return[$i]['ERROR'] = 'Aucune rubrique. Veuillez lancer la commande "php symfony loadArticles rubriques verbose"';
         }
+
+        // repertoire loacl des json
+        $repBaseEditoriale = sfConfig::get('app_rep-local-json');        
+
         if (sfConfig::get('app_rep-local-json') == '') {
             $return[$i]['ERROR'] = 'Merci de spécifier la variable app_rep-local-json dans le app.yml.';
+        } elseif (!is_dir($repBaseEditoriale)){
+            $return[$i]['ERROR'] = 'Le dossier '.$repBaseEditoriale.' est introuvable.';
         } else {
             // les languages
             $arrayLangs = sfConfig::get('dm_i18n_cultures');
-            // repertoire loacl des json
-            $repBaseEditoriale = sfConfig::get('app_rep-local-json');
 
             foreach ($arrayLangs as $lang) {
                 // boucle sur les rubriques

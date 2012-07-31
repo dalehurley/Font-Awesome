@@ -70,6 +70,11 @@ class dmFrontUser extends dmCoreUser
   {
     return $this->setAttribute('dm_front_edit', $value);
   }
+
+  public function setIsUnfloatwidgetMode($value)
+  {
+    return $this->setAttribute('dm_front_edit', $value);
+  }  
   
   public function getShowToolBar()
   {

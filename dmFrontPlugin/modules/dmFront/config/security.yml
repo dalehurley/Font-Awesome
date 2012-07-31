@@ -5,3 +5,7 @@ editToggle:
 showToolBarToggle:
   is_secure:        true
   credentials:      [tool_bar_front]
+
+unfloatwidgetToggle:
+  is_secure:        true
+  credentials:      [tool_bar_front]  

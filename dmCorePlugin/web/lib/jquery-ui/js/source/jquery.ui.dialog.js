@@ -429,9 +429,10 @@ $.widget("ui.dialog", {
 			handle: '.ui-dialog-titlebar',
 			containment: 'document',
 			start: function(event, ui) {
-				heightBeforeDrag = options.height === "auto" ? "auto" : $(this).height();
-				$(this).height($(this).height()).addClass("ui-dialog-dragging");
-				self._trigger('dragStart', event, filteredUi(ui));
+				// lioshi : modif pour drag avec jquery 1.7.2 : voir minified/dialog.min.js associé ligne 30
+				// heightBeforeDrag = options.height === "auto" ? "auto" : $(this).height();
+				// $(this).height($(this).height()).addClass("ui-dialog-dragging");
+				// self._trigger('dragStart', event, filteredUi(ui));
 			},
 			drag: function(event, ui) {
 				self._trigger('drag', event, filteredUi(ui));

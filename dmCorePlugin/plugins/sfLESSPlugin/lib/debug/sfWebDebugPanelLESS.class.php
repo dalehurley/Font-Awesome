@@ -51,7 +51,11 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
    */
   public function getTitle()
   {
-    return '<img src="/sfLESSPlugin/images/css_go.png" alt="LESS helper" height="16px"/> ';
+    if (dmConfig::get('site_theme_version') == 'v2'){
+      return '<img src="/sfLESSPlugin/images/css_go.png" alt="LESS helper" height="16px"/> ';
+    } else {
+      return '';
+    }  
   }
 
   /**
@@ -100,60 +104,27 @@ if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2
         // récupération du Layout de la page en cours
         $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
 
-        // recuperation des variables du fichier /theme/css/config/style.css
-        // le config/style.less doit générer un fichier css ainsi formaté:
-        // 
-        //    less_config {
-        //      grid_columns: 12;
-        //      grid_column_width: 60px;
-        //      grid_gutter_width: 20px;
-        //      grid_row_width: 940px;
-        //    }
-        // 
-        // 
-        $file=sfConfig::get('sf_web_dir').'/theme/css/config/style.css';; 
-        $tabfile=file($file); 
-        $varsJson = array();
-        for( $i = 1 ; $i < count($tabfile) ; $i++ )
-        {
-          $prefixeTabJson = 'content: "';
-          $pos = strpos($tabfile[$i],$prefixeTabJson);
-          if ( $pos === false){
-            // continue
-          } else {
-            $lenghtJson = strrpos($tabfile[$i],'"') - strlen($prefixeTabJson) - $pos;
-            $varsJson = substr($tabfile[$i], $pos+strlen($prefixeTabJson), $lenghtJson);
-            $varsJson = str_replace('|', '"', $varsJson);
-            $varsJson = json_decode($varsJson, true);
-            break;
-          }
+        //  array of info
+        $tabInfos['&nbsp;  ']              = '&nbsp;';   
+        $tabInfos['SETTINGS']              = '&nbsp;'; 
+        $tabInfos['------------------------------------------'] = '&nbsp;';         
+        // all settings 
+        $allSettings = dmConfig::getAll();
+        foreach ($allSettings as $key => $value) {
+          $tabInfos[$key] = $value.'&nbsp;';
         }
 
-        //  array of info
-        $tabInfos['&nbsp;  ']               = '&nbsp;';   
-        $tabInfos['SITE CONFIGURATION']    = '&nbsp;';        
-        $tabInfos['Site theme']         = dmConfig::get('site_theme');
-        $tabInfos['Site theme version'] = dmConfig::get('site_theme_version');
-        $tabInfos['Current page']       = $pageCurrent;
-        $tabInfos['Layout']             = $layoutPage;
-        $tabInfos['Page recordId']      = ($recordId==0)?'No auto page' : $recordId;
-        $tabInfos['Directory of Site']  = $directorySite = substr(dirname(getcwd()),  strrpos(dirname(getcwd()), '/')+1);
-
-        // foreach ($varsJson as $key => $value) {
-        //   $tabInfos[$key] = $value;
-        // }
-        $tabInfos['&nbsp;']               = '&nbsp;'; 
-        $tabInfos['GRID CONFIGURATION']    = '&nbsp;';
-        $tabInfos['@gridColumns']          = $varsJson['@gridColumns'];
-        $tabInfos['@gridColumnWidth (px)']      = $varsJson['@gridColumnWidth'];
-        $tabInfos['@gridGutterWidth (px)']      = $varsJson['@gridGutterWidth'];  
-        $tabInfos['@gridRowWidth (px)']         = $varsJson['@gridRowWidth'];  
-        $tabInfos['@fluidGridColumnWidth (%)'] = $varsJson['@fluidGridColumnWidth'];
-        $tabInfos['@fluidGridGutterWidth (%)'] = $varsJson['@fluidGridGutterWidth'];  
+        $tabInfos['&nbsp;   ']         = '&nbsp;';   
+        $tabInfos['INFORMATIONS']      = '&nbsp;'; 
+        $tabInfos['------------------------------------------&nbsp;'] = '&nbsp;';        
+        $tabInfos['Current page']      = $pageCurrent;
+        $tabInfos['Layout']            = $layoutPage;
+        $tabInfos['Page recordId']     = ($recordId==0)?'No auto page' : $recordId;
+        $tabInfos['Directory of Site'] = $directorySite = substr(dirname(getcwd()),  strrpos(dirname(getcwd()), '/')+1);
 
         $panel .= '<dl style="" id="less_debug_infos">';
         foreach ($tabInfos as $lib => $value) {
-          $panel .= '<dt style="float:left; width: 200px"><strong>'.$lib.'</strong></dt><dd class="less_debug_'.dmString::slugify($lib).'">'.$value.'</dd>';
+          $panel .= '<dt style="float:left; width: 200px"><strong>'.$lib.'</strong></dt><dd>'.$value.'</dd>';
         }
         $panel .= '</dl>';
         // ajout de less-grid-4.js display
