@@ -4,23 +4,26 @@ class pagesDuCabinetIntroPageCabinetForm extends dmWidgetPluginForm {
 
 
     protected static $dmPageList = array();
+    protected static $dmPagePosition = array();
     public function configure() {
 
         parent::configure();
         
-//        $pageCabinets = dmDb::table('SidCabinetPageCabinet') //->findAllBySectionId($vars['section']);
-//                ->createQuery('p')
-//                ->where('p.is_active = ?',true)
-//                ->orderBy('position')
-//                ->execute();
-//        
-//       foreach($pageCabinets as $pageCabinet){
-//           self::$dmPageList[$pageCabinet->id] = $pageCabinet->getTitle();
-//           
-//       }
-//        
-//        $this->widgetSchema['page'] = new sfWidgetFormChoice(array('choices' => self::$dmPageList)); 
-//        $this->validatorSchema['page'] = new sfValidatorChoice(array('choices' => array_keys(self::$dmPageList)));
+        $pageCabinets = dmDb::table('SidCabinetPageCabinet') //->findAllBySectionId($vars['section']);
+                ->createQuery('p')
+                ->where('p.is_active = ?',true)
+                ->orderBy('position ASC')
+                ->execute();
+        
+       foreach($pageCabinets as $pageCabinet){
+           self::$dmPageList[$pageCabinet->id] = $pageCabinet->getTitle();
+           self::$dmPagePosition[$pageCabinet->position] = $pageCabinet->getTitle();
+       }
+       ksort(self::$dmPagePosition);
+       reset(self::$dmPagePosition);
+        
+        $this->widgetSchema['page'] = new sfWidgetFormChoice(array('choices' => self::$dmPageList,'default' => current(self::$dmPagePosition))); 
+        $this->validatorSchema['page'] = new sfValidatorChoice(array('required' => false,'choices' => array_keys(self::$dmPageList)));
 
         $this->widgetSchema['lien']->setDefault('Vers la page du cabinet');
         

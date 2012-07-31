@@ -6,7 +6,7 @@ class pagesDuCabinetIntroPageCabinetView extends dmWidgetPluginView {
         parent::configure();
 
         $this->addRequiredVar(array(
-//            'page',
+            'page',
             'length',	
             'titreBloc',
             'lien',
@@ -26,8 +26,17 @@ class pagesDuCabinetIntroPageCabinetView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
         $arrayArticle = array();
-
-        $pageCabinets = dmDb::table('SidCabinetPageCabinet')->createQuery()->orderBy('position ASC')->limit(1)->execute();
+        $arrayPage = array();
+        $pageExistCabinets = dmDb::table('SidCabinetPageCabinet')->findByIsActive(true);
+        foreach($pageExistCabinets as $pageCabinet){
+            $arrayPage[$pageCabinet->id]=$pageCabinet->id;
+        }
+        if(!isset($vars['page']) || !in_array($vars['page'],$arrayPage)){
+        $pageCabinets = dmDb::table('SidCabinetPageCabinet')->createQuery()->where('is_active = ?',true)->orderBy('position ASC')->limit(1)->execute();
+        }
+        else{
+            $pageCabinets = dmDb::table('SidCabinetPageCabinet')->createQuery()->where('is_active = ? AND id = ?',array(true, $vars['page']))->execute();
+        }
 //        $pageCabinets = dmDb::table('SidCabinetPageCabinet')->createQuery('a')->where('a.id = ? and a.is_active = ?',array($vars['page'],true))->execute();
         //echo count($pageCabinets);
 //        ($vars['withImage'] == true) ? (($pageCabinet->getImage()->checkFileExists() == true) ? $image = $pageCabinet->getImage() : $image = ''): $image = '';
