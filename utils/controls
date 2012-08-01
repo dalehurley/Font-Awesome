@@ -121,7 +121,7 @@ switch ($argCommande) {
 		break;		
 
 	case 'loadArticles':
-		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony be:loadArticles sections;".$dirPhpCommand."php symfony be:loadArticles articles;";
+		$commande = "cd ".$dirContentSite."/##DIRSITE##;".$dirPhpCommand."php symfony be:loadArticles sections;".$dirPhpCommand."php symfony be:loadArticles articles total;";
 		commandForAllSites($commande);
 		break;
 
