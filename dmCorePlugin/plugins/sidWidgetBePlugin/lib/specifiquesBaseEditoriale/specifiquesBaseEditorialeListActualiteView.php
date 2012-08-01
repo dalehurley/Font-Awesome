@@ -31,6 +31,7 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
             case 'article/show':
                 $orderBy ='';
                 $andWhere ='';
+                $andWhereDossier = '';
 
                 $ancestors = $dmPage->getNode()->getAncestors();
                 $recordId = $ancestors[count($ancestors) - 1]->getRecordId();
@@ -40,10 +41,13 @@ class specifiquesBaseEditorialeListActualiteView extends dmWidgetPluginView {
                 }
                 else $orderBy = 'aTranslation.updated_at DESC';
                 
+                if($this->context->getPage()->getRecord()->getIsDossier() == true ){
+                    $andWhereDossier = ' and a.is_dossier = true';
+                }
                 $actuArticles = Doctrine_Query::create()
                         ->from('SidArticle a')
                         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
-                        ->where('a.is_active = ? and  a.id <> ? and a.section_id = ? '.$andWhere, array(true, $dmPage->record_id,$recordId))
+                        ->where('a.is_active = ? and  a.id <> ? and a.section_id = ? '.$andWhere.$andWhereDossier, array(true, $dmPage->record_id,$recordId))
                         ->orderBy($orderBy)
                         ->limit($nbArticles)
                         ->execute();
