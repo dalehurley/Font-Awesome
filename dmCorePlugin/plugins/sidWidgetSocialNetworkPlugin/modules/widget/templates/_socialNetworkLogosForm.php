@@ -7,5 +7,6 @@ $form->renderGlobalErrors(),
 		 $form['linkedin']->renderRow().
 		 $form['twitter']->renderRow().
 		 $form['viadeo']->renderRow().
-		 $form['vimeo']->renderRow()
+		 $form['vimeo']->renderRow().
+		 $form['cssClass']->renderRow()
 );
