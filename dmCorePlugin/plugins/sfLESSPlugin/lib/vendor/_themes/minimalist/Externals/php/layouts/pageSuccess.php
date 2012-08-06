@@ -22,8 +22,10 @@
 
 	<div class="dm_layout container">
 		<div class="row">	
-	      	<?php echo $helper->renderArea('layout.top', '#dm_header.span3') ?>
-			<?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.span9') ?>
+	      	<?php echo $helper->renderArea('layout.top', '#dm_header.span12') ?>
+        </div>
+		<div class="row">
+			<?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.span12') ?>
         </div>
 		<div class="row">
 			<?php echo $helper->renderArea('layout.left','#dm_sidebar_left.span2') ?>
