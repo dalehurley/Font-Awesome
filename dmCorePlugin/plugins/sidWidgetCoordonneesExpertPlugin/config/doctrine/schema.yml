@@ -17,7 +17,7 @@ SidCoordName:
       type: string(255)
       notnull: false
     code_postal:
-      type: integer(5)
+      type: string(5)
       notnull: true
     ville:
       type: string(255)
