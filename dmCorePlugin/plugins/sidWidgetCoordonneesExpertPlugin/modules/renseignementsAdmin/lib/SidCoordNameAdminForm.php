@@ -15,7 +15,7 @@ class SidCoordNameAdminForm extends BaseSidCoordNameForm {
             'adresse_google'=> 'A remplir si la carte Google n\'affiche pas la bonne adresse',
             'file_form' => 'Vous pouvez insérer un fichier des formats suivants : .pdf, doc, .docx, .xls, .xlsx, .odt, .ods, .zip.',
             'title_file' => 'Nouveau nom de votre fichier',));
-        //$this->validatorSchema['code_postal'] = new sfValidatorRegex(array('pattern'=>'#^[0-9]{4,5}$#'),array('invalid'=>'The zip code must have min 5 numbers'))
+        $this->validatorSchema['code_postal'] = new sfValidatorRegex(array('pattern'=>'#^[0-9]{5}$#'),array('invalid'=>'The zip code must have min 5 numbers'))
 ;    }
 
     protected function createMediaFormForImage() {
