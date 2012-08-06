@@ -15,13 +15,16 @@ class articleComponents extends myFrontModuleComponents
     // si une section contient au moins un dossier alors on ne va cherhcer dans la query que les dossiers de cette section
     // récupération des données pour filtrage des dossiers
     $section_id = $this->getPage()->getRecordId();
-    $articleDossier = dmDb::table('SidArticle')->findByIsDossierAndSectionId(true,$section_id);
+    $articleDossier = dmDb::table('SidArticle')->findByIsDossierAndSectionIdAndIsActive(true,$section_id,true);
     if(count($articleDossier)>0){
         $query->addWhere('is_dossier = true');
     }
 
     if($this->getPage()->getRecord()->getRubrique()->getTitle() == 'ec_echeancier'){
         $query->orderBy('aTranslation.created_at ASC');
+    }
+    else{
+        $query->orderBy('aTranslation.updated_at DESC');
     };
     
     // construction du header pour envoyer DIRECTEMENT sur la page si il n'y a q'un article

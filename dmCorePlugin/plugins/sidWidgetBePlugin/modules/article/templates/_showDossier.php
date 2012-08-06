@@ -67,7 +67,9 @@ if (!is_file($xml)) {
 		foreach ($sections as $section) {
 			$AssociatedWiths = $section->getElementsByTagName("AssociatedWith");
 			foreach ($AssociatedWiths as $AssociatedWith) {
-				if(isset($AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue)) $linkedArticles[] = $AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue;
+				if(isset($AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue)) {
+                                    $linkedArticles[] = $AssociatedWith->getElementsByTagName("Reference")->item(0)->nodeValue;
+                                }
 			}
 		}
 		
@@ -94,7 +96,6 @@ if (!is_file($xml)) {
 				
 				//récupérarion du nom de fichier de l'article en question directement dans la base
 				$linkedSidArticle = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($linkedArticle, $article->sectionId);
-
 				if (is_object($linkedSidArticle) && $linkedSidArticle->id !=''){			
 					//remplissage du tableau de navigation
 					$elements[] = array('title' => $linkedSidArticle->title, 'anchor' => dmString::slugify($linkedSidArticle.'-'.$linkedSidArticle->id));
@@ -108,7 +109,6 @@ if (!is_file($xml)) {
 		}
 		// si pas d'article fils présent alors on vide $articleBody
 		if ($nbArticleOk==0) $articleBody = '';
-		
 		//insertion du contenu
 		// $articleBody : le texte de l'article père + les articles fils à la suite
 		// $elements    : la liste des articles fils avec un lien anchor sur la page

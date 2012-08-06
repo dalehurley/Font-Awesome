@@ -9,7 +9,7 @@ $form->renderGlobalErrors(),
 
 _tag('div',
  
-//    $form['page']->renderRow().
+    $form['page']->renderRow().
     $form['length']->renderRow().
     $form['titreBloc']->renderRow().
     $form['lien']->renderRow().

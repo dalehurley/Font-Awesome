@@ -37,12 +37,16 @@ if (count($adresses)) {
         if($i >= $i_max)    $ctnOpts['class'][] = 'last';
 
         echo _open('section', $ctnOpts);
-            
-            $adresseCabinet = $adresse->getAdresse();
-            if($adresse->getAdresse2() != NULL) {
-                $adresseCabinet .='-'.$adresse->getAdresse2();
+            if($adresse->getAdresseGoogle() != NULL){
+                $adresseCabinet = $adresse->getAdresseGoogle();
+            }
+            else {
+                $adresseCabinet = $adresse->getAdresse();
+                if($adresse->getAdresse2() != NULL) {
+                    $adresseCabinet .='-'.$adresse->getAdresse2();
+                };
+                $adresseCabinet .= '-'.$adresse->getCodePostal().' '.$adresse->getVille();
             };
-            $adresseCabinet .= '-'.$adresse->getCodePostal().' '.$adresse->getVille();
 
             //en attendant configuration dans les sites: on définit la largeur en fonction des templates
             //switch beaucoup plus rapide qu'un if/else

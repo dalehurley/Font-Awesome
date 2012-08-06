@@ -2,7 +2,7 @@
 
 if (!$error){   // if 1 its only the submit button
 
-    if($titreBloc == ''){
+    if(!isset($titreBloc) && $titreBloc == ''){
         $titreBloc = __('ContactUs');
     }
     echo _tag('h2.title',$titreBloc);

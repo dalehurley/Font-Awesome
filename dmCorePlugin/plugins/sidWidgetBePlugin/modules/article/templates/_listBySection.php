@@ -36,7 +36,7 @@ foreach ($articlePager as $article) {
 	       	else $position = '';
 	       	break;
 	}
-        if ($article->is_dossier == true) {
+        if ($article->is_dossier == true && $article->is_active == true) {
 //création du parser XML
                 //ciblage XML 
                 $xml = sfConfig::get('app_rep-local') .
@@ -86,7 +86,7 @@ foreach ($articlePager as $article) {
                             $imageExist = false;
                     }
                 }
-                if ($imageExist) {
+                if (isset($imageExist) && $imageExist == true) {
                     $imageLink = $imageLink;
                 }
             }
@@ -96,7 +96,7 @@ else{
 }
 	$imageHtml = '';
         //on supprime les photos après les 3 premiers articles
-	if (is_file(sfConfig::get('sf_web_dir').$imageLink) && $i < 4 ){  // les 3 premiers articles ont une image
+	if (isset($imageLink) && is_file(sfConfig::get('sf_web_dir').$imageLink) && $i < 4 ){  // les 3 premiers articles ont une image
 		$imageHtml = 	
 			'<span class="imageWrapper">'.
 				'<img src="'.$imageLink.'" width="260" itemprop="image" class="image" alt="'.$article->getTitle().'">'.
