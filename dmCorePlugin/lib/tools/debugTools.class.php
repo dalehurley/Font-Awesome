@@ -48,13 +48,17 @@ class debugTools {
                         break;
                 }
 
+                $listItems = '';
                 foreach ($infos as $label => $info) {
-                    $listInfos.= _tag('div.alert.alert-'.$type,
-                            '<a class="close" data-dismiss="alert" href="#">x</a>'.
-                            _tag('h4.alert-heading', $label). 
-                            $info
-                        );
+                    $listItems .= _tag('h4.alert-heading', $label). $info;
                 }
+
+                $listInfos .= _tag('div.alert.alert-'.$type,
+                    '<a class="close" data-dismiss="alert" href="#">x</a>'.
+                    $listItems
+                );
+
+
                 $return.= $listInfos."<script>
                     $(document).ready(function(){
                         $(\".alert\").alert();
