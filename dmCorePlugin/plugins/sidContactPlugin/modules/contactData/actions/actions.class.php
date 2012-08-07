@@ -46,9 +46,14 @@ class contactDataActions extends myFrontModuleActions
       $this->getRequest()->setAttribute('description', $contactForm->description);
       // envoi du formulaire au component
       $this->forms['SidContactData'] = $form;
+      
       // envoi du titre au component
-      if($widgetValues['titreBloc'] == '' || !isset($widgetValues['titreBloc'])){$titreBloc = '';}
-      else $titreBloc = $widgetValues['titreBloc'];
+      if (isset($widgetValues['titreBloc'])){
+        if($widgetValues['titreBloc'] == '' || !isset($widgetValues['titreBloc'])){$titreBloc = '';}
+        else $titreBloc = $widgetValues['titreBloc'];
+      } else {
+        $titreBloc = '';
+      }
       $this->getRequest()->setAttribute('titreBloc', $titreBloc);
 
     } else {
@@ -177,7 +182,7 @@ class contactDataActions extends myFrontModuleActions
       $result = sfContext::getInstance()->getMailer()->composeAndSend(
         array(
           dmConfig::get('site_email_sender') => dmConfig::get('site_name')),
-          $destEmail, 
+          explode(',',$destEmail), 
           dmConfig::get('site_name').' - Contact', $message
         );
       $swiftSend = ($result)? 'send ok' : 'send no';

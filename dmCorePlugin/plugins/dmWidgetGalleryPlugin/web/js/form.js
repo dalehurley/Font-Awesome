@@ -23,7 +23,8 @@ $.fn.extend({
 			media = $.extend({
 				position: 0,
 				link: '',
-				alt: ''
+				alt: '',
+        caption: ''
 			}, media);
 			
 			var $li = $('<li class="media_element">')
@@ -33,6 +34,10 @@ $.fn.extend({
 <div class="wrap alt_wrap clearfix"> \
   <label>Alt:</label> \
 	<input class="alt" name="'+formName+'[media_alt][]" value="'+media.alt+'" /> \
+</div> \
+<div class="wrap caption_wrap clearfix"> \
+  <label>Caption:</label> \
+  <input class="caption" name="'+formName+'[media_caption][]" value="'+media.caption+'" /> \
 </div> \
 <div class="wrap link_wrap clearfix"> \
   <label>Link:</label> \

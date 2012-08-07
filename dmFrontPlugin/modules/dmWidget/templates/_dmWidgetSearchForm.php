@@ -13,7 +13,7 @@ if (dmConfig::get('site_theme_version') == 'v1'){
 } else {  // bootstrap HTML
 
 	echo
-	$form->open('.form-search action=main/search method=get'),
+	$form->open('.well.form-search action=main/search method=get'),
 
 	//$form['query']->label()->field('.query'),
 	$form['query']->render(array('placeholder' => __('Search').'...', 'class' => 'input-medium search-query')),	

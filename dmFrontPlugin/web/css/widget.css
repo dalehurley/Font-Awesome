@@ -5,8 +5,11 @@
 
 /* unfloat mode */
 #dm_page.unfloatwidget * {
-  float: none !important;
+  float: none !important; /* float menu and more dont disturb now */
   position: static !important;
+}
+#dm_page.unfloatwidget {
+  padding: 40px; /* bar dont disturb now */
 }
 
 #dm_page.edit .dm_widget, #dm_page .dm_widget.mouseOver {

@@ -9,7 +9,13 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
     
     $this->addRequiredVar(array('medias', 'method', 'animation'));
 
-    $this->addJavascript(array('dmWidgetGalleryPlugin.view', 'dmWidgetGalleryPlugin.cycle'));
+    if (dmConfig::get('site_theme_version') == 'v1'){
+      $this->addJavascript(array('dmWidgetGalleryPlugin.view', 'dmWidgetGalleryPlugin.cycle'));
+    } else {
+      $this->addJavascript('/theme/less/bootstrap/js/bootstrap-carousel.js');
+      $this->addJavascript('/theme/less/bootstrap/js/bootstrap-transition.js');
+    }
+
   }
 
   protected function filterViewVars(array $vars = array())
@@ -60,7 +66,8 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
       
       $medias[] = array(
         'tag'   => $mediaTag,
-        'link'  => $vars['medias'][$index]['link']
+        'link'  => $vars['medias'][$index]['link'],
+        'caption'  => $vars['medias'][$index]['caption']
       );
     }
   
@@ -92,20 +99,67 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
     $vars = $this->getViewVars();
     $helper = $this->getHelper();
     
-    $html = $helper->open('ol.dm_widget_content_gallery.list', array('json' => array(
-      'animation' => $vars['animation'],
-      'delay'     => dmArray::get($vars, 'delay', 3)
-    )));
-    
-    foreach($vars['medias'] as $media)
-    {
-      $html .= $helper->tag('li.element', $media['link']
-      ? $helper->link($media['link'])->text($media['tag'])
-      : $media['tag']
-      );
+    if (dmConfig::get('site_theme_version') == 'v1'){
+
+      $html = $helper->open('ol.dm_widget_content_gallery.list', array('json' => array(
+        'animation' => $vars['animation'],
+        'delay'     => dmArray::get($vars, 'delay', 3)
+      )));
+      
+      foreach($vars['medias'] as $media)
+      {
+        $html .= $helper->tag('li.element', $media['link']
+        ? $helper->link($media['link'])->text($media['tag'])
+        : $media['tag']
+        );
+      }
+      
+      $html .= '</ol>';
+    } else {
+      $html = '';
+      if (count($vars['medias'])){
+        $items = '';
+        $active = '.active';
+        foreach($vars['medias'] as $media)
+        {
+          if ($media['caption'] != '') {
+            $caption = '<div class="carousel-caption">'.$media['caption'].'</div>';
+          } else {
+            $caption = '';
+          }
+
+          $items .= $helper->tag('div.item'.$active, $media['link']
+          ? $helper->link($media['link'])->text($media['tag'])
+          : $media['tag'].$caption
+          );
+
+          $active = '';
+
+        }
+
+        $html = '<div id="myCarousel" class="carousel slide">
+        <div class="carousel-inner">'
+
+        .$items.    
+
+        '</div>
+        <a class="left carousel-control" data-slide="prev" href="#myCarousel">&lsaquo;</a>
+        <a class="right carousel-control" data-slide="next" href="#myCarousel">&rsaquo;</a>
+        </div>';
+
+        $html .= 
+
+        "<script>
+            $(document).ready(function(){
+                $(\".carousel\").carousel(
+                {
+                  interval: ".dmArray::get($vars, 'delay', 3)."
+                }
+                  );
+            });
+        </script>";
+      } 
     }
-    
-    $html .= '</ol>';
     
     if ($this->isCachable())
     {

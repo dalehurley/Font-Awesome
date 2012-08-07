@@ -2,7 +2,7 @@
 
 if (!$error){   // if 1 its only the submit button
 
-    if(!isset($titreBloc) && $titreBloc == ''){
+    if(!isset($titreBloc) || $titreBloc == ''){
         $titreBloc = __('ContactUs');
     }
     echo _tag('h2.title',$titreBloc);
@@ -23,7 +23,7 @@ if (!$error){   // if 1 its only the submit button
     $sendMailStatut = (sfContext::getInstance()->getUser()->getFlash('mail'))? sfContext::getInstance()->getUser()->getFlash('mail') : '';
     $typeDebug = 'debug';
     if ($sendMailStatut == 'error'){
-        $typeDebug = 'warning';
+        $typeDebug = 'error';
         $sendMailStatut .= '<br/>'.sfContext::getInstance()->getUser()->getFlash('mail_exception');
     }
 
@@ -77,7 +77,7 @@ if (!$error){   // if 1 its only the submit button
 } else {
 	echo debugTools::infoDebug(
         $error
-    , 'warning');
+    , 'error');
 }
 
 
