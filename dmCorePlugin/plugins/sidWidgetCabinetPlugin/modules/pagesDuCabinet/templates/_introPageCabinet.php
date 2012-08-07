@@ -1,6 +1,6 @@
 <?php
 // vars = $pageCabinet, $length ,$lien, $titreBloc, $width, $height, $withImage
-
+if(dmConfig::get('site_theme_version') == 'v1'){
 //Récupération des variables
 $ellipsis = _tag('span.ellipsis', sfConfig::get('app_vars-partial_ellipsis'));
 $i = 1;
@@ -55,4 +55,52 @@ echo _close('ul');
         echo _close('div');
     }
 
-} ?>
+}
+} 
+
+elseif(dmConfig::get('site_theme_version') == 'v2'){
+$ellipsis = _tag('span.ellipsis', sfConfig::get('app_vars-partial_ellipsis'));
+$i = 1;
+$i_max = count($pageCabinets);
+
+if (count($pageCabinets)) { // si nous avons des actu articles
+    
+    echo _tag('h3',$titreBloc);
+    echo _open('ul', array('class' => 'thumbnails'));
+    foreach ($pageCabinets as $pageCabinet) {  
+        $link = '';  
+        
+        //définition des options du li
+        $ctnOpts = array('class' => array('itemscope', 'Article'), 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope');
+        if($i == 1)         $ctnOpts['class'][] = 'first';
+        if($i >= $i_max)    $ctnOpts['class'][] = 'last';
+        
+        echo _open('li', $ctnOpts);
+
+        $link = '';
+
+        if(($withImage == true) && ($pageCabinet->getImage()->checkFileExists() == true)){ 
+            $link .= _media($pageCabinet->getImage())->width($width)->set('itemprop="image"')->alt($pageCabinet->getTitle());
+        };
+        $link .= _open('div' , array('class' => 'caption'));
+            if($titreBloc != $pageCabinet->getTitle()){
+                $link .= _tag('h5', array('class' => array('itemprop', 'name'), 'itemprop' => 'name') , $pageCabinet->getTitle());
+            };
+                $link .= _tag('meta' , array('content' => $pageCabinet->createdAt, 'itemprop' => 'datePublished'));
+            $link .= _open('p', array('class' => array('itemprop', 'description') , 'itemprop' => 'description'));
+                $link .= stringTools::str_truncate($pageCabinet->getResume(), $length, $ellipsis, true);
+            $link .= _close('p');
+        $link .= _close('div');
+
+        echo _link($pageCabinet)->set('.thumbnail')->text($link);
+
+        echo _close('li');
+    } 
+echo _close('ul');
+
+ if ((isset($lien)) AND ($lien != '')) { 
+        echo _link('pageCabinet/list')->text($lien)->set('.btn');
+    }
+
+}
+}?>
