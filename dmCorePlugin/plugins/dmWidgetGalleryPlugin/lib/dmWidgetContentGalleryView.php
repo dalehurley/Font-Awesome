@@ -13,6 +13,7 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
       $this->addJavascript(array('dmWidgetGalleryPlugin.view', 'dmWidgetGalleryPlugin.cycle'));
     } else {
       $this->addJavascript('/theme/less/bootstrap/js/bootstrap-carousel.js');
+      $this->addJavascript('/theme/less/bootstrap/js/bootstrap-transition.js');
     }
 
   }
@@ -65,7 +66,8 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
       
       $medias[] = array(
         'tag'   => $mediaTag,
-        'link'  => $vars['medias'][$index]['link']
+        'link'  => $vars['medias'][$index]['link'],
+        'caption'  => $vars['medias'][$index]['caption']
       );
     }
   
@@ -117,53 +119,47 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
       $html = '';
       if (count($vars['medias'])){
         $items = '';
+        $active = '.active';
         foreach($vars['medias'] as $media)
         {
-          $items .= $helper->tag('div.item', $media['link']
+          if ($media['caption'] != '') {
+            $caption = '<div class="carousel-caption">'.$media['caption'].'</div>';
+          } else {
+            $caption = '';
+          }
+
+          $items .= $helper->tag('div.item'.$active, $media['link']
           ? $helper->link($media['link'])->text($media['tag'])
-          : $media['tag']
+          : $media['tag'].$caption
           );
+
+          $active = '';
+
         }
 
         $html = '<div id="myCarousel" class="carousel slide">
-        <!-- Carousel items -->
         <div class="carousel-inner">'
 
         .$items.    
 
         '</div>
-        <!-- Carousel nav -->
-        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+        <a class="left carousel-control" data-slide="prev" href="#myCarousel">&lsaquo;</a>
+        <a class="right carousel-control" data-slide="next" href="#myCarousel">&rsaquo;</a>
         </div>';
-
-
-
 
         $html .= 
 
         "<script>
-                      $(document).ready(function(){
-                          $(\".carousel\").carousel(
-                          {
-                            interval: 500
-                          }
-                            );
-                      });
-                  </script>";
-
+            $(document).ready(function(){
+                $(\".carousel\").carousel(
+                {
+                  interval: ".dmArray::get($vars, 'delay', 3)."
+                }
+                  );
+            });
+        </script>";
       } 
-
-      
     }
-
-
-
-
-
-
-
-
     
     if ($this->isCachable())
     {

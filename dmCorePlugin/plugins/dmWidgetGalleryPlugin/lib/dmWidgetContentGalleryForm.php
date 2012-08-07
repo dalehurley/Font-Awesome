@@ -28,6 +28,8 @@ class dmWidgetContentGalleryForm extends dmWidgetPluginForm
     $this->validatorSchema['media_link'] = new sfValidatorPass();
     
     $this->validatorSchema['media_alt'] = new sfValidatorPass();
+
+    $this->validatorSchema['media_caption'] = new sfValidatorPass();
     
     $this->validatorSchema['media_position'] = new sfValidatorPass();
 
@@ -69,7 +71,7 @@ class dmWidgetContentGalleryForm extends dmWidgetPluginForm
     $this->validatorSchema['delay'] = new sfValidatorNumber(array(
       'required' => false,
       'min' => 0,
-      'max' => 1000
+      'max' => 60000
     ));
     if (!$this->hasDefault('delay'))
     {
@@ -148,7 +150,8 @@ class dmWidgetContentGalleryForm extends dmWidgetPluginForm
       $medias[] = array(
         'id'     => $mediaRecord->id,
         'link'   => $mediaConfigs[$index]['link'],
-        'alt'    => $mediaConfigs[$index]['alt']
+        'alt'    => $mediaConfigs[$index]['alt'],
+        'caption'    => $mediaConfigs[$index]['caption']
       );
     }
     
@@ -198,7 +201,8 @@ class dmWidgetContentGalleryForm extends dmWidgetPluginForm
       $values['medias'][] = array(
         'id'   => $mediaId,
         'link' => $values['media_link'][$index],
-        'alt'  => $values['media_alt'][$index]
+        'alt'  => $values['media_alt'][$index],
+        'caption'  => $values['media_caption'][$index]        
       );
     }
     
