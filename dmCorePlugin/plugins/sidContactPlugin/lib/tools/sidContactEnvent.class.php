@@ -35,7 +35,7 @@ class sidContactEnvent {
       sfContext::getInstance()->getMailer()->composeAndSend(
         array(
           dmConfig::get('site_email_sender') => dmConfig::get('site_name')),
-          $destEmail, 
+          explode(',',$destEmail), 
           dmConfig::get('site_name').' - Contact', $message
         );
       sfContext::getInstance()->getUser()->setFlash('mail', 'ok');
