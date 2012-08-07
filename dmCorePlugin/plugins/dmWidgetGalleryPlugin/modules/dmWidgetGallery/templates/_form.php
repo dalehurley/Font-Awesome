@@ -1,5 +1,34 @@
 <?php
 
+if (dmConfig::get('site_theme_version') == 'v1'){
+  $tabEffects = _tag('div#'.$baseTabId.'_effects',
+    _tag('ul',
+      _tag('li.dm_form_element.animation.clearfix',
+        $form['animation']->label(__('Animation'))->field()->error().
+        _tag('p.dm_help', __('Set to custom to write your own animation'))
+      ).
+      _tag('li.dm_form_element.delay.clearfix',
+        $form['delay']->label(__('Delay'))->field()->error().
+        _tag('p.dm_help', __('Delay in seconds between transitions')).
+        _tag('p.dm_help', __('Leave empty to disable transitions'))
+      )
+    )
+  );
+} else {
+  $tabEffects = _tag('div#'.$baseTabId.'_effects',
+    _tag('ul',
+      _tag('li.dm_form_element.animation.clearfix',
+        $form['animation']->label(__('Animation'))->field(array('readonly' => 'readonly'))->error().
+        _tag('p.dm_help', __('NOT USED'))
+      ).
+      _tag('li.dm_form_element.delay.clearfix',
+        $form['delay']->label(__('Delay'))->field()->error().
+        _tag('p.dm_help', __('Delay in milliseconds between transitions'))
+      )
+    )
+  );
+}
+
 echo
 
 $form->renderGlobalErrors(),
@@ -44,19 +73,7 @@ _tag('div#'.$baseTabId.'_thumbnails',
   _tag('div.dm_help.no_margin', '<hr />'.__('These settings will apply on all images'))
 ),
 
-_tag('div#'.$baseTabId.'_effects',
-  _tag('ul',
-    _tag('li.dm_form_element.animation.clearfix',
-      $form['animation']->label(__('Animation'))->field()->error().
-      _tag('p.dm_help', __('Set to custom to write your own animation'))
-    ).
-    _tag('li.dm_form_element.delay.clearfix',
-      $form['delay']->label(__('Delay'))->field()->error().
-      _tag('p.dm_help', __('Delay in seconds between transitions')).
-      _tag('p.dm_help', __('Leave empty to disable transitions'))
-    )
-  )
-),
+$tabEffects,
 
 _tag('div#'.$baseTabId.'_advanced',
   _tag('ul.dm_form_elements',

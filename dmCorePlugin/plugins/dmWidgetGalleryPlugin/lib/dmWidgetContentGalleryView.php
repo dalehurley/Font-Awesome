@@ -9,7 +9,12 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
     
     $this->addRequiredVar(array('medias', 'method', 'animation'));
 
-    $this->addJavascript(array('dmWidgetGalleryPlugin.view', 'dmWidgetGalleryPlugin.cycle'));
+    if (dmConfig::get('site_theme_version') == 'v1'){
+      $this->addJavascript(array('dmWidgetGalleryPlugin.view', 'dmWidgetGalleryPlugin.cycle'));
+    } else {
+      $this->addJavascript('/theme/less/bootstrap/js/bootstrap-carousel.js');
+    }
+
   }
 
   protected function filterViewVars(array $vars = array())
@@ -92,20 +97,73 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
     $vars = $this->getViewVars();
     $helper = $this->getHelper();
     
-    $html = $helper->open('ol.dm_widget_content_gallery.list', array('json' => array(
-      'animation' => $vars['animation'],
-      'delay'     => dmArray::get($vars, 'delay', 3)
-    )));
-    
-    foreach($vars['medias'] as $media)
-    {
-      $html .= $helper->tag('li.element', $media['link']
-      ? $helper->link($media['link'])->text($media['tag'])
-      : $media['tag']
-      );
+    if (dmConfig::get('site_theme_version') == 'v1'){
+
+      $html = $helper->open('ol.dm_widget_content_gallery.list', array('json' => array(
+        'animation' => $vars['animation'],
+        'delay'     => dmArray::get($vars, 'delay', 3)
+      )));
+      
+      foreach($vars['medias'] as $media)
+      {
+        $html .= $helper->tag('li.element', $media['link']
+        ? $helper->link($media['link'])->text($media['tag'])
+        : $media['tag']
+        );
+      }
+      
+      $html .= '</ol>';
+    } else {
+      $html = '';
+      if (count($vars['medias'])){
+        $items = '';
+        foreach($vars['medias'] as $media)
+        {
+          $items .= $helper->tag('div.item', $media['link']
+          ? $helper->link($media['link'])->text($media['tag'])
+          : $media['tag']
+          );
+        }
+
+        $html = '<div id="myCarousel" class="carousel slide">
+        <!-- Carousel items -->
+        <div class="carousel-inner">'
+
+        .$items.    
+
+        '</div>
+        <!-- Carousel nav -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+        </div>';
+
+
+
+
+        $html .= 
+
+        "<script>
+                      $(document).ready(function(){
+                          $(\".carousel\").carousel(
+                          {
+                            interval: 500
+                          }
+                            );
+                      });
+                  </script>";
+
+      } 
+
+      
     }
-    
-    $html .= '</ol>';
+
+
+
+
+
+
+
+
     
     if ($this->isCachable())
     {
