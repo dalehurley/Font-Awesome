@@ -1,5 +1,6 @@
 <?php
 // vars : $titreBloc, $lien, $message, $href
+if (dmConfig::get('site_theme_version') == 'v1'){
 $html = get_partial('global/titleWidget', array('title' => $titreBloc));
 
 //texte de présentation
@@ -15,3 +16,11 @@ $html.= get_partial('global/navigationWrapper', array(
 
 //affichage html en sortie
 echo $html;
+}
+elseif (dmConfig::get('site_theme_version') == 'v2'){
+	echo _open('div', array('class' => 'thumbnail'));
+		echo _tag('h3', $titreBloc);
+		echo _tag('p', $message);
+		echo _link($href)->text($lien)->set('.btn.btn-primary');
+	echo _close('div');
+}
