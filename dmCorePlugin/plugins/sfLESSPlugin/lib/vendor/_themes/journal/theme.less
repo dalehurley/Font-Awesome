@@ -20,10 +20,20 @@ body {
 	}
 }
 
+.breadcrumb {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #D4D4D4;
+  box-shadow: 0 1px 0 #FFFFFF inset;
+  list-style: none outside none;
+  margin: 0 0 18px;
+  padding: 7px 14px;
+}
 
 // Bootswatch.less
 // Swatch: Journal
 // Version: 2.0.4
+// Based on. Modified by lioshi
 // -----------------------------------------------------
 
 // TYPOGRAPHY
@@ -44,22 +54,19 @@ body {
 
 }
 * {
-	font-family: 'caviar_dreamsregular', Arial, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 	letter-spacing: 0;
 }
 
 h1, h2, h3, h4, h5, h6, .navbar .brand {
 	font-weight: normal;
+	font-family: 'caviar_dreamsregular', Arial, sans-serif;
 }
 
 // SCAFFOLDING
 // -----------------------------------------------------
 
 a {
-	text-decoration: underline;
-}
-
-.nav a, .navbar .brand, .subnav a, a.btn, .dropdown-menu a {
 	text-decoration: none;
 }
 
