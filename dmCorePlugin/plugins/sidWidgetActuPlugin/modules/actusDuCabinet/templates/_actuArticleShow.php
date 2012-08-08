@@ -94,16 +94,16 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                     }
                 echo _close('header');
                 echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $article->getText());
+                echo _tag('hr');
                 if($article->getFiles()->checkFileExists() == true){
                 echo _open('footer', array('class' => 'contentFooter'));
-                    echo _open('div', array('class' => 'fileWrapper'));
-                        echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
-                        if($article->getTitleFile() != NULL){
-                        echo _link($article->getFiles())->text('<i class="icon-download-alt"></i>&nbsp;'.$article->getTitleFile())->set('.btn');
+                    echo _tag('h5', __('Download file, click the link below'));
+                    if($article->getTitleFile() != NULL){
+                    echo _link($article->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$article->getTitleFile())->set('.btn');
                     }
-                    else echo _link($article->getFiles())->text('<i class="icon-download-alt"></i>&nbsp;'.$article->getFiles()->getFile())->set('.btn');;
-                    echo _close('div');
+                    else echo _link($article->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$article->getFiles()->getFile())->set('.btn');
                 echo _close('footer');
+                echo _tag('hr');
             }
             echo _close('article');
         }
