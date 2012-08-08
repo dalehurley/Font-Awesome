@@ -1,6 +1,6 @@
 // Theme's style
 body {
-	background-image: url("/theme/less/_themes/journal/images/natural_paper.png");
+	background-image: url("/theme/less/_themes/journal/Externals/images/lightpaperfibers.png");
 }
 
 @media (min-width: 979px) {
@@ -21,8 +21,6 @@ body {
 }
 
 
-
-
 // Bootswatch.less
 // Swatch: Journal
 // Version: 2.0.4
@@ -31,10 +29,27 @@ body {
 // TYPOGRAPHY
 // -----------------------------------------------------
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+//@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+// Font face free font import
+@font-face {
+    font-family: 'caviar_dreamsregular';
+    src: url('/theme/less/_themes/journal/Externals/fonts/caviardreams/caviardreams-webfont.eot');
+    src: url('/theme/less/_themes/journal/Externals/fonts/caviardreams/caviardreams-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/theme/less/_themes/journal/Externals/fonts/caviardreams/caviardreams-webfont.woff') format('woff'),
+         url('/theme/less/_themes/journal/Externals/fonts/caviardreams/caviardreams-webfont.ttf') format('truetype'),
+         url('/theme/less/_themes/journal/Externals/fonts/caviardreams/caviardreams-webfont.svg#caviar_dreamsregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+* {
+	font-family: 'caviar_dreamsregular', Arial, sans-serif;
+	letter-spacing: 0;
+}
 
 h1, h2, h3, h4, h5, h6, .navbar .brand {
-	font-weight: 700;
+	font-weight: normal;
 }
 
 // SCAFFOLDING
