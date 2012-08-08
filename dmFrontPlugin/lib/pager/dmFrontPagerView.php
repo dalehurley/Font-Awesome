@@ -138,13 +138,23 @@ class dmFrontPagerView extends dmConfigurable implements Iterator, Countable
 
   protected function openPager()
   {
-    return
-    $this->helper->open('div', array('class' => dmArray::toHtmlCssClasses(array(
-      'pager',
-      $this->getOption('class'),
-      $this->getOption('ajax') ? 'dm_pager_ajax_links' : null
-    )))).
-    $this->helper->open('ul.clearfix');
+    if (dmConfig::get('site_theme_version') == 'v1'){
+      return
+      $this->helper->open('div', array('class' => dmArray::toHtmlCssClasses(array(
+        'pager',
+        $this->getOption('class'),
+        $this->getOption('ajax') ? 'dm_pager_ajax_links' : null
+      )))).
+      $this->helper->open('ul.clearfix');
+    } else {
+      return
+      $this->helper->open('div', array('class' => dmArray::toHtmlCssClasses(array(
+        'pagination',
+        $this->getOption('class'),
+        $this->getOption('ajax') ? 'dm_pager_ajax_links' : null
+      )))).
+      $this->helper->open('ul.clearfix');
+    }
   }
 
   protected function renderFirstAndPreviousLinks()
@@ -176,11 +186,19 @@ class dmFrontPagerView extends dmConfigurable implements Iterator, Countable
       // current page
       if($page === $this->pager->getPage())
       {
-        $links[] = $this->helper->tag('li.page.'.$this->getOption('current_class'), $this->helper->tag('span.link', $page));
+        if (dmConfig::get('site_theme_version') == 'v1'){
+          $links[] = $this->helper->tag('li.page.'.$this->getOption('current_class'), $this->helper->tag('span.link', $page));
+        } else {
+          $links[] = $this->helper->tag('li.active', $this->helper->tag('a', $page));
+        }
       }
       else
       {
-        $links[] = $this->helper->tag('li.page', $this->renderLink($page, $page));
+        if (dmConfig::get('site_theme_version') == 'v1'){
+          $links[] = $this->helper->tag('li.page', $this->renderLink($page, $page));
+        } else {
+          $links[] = $this->helper->tag('li', $this->renderLink($page, $page));
+        }
       }
     }
 
