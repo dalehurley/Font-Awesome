@@ -36,7 +36,7 @@ class socialNetworkLogosView extends dmWidgetPluginView {
         else $vimeo = $vars['viadeo'];
         $arrayLogos = array(
             'facebook' => $vars['facebook'],
-            'googleplus' => $vars['googleplus'],
+            'google-plus' => $vars['googleplus'],
             'linkedin' => $vars['linkedin'],
             'twitter' => $vars['twitter'],
             'viadeo' => $viadeo,
