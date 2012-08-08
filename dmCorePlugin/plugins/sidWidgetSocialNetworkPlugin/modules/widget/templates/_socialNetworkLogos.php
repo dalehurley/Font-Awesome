@@ -36,7 +36,7 @@ $html.= _close('ul.elements');
 echo $html;
 } else {
 	//ouverture du listing
-$html.= _open('ul', array('class' => 'thumbnails thumbnail'));
+$html.= _open('ul', array('class' => ''));
 
 //compteur
 $count = 0;
