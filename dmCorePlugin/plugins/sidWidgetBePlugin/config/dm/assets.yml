@@ -1,0 +1,11 @@
+js:
+
+  sidWidgetBePlugin:
+    transit:      	imagesGrid/jquery.transit.min
+    gridrotator:    imagesGrid/jquery.gridrotator
+
+css:
+
+  sidWidgetBePlugin:
+    style:      imagesGrid/style
+

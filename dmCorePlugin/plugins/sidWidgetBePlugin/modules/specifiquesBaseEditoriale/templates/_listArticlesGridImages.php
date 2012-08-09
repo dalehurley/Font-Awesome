@@ -1,9 +1,5 @@
 <?php
 
-use_stylesheet('/sidWidgetBePlugin/css/imagesGrid/style.css');
-use_javascript('../sidWidgetBePlugin/js/imagesGrid/jquery.transit.min');
-use_javascript('../sidWidgetBePlugin/js/imagesGrid/jquery.gridrotator');
-
 if (!json_decode($options)) echo debugTools::infoDebug(array('Erreur' => 'Options du widget mal formatée'),'error');
 
 echo debugTools::infoDebug(array('Nb d\'images nécessaires' => $maxNbImages),'info');
