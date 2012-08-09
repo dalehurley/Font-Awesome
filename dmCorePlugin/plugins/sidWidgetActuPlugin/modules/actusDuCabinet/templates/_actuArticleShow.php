@@ -89,8 +89,10 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                     echo _tag('p', array('class' => 'itemprop description', 'itemprop' => 'description'), _tag('strong',$article->getResume()));
 
                     if ($withPublishedDate){
-                        echo __('published on').' ';
-                        echo _tag('time', array('class' => 'datePublished', 'itemprop' => 'datePublished', 'pubdate' => 'pubdate', 'datetime' => format_date($article->createdAt, 'I')), format_date($article->createdAt, 'D' ));
+                        echo _open('em');
+                            echo __('published on').' ';
+                            echo _tag('time', array('class' => 'datePublished', 'itemprop' => 'datePublished', 'pubdate' => 'pubdate', 'datetime' => format_date($article->createdAt, 'I')), format_date($article->createdAt, 'D' ));
+                        echo _close('em');
                     }
                 echo _close('header');
                 echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $article->getText());

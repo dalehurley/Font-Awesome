@@ -136,13 +136,15 @@ elseif (dmConfig::get('site_theme_version') == 'v2') {
             if($i >= $i_max)    $ctnOpts['class'][] = 'last';
 
             echo _open('li', $ctnOpts);
-                //echo _open('div', array('class' => 'row'));
+                $link.= _open('div', array('class' => 'row'));
                     if ($withImage == true) {
                         if (($mission->getImage()->checkFileExists() == true) && ($i <= $nbImagesMissions)) {
+                            $link .= _open('div' ,array('class' => 'span'));
                                 $link .= _media($mission->getImage())->width($width)->set('itemprop="image"')->alt($mission->getTitle());
+                            $link .= _close('div');
                         }
                     };
-                    $link .= _open('div' , array('class' => 'caption'));
+                    $link .= _open('div' , array('class' => 'span'));
                             if ($titreBloc != $mission->getTitle()) {
                                 $link .= _tag('h5', array('class' => array('itemprop', 'name'), 'itemprop' => 'name') , $mission->getTitle());
                             };
@@ -167,7 +169,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2') {
 
                         $link .= _close('p');
                     $link .= _close('div');
-                  
+                $link .= _close('div');  
                     echo _link($mission)->set('.thumbnail')->text($link);
                 //echo _close('div');
             echo _close('li');

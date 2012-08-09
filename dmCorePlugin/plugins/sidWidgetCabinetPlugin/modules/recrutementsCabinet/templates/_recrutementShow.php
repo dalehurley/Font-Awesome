@@ -70,6 +70,6 @@ echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http:
             else echo _link($recrutements->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$recrutements->getFiles()->getFile())->set('.btn');
         echo _close('footer');
         echo _tag('hr');
-        }
+    }
 echo _close('article');
 }
