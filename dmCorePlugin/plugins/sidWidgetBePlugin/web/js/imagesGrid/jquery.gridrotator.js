@@ -83,7 +83,7 @@
 
 				_self._init( options );
 
-			} ).attr( 'src', '/sidWidgetBePlugin/images/loading.gif' );
+			} ).attr( 'src', '/sidWidgetBePlugin/images/ajax-loader.gif' );
 
 		}
 		

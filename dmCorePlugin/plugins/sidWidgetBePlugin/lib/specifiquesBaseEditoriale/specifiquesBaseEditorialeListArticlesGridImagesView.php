@@ -6,33 +6,43 @@ class specifiquesBaseEditorialeListArticleGridImagesView extends dmWidgetPluginV
         parent::configure();
 
         $this->addRequiredVar(array(
-            'nbLines',
-            'nbImagesByLine',
-            'containerWidth',
-            'interval',
-            'animSpeed',
-            'maxStep'
+            'options'
         ));
     }
 
     protected function doRender() {
         $vars = $this->getViewVars();
 
-        // calcul des paramètres
+        // calcul du nombres d'articles à récupérer en fonction du max d'images à afficher dans les différentes résolutions
+        $options = $vars['options'];
 
+        $arrayOptions = json_decode($options, true);
 
+        $maxNbImages = '1';
+        if ($arrayOptions){ // json well formated
+            foreach ($arrayOptions as $key => $value) {
+                if (substr($key, 0,1) == 'w'){
+                    $maxNbImagesTmp = $value['columns']*$value['rows'];
+                    if ($maxNbImagesTmp > $maxNbImages) $maxNbImages = $maxNbImagesTmp;
+                }
+            }
+        } else {
+            $maxNbImages = '30';
+        }
         
-        // $actuArticles = Doctrine_Query::create()
-        //         ->from('SidArticle a')
-        //         ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
-        //         ->where('a.is_active = ? and  a.id <> ? and a.section_id = ? '.$andWhere.$andWhereDossier, array(true, $dmPage->record_id,$recordId))
-        //         ->orderBy($orderBy)
-        //         ->limit($nbArticles)
-        //         ->execute();
-
+        $articles = Doctrine_Query::create()
+                ->from('SidArticle a')
+                ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
+                ->where('a.is_dossier = ? ', array(false))
+                ->orderBy('aTranslation.updated_at DESC')
+                ->groupBy('a.filename')
+                ->limit($maxNbImages*4)  // on récupère le quadruple du nombre d'image max à afficher: le remplacement d'une image par une autre est assuré
+                ->execute();
 
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'listArticlesGridImages', array(
-                    'articles' => $vars['nbLines'],
+                    'options' => $options,
+                    'articles' => $articles,
+                    'maxNbImages' => $maxNbImages
                 ));
 
 

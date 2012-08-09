@@ -7,12 +7,7 @@ echo
 
 $form->renderGlobalErrors(),
  _tag('div', 
-    $form['nbImagesByLine']->renderRow().
-    $form['nbLines']->renderRow().	
-    $form['containerWidth']->renderRow().
-    $form['interval']->renderRow().
-    $form['animSpeed']->renderRow().
-    $form['maxStep']->renderRow()
+    $form['options']->renderRow()
 );
 
 

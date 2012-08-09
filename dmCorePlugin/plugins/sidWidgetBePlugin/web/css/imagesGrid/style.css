@@ -7,7 +7,7 @@
 .ri-grid-loading{
 	width: 100px;
 	height: 100px;
-	background: transparent url(../images/loading.gif) no-repeat center center;
+	background: transparent url(../../images/ajax-loader.gif) no-repeat center center;
 }
 
 .ri-grid ul {
@@ -46,7 +46,7 @@
 	position: relative;
 	display: block;
 	overflow: hidden;
-	background: #000;
+	/*background: #000;*/
 }
 
 .ri-grid ul li a{
@@ -59,10 +59,10 @@
 	height: 100%;
 	-webkit-background-size: 100% 100%;
 	-moz-background-size: 100% 100%;
-	background-size: 100% 100%;
+	background-size: auto 100%;
 	background-position: center center;
 	background-repeat: no-repeat;
-	background-color: #333;
+	/*background-color: #eee;*/
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
