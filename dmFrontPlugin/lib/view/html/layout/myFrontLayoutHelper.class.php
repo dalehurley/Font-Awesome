@@ -65,6 +65,7 @@ class myFrontLayoutHelper extends dmFrontLayoutHelper {
 			if (dmConfig::get('site_theme_version') == 'v1') {
 				$html = '<script src="/theme/less/_framework/SPLessCss/Externals/js/modernizr/modernizr-2.5.3.custom.min.js"></script>';
 			} else {
+				//$html = '<script src="/sidWidgetBePlugin/js/imagesGrid/modernizr.custom.26887.js"></script>';
 				$html = '<script src="/theme/less/bootstrap/js/modernizr/modernizr-2.5.3.custom.min.js"></script>';
 			}
 			$html.= PHP_EOL;
