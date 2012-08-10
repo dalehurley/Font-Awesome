@@ -342,7 +342,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 				echo $imageHtml;
 				echo '<h1>'.$article->title.'</h1>';
 				echo '<p>'.$article->getChapeau().'</p><br />';
-				echo '<em>'.__('published on').' '.format_date($article->updated_at, 'D').'</em>';
+				//echo '<em>'.__('published on').' '.format_date($article->updated_at, 'D').'</em>';
 				//echo $articleFilsNavigation;
 			echo '</div>';
 			echo $articleBody;
