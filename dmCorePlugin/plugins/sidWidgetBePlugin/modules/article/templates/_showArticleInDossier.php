@@ -187,13 +187,15 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
         if($count >= $maxCount) $position = 'last';
     }
     //déclaration des propriétés par défaut du container
-    $wrapperOpt = array('id' => dmString::slugify($article.'-'.$article->id), 'class' => 'thumbnail '. $position);
-
-    
+    $wrapperOpt = array('id' => dmString::slugify($article.'-'.$article->id), 'class' => ''. $position);
 
     //inclusion du contenu dans un supWrapper
     $html = _tag('div', $wrapperOpt, $html);
 
     //affichage html en sortie
     echo $html;
+
+
+
+
 }

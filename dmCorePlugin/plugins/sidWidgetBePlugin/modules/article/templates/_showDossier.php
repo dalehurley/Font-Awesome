@@ -277,9 +277,6 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 			//on ne récupère le contenu des articles associés que si un ou plusieurs articles est détecté
 			if(count($linkedArticles) >= 1) {
 				
-				//inclusion du contenu dans un supWrapper
-				//$articleBody = _tag('section.supWrapper.first', $articleBody);
-				
 				//compteur (rajout de 1 car l'intro a déjà un container)
 				$count = 1;
 				$maxCount = count($linkedArticles) + 1;
@@ -290,6 +287,9 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 				//création d'un tableau de liens à afficher
 				$elements = array();
 				
+				// container of accordion
+				$articleBody = '<div id="accordionarticle'.$article->id.'" class="accordion">';
+
 				//récupération des articles et ajout à l'intérieur du contenu
 				foreach ($linkedArticles as $linkedArticle) {
 					//incrémentation compteur
@@ -298,87 +298,55 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 					//récupérarion du nom de fichier de l'article en question directement dans la base
 					$linkedSidArticle = Doctrine_Core::getTable('SidArticle')->findOneByFilenameAndSectionId($linkedArticle, $article->sectionId);
 					if (is_object($linkedSidArticle) && $linkedSidArticle->id !=''){			
-						//remplissage du tableau de navigation
-						$elements[] = array('title' => $linkedSidArticle->title, 'anchor' => dmString::slugify($linkedSidArticle.'-'.$linkedSidArticle->id));
 					
-						//ajout information de débug
-						//$articleBody.= debugTools::infoDebug(array('ID LEA' => $linkedArticle, 'Section ID' => $article->sectionId));
-						$articleBody.= get_partial('article/showArticleInDossier', array('article' => $linkedSidArticle, 'count' => $count, 'maxCount' => $maxCount));
-						if($count < $maxCount) $articleBody.= '<hr>';
-						$nbArticleOk++;
+						$articleBody .=
+	                	'<div class="accordion-group">
+							<div class="accordion-heading">
+						      <a href="#collapse'.$linkedSidArticle->id.'" data-parent="#accordionarticle'.$article->id.'" data-toggle="collapse" class="accordion-toggle">
+						        '.$linkedSidArticle->title.'
+						      </a>
+						    </div>
+						    <div class="accordion-body collapse" id="collapse'.$linkedSidArticle->id.'">
+						      <div class="accordion-inner">';
+						$articleBody .= get_partial('article/showArticleInDossier', array('article' => $linkedSidArticle, 'count' => $count, 'maxCount' => $maxCount));
+						$articleBody .= '</div>
+						    </div>
+						</div>';
 					}
 				}
+
+				// end of container accordion
+				$articleBody .= '</div>';
 			}
-			// si pas d'article fils présent alors on vide $articleBody
-			if ($nbArticleOk==0) $articleBody = '';
-			//insertion du contenu
-			// $articleBody : le texte de l'article père + les articles fils à la suite
-			// $elements    : la liste des articles fils avec un lien anchor sur la page
-
-			// afficahge de la navigation des articles fils
-			$articleFilsNavigation = '';
-			if (isset($elements) && count($elements)){
-				
-				$articleFilsNavigation =
-								'<ul>';
-
-				$i = 0;
-				$i_max = count($elements);							
-				
-				foreach ($elements as $element) {
-					$i++;
-			    	$position = '';
-			        switch ($i){
-			            case '1' : 
-			            	if ($i_max == 1) $position = 'class="first last"';
-			            	else $position = 'class="first"';
-			                break;
-			            default : 
-			            	if ($i == $i_max) $position = 'class="last"';
-			            	else $position = '';
-			            	break;
-			        }
-	                        
-	                        $articleFilsNavigation .=
-									'<li '.$position.'>'._link($article)->text($element['title'])->set('.link_box')->anchor($element['anchor']).'</li>';
-				}
-				$articleFilsNavigation .=
-								'</ul>';
-				}
 			
 			//affichage du contenu
-	                //
-	                // vérification du nom de l'image en vérifiant avec le nom de l'image dans le xml et/ou avec le prefixe 'images' ???
-	                $imageExist = false;
-	                $imageLink = '/_images/' . $multimediaImage;
-	                if (is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
-	                    $imageExist = true;
-	                } elseif (!is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
-	                    $imageLink = '/_images/images' . $multimediaImage;
-	                    if (is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
-	                        $imageExist = true;
-	                    }
-	                }
-	                else
-	                    $imageExist = false;
-	                
+	        // vérification du nom de l'image en vérifiant avec le nom de l'image dans le xml et/ou avec le prefixe 'images' ???
+	        $imageExist = false;
+	        $imageLink = '/_images/' . $multimediaImage;
+	        if (is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
+	            $imageExist = true;
+	        } elseif (!is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
+	            $imageLink = '/_images/images' . $multimediaImage;
+	            if (is_file(sfConfig::get('sf_web_dir') . $imageLink)) {
+	                $imageExist = true;
+	            }
+	        }
+	        else $imageExist = false;
 	                
 			$imageHtml = '';
 			if ($imageExist && $withImage){
 				$imageHtml = 	'<img src="'.$imageLink.'" alt="'.$article->title.'">';
 			}
-				//echo '<article itemtype="http://schema.org/Article" itemscope="itemscope" class="itemscope Article">';
-					echo '<div>';
-						echo $imageHtml;
-						echo '<h1>'.$article->title.'</h1>';
-						echo '<p>'.$article->getChapeau().'</p><br />';
-						echo '<em>'.__('published on').' '.format_date($article->updated_at, 'D').'</em>';
-						echo $articleFilsNavigation;
-					echo '</div>';
-					echo '<div>';
-						echo $articleBody;
-					echo '</div>';
-					echo '<p>'.__('Article published on').' '.format_date($article->updated_at, 'd').'&nbsp;-&nbsp;&copy;&nbsp;'.sfConfig::get('app_copyright-holder').'&nbsp;-&nbsp;'.format_date($article->updated_at, 'y ');
+
+			echo '<div>';
+				echo $imageHtml;
+				echo '<h1>'.$article->title.'</h1>';
+				echo '<p>'.$article->getChapeau().'</p><br />';
+				echo '<em>'.__('published on').' '.format_date($article->updated_at, 'D').'</em>';
+				//echo $articleFilsNavigation;
+			echo '</div>';
+			echo $articleBody;
+			echo '<p>'.__('Article published on').' '.format_date($article->updated_at, 'd').'&nbsp;-&nbsp;&copy;&nbsp;'.sfConfig::get('app_copyright-holder').'&nbsp;-&nbsp;'.format_date($article->updated_at, 'y ');
 					
 				//echo '</article>';
 		} else {
