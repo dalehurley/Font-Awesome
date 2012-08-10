@@ -143,8 +143,8 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
         .$items.    
 
         '</div>
-        <a class="left carousel-control" data-slide="prev" href="#myCarousel">&lsaquo;</a>
-        <a class="right carousel-control" data-slide="next" href="#myCarousel">&rsaquo;</a>
+        <a class="left carousel-control" data-slide="prev" href="#myCarousel"><i class="icon-xlarge icon-circle-arrow-left"></i></a>
+        <a class="right carousel-control" data-slide="next" href="#myCarousel"><i class="icon-xlarge icon-circle-arrow-right"></i></a>
         </div>';
 
         $html .= 
