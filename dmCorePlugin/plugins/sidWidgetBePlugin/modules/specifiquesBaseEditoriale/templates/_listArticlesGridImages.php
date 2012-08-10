@@ -22,7 +22,7 @@ foreach ($articles as $article) {
 	}
 }
 				
-$html .= '
+$html .= '<li title="zerer"></li>
 					</ul>
 				</div>
 
@@ -31,8 +31,9 @@ $html .= '
 			$(document).ready(function() {
 				
 				$( \'#ri-grid\' ).gridrotator( '
-		.$options.			
+					.$options.			
 				' );
+
 			});
 		</script>
 ';

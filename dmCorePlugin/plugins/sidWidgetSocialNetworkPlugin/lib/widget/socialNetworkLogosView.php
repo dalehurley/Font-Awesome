@@ -10,6 +10,8 @@ class socialNetworkLogosView extends dmWidgetPluginView {
         //     'facebook',
         //     'googleplus'
         // ));
+        
+        $this->addJavascript(array('/theme/less/bootstrap/js/bootstrap-tooltip.js'));
     }
 	
 	public function getStylesheets() {
