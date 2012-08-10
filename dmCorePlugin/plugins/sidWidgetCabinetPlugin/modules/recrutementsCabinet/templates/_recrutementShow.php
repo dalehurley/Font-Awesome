@@ -59,7 +59,7 @@ echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http:
         echo _tag('meta', array('content' => $titreBloc, 'itemprop' => 'articleSection'));
         echo _tag('meta', array('content' => $recrutements->createdAt, 'itemprop' => 'datePublished'));
     echo _close ('header');
-    echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $recrutements->getText());
+    echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), _tag('p',$recrutements->getText()));
     echo _tag('hr');
     if($recrutements->getFiles()->checkFileExists() == true){
         echo _open('footer', array('class' => 'contentFooter'));
