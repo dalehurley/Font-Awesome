@@ -9,7 +9,11 @@ class specifiquesBaseEditorialeListArticleGridImagesView extends dmWidgetPluginV
             'options'
         ));
 
-        $this->addJavascript(array('sidWidgetBePlugin.transit','sidWidgetBePlugin.gridrotator'));
+        $this->addJavascript(array(
+            'sidWidgetBePlugin.transit',
+            'sidWidgetBePlugin.gridrotator'
+            )
+        );
         $this->addStylesheet(array('sidWidgetBePlugin.style'));
     }
 

@@ -62,5 +62,20 @@ if (dmConfig::get('site_theme_version') == 'v1'){
 			} 
 		}
 	$html .= _close('ul');
+
+	// ajout tooltip
+	$html .= '
+		<script type="text/javascript">	
+			
+			$(document).ready(function() {
+				
+				$( \'.dm_widget.social_network_logos a.link\' ).tooltip();
+
+			});
+		</script>
+	';
+
+
+
 	echo $html;
 }
