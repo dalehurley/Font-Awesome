@@ -168,13 +168,8 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
 							echo _close('span').'<br />';
 							echo $adresse2;
 							echo _open('span', array('class' => "itemprop postalCode"));
-								echo _tag('span', array('class' => "type", 'title' => "Postal Code"),'Postal Code');
-								echo _tag('span', array('class' => "separator"),'&nbsp;:&nbsp');
 								echo _tag('span', array('class' => "value", 'itemprop' => "postalCode"),$adresse->getCodePostal());
-							echo _close('span').'<br />';
-							echo _open('span', array('class' => "itemprop addressLocality"));
-								echo _tag('span', array('class' => "type", 'title' => "Localité"),'Localité');
-								echo _tag('span', array('class' => "separator"),'&nbsp;:&nbsp');
+								echo _tag('span', array('class' => "separator"),'&nbsp');
 								echo _tag('span', array('class' => "value", 'itemprop' => "addressLocality"),$adresse->getVille());
 							echo _close('span');
 						echo _close('div');

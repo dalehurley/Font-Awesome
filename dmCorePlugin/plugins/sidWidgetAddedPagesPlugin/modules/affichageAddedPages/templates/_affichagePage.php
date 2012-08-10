@@ -16,7 +16,7 @@ if(dmConfig::get('site_theme_version') == 'v1'){
                     if ($withImage == true && $sidAddedPages->getImage()->checkFileExists() == true) {
                         echo _open('div', array('class' => 'imageFullWrapper'));
                            echo  _media($sidAddedPages->getImage())
-                                    ->size($widthImage,$heightImage)
+                                    ->size($theme['width-image'],$theme['height-image'])
                                     ->method('scale')
                                     ->set('.image itemprop="image"')
                                     ->alt($sidAddedPages->getTitle());
@@ -110,7 +110,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                 echo _open('header', array('class' => 'contentHeader'));
                     if ($withImage == true && $sidAddedPages->getImage()->checkFileExists() == true) {
                            echo  _media($sidAddedPages->getImage())
-                                    ->size($widthImage,$heightImage)
+                                    ->size($theme['width-image'],$theme['height-image'])
                                     ->method('scale')
                                     ->set('itemprop="image"')
                                     ->alt($sidAddedPages->getTitle());

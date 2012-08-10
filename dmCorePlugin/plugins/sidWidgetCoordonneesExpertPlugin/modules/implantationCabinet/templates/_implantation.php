@@ -150,7 +150,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                                 // nouveau code pour arnaud afin de styler la silhouttee du membre de l'équipe qui n'a pas de photo
                                 if($withImage == TRUE){
                                     echo _open('div.span');
-                                        echo _open('p');
+                                        //echo _open('p');
                                             if($equipe->getImage()->checkFileExists() == true) {
                                                 //on affiche directement la photo de la personne
                                                 echo _media($equipe->getImage())->width($width)->method('scale')->alt($equipe->getFirstName() . '-' . $equipe->getName())->set('itemprop="image"');
@@ -168,7 +168,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                                                 //on affiche un icon qui a une police de taille $width et une hauteur de ligne de $width
                                                 echo _tag('i', array('class' =>'icon-user', 'style' => 'font-size:' . $width . 'px;line-height:'.$width.'px'), '&#160;');
                                             };
-                                        echo _close('p');
+                                        //echo _close('p');
                                     echo _close('div');
                                 };
                                 echo _open('div.span');
