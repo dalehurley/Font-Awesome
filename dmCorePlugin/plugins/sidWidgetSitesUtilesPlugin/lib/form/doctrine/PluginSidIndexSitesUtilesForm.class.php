@@ -16,6 +16,7 @@ abstract class PluginSidIndexSitesUtilesForm extends BaseSidIndexSitesUtilesForm
     /*
      * Here, the plugin form code
      */
+    echo 'toto';
     $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' => 'Dossiers'));
         $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
                     'required' => true
