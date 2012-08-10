@@ -24,7 +24,7 @@ if(count($recrutements)){
 //affichage html en sortie
 echo $html;*/
 
-
+if (dmConfig::get('site_theme_version') == 'v1'){
 echo _tag('h2.title',$titreBloc);
 echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
     echo _open('header', array('class' => 'contentHeader'));
@@ -47,3 +47,29 @@ echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http:
             echo _close('footer');
         }
 echo _close('article');
+}
+elseif (dmConfig::get('site_theme_version') == 'v2'){
+echo _tag('h2',$titreBloc);
+echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
+    echo _open('header', array('class' => 'contentHeader'));
+        echo _tag('h1', array('class' => 'itemprop name', 'itemprop' => 'name'), $recrutements->getTitle());
+        if (($withImage == true) && ($recrutements->getImage()->checkFileExists() == true)) {
+                        if($width != null) {echo  _media($recrutements->getImage())->width($width)->set('itemprop="image"')->alt($recrutements->getTitle());}
+                }
+        echo _tag('meta', array('content' => $titreBloc, 'itemprop' => 'articleSection'));
+        echo _tag('meta', array('content' => $recrutements->createdAt, 'itemprop' => 'datePublished'));
+    echo _close ('header');
+    echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $recrutements->getText());
+    echo _tag('hr');
+    if($recrutements->getFiles()->checkFileExists() == true){
+        echo _open('footer', array('class' => 'contentFooter'));
+            echo _tag('h5', __('Download file, click the link below'));
+            if($recrutements->getTitleFile() != NULL){
+            echo _link($recrutements->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$recrutements->getTitleFile())->set('.btn');
+            }
+            else echo _link($recrutements->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$recrutements->getFiles()->getFile())->set('.btn');
+        echo _close('footer');
+        echo _tag('hr');
+    }
+echo _close('article');
+}
