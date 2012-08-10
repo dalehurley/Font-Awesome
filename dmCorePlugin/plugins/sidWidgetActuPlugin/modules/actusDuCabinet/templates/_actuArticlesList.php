@@ -98,25 +98,28 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                     $class = '';
 
                 echo _open('li', array('class' => 'itemscope Article ' . $class, 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
-                    if ($withImage == true) {
-                        if (($article->getImage()->checkFileExists() == true) and ($i <= sfConfig::get('app_nb-image'))) {
-                            $link .= _media($article->getImage())->width($width)->set('itemprop="image"')->alt($article->getTitle());
-                        }
-                    };
-                    $link .= _open('div', array('class' => 'caption'));
-                        if ($titreBloc != $article->getTitle()) {
-                            $link .= _tag('h5', array('class' => 'itemprop name', 'itemprop' => 'name'), $article->getTitle());
-                        };
-                        $link .= _tag('meta', array('content' => $article->createdAt, 'itemprop' => 'datePublished'));
-                        $link .= _open('p', array('class' => 'itemprop description', 'itemprop' => 'description'));
-                            if ($chapo == 0) {
-                                $link .= stringTools::str_truncate($article->getResume(), $length, '(...)', true);
-                            } else if ($chapo == 1) {
-                                $link .= $article->getText();
+                    $link .= _open('div', array('class' => 'row'));
+                        if ($withImage == true) {
+                            if (($article->getImage()->checkFileExists() == true) and ($i <= sfConfig::get('app_nb-image'))) {
+                                $link .= _open('div', array('class' => 'span'));
+                                    $link .= _media($article->getImage())->width($width)->set('itemprop="image"')->alt($article->getTitle());
+                                $link .= _close('div');
                             }
-                        $link .= _close('p');
+                        };
+                        $link .= _open('div', array('class' => 'span'));
+                            if ($titreBloc != $article->getTitle()) {
+                                $link .= _tag('h5', array('class' => 'itemprop name', 'itemprop' => 'name'), $article->getTitle());
+                            };
+                            $link .= _tag('meta', array('content' => $article->createdAt, 'itemprop' => 'datePublished'));
+                            $link .= _open('p', array('class' => 'itemprop description', 'itemprop' => 'description'));
+                                if ($chapo == 0) {
+                                    $link .= stringTools::str_truncate($article->getResume(), $length, '(...)', true);
+                                } else if ($chapo == 1) {
+                                    $link .= $article->getText();
+                                }
+                            $link .= _close('p');
+                        $link .= _close('div');
                     $link .= _close('div');
-
                     echo _link($article)->set('.thumbnail')->text($link);
                     $i++;
                 echo _close('li');
