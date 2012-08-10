@@ -264,6 +264,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 					echo '</footer>';
 	                };
 				echo '</article>';
+				echo _tag('hr');
 
 		} else {
 			echo debugTools::infoDebug(array(__('Error : invalid xml') => $xml),'warning');

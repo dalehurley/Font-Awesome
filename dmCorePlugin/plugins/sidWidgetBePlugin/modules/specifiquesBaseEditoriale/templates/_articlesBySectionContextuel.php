@@ -82,7 +82,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 	        		}
 
 	        		$html .= _open('div', array('class' => 'caption'));
-	        			$html .= _tag('h5', $article->getTitle());
+	        			$html .= _tag('h4', $article->getTitle());
 	        			$html .= _tag('p',stringTools::str_truncate($article->getChapeau(), $length, '(....)', true));
 	        		$html .= _close('div');
 					echo _open('li');

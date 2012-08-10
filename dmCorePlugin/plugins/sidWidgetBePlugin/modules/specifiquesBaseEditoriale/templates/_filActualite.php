@@ -222,7 +222,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
             $textHtml = '';
             $textHtml .= _open('div', array('class' => 'caption'));
                 // affichage du titre
-                $textHtml .= _tag('h5', $article->getTitle());
+                $textHtml .= _tag('h4', $article->getTitle());
 
                 // affichage du chapeau
                 if($justTitle == false){
