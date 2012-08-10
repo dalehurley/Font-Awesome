@@ -8,6 +8,9 @@ class specifiquesBaseEditorialeListArticleGridImagesView extends dmWidgetPluginV
         $this->addRequiredVar(array(
             'options'
         ));
+
+        $this->addJavascript(array('sidWidgetBePlugin.transit','sidWidgetBePlugin.gridrotator'));
+        $this->addStylesheet(array('sidWidgetBePlugin.style'));
     }
 
     protected function doRender() {

@@ -1,6 +1,14 @@
 // Theme's style
+
+// generale style
 body {
 	background-image: url("/theme/less/_themes/journal/Externals/images/lightpaperfibers.png");
+}
+a:hover {
+	color: @linkColor;
+}
+.dm_widget_inner {
+	margin: 10px 0px;
 }
 
 @media (min-width: 979px) {
@@ -20,6 +28,7 @@ body {
 	}
 }
 
+// breadcrumb
 .breadcrumb {
   background: none;
   border: none;
@@ -28,6 +37,54 @@ body {
   list-style: none outside none;
   margin: 0 0 18px;
   padding: 7px 14px;
+}
+
+// Shadow style on carousel 
+.carousel:after,
+.carousel:before{
+	content: "";
+	position: absolute;
+	z-index: -2;
+	bottom: 15px;
+	left: 10px;
+	width: 50%;
+	height: 20%;
+	max-width: 300px;
+	max-height: 100px;
+	box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	-ms-transform: rotate(-3deg);
+	-o-transform: rotate(-3deg);
+	transform: rotate(-3deg);
+}
+.carousel:after{
+	right: 10px;
+	left: auto;
+	-webkit-transform: rotate(3deg);
+	-moz-transform: rotate(3deg);
+	-ms-transform: rotate(3deg);
+	-o-transform: rotate(3deg);
+	transform: rotate(3deg);
+}
+
+// thumbnail
+.thumbnail {
+	border: none;
+	border-radius: 0;
+	display: block;
+	line-height: 1;
+	padding: 4px;
+	box-shadow: 0 0 0 transparent;
+	margin-bottom: 5px;
+}
+a.thumbnail:hover {
+	#translucent > .background(@linkColor, 0.1);
+	box-shadow: 0 0 0 transparent;
+}
+.thumbnail > img {
+	float: left;
+	margin-right: 10px;
 }
 
 // Bootswatch.less
