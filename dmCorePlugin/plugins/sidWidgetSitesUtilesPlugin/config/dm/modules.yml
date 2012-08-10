@@ -16,8 +16,8 @@
       components: 
         list:
           cache: true
-        show:
-          cache: true           
+#        show:
+#          cache: true           
     SitesUtiles:
       credentials: sites_utiles
       parent: GroupeSitesUtiles
