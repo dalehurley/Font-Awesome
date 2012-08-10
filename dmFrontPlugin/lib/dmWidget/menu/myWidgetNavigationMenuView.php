@@ -27,13 +27,14 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 	
 	public function getJavascripts() {
 		$javascripts = parent::getJavascripts();
-		
+		$jsLink = array();
+
 		//récupération des variables de la vue
         $vars = $this->getViewVars();
 		//lien vers le js associé au menu
         //$jsLink = '/theme/less/_templates/'.dmConfig::get('site_theme').'/Externals/js/navigationMenu/' . $vars['menuType'] . '.js';
         if (dmConfig::get('site_theme_version') == 'v1'){
-        	$jsLink = '/theme/less/_framework/SPLessCss/Externals/js/navigationMenu/' . $vars['menuType'] . '.js'; 
+        	$jsLink[] = '/theme/less/_framework/SPLessCss/Externals/js/navigationMenu/' . $vars['menuType'] . '.js'; 
         } else { 
         	// all suffixed navbar menu type (navbar-top, navbar-bottom...etc) use the same js
         	if (substr($vars['menuType'],0,6) == 'navbar'){
@@ -47,9 +48,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         		$jsLink[] = '/theme/less/bootstrap/js/bootstrap-collapse.js';
         	}
         }
-        //chargement du JS si existant
-        //if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) 
-        	$javascripts = array_merge($javascripts,$jsLink);
+        $javascripts = array_merge($javascripts,$jsLink);
 		
 		return $javascripts;
 	}
