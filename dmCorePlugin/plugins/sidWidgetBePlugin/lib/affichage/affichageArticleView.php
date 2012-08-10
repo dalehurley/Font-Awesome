@@ -4,6 +4,9 @@ class affichageArticleView extends dmWidgetPluginView {
     public function configure() {
         parent::configure();
 
+        if(dmConfig::get('site_theme_version') == 'v2'){
+            $this->addJavascript('/theme/less/bootstrap/js/bootstrap-collapse.js');
+        }
 
     }
     protected function doRender() {

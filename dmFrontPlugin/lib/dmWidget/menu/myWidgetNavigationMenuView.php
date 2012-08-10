@@ -41,11 +41,15 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         	} else {
         		$varMenuType = $vars['menuType'];
         	}
-
-        	$jsLink = '/theme/less/bootstrap/js/menus/' . $varMenuType . '/menu.js'; 
+        	
+        	if ($varMenuType == 'navbar'){
+        		$jsLink[] = '/theme/less/bootstrap/js/bootstrap-dropdown.js';
+        		$jsLink[] = '/theme/less/bootstrap/js/bootstrap-collapse.js';
+        	}
         }
         //chargement du JS si existant
-        if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) $javascripts[] = $jsLink;
+        //if (is_file(sfConfig::get('sf_web_dir') . $jsLink)) 
+        	$javascripts = array_merge($javascripts,$jsLink);
 		
 		return $javascripts;
 	}
@@ -142,7 +146,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 			 
 			<a class="brand" href="/">'.$vars['menuName'].'</a>
 			 
-			<div class="nav-collapse">
+			<div class="nav-collapse collapse">
 			';
 
 			$responsiveHtmlEnd = '</div>';
