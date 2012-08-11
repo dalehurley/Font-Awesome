@@ -45,7 +45,13 @@
       
       this.pagination();
 
-      $("table.tablesorter").tablesorter( { widgets: ['zebra'] } );
+      $("table.tablesorter").tablesorter( { 
+        headers: { 
+            0: { 
+                sorter: false  // first column with check box : no need sort
+            }
+          },
+        widgets: ['zebra'] } );
     },
 
     filters: function()
