@@ -98,4 +98,4 @@ css:
     markitupSet:      dmMarkitup/sets/markdown/style
     tipsy:            tipsy/stylesheets/tipsy
     colorbox:         colorbox/theme3/colorbox
-    tablesorter:      jquery-tablesorter/stylesheets/style
+    tablesorter:      jquery-tablesorter/blue/style
