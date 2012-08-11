@@ -67,7 +67,7 @@ js:
     dataTable:        dataTables-1.6/js/jquery.dataTables.min
     jeditable:        jeditable/jquery.jeditable.min
     colorbox:         colorbox/jquery.colorbox.min
-
+    tablesorter:      jquery-tablesorter/jquery.tablesorter.min
 css:
 
   core:
@@ -98,3 +98,4 @@ css:
     markitupSet:      dmMarkitup/sets/markdown/style
     tipsy:            tipsy/stylesheets/tipsy
     colorbox:         colorbox/theme3/colorbox
+    tablesorter:      jquery-tablesorter/stylesheets/style

@@ -23,6 +23,7 @@ class dmAdminAssetConfig extends dmAssetConfig
       'admin.bars',
       'admin.flash',
       'admin.breadCrumb',
+      'lib.tablesorter',      
     );
   }
   
@@ -57,6 +58,7 @@ class dmAdminAssetConfig extends dmAssetConfig
       'admin.pageBar',
       'admin.mediaBar',
       sfConfig::get('dm_locks_enabled') ? 'admin.ping' : null,
+      'lib.tablesorter',
     );
   }
 }

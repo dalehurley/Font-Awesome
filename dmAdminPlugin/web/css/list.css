@@ -124,6 +124,10 @@ div.sf_admin_list th a {
   white-space: nowrap;
 }
 
+div.sf_admin_list th p {
+  padding: 0 15px;
+}
+
 div.sf_admin_list tr.even {
   background: #F0F4FC;
 }

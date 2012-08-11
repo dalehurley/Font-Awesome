@@ -44,6 +44,8 @@
       this.filters();
       
       this.pagination();
+
+      $("table.tablesorter").tablesorter( { widgets: ['zebra'] } );
     },
 
     filters: function()
