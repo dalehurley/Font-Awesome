@@ -138,6 +138,9 @@ $.widget('ui.dmFrontToolBar', $.extend({}, $.dm.coreToolBar, {
       $toggle.addClass('s24_view_on').removeClass('s24_view_off');
       $('#dm_page').addClass('edit');
 
+      // lioshi : add info for empty zone
+      $("#dm_page div.dm_widgets:empty").text("Empty zone").parent().addClass('empty_zone');
+
       setTimeout(function() { $('#dm_page .ui-sortable').sortable('refresh'); }, 200);
     }
     else
