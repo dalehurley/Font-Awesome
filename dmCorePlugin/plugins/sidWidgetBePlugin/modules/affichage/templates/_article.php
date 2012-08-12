@@ -3,7 +3,7 @@
 // Vars: $article
 
 if (!is_file($xml)) {
-    echo debugTools::infoDebug(array(__('Error : missed file') => $xml), 'warning');
+    echo debugTools::infoDebug(array(__('Error : missed file') => $xml), 'error');
 }
 
 echo debugTools::infoDebug(array('id LEA' => $article->filename, 'DataType' => $dataType));
