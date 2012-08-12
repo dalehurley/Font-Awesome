@@ -33,7 +33,7 @@ a:hover {
   background: none;
   border: none;
   border-bottom: 1px solid #D4D4D4;
-  box-shadow: 0 1px 0 #FFFFFF inset;
+  box-shadow: 0 0px 0 #FFFFFF inset;
   list-style: none outside none;
   margin: 0 0 18px;
   padding: 7px 14px;
@@ -79,7 +79,7 @@ a:hover {
 	margin-bottom: 5px;
 }
 a.thumbnail:hover {
-	#translucent > .background(@linkColor, 0.1);
+	#translucent > .background(lighten(@linkColor,50%), 0.1);
 	box-shadow: 0 0 0 transparent;
 }
 .thumbnail > img {
@@ -261,7 +261,7 @@ div.subnav {
 // -----------------------------------------------------
 
 code, pre, pre.prettyprint, .well {
-	background-color: @grayLighter;
+	background-color: lighten(@linkColor,80%);
 }
 
 .hero-unit {
@@ -271,6 +271,6 @@ code, pre, pre.prettyprint, .well {
 }
 
 .table-bordered, .well, .prettyprint {
-	.border-radius(0);
+	.border-radius(4);
 }
 
