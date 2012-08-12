@@ -34,6 +34,11 @@ abstract class dmWidgetBaseView
     return $this;
   }
   
+  public function getWidget()
+  {
+    return $this->widget;
+  }
+
   public function getJavascripts()
   {
     return $this->javascripts;
