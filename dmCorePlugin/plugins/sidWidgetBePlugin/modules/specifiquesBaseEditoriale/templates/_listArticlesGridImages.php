@@ -18,7 +18,7 @@ foreach ($articles as $article) {
 		$html .= _tag('li',_link($article)->text('<img src="'.$imageLink.'"/>'));
 		$nbArticlesWithImage++;
 	} else {
-		//echo _tag('li',_link($article)->text('<img src="/sidWidgetBePlugin/images/transp.png"/>'));
+		//$html .= _tag('li',_link($article)->text('<img src="/sidWidgetBePlugin/images/transp2.png"/>'));
 	}
 }
 				
@@ -40,7 +40,8 @@ $html .= '<li title="zerer"></li>
 
 $typeInfo = 'success';
 if ($nbArticlesWithImage < $maxNbImages) $typeInfo = 'error';
-echo debugTools::infoDebug(array('Nb articles avec image' => $nbArticlesWithImage),$typeInfo);
+echo debugTools::infoDebug(array($typeInfo.' : Nb articles avec image' => $nbArticlesWithImage),$typeInfo);
 
-echo $html;
+//if ($typeInfo == 'success') 
+	echo $html;
 
