@@ -16,13 +16,17 @@ class xmlTools {
         $return = '';
         // Je charge en mémoire mon document XML
         $doc_xml = new DOMDocument();
-        // recherche typeXML dossier / article
-        if ($doc_xml->load($xmlFile)) {
-            $return.= (isset($doc_xml->getElementsByTagName($label)->item(0)->nodeValue)) ? $doc_xml->getElementsByTagName($label)->item(0)->nodeValue : "";
+
+        if (!is_file($xmlFile)) {
+            echo debugTools::infoDebug(array('[xmlTools::getLabelXml] '.__('Error : missed file') => $xmlFile),'error');
         } else {
-            $return.= __('Error : invalid XML file') . ' : ' . $xmlFile;
+            // recherche typeXML dossier / article
+            if ($doc_xml->load($xmlFile) === false) {
+                $return.= debugTools::infoDebug(array('[xmlTools::getLabelXml] '.__('Error : invalid XML file') => $xmlFile),'error');
+            } else {
+                $return.= (isset($doc_xml->getElementsByTagName($label)->item(0)->nodeValue)) ? $doc_xml->getElementsByTagName($label)->item(0)->nodeValue : "";
+            }
         }
-        
         return $return;
     }
     public static function dom2array($root) {
