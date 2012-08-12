@@ -165,7 +165,7 @@ class dmAdminDoctrineGenerator extends sfDoctrineGenerator
     else if ('Boolean' == $field->getType())
     {
       // add prefixe for true boolean to sort enabled with jquery.tablesorter.js
-      $html = "sprintf('<p style=\"display:none\">%s</p><a class=\"s16block s16_%s {field: \'%s\'}\" title=\"%s\"></a>', ".$html." ? 'a' : '', ".$html." ? 'tick' : 'cross', '".$fieldName."', __('Click to edit'))";
+      $html = "sprintf('<p style=\"display:none\">%s</p><a class=\"s16block s16_%s {field: \'%s\'}\" title=\"%s\"></a>', ".$html." ? 'tick' : 'cross', ".$html." ? 'tick' : 'cross', '".$fieldName."', __('Click to edit'))";
       // $html = "sprintf('<a class=\"s16block s16_%s {field: \'%s\'}\" title=\"%s\"></a>', ".$html." ? 'tick' : 'cross', '".$fieldName."', __('Click to edit'))";
     }
     /*
