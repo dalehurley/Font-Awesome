@@ -42,6 +42,6 @@ $typeInfo = 'success';
 if ($nbArticlesWithImage < $maxNbImages) $typeInfo = 'error';
 echo debugTools::infoDebug(array($typeInfo.' : Nb articles avec image' => $nbArticlesWithImage),$typeInfo);
 
-//if ($typeInfo == 'success') 
+if ($typeInfo == 'success') 
 	echo $html;
 
