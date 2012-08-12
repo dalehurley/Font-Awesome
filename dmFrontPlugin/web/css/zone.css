@@ -25,6 +25,13 @@ d90b00    hover
 line-height: 10px;
 height: 10px;  
 }
+#dm_page.edit .dm_zone.empty_zone {
+  background-color: rgba(200, 12, 0, 0.2);
+}
+#dm_page.edit .dm_zone.empty_zone .dm_widgets {
+  color: #d90b00;
+  text-align: center;
+}
 
 #dm_page.edit .dm_zone:hover  {
   border:0;
