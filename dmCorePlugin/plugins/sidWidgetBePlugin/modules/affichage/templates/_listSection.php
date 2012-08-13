@@ -82,7 +82,7 @@ if(dmConfig::get('site_theme_version') == 'v1'){
 elseif(dmConfig::get('site_theme_version') == 'v2'){
     foreach ($sectionArticles as $section => $sectionArticle) {
 
-        if($section) echo '<h5>'.$section.'</h5>';
+        if($section) echo '<h3>'.$section.'</h3>';
 
         //ouverture du listing
         echo _open('ul');
@@ -116,14 +116,14 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
             }
 
             //ajout de l'article
-            echo_open('li', array('class' => 'thumbnails '.$position));
+            echo _open('li', array('class' => 'thumbnails '.$position));
                 echo _link($article)
                 ->set('.thumbnail')
                 ->text(
                         '<div class="row">'.
                         $imageHtml.
                             '<div class="span">'.
-                                '<h5>'.$article->getTitle().'</h5>'.
+                                '<h4>'.$article->getTitle().'</h4>'.
                                 '<p>'.$article->getChapeau().'</p>'.
                             '</div>'.
                         '</div>'
@@ -135,12 +135,16 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 
         if(count($sectionName) >1){
             echo _open('li', array('class' => 'thumbnails'));
-                    if($this->context->getPage()->getRecord()->getTitle() == 'ec_echeancier'){
-                        echo _link($article->getSection())->text(__('The other dates of ').$sectionName[$article->getSection()->id])->set('.btn');
-                    }
-                    else{                
-                        echo _link($article->getSection())->text(__('The other ').$sectionName[$article->getSection()->id])->set('.btn');
-                    }
+            switch ($this->context->getPage()->getRecord()->getTitle()){
+                case 'ec_echeancier': echo _link($article->getSection())->text(__('The other dates of ').$sectionName[$article->getSection()->id])->set('.btn');
+                    break;
+                case 'ec_idees_business': echo _link($article->getSection())->text(__('The other articles of ').$sectionName[$article->getSection()->id])->set('.btn');
+                    break;
+                case 'ec_guidecreation' : '';
+                    break;
+                default: echo _link($article->getSection())->text(__('The other ').$sectionName[$article->getSection()->id])->set('.btn');
+            }
+                    
             echo _close('li');
             }
         //fermeture du listing
