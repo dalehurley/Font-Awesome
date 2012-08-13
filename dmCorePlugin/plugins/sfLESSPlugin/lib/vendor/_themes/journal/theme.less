@@ -2,7 +2,7 @@
 
 // generale style
 body {
-	background: white url("/theme/less/_themes/journal/Externals/images/linen.png");
+	background: @bodyBackground url("/theme/less/_themes/journal/Externals/images/noise.png");
 }
 a:hover {
 	color: @linkColor;
@@ -13,7 +13,7 @@ a:hover {
 
 // widgets
 #dm_sidebar_right .dm_widget_inner {
-  border-bottom: 1px solid @linkColor;
+  border-bottom: 1px solid @grayLight;
 }
 
 // carousel in 100% width on dm_page_content_fluid zone
@@ -47,12 +47,24 @@ a:hover {
 	}
 }
 
+// ACCORDION
+// ---------
+
+.accordion-group {
+  border: 1px solid @grayLight;
+}
+
+.accordion-inner {
+  border-top: 1px solid @grayLight;
+}
+
+
 // breadcrumb
 .breadcrumb {
   background: none;
   border: none;
   .border-radius(0);
-  border-bottom: 1px solid @linkColor;
+  border-bottom: 1px solid @grayLight;
   box-shadow: 0 0px 0 @white inset;
   list-style: none outside none;
   margin: 0 0 18px;
@@ -187,7 +199,7 @@ a {
 // -----------------------------------------------------
 
 .navbar {
-	background: white url("/theme/less/_themes/journal/Externals/images/linen.png");
+	background: @bodyBackground url("/theme/less/_themes/journal/Externals/images/noise.png");
 	.navbar-inner {
 		@shadow: 0 2px 4px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1);
 		.box-shadow(@shadow);
@@ -350,16 +362,13 @@ div.subnav {
 	}
 }
 
-@media (min-width: 768px) and (max-width: 979px) {
+@media (min-width: 768px) and (max-width: 1100px) {
 	.dm_page_content_fluid .carousel {
-	  width: 768px;
+	  width: 668px;
 	}
 }
 @media (max-width: 767px){
-	#dm_page_content_fluid {
+	#dm_page_content_fluid, .dm_widget.specifiques_base_editoriale_list_article_grid_images {
 	  display: none;
 	}
 }
-
-
-
