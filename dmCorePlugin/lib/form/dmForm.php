@@ -192,7 +192,7 @@ class dmForm extends sfFormSymfony
     } else { // v2 with Bootstrap
       return
       $this->open($attributes).
-      '<fieldset>'.
+      '<fieldset class="well">'.
       $this->getFormFieldSchema()->render($attributes).
       sprintf('<div class="form-actions">%s</div>',
       $this->renderSubmitTag($this->__('Send'))
