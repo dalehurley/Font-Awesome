@@ -108,7 +108,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                         };
                         $link .= _open('div', array('class' => 'span'));
                             if ($titreBloc != $article->getTitle()) {
-                                $link .= _tag('h5', array('class' => 'itemprop name', 'itemprop' => 'name'), $article->getTitle());
+                                $link .= _tag('h4', array('class' => 'itemprop name', 'itemprop' => 'name'), $article->getTitle());
                             };
                             $link .= _tag('meta', array('content' => $article->createdAt, 'itemprop' => 'datePublished'));
                             $link .= _open('p', array('class' => 'itemprop description', 'itemprop' => 'description'));

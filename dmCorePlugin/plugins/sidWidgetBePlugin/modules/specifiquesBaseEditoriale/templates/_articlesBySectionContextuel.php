@@ -65,7 +65,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 	if(count($articles) != NULL){
 		echo _tag('h3',$titreBloc);
 		//echo _open('div', array('class' => 'thumbnail'));
-			echo _open('ul', array('class' => 'thumbnails'));
+			echo _open('ul');
 				foreach($articles as $article){
 					$html = '';
 					$i++;
@@ -82,10 +82,10 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 	        		}
 
 	        		$html .= _open('div', array('class' => 'caption'));
-	        			$html .= _tag('h5', $article->getTitle());
+	        			$html .= _tag('h4', $article->getTitle());
 	        			$html .= _tag('p',stringTools::str_truncate($article->getChapeau(), $length, '(....)', true));
 	        		$html .= _close('div');
-					echo _open('li');
+					echo _open('li', array('class' => 'thumbnails'));
 						echo _link($article)->text($html)->set('.thumbnail '.$position);
 					echo _close('li');
 				}

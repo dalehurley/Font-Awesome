@@ -125,7 +125,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2') {
         $i = 1;
         $i_max = count($missions);
 
-        echo _tag('h4',$titreBloc);
+        echo _tag('h3',$titreBloc);
         echo _open('ul', array('class' => 'thumbnails'));
         foreach ($missions as $mission) {  
             $link = '';
