@@ -1,24 +1,49 @@
 <?php
+if(dmConfig::get('site_theme_version') == 'v1'){
+    echo _tag('h4.title','Déterminez rapidement les congés de votre salarié');
 
-echo _tag('h4.title','Déterminez rapidement les congés de votre salarié');
+    echo '<p><i>(Cas général : à préciser avec votre Convention Collective)</i></p>	
+            <p>
+                    Il est possible, pour la période de référence allant du 1<sup>er</sup> juin au 31 mai, de traduire en chiffres les principes posés par le code du travail pour une durée hebdomadaire de travail répartie sur 5 jours (du lundi au vendredi).
+                    <br/>
+                    <br/>
 
-echo '<p><i>(Cas général : à préciser avec votre Convention Collective)</i></p>	
-	<p>
-		Il est possible, pour la période de référence allant du 1<sup>er</sup> juin au 31 mai, de traduire en chiffres les principes posés par le code du travail pour une durée hebdomadaire de travail répartie sur 5 jours (du lundi au vendredi).
-		<br/>
-		<br/>
+                    Afin de déterminer rapidement le nombre de jours ouvrables du congé de votre salarié, veuillez indiquer le nombre de jours d\'absence de celui-ci.
+            </p>';
 
-		Afin de déterminer rapidement le nombre de jours ouvrables du congé de votre salarié, veuillez indiquer le nombre de jours d\'absence de celui-ci.
-	</p>';
+    echo $form;
 
-echo $form;
+    if ($sf_user->hasFlash('results')) {
 
-if ($sf_user->hasFlash('results')) {
+        $results = $sf_user->getFlash('results');
 
-    $results = $sf_user->getFlash('results');
+        //var_dump($results); // pour afficher les valeurs postée et le résultat soap
 
-    //var_dump($results); // pour afficher les valeurs postée et le résultat soap
+        echo $results['soap'];
 
-    echo $results['soap'];
-    
+    }
+}
+elseif(dmConfig::get('site_theme_version') == 'v2'){
+    echo _tag('h3','Déterminez rapidement les congés de votre salarié');
+
+    echo '<p><i>(Cas général : à préciser avec votre Convention Collective)</i></p>	
+            <p>
+                    Il est possible, pour la période de référence allant du 1<sup>er</sup> juin au 31 mai, de traduire en chiffres les principes posés par le code du travail pour une durée hebdomadaire de travail répartie sur 5 jours (du lundi au vendredi).
+                    <br/>
+                    <br/>
+
+                    Afin de déterminer rapidement le nombre de jours ouvrables du congé de votre salarié, veuillez indiquer le nombre de jours d\'absence de celui-ci.
+            </p>';
+
+    echo $form->render(array('class' => 'form-horizontal'));
+
+    if ($sf_user->hasFlash('results')) {
+
+        $results = $sf_user->getFlash('results');
+
+        //var_dump($results); // pour afficher les valeurs postée et le résultat soap
+
+        echo $results['soap'];
+
+    }
 }
