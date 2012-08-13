@@ -137,14 +137,15 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
 
         }
 
-        $html = '<div id="myCarousel" class="carousel slide">
+        $widget = $this->getWidget();
+        $html = '<div id="carousel'.$widget['id'].'" class="carousel slide">
         <div class="carousel-inner">'
 
         .$items.    
 
         '</div>
-        <a class="left carousel-control" data-slide="prev" href="#myCarousel"><i class="icon-xlarge icon-circle-arrow-left"></i></a>
-        <a class="right carousel-control" data-slide="next" href="#myCarousel"><i class="icon-xlarge icon-circle-arrow-right"></i></a>
+        <a class="left carousel-control" data-slide="prev" href="#carousel'.$widget['id'].'"><i class="icon-xlarge icon-circle-arrow-left"></i></a>
+        <a class="right carousel-control" data-slide="next" href="#carousel'.$widget['id'].'"><i class="icon-xlarge icon-circle-arrow-right"></i></a>
         </div>';
 
         $html .= 
@@ -153,7 +154,7 @@ class dmWidgetContentGalleryView extends dmWidgetPluginView
             $(document).ready(function(){
                 $(\".carousel\").carousel(
                 {
-                  interval: ".dmArray::get($vars, 'delay', 3)."
+                  interval: ".dmArray::get($vars, 'delay', 3000)."
                 }
                   );
             });

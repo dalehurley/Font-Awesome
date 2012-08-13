@@ -49,7 +49,7 @@ if(dmConfig::get('site_theme_version') == 'v1'){
                     $doc_xml = new DOMDocument();
     // vérification du fichier XML
                     if (!is_file($xml)) {
-                        $html.= debugTools::infoDebug(array(__('Error : missed file') => $xml), 'warning');
+                        $html.= debugTools::infoDebug(array(__('Error : missed file') => $xml), 'error');
                     } else {
 
                         //ouverture du document XML
@@ -188,7 +188,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                     $doc_xml = new DOMDocument();
     // vérification du fichier XML
                     if (!is_file($xml)) {
-                        $html.= debugTools::infoDebug(array(__('Error : missed file') => $xml), 'warning');
+                        $html.= debugTools::infoDebug(array(__('Error : missed file') => $xml), 'error');
                     } else {
 
                         //ouverture du document XML

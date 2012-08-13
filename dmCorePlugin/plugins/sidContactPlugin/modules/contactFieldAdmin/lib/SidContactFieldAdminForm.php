@@ -94,7 +94,7 @@ http://www.example.com/contact?dest=8  (où SidCabinetEquipe.id = 8)<br/>
     $widget_attributes_help = '
 <h2>Les attributs des widgets possibles</h2>
 <u>Idem pour tous les sfWidgets:</u><br/>
-Ajout d\'attributs HTML, exemple : <i>{"style" : "width: 290px;color: red", "value" : "valeur par défaut" , "rows" : "4", "cols" : "30"}</i>
+Ajout d\'attributs HTML, exemple : <i>{"class" : "span1"} ou bien {"style" : "width: 290px;color: red", "value" : "valeur par défaut" , "rows" : "4", "cols" : "30"}</i>
 ';
     
     $validator_options_help = '

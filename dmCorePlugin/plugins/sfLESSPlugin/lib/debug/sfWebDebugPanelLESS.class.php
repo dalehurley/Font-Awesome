@@ -94,42 +94,43 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
       </tr>
 */
 
-if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2'){
+    if (sfConfig::get('sf_app')=='front' && dmConfig::get('site_theme_version')=='v2'){
+        if (sfContext::getInstance()->getPage()){
+          // affichage de la page courante
+          $idDmPage = sfContext::getInstance()->getPage()->id;
+          $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
+          $pageCurrent =  $dmPage->module.'/'.$dmPage->action;
+          $recordId = $dmPage->record_id;
+          // récupération du Layout de la page en cours
+          $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
 
-        // affichage de la page courante
-        $idDmPage = sfContext::getInstance()->getPage()->id;
-        $dmPage = dmDb::table('DmPage')->findOneById($idDmPage);
-        $pageCurrent =  $dmPage->module.'/'.$dmPage->action;
-        $recordId = $dmPage->record_id;
-        // récupération du Layout de la page en cours
-        $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
+          //  array of info
+          $tabInfos['&nbsp;  ']              = '&nbsp;';   
+          $tabInfos['SETTINGS']              = '&nbsp;'; 
+          $tabInfos['------------------------------------------'] = '&nbsp;';         
+          // all settings 
+          $allSettings = dmConfig::getAll();
+          foreach ($allSettings as $key => $value) {
+            $tabInfos[$key] = $value.'&nbsp;';
+          }
 
-        //  array of info
-        $tabInfos['&nbsp;  ']              = '&nbsp;';   
-        $tabInfos['SETTINGS']              = '&nbsp;'; 
-        $tabInfos['------------------------------------------'] = '&nbsp;';         
-        // all settings 
-        $allSettings = dmConfig::getAll();
-        foreach ($allSettings as $key => $value) {
-          $tabInfos[$key] = $value.'&nbsp;';
-        }
+          $tabInfos['&nbsp;   ']         = '&nbsp;';   
+          $tabInfos['INFORMATIONS']      = '&nbsp;'; 
+          $tabInfos['------------------------------------------&nbsp;'] = '&nbsp;';        
+          $tabInfos['Current page']      = $pageCurrent;
+          $tabInfos['Layout']            = $layoutPage;
+          $tabInfos['Page recordId']     = ($recordId==0)?'No auto page' : $recordId;
+          $tabInfos['Directory of Site'] = $directorySite = substr(dirname(getcwd()),  strrpos(dirname(getcwd()), '/')+1);
 
-        $tabInfos['&nbsp;   ']         = '&nbsp;';   
-        $tabInfos['INFORMATIONS']      = '&nbsp;'; 
-        $tabInfos['------------------------------------------&nbsp;'] = '&nbsp;';        
-        $tabInfos['Current page']      = $pageCurrent;
-        $tabInfos['Layout']            = $layoutPage;
-        $tabInfos['Page recordId']     = ($recordId==0)?'No auto page' : $recordId;
-        $tabInfos['Directory of Site'] = $directorySite = substr(dirname(getcwd()),  strrpos(dirname(getcwd()), '/')+1);
-
-        $panel .= '<dl style="" id="less_debug_infos">';
-        foreach ($tabInfos as $lib => $value) {
-          $panel .= '<dt style="float:left; width: 200px"><strong>'.$lib.'</strong></dt><dd>'.$value.'</dd>';
-        }
-        $panel .= '</dl>';
-        // ajout de less-grid-4.js display
-        $panel .= '<script src="/theme/less/bootstrap/js/less-grid-4.js"></script>';
-  }
+          $panel .= '<dl style="" id="less_debug_infos">';
+          foreach ($tabInfos as $lib => $value) {
+            $panel .= '<dt style="float:left; width: 200px"><strong>'.$lib.'</strong></dt><dd>'.$value.'</dd>';
+          }
+          $panel .= '</dl>';
+          // ajout de less-grid-4.js display
+          $panel .= '<script src="/theme/less/bootstrap/js/less-grid-4.js"></script>';
+      }
+    }
 
     return $panel;
   }

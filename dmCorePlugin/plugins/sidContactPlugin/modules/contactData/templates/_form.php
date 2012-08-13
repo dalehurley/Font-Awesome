@@ -71,7 +71,7 @@ if (!$error){   // if 1 its only the submit button
                 };
             </script>';
         }
-    	echo $form;
+    	echo $form->render(array('class' => 'form-horizontal'));
     }
 
 } else {

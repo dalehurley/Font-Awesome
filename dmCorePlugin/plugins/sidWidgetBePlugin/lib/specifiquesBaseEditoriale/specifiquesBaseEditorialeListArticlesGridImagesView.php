@@ -10,7 +10,8 @@ class specifiquesBaseEditorialeListArticleGridImagesView extends dmWidgetPluginV
         ));
 
         $this->addJavascript(array(
-            'sidWidgetBePlugin.transit',
+       //     'sidWidgetBePlugin.transit',
+            'sidWidgetBePlugin.transitmin',
             'sidWidgetBePlugin.gridrotator'
             )
         );
@@ -41,7 +42,7 @@ class specifiquesBaseEditorialeListArticleGridImagesView extends dmWidgetPluginV
                 ->from('SidArticle a')
                 ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                 ->where('a.is_dossier = ? ', array(false))
-                ->orderBy('aTranslation.updated_at DESC')
+                ->orderBy('aTranslation.updated_at ASC')
                 ->groupBy('a.filename')
                 ->limit($maxNbImages*4)  // on récupère le quadruple du nombre d'image max à afficher: le remplacement d'une image par une autre est assuré
                 ->execute();

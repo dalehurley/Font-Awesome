@@ -75,7 +75,7 @@ class dmWidgetContentGalleryForm extends dmWidgetPluginForm
     ));
     if (!$this->hasDefault('delay'))
     {
-      $this->setDefault('delay', 3);
+      $this->setDefault('delay', 3000);
     }
 
     $this->widgetSchema['quality'] = new sfWidgetFormInputText(array(), array('size' => 5));

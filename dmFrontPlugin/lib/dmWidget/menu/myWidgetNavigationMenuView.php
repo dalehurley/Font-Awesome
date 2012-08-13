@@ -46,6 +46,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
         	if ($varMenuType == 'navbar'){
         		$jsLink[] = '/theme/less/bootstrap/js/bootstrap-dropdown.js';
         		$jsLink[] = '/theme/less/bootstrap/js/bootstrap-collapse.js';
+        		$jsLink[] = '/theme/less/bootstrap/js/bootstrap-transition.js';
         	}
         }
         $javascripts = array_merge($javascripts,$jsLink);

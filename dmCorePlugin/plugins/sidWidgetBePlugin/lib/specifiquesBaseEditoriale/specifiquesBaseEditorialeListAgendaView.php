@@ -82,7 +82,12 @@ class specifiquesBaseEditorialeListAgendaView extends dmWidgetPluginView {
                 ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'c')
                 ->where('cTranslation.title like ? and bTranslation.title like ? ', array( 'ec_echeancier', 'vacances_scolaires'))
                 ->fetchOne();
-        $vacances = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('article', 'show',$recordIdPage->id);
+        if ($recordIdPage){
+            $vacances = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('article', 'show',$recordIdPage->id);
+        } else {
+            $vacances = null;
+        }
+        
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'listAgenda', array(
                     'articles' => $arrayFilActus,
                     'titreBloc' => $vars['titreBloc'],

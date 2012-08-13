@@ -21,7 +21,7 @@ class SidBandeauAdminForm extends BaseSidBandeauForm
         $this->widgetSchema['behavior'] = new sfWidgetFormChoice(array('choices' => array('scroll' => 'défilement', 'alternate' => 'va et vient')));
 //        $this->widgetSchema['direction'] = new sfWidgetFormChoice(array('choices' => array('left' => 'de droite à gauche', 'right' => 'de gauche à droite', 'down' => 'de haut en bas', 'up' => 'de bas en haut')));
         $this->widgetSchema['direction'] = new sfWidgetFormChoice(array('choices' => array('left' => 'de droite à gauche', 'right' => 'de gauche à droite')));
-        $this->widgetSchema['scrollamount'] = new sfWidgetFormSelectRadio(array('choices' => array('2' => 'lent', '5' => 'normal', '10' => 'rapide'))); 
+        $this->widgetSchema['scrollamount'] = new sfWidgetFormSelectRadio(array('choices' => array('1' => 'lent', '3' => 'normal', '5' => 'rapide'))); 
         
         $this->widgetSchema->setHelps(array(
             'boucle' => '<b>(0 pour infini)</b>', 

@@ -2,7 +2,7 @@
 
 // generale style
 body {
-	background-image: url("/theme/less/_themes/journal/Externals/images/lightpaperfibers.png");
+	background: white url("/theme/less/_themes/journal/Externals/images/paper.png");
 }
 a:hover {
 	color: @linkColor;
@@ -17,12 +17,32 @@ a:hover {
 	}
 }
 
+// carousel in 100% width on dm_page_content_fluid zone
+// no margin for fluid container
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+// no min-height for fluid container, if empty no display
+.row-fluid [class*="span"] {
+  min-height: 0;
+}
+.dm_page_content_fluid {
+	margin-top: -@baseLineHeight;
+	background: gray url("/theme/less/_themes/journal/Externals/images/low_contrast_linen.png");
+}
+
 // Social network Widget
 .dm_widget.social_network_logos {
 	a {
 		i:before {
-			color: #fff;
-			background: #fff;
+			color: @white;
+			text-shadow: 1px 1px 4px#000;
+	    }
+	}
+	a:hover {
+		i:before {
+			color: lighten(@linkColor,80%);
 			text-shadow: 1px 1px 4px#000;
 	    }
 	}
@@ -32,11 +52,12 @@ a:hover {
 .breadcrumb {
   background: none;
   border: none;
-  border-bottom: 1px solid #D4D4D4;
-  box-shadow: 0 1px 0 #FFFFFF inset;
+  .border-radius(0);
+  border-bottom: 1px solid @linkColor;
+  box-shadow: 0 0px 0 @white inset;
   list-style: none outside none;
   margin: 0 0 18px;
-  padding: 7px 14px;
+  padding: 7px 0px;
 }
 
 // Shadow style on carousel 
@@ -67,8 +88,25 @@ a:hover {
 	-o-transform: rotate(3deg);
 	transform: rotate(3deg);
 }
+// width and control of carousel when it is in .dm_page_content_fluid 
+.dm_page_content_fluid .carousel {
+	#grid > .core > .span(10);
+	margin: 15px auto;
+	i:before {
+			color: @white;
+			text-shadow: 1px 1px 4px#000;
+	    }
+}
+.dm_page_content_fluid .carousel-control {
+  left: -55px;
+  top: 50%;
+  &.right {
+    left: auto;
+    right: -55px;
+  }
+}
 
-// thumbnail
+// thumbnail div
 .thumbnail {
 	border: none;
 	border-radius: 0;
@@ -79,12 +117,23 @@ a:hover {
 	margin-bottom: 5px;
 }
 a.thumbnail:hover {
-	#translucent > .background(@linkColor, 0.1);
+	#translucent > .background(lighten(@linkColor,50%), 0.1);
 	box-shadow: 0 0 0 transparent;
 }
 .thumbnail > img {
 	float: left;
 	margin-right: 10px;
+}
+
+// widgets
+// display columns
+.dm_widget.affichage_article {
+	-moz-column-count: 2;
+	-moz-column-gap: @gridGutterWidth;
+	-webkit-column-count: 2;
+	-webkit-column-gap: @gridGutterWidth;
+	column-count: 2;
+	column-gap: @gridGutterWidth;
 }
 
 // Bootswatch.less
@@ -131,12 +180,13 @@ a {
 // -----------------------------------------------------
 
 .navbar {
-
+	background: white url("/theme/less/_themes/journal/Externals/images/paper.png");
 	.navbar-inner {
 		@shadow: 0 2px 4px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1);
 		.box-shadow(@shadow);
 		border-top: 1px solid #E5E5E5;
 		.border-radius(0);
+		background: none;
 	}
 
 	.brand {
@@ -164,7 +214,7 @@ a {
 	.nav li.dropdown.open > .dropdown-toggle,
 	.nav li.dropdown.active.open > .dropdown-toggle,
 	.nav li.dropdown.active.open > .dropdown-toggle:hover {
-		background-color: @grayLighter;
+		#translucent > .background(@navbarLinkBackgroundActive,0.2);
 		color: @linkColor;
 	}
 
@@ -197,6 +247,20 @@ a {
 		.placeholder(@gray);
 	}
 }
+// Hover
+.navbar .nav > li > a:hover {
+  #translucent > .background(@navbarLinkBackgroundActive,0.2);
+  color: @navbarLinkColorHover;
+  text-decoration: none;
+}
+// Active nav items
+.navbar .nav .active > a,
+.navbar .nav .active > a:hover {
+  color: @navbarLinkColorActive;
+  text-decoration: none;
+  #translucent > .background(@navbarLinkBackgroundActive,0.1);
+}
+
 
 div.subnav {
 	background-color: @bodyBackground;
@@ -227,7 +291,7 @@ div.subnav {
 // -----------------------------------------------------
 
 .btn-primary {
-  .buttonBackground(lighten(@linkColor, 5%), @linkColor);
+  .buttonBackground(lighten(@linkColor, 35%), lighten(@linkColor, 15%));
 }
 
 [class^="icon-"], [class*=" icon-"] {
@@ -260,10 +324,6 @@ div.subnav {
 // MISC
 // -----------------------------------------------------
 
-code, pre, pre.prettyprint, .well {
-	background-color: @grayLighter;
-}
-
 .hero-unit {
     .box-shadow(inset 0 1px 1px rgba(0,0,0,.05));
 	border: 1px solid rgba(0,0,0,.05);
@@ -271,6 +331,6 @@ code, pre, pre.prettyprint, .well {
 }
 
 .table-bordered, .well, .prettyprint {
-	.border-radius(0);
+	.border-radius(4);
 }
 

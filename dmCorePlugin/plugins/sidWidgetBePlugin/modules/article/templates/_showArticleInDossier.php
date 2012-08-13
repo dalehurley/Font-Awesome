@@ -21,11 +21,11 @@ if(dmConfig::get('site_theme_version') == 'v1'){
     $xsl = dm::getDir() . '/dmCorePlugin/plugins/sidWidgetBePlugin/lib/xsl/' . sfConfig::get('app_xsl-article');
 
     // vérification du fichier XSL
-    if (!is_file($xsl)) $html.= debugTools::infoDebug(array(__('Error : missed file') => $xsl),'warning');
+    if (!is_file($xsl)) $html.= debugTools::infoDebug(array(__('Error : missed file') => $xsl),'error');
 
     // vérification du fichier XML
     if (!is_file($xml)) {
-    	$html.= debugTools::infoDebug(array(__('Error : missed file') => $xml),'warning');
+    	$html.= debugTools::infoDebug(array(__('Error : missed file') => $xml),'error');
     } else {
     	//titre du contenu
     	if($article->title) $html = '<h3 class="title">'.$article->title.'</h3>';
@@ -118,11 +118,11 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
     $xsl = dm::getDir() . '/dmCorePlugin/plugins/sidWidgetBePlugin/lib/xsl/' . sfConfig::get('app_xsl-article');
 
     // vérification du fichier XSL
-    if (!is_file($xsl)) $html.= debugTools::infoDebug(array(__('Error : missed file') => $xsl),'warning');
+    if (!is_file($xsl)) $html.= debugTools::infoDebug(array(__('Error : missed file') => $xsl),'error');
 
     // vérification du fichier XML
     if (!is_file($xml)) {
-        $html.= debugTools::infoDebug(array(__('Error : missed file') => $xml),'warning');
+        $html.= debugTools::infoDebug(array(__('Error : missed file') => $xml),'error');
     } 
     else {
         //$html = _open('div', array('class' => 'thumbnail'));

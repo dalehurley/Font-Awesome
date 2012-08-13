@@ -51,7 +51,11 @@ class dmForm extends sfFormSymfony
     //     $this->widgetSchema->setLabel($key, $label);
     // }
     
-    $decorator = new sfWidgetFormSchemaFormatterDmList($this->widgetSchema, $this->validatorSchema);
+    if (dmConfig::get('site_theme_version') == 'v1'){
+      $decorator = new sfWidgetFormSchemaFormatterDmList($this->widgetSchema, $this->validatorSchema);
+    } else {
+      $decorator = new sfWidgetFormSchemaFormatterDmListV2($this->widgetSchema, $this->validatorSchema);
+    }
     $this->widgetSchema->addFormFormatter('custom', $decorator);
     $this->widgetSchema->setFormFormatterName('custom');   
     
@@ -175,15 +179,27 @@ class dmForm extends sfFormSymfony
   {
     $attributes = dmString::toArray($attributes, true);
     
-    return
-    $this->open($attributes).
-    '<ul class="dm_form_elements">'.
-    $this->getFormFieldSchema()->render($attributes).
-    sprintf('<li class="dm_form_element">%s</li>',
-    $this->renderSubmitTag($this->__('Send'))
-    ).
-    '</ul>'.
-    $this->close();
+    if (dmConfig::get('site_theme_version') == 'v1'){
+      return
+      $this->open($attributes).
+      '<ul class="dm_form_elements">'.
+      $this->getFormFieldSchema()->render($attributes).
+      sprintf('<li class="dm_form_element">%s</li>',
+      $this->renderSubmitTag($this->__('Send'))
+      ).
+      '</ul>'.
+      $this->close();
+    } else { // v2 with Bootstrap
+      return
+      $this->open($attributes).
+      '<fieldset>'.
+      $this->getFormFieldSchema()->render($attributes).
+      sprintf('<div class="form-actions">%s</div>',
+      $this->renderSubmitTag($this->__('Send'))
+      ).
+      '</fieldset>'.
+      $this->close();
+    }
   }
 
   /**
@@ -193,14 +209,27 @@ class dmForm extends sfFormSymfony
    */
   public function renderSubmitTag($value = 'submit', $attributes = array())
   {
-    $attributes = array_merge(array(
-      'value' => $value,
-      'type' => 'submit'
-    ), dmString::toArray($attributes));
-    
-    $attributes['class'] = dmArray::toHtmlCssClasses(array_merge(dmArray::get($attributes, 'class', array()), array('submit')));
+    if (dmConfig::get('site_theme_version') == 'v1'){
+      $attributes = array_merge(array(
+        'value' => $value,
+        'type' => 'submit'
+      ), dmString::toArray($attributes));
+      
+      $attributes['class'] = dmArray::toHtmlCssClasses(array_merge(dmArray::get($attributes, 'class', array()), array('submit')));
 
-    return sprintf('<input%s />', $this->getWidgetSchema()->attributesToHtml($attributes));
+      return sprintf('<input%s />', $this->getWidgetSchema()->attributesToHtml($attributes));
+    } else {
+      $attributes = array_merge(array(
+        //'value' => $value,
+        'type' => 'submit'
+      ), dmString::toArray($attributes));
+      
+      $attributes['class'] = dmArray::toHtmlCssClasses(array_merge(dmArray::get($attributes, 'class', array()), array('btn','btn-primary')));
+
+      return sprintf('<button%s />'.$value.'</button>', $this->getWidgetSchema()->attributesToHtml($attributes));
+
+    }
+
   }
   
   /**
