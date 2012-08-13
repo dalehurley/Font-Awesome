@@ -29,8 +29,8 @@
         </div>
 		<div class="row-fluid">
 			<?php echo $helper->renderArea('layout.left','#dm_sidebar_left.span2') ?>
-			<?php echo $helper->renderArea('page.content','#dm_page_content.span6') ?>
-			<?php echo $helper->renderArea('layout.right','#dm_sidebar_right.span4') ?>
+			<?php echo $helper->renderArea('page.content','#dm_page_content.span7') ?>
+			<?php echo $helper->renderArea('layout.right','#dm_sidebar_right.span3') ?>
 		</div>
 		<div class="row-fluid">		
 			<?php echo $helper->renderArea('layout.customBottom', '#dm_custom_bottom.span12') ?>      
