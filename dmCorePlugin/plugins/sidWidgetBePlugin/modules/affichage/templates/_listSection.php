@@ -60,11 +60,14 @@ if(dmConfig::get('site_theme_version') == 'v1'){
             echo _open('span', array('class'=>'navigationWrapper navigationBottom'));
                 echo _open('ul', array('class'=>'elements'));
                     echo _open('li', array('class'=>'element first last'));
-                    if($this->context->getPage()->getRecord()->getTitle() == 'ec_echeancier'){
-                        echo _link($article->getSection())->text(__('The other dates of ').$sectionName[$article->getSection()->id]);
-                    }
-                    else{                
-                        echo _link($article->getSection())->text(__('The other ').$sectionName[$article->getSection()->id]);
+                    switch ($this->context->getPage()->getRecord()->getTitle()){
+                        case 'ec_echeancier': echo _link($article->getSection())->text(__('The other dates of ').$sectionName[$article->getSection()->id]);
+                            break;
+                        case 'ec_idees_business': echo _link($article->getSection())->text(__('The other articles of ').$sectionName[$article->getSection()->id]);
+                            break;
+                        case 'ec_guidecreation' : '';
+                            break;
+                        default: echo _link($article->getSection())->text(__('The other ').$sectionName[$article->getSection()->id])->set('.btn');
                     }
                     echo _close('li');
                 echo _close('ul');
