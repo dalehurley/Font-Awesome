@@ -45,8 +45,8 @@ if ($imgExist) {
 elseif (dmConfig::get('site_theme_version') == 'v2'){
     if ($imgExist) {
         echo _tag('h3', $titreBloc);
-        echo _open('ul.thumbnails');
-            echo _open('li.first.last');
+        echo _open('ul');
+            echo _open('li' , array('class' => 'thumbnails first last'));
                 $html = "";
                 $html.= _media($dessins['imgLinkSmall'])->alt($dessins['titre']);
                 $html.= _open('div', array('class' => 'caption'));

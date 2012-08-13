@@ -136,7 +136,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
         if($titreBloc) echo _tag('h3',$titreBloc);
                 
             //ouverture du listing
-        echo _open('ul', array('class' => 'thumbnails' ));
+        echo _open('ul');
             
         //compteur
         $i = 1;
@@ -210,7 +210,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                 $imageLink = '/_images/lea' . $article->filename . '-p.jpg';
             }
         // construction du li
-        echo _open('li', array('class' =>"itemscope Article ".$position."", "itemscope" =>"itemscope", "itemtype" => "http://schema.org/Article"));
+        echo _open('li', array('class' =>"thumbnails itemscope Article ".$position."", "itemscope" =>"itemscope", "itemtype" => "http://schema.org/Article"));
 
             // gestion de l'image 
             $imageHtml = '';

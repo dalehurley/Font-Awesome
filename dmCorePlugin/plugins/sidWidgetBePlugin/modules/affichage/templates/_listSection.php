@@ -85,7 +85,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
         if($section) echo '<h5>'.$section.'</h5>';
 
         //ouverture du listing
-        echo _open('ul.thumbnails');
+        echo _open('ul');
 
         $i = 0;
         $i_max = count($sectionArticle); // il faut compter le nombre de resultats pour la page en cours, count($articlePager) renvoie la taille complète du pager  
@@ -116,26 +116,25 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
             }
 
             //ajout de l'article
-            echo 
-            '<li class="'.$position.'">';
-            echo _link($article)
-            ->set('.thumbnail')
-            ->text(
-                    '<div class="row">'.
-                    $imageHtml.
-                        '<div class="span">'.
-                            '<h5>'.$article->getTitle().'</h5>'.
-                            '<p>'.$article->getChapeau().'</p>'.
-                        '</div>'.
-                    '</div>'
-            );
+            echo_open('li', array('class' => 'thumbnails '.$position));
+                echo _link($article)
+                ->set('.thumbnail')
+                ->text(
+                        '<div class="row">'.
+                        $imageHtml.
+                            '<div class="span">'.
+                                '<h5>'.$article->getTitle().'</h5>'.
+                                '<p>'.$article->getChapeau().'</p>'.
+                            '</div>'.
+                        '</div>'
+                );
             
-            echo '</li>';
+            echo _close('li');
 
         }
 
         if(count($sectionName) >1){
-            echo _open('li');
+            echo _open('li', array('class' => 'thumbnails'));
                     if($this->context->getPage()->getRecord()->getTitle() == 'ec_echeancier'){
                         echo _link($article->getSection())->text(__('The other dates of ').$sectionName[$article->getSection()->id])->set('.btn');
                     }

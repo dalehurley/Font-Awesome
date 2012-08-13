@@ -80,7 +80,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
 		if($titreBloc) echo _tag('h3',$titreBloc);
 			
 		//ouverture du listing
-	    echo _open('ul.thumbnails');
+	    echo _open('ul');
 
 		//compteur
 		$i = 1;
@@ -114,7 +114,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
             $textHtml .= _close('div');
 
 		    // affichage de l'article
-		    echo _open('li');
+		    echo _open('li', array('class' => 'thumbnails'));
     			echo _link($article)->set('.thumbnail')->text($textHtml);
     		echo _close('li');
 	        

@@ -74,7 +74,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
             $i_max = count($adresses);
             $class = '';
             $html = '';
-            echo _open('ul', array('class' => 'thumbnails'));
+            echo _open('ul');
             foreach ($adresses as $adresse) {
                 $link = '';
 
@@ -91,7 +91,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                 }
 
 
-                echo _open('li', array('class' => 'itemscope Article ' . $position, 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
+                echo _open('li', array('class' => 'thumbnails itemscope Article ' . $position, 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
 
 
                 $link = '';

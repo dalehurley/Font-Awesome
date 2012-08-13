@@ -168,7 +168,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
     }
     echo _tag('hr');
     //ouverture du listing
-    echo _open('ul.thumbnails');
+    echo _open('ul');
     $i = 0;
     $i_max = count($sitesUtilesPager); // il faut compter le nombre de resultats pour la page en cours, count($articlePager) renvoie la taille complète du pager    
 
