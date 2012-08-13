@@ -125,8 +125,6 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
 				$emailSpan = '';
 				if ($adresse->getEmail()){
 				$emailSpan .= _open('span', array('class' => "itemprop mail"));
-					$emailSpan .=_tag('span', array('class' => "type", 'title' => "Email"),'Email');
-					$emailSpan .=_tag('span', array('class' => "separator"),'&nbsp;:&nbsp');
 					$emailSpan .=_link("mailto:".$adresse->getEmail())->text(_tag('i', array('class' => 'icon-envelope'), '&nbsp;').$adresse->getEmail())->set('.btn value itemprop="email"');
 				$emailSpan .=_close('span').'<br />';
 				}
@@ -134,8 +132,6 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
 				$telSpan = '';
 				if ($adresse->getTel()){
 					$telSpan .= _open('span', array('class' => "itemprop telephone"));
-						$telSpan .= _tag('span', array('class' => "type", 'title' => "Téléphone"),'Téléphone');
-						$telSpan .= _tag('span', array('class' => "separator"),'&nbsp;:&nbsp');
 						$telSpan .= _tag('i', array('class' => 'icon-phone value', 'itemprop' => 'telephone'), '&nbsp;').$adresse->getTel();
 					$telSpan .= _close('span').'<br />';
 				}
@@ -143,16 +139,12 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
 				$faxSpan = '';
 				if ($adresse->getFax()){
 					$faxSpan .= _open('span', array('class' => "itemprop faxNumber"));
-						$faxSpan .= _tag('span', array('class' => "type", 'title' => "Fax"),'Fax');
-						$faxSpan .= _tag('span', array('class' => "separator"),'&nbsp;:&nbsp');
 						$faxSpan .= _tag('i', array('class' => "icon-print value", 'itemprop' => "faxNumber"), '&nbsp;').$adresse->getFax();
 					$faxSpan .= _close('span').'<br />';
 				}
 				$adresse2 = '';
 				if($adresse->getAdresse2() != NULL){
 					$adresse2 .=_open('span', array('class' => "itemprop streetAddress"));
-						$adresse2 .=_tag('span', array('class' => "type", 'title' => "Rue"),'Rue');
-						$adresse2 .=_tag('span', array('class' => "separator"),'&nbsp;:&nbsp');
 						$adresse2 .=_tag('span', array('class' => "value", 'itemprop' => "streetAddress"),$adresse->getAdresse2());
 					$adresse2 .=_close('span').'<br />';
 					}
@@ -162,8 +154,6 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
 						echo _tag('span', array('class' => "itemprop name itemprop=name"),_tag('h4',$adresse->getTitle()));
 						echo _open('div', array('class' => "address itemscope PostalAddress", 'itemprop' => "address", "itemscope" => "itemscope", "itemtype" => "http://schema.org/PostalAddress"));
 							echo _open('span', array('class' => "itemprop streetAddress"));
-								echo _tag('span', array('class' => "type", 'title' => "Rue"),'Rue');
-								echo _tag('span', array('class' => "separator"),'&nbsp;:&nbsp');
 								echo _tag('span', array('class' => "value", 'itemprop' => "streetAddress"),$adresse->getAdresse());
 							echo _close('span').'<br />';
 							echo $adresse2;
