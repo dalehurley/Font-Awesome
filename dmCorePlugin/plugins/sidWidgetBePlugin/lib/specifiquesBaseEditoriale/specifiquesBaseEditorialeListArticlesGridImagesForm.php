@@ -6,22 +6,22 @@ class specifiquesBaseEditorialeListArticleGridImagesForm extends dmWidgetPluginF
 
         $options = '
             {
-                   "rows"            : 4,
-                   "columns"         : 8,
+                   "rows"            : 3,
+                   "columns"         : 7,
                    "w1024"           : {
-                        "rows"    : 4,
-                        "columns" : 7
+                        "rows"    : 3,
+                        "columns" : 8
                     },
                     "w768"            : {
-                        "rows"    : 4,
+                        "rows"    : 3,
                         "columns" : 6
                     },
                     "w480"            : {
-                        "rows"    : 4,
+                        "rows"    : 3,
                         "columns" : 5
                     },
                     "w320"            : {
-                       "rows"    : 4,
+                       "rows"    : 3,
                         "columns" : 4
                     },
                     "w240"            : {
@@ -44,6 +44,11 @@ class specifiquesBaseEditorialeListArticleGridImagesForm extends dmWidgetPluginF
         $this->validatorSchema['options'] = new sfValidatorJsonString(array(
                     'required' => true
                 ));
+
+        $this->widgetSchema['titreBloc'] = new sfWidgetFormInputText(array('default' =>'Contact'));
+        $this->validatorSchema['titreBloc'] = new sfValidatorString(array(
+                    'required' => true
+                ));        
        
         $this->widgetSchema->setHelps(array(
             'options' => "Les options du composant.</br>

@@ -137,8 +137,10 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 		// ajout balises pour navbar
 		if($varMenuType == 'navbar' ){
 
+			// widget 
+			$widget = $this->getWidget();
 			// add responsive navbar HTML code
-			$responsiveHtmlBegin = '<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			$responsiveHtmlBegin = '<a class="btn btn-navbar" data-toggle="collapse" data-target="#menu_navbar_'.$widget['id'].' .nav-collapse">
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
@@ -151,9 +153,7 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 
 			$responsiveHtmlEnd = '</div>';
 
-
-
-			$html = $helper->tag('div.navbar'.$addedNavbarClass, 
+			$html = $helper->tag('div.navbar'.$addedNavbarClass.' #menu_navbar_'.$widget['id'], 
 						$helper->tag('div.navbar-inner',  
 							$helper->tag('div.container', $responsiveHtmlBegin.$html.$responsiveHtmlEnd
 								)

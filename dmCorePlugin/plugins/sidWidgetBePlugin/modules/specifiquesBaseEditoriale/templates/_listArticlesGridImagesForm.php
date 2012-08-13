@@ -7,7 +7,8 @@ echo
 
 $form->renderGlobalErrors(),
  _tag('div', 
-    $form['options']->renderRow()
+    $form['options']->renderRow().
+    $form['titreBloc']->renderRow()
 );
 
 

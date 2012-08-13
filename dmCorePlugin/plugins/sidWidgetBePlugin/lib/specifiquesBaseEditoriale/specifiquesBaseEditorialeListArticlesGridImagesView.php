@@ -24,6 +24,8 @@ class specifiquesBaseEditorialeListArticleGridImagesView extends dmWidgetPluginV
         // calcul du nombres d'articles à récupérer en fonction du max d'images à afficher dans les différentes résolutions
         $options = $vars['options'];
 
+        $titreBloc = $vars['titreBloc'];
+
         $arrayOptions = json_decode($options, true);
 
         $maxNbImages = '1';
@@ -42,15 +44,16 @@ class specifiquesBaseEditorialeListArticleGridImagesView extends dmWidgetPluginV
                 ->from('SidArticle a')
                 ->withI18n(sfContext::getInstance()->getUser()->getCulture(), null, 'a')
                 ->where('a.is_dossier = ? ', array(false))
-                ->orderBy('aTranslation.updated_at ASC')
+                ->orderBy('aTranslation.updated_at DESC')  // les derniers articles
                 ->groupBy('a.filename')
-                ->limit($maxNbImages*4)  // on récupère le quadruple du nombre d'image max à afficher: le remplacement d'une image par une autre est assuré
+                ->limit($maxNbImages*4)  // on récupère le quadruple du nombre d'images max à afficher: le remplacement d'une image par une autre est assuré
                 ->execute();
 
         return $this->getHelper()->renderPartial('specifiquesBaseEditoriale', 'listArticlesGridImages', array(
                     'options' => $options,
                     'articles' => $articles,
-                    'maxNbImages' => $maxNbImages
+                    'maxNbImages' => $maxNbImages,
+                    'titreBloc' => $titreBloc
                 ));
 
 
