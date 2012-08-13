@@ -127,8 +127,13 @@ a:hover {
 	box-shadow: 0 0 0 transparent;
 	margin-bottom: 5px;
 }
+a.thumbnail {
+	#translucent > .background(darken(@bodyBackground,25%), 0.1);
+	box-shadow: 0 0 0 transparent;
+	padding: 10px;
+}
 a.thumbnail:hover {
-	#translucent > .background(lighten(@linkColor,50%), 0.1);
+	#translucent > .background(darken(@bodyBackground,25%), 0.2);
 	box-shadow: 0 0 0 transparent;
 }
 .thumbnail > img {
