@@ -151,7 +151,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
         else {
     $articleSection = $parent . ' - ' . $route;
     //titre du contenu
-    if($articleSection) echo '<h4>'.$articleSection.'</h4>';
+    if($articleSection) echo '<h3>'.$articleSection.'</h3>';
 
     echo _tag('div.navigation.navigationTop', $articlePager->renderNavigationTop());
 

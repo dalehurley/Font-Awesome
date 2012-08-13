@@ -61,7 +61,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
         
         // On affiche "En savoir plus"
         if($titreBloc == ''){$titreBloc = __('Learn more');}
-        echo _tag('h4', $titreBloc);
+        echo _tag('h3', $titreBloc);
             
             echo _open('ul');
 

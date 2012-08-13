@@ -73,7 +73,7 @@ if (dmConfig::get('client_type') == 'aga'){$title = 'Different groups of docs an
 	echo _close('ul');
 }
 elseif(dmConfig::get('site_theme_version') == 'v2'){
-	echo _tag('h4', __($title));
+	echo _tag('h3', __($title));
 	echo _open('ul');
 
 
