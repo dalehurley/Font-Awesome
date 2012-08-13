@@ -4,7 +4,12 @@ if (!json_decode($options)) echo debugTools::infoDebug(array('Erreur' => 'Option
 
 echo debugTools::infoDebug(array('Nb d\'images nécessaires' => $maxNbImages),'info');
 
-$html = '
+$html = '';
+
+// if ($titreBloc != '') 
+	$html .= _tag('h3',$titreBloc);
+
+$html .= '
 		<img src="/sidWidgetBePlugin/images/loading.gif" style="display:none;"/>
 
 
