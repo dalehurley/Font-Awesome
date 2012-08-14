@@ -14,10 +14,12 @@ if (dmConfig::get('site_theme_version') == 'v1'){
 
 	// add " \n " to fixed margin's bug in navigator
 	echo 
-	$form->open('.well.form-search action=main/search method=get'),
+	$form->open('.form-search action=main/search method=get'),
 
 	"
 	",
+
+	'<div class="input-append">',
 
 	$form['query']->render(array( 'class' => 'input-medium search-query')),	
 
@@ -25,6 +27,8 @@ if (dmConfig::get('site_theme_version') == 'v1'){
 	",
 
 	$form->renderSubmitTag(__('Search'), array('class' => array('btn'))),
+
+	'</div>',
 
 	$form->close();
 }
