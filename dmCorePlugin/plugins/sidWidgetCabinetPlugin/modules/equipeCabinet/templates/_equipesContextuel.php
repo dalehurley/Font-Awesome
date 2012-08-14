@@ -102,8 +102,8 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
     $class = '';
     if (count($equipes)) { // si nous avons des membres de l'article
         echo _tag('h3', $titreBloc);
-        echo _open('div', array('class' => 'thumbnail'));
-            echo _open('ul');
+
+            echo _open('ul.thumbnails');
 
             foreach ($equipes as $equipe) {
                 $html = '';
@@ -118,9 +118,9 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                 else
                     $class = '';
                 if($i>1) echo _tag('hr');
-                echo _open('li', array('class' => 'row itemscope Person' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
+                echo _open('li', array('class' => 'thumbnail itemscope Person' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
                     if($withImage == TRUE){
-                        $html.= _open('div', array('class' => 'span'));
+
                             //echo _open('p');
                                 if($equipe->getImage()->checkFileExists() == true) {
                                     //on affiche directement la photo de la personne
@@ -140,9 +140,9 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                                     $html.= _tag('i', array('class' =>'icon-user', 'style' => 'font-size:' . $width . 'px;line-height:'.$width.'px'), '&#160;');
                                 };
                             //echo _close('p');
-                        $html.= _close('div');
+
                     };
-                    $html.= _open('div', array('class' => 'span'));
+                    $html.= _open('div.caption');
                         $html.= _tag('h4', array('class' => 'itemprop name', 'itemprop' => 'name'), __($equipe->getTitle()) . ' ' . $equipe->getFirstName() . ' ' . $equipe->getName());
                         $html.= _open('p');
                         
@@ -169,26 +169,32 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                                 $html.= _close('span');
                             };
                         $html.= _close('span');
-                    $html.= _close('p');
+                        $html.= _close('p');
+                    $html.= _close('div');
+
+
                     if ($equipe->email == NULL || $mailTo == false) {
                         $linkEquipe = dmDb::table('dmPage')->findOneByModuleAndActionAndRecordId('renseignements','show',$equipe->coord_name_id);
-                        echo _link($linkEquipe)->anchor(dmString::slugify($equipe->getFirstName() . '-' . $equipe->getName()))->set('.link_box')->text($html);
+                        echo _link($linkEquipe)->anchor(dmString::slugify($equipe->getFirstName() . '-' . $equipe->getName()))->set('.thumbnail')->text($html);
                     }
-                    else
-                        echo $html;
-                    echo _close('div');
+                    else {
+                       echo $html; 
+                    }
+                        
+
                 echo _close('li');
                 $i++;
                 };
                 echo _close('ul');
-                if ((isset($lien)) AND ($lien != '')) {
-                    echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
-                    echo _open('ul', array('class' => 'elements'));
-                    echo _tag('li', array('class' => 'element first last'), _link($linkAllEquipe)->text($lien)
-                    );
-                    echo _close('ul');
-                echo _close('div');
-            }
-        echo _close('div');
+
+                // if ((isset($lien)) AND ($lien != '')) {
+                //     echo _open('div', array('class' => 'navigationWrapper navigationBottom'));
+                //     echo _open('ul', array('class' => 'elements'));
+                //     echo _tag('li', array('class' => 'element first last'), _link($linkAllEquipe)->text($lien)
+                //     );
+                //     echo _close('ul');
+                // echo _close('div');
+                // }
+
     } // sinon on affiche rien
 }

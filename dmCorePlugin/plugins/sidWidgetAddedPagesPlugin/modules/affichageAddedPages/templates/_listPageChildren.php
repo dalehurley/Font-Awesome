@@ -63,7 +63,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
         if($titreBloc == ''){$titreBloc = __('Learn more');}
         echo _tag('h3', $titreBloc);
             
-            echo _open('ul');
+            echo _open('ul.thumbnails');
 
             foreach ($sidAddedPages as $addedPageList) {
                 $link = '';
@@ -78,21 +78,21 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                 else
                     $class = '';
 
-                echo _open('li', array('class' => 'thumbnails itemscope Article ' . $class, 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
-                    $link .= _open('div', array('class' => 'row'));
+                echo _open('li', array('class' => 'itemscope Article ' . $class, 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
+
                         if (($addedPageList->getImage()->checkFileExists() == true) && ($withImage == TRUE) && $i<= $nbImagesVisibles) {
-                            $link .= _open('div', array('class' => 'span'));
+
                                 $link .= _media($addedPageList->getImage())->size($theme['thumbs-width-image'],$theme['thumbs-height-image'])->method('scale')->set('.image itemprop="image"')->alt($addedPageList->getTitle());
-                            $link .= _close('div');
+
                         }
-                        $link .= _open('div', array('class' => 'span'));
+
                                 $link .= _tag('h5', array('class' => 'itemprop name', 'itemprop' => 'name'), $addedPageList->getTitle());
                                 $link .= _tag('meta', array('content' => $addedPageList->createdAt, 'itemprop' => 'datePublished'));
                             $link .= _open('p', array('class' => 'itemprop description', 'itemprop' => 'description'));
                                 $link .= stringTools::str_truncate($addedPageList->getResume(), $length, '(...)', true);
                             $link .= _close('p');
-                        $link .= _close('div');
-                    $link .= _close('div');
+
+
                     echo _link($addedPageList)->set('.thumbnail')->text($link);
                     
                     $i++;

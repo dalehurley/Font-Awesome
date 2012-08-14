@@ -19,7 +19,7 @@ echo $html;
 }
 elseif (dmConfig::get('site_theme_version') == 'v2'){
 	echo _tag('h3', $titreBloc);
-	echo _open('div', array('class' => 'thumbnail'));
+	echo _open('div', array());
 		echo _tag('p', $message);
 		echo _link($href)->text($lien)->set('.btn.btn-primary');
 	echo _close('div');
