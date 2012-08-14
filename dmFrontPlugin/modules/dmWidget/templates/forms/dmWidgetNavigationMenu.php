@@ -26,7 +26,7 @@ if (dmConfig::get('site_theme_version') == 'v2'){
       'secure_message' => __('Requires authentication'),
       'nofollow_message' => __('No follow'),
       'depth_message' => __('Depth'),
-      'depth_help' => _tag('div.dm_help',__('WARNING: O ou 1 pour les thème V2 (pas de sous-niveau pour les thèmes V2)')),   
+      'depth_help' => _tag('div.dm_help',' '),   
       'target_message' => __('Target'),
       'click_message' => __('Click to edit, drag to sort')
     )), '').

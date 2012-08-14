@@ -28,15 +28,15 @@ class dmWidgetNavigationMenuView extends dmWidgetPluginView {
 
         foreach ($vars['items'] as $index => $item) {
 
-            if (dmConfig::get('site_theme_version') == 'v2'){
-                if (dmArray::get($item, 'depth', 0) > 1) {
-                    $depth = 1;
-                } else {
-                    $depth = dmArray::get($item, 'depth', 0);
-                }
-            } else {
+            // if (dmConfig::get('site_theme_version') == 'v2'){
+            //     if (dmArray::get($item, 'depth', 0) > 1) {
+            //         $depth = 1;
+            //     } else {
+            //         $depth = dmArray::get($item, 'depth', 0);
+            //     }
+            // } else {
                 $depth = dmArray::get($item, 'depth', 0);
-            }
+            // }
             
             $groupdisplayed = (isset($item['groupdisplayed']))? $item['groupdisplayed']:'';
             $menuItem = $vars['menu']

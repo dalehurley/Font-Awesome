@@ -663,6 +663,9 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
                 $classes[] = 'dm_root';
             }
         }
+        if ($this->hasChildren() && $this->getLevel() != 0) {
+         $classes[] = 'dropdown-submenu';
+        }
 
         if ($this->getLabel() == '') $classes = array('divider-vertical');
 
@@ -688,10 +691,15 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         if (substr($menuType,0,6) == 'navbar'){
             $menuType = 'navbar';
         } 
+
+        $caret = '';
         switch ($menuType) {
             case 'navbar':
                 if ($this->hasChildren()){
-                    $caret = '<b class="caret"></b>';
+                    if ($this->getLevel() == 0){
+                        $caret = '<b class="caret"></b>';
+                    }
+                    
                     return $this->getLink()->addClass('dropdown-toggle')->dataToggle('dropdown')->title($title)->currentSpan(false)->text($this->__($this->getLabel()).$caret)->render($menuType);
                 } else {
                     $caret = '';
