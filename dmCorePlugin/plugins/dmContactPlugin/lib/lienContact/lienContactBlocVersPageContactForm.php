@@ -11,7 +11,7 @@ class lienContactBlocVersPageContactForm extends dmWidgetPluginForm {
                     'required' => true
                 ));
         
-        $this->widgetSchema['message'] = new sfWidgetFormInputText(array('default' => 'Vous recherchez un expert-comptable ?'));
+        $this->widgetSchema['message'] = new sfWidgetFormInputText(array('default' => 'Vous recherchez un expert-comptable&nbsp;?'));
         $this->validatorSchema['message'] = new sfValidatorString(array(
                     'required' => true
                 ));
