@@ -50,8 +50,7 @@ class dmWidgetNavigationMenuForm extends dmWidgetPluginForm
         'default'         => 'default',
         'navbar'          => 'navbar',
         'navbar-top'      => 'navbar-top', 
-        'navbar-bottom'   => 'navbar-bottom',
-        'navbar-vertical' => 'navbar-vertical'              
+        'navbar-bottom'   => 'navbar-bottom'
       );
     }
  
