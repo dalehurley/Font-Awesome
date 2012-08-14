@@ -16,10 +16,6 @@ a:hover {
 // WIDGETS CONTAINER
 // -----------------------------------------------------
 
-#dm_sidebar_right .dm_widget_inner {
-  border-bottom: 1px solid @grayLight;
-}
-
 // carousel in 100% width on dm_page_content_fluid zone
 // no margin for fluid container
 .container-fluid {
@@ -125,6 +121,21 @@ a:hover {
   }
 }
 
+// SEARCH FORM
+// -----------------------------------------------------
+
+// ajout loupe devant le bouton de recherche
+.form-search button:before {
+  content: "";  // lettre de la loupe
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  margin-right: 5px;
+}
+
+
 // THUMBNAIL DIVS
 // -----------------------------------------------------
 
@@ -133,12 +144,22 @@ a:hover {
 	border-radius: 0;
 	display: block;
 	line-height: 1;
-	padding: 4px;
+	padding: 10px;
 	box-shadow: 0 0 0 transparent;
 	margin-bottom: 5px;
 }
 a.thumbnail:hover {
 	#translucent > .background(darken(@bodyBackground,25%), 0.15);
+}
+
+#dm_sidebar_right a.thumbnail {
+	#translucent > .background(darken(@bodyBackground,25%), 0.05);
+	border: 1px solid #ddd;
+    .border-radius(4px);
+}
+#dm_sidebar_right .thumbnail > img {
+	margin-bottom: @baseLineHeight;
+	margin-right: 0px;
 }
 .thumbnail > img {
 	float: left;

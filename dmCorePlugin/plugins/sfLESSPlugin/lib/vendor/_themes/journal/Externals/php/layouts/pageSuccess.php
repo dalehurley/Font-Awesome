@@ -37,8 +37,8 @@
 				<?php echo $helper->renderArea('layout.top_breadcrumb', '#dm_header_breadcrumb.span12') ?>
 		        </div>
 			<div class="row">
-				<?php echo $helper->renderArea('page.content','#dm_page_content.span8') ?>
-				<?php echo $helper->renderArea('layout.right','#dm_sidebar_right.span4') ?>
+				<?php echo $helper->renderArea('page.content','#dm_page_content.span9') ?>
+				<?php echo $helper->renderArea('layout.right','#dm_sidebar_right.span3') ?>
 			</div>
 			<div class="row">
 				<?php echo $helper->renderArea('layout.bottom', '#dm_footer.span12') ?>	
