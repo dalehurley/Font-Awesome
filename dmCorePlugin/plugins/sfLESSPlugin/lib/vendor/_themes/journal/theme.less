@@ -149,6 +149,7 @@ a.thumbnail {
 }
 a.thumbnail:hover {
 	#translucent > .background(darken(@bodyBackground,25%), 0.15);
+	.box-shadow(0 1px 4px rgba(200,200,200,.25));
 }
 
 #dm_sidebar_right a.thumbnail {
@@ -167,13 +168,17 @@ a.thumbnail:hover {
 	float: left;
 	margin-right: 10px;
 }
-// julien: rule to have thumbnail at the same height of containant
+// rule to have thumbnail at the same height of containant
 a.thumbnail {
   overflow: auto;
+}
+a.thumbnail:hover {
+  text-decoration: none;
 }
 #dm_sidebar_right .thumbnails {
 	float: left;
 	margin-top: @baseLineHeight;
+	width: 100%;
 }
 
 // WIDGETS
@@ -218,6 +223,7 @@ a.thumbnail {
 h1, h2, h3, h4, h5, h6, .navbar .brand {
 	font-weight: normal;
 	font-family: 'caviar_dreamsregular', Arial, sans-serif;
+	color: @linkColor;
 }
 
 // SCAFFOLDING
