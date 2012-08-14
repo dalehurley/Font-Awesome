@@ -137,18 +137,20 @@ a:hover {
 	box-shadow: 0 0 0 transparent;
 	margin-bottom: 5px;
 }
-a.thumbnail {
-	#translucent > .background(darken(@bodyBackground,25%), 0.1);
-	box-shadow: 0 0 0 transparent;
-	padding: 10px;
-}
 a.thumbnail:hover {
-	#translucent > .background(darken(@bodyBackground,25%), 0.2);
-	box-shadow: 0 0 0 transparent;
+	#translucent > .background(darken(@bodyBackground,25%), 0.15);
 }
 .thumbnail > img {
 	float: left;
 	margin-right: 10px;
+}
+// julien: rule to have thumbnail at the same height of containant
+a.thumbnail {
+  overflow: auto;
+}
+#dm_sidebar_right .thumbnails {
+	float: left;
+	margin-top: @baseLineHeight;
 }
 
 // WIDGETS

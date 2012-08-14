@@ -36,7 +36,7 @@
 
 // Scaffolding
 // -------------------------
-@bodyBackground:        #FEFEFA;
+@bodyBackground:        #FEFEFC;
 @textColor:             @grayDarker;
 
 
@@ -116,26 +116,6 @@
 @dropdownLinkColorActive:       red;
 @dropdownLinkBackgroundActive:  #eee;
 
-// COMPONENT VARIABLES
-// --------------------------------------------------
-
-// Z-index master list
-// -------------------------
-// Used for a bird's eye view of components dependent on the z-axis
-// Try to avoid customizing these :)
-@zindexDropdown:          1000;
-@zindexPopover:           1010;
-@zindexTooltip:           1020;
-@zindexFixedNavbar:       1030;
-@zindexModalBackdrop:     1040;
-@zindexModal:             1050;
-
-
-// Sprite icons path
-// -------------------------
-@iconSpritePath:          "../img/glyphicons-halflings.png";
-@iconWhiteSpritePath:     "../img/glyphicons-halflings-white.png";
-
 
 // Input placeholder text color
 // -------------------------
@@ -193,7 +173,6 @@
 @infoBorder:              darken(spin(@infoBackground, -10), 7%);
 
 
-
 // GRID
 // --------------------------------------------------
 
@@ -203,10 +182,3 @@
 @gridColumnWidth:         60px;
 @gridGutterWidth:         20px;
 @gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
-
-// Fluid grid
-// -------------------------
-@fluidGridColumnWidth:    6.382978723%;
-@fluidGridGutterWidth:    2.127659574%;
-
-
