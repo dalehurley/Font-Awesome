@@ -139,12 +139,11 @@ a:hover {
 // THUMBNAIL DIVS
 // -----------------------------------------------------
 
-.thumbnail {
+a.thumbnail {
 	border: none;
 	border-radius: 0;
 	display: block;
 	line-height: 1;
-	padding: 10px;
 	box-shadow: 0 0 0 transparent;
 	margin-bottom: 5px;
 }
@@ -160,6 +159,9 @@ a.thumbnail:hover {
 #dm_sidebar_right .thumbnail > img {
 	margin-bottom: @baseLineHeight;
 	margin-right: 0px;
+}
+.thumbnails > li {
+	//width: 100%
 }
 .thumbnail > img {
 	float: left;
@@ -384,6 +386,17 @@ div.subnav {
 
 .table-bordered, .well, .prettyprint {
 	.border-radius(4);
+}
+
+// IMAGES
+// -----------------------------------------------------
+#dm_page_content img {
+  display: block;
+  padding: 4px;
+  line-height: 20px;
+  border: 1px solid #ddd;
+  .border-radius(4px);
+  .box-shadow(0 1px 3px rgba(0,0,0,.055));
 }
 
 // RESPONSIVE
