@@ -21,7 +21,7 @@ if (dmConfig::get('site_theme_version') == 'v1'){
 
 	'<div class="input-append">',
 
-	$form['query']->render(array( 'class' => 'input-medium search-query')),	
+	$form['query']->render(array('placeholder' => __('Search').'...', 'class' => 'input-medium search-query')),	
 
 	"
 	",
