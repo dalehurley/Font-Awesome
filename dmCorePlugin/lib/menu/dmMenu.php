@@ -696,11 +696,14 @@ class dmMenu extends dmConfigurable implements ArrayAccess, Countable, IteratorA
         switch ($menuType) {
             case 'navbar':
                 if ($this->hasChildren()){
+                    $toggleValue = '';
                     if ($this->getLevel() == 0){
                         $caret = '<b class="caret"></b>';
+                        $toggleValue = 'dropdown';
                     }
                     
-                    return $this->getLink()->addClass('dropdown-toggle')->dataToggle('dropdown')->title($title)->currentSpan(false)->text($this->__($this->getLabel()).$caret)->render($menuType);
+                    $returnLink = $this->getLink()->addClass('dropdown-toggle')->dataToggle($toggleValue)->title($title)->currentSpan(false)->text($this->__($this->getLabel()).$caret)->render($menuType);
+                    //return $this->getLink()->addClass('dropdown-toggle')->dataToggle('dropdown')->title($title)->currentSpan(false)->text($this->__($this->getLabel()).$caret)->render($menuType);
                 } else {
                     $caret = '';
                 }
