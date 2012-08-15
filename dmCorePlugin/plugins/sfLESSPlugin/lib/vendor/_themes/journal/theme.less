@@ -8,6 +8,7 @@ body {
 }
 a:hover {
 	color: @linkColor;
+	text-decoration: none;
 }
 .dm_widget_inner {
 	margin: 10px 0px;
@@ -146,6 +147,9 @@ a.thumbnail {
 	line-height: 1;
 	box-shadow: 0 0 0 transparent;
 	margin-bottom: 5px;
+	padding: 0 5px;
+	// rule to have thumbnail at the same height of containant
+  	overflow: auto;
 }
 a.thumbnail:hover {
 	#translucent > .background(darken(@bodyBackground,25%), 0.15);
@@ -168,20 +172,15 @@ a.thumbnail:hover {
 	float: left;
 	margin-right: 10px;
 }
-// rule to have thumbnail at the same height of containant
-a.thumbnail {
-  overflow: auto;
-}
 a.thumbnail:hover {
   text-decoration: none;
 }
 #dm_sidebar_right .thumbnails {
-	float: left;
 	margin-top: @baseLineHeight;
-	width: 100%;
+	//width: 100%;
 }
 
-// WIDGETS
+// WIDGET AFFICHE ARTICLE
 // -----------------------------------------------------
 
 // display columns
@@ -194,6 +193,26 @@ a.thumbnail:hover {
 	column-gap: @gridGutterWidth;
 }
 
+// WIDGET ADRESSES MULTIPLES
+// -----------------------------------------------------
+
+// mise en page adresses avec display:table*
+.dm_widget.adresses_multiples .thumbnails {
+	display: table-row;
+}
+.dm_widget.adresses_multiples .thumbnails  .thumbnail {
+	display: table-cell;
+	float: none;
+	border-width: 0px 1px 0px 0px;
+	border-radius: 0px;
+	text-align: center;
+	box-shadow: none;
+}
+.dm_widget.adresses_multiples .thumbnails .thumbnail:last-child {
+	border-width: 0px;
+}
+
+// FOLLOWED INSPIRED BY :
 // Bootswatch.less
 // Swatch: Journal
 // Version: 2.0.4
@@ -223,7 +242,7 @@ a.thumbnail:hover {
 h1, h2, h3, h4, h5, h6, .navbar .brand {
 	font-weight: normal;
 	font-family: 'caviar_dreamsregular', Arial, sans-serif;
-	color: @linkColor;
+	//color: @linkColor;
 }
 
 // SCAFFOLDING
