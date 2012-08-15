@@ -47,7 +47,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2') {
     echo _tag('h2',$titreBloc);
     echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
         echo _open('header', array('class' => 'contentHeader'));
-            echo _tag('h1', array('class' => 'itemprop name', 'itemprop' => 'name'), $missions->getTitle());
+            echo _tag('h3', array('class' => 'itemprop name', 'itemprop' => 'name'), $missions->getTitle());
             if (($withImage == true) && ($missions->getImage()->checkFileExists() == true)) {
                             if($width != null) {echo  _media($missions->getImage())->width($width)->set('itemprop="image"')->alt($missions->getTitle());}
             }
