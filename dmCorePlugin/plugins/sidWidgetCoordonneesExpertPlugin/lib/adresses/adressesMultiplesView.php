@@ -7,6 +7,7 @@ class adressesMultiplesView extends dmWidgetPluginView {
 
         $this->addRequiredVar(array(
             'titreBloc'
+
         ));
     }
 	
@@ -25,6 +26,12 @@ class adressesMultiplesView extends dmWidgetPluginView {
     protected function doRender() {
         $vars = $this->getViewVars();
                 
+        if (isset($vars['gridColumns']) && $vars['gridColumns'] != 0) {
+            $nbSpanByAdress = $vars['gridColumns'];
+        } else {
+            $nbSpanByAdress = '';
+        }
+
         $adresses = dmDb::table('SidCoordName')
                 ->createQuery()
                 ->where('is_active = ?',true)
@@ -32,7 +39,8 @@ class adressesMultiplesView extends dmWidgetPluginView {
                 ->execute();
         return $this->getHelper()->renderPartial('adresses', 'multiples', array(
                     'adresses' => $adresses,
-                    'titreBloc' => $vars['titreBloc']
+                    'titreBloc' => $vars['titreBloc'],
+                    'nbSpanByAdress' => $nbSpanByAdress
                 ));
     }
 

@@ -97,11 +97,17 @@ if (dmConfig::get('site_theme_version') == 'v1'){
 	    echo _close('ul.elements');
 	} // sinon on affiche rien
 }
+
+// <ul class="thumbnails">
+// <li class="span4">
+// <div class="thumbnail">
+
+
 elseif (dmConfig::get('site_theme_version') == 'v2'){
 	if (count($adresses)) {
 		//titre du contenu
 		if($titreBloc) echo _tag('h3',$titreBloc);
-		echo _open('div', array('class' => 'row'));
+		echo _open('div', array('class' => 'thumbnails'));
 			//ouverture du listing
 		    //echo _open('ul');
 			
@@ -149,23 +155,25 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
 					$adresse2 .=_close('span').'<br />';
 					}
 
-				echo _open('div', array('class' =>"span itemscope Organization ".$position."", "itemscope" => "itemscope", "itemtype" => "http://schema.org/Organization"));
-					echo _open('address');		
-						echo _tag('span', array('class' => "itemprop name itemprop=name"),_tag('h4',$adresse->getTitle()));
-						echo _open('div', array('class' => "address itemscope PostalAddress", 'itemprop' => "address", "itemscope" => "itemscope", "itemtype" => "http://schema.org/PostalAddress"));
-							echo _open('span', array('class' => "itemprop streetAddress"));
-								echo _tag('span', array('class' => "value", 'itemprop' => "streetAddress"),$adresse->getAdresse());
-							echo _close('span').'<br />';
-							echo $adresse2;
-							echo _open('span', array('class' => "itemprop postalCode"));
-								echo _tag('span', array('class' => "value", 'itemprop' => "postalCode"),$adresse->getCodePostal());
-								echo _tag('span', array('class' => "separator"),'&nbsp');
-								echo _tag('span', array('class' => "value", 'itemprop' => "addressLocality"),$adresse->getVille());
-							echo _close('span');
+				echo _open('div', array('class' =>"span".$nbSpanByAdress." thumbnail itemscope Organization ".$position."", "itemscope" => "itemscope", "itemtype" => "http://schema.org/Organization"));
+					echo _open('address');
+						echo _open('div.caption');		
+							echo _tag('span', array('class' => "itemprop name itemprop=name"),_tag('h4',$adresse->getTitle()));
+							echo _open('div', array('class' => "address itemscope PostalAddress", 'itemprop' => "address", "itemscope" => "itemscope", "itemtype" => "http://schema.org/PostalAddress"));
+								echo _open('span', array('class' => "itemprop streetAddress"));
+									echo _tag('span', array('class' => "value", 'itemprop' => "streetAddress"),$adresse->getAdresse());
+								echo _close('span').'<br />';
+								echo $adresse2;
+								echo _open('span', array('class' => "itemprop postalCode"));
+									echo _tag('span', array('class' => "value", 'itemprop' => "postalCode"),$adresse->getCodePostal());
+									echo _tag('span', array('class' => "separator"),'&nbsp');
+									echo _tag('span', array('class' => "value", 'itemprop' => "addressLocality"),$adresse->getVille());
+								echo _close('span');
+							echo _close('div');
+							echo $emailSpan;
+							echo $telSpan;
+							echo $faxSpan;
 						echo _close('div');
-						echo $emailSpan;
-						echo $telSpan;
-						echo $faxSpan;
 					echo _close('address');
 				echo _close('div');
 

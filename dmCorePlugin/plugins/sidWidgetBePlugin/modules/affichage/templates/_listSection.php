@@ -88,7 +88,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
         if($section) echo '<h3>'.$section.'</h3>';
 
         //ouverture du listing
-        echo _open('ul');
+        echo _open('ul.thumbnails');
 
         $i = 0;
         $i_max = count($sectionArticle); // il faut compter le nombre de resultats pour la page en cours, count($articlePager) renvoie la taille complète du pager  
@@ -111,7 +111,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
             //on supprime les photos après les 3 premiers articles
             $imageLink = '/_images/lea' . $article->filename . '-p.jpg';
             $imageHtml = '';
-            if (is_file(sfConfig::get('sf_web_dir').$imageLink) && $i < 4 ){  // les 3 premiers articles ont une image
+            if (is_file(sfConfig::get('sf_web_dir').$imageLink) ){  
                 $imageHtml =    
                     '<div class="span">'.
                         '<img src="'.$imageLink.'" alt="'.$article->getTitle().'">'.
@@ -119,17 +119,15 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
             }
 
             //ajout de l'article
-            echo _open('li', array('class' => 'thumbnails '.$position));
+            echo _open('li', array('class' => $position));
                 echo _link($article)
                 ->set('.thumbnail')
                 ->text(
-                        '<div class="row">'.
-                        $imageHtml.
-                            '<div class="span">'.
+                                $imageHtml.
+
                                 '<h4>'.$article->getTitle().'</h4>'.
-                                '<p>'.$article->getChapeau().'</p>'.
-                            '</div>'.
-                        '</div>'
+                                _tag('div.caption','<p>'.$article->getChapeau().'</p>')
+
                 );
             
             echo _close('li');

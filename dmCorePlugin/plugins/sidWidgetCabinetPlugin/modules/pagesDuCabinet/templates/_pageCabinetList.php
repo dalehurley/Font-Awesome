@@ -92,14 +92,14 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                     if (($withImage == true) && ($pageCabinet->getImage()->checkFileExists() == true)) {
                             $link .= _media($pageCabinet->getImage())->width($width)->set('itemprop="image"')->alt($pageCabinet->getTitle());
                     };
+
+                    if ($titreBloc != $pageCabinet->getTitle()) {
+                        $link .= _tag('h4', array('class' => array('title', 'itemprop', 'name'), 'itemprop' => 'name'), $pageCabinet->getTitle());
+                    };
+ 
                     $link .= _open('div', array('class' => 'caption'));
-                        $link .= _open('h5');
-                            if ($titreBloc != $pageCabinet->getTitle()) {
-                                $link .= _tag('span', array('class' => array('title', 'itemprop', 'name'), 'itemprop' => 'name'), $pageCabinet->getTitle());
-                            };
-                        $link .= _close('h5');
                             $link .= _tag('meta', array('content' => $pageCabinet->createdAt, 'itemprop' => 'datePublished'));
-                        $link .= _open('p', array('class' => array('itemprop', 'description') , 'itemprop' => 'description'));
+                        $link .= _open('p', array('class' => array('caption', 'itemprop', 'description') , 'itemprop' => 'description'));
                             $link .= stringTools::str_truncate($pageCabinet->getResume(), $length, $ellipsis, true);
                         $link .= _close('p');
                     $link .= _close('div');

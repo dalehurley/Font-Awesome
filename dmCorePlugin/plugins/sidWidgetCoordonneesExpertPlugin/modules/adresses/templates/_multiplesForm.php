@@ -9,8 +9,8 @@ $form->renderGlobalErrors(),
 
 _tag('div',
  
-    $form['titreBloc']->renderRow()
-          
+    $form['titreBloc']->renderRow().
+    $form['gridColumns']->renderRow()    
 ); 
 
 

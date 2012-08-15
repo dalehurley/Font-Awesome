@@ -42,8 +42,8 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 	$i_max = count($articles);
 	if(count($articles) != NULL){
 		echo _tag('h3',__('Read also '));
-		echo _open('div', array('class' => 'thumbnail'));
-			echo _open('ul');
+		echo _open('div');
+			echo _open('ul.thumbnails');
 				foreach($articles as $article){
 					$i++;
 			        $position = '';
@@ -58,7 +58,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 			                break;
 	        		}
 					echo _open('li');
-						echo _link($article)->text(_tag('p',$article->getTitle()))->set($position);
+						echo _link($article)->set('.thumbnail')->text(_tag('p',$article->getTitle()))->set($position);
 					echo _close('li');
 				}
 			echo _close('ul');

@@ -74,7 +74,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
             $i_max = count($adresses);
             $class = '';
             $html = '';
-            echo _open('ul');
+            echo _open('ul.thumbnails');
             foreach ($adresses as $adresse) {
                 $link = '';
 
@@ -91,19 +91,20 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                 }
 
 
-                echo _open('li', array('class' => 'thumbnails itemscope Article ' . $position, 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
+                echo _open('li', array('class' => 'itemscope Article ' . $position, 'itemtype' => 'http://schema.org/Article', 'itemscope' => 'itemscope'));
 
 
                 $link = '';
                 if($visible_resume_town == true){
-                if (($withImage == true) && ($adresse->getImage()->checkFileExists() == true)) {
-                    $link .= _media($adresse->getImage())->width($width)->set('itemprop="image"')->alt($adresse->getTitle());
+                    if (($withImage == true) && ($adresse->getImage()->checkFileExists() == true)) {
+                        $link .= _media($adresse->getImage())->width($width)->set('itemprop="image"')->alt($adresse->getTitle());
+                    };
                 };
+
+                if ($titreBloc != $adresse->getTitle()) {
+                    $link .= _tag('h4', array('class' => 'itemprop name', 'itemprop' => 'name'), $adresse->getTitle());
                 };
                 $link .= _open('div', array('class' => 'caption'));
-                    if ($titreBloc != $adresse->getTitle()) {
-                        $link .= _tag('h5', array('class' => 'itemprop name', 'itemprop' => 'name'), $adresse->getTitle());
-                    };
                     $link .= _tag('meta', array('content' => $adresse->createdAt, 'itemprop' => 'datePublished'));
                     if($visible_resume_town == true){
                         $link .= _open('p', array('class' => 'itemprop description', 'itemprop' => 'description'));

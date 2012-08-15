@@ -156,7 +156,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
     echo _tag('div.navigation.navigationTop', $articlePager->renderNavigationTop());
 
     //ouverture du listing
-    echo _open('ul');
+    echo _open('ul.thumbnails');
 
     $i = 0;
     $i_max = count($articlePager->getResults()); // il faut compter le nombre de resultats pour la page en cours, count($articlePager) renvoie la taille complète du pager  
@@ -255,16 +255,17 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
             $chapeau = '<p>'.$article->getChapeau().'</p>';
         }
         else $chapeau ='';
-        echo  '<li class="thumbnails '.$position.'">';
-            echo _link($article)->set('.thumbnail')->text(
-                '<div class="row">'.
-                    $imageHtml.
-                    '<div class="span">'.
-                        '<h4>'.$article->getTitle().'</h5>'.
-                        $dateHtml. 
-                        $chapeau.
-                    '</div>'.
-                '</div>'
+        echo  '<li class="'.$position.'">';
+
+        echo _link($article)->set('.thumbnail')->text(
+
+            $imageHtml.
+            '<h4>'.$article->getTitle().'</h4>'.
+            _tag('div.caption', 
+                $dateHtml. 
+                $chapeau
+            )
+
             );
         echo '</li>';
             

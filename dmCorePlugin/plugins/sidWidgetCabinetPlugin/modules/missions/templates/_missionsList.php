@@ -145,13 +145,14 @@ elseif (dmConfig::get('site_theme_version') == 'v2') {
                         }
                     };
 
-                            if ($titreBloc != $mission->getTitle()) {
-                                $link .= _tag('h5', array('class' => array('itemprop', 'name'), 'itemprop' => 'name') , $mission->getTitle());
-                            };
-                            $link .= _tag('meta' , array('content' => $mission->createdAt, 'itemprop' => 'datePublished'));
-                        $link .= _open('p', array('class' => array('itemprop', 'description'), 'itemprop' => 'description'));
+                    if ($titreBloc != $mission->getTitle()) {
+                                $link .= _tag('h4', array('class' => array('itemprop', 'name'), 'itemprop' => 'name') , $mission->getTitle());
+                    };
+                    $link .= _open('div.caption');
+                    $link .= _tag('meta' , array('content' => $mission->createdAt, 'itemprop' => 'datePublished'));
+                    $link .= _open('p', array('class' => array('itemprop', 'description'), 'itemprop' => 'description'));
 
-                        switch ($chapo) {
+                    switch ($chapo) {
                             case 0:
                                 $link .= stringTools::str_truncate($mission->getResume(), $length, $ellipsis, true);
                                 break;
@@ -164,10 +165,10 @@ elseif (dmConfig::get('site_theme_version') == 'v2') {
                             default:
                                 $link .= '';
                                 break;
-                        }
-
-                        $link .= _close('p');
-
+                    }
+                    $link .= _close('p');
+                    $link .= _close('div');
+                    
                     echo _link($mission)->set('.thumbnail')->text($link);
                 //echo _close('div');
             echo _close('li');

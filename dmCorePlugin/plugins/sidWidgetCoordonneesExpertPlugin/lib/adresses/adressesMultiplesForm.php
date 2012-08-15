@@ -5,6 +5,19 @@ class adressesMultiplesForm extends dmWidgetPluginForm {
     public function configure() {
 
         parent::configure();
+        
+        $this->widgetSchema['gridColumns'] = new sfWidgetFormInputText(array('label' => 'Nb de colonne par adresse', 'default' => 10));
+        $this->validatorSchema['gridColumns'] = new sfValidatorInteger(array(
+                    'required' => false,
+                    ));
+        if (dmConfig::get('site_theme_version') != 'v1'){
+            $helpGridColumns = 'Le nombre de colonnes de la grille pour un bloc adresses. Exemple: il y a 3 cabinets, la grille fait 12 colonnes, vous notez 4.';
+        } else {
+            $helpGridColumns = 'WARNING: Indisponible (seulement en theme de v2)';
+        }
+        $this->widgetSchema->setHelps(array(
+                'gridColumns' => $helpGridColumns
+            )); 
     }
 
     public function getStylesheets() {

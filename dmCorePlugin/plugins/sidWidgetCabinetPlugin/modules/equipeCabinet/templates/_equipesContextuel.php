@@ -118,7 +118,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                 else
                     $class = '';
                 if($i>1) echo _tag('hr');
-                echo _open('li', array('class' => 'thumbnail itemscope Person' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
+                echo _open('li', array('style' => 'width:' . $width. 'px', 'class' => 'thumbnail itemscope Person' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
                     if($withImage == TRUE){
 
                             //echo _open('p');

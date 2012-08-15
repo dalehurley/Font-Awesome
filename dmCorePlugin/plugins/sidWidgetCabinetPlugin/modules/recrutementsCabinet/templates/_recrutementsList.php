@@ -128,10 +128,10 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                           $link .= _media($recrutement->getImage())->width($width)->set(' itemprop="image"')->alt($recrutement->getTitle());
                   }
               };
+              if ($titreBloc != $recrutement->getTitle()) {
+                  $link .= _tag('h4', array('class' => array('itemprop', 'name'), 'itemprop' => 'name'), $recrutement->getTitle());
+              };
               $link .= _open('div', array('class' => 'caption'));
-                  if ($titreBloc != $recrutement->getTitle()) {
-                      $link .= _tag('h5', array('class' => array('itemprop', 'name'), 'itemprop' => 'name'), $recrutement->getTitle());
-                  };
                   $link .= _tag('meta', array('content' => $recrutement->createdAt, 'itemprop' => 'datePublished'));
                   $link .= _tag('p', array('class' => array('itemprop', 'description'), 'itemprop' => 'description'),stringTools::str_truncate($recrutement->getText(), $length, $ellipsis, true, true));
               $link .= _close('div');

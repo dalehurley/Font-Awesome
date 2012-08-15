@@ -81,7 +81,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 
 
 	//ouverture du listing
-	echo _open('ul');
+	echo _open('ul.thumbnails');
 
 	$i = 0;
 	$i_max = count($articles); // il faut compter le nombre de resultats pour la page en cours, count($articlePager) renvoie la taille complète du pager	
@@ -116,14 +116,12 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 		if($justTitle != true) {
 			$chapeauHtml = '<p>'.stringTools::str_truncate($article->getChapeau(), $length, ' (...)',true).'</p>';
 		}
-		$textHtml = _open('div');
-			$textHtml .= '<h5>'.$article->getTitle().'</h5>'.
-					$chapeauHtml;
-		$textHtml .= _close('div');			
-
-		
+		$textHtml .= '<h4>'.$article->getTitle().'</h4>';
+		$textHtml .= _tag('div.caption',$chapeauHtml);
+			
+	
 		//ajout de l'article
-		echo _open('li.thumbnails', array('class' => ' '.$position));
+		echo _open('li', array('class' => ' '.$position));
                     echo _link($article)->set('.thumbnail')->text(
 				$imageHtml.$textHtml				
 		);
