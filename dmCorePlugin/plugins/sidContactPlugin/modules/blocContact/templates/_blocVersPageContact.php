@@ -20,12 +20,14 @@ echo $html;
 elseif (dmConfig::get('site_theme_version') == 'v2'){
 	echo _open('div.thumbnail');
 		echo _open('div.caption');
-			echo _tag('h3', $titreBloc);
+			echo _tag('h4', $titreBloc);
 			echo _open('div', array());
 				echo _tag('p', $message);
-				echo _link($href)->text($lien)->set('.btn.btn-primary');
+				echo _link($href)->text('<i class="icon-shopping-cart icon-large"></i>'.$lien)->set('.btn.btn-primary');
 			echo _close('div');
 		echo _close('div');
 	echo _close('div');
 }
+
+
 

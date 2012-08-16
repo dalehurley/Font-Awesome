@@ -176,7 +176,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                         ->createQuery('p')
                         ->where('p.is_active = ? ', array(true))
                         ->orderBy('p.position')
-//                        ->limit($nbArticles)
+                        ->limit($nbArticles)
                         ->execute();
             break;
             default:

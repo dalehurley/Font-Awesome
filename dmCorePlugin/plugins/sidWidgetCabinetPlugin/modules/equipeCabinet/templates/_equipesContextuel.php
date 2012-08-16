@@ -117,7 +117,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                     $class = ' last';
                 else
                     $class = '';
-                if($i>1) echo _tag('hr');
+                //if($i>1) echo _tag('hr');
                 echo _open('li', array('style' => 'width:' . $width. 'px', 'class' => 'thumbnail itemscope Person' . $class, 'itemtype' => 'http://schema.org/Person', 'itemscope' => 'itemscope'));
                     if($withImage == TRUE){
 
@@ -152,7 +152,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                             if ($equipe->email != NULL && $mailTo == true) {
                                 //$html.= _tag('br');
                                 $html.= _open('span', array('class' => 'itemprop email'));
-                                    $html.= _link('/contact?dest=' . $equipe->id)->set('.btn itemprop="email"')->text(_tag('i', array('class' => 'icon-envelope'), '&nbsp;').'Contact');
+                                    $html.= _link('/contact?dest=' . $equipe->id)->set('.btn itemprop="email"')->text(_tag('i', array('class' => 'icon-envelope'), '').'Contact');
                                 $html.= _close('span');
                             };
                             if ($equipe->tel != NULL) {

@@ -131,7 +131,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
 				$emailSpan = '';
 				if ($adresse->getEmail()){
 				$emailSpan .= _open('span', array('class' => "itemprop mail"));
-					$emailSpan .=_link("mailto:".$adresse->getEmail())->text(_tag('i', array('class' => 'icon-envelope'), '&nbsp;').$adresse->getEmail())->set('.btn value itemprop="email"');
+					$emailSpan .=_link("mailto:".$adresse->getEmail())->text(_tag('i', array('class' => 'icon-envelope'), '').$adresse->getEmail())->set('.btn value itemprop="email"');
 				$emailSpan .=_close('span').'<br />';
 				}
 
