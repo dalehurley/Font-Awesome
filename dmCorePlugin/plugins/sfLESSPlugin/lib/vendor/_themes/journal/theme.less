@@ -133,52 +133,63 @@ a:hover {
   font-style: normal;
   font-weight: normal;
   text-decoration: inherit;
-  margin-right: 5px;
+  margin-right: 1/2em;
 }
 
+// MENU DEFAULT
+ul.menu-default li {
+	float: left;
+	margin-right: 10px;
+}
 
 // THUMBNAIL DIVS
 // -----------------------------------------------------
 
 a.thumbnail {
-	border: none;
-	border-radius: 0;
-	display: block;
-	line-height: 1;
-	box-shadow: 0 0 0 transparent;
-	margin-bottom: 5px;
-	padding: 0 5px;
-	// rule to have thumbnail at the same height of containant
+	#dm_page_content & {
+		border: none;
+	}
+	#dm_sidebar_right & {
+		margin-bottom: @baseLineHeight;
+	}
+	box-shadow: none;
+ 	// rule to have thumbnail at the same height of containant
   	overflow: auto;
 }
 a.thumbnail:hover {
-	#translucent > .background(darken(@bodyBackground,25%), 0.15);
+	border: 1px solid #ddd;
+	#translucent > .background(darken(@bodyBackground,15%), 0.15);
 	.box-shadow(0 1px 4px rgba(200,200,200,.25));
 }
 
-#dm_sidebar_right a.thumbnail {
-	#translucent > .background(darken(@bodyBackground,25%), 0.05);
-	border: 1px solid #ddd;
-    .border-radius(4px);
-}
-#dm_sidebar_right .thumbnail > img {
-	margin-bottom: @baseLineHeight;
-	margin-right: 0px;
-}
-.thumbnails > li {
-	//width: 100%
-}
+// #dm_sidebar_right a.thumbnail {
+// 	#translucent > .background(darken(@bodyBackground,25%), 0.05);
+// 	border: 1px solid #ddd;
+//     .border-radius(4px);
+// }
+// #dm_sidebar_right .thumbnail > img {
+// 	margin-bottom: @baseLineHeight;
+// 	margin-right: 0px;
+// }
+// .thumbnails > li {
+// 	//width: 100%
+// }
 .thumbnail > img {
 	float: left;
-	margin-right: 10px;
+	#dm_sidebar_right & {
+		margin-bottom: @baseLineHeight;
+	}
+	#dm_page_content & {
+		margin-right: 10px;
+	}
 }
-a.thumbnail:hover {
-  text-decoration: none;
-}
-#dm_sidebar_right .thumbnails {
-	margin-top: @baseLineHeight;
-	//width: 100%;
-}
+// a.thumbnail:hover {
+//   text-decoration: none;
+// }
+// #dm_sidebar_right .thumbnails {
+// 	margin-top: @baseLineHeight;
+// 	//width: 100%;
+// }
 
 // WIDGET AFFICHE ARTICLE
 // -----------------------------------------------------
