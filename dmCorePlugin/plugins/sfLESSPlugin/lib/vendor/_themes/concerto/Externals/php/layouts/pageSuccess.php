@@ -28,9 +28,8 @@
 			<?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.span12') ?>
         </div>
 		<div class="row">
-			<?php echo $helper->renderArea('layout.left','#dm_sidebar_left.span2') ?>
-			<?php echo $helper->renderArea('page.content','#dm_page_content.span7') ?>
-			<?php echo $helper->renderArea('layout.right','#dm_sidebar_right.span3') ?>
+			<?php echo $helper->renderArea('layout.left','#dm_sidebar_left.span4') ?>
+			<?php echo $helper->renderArea('page.content','#dm_page_content.span8') ?>
 		</div>
 		<div class="row">		
 			<?php echo $helper->renderArea('layout.customBottom', '#dm_custom_bottom.span12') ?>      
