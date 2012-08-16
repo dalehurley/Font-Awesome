@@ -27,6 +27,9 @@
 		<div class="row">
 			<?php echo $helper->renderArea('layout.customTop', '#dm_custom_top.span12') ?>
         </div>
+            <div class="row">
+			<?php echo $helper->renderArea('layout.breadcrumb', '#dm_breadcrumb.span12') ?>
+        </div>
 		<div class="row">
 			<?php echo $helper->renderArea('layout.left','#dm_sidebar_left.span4') ?>
 			<?php echo $helper->renderArea('page.content','#dm_page_content.span8') ?>
