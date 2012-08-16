@@ -105,6 +105,19 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
           $layoutPage = sfContext::getInstance()->getPage()->getPageView()->get('layout');
 
           //  array of info
+          $tabInfos['&nbsp;     ']         = '&nbsp;';   
+          $tabInfos['BIBLIOTHEQUE DIEM']      = '&nbsp;'; 
+          $tabInfos['------------------------------------------&nbsp;&nbsp;'] = '&nbsp;';        
+          $tabInfos['Path']      = sfConfig::get('dm_core_dir');
+
+          $tabInfos['&nbsp;    ']         = '&nbsp;';   
+          $tabInfos['INFORMATIONS']      = '&nbsp;'; 
+          $tabInfos['------------------------------------------&nbsp;'] = '&nbsp;';        
+          $tabInfos['Current page']      = $pageCurrent;
+          $tabInfos['Layout']            = $layoutPage;
+          $tabInfos['Page recordId']     = ($recordId==0)?'No auto page' : $recordId;
+          $tabInfos['Directory of Site'] = $directorySite = substr(dirname(getcwd()),  strrpos(dirname(getcwd()), '/')+1);
+
           $tabInfos['&nbsp;  ']              = '&nbsp;';   
           $tabInfos['SETTINGS']              = '&nbsp;'; 
           $tabInfos['------------------------------------------'] = '&nbsp;';         
@@ -114,13 +127,6 @@ class sfWebDebugPanelLESS extends sfWebDebugPanel
             $tabInfos[$key] = $value.'&nbsp;';
           }
 
-          $tabInfos['&nbsp;   ']         = '&nbsp;';   
-          $tabInfos['INFORMATIONS']      = '&nbsp;'; 
-          $tabInfos['------------------------------------------&nbsp;'] = '&nbsp;';        
-          $tabInfos['Current page']      = $pageCurrent;
-          $tabInfos['Layout']            = $layoutPage;
-          $tabInfos['Page recordId']     = ($recordId==0)?'No auto page' : $recordId;
-          $tabInfos['Directory of Site'] = $directorySite = substr(dirname(getcwd()),  strrpos(dirname(getcwd()), '/')+1);
 
           $panel .= '<dl style="" id="less_debug_infos">';
           foreach ($tabInfos as $lib => $value) {
