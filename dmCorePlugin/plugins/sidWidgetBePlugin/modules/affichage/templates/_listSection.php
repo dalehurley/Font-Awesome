@@ -113,9 +113,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
             $imageHtml = '';
             if (is_file(sfConfig::get('sf_web_dir').$imageLink) ){  
                 $imageHtml =    
-                    '<div class="span">'.
-                        '<img src="'.$imageLink.'" alt="'.$article->getTitle().'">'.
-                    '</div>';
+                        '<img src="'.$imageLink.'" alt="'.$article->getTitle().'">';
             }
 
             //ajout de l'article
