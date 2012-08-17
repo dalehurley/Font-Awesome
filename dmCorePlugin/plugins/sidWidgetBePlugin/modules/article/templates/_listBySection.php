@@ -236,9 +236,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
         $imageHtml = '';
             //on supprime les photos après les 3 premiers articles
         if (isset($imageLink) && is_file(sfConfig::get('sf_web_dir').$imageLink) && $i < 4 ){  // les 3 premiers articles ont une image
-            $imageHtml = '<div class="span">'.
-                            '<img src="'.$imageLink.'" width="260" alt="'.$article->getTitle().'">'.
-                        '</div>';
+            $imageHtml = '<img src="'.$imageLink.'" width="260" alt="'.$article->getTitle().'">';
         }
 
         //ajout de l'article
