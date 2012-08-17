@@ -36,7 +36,7 @@
 
 // Scaffolding
 // -------------------------
-@bodyBackground:        #FFFFFE;
+@bodyBackground:        #FFFEFE;
 @textColor:             @grayDarker;
 
 
@@ -109,8 +109,8 @@
 @dropdownBorder:                rgba(0,0,0,.2);
 @dropdownLinkColor:             @textColor;
 @dropdownLinkColorHover:        @textColor;
-@dropdownLinkBackgroundHover:   #eee;
-@dropdownDividerTop:            #e5e5e5;
+@dropdownLinkBackgroundHover:   lighten(@linkColor, 30%);
+@dropdownDividerTop:            lighten(@linkColor, 50%);
 @dropdownDividerBottom:         @white;
 
 @dropdownLinkColorActive:       red;
@@ -138,7 +138,7 @@
 @navbarLinkColorHover:            @linkColor;
 @navbarLinkColorActive:           @navbarLinkColorHover;
 @navbarLinkBackgroundHover:       transparent;
-@navbarLinkBackgroundActive:      darken(@bodyBackground,10%);
+@navbarLinkBackgroundActive:      darken(@linkColor,10%);
 
 @navbarSearchBackground:          lighten(@navbarBackground, 10%);
 @navbarSearchBackgroundFocus:     @white;

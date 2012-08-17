@@ -344,13 +344,17 @@ a {
   color: @navbarLinkColorHover;
   text-decoration: none;
 }
-// Active nav items
-.navbar .nav .active > a,
-.navbar .nav .active > a:hover {
-  color: @navbarLinkColorActive;
-  text-decoration: none;
-  #translucent > .background(@navbarLinkBackgroundActive,0.1);
+.navbar .brand:hover {
+  #translucent > .background(@navbarLinkBackgroundActive,0.2);
 }
+
+.navbar { 
+	&.brand:hover {
+  		#translucent > .background(@navbarLinkBackgroundActive,0.2);
+	}
+}
+
+
 
 div.subnav {
 	background-color: @bodyBackground;
