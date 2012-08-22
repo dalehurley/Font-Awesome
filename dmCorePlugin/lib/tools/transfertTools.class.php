@@ -108,5 +108,30 @@ class transfertTools {
 
         return ($F) ? 1 : 0;
     }
+
+
+    public static function mepDispo(){
+
+        $return = '---';
+        for ($i=0; $i < 50; $i++) {
+            if ($i<10) $i = '0'.$i; 
+            $siteUrl='http://mep'.$i.'.expert-infos.com';
+            
+
+            $headers = @get_headers($siteUrl);
+            
+            $pos = strpos($headers[0], '403'); // si la page est en 403 alors l'url est libre
+            if ($pos === false) { 
+
+            } else {
+              $return = $siteUrl;
+              break;
+            } 
+        }
+
+        return str_replace('http://', '', $return);
+    }
+
+
 }
 ?>

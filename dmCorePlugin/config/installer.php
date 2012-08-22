@@ -15,6 +15,7 @@ require_once(sfConfig::get('dm_core_dir') . '/lib/basic/dmString.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/os/dmOs.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/project/dmProject.php');
 require_once(sfConfig::get('dm_core_dir') . '/lib/task/dmServerCheckTask.class.php');
+require_once(sfConfig::get('dm_core_dir') . '/lib/tools/transfertTools.class.php');
 
 // On redéfini le formatter utilisé avec celui de lioshiBaseTask
 require_once(sfConfig::get('dm_core_dir') . '/plugins/lioshiPlugin/lib/task/lioshiBaseTask.class.php');
@@ -31,6 +32,7 @@ $this->setFormatter($lioshiTask->formatter);
 
 $serverCheck = new dmServerCheckTask($this->dispatcher, $this->formatter);
 $serverCheck->setCommandApplication($this->commandApplication);
+
 
 //
 //if ($this->askConfirmation(array(
@@ -110,7 +112,13 @@ if ('Doctrine' != $this->options['orm']) {
 
 $projectKey = dmProject::getKey();  // le nom du dossier du site
 
-$ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com)', ''), new sfValidatorRegex(
+// recherche du plus petit mepXX de libre
+if ($this->askConfirmation(array('Rechercher un sous-domaine mepXX.expert-infos.com disponible (peut durer quelques minutes)? (y/n)'), 'QUESTION_LARGE','')) {
+  $siteMepDispo = transfertTools::mepDispo();
+  $this->logBlock('disponible: '.$siteMepDispo,'HELP_LARGE');
+}
+
+$ndd = $this->askAndValidate(array('', 'Le nom de domaine? (format: example.com) ', ''), new sfValidatorRegex(
                         array('pattern' => '/^([a-z0-9-]+\.)+[a-z]{2,6}$/',
                         'required' => true),
                         array('invalid' => 'Le nom de domaine est invalide')
