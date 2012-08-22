@@ -119,7 +119,7 @@ $i = 1;
       }
       echo _close('ul');
       if ((isset($lien)) AND ($lien != '')) {
-          echo _link('mission/list')->text($lien)->set('.btn');
+          echo _link('mission/list')->text($lien);
       }
 } // sinon on affiche rien
 }

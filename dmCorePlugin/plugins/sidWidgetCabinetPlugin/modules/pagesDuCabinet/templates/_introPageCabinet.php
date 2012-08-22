@@ -99,7 +99,7 @@ if (count($pageCabinets)) { // si nous avons des actu articles
 echo _close('ul');
 
  if ((isset($lien)) AND ($lien != '')) { 
-        echo _link('pageCabinet/list')->text($lien)->set('.btn');
+        echo _link('pageCabinet/list')->text($lien);
     }
 
 }

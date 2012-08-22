@@ -128,13 +128,13 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
         if ($lien != '') {
         	echo _open('div', array('class' => 'btn-toolbar'));
 	        	echo _open('div', array('class' => 'btn-group'));
-	        		echo _link($article->getSection())->text($lien)->set('.btn');
+	        		echo _link($article->getSection())->text($lien);
 	        	echo _close('div');
         	echo _close('div');
         };
         echo _open('div', array('class' => 'btn-toolbar'));
 	        echo _open('div', array('class' => 'btn-group'));
-            	echo _link($vacances)->text($vacances->getName())->set('.btn');
+            	echo _link($vacances)->text($vacances->getName());
             echo _close('div');
         echo _close('div');
 	    

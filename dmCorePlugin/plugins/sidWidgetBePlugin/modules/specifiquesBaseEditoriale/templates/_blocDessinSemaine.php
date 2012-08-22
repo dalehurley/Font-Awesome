@@ -58,7 +58,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                 echo _link('main/dessin')->set('.thumbnail')->title($dessins['titre'])->text($html);
                 // lien vers la page des dessins
                 if($lien != NULL){
-                echo _link('main/dessin')->text($lien)->set('.btn');
+                echo _link('main/dessin')->text($lien);
             echo _close('li');
         echo _close('ul');
         

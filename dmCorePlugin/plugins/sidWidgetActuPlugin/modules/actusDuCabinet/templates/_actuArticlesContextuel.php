@@ -110,7 +110,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
         } 
     echo _close('ul');
     if ((isset($lien)) AND ($lien != '')) { 
-            echo _link('sidActuArticle/list')->text($lien)->set('.btn');
+            echo _link('sidActuArticle/list')->text($lien);
         
         }
     } // sinon on affiche rien

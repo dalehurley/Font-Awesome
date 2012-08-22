@@ -90,7 +90,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
 					echo _close('li');
 				}
 			echo _close('ul');
-			echo _link($pageLink)->text($lien)->set('.btn');
+			echo _link($pageLink)->text($lien);
 		//echo _close('div');
 	}
 }

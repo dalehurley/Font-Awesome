@@ -240,7 +240,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
             );
             
             if($lien != ''){
-            echo _link($article->getSection())->text($lien.' '.$article->getRubriquePageTitle())->set('.btn');// 2170  (415)
+            echo _link($article->getSection())->text($lien.' '.$article->getRubriquePageTitle());// 2170  (415)
             };
             $i++;
         echo _close('li');

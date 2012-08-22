@@ -72,7 +72,7 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
         echo _tag('section', array('class' => 'contentBody', 'itemprop' => 'articleBody'), $pageCabinet->getText());
         if($lien != ''){
             echo _open('footer', array('class' => 'contentFooter'));
-                echo _link('main/contact')->text($lien)->set('.btn');
+                echo _link('main/contact')->text($lien);
             echo _close('footer');
         }
     echo _close('article');

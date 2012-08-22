@@ -67,7 +67,7 @@ if(dmConfig::get('site_theme_version') == 'v1'){
                             break;
                         case 'ec_guidecreation' : '';
                             break;
-                        default: echo _link($article->getSection())->text(__('The other ').$sectionName[$article->getSection()->id])->set('.btn');
+                        default: echo _link($article->getSection())->text(__('The other ').$sectionName[$article->getSection()->id]);
                     }
                     echo _close('li');
                 echo _close('ul');
@@ -135,13 +135,13 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
         if(count($sectionName) >1){
             echo _open('li', array('class' => 'thumbnails'));
             switch ($this->context->getPage()->getRecord()->getTitle()){
-                case 'ec_echeancier': echo _link($article->getSection())->text(__('The other dates of ').$sectionName[$article->getSection()->id])->set('.btn');
+                case 'ec_echeancier': echo _link($article->getSection())->text(__('The other dates of ').$sectionName[$article->getSection()->id]);
                     break;
-                case 'ec_idees_business': echo _link($article->getSection())->text(__('The other articles of ').$sectionName[$article->getSection()->id])->set('.btn');
+                case 'ec_idees_business': echo _link($article->getSection())->text(__('The other articles of ').$sectionName[$article->getSection()->id]);
                     break;
                 case 'ec_guidecreation' : '';
                     break;
-                default: echo _link($article->getSection())->text(__('The other ').$sectionName[$article->getSection()->id])->set('.btn');
+                default: echo _link($article->getSection())->text(__('The other ').$sectionName[$article->getSection()->id]);
             }
                     
             echo _close('li');

@@ -139,9 +139,9 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                 echo _open('footer', array('class' => 'contentFooter'));
                     echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
                     if($sidAddedPages->getTitleFile1() != NULL){
-                    echo _link($sidAddedPages->getFiles1())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getTitleFile1())->set('.btn');
+                    echo _link($sidAddedPages->getFiles1())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getTitleFile1());
                     }
-                    else echo _link($sidAddedPages->getFiles1())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getFiles1()->getFile())->set('.btn');
+                    else echo _link($sidAddedPages->getFiles1())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getFiles1()->getFile());
                 echo _close('footer');
                 }
                 if($sidAddedPages->getFiles2()->checkFileExists() == true){
@@ -149,9 +149,9 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                 echo _open('footer', array('class' => 'contentFooter'));
                     echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
                     if($sidAddedPages->getTitleFile2() != NULL){
-                    echo _link($sidAddedPages->getFiles2())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getTitleFile2())->set('.btn');
+                    echo _link($sidAddedPages->getFiles2())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getTitleFile2());
                     }
-                    else echo _link($sidAddedPages->getFiles2())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getFiles2()->getFile())->set('.btn');
+                    else echo _link($sidAddedPages->getFiles2())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getFiles2()->getFile());
                 echo _close('footer');
                 }
                 if($sidAddedPages->getFiles3()->checkFileExists() == true){
@@ -159,9 +159,9 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                 echo _open('footer', array('class' => 'contentFooter'));
                     echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
                     if($sidAddedPages->getTitleFile3() != NULL){
-                    echo _link($sidAddedPages->getFiles3())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getTitleFile3())->set('.btn');
+                    echo _link($sidAddedPages->getFiles3())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getTitleFile3());
                     }
-                    else echo _link($sidAddedPages->getFiles3())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getFiles3()->getFile())->set('.btn');
+                    else echo _link($sidAddedPages->getFiles3())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getFiles3()->getFile());
                 echo _close('footer');
                 }
                 if($sidAddedPages->getFiles4()->checkFileExists() == true){
@@ -169,9 +169,9 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                 echo _open('footer', array('class' => 'contentFooter'));
                     echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
                     if($sidAddedPages->getTitleFile4() != NULL){
-                    echo _link($sidAddedPages->getFiles4())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getTitleFile4())->set('.btn');
+                    echo _link($sidAddedPages->getFiles4())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getTitleFile4());
                     }
-                    else echo _link($sidAddedPages->getFiles4())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getFiles4()->getFile())->set('.btn');
+                    else echo _link($sidAddedPages->getFiles4())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getFiles4()->getFile());
                 echo _close('footer');
                 }
                 if($sidAddedPages->getFiles5()->checkFileExists() == true){
@@ -179,9 +179,9 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                 echo _open('footer', array('class' => 'contentFooter'));
                     echo _tag('h5', array('class' => 'title'), __('Download file, click the link below'));
                     if($sidAddedPages->getTitleFile5() != NULL){
-                    echo _link($sidAddedPages->getFiles5())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getTitleFile5())->set('.btn');
+                    echo _link($sidAddedPages->getFiles5())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getTitleFile5());
                     }
-                    else echo _link($sidAddedPages->getFiles5())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getFiles5()->getFile())->set('.btn');
+                    else echo _link($sidAddedPages->getFiles5())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$sidAddedPages->getFiles5()->getFile());
                 echo _close('footer');
                 }
                 echo _close('article');
