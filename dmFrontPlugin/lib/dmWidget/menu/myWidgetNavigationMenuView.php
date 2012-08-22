@@ -140,13 +140,20 @@ class myWidgetNavigationMenuView extends dmWidgetNavigationMenuView {
 			// widget 
 			$widget = $this->getWidget();
 			// add responsive navbar HTML code
+
+			if (isset($vars['menuName']) && $vars['menuName'] != ''){
+				$brandHtml = '<a class="brand" href="/">'.$vars['menuName'].'</a>';
+			} else {
+				$brandHtml = '';
+			}
+
 			$responsiveHtmlBegin = '<a class="btn btn-navbar" data-toggle="collapse" data-target="#menu_navbar_'.$widget['id'].' .nav-collapse">
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 			</a>
 			 
-			<a class="brand" href="/">'.$vars['menuName'].'</a>
+			'.$brandHtml.'
 			 
 			<div class="nav-collapse collapse">
 			';
