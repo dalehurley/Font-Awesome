@@ -50,7 +50,18 @@ class dmCacheCleaner extends dmConfigurable
   {
     if (!$this->isModelSafe(get_class($event->getSubject())))
     {
+      // lioshi : supprime tout le cache template, il faudrait ne supprimer que le cache relatif aux pages utilisant l'objet
+      // $eee = $event->setReturnValue(dmDb::table('DmPage')->findOneByRecordWithI18n($event->getSubject()));
+
+      // On a l'objet qui vient d'etre modifié: $event->getSubject()
+      // On a sa classe : get_class($event->getSubject())
+      // il faut récupérer les pages qui présente/affiche cet objet (en passant par les widgets qui sont susceptibles d'afficher l'obejt)
+
+      // if APC then clear slug entrie from APC use entries
+      // else addToQueue
+
       $this->addToQueue(self::TEMPLATE);
+      //dmDb::table('DmPage')->findOneByRecordWithI18n($event->getSubject())
     }
   }
   
@@ -87,6 +98,7 @@ class dmCacheCleaner extends dmConfigurable
     {
       foreach($this->getOption('environments') as $env)
       {
+        // $this->cacheManager->getCache(sprintf('%s/%s/template/fr/sitediem_com/all/dmFront/page/slug/le-cabinet', $app, $env))->clear();
         $this->cacheManager->getCache(sprintf('%s/%s/template', $app, $env))->clear();
       }
     }

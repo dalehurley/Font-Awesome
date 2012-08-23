@@ -7,6 +7,7 @@
       name: "Présentation du Cabinet|Présentation du Cabinet"
       page: true
       credentials: page_cabinet
+      cache: true
 
     Equipe:
       model: SidCabinetEquipe
