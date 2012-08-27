@@ -15,6 +15,7 @@ _tag('div',
     $form['lien']->renderRow().	
     $form['nbArticles']->renderRow().
     $form['mailTo']->renderRow().
+    $form['civ']->renderRow().
     $form['withImage']->renderRow().
     $form['widthImage']->renderRow().
     $form['cssClass']->renderRow()

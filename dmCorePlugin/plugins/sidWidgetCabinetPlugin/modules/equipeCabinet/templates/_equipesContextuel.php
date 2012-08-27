@@ -45,7 +45,12 @@ if(dmConfig::get('site_theme_version') == 'v1'){
             };
 
             $html.= _open('span', array('class' => 'wrapper'));
+            if($civ == true){
             $html.= _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'), __($equipe->getTitle()) . ' ' . $equipe->getFirstName() . ' ' . $equipe->getName());
+            }
+            else{
+                $html.= _tag('span', array('class' => 'itemprop name', 'itemprop' => 'name'),$equipe->getFirstName() . ' ' . $equipe->getName());
+            }
             $html.= _tag('span', array('class' => 'itemprop jobTitle', 'itemprop' => 'jobTitle'), $equipe->getStatut());
             $html.= _open('span', array('class' => 'contactPoints itemscope ContactPoint', 'itemtype' => 'http://schema.org/ContactPoint', 'itemscope' => 'itemscope', 'itemprop' => 'contactPoints'));
 

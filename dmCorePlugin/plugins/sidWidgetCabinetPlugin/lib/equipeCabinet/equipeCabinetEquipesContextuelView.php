@@ -190,6 +190,9 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
             }  
             
             $linkAllEquipe = dmDb::table('dmPage')->findOneByModuleAndAction('renseignements', 'list');
+            if(!isset($vars['civ'])) {
+                $vars['civ'] = true;
+            }
         return $this->getHelper()->renderPartial('equipeCabinet', 'equipesContextuel', array(
                     'equipes' => (isset($equipes))? $equipes : null,
                     'titreBloc' => $vars['titreBloc'],
@@ -198,6 +201,7 @@ class equipeCabinetEquipesContextuelView extends dmWidgetPluginView {
                     'withImage' => $vars['withImage'],
                     'width' => $vars['widthImage'],
                     'mailTo' => $vars['mailTo'],
+                    'civ' => $vars['civ']
                 ));
     }
 

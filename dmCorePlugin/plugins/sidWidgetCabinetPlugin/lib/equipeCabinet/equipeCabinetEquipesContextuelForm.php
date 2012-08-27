@@ -16,6 +16,9 @@ class equipeCabinetEquipesContextuelForm extends dmWidgetPluginForm {
                 ));
         $this->widgetSchema['mailTo'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Afficher lien mailTo pour le bloc'));
         $this->validatorSchema['mailTo']  = new sfValidatorBoolean();
+        
+        $this->widgetSchema['civ'] = new sfWidgetFormInputCheckbox(array('default'=> true, 'label' => 'Affiche la civililté du collaborateur'));
+        $this->validatorSchema['civ']  = new sfValidatorBoolean();
     }
 
     public function getStylesheets() {
