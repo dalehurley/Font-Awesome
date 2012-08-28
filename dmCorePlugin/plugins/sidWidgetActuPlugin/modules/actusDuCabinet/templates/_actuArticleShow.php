@@ -101,9 +101,9 @@ elseif (dmConfig::get('site_theme_version') == 'v2'){
                 echo _open('footer', array('class' => 'contentFooter'));
                     echo _tag('h5', __('Download file, click the link below'));
                     if($article->getTitleFile() != NULL){
-                    echo _link($article->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$article->getTitleFile())->set('.btn');
+                    echo _link($article->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$article->getTitleFile());
                     }
-                    else echo _link($article->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$article->getFiles()->getFile())->set('.btn');
+                    else echo _link($article->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$article->getFiles()->getFile());
                 echo _close('footer');
                 echo _tag('hr');
             }
