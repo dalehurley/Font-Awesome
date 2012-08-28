@@ -23,14 +23,13 @@ Thumbs.db
 nbproject
 *.sublime-project
 *.sublime-workspace
-
 # Komodo
 *.komodoproject
 .komodotools
-
 # Folders to ignore
 .hg
 .svn
 .CVS
 .idea
 node_modules
+/.git/
