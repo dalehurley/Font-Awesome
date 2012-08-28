@@ -157,7 +157,7 @@ elseif(dmConfig::get('site_theme_version') == 'v2'){
                             if ($equipe->email != NULL && $mailTo == true) {
                                 //$html.= _tag('br');
                                 $html.= _open('span', array('class' => 'itemprop email'));
-                                    $html.= _link('/contact?dest=' . $equipe->id)->set('.btn itemprop="email"')->text(_tag('i', array('class' => 'icon-envelope'), '').'Contact');
+                                    $html.= _link('/contact?dest=' . $equipe->id)->set('itemprop="email"')->text(_tag('i', array('class' => 'icon-envelope'), '').'Contact');
                                 $html.= _close('span');
                             };
                             if ($equipe->tel != NULL) {

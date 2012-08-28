@@ -65,9 +65,9 @@ echo _open('article', array('class' => 'itemscope Article', 'itemtype' => 'http:
         echo _open('footer', array('class' => 'contentFooter'));
             echo _tag('h5', __('Download file, click the link below'));
             if($recrutements->getTitleFile() != NULL){
-            echo _link($recrutements->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$recrutements->getTitleFile())->set('.btn');
+            echo _link($recrutements->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$recrutements->getTitleFile());
             }
-            else echo _link($recrutements->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$recrutements->getFiles()->getFile())->set('.btn');
+            else echo _link($recrutements->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$recrutements->getFiles()->getFile());
         echo _close('footer');
         echo _tag('hr');
     }

@@ -218,7 +218,7 @@ class dmGoogleMapTag extends dmHtmlTag {
                                 </span><br />
                             </div>';
             // vérif si adresse mail existe
-            ($adresseRequest->getEmail() != NULL) ? $cabinet .= _link('mailto:'.$adresseRequest->getEmail())->set('.btn')->text(_tag('i', array('class' => 'icon-envelope'), '').__('Email')) : $cabinet= '';
+            ($adresseRequest->getEmail() != NULL) ? $cabinet .= _link('mailto:'.$adresseRequest->getEmail())->text(_tag('i', array('class' => 'icon-envelope'), '').__('Email')) : $cabinet= '';
             // vérif si tél existe
             ($adresseRequest->getTel() != NULL) ? $cabinet .= '<br />'._tag('i', array('class' => 'icon-phone value', 'itemprop' => 'telephone'), '&nbsp;').$adresseRequest->getTel() : $cabinet .= '';
             // vérif si fax existe
