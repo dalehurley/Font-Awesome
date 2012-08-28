@@ -36,9 +36,9 @@ if(count($indexSitesUtiles)){
 	        echo _open('footer', array('class' => 'contentFooter'));
 	            echo _tag('h5', __('Download file, click the link below'));
 	            if($indexSitesUtiles->getTitleFile() != NULL){
-	            echo _link($indexSitesUtiles->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$indexSitesUtiles->getTitleFile())->set('.btn');
+	            echo _link($indexSitesUtiles->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$indexSitesUtiles->getTitleFile());
 	            }
-	            else echo _link($indexSitesUtiles->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$indexSitesUtiles->getFiles()->getFile())->set('.btn');
+	            else echo _link($indexSitesUtiles->getFiles())->text('<i class="icon-large icon-download-alt"></i>&nbsp;'.$indexSitesUtiles->getFiles()->getFile());
 	        echo _close('footer');
 	        echo _tag('hr');
 	    }
