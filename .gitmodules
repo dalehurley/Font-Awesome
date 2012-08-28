@@ -28,3 +28,6 @@
 [submodule "dmCorePlugin/plugins/sfLESSPlugin/data/_framework/SPLessCss/Externals/js/polyfills/jquery-placeholder"]
 	path = dmCorePlugin/plugins/sfLESSPlugin/data/_framework/SPLessCss/Externals/js/polyfills/jquery-placeholder
 	url = https://github.com/mathiasbynens/jquery-placeholder.git
+[submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/bootstrap/bootstrap"]
+	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/bootstrap/bootstrap
+	url = git@github.com:stephanemeron/bootstrap.git
