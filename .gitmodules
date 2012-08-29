@@ -21,7 +21,7 @@
 	url = git@github.com:SidPresse/php-user-agent.git
 [submodule "dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/bootstrap"]
 	path = dmCorePlugin/plugins/sfLESSPlugin/lib/vendor/bootstrap
-	url = git@github.com:SidPresse/bootstrap.git
+	url = git@github.com:stephanemeron/bootstrap.git
 [submodule "symfony"]
 	path = symfony
 	url = git@github.com:SidPresse/symfony.git
